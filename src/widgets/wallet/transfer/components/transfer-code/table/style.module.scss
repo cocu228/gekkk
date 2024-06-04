@@ -13,11 +13,18 @@
   line-height: 24px;
   font-weight: 500;
   padding: 14px 20px 12px;
+  padding: 1rem 0;
   align-items: center;
   grid-template-columns: repeat(12, minmax(20px, 1fr));
   @include max-devices(md){
     font-size: 12px;
     background-color: var(--gek-light-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    height: 35px;
+    border-radius: 8px 8px 0 0;
   }
 }
 
@@ -57,6 +64,10 @@
   }   
 }
 
+:global(.ant-modal-footer) {
+  display: none !important;
+}
+
 .TableBody {
   display: inherit;
   position: relative;
@@ -64,6 +75,8 @@
   background-color: #f9f9fa;
   border: 1px solid #eff3f8;
   border-radius: 0 0 10px 10px;
+
+
 
   & > .Row {
     align-items: center;
@@ -83,5 +96,139 @@
     &:not(:last-child) {
       border-bottom: 1px solid #eff3f8;
     }
+  }
+
+  @include max-devices(md){
+    border: 0px;
+    background-color: #ffffff;
+    min-height: auto;
+    align-items: center;
+  }
+}
+
+.CodeModalTitle {
+  word-break: break-all;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+
+  @include max-devices(md) {
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 600;
+    width: 100%;
+    color: #29354C;
+  }
+}
+
+.TableMobTitle {
+  font-size: 12px;
+  color: #29354C;
+  font-weight: 600;
+}
+
+.CodeTime {
+  color: #A6B6C6;
+  font-size: 0.75rem;
+
+  @include max-devices(md) {
+    font-size: 10px;
+  }
+}
+
+.MobileAmount {
+  font-size: 10px;
+  color: #29354C;
+  display: none;
+
+  @include max-devices(md) {
+    display: block;
+  }
+}
+
+.StatusCol {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:nth-child(2) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+.ModalDateList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ModalDateListItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ModalDateListItemTitle {
+  font-size: 12px;
+  color: #9D9D9D;
+}
+
+.ModalDateListItemValue {
+  font-size: 12px;
+  color: #285E69;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: inline-block;
+}
+
+.ModalDateListItemTitleCancel {
+  color: #b4c0cd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.ModalDateListItemValueCancel {
+  color: #000;
+  font-weight: 400;
+}
+
+.CancelInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+}
+
+.CancelInfoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.CancelInfoItemTitle {
+  color: #b4c0cd;
+  font-size: 14px;
+}
+
+.CancelInfoItemGreen {
+  color: rgb(43, 182, 115)
+}
+
+
+.CopyIcon {
+  flex-direction: column;
+  min-width: 14px;
+  margin-right: 25px;
+
+  svg {
+    margin: 0 !important;
   }
 }

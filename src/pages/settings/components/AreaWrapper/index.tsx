@@ -5,8 +5,8 @@ import { CloseWindowButton } from '@/shared/ui/CloseWindowButton'
 import { useSettingsContext } from '../../settingsContext'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 
-export type AreaWrapperProps = PropsWithChildren<{ title: React.ReactNode, secondary?:boolean }> 
-export function AreaWrapper({ children, title, secondary }: AreaWrapperProps) {
+export type AreaWrapperProps = PropsWithChildren<{ title: React.ReactNode, secondary?:boolean, nonClose?: boolean }> 
+export function AreaWrapper({ children, title, secondary, nonClose }: AreaWrapperProps) {
   const { closeArea } = useSettingsContext()
   const {xxl} = useBreakpoints();
 
@@ -20,7 +20,7 @@ export function AreaWrapper({ children, title, secondary }: AreaWrapperProps) {
           >
           {title}
         </h3>
-        {!secondary && <CloseWindowButton onClick={closeArea} />}
+        {!secondary && !nonClose && <CloseWindowButton onClick={closeArea} />}
       </div>
       {children}
     </div>

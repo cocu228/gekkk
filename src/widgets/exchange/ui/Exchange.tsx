@@ -1,17 +1,14 @@
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { randomId } from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import { CtxExchangeData } from "../model/context";
 import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";
-import Dropdown from "@/shared/ui/dropdown/Dropdown";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { useContext, useEffect, useState } from "react";
 import PageHead from "@/shared/ui/page-head/PageHead";
-import SplitGrid from "@/shared/ui/split-grid/SplitGrid";
 import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { apiCreateOrder } from "@/shared/(orval)api/gek";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
@@ -19,7 +16,8 @@ import RoomProperties from "./room-properties/RoomProperties";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import PriceField from "@/widgets/exchange/ui/price-field/PriceField";
 import OpenOrders from "@/widgets/exchange/ui/open-orders/OpenOrders";
-import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
+import {DropdownCItem} from "@/shared/ui/!dropdown/item"
+import {Dropdown as DropdownC} from "@/shared/ui/!dropdown";
 import DepthOfMarket from "@/widgets/exchange/ui/depth-of-market/DepthOfMarket";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import ParticipantsNumber from "@/shared/ui/participants-number/ParticipantsNumber";
@@ -32,7 +30,7 @@ import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -95,23 +93,17 @@ function Exchange() {
     switch (roomType) {
       case "default":
         return (
-          <Dropdown
+          <DropdownC 
             isOpen={roomInfoModal.isModalOpen}
             trigger={<span>{t("exchange.title")}</span>}
-            items={[
-              {
-                key: "1",
-                label: (
-                  <DropdownItem
-                    onClick={roomInfoModal.showModal}
-                    icon={<IconApp color="red" code="t33" size={20} />}
-                  >
-                    {t("exchange.create_private_exchange_room")}
-                  </DropdownItem>
-                ),
-              },
-            ]}
-          />
+          >
+            <DropdownCItem
+              onClick={roomInfoModal.showModal}
+              icon={<IconApp color="red" code="t33" size={20} />}
+            >
+              {t("exchange.create_private_exchange_room")}
+            </DropdownCItem>
+          </DropdownC>
         );
       case "creator":
         return `Private room`;
@@ -215,14 +207,13 @@ function Exchange() {
         />
       )}
 
-      <SplitGrid
-        leftColumn={
-          <div>
-            <div className={`gap-x-5 bg-white ${styles.Grid}`}>
-              <div className="h-full flex flex-col ">
+      <div className={styles.MainGrid} >
+        <div className={`${styles.ExchangeOrdersWrap}`} >
+            <div className={`gap-x-[10px] bg-white ${styles.Grid}`}>
+              <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  {t("exchange.you_pay")}
-                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
+                  <span className="md:ml-[7px]">{t("exchange.you_pay")}:</span>
+                  <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isBalance={true}
@@ -246,8 +237,8 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-medium text-xs mb-2 mt-3 select-none">
-                  {t("exchange.get_no_less")}
+                <div className="font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px]">
+                  {t("exchange.get_no_less")}:
                 </div>
 
                 <SelectToken
@@ -261,8 +252,8 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-medium mt-4 text-xs">
-                    {t("price")}
+                  <div className="font-semibold mt-4 text-xs md:ml-[7px]">
+                    {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />
                 </div>
@@ -295,8 +286,8 @@ function Exchange() {
 
               <div className={`mt-7 ${styles.GridFooter}`}>
                 <Button
+                  size="lg"
                   className="w-full"
-                  size="xl"
                   disabled={
                     (!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) ||
                     hasValidationError
@@ -317,26 +308,26 @@ function Exchange() {
             </div>
 
             <Modal
-              width={400}
-              closable={false}
-              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_the_order")}/>}
-              open={confirmModal.isModalOpen}
+              title={t("confirm_the_order")}
+              isModalOpen={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
             >
-              <div className="px-5">
+              <div className="px-5 mt-4">
                 <div className="flex items-center gap-2 mb-4">
                   
-                  <IconApp color="#8F123A" size={24} code="t27" />
+                  <div className="flex items-start">
+                    <IconApp color="#8F123A" size={15} code="t27" />
+                  </div>
 
-                  <span className="text-fs12 text-[color:var(--gek-dark-grey)]">
+                  <span className="text-fs12 md:text-[10px] text-[var(--gek-dark-grey)]">
                     {t("check_your_information_carefully")}
                   </span>
 
                 </div>
 
-                <div className="text-[color:var(--gek-dark-grey)] text-fs12 mb-4">
-                  Order type:{" "}
-                  <span className="font-semibold text-[color:var(--gek-additional)]">
+                <div className="text-[var(--gek-dark-grey)] md:text-[12px] text-fs12 mb-4">
+                  {t("order_type")}:{" "}
+                  <span className="font-semibold text-[var(--gek-additional)]">
                     {isLimitOrder ? "Limit" : "Market"}
                   </span>
                 </div>
@@ -361,14 +352,14 @@ function Exchange() {
                   </>
                 )}
 
-                <div className="my-4">{localErrorInfoBox}</div>
+                {localErrorInfoBox && <div className="my-4">{localErrorInfoBox}</div>}
 
-                <div className="flex flex-col mt-6 md:mt-12 gap-1">
-                  <div className="text-secondary text-xs text-center">
+                <div className="flex flex-col mt-6 md:mt-[20px] gap-1 md:gap-[15px]">
+                  <div className="text-secondary text-xs md:text-[10px] md:text-[var(--new-mid-grey)] text-center">
                     {t("exchange.broker_exchange_fee")}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex justify-between gap-4">
                     <Button
                       disabled={loading}
                       className="w-full"
@@ -378,7 +369,7 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      variant='gray'
+                      color='gray'
                       disabled={loading}
                       className="w-full"
                       onClick={confirmModal.handleCancel}
@@ -390,33 +381,26 @@ function Exchange() {
               </div>
             </Modal>
           </div>
-        }
-        rightColumn={
-          !md && (
-            <div className="w-full rounded-lg py-4">
+          {!md && (
+            <div className={styles.DeskHistoryWrap}>
+              <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
-          )
-        }
-      />
+          )}
+      </div>
+
       {md && (
         <div className="w-full rounded-lg">
-          <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
+          <History className="mx-4 mb-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal
-        width={450}
-        open={roomInfoModal.isModalOpen}
+        isModalOpen={roomInfoModal.isModalOpen}
         onCancel={roomInfoModal.handleCancel}
-        padding
-        closable={false}
-        title={<ModalTitle handleCancel={roomInfoModal.handleCancel} title={
-          roomType == "default"
-            ? t("exchange.open_private_exchange_room")
-            : t("invite_link")
-        }/>}
-        
-        className={styles.RoomModal}
+        title={roomType == "default"
+        ? t("exchange.open_private_exchange_room")
+        : t("invite_link")}
       >
         {roomType === "default" ? (
           <CreateRoom
@@ -437,13 +421,9 @@ function Exchange() {
       </Modal>
 
       <Modal
-        width={450}
-        closable={false}
-        title={<ModalTitle handleCancel={cancelRoomModal.handleCancel} title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-      } ${t("exchange.private_exchange_room")}`}/>}
-        
-        open={cancelRoomModal.isModalOpen}
-        padding
+        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+      } ${t("exchange.private_exchange_room")}`}
+        isModalOpen={cancelRoomModal.isModalOpen}
         onCancel={cancelRoomModal.handleCancel}
       >
         <div className="text-sm">
@@ -465,8 +445,8 @@ function Exchange() {
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-8 sm:mt-4">
-          <Button size="xl" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+        <div className="mt-8 sm:mt-4 flex justify-center">
+          <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
             } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
       </Modal>

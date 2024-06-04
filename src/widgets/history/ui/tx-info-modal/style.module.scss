@@ -38,13 +38,11 @@
 .InfoItemAddress, .InfoItemHash {
   display: block;
   max-width: 250px;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  word-break: break-all;
 }
 
 .InfoItemHash {
   text-decoration: underline;
-  white-space: nowrap;
 }
 
 .CopyBlock {

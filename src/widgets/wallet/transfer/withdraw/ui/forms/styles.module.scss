@@ -78,21 +78,21 @@
 }
 
 .PayInfo{
-    display: flex; 
-    margin-bottom: 1rem;
-    margin-top: 1.5rem; 
-    gap: 10rem;
+    width: 100%;
+    display: flex;
     font-size: 14px;
-    line-height: 1.25rem; 
+    max-width: 275px;
     font-weight: 500;
+    align-self: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.25rem;
+    justify-content: space-between;
 
     @include max-devices("md") {
         gap: 1rem;
         font-size: 12px;
         margin-top: 1rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        justify-content: space-between; 
     }
 
     &Col{
@@ -158,12 +158,15 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     
     &Center{
         width: 100%;
         display: flex;
         justify-content: center;
         margin-bottom: 10px;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -202,6 +205,7 @@
 }
 
 .MainModalTitle{
+    display: block;
     font-size: 18px;
     color: #1F3446;
     font-weight: 600;
@@ -221,24 +225,27 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
 
     &Icon{
         margin-right: .5rem;
     }
 
     &Text{
-        font-size: 14px;
+        font-size: 12px;
         color: var(--gek-dark-grey);
         font-weight: 400;
+        line-height: 15px;
+        display: block;
 
-        @include max-devices("md") {
-            font-size: 12px;
+        @media screen and (max-width: 768px) {
+            font-size: 10px;
         }
     }
 }
 
 .ModalRows{
-    margin-left: 1rem;
+    margin-left: 10px;
     width: 100%;
 
 
@@ -268,20 +275,22 @@
 }
 
 .ModalPayInfo{
+    margin-left: 10px;
     display: flex;
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
-    margin-top: 1.5rem;
-    gap: 1rem; 
-    justify-content: space-between; 
+    margin-top: 1.5rem; 
+    // justify-content: space-between;
+    gap: 80px;
     font-size: 0.875rem;
     line-height: 1.25rem; 
     font-weight: 500; 
     
-    @include max-devices("md") {
-        margin-left: 3rem;
-        margin-right: 3rem;
+    @media screen and (max-width: 768px) {
         margin-top: 1rem;
+    }
+
+    @media screen and (max-width: 380px) {
+        gap: 1rem;
+        justify-content: space-between;
     }
 
     &Col{
@@ -308,12 +317,25 @@
         text-wrap: nowrap;
         word-break: keep-all;
         white-space: nowrap;
+        font-size: 14px;
+        font-weight: 400;
+
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
+
         &Fee{
             overflow-wrap: normal;
             white-space: nowrap;
             text-wrap: nowrap;
             word-break: keep-all;    
             color: #9D9D9D;
+            font-size: 14px;
+            font-weight: 400;
+
+            @media screen and (max-width: 768px) {
+                font-size: 12px;
+            }
         }
     }
 
@@ -332,7 +354,11 @@
             text-wrap: nowrap;
             word-break: keep-all;
             white-space: nowrap;
+            font-size: 14px;
 
+            @media screen and (max-width: 768px) {
+                font-size: 12px;
+            }
 
             &Fee{
                 overflow-wrap: normal;
@@ -342,6 +368,11 @@
                 word-break: keep-all;
                 white-space: nowrap;
                 max-width: 20vw;
+                font-size: 14px;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 12px;
+                }
             }
         }
         &TextCurrency{
@@ -350,8 +381,23 @@
             color: #1F3446;
             text-align: start;
             text-wrap: nowrap;
+            font-size: 14px;
+
+            @media screen and (max-width: 768px) {
+                font-size: 12px;
+            }
         }
     }
 }
 
 
+.MobWrap {
+    margin: -20px -20px -10px -20px;
+    background: #F7F7F0;
+}
+
+.MobWrapBlock {
+    padding: 20px 20px 0 20px;
+    background: #fff;
+    border-radius: 8px;
+}

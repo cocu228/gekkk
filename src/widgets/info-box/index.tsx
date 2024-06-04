@@ -25,7 +25,7 @@ const InfoBox = ({
     return (
         <div onClick={onClick ?? (() => {})}
             className={hClassName
-                .while(className).do(className)
+                .while(!!className).do(className)
                 .while(onClick === null).do('cursor-default')
                 .scss("Wrapper")}
         >

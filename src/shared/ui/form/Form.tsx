@@ -1,14 +1,15 @@
 import {memo, PropsWithChildren} from 'react';
-import {Form as FormAntd, FormProps} from 'antd';
+import {FormProps} from 'antd';
 
 interface Props extends FormProps {
     title?: string;
     subtitle?: string;
     wrapperClassName?: string;
+    onSubmit: () => void
 }
 
 const Form = memo<PropsWithChildren<Props>>(
-    ({title, subtitle, wrapperClassName = '', children, ...props}): JSX.Element | null => {
+    ({title, subtitle, onSubmit, wrapperClassName = '', children, ...props}): JSX.Element | null => {
         return (
             <div className={`${wrapperClassName} flex flex-col gap-24`}>
                 {(title || subtitle) && <div className="flex flex-col row-gap-4">
@@ -16,9 +17,12 @@ const Form = memo<PropsWithChildren<Props>>(
                     {subtitle && <span className="mt-1 text-base leading-4 text-gray-200">{subtitle}</span>}
                 </div>}
 
-                <FormAntd className="flex flex-col gap-2" {...props}>
+                <form onSubmit={(e) => {
+                    e.preventDefault()
+                    onSubmit()
+                }} className="flex flex-col gap-2" {...props}>
                     {children}
-                </FormAntd>
+                </form>
             </div>
         );
     },

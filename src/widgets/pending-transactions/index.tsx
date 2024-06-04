@@ -1,7 +1,6 @@
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import InfoBox from "@/widgets/info-box";
-import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
@@ -11,12 +10,12 @@ import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from "react";
 import {formatCardNumber} from '../dashboard/model/helpers';
 import BankCard from "../dashboard/ui/cards/bank-card/BankCard";
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get-pending-transactions.ts";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -25,6 +24,7 @@ export const PendingTransactions = () => {
     const [uasToken, setUasToken] = useState<string>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, isModalOpen, handleCancel} = useModal();
+    const [txLoading, setTxLoading] = useState<boolean>(false);
     const [state, setState] = useState<IPendingTransaction[]>([]);
     const [uasRequired, setUasRequired] = useState<boolean>(false);
     const {getAccountDetails} = storeAccountDetails(state => state);
@@ -64,22 +64,25 @@ export const PendingTransactions = () => {
     }, [refreshKey, account, uasRequired]);
 
     const onInfoBox = async () => {
+        setLoading(true);
+
         if (!uasRequired) {
             setSelectedTx(state[0]);
             showModal();
-            return;
-        }
+        } else {
+            const {data} = await apiGetUas();
 
-        const {data} = await apiGetUas();
-
-        if (data?.result?.token) {
-            setUasRequired(false);
-            setUasToken(data.result.token);
+            if (data?.result?.token) {
+                setUasRequired(false);
+                setUasToken(data.result.token);
+            }
         }
+        
+        setLoading(false);
     }
 
     const onContinue = async (isConfirm: boolean) => {
-        setLoading(true);
+        setTxLoading(true);
         const {phone} = await getAccountDetails();
 
         const {
@@ -114,27 +117,31 @@ export const PendingTransactions = () => {
             handleCancel();
         }
 
-        setLoading(false);
+        setTxLoading(false);
     }
 
     return (state.length > 0 || uasRequired) && <div className={!md ? 'negative-margin-content' : ''}>
         <InfoBox
             onClick={onInfoBox}
+            className={loading ? styles.LoadingInfoBox : ''}
             message={uasRequired ? t("pending_transactions_disabled") : t("pending_transactions")}
-            icon={<IconApp code='t40' color={"var(--gek-orange)"} size={30}/>}
+            icon={<IconApp
+                size={30}
+                code='t40'
+                className={styles.LoadingInfoBox}
+                color={`var(${loading ? "--gek-green" : "--gek-orange"})`}
+            />}
         />
 
         <Modal
-            width={450}
-            open={isModalOpen}
+            isModalOpen={isModalOpen}
             onCancel={handleCancel}
-            closable={false}
-            title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
+            title={t('please_verify_transaction')}
         >
 
-            {loading && <Loader className='mb-5'/>}
+            {txLoading && <Loader className='mb-5'/>}
 
-            {selectedTx && <div className={loading ? 'collapse' : ''}>
+            {selectedTx && <div className={txLoading ? 'collapse' : ''}>
                 <div className={styles.CardContainer}>
                     <BankCard                        
                         cardNumber={formatCardNumber(selectedTx.pan)}
@@ -160,19 +167,16 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
-                            variant='greenTransfer'
                             onClick={() => onContinue(true)}
                             className={styles.Button}
-                            size='xl'
                         >
                             {t("confirm")}
                         </Button>
 
                         <Button
-                            variant='decline'
+                            color='red'
                             onClick={() => onContinue(false)}
                             className={styles.Button}
-                            size='xl'
                         >
                             {t("decline")}
                         </Button>

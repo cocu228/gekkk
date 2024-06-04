@@ -1,7 +1,6 @@
 import md5 from "md5";
 import { useState } from "react";
 import Loader from "@/shared/ui/loader";
-import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { $axios } from "@/shared/lib/(orval)axios";
 import Button from "@/shared/ui/button/Button";
@@ -17,6 +16,7 @@ import {
   getTransactionSignParams,
 } from "@/shared/lib/crypto-service";
 import { useTranslation } from "react-i18next";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IState {
   code: string;
@@ -91,9 +91,9 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 
   const confirmationModal = (
     <Modal
-      open={isModalOpen}
+      isModalOpen={isModalOpen}
       title={t("confirm_action")}
-      padding
+      noBorder
       onCancel={() => {
         handleCancel();
         localErrorClear();
@@ -121,9 +121,8 @@ const usePinConfirmation = (): TypeUseConfirmation => {
           </div>
           Loading: {loading.toString()}
           <div className="mb-4">{localErrorInfoBox}</div>
-          <div>
+          <div className="flex justify-center w-full">
             <Button
-              size={"xl"}
               disabled={!code}
               onClick={confirm}
               className="w-full"

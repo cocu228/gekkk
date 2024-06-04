@@ -1,6 +1,5 @@
 import {addDays} from "date-fns";
 import {useContext, useEffect, useState} from "react";
-import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
@@ -19,7 +18,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {uncoverArray} from "@/shared/lib";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 const GkeCashbackProgram = () => {
     const {t} = useTranslation();
@@ -130,12 +129,12 @@ const GkeCashbackProgram = () => {
             </div>
 
             <div className="row mb-4">
-                <div className="col">
+                <div className="flex justify-center col">
                     <Button
+                        size="lg"
+                        className="w-full"
                         disabled={inputCurrValid.value}
                         onClick={lockConfirmModal.showModal}
-                        className="w-full"
-                        size={"xl"}
                     >
                         {t("lock_tokens", {currency: currency.$const})}
                     </Button>
@@ -151,12 +150,9 @@ const GkeCashbackProgram = () => {
             </div>
 
             <Modal
-                width={400}
-                closable={false}
-                title={<ModalTitle handleCancel={lockConfirmModal.handleCancel} title={t("confirm_locking")}/>}
-                open={lockConfirmModal.isModalOpen}
+                title={t("confirm_locking")}
+                isModalOpen={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
-                padding
             >
                 <CashbackProperties
                     locked={investment?.amount ?? 0}
@@ -167,9 +163,9 @@ const GkeCashbackProgram = () => {
                     endDate={addDays(new Date(), 30)}
                 />
 
-                <div className="mt-6 md:mt-12">
+                <div className="mt-6 md:mt-12 flex justify-center">
                     <Button
-                        size="xl"
+                        size="lg"
                         className="w-full"
                         onClick={async () => {
                             setInputCurr("");

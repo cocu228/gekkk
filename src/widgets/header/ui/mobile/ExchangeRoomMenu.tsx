@@ -1,12 +1,10 @@
 import styles from "./style.module.scss";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Dropdown from "@/shared/ui/dropdown/Dropdown";
-import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
+import {Dropdown as DropdownC} from '@/shared/ui/!dropdown'
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import { useNavigate } from "react-router-dom";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
-import Modal from "@/shared/ui/modal/Modal";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import Button from "@/shared/ui/button/Button";
 import { apiCloseRoom } from "@/shared/(orval)api";
@@ -14,7 +12,8 @@ import useModal from "@/shared/model/hooks/useModal";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { DropdownCItem } from "@/shared/ui/!dropdown/item";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();
@@ -44,8 +43,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
 
   return !roomsList ? null : (
     <div>
-      <Dropdown
-        className={"min-w-[214px] flex justify-end bg-transparent"}
+      <DropdownC
+        position='right'
+        customBodyClassName={styles.DropdownBody}
         trigger={
           <div className="flex gap-2 items-center">
             {!active ? (
@@ -66,101 +66,78 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
             <button className={styles.ArrowBtn}></button>
           </div>
         }
-        items={[
-          ...roomsList.map((r) => ({
-            key: r.timetick,
-            label: (
-              <RoomItem room={r} isActive={r.timetick === active?.timetick} />
-            ),
-          })),
-          ...(!active
-            ? [
-                {
-                  key: "new-room",
-                  label: (
-                    <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
-                      onClick={roomModal.showModal}
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[#1F3446]">
-                          {t("exchange.new_room")}
-                        </span>
-                        <IconApp size={22} color="#285E69" code="t35" />
-                      </div>
-                    </DropdownItem>
-                  ),
-                },
-              ]
-            : [
-                {
-                  key: "invite-link",
-                  label: (
-                    <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
-                      onClick={roomModal.showModal}
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[#1F3446]">
-                          {t("invite_link")}
-                        </span>
-                        <IconApp size={22} color="#285E69" code='t34' />
-                      </div>
-                    </DropdownItem>
-                  ),
-                },
-                {
-                  key: "close-room",
-                  label: (
-                    <DropdownItem
-                      className="w-full border-b-1 border-[color:var(--gek-additional)] bg-[color:var(--gek-light-grey)]"
-                      onClick={roomCloseModal.showModal}
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[color:var(--gek-red)]">
-                          {t("close_current_room")}
-                        </span>
-                        <div className={styles.CloseWrap}>
-                          <IconApp size={20} color="#8F123A" code="t69" />
-                        </div>
-                      </div>
-                    </DropdownItem>
-                  ),
-                },
-                {
-                  key: "back",
-                  label: (
-                    <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
-                      onClick={() => navigate("/exchange")}
-                    >
-                      <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[#1F3446]">
-                          {t("back_to_exchange")}
-                        </span>
-
-                        <IconApp code='t20' size={22} color="#285E69" />
-                      </div>
-                    </DropdownItem>
-                  ),
-                },
-              ]),
-        ]}
-      />
+      >
+        {
+          roomsList.map((r, i) => (
+            <RoomItem key={i} room={r} isActive={r.timetick === active?.timetick} />
+          ))
+        }
+        <div className={styles.LastButtons}>
+          {
+            !active ? (
+              <DropdownCItem
+                className="w-full min-w-[214px] bg-[var(--gek-light-grey)]"
+                onClick={roomModal.showModal}
+              >
+                <div className="flex justify-between items-center w-full">
+                  <span className="font-semibold text-[#1F3446]">
+                    {t("exchange.new_room")}
+                  </span>
+                  <IconApp size={22} color="var(--gek-additional)" code="t35" />
+                </div>
+              </DropdownCItem>
+            ) : (
+              <>
+                <DropdownCItem
+                  className="w-full min-w-[214px] bg-[#EDEDED]"
+                  onClick={roomModal.showModal}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[#1F3446]">
+                      {t("invite_link")}
+                    </span>
+                    <IconApp size={22} color="var(--gek-additional)" code='t34' />
+                  </div>
+                </DropdownCItem>
+                <DropdownCItem
+                  className="w-full min-w-[214px] border-b-1 border-[var(--gek-additional)] bg-[#EDEDED]"
+                  onClick={roomCloseModal.showModal}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[var(--gek-red)]">
+                      {t("close_current_room")}
+                    </span>
+                    <div className={styles.CloseWrap}>
+                      <IconApp size={20} color="var(--gek-red)" code="t69" />
+                    </div>
+                  </div>
+                </DropdownCItem>
+                <DropdownCItem
+                  className="w-full min-w-[214px] bg-[#EDEDED]"
+                  onClick={() => navigate("/exchange")}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[#1F3446]">
+                      {t("back_to_exchange")}
+                    </span>
+                    <IconApp code='t20' size={22} color="var(--gek-additional)" />
+                  </div>
+                </DropdownCItem>
+              </>
+            )
+          }
+        </div>
+      </DropdownC>
 
       <Modal
-        width={450}
-        //className={styles.RoomModal}
-        open={roomModal.isModalOpen}
+        isModalOpen={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
-        closable={false}
-        title={<ModalTitle handleCancel={roomModal.handleCancel} title={
+        title={
           active ? t("invite_link") : t("exchange.open_private_exchange_room")
-        }/>}
-
+        }
       >
         {active ? (
-          <InviteLink roomInfo={active} />
+          <InviteLink onClose={roomModal.handleCancel} roomInfo={active} />
         ) : (
           <CreateRoom
             to={to}
@@ -184,12 +161,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
       </Modal>
 
       <Modal
-        width={450}
-        open={roomCloseModal.isModalOpen}
+        isModalOpen={roomCloseModal.isModalOpen}
         onCancel={roomCloseModal.handleCancel}
-        closable={false}
-        title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
-        padding
+        title={t("close_current_room")}
       >
         <div className="pt-5 text-sm">
           {active
@@ -203,9 +177,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
               })}
         </div>
 
-        <div className="mt-16 sm:mt-14">
+        <div className="mt-16 sm:mt-14 flex justify-center">
           <Button
-            size="xl"
+            size="lg"
             className="w-full"
             onClick={() => {
               apiCloseRoom({
@@ -237,8 +211,8 @@ const RoomItem = ({
   const navigate = useNavigate();
 
   return (
-    <DropdownItem
-      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[color:var(--gek-light-grey)]" : ""}`}
+    <DropdownCItem
+      className={`w-full h-[42px] border-[1px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] border-[var(--gek-light-grey)] rounded-[6px] min-w-[214px] py-2.5 px-2.5 ${isActive ? "bg-[var(--gek-light-grey)]" : "bg-white"}`}
       icon={
         <div className={styles.RoomsMenuItemIcon}>
           <IconApp color="red" code="t33" size={20} />
@@ -258,9 +232,9 @@ const RoomItem = ({
           className={`${styles.RoomsMenuItemIcon} flex items-center gap-[1px]`}
         >
           <span>{room.count}</span>
-          <IconApp code="t63" size={20} color="#285e69" className="ml-[2px]" />
+          <IconApp code="t63" size={20} color="var(--gek-additional)" className="ml-[2px]" />
         </div>
       </div>
-    </DropdownItem>
+    </DropdownCItem>
   );
 };

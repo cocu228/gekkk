@@ -10,12 +10,11 @@ import {AssetTableKeys} from '@/features/assets-table/model/types';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {$axios} from '@/shared/lib/(orval)axios';
 import useModal from '@/shared/model/hooks/useModal';
-import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
 import {useTranslation} from 'react-i18next';
 import { IconApp } from '@/shared/ui/icons/icon-app';
-
+import { Modal } from "@/shared/ui/modal/Modal";
 
 function Assets() {
     const {t} = useTranslation();
@@ -34,11 +33,11 @@ function Assets() {
         <>
             {!md && <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>}
             <div className="wrapper grid grid-cols-1 gap-2 xxl:gap-0">
-                {!md && <InfoBox/>}
                 <div className='flex flex-row '>
                     <div
                         className={!md ? 'substrate w-full col-span-3 z-10 -xl:rounded-r-none': 'w-full'}>
                         <AssetsTable
+                            isModal={false}
                             className='w-full'
                             columnKeys={columns}
                             onSelect={(currency: string) => {
@@ -130,7 +129,7 @@ const InfoBox = () => {
             className="font-bold underline hover:cursor-pointer"
             onClick={showModal}>{t("crypto_assets.deposits")}</a>.</p>
 
-        <Modal onCancel={handleCancel} open={isModalOpen}>
+        <Modal onCancel={handleCancel} isModalOpen={isModalOpen} title='&nbsp;' noBorder>
             <>
                 <div className="row mb-10">
                     <div className="col">
@@ -138,11 +137,14 @@ const InfoBox = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex col justify-center">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button onClick={onClick}
-                                    data-testid="ConfirmToGekkard"
-                                    className="w-full">{t("confirm")}</Button>}
+                            <Button
+                                size="lg"
+                                onClick={onClick}
+                                className="w-full"
+                                data-testid="ConfirmToGekkard"
+                            >{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

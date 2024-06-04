@@ -3,6 +3,7 @@ import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import {CtxInputCurrencyOptions} from "../../model/context";
 import React, {FC, useContext, useEffect, useState} from "react";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
+import style from '../style.module.scss'
 
 interface IParams {
     disabled?: boolean,
@@ -10,6 +11,7 @@ interface IParams {
     header?: string | JSX.Element,
     currency: ICtxCurrency | null,
     onSelect?: (value: string) => void
+    mobileSecHidden?: boolean
 }
 
 const PercentSelector: FC<IParams> = ({
@@ -17,7 +19,8 @@ const PercentSelector: FC<IParams> = ({
     children,
     disabled,
     currency,
-    onSelect
+    onSelect,
+    mobileSecHidden
 }: IParams) => {
     const {currencies} = useContext(CtxCurrencies);
     const [percent, setPercent] = useState<Decimal>(null);
@@ -47,7 +50,7 @@ const PercentSelector: FC<IParams> = ({
                         ${disabled || !currency || !currency.balance?.free_balance
                             ? 'pointer-events-none'
                             : ''
-                        }
+                        } ${mobileSecHidden && style.PercentSelector}
                     `}
                 >
                     <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>

@@ -104,7 +104,7 @@ export default function TransfersWrapper({
         if (child?.props["data-tag"] !== "main" && child) {
           return (
             <div className="flex flex-col items-center justify-center">
-              <div className="flex h-[54px] w-full items-center flex-row justify-start mb-5 rounded-[8px] bg-[white]">
+              <div className="flex h-[54px] w-full items-center flex-row justify-start mb-[10px] rounded-[8px] bg-[white]">
                 <span className="ml-5 min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
                   {returnTitle(child?.props["data-tag"])}
                 </span>
@@ -159,7 +159,7 @@ export default function TransfersWrapper({
                           </span>
                         </div>
                         <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                          <span className="self-start ml-[15%] text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
+                          <span className="self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular">
                             {t("free_balance")}:
                           </span>
                           <span className="self-end text-[12px] text-[#1F3446] font-regular">

@@ -9,7 +9,7 @@ import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import CardsMenu from "@/widgets/cards-menu/ui/CardsMenu";
+import CardsMenu from "@/widgets/!cards-menu/ui";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
@@ -39,7 +39,6 @@ function Wallet() {
     const {currencies} = useContext(CtxCurrencies);
     const {xl, md} = useContext(BreakpointsContext);
     const descriptions = getTokenDescriptions(navigate, account);
-    const [isNewCardOpened, setIsNewCardOpened] = useState(false);
 
     const gekkardMode = IS_GEKKARD_APP();
 
@@ -97,8 +96,6 @@ function Wallet() {
                                     <CardsMenu
                                         data-tag={"bank_cards"}
                                         data-name={t("bank_cards")}
-                                        isNewCardOpened={isNewCardOpened}
-                                        setIsNewCardOpened={setIsNewCardOpened}
                                     />
                                     {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
                                 </>}
@@ -131,7 +128,7 @@ function Wallet() {
                                 <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
                                 <TransfersButton isActive to={`/transfers?currency=${currency}`}/>
 
-                                {!isEUR
+                                {!IS_GEKKARD_APP() ? null : !isEUR
                                     ? <ExchangeButton isActive to={`/exchange?from=${currency}`}/>
                                     : <CardsMenuButton to={"/card-menu"}/>
                                 }
@@ -166,8 +163,6 @@ function Wallet() {
                                 <CardsMenu
                                     data-tag={"bank_cards"}
                                     data-name={t("bank_cards")}
-                                    isNewCardOpened={isNewCardOpened}
-                                    setIsNewCardOpened={setIsNewCardOpened}
                                 />
                             </div>
                         }

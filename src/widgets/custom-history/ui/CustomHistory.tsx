@@ -26,7 +26,7 @@ function CustomHistory() {
   const { t } = useTranslation();
   const { refreshKey } = useContext(CtxRootData);
   const { currencies } = useContext(CtxCurrencies);
-  const [curr, setCurr] = useState<string>('EURG');
+  const [curr, setCurr] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>("");
   const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
   
@@ -54,7 +54,7 @@ function CustomHistory() {
   // remove
   const [fiat, setFiat] = useState<boolean>(false);
   const [apply, setApply] = useState<boolean>(false);
-  const [type, setType] = useState<ISelectTxTypes>(translatedOptions[0]);
+  const [type, setType] = useState<ISelectTxTypes | null>(null);
 
   // remove
   const [historyData, setHistoryData] = useState<{
@@ -63,7 +63,7 @@ function CustomHistory() {
     types: TransactTypeEnum[];
   }>({
     assets: [curr],
-    types: type.value,
+    types: type?.value,
     includeFiat: fiat,
   });
 
@@ -85,15 +85,15 @@ function CustomHistory() {
       dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
     ]);
     setFiat(false);
-    setCurr('EURG');
+    setCurr('');
     setSelector(null);
-    setType(translatedOptions[0]);
+    setType(null);
   };
 
   const applyHandler = () => {
     setHistoryData({
       assets: [curr],
-      types: type.value,
+      types: type?.value,
       includeFiat: fiat,
     });
   };
@@ -153,10 +153,7 @@ function CustomHistory() {
         <form className={styles.filters}>
           <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
           <div>
-            <Space
-              direction="vertical"
-              className="flex flex-row gap-1 font-extrabold pt-2"
-            >
+            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2">
               <DatePicker
                 onChange={handleStartDateChange}
                 value={date[0]}
@@ -165,11 +162,12 @@ function CustomHistory() {
               />
               <div className="mb-0">_</div>
               <DatePicker
+                className="max-h-[30px]"
                 onChange={handleFinishDateChange}
                 value={date[1]}
                 suffixIcon={<IconApp code="t39" size={20} color="#29354C" />}
               />
-            </Space>
+            </div>
           </div>
           <div className={styles.SelectWrap}>
             <div
@@ -179,7 +177,7 @@ function CustomHistory() {
                 setApply(false);
               }}
             >
-              <span className={styles.SelectTitle}>Currency:</span>
+              <span className={styles.SelectTitle}>{t("currency")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   curr && styles.SelectCurrencyActive
@@ -187,7 +185,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!curr ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       <IconCoin
@@ -211,7 +209,7 @@ function CustomHistory() {
                 setApply(false);
               }}
             >
-              <span className={styles.SelectTitle}>Type:</span>
+              <span className={styles.SelectTitle}>{t("type")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   type && styles.SelectCurrencyActive
@@ -219,7 +217,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!type ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       {type.label}
@@ -240,7 +238,7 @@ function CustomHistory() {
                 setApply(false);
               }}                       
             >
-              <span className={styles.SelectTitle}>Card:</span>
+              <span className={styles.SelectTitle}>{t("card")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   selectedCard.value && styles.SelectCurrencyActive
@@ -248,7 +246,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!selectedCard.value ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       {selectedCard.label}
@@ -264,7 +262,7 @@ function CustomHistory() {
           </div>
           {selector === 'currency' && (
             <div className="w-full mt-[15px]">
-              <span className={styles.CurrencyListTitle}>Select Currency</span>
+              <span className={styles.CurrencyListTitle}>{t("select_currency")}</span>
               <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                 <IconApp size={20} code="t12" color="#000" />
                 <Input
@@ -308,7 +306,7 @@ function CustomHistory() {
                         </span>
                       </div>
                       <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                        <span className="self-start ml-[15%] text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
+                        <span className="self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular">
                           {t("free_balance")}:
                         </span>
                         <span className="self-end text-[12px] text-[#1F3446] font-regular">
@@ -330,11 +328,11 @@ function CustomHistory() {
           )}
           {selector === 'type' && (
             <div className={styles.TypeList}>
-              <span className={styles.CurrencyListTitle}>Select type</span>
+              <span className={styles.CurrencyListTitle}>{t("select_type")}</span>
               {
                 translatedOptions.map((item, ind) => (
                   <div
-                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[color:var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
+                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
                   onClick={() => {
                     setType(item)
                     setSelector(null)  
@@ -378,7 +376,6 @@ function CustomHistory() {
           <div className={styles.BottomBtnsWrap}>
             <Button
               className={styles.BottomBtn}
-              size="sm"
               onClick={() => {
                 setApply(true);
                 applyHandler();
@@ -388,9 +385,8 @@ function CustomHistory() {
               {t("apply")}
             </Button>
             <Button
-              className={`${styles.BottomBtn} grey`}
-              size="sm"
-              variant="gray"
+              className={`${styles.BottomBtn}`}
+              color="gray"
               onClick={() => {
                 setApply(false);
                 handleReset();

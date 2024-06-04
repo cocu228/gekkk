@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
-import {CtxModalTrxResult} from "../../../model/context";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
@@ -13,8 +13,9 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import BankReceipt from "@/widgets/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 interface IParams {
     amount: number;
@@ -45,8 +46,9 @@ const WithdrawConfirmPhoneNumber = ({
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
-    const {setContent} = useContext(CtxModalTrxResult);
+    const {setContent} = useContext(CtxGlobalModalContext);
     const [uasToken, setUasToken] = useState<string>(null);
+    const { displayHistory } = useContext(CtxDisplayHistory);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
@@ -114,6 +116,7 @@ const WithdrawConfirmPhoneNumber = ({
             }).then(({data}) => {
                 handleCancel();
                 setRefresh();
+                displayHistory();
                 setContent({
                     content: (
                       <ModalTrxStatusSuccess
@@ -257,17 +260,14 @@ const WithdrawConfirmPhoneNumber = ({
                 <div className="row mt-4">
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
-                            <Button 
-                                size={"xl"}
-                                variant='greenTransfer'
+                            <Button
                                 onClick={onConfirm}
                                 disabled={!totalCommission}
                                 className={styles.ButtonTwo}
                             >{t("confirm")}</Button>
 
                             <Button
-                                size={"xl"}
-                                variant='whiteGreenTransfer'
+                                skeleton
                                 className={styles.ButtonTwo}
                                 onClick={()=>{
                                     handleCancel();

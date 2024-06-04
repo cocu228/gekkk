@@ -80,10 +80,9 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
             </div>
             <div className="flex justify-center w-[40%]">
               <Button
-                variant='greenTransfer'
+                size={"lg"}
                 onClick={() => setPartnerInfo(input)}
                 disabled={input === ""}
-                size={"xl"}
                 className="w-full"
               >
                 <span className="font-bold">{t("apply")}</span>
@@ -109,9 +108,9 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
           <div className="row flex gap-3">
             <div className="col w-full">
               <Button
+                size="lg"
                 onClick={confirmPartnerInfo}
-                size={"xl"}
-                className="w-full !font-medium"
+                className="w-full"
               >
                 <span className="font-bold">{t("confirm")}</span>
               </Button>

@@ -1,4 +1,4 @@
-import { Switch } from "antd";
+import {Switch} from '@/shared/ui/Switch'
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
@@ -9,9 +9,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { numberWithSpaces, randomId } from "@/shared/lib/helpers";
 import {
@@ -29,31 +27,27 @@ import {
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
-import { formatMonthYear } from "@/widgets/dashboard/model/helpers";
 import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
-import MobileModal from "@/shared/ui/modal/MobileModal";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import axios from "axios";
+import Button from "@/shared/ui/button/Button";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 // todo: refactoring
 const MobileCardsMenu = ({
   isNewCardOpened,
   setIsNewCardOpened,
-  isMobile,
 }: {
   isNewCardOpened: boolean;
   setIsNewCardOpened: (isOpen: boolean) => void;
-  isMobile?: boolean;
 }) => {
   const { t } = useTranslation();
-  const cardInfoModal = useModal();
   const [params] = useSearchParams();
   const newCardUrl = params.has("new");
   const confirmationModal = useModal();
@@ -81,19 +75,21 @@ const MobileCardsMenu = ({
   const setCurrentCard = useCardStore((state) => state.setCard);
 
   useEffect(() => {
+    const cancelTokenSource = axios.CancelToken.source();
+    
     (async () => {
-      try {
-        const { data } = await apiGetCards();
-        setAccountDetails(await getAccountDetails());
+      const { data } = await apiGetCards(null, {
+        cancelToken: cancelTokenSource.token
+      });
+      setAccountDetails(await getAccountDetails());
 
-        setCardsStorage({
-          cards: data.result,
-          refreshKey: randomId(),
-        });
-      } catch (err: unknown) {
-        console.log(err);
-      }
+      setCardsStorage({
+        cards: data.result,
+        refreshKey: randomId(),
+      });
     })();
+
+    return () => {cancelTokenSource.cancel()};
   }, [account]);
 
   const updateCard = (card: ICardData) => {
@@ -324,12 +320,13 @@ const MobileCardsMenu = ({
             {t("to_temporarily_deactivate_daily_and_monthly_limits")}
           </p>
           <div className={styles.HowItWorksBtnWrap}>
-            <MobileButton
-              className="w-[115px]"
+            <Button
+              color="blue"
+              className="w-full"
               onClick={() => setSelectedItem("")}
             >
               {t("back")}
-            </MobileButton>
+            </Button>
           </div>
         </div>
       </div>
@@ -386,14 +383,16 @@ const MobileCardsMenu = ({
               </div>
 
               <div className={styles.InfoBtnWrap}>
-                <MobileButton
+                <Button
+                  color="blue"
+                  className="!w-[59px] !h-[27px] !text-[10px] !rounded-[5px]"
                   onClick={() => {
                     setSelectedItem("f");
                     confirmationModal.handleCancel();
                   }}
                 >
                   {t("close")}
-                </MobileButton>
+                </Button>
               </div>
             </div>
           )}
@@ -460,7 +459,7 @@ const MobileCardsMenu = ({
                   leftSecondary={t("available")}
                   leftPrimary={t("set_limit", {
                     period: t(limit.period.toLowerCase()),
-                  })}
+                  }).capitalize()}
                   rightPrimary={numberWithSpaces(limit.currentLimit) + " EUR"}
                   rightSecondary={numberWithSpaces(limit.usedLimit) + " EUR"}
                 />
@@ -470,7 +469,7 @@ const MobileCardsMenu = ({
           <MobileMenuItem
             dataItem="disableLimits"
             leftPrimary={t("disable_limits_for_minutes", { minutes: 3 })}
-            rightPrimary={<Switch checked={switchChecked} />}
+            rightPrimary={<Switch onChange={null} defaultCheked={switchChecked} />}
             onClick={onClick}
           />
 
@@ -481,7 +480,7 @@ const MobileCardsMenu = ({
           />
 
           <a
-            className={`${styles.link} typography-b1`}
+            className={`${styles.link}`}
             onClick={(e) => {
               e.preventDefault();
               setSelectedItem("how-it-works");
@@ -515,11 +514,10 @@ const MobileCardsMenu = ({
             </MenuButton>
           </div>
 
-          <MobileModal
+          <Modal
             title={t("confirm_action")}
-            open={confirmationModal.isModalOpen}
+            isModalOpen={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
-            padding
           >
             {loading ? (
               <Loader />
@@ -608,107 +606,30 @@ const MobileCardsMenu = ({
                   </div>
                 )}
 
-                <Form onFinish={() => onConfirm(selectedItem)}>
+                <Form onSubmit={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
-                    <div className={styles.FormBody}>
-                      <MobileButton
-                        className={`w-[120px] ${styles.lightButton}`}
-                      >
-                        {t("confirm")}
-                      </MobileButton>
+                    <div className={(selectedItem === "blockCard" ||
+                        selectedItem === "dailyLimit" ||
+                        selectedItem === "monthlyLimit") ? styles.FormBody : styles.FormBodySingle}>
+                      <Button
+                        text={t("confirm")}
+                        className="w-full"
+                      />
                       {(selectedItem === "blockCard" ||
                         selectedItem === "dailyLimit" ||
                         selectedItem === "monthlyLimit") && (
-                        <MobileButton
-                          varitant={
-                            selectedItem === "blockCard" ? "alarm" : "outline"
-                          }
-                          className="w-[120px]"
+                        <Button
+                          skeleton
+                          text={t("cancel")}
+                          className="w-full"
                           onClick={() => confirmationModal.handleCancel()}
-                        >
-                          {t("cancel")}
-                        </MobileButton>
+                        />
                       )}
                     </div>
                   </div>
                 </Form>
               </div>
             )}
-          </MobileModal>
-
-          <Modal
-            closable={false}
-            title={<ModalTitle handleCancel={cardInfoModal.handleCancel} title={t("card_info")}/>}
-            open={cardInfoModal.isModalOpen}
-            padding
-            onCancel={() => {
-              cardInfoModal.handleCancel();
-              setCardInfo(null);
-            }}
-          >
-            {!cardInfo ? (
-              <Loader className="relative my-10" />
-            ) : (
-              <div className="font-medium text-[16px] select-text">
-                <div className="row mb-2">
-                  <div className="col">
-                    <span>
-                      <b>{t("card_number").toLowerCase().capitalize()}</b>: ****
-                      **{cardInfo.pan.slice(0, 2) + " " + cardInfo.pan.slice(2)}{" "}
-                      ****
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col">
-                    <span>
-                      <b>{t("expiration_date")}</b>:{" "}
-                      {formatMonthYear(new Date(cardInfo.expireAt))}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col">
-                    <span>
-                      <b>{t("card_cvc")}</b>: {cardInfo.cvv ?? "-"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col">
-                    <span>
-                      <b>{t("card_owner")}</b>: {cardInfo.owner ?? "-"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col">
-                    <span>
-                      <b>{t("card_pin")}</b>: {cardInfo.pin ?? "-"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <Form
-              onFinish={() => {
-                cardInfoModal.handleCancel();
-                setCardInfo(null);
-              }}
-            >
-              <div className="row my-5">
-                <div className="col">
-                  <Button size={"xl"} htmlType={"submit"} className="w-full">
-                    {t("close")}
-                  </Button>
-                </div>
-              </div>
-            </Form>
           </Modal>
         </>
       )}

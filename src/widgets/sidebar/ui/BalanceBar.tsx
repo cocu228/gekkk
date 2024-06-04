@@ -35,8 +35,8 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
     let ethWallet: ICtxCurrency = null
     let secondaryWallets: ICtxCurrency[] = [];
 
-    const gekwalletMode = IS_GEKKWALLET_APP();
-    const gekkardMode = IS_GEKKARD_APP();
+    const isGekwallet = IS_GEKKWALLET_APP();
+    const isGekkard = IS_GEKKARD_APP();
     
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
@@ -50,64 +50,62 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
 
     return (
         <>
-            <div className={styles.CardInfo}>
-                {cardsLoading ? <SkeletonCard />
-                    : !activeCards ? ""
-                        : activeCards?.length === 0 ? (
-                            <Carousel>
-                                <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
-                                    <NewBankCard />
-                                </div>
-                            </Carousel>
-                        ) : (
-                            <BankCardsCarousel
-                                cards={activeCards}
-                                onItemClick={() => navigate(md
-                                    ? 'card-menu'
-                                    : '/wallet?currency=EUR&tab=bank_cards'
-                                )}
-                            />
-                        )}
-            </div>
-            
-            {gekkardMode && 
-                <> 
-                    <span className={styles.CurTypeTxt}>{t("fiat")}</span>
-                    {/* fiat wallets */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurWallet} />
-                    {/* Crypto wallets wrapper */}
-                    <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
-                    {/* EURG wallet */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
-                    {/* GKE wallet */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={gkeWallet} />
-                </>
-            }
-            
-            {gekwalletMode && 
-                <>
-                    {/* BTC wallet */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={btcWallet} />
-                    {/* USDT wallet */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={usdtWallet} />
-                    {/* ETH wallet */}
-                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={ethWallet} />
-                </>
-            }
+            {isGekkard ? <>
+                <div className={styles.CardInfo}>
+                    {cardsLoading
+                        ? <SkeletonCard/>
+                        : !activeCards ? ""
+                            : activeCards?.length === 0 ? (
+                                <Carousel>
+                                    <div onClick={() => navigate(md
+                                        ? '/card-menu'
+                                        : '/wallet?currency=EUR&tab=bank_cards')
+                                    }>
+                                        <NewBankCard />
+                                    </div>
+                                </Carousel>
+                            ) : (
+                                <BankCardsCarousel
+                                    cards={activeCards}
+                                    onItemClick={() => navigate(md
+                                        ? 'card-menu'
+                                        : '/wallet?currency=EUR&tab=bank_cards'
+                                    )}
+                                />
+                            )}
+                </div>
 
+                <span className={styles.CurTypeTxt}>{t("fiat")}</span>
+                {/* fiat wallets */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurWallet} />
+                {/* Crypto wallets wrapper */}
+                <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
+                {/* EURG wallet */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
+                {/* GKE wallet */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={gkeWallet} />
+            </> :
+            isGekwallet ? <>
+                {/* BTC wallet */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={btcWallet} />
+                {/* USDT wallet */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={usdtWallet} />
+                {/* ETH wallet */}
+                <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={ethWallet} />
+            </> : null}
+            
             {/* Secondary options wrapper */}
             {/* <div className="h-[6px]" /> */}
 
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
-                (gekkardMode ? 
+                (isGekkard ? 
                     helperFilterListGekkard(secondaryWallets) 
-                :
-                    gekwalletMode ? 
-                        helperFilterListGekwallet(secondaryWallets) 
-                    : 
-                        helperFilterListGekkoin(secondaryWallets)).map((item) =>
-                    <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
+                : isGekwallet ? 
+                    helperFilterListGekwallet(secondaryWallets) 
+                : 
+                    helperFilterListGekkoin(secondaryWallets)).map((item) =>
+                        <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
 
             <div className={styles.TotalBal}>

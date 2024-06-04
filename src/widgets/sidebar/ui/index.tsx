@@ -3,6 +3,7 @@ import SidebarMobile from "./mobile";
 import SidebarDesktop from "./desktop";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
+// Displayed only at GKK/GKW
 const Sidebar = () => {
     const {md} = useContext(BreakpointsContext);
 

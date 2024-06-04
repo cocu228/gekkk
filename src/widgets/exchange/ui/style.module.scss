@@ -12,7 +12,7 @@
 }
 
 .FromBlockWrap {
-  font-weight: 500;
+  font-weight: 600;
   gap: 5px;
   display: flex;
   align-items: center;
@@ -22,9 +22,10 @@
   margin-bottom: 0.5rem;
   user-select: none;
 
+
   @media screen and (max-width: 430px) {
-    flex-direction: column;
-    align-items:flex-start;
+    // flex-direction: column;
+
   }
 }
 
@@ -69,15 +70,19 @@
 
 .Grid {
   display: grid;
-  padding: 1.25rem;
+  padding: 10px 5px 10px 10px;
   grid-template-columns: 1.25fr 0.75fr;
+  border-radius: 0.5rem 0 0 0.5rem;
 
   @media screen and (max-width: 360px) {
-    padding: 1.25rem 0.75rem;
+    padding: 12px 5px 10px 10px;
   }
 }
 
 .GridFooter {
+  display: grid;
+  justify-items: center;
+
   @include max-devices("md") {
     grid-column: span 2;
   }
@@ -90,5 +95,62 @@
         padding-top: 10px;
       }
     }
+  }
+}
+
+.CancelButton{
+  width: 100%;
+
+  background: var(--gek-background) !important;
+  border: 2px solid var(--gek-green) !important;
+  border-radius: 8px !important;
+  color: var(--gek-green) !important;
+}
+
+.MainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media screen and (max-width: 1700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.DeskHistoryWrap {
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  background: #fff;
+
+  @media screen and (max-width: 1700px) {
+    background: inherit;
+  }
+}
+
+.DeskHistoryTitle {
+  font-size: 15px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  display: block;
+  color: #29354C;
+  font-weight: 700;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.ExchangeOrdersWrap {
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.5rem 0 0 0.5rem;
+  box-shadow: 0 10px 20px var(--color-gray-200);
+
+  @media screen and (max-width: 1700px) {
+    box-shadow: none;
+    background: inherit;
+    border-radius: none;
   }
 }

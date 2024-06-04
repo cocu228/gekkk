@@ -13,11 +13,12 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss";
-import { CtxModalTrxResult } from "../../../model/context";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import BankReceipt from "@/widgets/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 interface IState {
   loading: boolean;
@@ -36,8 +37,9 @@ const WithdrawConfirmSepa = ({
   const { account } = useContext(CtxRootData);
   const { $const } = useContext(CtxWalletData);
   const {setRefresh} = useContext(CtxRootData);
-  const { setContent } = useContext(CtxModalTrxResult);
+  const { setContent } = useContext(CtxGlobalModalContext);
   const [uasToken, setUasToken] = useState<string>(null);
+  const { displayHistory } = useContext(CtxDisplayHistory);
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const { networkTypeSelect, networksForSelector } =
     useContext(CtxWalletNetworks);
@@ -118,6 +120,7 @@ const WithdrawConfirmSepa = ({
         .then(({ data }) => {
           handleCancel();
           setRefresh();
+          displayHistory();
           setContent({
             content: (
               <ModalTrxStatusSuccess
@@ -273,8 +276,7 @@ const WithdrawConfirmSepa = ({
           <div className="col relative">
             <div className={styles.ButtonContainer + " px-4"}>
               <Button
-                size={"xl"}
-                variant='greenTransfer'
+                size="lg"
                 disabled={!total}
                 onClick={onConfirm}
                 className={styles.ButtonTwo}
@@ -283,8 +285,8 @@ const WithdrawConfirmSepa = ({
               </Button>
 
               <Button
-                size={"xl"}
-                variant='whiteGreenTransfer'
+                skeleton
+                size="lg"
                 className={styles.ButtonTwo}
                 onClick={() => {
                   handleCancel();

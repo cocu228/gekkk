@@ -2,34 +2,34 @@ import React, {memo} from "react";
 import styles from "./style.module.scss";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 
-const hClassName = new HelperClassName(styles)
+const hClassName = new HelperClassName(styles);
 
 interface Props {
-    htmlType: "button" | "submit" | "reset";
-    disabled: boolean;
-    variant:
-        "gray"
-        | "text"
-        | "decline"
-        | "darkBlue"
-        | "blueTransfer"
-        | "greenTransfer"
-        | "whiteGreenTransfer"
-        | undefined;
+    color: "green"
+        | "gray"
+        | "red"
+        | "blue"
+        | null;
     custom: boolean;
-    size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
+    disabled: boolean;
+    skeleton: boolean;
+    size: "sm" | "md" | "lg";
+    text: string | undefined;
+    className: string | undefined;
     onClick: React.MouseEventHandler;
     onSubmit: React.FormEventHandler;
-    children: React.ReactNode;
-    className: string | undefined
+    children: React.ReactNode | undefined;
+    htmlType: 'button' | 'submit' | 'reset';
 }
 
 const Button = memo<Partial<Props>>(({
-    size,
-    variant,
+    text,
     children,
     className,
+    size = "md",
+    color="green",
     custom = false,
+    skeleton = false,
     htmlType = "button",
     ...props
 }): JSX.Element | null => {
@@ -40,17 +40,12 @@ const Button = memo<Partial<Props>>(({
             data-size={size}
             className={hClassName
                 .while(!!className).do(className)
-                .while(variant==="gray").do("Gray")
-                .while(variant==="text").do("Text")
-                .while(variant==="decline").do("Decline")
-                .while(variant==="darkBlue").do("DarkBlue")
-                .while(variant==="whiteGreenTransfer").do("WhiteGreenTransfer")
-                .while(variant==="greenTransfer").do("GreenTransfer")
-                .while(variant==="blueTransfer").do("BlueTransfer")
+                .while(color !== null).do(color?.charAt(0).toUpperCase() + color?.slice(1))
+                .while(skeleton).do("Skeleton")
                 .scss(custom ? "" : "Button")
             }
         >
-            {children}
+            {text ? text : children}
         </button>
     );
 });

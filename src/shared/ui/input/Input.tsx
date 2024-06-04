@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { validateInput } from "./model/helpers";
 import { Input as InputAntd, InputProps, InputRef } from "antd";
+import { IconApp } from "../icons/icon-app";
 
 type IParams = InputProps & {
   allowDigits?: boolean;
   allowSymbols?: boolean;
   wrapperClassName?: string;
   tranfers?:boolean
+  eye?:boolean
 };
 
 const Input = React.forwardRef(
@@ -18,17 +20,21 @@ const Input = React.forwardRef(
       allowSymbols,
       wrapperClassName,
       tranfers = false,
+      eye,
       ...props
     }: IParams,
     ref: React.ForwardedRef<InputRef>
   ) => {
+    const [eyeState, setEyeState] = useState(false)
+
     return (
       <div 
         className={`${styles.Input} ${
           wrapperClassName ? wrapperClassName : ""
-        } ${tranfers && styles.TransfersInput}`}
+        } ${tranfers && styles.TransfersInput} ${eye && styles.EyeStyles}`}
       >
         <InputAntd
+          type={eyeState ? 'password' : ''}
           {...props}
           ref={ref}
           onChange={(event) => {
@@ -37,6 +43,19 @@ const Input = React.forwardRef(
             }
           }}
         />
+        {
+          eye && (
+            <div className={styles.EyeBlock} onClick={() => setEyeState(!eyeState)} >
+              {
+                eyeState ? (
+                  <IconApp color='#285E69' size={13} code="t41" />
+                ) : (
+                  <IconApp color='#285E69' size={13} code="t71" />
+                )
+              }
+            </div>
+          )
+        }
       </div>
     );
   }

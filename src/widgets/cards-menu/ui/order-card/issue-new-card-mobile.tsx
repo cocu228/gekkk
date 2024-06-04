@@ -1,16 +1,13 @@
 import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
-import { Typography as Tp } from '@/shared/ui/typography/typography';
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {ValidateOrderCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import styles from '../style.module.scss'
+import Button from '@/shared/ui/button/Button';
+import { Select } from '@/shared/ui/Select';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -42,21 +39,20 @@ export function IssueNewCardMobile() {
             <div className={styles.mobRowItem}>
                 <span className={styles.mobRowItemTitle}>{t('country')}:</span>
                 <div className={styles.mobSelectWrap}>
-                    <SearchSelect
-                        isMobile
-                        className="w-full"
-                        placeholder={t("select_country")}
-                        value={state.countryCode}
-                        notFoundContent={<span>{t("country_not_found")}</span>}
-                        options={deliveryCountriesList.map(c => ({
-                            label: c.name,
-                            value: c.code
-                        }))}
-                        onSelect={(code) => setState({
-                            ...state,
-                            countryCode: code
-                        })}
-                    />
+                <Select
+                    mobile
+                    placeholder={t("select_country")}
+                    value={state.countryCode}
+                    options={deliveryCountriesList.map(c => ({
+                        label: c.name,
+                        value: c.code
+                    }))}
+                    listHeight={250}
+                    onChange={(code) => setState({
+                        ...state,
+                        countryCode: code
+                    })}
+                />
                 </div>
             </div>
 
@@ -125,18 +121,24 @@ export function IssueNewCardMobile() {
             </div>
             
             <div className={styles.mobIssueFooter}>
-                <MobileButton 
-                    varitant={'light'} 
-                    className='w-[140px]'
+                <Button
+                    className='w-full'
+                    color="green"
                     onClick={() => {
                         setStep('ConfirmationNewCard');
                     }}
                 >
-                    {t("proceed")}   
-                </MobileButton>
-                <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
-                    {t("back")}   
-                </MobileButton>
+                    {t("proceed")}
+                </Button>
+                <Button 
+                    className='w-full'
+                    skeleton 
+                    size='md' 
+                    color='green' 
+                    onClick={close}
+                >
+                    {t("back")}
+                </Button>
             </div>
         </div>
     </div>

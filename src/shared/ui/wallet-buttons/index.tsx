@@ -1,6 +1,6 @@
-import { memo } from "react";
+import {memo} from "react";
 import styles from "./style.module.scss";
-
+import {IS_GEKKWALLET_APP} from "@/shared/lib";
 
 interface IParams {
     isMainWallet?: boolean;
@@ -9,7 +9,11 @@ interface IParams {
 
 const WalletButtons = memo(({children, isMainWallet}: IParams) => {
     return(
-        <div className={`${styles.WalletButtons} ${isMainWallet ? styles.MainWallet : ''}`}> 
+        <div className={`
+            ${styles.WalletButtons}
+            ${isMainWallet ? styles.MainWallet : ''}
+            ${IS_GEKKWALLET_APP() && styles.Gekwallet}
+        `}> 
             {children}
         </div>
     )

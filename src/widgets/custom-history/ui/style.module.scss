@@ -188,6 +188,7 @@
 
 .Inp {
   color: red !important;
+  max-height: 30px;
 }
 
 .SelectIconBlock {
@@ -257,19 +258,6 @@
 
 .BottomBtn {
   width: 100%;
-  max-width: 120px;
-
-  &:first-child {
-    background: var(--gek-additional);
-    color: #fff !important;
-    font-weight: 700 !important;
-  }
-
-  &:nth-child(2) {
-    background-color: var(--gek-mid-grey) !important;
-    color: var(--gek-dark-blue) !important;
-    font-weight: 700 !important;
-  }
 }
 
 .BottomBtnsWrap {
@@ -318,7 +306,7 @@
 }
 
 .SelectCurrencyActive {
-  justify-content: start;
+  justify-content: flex-start;
   padding: 0 20px;
 }
 

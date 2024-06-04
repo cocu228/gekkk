@@ -11,7 +11,7 @@ interface Props {
   cashbackId: ActiveBonusProgram;
   name: string;
   accrualPeriod: string;
-  iconPath: string; 
+  icon: React.ReactNode; 
   className: string;
   conditions: Array<string>;
   isActive: boolean;
@@ -22,7 +22,7 @@ const CashbackCard = memo<Props>(({
   name,
   accrualPeriod,
   className,
-  iconPath,
+  icon,
   conditions,
   isActive
 }): JSX.Element => {
@@ -41,10 +41,9 @@ const CashbackCard = memo<Props>(({
             {t(name)}
           </div>
 
-          <img
-            className={styles.CashbackCardImage}
-            src={iconPath}
-          />
+        </div>
+        <div className={styles.CashbackCardIcon}>
+          {icon}
         </div>
 
         <div className={styles.CashbackCardAccrualPeriod}>
@@ -60,33 +59,27 @@ const CashbackCard = memo<Props>(({
         </div>
 
         <div className='mt-[23px]'>
-            <span className={`${styles.CashbackCardCheckbox} ${(isActive || (toNoFeeProgram || toCashbackProgram)) ? 'pl-0' : ''}`}>
+            <div className={`${styles.CashbackCardCheckbox} ${(isActive || (toNoFeeProgram || toCashbackProgram)) ? 'pl-0' : ''}`}>
               {t("cashback_programs.bonus_description")}
-            </span> 
+            </div> 
         </div>
 
-        <div className={styles.CashbackCardButtonContainer}>
-          {(toNoFeeProgram || toCashbackProgram) && (
+        <div className={styles.CashbackCardButtonContainer + " " + styles.CashbackCardButtonContainerMobile}>
+          {(toNoFeeProgram || toCashbackProgram) && 
             <Button
-              custom
-              className={`${styles.CashbackCardButton} ${!(toNoFeeProgram || toCashbackProgram)
-                ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none'
-                : ''}
-              `}
+              color='blue'
+              className={`${styles.CashbackCardButton}`}
               disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
               onClick={toNoFeeProgram
-                ? () => navigate('/wallet?currency=GKE&tab=no_fee_program') 
+                ? () => navigate('/wallet?currency=GKE&tab=no_fee_program')
                 : () => navigate('/wallet?currency=GKE&tab=cashback_program')
-              }
+              } 
             >
               <div className='flex flex-row'>
-                <div className='flex items-center mr-2 ml-2'>
-                  <IconApp color='#3A5E66' size={10} code='t08' />
-                </div>
                 {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
               </div>
             </Button>
-          )}
+          }
         </div>
       </div>
 
@@ -106,6 +99,7 @@ const CashbackCard = memo<Props>(({
     </div>
   )
 })
+
 
 
 export default CashbackCard

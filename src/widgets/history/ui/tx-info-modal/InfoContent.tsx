@@ -1,26 +1,57 @@
 import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
+import {createSearchParams, useLocation, useNavigate} from "react-router-dom";
 import style from './style.module.scss';
 import Loader from "@/shared/ui/loader";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { TxInfoProps } from "../../model/types";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
-import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import { actionResSuccess, isNull } from "@/shared/lib/helpers";
-import { AddressTxOut, AdrTxTypeEnum } from "@/shared/(orval)api/gek/model";
+import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
+import {formatForCustomer} from "@/shared/lib/date-helper";
+import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
+import Button from "@/shared/ui/button/Button";
+import {IconApp} from "@/shared/ui/icons/icon-app";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
+import ReceiptData from "@/widgets/receipt/receiptData";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
+  const {md} = useBreakpoints();
+  const navigate = useNavigate();
+  const location = useLocation()
   const { t } = useTranslation();
+  const { setContent } = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
   const loading = isNull(state) && isAvailableType;
+
+  const handleOnReceipt = () => {
+    props.handleCancel()
+    if (md) {
+      const searchParams = new URLSearchParams(location.search)
+      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      const params = createSearchParams({
+        txId: props.id_transaction,
+        ...search
+      })
+      navigate({
+        pathname: "/receipt",
+        search: params.toString()
+      })
+    } else {
+      setContent({
+        content: <ReceiptData txId={props.id_transaction}/>,
+        title: 'Transaction receipt'
+      })
+    }
+  }
 
   useEffect(() => {
     if (isAvailableType) {
@@ -40,7 +71,6 @@ const InfoContent = (props: TxInfoProps) => {
 
   return (
     <div className="min-h-[400px]">
-      {" "}
       {localErrorInfoBox ? (
         localErrorInfoBox
       ) : loading ? (
@@ -58,7 +88,7 @@ const InfoContent = (props: TxInfoProps) => {
                 </span>
               </div>
             </div>
-            <div>
+            <div className={style.CopyBlock}>
               <div className={style.InfoItem}>
                 <div className="col w-auto">
                   <span className={style.InfoItemTitle}>
@@ -76,6 +106,7 @@ const InfoContent = (props: TxInfoProps) => {
                   </span>
                 </div>
               </div>
+              <CopyIcon value={props.id_transaction} />
             </div>
             <div className={style.InfoItem}>
               <div className="col w-auto">
@@ -169,28 +200,31 @@ const InfoContent = (props: TxInfoProps) => {
                 state.txType === AdrTxTypeEnum[8] ? null : (
                   <div>
                     {state.addressFrom && (
-                      <div className={style.InfoItem}>
-                        <div className="flex flex-col">
-                          <div>
-                            <span className={style.InfoItemTitle}>
-                              {t("address_from")}
-                            </span>
-                          </div>
-                          <div 
-                            className="cursor-pointer"
-                            onClick={()=>{
-                              navigator.clipboard.writeText(state.addressFrom)
-                            }}  
-                          >
-                            <span className={style.InfoItemAddress}>
-                              {state.addressFrom}
-                            </span>
+                      <div className={style.CopyBlock}>
+                        <div className={style.InfoItem}>
+                          <div className="flex flex-col">
+                            <div>
+                              <span className={style.InfoItemTitle}>
+                                {t("address_from")}
+                              </span>
+                            </div>
+                            <div 
+                              className="cursor-pointer"
+                              onClick={()=>{
+                                navigator.clipboard.writeText(state.addressFrom)
+                              }}  
+                            >
+                              <span className={style.InfoItemAddress}>
+                                {state.addressFrom}
+                              </span>
+                            </div>
                           </div>
                         </div>
+                        <CopyIcon value={state.addressFrom} />
                       </div>
                     )}
                     {state.addressTo && (
-                      <div>
+                      <div className={style.CopyBlock}>
                         <div className={style.InfoItem}>
                           <div>
                             <span className={style.InfoItemTitle}>
@@ -203,11 +237,12 @@ const InfoContent = (props: TxInfoProps) => {
                               navigator.clipboard.writeText(state.addressTo)
                             }}
                           >
-                            <span className={style.InfoItemValue}>
+                            <span className={style.InfoItemAddress}>
                               {state.addressTo}
                             </span>
                           </div>
                         </div>
+                        <CopyIcon value={state.addressTo} />
                       </div>
                     )}
                     {state.tokenNetwork && (
@@ -234,12 +269,10 @@ const InfoContent = (props: TxInfoProps) => {
                           {t("transaction")}
                         </span>
                       </div>
-                      <div 
-                        className="cursor-pointer"
-                      >
+                      <div className="cursor-pointer">
                         <a
                           target={"_blank"}
-                          href={state.explorerBaseAddress + state.txHash}
+                          href={!isNaN(Number(state.txHash)) ? null : (state.explorerBaseAddress + state.txHash)}
                           className={style.InfoItemHash}
                         >
                           {state.txHash}
@@ -253,6 +286,21 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
+          <div className={"w-full flex justify-between mt-3"}>
+            <Button
+                skeleton
+                className='w-full'
+                onClick={handleOnReceipt}
+            >
+              <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
+            </Button>
+            <Button
+                className='w-full'
+                onClick={props.handleCancel}
+            >
+              {t("close")}
+            </Button>
+          </div>
         </div>
       )}
     </div>

@@ -1,10 +1,14 @@
-import { ModalProps } from "antd";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 
-const ClosingConditionsModal = ({ open, onCancel, ...props }: ModalProps) => {
+type IParams = {
+    open: boolean;
+    onCancel: () => void;
+}
+
+const ClosingConditionsModal = ({ open, onCancel} : IParams) => {
 
     return (
-        <Modal open={open} onCancel={onCancel} {...props}>
+        <Modal isModalOpen={open} onCancel={onCancel} title="&nbsp;">
             <p className="mb-5 font-medium">Opened deposit can be closed before its closing date by the Client according to the following conditions:</p>
 
             <div className="mb-10 md:pl-7">

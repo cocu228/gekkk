@@ -1,7 +1,4 @@
-import {useContext} from 'react';
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {randomId} from "@/shared/lib/helpers";
-import {useTranslation} from "react-i18next";
 import VersionsLayout from "@/widgets/dashboard/ui/layouts/VersionsLayout";
 
 
@@ -33,9 +30,6 @@ const TABS = [
 ];
 
 export default () => {
-    const {t} = useTranslation();
-    const {sm} = useContext(BreakpointsContext);
-    
     return (
         <div className="wrapper">
             {TABS.map(({content}) => (

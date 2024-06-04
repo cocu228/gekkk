@@ -1,16 +1,15 @@
 import InfoBox from "@/widgets/info-box";
-import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {useContext, useEffect, useState} from "react";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import InfoContent from "../history/ui/tx-info-modal/InfoContent";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();
@@ -53,11 +52,9 @@ export const UnconfirmedTransactions = () => {
             />
 
             <Modal
-                width={450}
-                closable={false}
-                open={isModalOpen}
+                isModalOpen={isModalOpen}
                 onCancel={handleCancel}
-                title={<ModalTitle handleCancel={handleCancel} title={t("please_enter_sender_name")}/>}
+                title={t('please_enter_sender_name')}
             >
                 <InfoContent
                     {...state[0]}

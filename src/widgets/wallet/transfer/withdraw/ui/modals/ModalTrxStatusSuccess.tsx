@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
 import { useContext } from 'react';
-import { CtxModalTrxResult } from '../../model/context';
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
-    onReceipt?: () => void;
+    onReceipt?: (() => (void | Promise<void>)) | null;
 }
 
 function ModalTrxStatusSuccess({
     onReceipt = null
 }: IParams) {
   const {t} = useTranslation();
-  const {handleCancel} = useContext(CtxModalTrxResult);
+  const {handleCancel} = useContext(CtxGlobalModalContext);
 
   return (
     <div className='w-full flex flex-col gap-[30px] items-center my-8 md:mb-4'>
@@ -33,17 +33,11 @@ function ModalTrxStatusSuccess({
                 </NavLink>
             </span>
         </div>
-
-        <div className={(onReceipt !== null
-                ? styles.ButtonContainer
-                : styles.ButtonContainerCenter
-            ) + " mt-[10px] md:mt-[30px] px-4"}
-        >
+        <div className={(onReceipt !== null ? styles.ButtonContainer : styles.ButtonContainerCenter) + " mt-[10px] md:mt-[30px] px-4"}>
             {onReceipt === null ? null : (
                 <Button
-                    size='xl'
+                    skeleton
                     className='w-full'
-                    variant='whiteGreenTransfer'
                     onClick={onReceipt}
                 >
                     <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt")}
@@ -51,8 +45,6 @@ function ModalTrxStatusSuccess({
             )}
 
             <Button
-                size='xl'
-                variant="blueTransfer"
                 className='w-full'
                 onClick={handleCancel}
             >

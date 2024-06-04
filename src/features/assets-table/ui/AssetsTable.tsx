@@ -16,6 +16,7 @@ import { evenOrOdd, getRoundingValue, scrollToTop } from "@/shared/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { getCurrencyRounding } from "@/shared/lib/number-format-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { AssetsTableRow } from "./AssetsTableRow";
 
 interface IParams {
   modal?: boolean;
@@ -25,6 +26,7 @@ interface IParams {
   columnKeys: Array<AssetTableKeys>;
   blockedCurrencies?: Array<string>;
   onSelect?: (currency: string) => void;
+  isModal?: boolean;
 }
 
 function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
@@ -42,9 +44,9 @@ const AssetsTable = ({
   blockedCurrencies,
   allowedFlags,
   onSelect,
+  isModal
 }: IParams) => {
   const inputRef = useRef(null);
-  const navigate = useNavigate();
   const { lg, md } = useContext(BreakpointsContext);
   const { currencies } = useContext(CtxCurrencies);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -132,13 +134,13 @@ const AssetsTable = ({
               <GTable.Row>
                 {columnKeys.map((item: string) => (
                   <GTable.Col
-                    className={`flex ${getAlignment(
+                    className={`flex ${styles.TableColTitle} ${getAlignment(
                       columnKeys,
                       item,
                       md
                     )} my-2 ${getWidth(columnKeys, item, md)}`}
                   >
-                    <span className="text-gray-400 font-medium">{item}</span>
+                    <span className={styles.DeskCol}>{t(item.toLowerCase()).capitalize()}</span>
                   </GTable.Col>
                 ))}
               </GTable.Row>
@@ -149,125 +151,26 @@ const AssetsTable = ({
             className={`${styles.ItemsList} ${
               !ratesLoading && !md && styles.Loaded
             }`}
-            //  style={{maxHeight: modal ? 550 : 1080}}>
           >
             {tokensList
               .filter((value) => searchTokenFilter(value, searchValue))
               .map((currency, index) => (
-                <GTable.Row
-                  className={`
-                                    grid
-                                    ${styles.Item}
-                                    ${
-                                      blockedCurrencies?.includes(
-                                        currency.$const
-                                      )
-                                        ? styles.ItemBlocked
-                                        : ""
-                                    }
-                                    ${
-                                      !md && !evenOrOdd(index)
-                                        ? "bg-gray-main"
-                                        : ""
-                                    }
-                                    min-h-[56px] lg:min-h-[46px] font-medium hover:font-bold hover:cursor-pointer gap-3
-                                    ${md && styles.MobileItem}
-                                    `}
-                  onClick={() => onSelect(currency.$const)}
-                  customTemplateColumns={
-                    !(
-                      md && !!columnKeys.find((c) => c === AssetTableKeys.PRICE)
-                    )
-                      ? null
-                      : "1fr 0.58fr 0.6fr"
-                  }
-                >
-                  {columnKeys.map((key: string) => (
-                    <GTable.Col
-                      className={`flex ${getAlignment(columnKeys, key, md)}`}
-                    >
-                      {key === AssetTableKeys.NAME && (
-                        <div className="flex items-center gap-3">
-                          <IconCoin
-                            height={md ? 40 : 29}
-                            className={
-                              md ? "max-h-[36px] max-w-[40px]" : "max-h-[40px]"
-                            }
-                            code={currency.$const}
-                          />
-                          {!md ? (
-                            <span>
-                              {!lg || columnKeys.length === 2
-                                ? currency.name
-                                : currency.$const}
-                            </span>
-                          ) : (
-                            <div className="flex flex-col">
-                              <span className="block">{currency.$const}</span>
-                              <span
-                                className={`${styles.InnerName} block text-xs`}
-                              >
-                                {currency.name}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {key === AssetTableKeys.CURRENCY && (
-                        <span>{currency.$const}</span>
-                      )}
-
-                      {key === AssetTableKeys.PRICE && (
-                        <span className="block md:text-[14px]">
-                          {!rates || rates[currency.$const] === 0
-                            ? "—"
-                            : `${getCurrencyRounding(
-                                rates[currency.$const]
-                              )} €`}
-                        </span>
-                      )}
-
-                      {key === AssetTableKeys.BALANCE && (
-                        <div className="flex flex-col justify-evenly min-w-[150px]">
-                          <span className="self-start text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
-                            {t("free_balance")}:
-                          </span>
-                          <span className="self-end text-[12px] text-[#1F3446] font-regular">
-                            {currency.balance?.free_balance
-                              ? `${getRoundingValue(
-                                  currency.balance.free_balance,
-                                  currency.roundPrec
-                                )} ${currency.$const}`
-                              : "—"}
-                          </span>
-                        </div>
-                      )}
-
-                      {key === AssetTableKeys.ACTIONS && (
-                        <Button
-                          size={"sm"}
-                          className="w-[60px]"
-                          variant='darkBlue'
-                          onClick={(e) => {
-                            scrollToTop();
-                            e.stopPropagation();
-                            navigate(`/exchange?to=${currency.$const}`);
-                          }}
-                        >
-                          {t("crypto_assets.buy")}
-                        </Button>
-                      )}
-                    </GTable.Col>
-                  ))}
-                </GTable.Row>
+                <AssetsTableRow key={index}
+                  isModal={isModal}
+                  currency={currency} 
+                  blockedCurrencies={blockedCurrencies}
+                  index={index}
+                  onSelect={onSelect}
+                  columnKeys={columnKeys}
+                  rates={rates}
+                 />
               ))}
           </GTable.Body>
         </GTable>
       </div>
 
       {!ratesLoading && !tokensList.length && (
-        <div className="text-center text-gray-400">
+        <div className={styles.SearchValueTitle}>
           {searchValue.length
             ? `Token "${searchValue}" not found`
             : "Tokens not found"}

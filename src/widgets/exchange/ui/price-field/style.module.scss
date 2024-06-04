@@ -1,13 +1,43 @@
 @import "@styles/mixins";
 
+
+.Wrap {
+  :global(.ant-input-affix-wrapper-focused) {
+    border: 1px solid var(--gek-light-grey) !important;
+    box-shadow: none !important;
+    border-color: var(--gek-light-grey) !important;
+
+    &:active, &:focus {
+      border: 1px solid var(--gek-light-grey) !important;
+      box-shadow: none !important;
+      border-color: var(--gek-light-grey) !important;
+    }
+  }
+}
+
 .Field {
   position: relative;
   margin-top: 0.4rem;
   height: 50px;
   padding: 0 12px;
-  border: 1px solid var(--gek-mid-grey);
+  border: 1px solid var(--gek-light-grey) !important;
   border-radius: 8px;
   text-align: right;  
+  outline: none;
+
+  &:active {
+    outline: none !important;
+    border: none !important;
+  }
+
+  :focus {
+    border: none !important;
+  }
+
+  .ant-input-affix-wrapper-focused {
+    border: none !important;
+    color: red !important;
+  }
 
   :global(.ant-input[type=text]) {
     text-align: right;

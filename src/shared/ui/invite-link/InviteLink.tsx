@@ -4,12 +4,14 @@ import {useTranslation} from 'react-i18next';
 import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import { IconApp } from '../icons/icon-app';
+import Button from '../button/Button';
 
 interface IParams {
     roomInfo: RoomInfo;
+    onClose?: ()=>void
 }
 
-function InviteLink({roomInfo = null}: IParams) {
+function InviteLink({roomInfo = null, onClose = null}: IParams) {
     const {t} = useTranslation();
     const getInviteUrl = (): string => {
         const {
@@ -25,8 +27,10 @@ function InviteLink({roomInfo = null}: IParams) {
     return (
         <div className="wrapper">
             <div className={styles.ModalText}>
-                <IconApp color="#8F123A" size={20} code="t27" />
-              {t("exchange.any_gekkard_user")}
+                <div>
+                    <IconApp color="#8F123A" size={15} code="t27" />
+                </div>
+                <span>{t("exchange.any_gekkard_user")}</span>
             </div>
             <div className='flex justify-center my-6 sm:mt-11 '>
                 <div className="w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
@@ -41,8 +45,17 @@ function InviteLink({roomInfo = null}: IParams) {
                 </div>
             </div>
             <ClipboardField value={getInviteUrl()}/>
-            <div className="mt-2.5 text-sm font-medium">
+            <div className={styles.LinkText}>
                 {t("exchange.invite_link_is_available")}
+            </div>
+            <div className={styles.ButtonWrapper}>
+                <Button
+                    color='blue'
+                    className='!w-[120px] mt-[10px]'
+                    onClick={onClose}
+                >
+                    {t("close")}
+                </Button>
             </div>
         </div>
     );

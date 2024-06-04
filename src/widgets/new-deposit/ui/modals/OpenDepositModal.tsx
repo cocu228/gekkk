@@ -1,7 +1,6 @@
 import {format} from "date-fns";
-import {ModalProps} from "antd";
 import {useContext} from "react";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {getTermEnd} from "../../model/helpers";
 import {CtxNewDeposit} from "../../model/context";
@@ -9,9 +8,11 @@ import InlineProperty from "@/shared/ui/inline-property";
 import {DepositType} from "@/shared/config/deposits/types";
 import {getGkePercent} from "@/shared/config/deposits/helpers";
 
-interface IParams extends ModalProps {
+interface IParams {
     loading?: boolean;
     onConfirm?: () => void;
+    open: boolean;
+    onCancel: () => void;
 }
 
 const OpenDepositModal = ({ open, loading, onCancel, onConfirm, ...props }: IParams) => {
@@ -33,8 +34,8 @@ const OpenDepositModal = ({ open, loading, onCancel, onConfirm, ...props }: IPar
 
     return (
         <Modal
-            {...props}
-            open={open}
+            title="&nbsp;"
+            isModalOpen={open}
             onCancel={onCancel}
         >
             <p className="font-bold text-xl">Your deposit parameters</p>

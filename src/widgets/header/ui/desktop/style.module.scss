@@ -69,7 +69,8 @@
   flex-direction: row;
   justify-content: space-around;
   min-width:80px ;
-  gap:5px
+  gap:5px;
+  align-items: center;
 }
 .HeaderMenuTitles{
   color: #F5F5F5;
@@ -77,10 +78,11 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
+  line-height: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3px;
 }
 .Number{
   color: #929798;

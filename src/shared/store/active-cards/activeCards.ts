@@ -45,6 +45,6 @@ export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
             loading: false,
             refreshKey: randomId(),
             activeCards: data.result,
-            mainCard: data.result.find(c => c.productType === 'MAIN')
+            mainCard: data.result?.find(c => c.productType === 'MAIN')
         }));}
 })));

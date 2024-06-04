@@ -1,5 +1,4 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
@@ -18,7 +17,7 @@ import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/c
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormPapaya = () => {
     const {t} = useTranslation();
@@ -60,7 +59,7 @@ const WithdrawFormPapaya = () => {
                             validateBalance(currency, navigate, t)]}>
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className={styles.TitleColText}>{t("amount")}:</span>}
+                            header={<span className={`${styles.TitleColText} m-[0_0_6px_12px]`}>{t("amount")}:</span>}
                             onSelect={val => {
                                 const amount = new Decimal(val);
                                 setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -151,12 +150,10 @@ const WithdrawFormPapaya = () => {
             </div>
 
             <Modal
-                width={450}
-                open={isModalOpen}
+                placeBottom={window.innerWidth<768}
+                isModalOpen={isModalOpen}
                 onCancel={handleCancel}
-                padding
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                title={t("confirm_transaction")}
             >
                 <WithdrawConfirmCrypto
                     description={""}
@@ -170,13 +167,12 @@ const WithdrawFormPapaya = () => {
             <div className={styles.Button}>
                 <div className={styles.ButtonContainerCenter}>
                     <Button
-                        size={"xl"}
-                        variant='greenTransfer'
+                        size="lg"
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     >
-                        {t("buy")} EUR
+                        {t("transfer")}
                     </Button>
                 </div>
             </div>

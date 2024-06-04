@@ -5,7 +5,6 @@ export const $axios = axios.create({
     paramsSerializer: {
         indexes: null // by default: false
     },
-    withCredentials: true,
     responseType: 'json',
     //@ts-ignore
     baseURL: import.meta.env.VITE_SUPPORT_URL

@@ -23,7 +23,6 @@ const Header = () => {
     const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
 
-
     console.log(import.meta.env.MODE)
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
@@ -44,7 +43,7 @@ const Header = () => {
         let newItems = [...defaultMenuItems]
 
         accounts
-            .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
+            .sort(acc => acc.current ? 1 : acc.rights[AccountRights.IsJuridical] ? -1 : 0)
             .forEach(acc => {
                 newItems.unshift({
                     id: acc.number,
@@ -67,18 +66,15 @@ const Header = () => {
                     },
                     style: {
                         backgroundColor: "#FFF",
-                        borderRadius: "6px",
-                        marginBottom: "3px"
+                        borderRadius: "8px",
+                        marginBottom: "1px"
                     },
                 })
             })
-
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-
-
     }, [account?.rights, defaultMenuItems]);
 
     return md

@@ -26,7 +26,7 @@ export function SettingsButton(props: Props ) {
             className={`${styles.itemTitle} ${props.isSelected && styles.itemTitleSelected}`}
           >{props.text}</h4>
         </div>
-        {md && <IconApp size={12} code="t08" color="#B9B9B5" />}
+        {md && <IconApp size={13} code="t08" color="#B9B9B5" className="min-w-[13px]" />}
       </FrameItem>
     );
 }

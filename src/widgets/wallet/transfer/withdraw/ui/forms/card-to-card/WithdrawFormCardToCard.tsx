@@ -1,15 +1,10 @@
-import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
-import Modal from "@/shared/ui/modal/Modal";
-import { Modal as ModalAnt } from "antd";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useContext, useEffect, useState } from "react";
 import { MASK_BANK_CARD_NUMBER } from "@/shared/config/mask";
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { formatCardNumber } from "@/widgets/dashboard/model/helpers";
 import {
@@ -23,7 +18,6 @@ import {
   validateMinimumAmount,
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
-import Decimal from "decimal.js";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
@@ -32,11 +26,10 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Card } from "@/shared/(orval)api/gek/model";
+import {Modal} from "@/shared/ui/modal/Modal";
+import { Select } from "@/shared/ui/SearchSelect/Select";
 
-const { Option } = Select;
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -96,8 +89,23 @@ const WithdrawFormCardToCard = () => {
         : null,
     }));
   }, [cards]);
-  
 
+
+  // const [query, setQuery] = useState('')
+  // const [selected, setSelected] = useState(cards[1])
+
+  // const filteredPeople =
+  //   query === ''
+  //     ? cards
+  //     : cards.filter((person) => {
+  //         return person.name.toLowerCase().includes(query.toLowerCase())
+  //       })
+
+  const transformedList = cards.map(item => ({
+    id: item.cardId,
+    name: formatCardNumber(item.displayPan)
+  }));
+  
   return !md ? (
     !cards ? (
       <Loader className={"relative"} />
@@ -107,42 +115,21 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("from_card")}</span>
+                <span className="font-medium ml-[10px]">{t("from_card")}:</span>
               </div>
             </div>
             <div className="row">
               <div className="col">
-                <SearchSelect
-                  value={inputs.selectedCard}
-                  notFoundContent={
-                    <div className="my-3">{t("no_active_cards")}</div>
-                  }
-                  placeholder={
-                    <span className="font-normal text-gray-400">
-                      {t("choose_source_card")}
-                    </span>
-                  }
-                  prefixIcon={
-                    inputs.selectedCard ? <IconCoin code={"EUR"} /> : null
-                  }
-                  onChange={(val: string) => {
+                <Select
+                  list={transformedList}
+                  placeholderText="-select card-"
+                  onSelect={(val) => {
                     setInputs(() => ({
                       ...inputs,
                       selectedCard: val,
                     }));
                   }}
-                >
-                  {cards
-                    ?.filter((c) => c.cardStatus === "ACTIVE")
-                    .map((c) => (
-                      <Option
-                        value={c.cardId}
-                        label={formatCardNumber(c.displayPan)}
-                      >
-                        <div>{formatCardNumber(c.displayPan)}</div>
-                      </Option>
-                    ))}
-                </SearchSelect>
+                />
               </div>
             </div>
           </div>
@@ -151,7 +138,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("card_number_title")}</span>
+                <span className="font-medium ml-[10px]">{t("card_number_title")}:</span>
               </div>
             </div>
             <div className="row">
@@ -175,7 +162,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("cardholder_name")}</span>
+                <span className="font-medium ml-[10px]">{t("cardholder_name")}:</span>
               </div>
             </div>
             <div className="row">
@@ -199,7 +186,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("comment")}</span>
+                <span className="font-medium ml-[10px]">{t("comment")}:</span>
               </div>
             </div>
             <div className="row">
@@ -238,7 +225,7 @@ const WithdrawFormCardToCard = () => {
               <InputCurrency.PercentSelector
                 currency={currency}
                 header={
-                  <span className="text-gray-600 font-medium">
+                  <span className="text-gray-600 font-medium ml-[10px] mb-[7px]">
                     {t("amount")}:
                   </span>
                 }
@@ -255,12 +242,10 @@ const WithdrawFormCardToCard = () => {
         </div>
 
         <Modal
-          width={450}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+          title={t("confirm_transaction")}
           onCancel={handleCancel}
-          open={isModalOpen}
-          padding
+          isModalOpen={isModalOpen}
+          placeBottom={window.innerWidth<768}
         >
           <WithdrawConfirmCardToCard
             {...inputs}
@@ -270,9 +255,9 @@ const WithdrawFormCardToCard = () => {
         </Modal>
 
         <div className="row w-full">
-          <div className="col">
+          <div className="flex justify-center col">
             <Button
-              size={"xl"}
+              size="lg"
               className="w-full"
               onClick={showModal}
               disabled={!isValidated || inputCurrValid.value}
@@ -306,7 +291,7 @@ const WithdrawFormCardToCard = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className="text-[#1F3446] text-[12px] font-semibold">
+                <span className="text-[#1F3446] text-[12px] ml-[10px] font-semibold">
                   {t("amount")}:
                 </span>
               }
@@ -328,43 +313,24 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col w-full">
-              <span className="w-full text-[#1F3446] text-[12px] font-semibold">
+              <span className="w-full text-[#1F3446] text-[12px] ml-[10px] font-semibold">
                 {t("from_card")}:
               </span>
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]">
+            <div className="row w-full relative border-r-[0px] items-center flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
               <div className="basis-full">
-                <SearchSelect
-                  transfers
-                  value={inputs.selectedCard}
-                  notFoundContent={
-                    <div className="my-3">{t("no_active_cards")}</div>
-                  }
-                  placeholder={
-                    <span className="font-normal text-gray-400">
-                      {t("choose_source_card")}
-                    </span>
-                  }
-                  onChange={(val: string) => {
+              <Select
+                  list={transformedList}
+                  placeholderText="-select card-"
+                  onSelect={(val) => {
                     setInputs(() => ({
                       ...inputs,
                       selectedCard: val,
                     }));
                   }}
-                >
-                  {cards
-                    ?.filter((c) => c.cardStatus === "ACTIVE")
-                    .map((c) => (
-                      <Option
-                        value={c.cardId}
-                        label={formatCardNumber(c.displayPan)}
-                      >
-                        <div>{formatCardNumber(c.displayPan)}</div>
-                      </Option>
-                    ))}
-                </SearchSelect>
+                />
               </div>
             </div>
             <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
@@ -377,7 +343,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("to_card")}:
               </span>
             </div>
@@ -405,7 +371,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("cardholder")}:
               </span>
             </div>
@@ -433,7 +399,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("description")}:
               </span>
             </div>
@@ -501,29 +467,22 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
 
-      <ModalAnt
-        width={450}
-        closable={false}
-        title={
-          <ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>
-        }
+      <Modal
+        title={t("confirm_transaction")}
         onCancel={handleCancel}
-        open={isModalOpen}
-        footer={null}
-        centered
+        isModalOpen={isModalOpen}
       >
         <WithdrawConfirmCardToCard
           {...inputs}
           amount={inputCurr.value.number}
           handleCancel={handleCancel}
         />
-      </ModalAnt>
+      </Modal>
 
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>
           <Button
-            variant='greenTransfer'
-            size={"xl"}
+            size="lg"
             className="w-full"
             onClick={showModal}
             disabled={!isValidated || inputCurrValid.value}

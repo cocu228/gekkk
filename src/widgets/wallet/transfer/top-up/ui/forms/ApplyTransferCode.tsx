@@ -5,7 +5,7 @@ import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-cod
 import {apiApplyCode} from "@/shared/(orval)api/gek";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
@@ -14,7 +14,6 @@ import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { validateInput } from "@/shared/ui/input/model/helpers";
 import styles from "./style.module.scss"
@@ -97,14 +96,14 @@ const ApplyTransferCode = () => {
                 <Button 
                     disabled={input === "" || loading} 
                     onClick={showModal}
-                    size={md? undefined : "xl"}
+                    size={md ? "md" : "lg"}
                     className={styles.CodeButton}
                 >
                     {t("apply")}
                 </Button>
 
-                <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}/>}
-                           onCancel={handleCancel} open={isModalOpen}>
+                <Modal placeBottom={window.innerWidth < 768} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
+                           onCancel={handleCancel} isModalOpen={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
                             <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} code={input} onBtnApply={onBtnApply}/> :
@@ -120,8 +119,8 @@ const ApplyTransferCode = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col">
-                                        <Button className="w-full" size={"xl"} onClick={() => {
+                                    <div className="flex justify-center col">
+                                        <Button className="w-full" size="lg" onClick={() => {
                                             handleCancel()
                                         }}>{t("done")}</Button>
                                     </div>
@@ -130,7 +129,7 @@ const ApplyTransferCode = () => {
                     </Modal>
             </div>
         </div>
-        <div className="row mt-10">
+        <div className={styles.TransferTableContainer}>
             <TransferTableCode/>
         </div>
     </div>

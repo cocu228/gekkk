@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
-import { DatePicker, Switch } from "antd";
+import { DatePicker } from "antd";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
 import { format, addDays } from "date-fns";
-import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { ordersTabs } from "../../model/heplers";
@@ -20,14 +19,13 @@ import OrderProperties from "./order-properties/OrderProperties";
 import { apiGetOrders, apiCancelOrder } from "@/shared/(orval)api/gek";
 import {
   actionResSuccess,
-  getSecondaryTabsAsRecord,
 } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
-
-const { RangePicker } = DatePicker;
+import { RangePickerProps } from "antd/es/date-picker";
+import { Modal } from "@/shared/ui/modal/Modal";
+import {Switch } from "@/shared/ui/Switch/index";
 
 interface IParams {
   refreshKey?: string;
@@ -43,14 +41,23 @@ function OpenOrders({ refreshKey }: IParams) {
   const [lazyLoading, setLazyLoading] = useState(false);
   const [allOrdVisibly, setAllOrdVisibly] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [customOrders, setCustomOrders] = useState<boolean>(false)
   const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
   const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
   const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs(addDays(new Date(), -90)),
-    dayjs(),
-  ]);
+  const [customDateStart, setCustomDateStart] = useState<dayjs.Dayjs>(dayjs(addDays(new Date(), -90)));
+  const [customDateEnd, setCustomDateEnd] = useState<dayjs.Dayjs>(dayjs());
+
+  const disabledDateStart: RangePickerProps['disabledDate'] = (current) => {
+    // Can not select days before today and today
+    return current && (customDateEnd && current > customDateEnd)
+  };
+  const disabledDateEnd: RangePickerProps['disabledDate'] = (current) => {
+    // Can not select days before today and today
+    return current && ((customDateStart && current < customDateStart) || (dayjs().endOf('day') < current));
+  };
+  
 
   useEffect(() => {
     setIsLoading(true);
@@ -75,8 +82,8 @@ function OpenOrders({ refreshKey }: IParams) {
         })
         : await apiGetOrders({
           room_key: roomInfo?.timetick,
-          end: customDate[1].format("YYYY-MM-DD"),
-          start: customDate[0].format("YYYY-MM-DD"),
+          end: customDateEnd.format("YYYY-MM-DD"),
+          start: customDateStart.format("YYYY-MM-DD"),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -102,8 +109,8 @@ function OpenOrders({ refreshKey }: IParams) {
         : await apiGetOrders({
           from_order_id: lastValue.id,
           room_key: roomInfo?.timetick,
-          end: customDate[1].format("YYYY-MM-DD"),
-          start: customDate[0].format("YYYY-MM-DD"),
+          end: customDateEnd.format("YYYY-MM-DD"),
+          start: customDateStart.format("YYYY-MM-DD"),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -129,57 +136,103 @@ function OpenOrders({ refreshKey }: IParams) {
     setOrdersList(ordersList.filter((o) => o.id !== selectedOrder.id));
   };
 
+  useEffect(()=>{
+    setCustomDateStart(dayjs(addDays(new Date(), -90)))
+    setCustomDateEnd(dayjs())
+  },[activeTab])
+
   return (
     <>
-      <div className="flex gap-x-4 w-full justify-center">
+      <div className={styles.Switch}>
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-dark-blue)]" : "[color:var(--gek-mid-grey)]"
+          className={`${styles.SwitchText} text-${activeTab === "Opened" ? "[var(--gek-dark-blue)]" : "[var(--gek-mid-grey)]"
             }`}
         >
           {t("exchange.active_orders")}
         </span>
         <Switch
-          className="rotate-180"
-          defaultChecked={activeTab === ordersTabs[0].Key}
+          className={styles.SwitchWrap}
+          defaultCheked={activeTab === ordersTabs[0].Key}
           onChange={(isCheked) =>
             setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
           }
         />
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-mid-grey)]" : "[color:var(--gek-dark-blue)]"
+          className={`${styles.SwitchText} text-${activeTab === "Opened" ? "[var(--gek-mid-grey)]" : "[var(--gek-dark-blue)]"
             }`}
         >
           {t("exchange.closed_orders")}
         </span>
+
+        {activeTab === TabKey.CLOSED && 
+          <button 
+            className="absolute right-[5px]"
+            onClick={()=>{setCustomOrders(n=>!n)}}
+          >
+            <IconApp size={15} code="t30" color="var(--gek-dark-blue)"/>
+          </button>
+        }
       </div>
 
-      {activeTab === TabKey.CLOSED && (
-        <div className="mt-2 mb-4 px-3">
-          {t("enter_period")}
+      {activeTab === TabKey.CLOSED && customOrders && (
+        <div className={styles.CustomDateContainer}>
+          <span className={styles.CustomDateContainerEnter}>
+            {t("enter_period")}
+          </span>
 
-          <div className="flex grow-0 max-w-[400px]">
-            <RangePicker
-              className="mt-2 w-full"
-              value={customDate}
-              onChange={setCustomDate}
-            />
+          <div className={styles.CustomDateContainerSecondary}>
+            <div className={styles.CustomDateContainerPickers}>
+              <DatePicker
+                suffixIcon={<IconApp code="t39" size={20}/>}
+                className={styles.CustomDateContainerPicker}
+                value={customDateStart}
+                onChange={setCustomDateStart}
+                disabledDate={disabledDateStart}
+              />
 
-            <Button
-              className="ml-5"
-              disabled={isLoading || !customDate}
-              onClick={requestOrders}
-            >
-              {t("apply")}
-            </Button>
+              <span>-</span>
+
+              <DatePicker
+                suffixIcon={<IconApp code="t39" size={20}/>}
+                className={styles.CustomDateContainerPicker}
+                value={customDateEnd}
+                onChange={setCustomDateEnd}
+                disabledDate={disabledDateEnd}
+              />
+            </div>
+
+            <div className={styles.CustomDateContainerButtons}>
+              <Button
+                className={styles.CustomDateContainerButton}
+                color="blue"
+                disabled={isLoading || !customDateStart || !customDateEnd}
+                onClick={requestOrders}
+              >
+                {t("apply")}
+              </Button>
+              <Button
+                className={styles.CustomDateContainerButton}
+                color="gray"
+                disabled={isLoading || (!customDateStart && !customDateEnd)}
+                onClick={()=>{
+                  setCustomDateStart(null)
+                  setCustomDateEnd(null)
+                }}
+              >
+                {t("clean")}
+              </Button>
+            </div>
           </div>
         </div>
       )}
 
       <div className="mt-1.5">
-        {!isLoading ? null : <Loader className="relative mt-10 mb-10" />}
+        {!isLoading ? null : <div className="min-h-[70px]">
+          <Loader className="relative mt-10 mb-10" />
+        </div>}
 
         {!(isLoading || ordersList.length) && (
-          <div className="text-center mb-10 mt-3 text-gray-400">
+          <div className={styles.NoOpen}>
             {t("exchange.no_opened_orders")}
           </div>
         )}
@@ -204,7 +257,7 @@ function OpenOrders({ refreshKey }: IParams) {
                   </div>
 
                   <span className="text-gray-400">
-                    {ord.state}{" "}
+                    {t(ord.state.toLowerCase()).capitalize()}{" "}
                     {ord.state !== OrderState.FAILED ? null : (
                       <Tooltip
                         text={
@@ -251,7 +304,9 @@ function OpenOrders({ refreshKey }: IParams) {
                 </div>
 
                 {ord.state !== OrderState.OPENED ? null : (
-                  <button
+                  <Button
+                    skeleton
+                    color="red"
                     className={styles.CancelOrderBtn}
                     onClick={() => {
                       setSelectedOrder(ord);
@@ -259,7 +314,7 @@ function OpenOrders({ refreshKey }: IParams) {
                     }}
                   >
                     {t("cancel")}
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>
@@ -269,14 +324,18 @@ function OpenOrders({ refreshKey }: IParams) {
           <div className="row mt-3">
             <div className="col flex justify-center relative">
               {lazyLoading ? (
-                <Loader className={"w-[24px] h-[24px] top-[4px]"} />
+                <div className="min-h-[20px]">
+                  <Loader className={"w-[24px] h-[24px] top-[4px]"} />
+                </div>
               ) : (
                 <span
                   onClick={requestMoreOrders}
                   className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
-                  {t("exchange.see_more")}{" "}
-                  <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
+                  <div className={styles.SeeMore}>
+                    {t("exchange.see_more")}{" "}
+                    <IconApp size={12} code="t08" className="rotate-[90deg] ml-2" color="var(--gek-mid-grey)" />
+                  </div>
                 </span>
               )}
             </div>
@@ -285,12 +344,9 @@ function OpenOrders({ refreshKey }: IParams) {
       </div>
 
       <Modal
-        width={450}
-        closable={false}
-        title={<ModalTitle handleCancel={cancelOrderModal.handleCancel} title={t("exchange.cancel_order")}/>}
-        open={cancelOrderModal.isModalOpen}
+        title={t('exchange.cancel_order')}
+        isModalOpen={cancelOrderModal.isModalOpen}
         onCancel={cancelOrderModal.handleCancel}
-        padding
       >
         <div className="text-sm mb-4"> {t("exchange.cancel_this_order")}</div>
         <div className="font-medium mb-2">
@@ -301,14 +357,14 @@ function OpenOrders({ refreshKey }: IParams) {
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="flex gap-4 mt-8 sm:mt-4 h-[43px]">
-          <Button size="sm" className="w-full" onClick={cancelOrder}>
+        <div className="flex gap-4 mt-8 sm:mt-4 h-[43px] justify-between">
+          <Button className="w-full" onClick={cancelOrder}>
             {t("exchange.cancel_order")}
           </Button>
 
           <Button
-            size="sm"
-            variant='gray'
+            skeleton
+            color='green'
             className="w-full"
             onClick={cancelOrderModal.handleCancel}
           >

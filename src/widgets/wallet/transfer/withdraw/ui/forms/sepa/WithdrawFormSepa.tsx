@@ -1,8 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
-import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
@@ -17,8 +15,9 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import {Modal} from "@/shared/ui/modal/Modal";
+import { Select } from '@/shared/ui/Select';
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -69,7 +68,7 @@ const WithdrawFormSepa = () => {
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     onSelect={setInputCurr}
-                                    header={<span className={styles.TitleColText}>{t("amount")}:</span>}
+                                    header={<span className={`${styles.TitleColText} ml-[10px]`}>{t("amount")}:</span>}
                                 >
                                 <InputCurrency
                                     transfers={md}
@@ -87,7 +86,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("beneficiary_name")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -104,7 +103,7 @@ const WithdrawFormSepa = () => {
                     </div>
                                                     
                     <div className='text-gray-400'>
-                        <span className='text-[color:var(--gek-orange)] text-[10px]'>
+                        <span className='text-[var(--gek-orange)] text-[10px]'>
                             {!inputs.beneficiaryName && "*" + t("EW_law")}
                         </span>
                     </div>
@@ -114,7 +113,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("IBAN")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("IBAN")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -135,20 +134,20 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("transfer_desc")}:</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Select className="w-full"
-                                    onChange={(v: unknown) => setInputs(() => ({
-                                        ...inputs,
-                                        transferDescription: v
-                                    }))}
-                                    name={"transferDescription"}
-                                    options={transferDescriptionsTranslated}
-                                    placeholder={t("transfer_details.name")}
-                                    value={inputs.transferDescription}
+                            <Select
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    transferDescription: v
+                                }))}
+                                listHeight={250}
+                                options={transferDescriptionsTranslated}
+                                placeholder={t("transfer_details.name")}
+                                value={inputs.transferDescription}
                             />
                         </div>
                     </div>
@@ -158,7 +157,7 @@ const WithdrawFormSepa = () => {
                 <div className="col w-full">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("comment")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("comment")}:</span>
                         </div>
                     </div>
                     <div className="row w-full">
@@ -190,12 +189,12 @@ const WithdrawFormSepa = () => {
             </div>
             
             <Modal
-                width={450}
+                placeBottom={window.innerWidth < 768}
+                zIndex
                 destroyOnClose
-                open={isModalOpen}
+                isModalOpen={isModalOpen}
                 onCancel={handleCancel}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                title={t("confirm_transaction")}
             >
                 <WithdrawConfirmSepa
                     {...inputs}
@@ -206,8 +205,7 @@ const WithdrawFormSepa = () => {
 
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
-                    variant='greenTransfer'
+                    size="lg"
                     onClick={showModal}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}

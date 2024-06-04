@@ -13,6 +13,7 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/gko-sidebar/model/helpers";
 import {getFixedDepositTitle, getStructedDepositTitle, scrollToTop} from "@/shared/lib/helpers";
+import {IconApp} from "@/shared/ui/icons/icon-app";
 
 const SidebarDesktop = () => {
     const {t} = useTranslation();
@@ -117,15 +118,13 @@ const SidebarDesktop = () => {
 
                 {/* Secondary options wrapper */}
                 <div style={{backgroundColor: "#f7f7f0"}} className="h-[8px] w-full"/>
-
                 <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
                     <div className={`${styles.Item}`}>
                         <div className="col flex items-center pl-4">
-                            <img width={50} height={50} src={`/img/icon/DepositGradientIcon.svg`}
-                                 alt="DepositGradientIcon"/>
+                                <IconApp lib={3} code="t35" size={50} color="var(--color-gray-400)" />
                         </div>
                         <div className="col flex items-center justify-center flex-col pl-6">
-                            <div className="row w-full mb-1 font-medium"><span
+                            <div className="row w-full font-medium"><span
                                 className={styles.NavName}>New deposit</span>
                             </div>
                         </div>
@@ -139,8 +138,9 @@ const SidebarDesktop = () => {
                             <NavLink onClick={NavLinkEvent} to={`deposit/${item.id}`} key={item.id}>
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
-                                        <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
-                                        <img alt={"DepositGradientIcon.svg"} className={styles.Icon}
+                                    <IconApp code="t66" size={15} color="var(--color-gray-400)" />
+                                        {/*<IconApp lib={3} code="t36" size={50} color="var(--color-gray-400)" />*/}
+                                        <img style={{marginLeft: "4px"}} alt={"DepositGradientIcon.svg"} className={styles.Icon}
                                              src={"/img/icon/DepositGradientIcon.svg"}/>
                                     </div>
                                     <div className="col w-full flex items-center justify-center flex-col pl-6 pr-2">

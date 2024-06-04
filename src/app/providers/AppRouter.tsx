@@ -8,15 +8,14 @@ import PageProblems from '@/pages/page-problems/PageProblems';
 import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support/";
 import PartnershipProgram from "@/pages/partnership-program";
-// import SupportChatAuthorized from '@/pages/support/chat-authorized';
-// import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
 import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
-import { MainCardPage } from '@/pages/card-menu';
-import { CardData } from '@/pages/card-menu/components/card-data';
 import { GekkardPro } from '@/pages/gekkard-pro';
+import { IS_GEKKARD_APP } from '@/shared/lib';
+import ReceiptPage from "@/pages/receipt-page";
+import CardsMenu from '@/widgets/!cards-menu/ui';
 
 const router = createBrowserRouter([
     {
@@ -27,20 +26,6 @@ const router = createBrowserRouter([
                 path: '',
                 element: <Dashboard/>
             },
-            // Used in Gekkoin
-            // {
-            //     path: 'new-deposit',
-            //     children: [
-            //         {
-            //             path: '',
-            //             element: <Deposit/>,
-            //         }
-            //     ]
-            // },
-            // {
-            //     path: 'deposit-types',
-            //     element: <CryptoDeposits/>,
-            // },
             {
                 path: 'partnership-program',
                 element: <PartnershipProgram/>,
@@ -51,24 +36,12 @@ const router = createBrowserRouter([
                 
             },
             {
-                path: 'exchange',
-                element: <Exchange/>
-            },
-            {
-                path: 'private-room',
-                element: <Exchange/>
-            },
-            {
                 path: 'support',
                 children: [
                     {
                         path: '',
                         element: <Support/>
-                    },
-                    // {
-                    //     path: 'chat',
-                    //     element: <SupportChatAuthorized/>
-                    // },
+                    }
                 ]
             },
             {
@@ -80,6 +53,10 @@ const router = createBrowserRouter([
                 element: <HistoryPage/>
             },
             {
+                path: 'receipt',
+                element: <ReceiptPage/>
+            },
+            {
                 path: 'wallet',
                 element: <Wallet/>
             },
@@ -87,11 +64,6 @@ const router = createBrowserRouter([
                 path: 'profile-settings',
                 element: <ProfileSettings/>
             },
-            // Used in Gekkoin
-            // {
-            //     path: 'deposit/:id',
-            //     element: <CurrentDeposit/>
-            // },
             {
                 path: 'faq',
                 element: <Faq />
@@ -101,18 +73,28 @@ const router = createBrowserRouter([
                 element: <Settings />
             },
             {
-                path: 'card-menu',
-                element: <MainCardPage/>,
-            },
-            {
-                path: 'card-data',
-                element: <CardData/>,
-            },
-            {
                 path: 'gekkard-pro',
                 element: <GekkardPro/>,
-            }
+            },
+            ...(IS_GEKKARD_APP() ? [
+                {
+                    path: 'card-menu',
+                    element: <CardsMenu/>,
+                },
+                {
+                    path: 'exchange',
+                    element: <Exchange/>
+                },
+                {
+                    path: 'private-room',
+                    element: <Exchange/>
+                }
+            ] : [])
         ],
+        // Show exception message only in dev mode
+        ...(import.meta.env.MODE === "dev.gekkard"
+            ? {}
+            : {errorElement: <PageProblems code={500}/>})
     },
     {
         path: "*",

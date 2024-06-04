@@ -8,7 +8,7 @@ interface CloseWindowButtonProps {
 
 export const CloseWindowButton:FC<CloseWindowButtonProps> = (props) => {
   return (
-    <div onClick={props.onClick} className='text-[#285E69ff]' >
+    <div onClick={props.onClick} className='text-[#285E69ff] cursor-pointer' >
       <IconApp code='t26' size={20} color='#285E69ff' />
     </div>
   )

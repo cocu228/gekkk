@@ -1,0 +1,78 @@
+@import "@styles/mixins";
+@import "../styles.module.scss";
+
+.FormWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #b4c0cd;
+    width: 100%;
+    text-align: left;
+}
+
+.FormBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.TitleColText {
+    color: #1F3446;
+    font-weight: 500;
+    font-size: 16px;
+            
+    @include max-devices("md") {
+        font-weight: 700;
+        font-size: 12px;
+    }
+}
+
+.InpBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.LawText {
+    font-size: 12px;
+    color: #b4c0cd;
+
+    @media screen and (min-width: 768px) {
+        font-size: 10px;
+        color: #F8A73E;
+    }
+}
+
+.ConfirmItem {
+    gap: 0.125rem;
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    &Title {
+        color: var(--gek-mid-grey);
+    }
+
+    &Value {
+        font-weight: 600;
+        line-break: anywhere;
+        color: var(--gek-additional);
+    }
+}
+
+.MobileWarnBlock {
+    gap: 0.5rem;
+    display: flex;
+    margin-bottom: 1.25rem;
+}

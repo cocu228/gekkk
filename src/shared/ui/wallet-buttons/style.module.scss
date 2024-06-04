@@ -9,8 +9,16 @@
     grid-column-gap: 10px;
     grid-template-rows: 100%;
     grid-template-columns: repeat(3, 1fr);
+
+    &.Gekwallet {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .MainWallet {
     grid-template-columns: repeat(4, 1fr);
+
+    &.Gekwallet {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

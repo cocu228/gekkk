@@ -1,19 +1,21 @@
 import { useTranslation } from "react-i18next"
 import styles from "./styles.module.scss"
 import Button from "@/shared/ui/button/Button"
-import { Switch } from "antd"
+import {Switch} from "@/shared/ui/Switch"
 import { useNavigate } from "react-router-dom"
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider"
+import { useState } from "react"
 
 type Props = {}
 
 export const GekkardPro = (props: Props) => {
-    const {t} = useTranslation()
-    const navigate = useNavigate()
-    const {md} = useBreakpoints()
+    const {t} = useTranslation();
+    const {md} = useBreakpoints();
+    const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     const handleSwitch = () => {
-        // handle for switch event
+        setIsChecked(!isChecked);
     }
 
     const handleProceed = () => {
@@ -36,9 +38,7 @@ export const GekkardPro = (props: Props) => {
                 </div>
                 <div className={styles.Accept}>
                     <div className={styles.Switch}>
-                        <Switch 
-                            onChange={handleSwitch}
-                        />
+                        <Switch disabled onChange={handleSwitch} />
                     </div>
                     <div className={`${styles.AcceptText} ${!md && styles.DesktopTextLarge}`}>
                         <span>
@@ -49,18 +49,16 @@ export const GekkardPro = (props: Props) => {
             </div>
             <div className={styles.Buttons}>
                 <Button
-                    variant="greenTransfer"
-                    className={styles.ButtonsProceed}
-                    size="xl"
+                    disabled={!isChecked}
                     onClick={handleProceed}
+                    className={styles.ButtonsProceed}
                 >
                     {t("proceed")}
                 </Button>
                 <Button
-                    variant="whiteGreenTransfer"
-                    className={styles.ButtonsBack}
-                    size="xl"
+                    skeleton
                     onClick={handleBack}
+                    className={styles.ButtonsBack}
                 >
                     {t("back")}
                 </Button>

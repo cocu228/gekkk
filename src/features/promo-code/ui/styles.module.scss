@@ -1,0 +1,28 @@
+.InputWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #B9B9B5;
+    border-radius: 8px;
+    color: #B9B9B5 !important;
+
+    input {
+        padding: 1.25rem 1.25rem 1.25rem 0.75rem !important;
+    }
+}
+
+.HelpMessage {
+    color: #45AD77;
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    &Red {
+        color: #ff4d4f !important;
+    }
+}
+
+.IconsWrap {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

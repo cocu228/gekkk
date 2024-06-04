@@ -1,23 +1,25 @@
 import {defineConfig, loadEnv} from 'vite';
-import { createHtmlPlugin } from 'vite-plugin-html';
-// import {VitePWA} from 'vite-plugin-pwa'
-// import tailwindcss from 'tailwindcss'
+import {createHtmlPlugin} from 'vite-plugin-html';
 import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
-// import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
+import {copy} from 'vite-plugin-copy';
 
 export default defineConfig(({mode}) => {
+    const getVersion = (appType: string | undefined) => {
+        return JSON.stringify(require('./package.json')[`${appType?.toLowerCase()}-version`])
+    }
 
     process.env = {
         ...process.env,
         ...loadEnv(mode, process.cwd() + "/env"),
-        VITE_APP_VERSION: JSON.stringify(require('./package.json').version),
+        VITE_APP_VERSION: getVersion(process.env.APP_TYPE),
         VITE_APP_TYPE: process.env.APP_TYPE,
     };
 
     const isGekkoin = process.env.APP_TYPE === "GEKKOIN";
+    const isGekwallet = process.env.APP_TYPE === "GEKWALLET";
 
     return {
         // base: '',
@@ -77,35 +79,21 @@ export default defineConfig(({mode}) => {
                 minify: true,
                 inject: {
                     data: {
-                        title: isGekkoin ? "Gekkoin" : "Gekkard",
+                        title: isGekwallet ?
+                            "Gekwallet" : isGekkoin ?
+                                "Gekkoin" : "Gekkard",
                     },
                 },
             }),
             svgr(),
-            // VitePWA({
-            //     registerType: 'autoUpdate',
-            //     // includeAssets: ['**/*'],
-            //     workbox: {
-            //         maximumFileSizeToCacheInBytes: 20000000,
-            //         // globPatterns: ['**/*'],
-            //         globPatterns: ['**/*.{js,css,html,json,webmanifest}'],
-            //         // runtimeCaching: [
-            //         //     {
-            //         //         urlPattern: ({url}) => {
-            //         //             // console.log(url)
-            //         //             // return !!url.pathname.startsWith("/")
-            //         //         },
-            //         //         handler: "StaleWhileRevalidate",
-            //         //         options: {
-            //         //             cacheName: "MyCache"
-            //         //         }
-            //         //     }
-            //         // ]
-            //     },
-            //     devOptions: {
-            //         enabled: true
-            //     }
-            // })
+            copy([{
+                src: isGekkoin
+                    ? './public/manifests/gekkoin/site.webmanifest'
+                    : isGekwallet
+                        ? './public/manifests/gekwallet/site.webmanifest'
+                        : './public/manifests/gekkard/site.webmanifest',
+                dest: './public/',
+            }]),
             nodePolyfills({
                 globals: {
                     Buffer: true, // can also be 'build', 'dev', or false

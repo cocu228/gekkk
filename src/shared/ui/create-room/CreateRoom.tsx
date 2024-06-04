@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -8,9 +8,11 @@ import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import TokenSelect from "@/shared/ui/search-select/token-select/TokenSelect";
 import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import {Select} from "../SearchSelect/Select";
+import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 
 interface IParams {
   to: IExchangeField;
@@ -19,6 +21,7 @@ interface IParams {
   onRoomCreation: (roomInfo: RoomInfo) => void;
   onToCurrencyChange: (value: string) => void;
   onFromCurrencyChange: (value: string) => void;
+  onCancel?: ()=>void
 }
 
 function CreateRoom({
@@ -28,83 +31,95 @@ function CreateRoom({
   onCurrenciesSwap,
   onToCurrencyChange,
   onFromCurrencyChange,
+  onCancel
 }: IParams) {
   const [isIco, setIsIco] = useState(false);
   const [purchaseLimit, setPurchaseLimit] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [localErrorHunter, , localErrorInfoBox] = UseError();
+  const {md} = useBreakpoints()
+  const { currencies } = useContext(CtxCurrencies);
+
+  const allowedFlags = [CurrencyFlags.ExchangeAvailable]
+
+  const assetsFilter = (asset: ICtxCurrency) => {
+    if (allowedFlags) {
+      return Object.values(allowedFlags).some((f) => asset.flags[f]);
+    }
+
+    return true;
+  };
+
+  const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
+
+  const transformedList = tokensList.map(item => ({
+    id: item.$const,
+    name: item.name
+  }));
 
   return (
     <>
       <div className={loading ? "!collapse" : ""}>
         <div className={styles.ModalText}>
-          <IconApp color="#8F123A" size={20} code="t27" />
-          {t("exchange.private_room_allows")}
+          <div>
+            <IconApp color="#8F123A" size={15} code="t27" />
+          </div>
+          <div className="w-[80%]">
+            {t("exchange.private_room_allows")}
+          </div>
         </div>
-        <div className="mt-4">
+        <div className={"mt-4 " + styles.SelectToken}>
           <label
-            className="inline-flex mb-1 text-sm font-medium"
+            className={styles.Title}
             htmlFor="sell-token"
           >
-            {t("exchange.from")}
+            {t("exchange.from")}:
           </label>
-          <TokenSelect
-            id="sell-token"
-            value={from.currency}
-            onSelect={onFromCurrencyChange}
+          <Select
+            isToken
             disabledCurrencies={[to.currency]}
-            placeholder={t("exchange.select_token")}
-            allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+            tokenId={from.currency}
+            list={transformedList}
+            placeholderText="-select-"
+            onSelect={onFromCurrencyChange}
           />
+          
         </div>
         
-        <div className="flex w-full justify-center mt-2 -mb-5">
+        <div className="flex w-full justify-center mt-2">
           <div onClick={onCurrenciesSwap} className="cursor-pointer">
-            <IconApp code='t36' size={25} color="#B9B9B5" />
+            <IconApp code='t36' size={md ? 17 : 25} color="#B9B9B5" />
           </div>
         </div>
 
-        <div className="mt-2">
+        <div className={styles.SelectToken}>
           <label
-            className="inline-flex mb-1 text-sm font-medium"
+            className={styles.Title}
             htmlFor="get-token"
           >
-            {t("exchange.to")}
+            {t("exchange.to")}:
           </label>
-          <TokenSelect
-            id="get-token"
-            value={to.currency}
-            onSelect={onToCurrencyChange}
+          <Select
             disabledCurrencies={[from.currency]}
-            placeholder={t("exchange.select_token")}
-            allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+            isToken
+            tokenId={to.currency}
+            list={transformedList}
+            placeholderText="-select-"
+            onSelect={onToCurrencyChange}
           />
         </div>
 
-        <div className="mt-6">
-          <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">
-            {t("exchange.purchase_limit")}
-          </label>
-          <Input
-            allowDigits
-            placeholder={t("exchange.it_is_empty")}
-            onChange={(event) => {
-              setPurchaseLimit(+event.target.value)
-            }}
-          />
-        </div>
-
-        <div className="flex items-center gap-3 justify-center mt-4">
+        <div className="flex items-center gap-3 justify-center mt-6">
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${
-              isIco ? "bg-[#b4c0cd]" : "bg-[color:var(--gek-green)]"
+              isIco ? "bg-[#b4c0cd]" : "bg-[var(--gek-green)]"
             } relative p-[4px] `}
           >
             <div
               className={`w-[15px] h-[15px] transition-all duration-300 rounded-[50%] absolute  top-[2.2px] 
                 ${isIco ? "left-[2px]" : "left-[calc(100%_-_17.5px)]"}
-                ${isIco ? "bg-[#fff]" : "bg-[color:var(--gek-additional)]"}
+                ${isIco ? "bg-[#fff]" : "bg-[var(--gek-additional)]"}
               `}
             ></div>
           </div>
@@ -112,19 +127,34 @@ function CreateRoom({
             onClick={() => {
               setIsIco(!isIco);
             }}
-            className="hover:cursor-pointer text-smm select-none"
+            className="hover:cursor-pointer text-smm select-none text-[12px] text-[#1F3446]"
           >
             {t("exchange.only_i_can")}
           </span>
         </div>
 
+
+        <div className="mt-2">
+          <label className={styles.Title} htmlFor="">
+            {t("exchange.purchase_limit")}:
+          </label>
+          <Input
+            allowDigits
+            className={styles.PurchaseLimit}
+            placeholder={t("exchange.it_is_empty")}
+            onChange={(event) => {
+              setPurchaseLimit(+event.target.value)
+            }}
+          />
+        </div>
+
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 sm:mt-11">
+        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-center">
           <Button
+            size="lg"
+            className="!w-[120px]"
             disabled={!(from.currency && to.currency)}
-            size="xl"
-            className="w-full"
             onClick={() => {
               setLoading(true);
 
@@ -150,7 +180,14 @@ function CreateRoom({
                 });
             }}
           >
-            {t("exchange.open_private_exchange_room")}
+            {t("confirm")}
+          </Button>
+          <Button
+            className="!w-[120px]"
+            skeleton
+            onClick={onCancel}
+          >
+            {t("cancel")}
           </Button>
         </div>
       </div>

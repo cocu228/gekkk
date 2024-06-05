@@ -84,12 +84,10 @@
 
 .SuffixBlock {
     background-color: white;
-    padding: 20px 20px;
+    display: flex;
+    margin: auto;
+    padding-right: 10px;
     overflow: hidden;
-      @include max-devices(md) {
-        padding:3px 5px;
-    }
-
 }
 
 .InputMobileWrapper{

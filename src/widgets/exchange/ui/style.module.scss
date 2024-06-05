@@ -12,6 +12,7 @@
 }
 
 .FromBlockWrap {
+  font-family: "Inter";
   font-weight: 600;
   gap: 5px;
   display: flex;
@@ -23,9 +24,9 @@
   user-select: none;
 
 
-  @media screen and (max-width: 430px) {
+  @media screen and (max-width: 768px) {
     // flex-direction: column;
-
+    margin-bottom: 0;
   }
 }
 

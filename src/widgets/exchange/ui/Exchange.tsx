@@ -212,7 +212,7 @@ function Exchange() {
             <div className={`gap-x-[10px] bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  <span className="md:ml-[7px]">{t("exchange.you_pay")}:</span>
+                  <span className="md:ml-[7px] text-[#29354C]">{t("exchange.you_pay")}:</span>
                   <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
@@ -237,7 +237,7 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px]">
+                <div className="font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px] text-[#29354C]">
                   {t("exchange.get_no_less")}:
                 </div>
 
@@ -252,7 +252,7 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-semibold mt-4 text-xs md:ml-[7px]">
+                  <div className="font-semibold mt-4 text-xs md:ml-[7px] text-[#29354C]">
                     {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />

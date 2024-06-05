@@ -43,10 +43,10 @@ const PercentSelector: FC<IParams> = ({
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
         <div className="wrapper">
-            <div className="row flex justify-between items-center mb-[5px]">
+            <div className="row flex justify-between items-center">
                 {header}
 
-                <div className={`row flex gap-1 text-xs md:mb-1
+                <div className={`row flex gap-1 text-xs
                         ${disabled || !currency || !currency.balance?.free_balance
                             ? 'pointer-events-none'
                             : ''

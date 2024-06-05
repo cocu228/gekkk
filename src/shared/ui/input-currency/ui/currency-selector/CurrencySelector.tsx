@@ -56,6 +56,7 @@ const CurrencySelector: FC<IParams> = ({
         >
             <div className='mt-[50px]'>
                 <AssetsTable
+                    border
                     modal
                     className='-mx-4 -mt-8 min-h-[500px]'
                     balanceFilter={balanceFilter}

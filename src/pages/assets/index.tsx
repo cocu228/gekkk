@@ -37,6 +37,7 @@ function Assets() {
                     <div
                         className={!md ? 'substrate w-full col-span-3 z-10 -xl:rounded-r-none': 'w-full'}>
                         <AssetsTable
+                            border={false}
                             isModal={false}
                             className='w-full'
                             columnKeys={columns}

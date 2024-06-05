@@ -21,6 +21,7 @@ interface AssetsTableRowProps {
     columnKeys: AssetTableKeys[]
     rates: Record<constants, number>;
     isModal?: boolean
+    border?: boolean
 };
 
 export const AssetsTableRow:FC<AssetsTableRowProps> = ({
@@ -30,6 +31,7 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
     onSelect,
     columnKeys,
     rates,
+    border = false,
     isModal = true
 }) => {
     const { lg, md } = useContext(BreakpointsContext);
@@ -40,6 +42,7 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
         <div
                   className={`                          
                                     ${styles.Item}
+                                    ${border && styles.ExchangeStyles}
                                     ${
                                       blockedCurrencies?.includes(
                                         currency.$const
@@ -86,7 +89,7 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                             </span>
                           ) : (
                             <div className={styles.RowTextGroup}>
-                              <span className="block font-medium">{currency.$const}</span>
+                              <span className="block font-semibold">{currency.$const}</span>
                               <span
                                 className={`${styles.InnerName}`}
                               >

@@ -182,6 +182,11 @@
   @media screen and (min-width: 770px) {
     font-size: 16px;
   }
+
+
+  @media screen and (max-width: 440px) {
+    margin-right: 5px;
+  }
 }
 
 .SelectedToken {

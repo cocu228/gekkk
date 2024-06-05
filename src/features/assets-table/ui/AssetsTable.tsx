@@ -27,6 +27,7 @@ interface IParams {
   blockedCurrencies?: Array<string>;
   onSelect?: (currency: string) => void;
   isModal?: boolean;
+  border?: boolean;
 }
 
 function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
@@ -44,7 +45,8 @@ const AssetsTable = ({
   blockedCurrencies,
   allowedFlags,
   onSelect,
-  isModal
+  isModal,
+  border
 }: IParams) => {
   const inputRef = useRef(null);
   const { lg, md } = useContext(BreakpointsContext);
@@ -112,7 +114,7 @@ const AssetsTable = ({
             onChange={searchInpChange}
           />
         ) : (
-          <div className={styles.SearchInput}>
+          <div className={`${styles.SearchInput} ${border && styles.Border}`}>
             <IconApp size={20} code="t12" color="#000" />
             <Input
               className={`${styles.searchInputInner}`}
@@ -156,6 +158,7 @@ const AssetsTable = ({
               .filter((value) => searchTokenFilter(value, searchValue))
               .map((currency, index) => (
                 <AssetsTableRow key={index}
+                  border={border}
                   isModal={isModal}
                   currency={currency} 
                   blockedCurrencies={blockedCurrencies}

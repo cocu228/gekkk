@@ -32,7 +32,7 @@ const InputField: FC<IParams> & {
 
     return (
         <div className={wrapperClassName ? wrapperClassName : styles.Field}>
-            <div >
+            <div className={'display: flex'}>
                 <input
                     type="text"
                     name={name}

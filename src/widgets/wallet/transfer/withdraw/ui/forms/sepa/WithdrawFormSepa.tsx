@@ -92,8 +92,6 @@ const WithdrawFormSepa = () => {
                     <div className="row">
                         <div className="col">
                             <Input
-                                tranfers={md}
-                                bordered={!md}
                                 value={inputs.beneficiaryName}
                                 onChange={onInput}
                                 placeholder={t("enter_beneficiary_name")}
@@ -113,9 +111,7 @@ const WithdrawFormSepa = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Input 
-                                tranfers={md}
-                                bordered={!md}
+                            <Input
                                 value={inputs.accountNumber} 
                                 onChange={onInput}
                                 name={"accountNumber"} allowDigits
@@ -159,8 +155,6 @@ const WithdrawFormSepa = () => {
                         <div className="col w-full flex items-center">
                             {md?
                                 <Input
-                                    tranfers={md}
-                                    bordered={!md}
                                     allowDigits
                                     allowSymbols
                                     value={inputs.comment}

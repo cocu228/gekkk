@@ -378,8 +378,6 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
-                tranfers
-                bordered={false}
                 allowDigits
                 type={"text"}
                 onInput={onCardNumberInput}
@@ -406,8 +404,6 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
-                tranfers
-                bordered={false}
                 value={inputs.cardholderName}
                 onChange={({ target }) => {
                   setInputs(() => ({
@@ -434,17 +430,12 @@ const WithdrawFormCardToCard = () => {
           <div className="row w-full">
             <div className="col flex items-center">
               <Input
-                tranfers={md}
-                bordered={!md}
                 allowDigits
                 allowSymbols
                 value={inputs.comment}
                 name={"comment"}
                 onChange={onInputDefault}
                 placeholder={""}
-                style={{
-                  height: 56,
-                }}
               />
             </div>
           </div>

@@ -19,11 +19,10 @@
 .Field {
   position: relative;
   margin-top: 0.4rem;
-  text-align: right;  
+  align-items: end;
   outline: none;
   background-color: var(--gek-white);
   width: 100%;
-
 
 
   &:active {

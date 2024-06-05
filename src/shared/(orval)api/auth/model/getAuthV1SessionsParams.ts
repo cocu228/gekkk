@@ -12,7 +12,6 @@
  * OpenAPI spec version: v1
  */
 
-/**
- * @nullable
- */
-export type AuthenticationExtensionsClientInputsExampleExtension = unknown | null;
+export type GetAuthV1SessionsParams = {
+current?: boolean;
+};

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
-                    Build version 1.0.2-20240202-0902.6046+448a20a6398e9e01512eae689a544e39eaf22356<br/><br/>
+                    Build version 1.0.2-20240603-1400.7918+1d767e41e02f7ade725004459d7957572da17870<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -19,6 +19,7 @@ import type {
   GetAuthV1RegisterOptionsParams,
   GetAuthV1RemoveKeyParams,
   GetAuthV1ResetPasswordParams,
+  GetAuthV1SessionsParams,
   UserKeyListApiResponse,
   UserLoginLogListApiResponse,
   UserSessionListApiResponse
@@ -34,6 +35,7 @@ import getAuthV1RemoveKeyMutator from '../../lib/(orval)axios';
 import getAuthV1UserKeysMutator from '../../lib/(orval)axios';
 import getAuthV1SessionsMutator from '../../lib/(orval)axios';
 import getAuthV1ResetPasswordMutator from '../../lib/(orval)axios';
+import getNotifyV1SubscribeMutator from '../../lib/(orval)axios';
 
 
 
@@ -104,7 +106,7 @@ export const apiCloseSessions = (
     }
   
 /**
- * @summary Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения
+ * @summary Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения. Для неаутентифирофанного вызова необходим параметр code — email код, отправленный на предыдущем шаге.
  */
 export const apiRegisterOptions = (
     params?: GetAuthV1RegisterOptionsParams,
@@ -159,10 +161,11 @@ export const apiUserKeys = (
  * @summary Список активных сеансов
  */
 export const apiSessions = (
-    
+    params?: GetAuthV1SessionsParams,
  options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
       return getAuthV1SessionsMutator<UserSessionListApiResponse>(
-      {url: `/auth/v1/sessions`, method: 'GET'
+      {url: `/auth/v1/sessions`, method: 'GET',
+        params
     },
       options);
     }
@@ -180,6 +183,18 @@ export const apiResetPassword = (
       options);
     }
   
+/**
+ * @summary Подписка на локальные уведомления - ожидающий http запрос
+ */
+export const apiNotifySubscribe = (
+    
+ options?: SecondParameter<typeof getNotifyV1SubscribeMutator>,) => {
+      return getNotifyV1SubscribeMutator<ApiResponse>(
+      {url: `/notify/v1/Subscribe`, method: 'GET'
+    },
+      options);
+    }
+  
 export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
 export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
 export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
@@ -191,3 +206,4 @@ export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemove
 export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
 export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
 export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>
+export type ApiNotifySubscribeResult = NonNullable<Awaited<ReturnType<typeof apiNotifySubscribe>>>

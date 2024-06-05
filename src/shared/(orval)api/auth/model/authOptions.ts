@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
-                    Build version 1.0.2-20240202-0902.6046+448a20a6398e9e01512eae689a544e39eaf22356<br/><br/>
+                    Build version 1.0.2-20240603-1400.7918+1d767e41e02f7ade725004459d7957572da17870<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -22,6 +22,11 @@ This value will be signed by the authenticator and the signature will be sent ba
   challenge?: string | null;
   challenge_id?: number;
   fido2_options?: CredentialCreateOptions;
+  /**
+   * Номер телефона для которого выдаются опции в схеме сброса пароля
+   * @nullable
+   */
+  phone?: string | null;
   /**
    * A string that specifies the relying party's identifier (for example "login.example.org"). For security purposes:
 The calling web app verifies that rpId matches the relying party's origin.

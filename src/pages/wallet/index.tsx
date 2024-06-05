@@ -89,7 +89,7 @@ function Wallet() {
                                     <Withdraw/>
                                 </NetworkProvider>
 
-                                {(isEUR || isEURG || isGKE) &&
+                                {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
@@ -100,10 +100,10 @@ function Wallet() {
                                     {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
                                 </>}
 
-                                {tab === "cashback_program" &&
+                                {IS_GEKKARD_APP() && tab === "cashback_program" &&
                                     <GkeCashbackProgram/>
                                 }
-                                {tab === "no_fee_program" &&
+                                {IS_GEKKARD_APP() && tab === "no_fee_program" &&
                                     <NoFeeProgram/>
                                 }
 
@@ -133,7 +133,7 @@ function Wallet() {
                                     : <CardsMenuButton to={"/card-menu"}/>
                                 }
 
-                                {(isEUR || isEURG || isGKE) &&
+                                {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&
                                     <ProgramsButton to={`/wallet?currency=${currency}&tab=programs`}/>}
                             </WalletButtons>
                         }
@@ -155,7 +155,7 @@ function Wallet() {
                                 )
                             )
                         }
-                        {isOnProgramsPage &&
+                        {IS_GEKKARD_APP() && isOnProgramsPage &&
                             <Programs data-tag={"programs"} data-name={t("programs")}/>
                         }
                         {isCardsMenu &&
@@ -169,10 +169,10 @@ function Wallet() {
                         {/* {isQuickExchange && (
                             <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
                         )} */}
-                        {isOnNoFeeProgramPage &&
+                        {IS_GEKKARD_APP() && isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }
-                        {isOnCashbackProgramPage &&
+                        {IS_GEKKARD_APP() && isOnCashbackProgramPage &&
                             <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                         {tab === "top_up" &&

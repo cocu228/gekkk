@@ -10,6 +10,7 @@ import {useSearchParams} from "react-router-dom";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { IS_GEKKARD_APP } from "@/shared/lib";
 
 
 const WalletHeader = () => {
@@ -122,7 +123,7 @@ const WalletHeader = () => {
                     </div>
                 </div>
                 {
-                    isEUR ?
+                    IS_GEKKARD_APP && isEUR ?
                         <div className={styles.IconRate}>
                             <span className={styles.RateText}>{t("card")}</span>
                             <span className={styles.RatePercentText}>1% {t("cashback")}</span>

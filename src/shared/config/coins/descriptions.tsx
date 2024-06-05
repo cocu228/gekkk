@@ -4,6 +4,7 @@ import {NavigateFunction} from "react-router-dom";
 import {AccountRights} from "@/shared/config/account-rights";
 import {IWalletInfo} from "@/shared/store/accounts/accounts";
 import {useTranslation} from 'react-i18next';
+import { IS_GEKKARD_APP } from '@/shared/lib';
 
 export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
     const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
@@ -1165,34 +1166,36 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             >{t("white_paper")}</a>.
             </p>
 
-            <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                <div className='text-xl'>
-                    {t("exchange_rate_fixed")}: <span className="font-bold">1 EUR = 1 EURG*</span>
-                </div>
-
-                <div className="col text-xs">
-                    {account && <span>{t("exchange_fee")} 1,5%.
-                        {account.rights[AccountRights.IsJuridical] ? null : <>
-                            {t("if_you")} <a
-                            className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
-                            onClick={() => {
-                                navigate('/wallet?currency=GKE&tab=no_fee_program');
-                                scrollToTop();
-                            }}
-                        >
-                            {t("freeze_GKE_tokens")}
-                        </a> {t("fee_is")} 0%.
-                        </>}
-                </span>}
-                </div>
-            </div>
-
-            <div className='info-box-description mb-4'>
-                <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
-                <p>{t("you_get_per_annum")}:</p>
-                <p>(i) {t("your_weighted_average")};</p>
-                <p>(ii) {t("our_upper_limit")}.</p>
-            </div>
+            {IS_GEKKARD_APP && 
+                <>
+                    <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
+                        <div className='text-xl'>
+                            {t("exchange_rate_fixed")}: <span className="font-bold">1 EUR = 1 EURG*</span>
+                        </div>
+                        <div className="col text-xs">
+                            {account && <span>{t("exchange_fee")} 1,5%.
+                                {account.rights[AccountRights.IsJuridical] ? null : <>
+                                    {t("if_you")} <a
+                                    className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
+                                    onClick={() => {
+                                        navigate('/wallet?currency=GKE&tab=no_fee_program');
+                                        scrollToTop();
+                                    }}
+                                >
+                                    {t("freeze_GKE_tokens")}
+                                </a> {t("fee_is")} 0%.
+                                </>}
+                        </span>}
+                        </div>
+                    </div>
+                    <div className='info-box-description mb-4'>
+                        <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
+                        <p>{t("you_get_per_annum")}:</p>
+                        <p>(i) {t("your_weighted_average")};</p>
+                        <p>(ii) {t("our_upper_limit")}.</p>
+                    </div>
+                </>
+            }
 
             <div>
                 <p className='mb-3'>

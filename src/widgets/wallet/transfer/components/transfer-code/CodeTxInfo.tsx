@@ -9,6 +9,7 @@ import type {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useTranslation } from "react-i18next";
 import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
+import style from "./style.module.scss"
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
@@ -36,7 +37,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
             <div className="row mb-8">
                 <div className="col">
                     <div className={`info-box-note w-auto`}>
-                        <span className="text-[#7B797C] md:text-[12px] text-[14px]">{t("this_code_can_be_used")}</span>
+                        <span className={style.WarnText}>{t("this_code_can_be_used")}</span>
                     </div>
                 </div>
             </div>
@@ -79,11 +80,11 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                 <div className="row mt-2 w-full md:flex md:justify-center">
                     <ClipboardField value={infoCode.code}/>
                 </div>
-                <div className={styles.ButtonContainerCenter}>
+                <div className={'w-full flex justify-center'}>
                     <Button
                         size="lg"
                         color="blue"
-                        className="w-[120px] h-[43px] mt-4"
+                        className="h-[43px] w-full mt-4"
                         onClick={onClose}
                     >
                         {t("close")}

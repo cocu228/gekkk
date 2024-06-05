@@ -79,14 +79,14 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                             code={currency.$const}
                           />
                           {!md ? (
-                            <span>
+                            <span className='font-medium'>
                               {!lg || columnKeys.length === 2
                                 ? currency.name
                                 : currency.$const}
                             </span>
                           ) : (
                             <div className={styles.RowTextGroup}>
-                              <span className="block">{currency.$const}</span>
+                              <span className="block font-medium">{currency.$const}</span>
                               <span
                                 className={`${styles.InnerName}`}
                               >

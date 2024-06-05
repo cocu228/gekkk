@@ -392,7 +392,7 @@ function Exchange() {
       {md && (
         <div className="w-full rounded-lg">
           <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
-          <History className="mx-4 mb-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          <History className="mx-4 mb-[50px]" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal

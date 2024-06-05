@@ -96,7 +96,7 @@ const WithdrawFormSepa = () => {
                                 onChange={onInput}
                                 placeholder={t("enter_beneficiary_name")}
                                 name={"beneficiaryName"}
-                                caption= {!inputs.beneficiaryName && "*" + t("EW_law")}
+                                caption= {!inputs.beneficiaryName &&  t("EW_law")}
                             />
                         </div>
                     </div>

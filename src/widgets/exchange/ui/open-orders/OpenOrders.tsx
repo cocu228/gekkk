@@ -31,7 +31,7 @@ interface IParams {
   refreshKey?: string;
 }
 
-function OpenOrders({ refreshKey }: IParams) {
+function  OpenOrders({ refreshKey }: IParams) {
   const { t } = useTranslation();
   const { md } = useBreakpoints();
   const cancelOrderModal = useModal();
@@ -244,19 +244,19 @@ function OpenOrders({ refreshKey }: IParams) {
               className={`${styles.Item} ${activeTab === TabKey.OPENED ? "" : "grayscale"}`}>
               <div className="flex justify-between">
                 <div className="flex gap-2">
-                  <div className="bg-opacity-10 rounded-md">
-                    <strong>
+                  <div className="bg-opacity-10 rounded-md flex items-center gap-[4px]">
+                    <span className="font-bold">
                       {currencyPrecision(ord.volume_source, ord.from)}
-                    </strong>{" "}
-                    {ord.from} &rarr;{" "}
-                    <strong>
+                    </span>{" "}
+                    <span className="font-normal text-[#29354C] text-[12px]">{ord.from}</span> &rarr;{" "}
+                    <span className="font-bold">
                       {ord.type_order === "Market" && "~"}
                       {currencyPrecision(ord.volume_dest, ord.to)}
-                    </strong>{" "}
-                    {ord.to}
+                    </span>{" "}
+                    <span className="font-normal text-[#29354C] text-[12px]">{ord.to}</span>
                   </div>
 
-                  <span className="text-gray-400">
+                  <span className="text-[10px] text-[#9D9D9D] font-normal font-[Inter] leading-[16px]">
                     {t(ord.state.toLowerCase()).capitalize()}{" "}
                     {ord.state !== OrderState.FAILED ? null : (
                       <Tooltip
@@ -280,15 +280,15 @@ function OpenOrders({ refreshKey }: IParams) {
                     )}
                   </span>
                 </div>
-                <div className="text-secondary">
+                <div className="text-[#B9B9B5] text-[10px] font-medium font-[Inter]">
                   {format(new Date(ord.time_created), "dd/MM/yyyy HH:mm")}
                 </div>
               </div>
               <div className="flex justify-between gap-0.5 mt-1.5">
                 <div className="flex gap-2.5 items-center">
-                  <div className="text-secondary">{t("price")}: </div>
+                  <div className="text-[10px] text-[#9D9D9D] font-normal font-[Inter]">{t("price")}: </div>
                   <div>
-                    <span>
+                    <span className="text-[#7B797C] text-[10px] font-normal">
                       1 {ord.from} ~{" "}
                       {currencyPrecision(
                         ord.volume_dest / ord.volume_source,

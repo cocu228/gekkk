@@ -297,8 +297,9 @@ function Exchange() {
                   {t("exchange.create_order")}
                 </Button>
 
-                <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">
+                <div className="mt-5 lg:mt-2.5 px-8 text-[10px] text-center text-[#B9B9B5]">
                   {t("exchange.broker_exchange_fee")}
+                  <span className="font-semibold"> 0%</span>
                 </div>
               </div>
             </div>

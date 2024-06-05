@@ -738,7 +738,7 @@
       "number_of_participants": "Number of participants",
       "leave_the_room": "Leave the room",
       "open_private_exchange_room": "Open private exchange room",
-      "broker_exchange_fee": "Broker exchange Fee 0%",
+      "broker_exchange_fee": "Broker exchange Fee",
       "no_opened_orders": "You don't have any open orders",
       "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
       "select_token": "-select token-",

@@ -54,12 +54,12 @@ const Input = React.forwardRef(
             data-size={inputSize}
             className={`${styles.Input} ${
                 className || ""
-            }${inputSize === 'sm' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
+            }${inputSize === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={ inputSize === 'sm' ? styles.InputDesktop : styles.InputMobile}
+                            className={ inputSize === 'md' ? styles.InputDesktop : styles.InputMobile}
                             {...props}
                             ref={ref}
                             disabled={disabled}

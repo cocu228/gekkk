@@ -22,6 +22,9 @@
   &Blocked {
     opacity: 50%;
     pointer-events: none;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
   }
 
 

@@ -51,6 +51,10 @@ export const SelectToken: FC<SelectTokenProps> = ({
 
     const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
 
+  useEffect(() => {
+    console.log('select', currency, 'list excluded', excludedCurrencies)
+  }, [currency])
+
   return (
     <>
       <div className={styles.SelectWrap} style={{paddingBottom: balance && '5px'}} >

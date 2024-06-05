@@ -50,12 +50,6 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                                         ? styles.ItemBlocked
                                         : ""
                                     }
-                                    ${
-                                      !md && !evenOrOdd(index)
-                                        ? `bg-gray-main`
-                                        : ""
-                                    }
-
                                     ${!evenOrOdd(index) && !isModal && styles.ItemEven}
                                     ${!isModal && styles.ItemTable}
                                     

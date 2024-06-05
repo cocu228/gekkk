@@ -224,7 +224,7 @@ function Exchange() {
                   onSelect={onFromCurrencyChange}
                   onError={setHasValidationError}
                   onChange={onFromValueChange}
-                  excludedCurrencies={[to.currency]}
+                  excludedCurrencies={[from.currency, to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
@@ -248,7 +248,7 @@ function Exchange() {
                   value={to.amount ?? ""}
                   onChange={onToValueChange}
                   onSelect={onToCurrencyChange}
-                  excludedCurrencies={[from.currency]}
+                  excludedCurrencies={[from.currency, to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">

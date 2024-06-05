@@ -12,21 +12,18 @@
  * OpenAPI spec version: v1
  */
 
-export type GetGekV1MarketGetTradeInfoParams = {
 /**
- * Название валюты источника
+ * Проекты(подпроекты) на платформе GekCore: 
+0 = None, 1 = Gekkard, 2 = BLACK_CAT_CARD, 3 = Gekkoin, 4 = GekWallet
  */
-currency_from?: string;
-/**
- * Название валюты назначения
- */
-currency_to?: string;
-/**
- * ID Комнаты
- */
-room_key?: number;
-/**
- * Ограничение длины массивов asks/bids
- */
-results_limit?: number;
-};
+export type ProjectsTypes = typeof ProjectsTypes[keyof typeof ProjectsTypes];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ProjectsTypes = {
+  NUMBER_0: 0,
+  NUMBER_1: 1,
+  NUMBER_2: 2,
+  NUMBER_3: 3,
+  NUMBER_4: 4,
+} as const;

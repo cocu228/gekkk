@@ -10,7 +10,7 @@ type IParams = {
     className?: string;
     suffix?: React.ReactNode;
     caption?: string;
-    size?: 'sm' | 'md';
+    size?: 'md' | 'sm';
     value?: string;
     name?: string;
     placeholder?: string;
@@ -31,14 +31,14 @@ const Input = React.forwardRef(
       value,
       name,
       placeholder,
-      size,
+      size ,
       disabled,
       ...props
     }: IParams,
     ref: React.Ref<HTMLInputElement>
   ) => {
     const {md} = useBreakpoints();
-    const inputSize = size || (md ? 'md' : 'sm');
+    const inputSize = size || (md ? 'sm' : 'md');
 
     const [showCaption, setShowCaption] = useState(true);
 

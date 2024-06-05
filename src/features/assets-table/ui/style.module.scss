@@ -113,6 +113,9 @@
 }
 
 .TableRow {
+  display: flex;
+  align-items: center;
+
   &:first-child {
     @media screen and (max-width: 768px) {
       margin-left: 12px;
@@ -248,4 +251,9 @@
 .ItemEven {
   margin: 0 -45px;
   padding: 12px 43px;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
 }

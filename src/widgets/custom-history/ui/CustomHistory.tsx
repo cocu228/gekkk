@@ -173,7 +173,7 @@ function CustomHistory() {
             <div
               className={styles.SelectBlock}
               onClick={() => {
-                setSelector('currency');
+                selector === 'currency' ? setSelector(null) : setSelector('currency');
                 setApply(false);
               }}
             >
@@ -205,7 +205,7 @@ function CustomHistory() {
             <div
               className={styles.SelectBlock}
               onClick={() => {
-                setSelector('type');
+                selector === 'type' ? setSelector(null) : setSelector('type');
                 setApply(false);
               }}
             >
@@ -234,7 +234,7 @@ function CustomHistory() {
                 <div
               className={styles.SelectBlock}
               onClick={() => {
-                setSelector('card');
+                selector === 'card' ? setSelector(null) : setSelector('card');
                 setApply(false);
               }}                       
             >

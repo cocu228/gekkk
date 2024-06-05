@@ -5,7 +5,7 @@ import { CtxRootData } from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import { getFormattedIBAN, logout } from "@/shared/lib/helpers";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
-import { AccountRights } from "@/shared/config/account-rights";
+import { AccountRights } from "@/shared/config/mask-account-rights";
 import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";

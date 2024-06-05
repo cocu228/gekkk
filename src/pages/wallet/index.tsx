@@ -5,7 +5,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui/desktop";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {AccountRights} from "@/shared/config/account-rights";
+import {AccountRights} from "@/shared/config/mask-account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";

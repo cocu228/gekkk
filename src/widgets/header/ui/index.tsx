@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import HeaderDesktop from "./desktop/desktop";
 import {CtxRootData} from "@/processes/RootContext";
 import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
-import {AccountRights} from "@/shared/config/account-rights";
+import {AccountRights} from "@/shared/config/mask-account-rights";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {useContext, useEffect, useMemo, useState} from "react";

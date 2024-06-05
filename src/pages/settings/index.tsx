@@ -16,10 +16,11 @@ import { LoginAndSignHistory } from "./components/history";
 import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { IS_GEKKARD_APP } from "@/shared/lib";
+import { getFlagsFromMask, IS_GEKKARD_APP } from "@/shared/lib";
 import { settingsList } from "./model/constants";
-import { apiAdminPanel } from "@/shared/api/various/admin-panel";
 import { CtxRootData } from "@/processes/RootContext";
+import { apiSessions } from "@/shared/(orval)api";
+import { maskSessionFlags, SessionFlags } from "@/shared/config/mask-session-flags";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -66,9 +67,10 @@ export function Settings() {
     setSelectedArea(selectedArea);
 
     (async () => {
-      const response = await apiAdminPanel();
+      const {data} = await apiSessions({current: true});
+      const sessionFlags = getFlagsFromMask(data?.result[0].flags, maskSessionFlags);
       
-      if (response.status !== 401) {
+      if (sessionFlags[SessionFlags.AdminPanelAvailable]) {
         setShowAdminPanel(true);
       }
     })();
@@ -190,7 +192,7 @@ export function Settings() {
                   </a>
                   {/* Admin panel button */}
                   {showAdminPanel && (
-                    <a href="https://gate-dev.gekkard.com:6789/adm">
+                    <a href="https://gate-dev.gekkard.com:6789/adm" target="_blank">
                       <SettingsButton
                         icon={null}
                         text={"Admin panel"}

@@ -1,7 +1,7 @@
 import ETokensConst from './constants';
 import {scrollToTop} from "@/shared/lib/helpers";
 import {NavigateFunction} from "react-router-dom";
-import {AccountRights} from "@/shared/config/account-rights";
+import {AccountRights} from "@/shared/config/mask-account-rights";
 import {IWalletInfo} from "@/shared/store/accounts/accounts";
 import {useTranslation} from 'react-i18next';
 import { IS_GEKKARD_APP } from '@/shared/lib';

@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {actionResSuccess, getCookieData, scrollToTop, uncoverResponse} from '@/shared/lib/helpers';
 import {CtxRootData} from '@/processes/RootContext';
 import PageHead from "@/shared/ui/page-head/PageHead";
-import {AccountRights} from '@/shared/config/account-rights';
+import {AccountRights} from '@/shared/config/mask-account-rights';
 import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {AssetTableKeys} from '@/features/assets-table/model/types';

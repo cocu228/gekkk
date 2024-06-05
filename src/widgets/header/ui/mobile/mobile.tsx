@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { CtxRootData } from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
-import { AccountRights } from "@/shared/config/account-rights";
+import { AccountRights } from "@/shared/config/mask-account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
 import { NavLink, useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";

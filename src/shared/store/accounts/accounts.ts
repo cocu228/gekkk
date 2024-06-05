@@ -3,7 +3,7 @@ import {devtools} from "zustand/middleware";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 import {getFlagsFromMask} from '@/shared/lib/helpers';
 import {WalletInfo} from "@/shared/(orval)api/gek/model";
-import {maskAccountRights} from '@/shared/config/account-rights';
+import {maskAccountRights} from '@/shared/config/mask-account-rights';
 
 export type IWalletInfo = Omit<WalletInfo, "flags" | "account"> & {
     number: string;

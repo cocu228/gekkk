@@ -30,16 +30,17 @@
     }
 
     @media screen and (max-width: 460px) {
-      padding: 0 10px 5px 5px !important;
+      padding: 0 10px 0px 5px !important;
     }
 
     &::placeholder {
-      font-family: Inter;
+      font-family: "Inter";
       color: var(--gek-mid-grey);
       font-weight: 400;
       font-size: 16px !important;
       position: relative;
       left: 4px;
+      top: -1.5px;
 
       @media screen and (max-width: 768px) {
         font-size: 9px !important;

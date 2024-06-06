@@ -92,8 +92,14 @@
 
   &Text {
     flex: 1 1 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #285E69;
 
     &:last-of-type {
+      font-size: 10px;
+      font-weight: 400;
+      color: #7B797C;
       flex: 1 1 150px;
       overflow: hidden;
       text-wrap: nowrap;

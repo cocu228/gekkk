@@ -26,15 +26,17 @@ const SelectDropdown = <O extends ObjectType,>({
 
     return (
         <div className={`${styles.SelectDropdownContainer} ${isOpen ? styles.SelectDropdownContainerOpen : ""}`}>
-            {filteredOptions.length ? filteredOptions.map(option => (
-                <div key={option[optionsKey] as Key} data-active={getActiveOption(option)} onClick={handleOnChange(option)}>
-                    {renderOption ? renderOption({ option }) : getOptionValue(option)}
-                </div>
-            )) : (
-                <div>
-                    {t("no-data")}
-                </div>
-            )}
+            <div className={`${styles.SelectDropdownContainerInner}`}>
+                {filteredOptions.length ? filteredOptions.map(option => (
+                    <div key={option[optionsKey] as Key} data-active={getActiveOption(option)} onClick={handleOnChange(option)}>
+                        {renderOption ? renderOption({ option }) : getOptionValue(option)}
+                    </div>
+                )) : (
+                    <div>
+                        {t("no-data")}
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

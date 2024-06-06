@@ -286,14 +286,14 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          <div className={"w-full flex justify-between mt-3"}>
+          <div className={"flex w-full justify-center"}> {/* justify-between mt-3
             <Button
                 skeleton
                 className='w-full'
                 onClick={handleOnReceipt}
             >
               <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
-            </Button>
+            </Button> */}
             <Button
                 className='w-full'
                 onClick={props.handleCancel}

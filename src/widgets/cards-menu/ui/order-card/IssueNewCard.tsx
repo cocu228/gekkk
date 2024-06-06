@@ -6,7 +6,7 @@ import { ValidateOrderCardState } from "@/widgets/cards-menu/model/helpers";
 import { deliveryCountriesList } from "@/shared/config/delivery-coutries-list";
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import styles from '../style.module.scss'
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 export const latinPattern = /^[a-zA-Z\s]*$/;
 import {Switch} from "@/shared/ui/Switch/index";
 

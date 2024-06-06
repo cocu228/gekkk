@@ -17,7 +17,7 @@ import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();

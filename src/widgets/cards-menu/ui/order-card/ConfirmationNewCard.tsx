@@ -11,7 +11,7 @@ import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiPersonalize} from "@/shared/(orval)api";
 import styles from '../new-card/styles.module.scss'
 import { Modal } from "@/shared/ui/modal/Modal";
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();

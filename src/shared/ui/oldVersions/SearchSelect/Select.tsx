@@ -1,7 +1,7 @@
 import {FC, MutableRefObject, useEffect, useRef, useState} from 'react'
 import style from './styles.module.scss'
 import { CurrencyFlags } from '@/shared/config/mask-currency-flags';
-import { IconCoin } from '../icons/icon-coin';
+import { IconCoin } from '../../icons/icon-coin';
 import { SelectItem } from './SelectItem';
 
 interface SelectProps {

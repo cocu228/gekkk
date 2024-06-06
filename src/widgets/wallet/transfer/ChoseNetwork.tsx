@@ -9,7 +9,7 @@ import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "./style.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 interface IProps{
     withdraw?: boolean,

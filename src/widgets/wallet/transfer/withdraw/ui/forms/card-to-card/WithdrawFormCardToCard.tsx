@@ -27,7 +27,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
-import { Select } from "@/shared/ui/SearchSelect/Select";
+import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
 
 const WithdrawFormCardToCard = () => {

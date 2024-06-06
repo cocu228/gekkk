@@ -64,7 +64,6 @@
 
 .Field {
   position: relative;
-  margin-top: 0.4rem;
   height: 50px;
   padding: 0 0 0 10px;
   border: 1px solid var(--gek-light-grey) !important;
@@ -94,7 +93,6 @@
   @include max-devices("md") {
     height: 56px;
     padding-right: 0px;
-    margin-top: 0.3rem;
   }
 
   &PriceLabel {

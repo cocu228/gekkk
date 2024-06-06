@@ -111,7 +111,7 @@ const AssetsTable = ({
         ) : (
           <div className={styles.SearchInput}>
             <IconApp size={20} code="t12" color="#000" />
-            <Input
+            <input
               className={`${styles.searchInputInner}`}
               type="text"
               ref={inputRef}

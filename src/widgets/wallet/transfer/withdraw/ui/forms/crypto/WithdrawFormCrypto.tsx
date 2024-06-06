@@ -111,42 +111,45 @@ const WithdrawFormCrypto = () => {
             </InputCurrency.PercentSelector>
           </InputCurrency.Validator>
         </div>
-        <div className={style.InpBlock}>
-            <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
-            <Input
-            allowDigits
-            allowSymbols
-            value={inputs.address}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-            placeholder={t("enter_withdrawal_address")}
-            name={"address"}
-            suffix={<div onClick={qrCodeModal.showModal}>
-              <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34' />
-            </div>}
-          />
-        </div>   
-        <ModalUi
-          isModalOpen={qrCodeModal.isModalOpen}
-          onCancel={qrCodeModal.handleCancel}
-          title="&nbsp;"
-          noBorder
-        >
-          <QrcodeScanner
-            onSuccess={(value: string) => {
-              setInputs(prev => ({
-                ...prev,
-                address: value
-              }));
+          <div className={style.InpBlock}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
+              <div className='flex'>
+                  <Input
+                      allowDigits
+                      allowSymbols
+                      value={inputs.address}
+                      onChange={onInput}
+                      disabled={!networkTypeSelect}
+                      placeholder={t("enter_withdrawal_address")}
+                      name={"address"}
+                  />
+                  <div onClick={qrCodeModal.showModal} className='pl-2.5'>
+                      <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34'/>
+                  </div>
+              </div>
+          </div>
 
-              qrCodeModal.handleCancel();
-            }}
-          />
-        </ModalUi>
-        <div className={style.InpBlock}>
-            <span className={`${styles.TitleColText} ml-[10px]`}>{t("recipient")}:</span>
-            <Input
-              value={inputs.recipient}
+          <ModalUi
+              isModalOpen={qrCodeModal.isModalOpen}
+              onCancel={qrCodeModal.handleCancel}
+              title="&nbsp;"
+              noBorder
+          >
+              <QrcodeScanner
+                  onSuccess={(value: string) => {
+                      setInputs(prev => ({
+                          ...prev,
+                          address: value
+                      }));
+
+                      qrCodeModal.handleCancel();
+                  }}
+              />
+          </ModalUi>
+          <div className={style.InpBlock}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>{t("recipient")}:</span>
+              <Input
+                  value={inputs.recipient}
               onChange={onInput}
               disabled={!networkTypeSelect}
               name={"recipient"}

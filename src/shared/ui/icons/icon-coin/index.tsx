@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 
 interface IProps {
-    code: string;
+    code: string | number;
     width: number;
     height: number;
     extension: string;

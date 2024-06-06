@@ -15,7 +15,7 @@ import {storeAccountDetails} from '@/shared/store/account-details/accountDetails
 import {IResResult} from '@/shared/api';
 import useError from '@/shared/model/hooks/useError';
 import styles from './styles.module.scss'
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();

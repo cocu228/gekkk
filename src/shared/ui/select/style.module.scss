@@ -1,0 +1,115 @@
+@import "@styles/mixins.scss";
+
+.SelectLayout {
+  position: relative;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .SelectLayoutTitle {
+    display: block;
+    margin: 0 0 5px 8px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+
+    @include max-devices(md){
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gek-dark-blue);
+    }
+  }
+}
+
+.Overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1000;
+
+  &Open {
+    display: block;
+  }
+}
+
+.SelectInputContainer {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #CED4DA;
+  border-radius: 8px;
+  padding-inline: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  &Open {
+    border-color: #2BAB72;
+  }
+
+  &Searchable {
+    cursor: auto;
+  }
+
+  &Input {
+    all: unset;
+    cursor: default;
+    text-align: left;
+    font-size: 12px;
+    flex: 1 1 auto;
+
+    &::placeholder {
+      color: #B9B9B5;
+    }
+  }
+}
+
+.SelectDropdownContainer {
+  position: absolute;
+  background-color: #FFF;
+  z-index: 2000;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  padding: 7px;
+  max-height: 150px;
+  min-height: 150px;
+  border-radius: 8px;
+  padding-inline: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+
+  & > div {
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #3A5E66;
+    width: 4px;
+    border-radius: 10px;
+  }
+
+  &Open {
+    transform: scaleY(1);
+    overflow-y: auto;
+    transition: transform 150ms;
+    border: 1px solid #CED4DA;
+  }
+}

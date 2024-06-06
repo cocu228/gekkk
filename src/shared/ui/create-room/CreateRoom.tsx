@@ -11,7 +11,8 @@ import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import {Select} from "../SearchSelect/Select";
+import Select from "@/shared/ui/select";
+import RenderOption from "@/shared/ui/create-room/ui/renderOption";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 
 interface IParams {
@@ -52,10 +53,14 @@ function CreateRoom({
 
   const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
 
-  const transformedList = tokensList.map(item => ({
-    id: item.$const,
-    name: item.name
-  }));
+  const handleOnChange = (type: "from" | "to") => ({ $const }: ICtxCurrency) => {
+    type === "from" ? onFromCurrencyChange($const) : onToCurrencyChange($const)
+  }
+
+  const value = (equalValue: string) => tokensList.find(t => t.$const === equalValue) || null;
+  const getFilterValue = (notEqualValue: string) => ({ $const }: ICtxCurrency) => $const !== notEqualValue;
+  const getOptionValue = ({ name }: ICtxCurrency) => name;
+  const getIconCode = ({ $const }: ICtxCurrency) => $const;
 
   return (
     <>
@@ -69,21 +74,19 @@ function CreateRoom({
           </div>
         </div>
         <div className={"mt-4 " + styles.SelectToken}>
-          <label
-            className={styles.Title}
-            htmlFor="sell-token"
-          >
-            {t("exchange.from")}:
-          </label>
-          <Select
-            isToken
-            disabledCurrencies={[to.currency]}
-            tokenId={from.currency}
-            list={transformedList}
-            placeholderText="-select-"
-            onSelect={onFromCurrencyChange}
+          <Select<ICtxCurrency>
+            searchable
+            label={`${t("exchange.from")}:`}
+            placeholder={"-select-"}
+            optionsKey={"name"}
+            value={value(from.currency)}
+            options={tokensList}
+            getFilterValue={getFilterValue(to.currency)}
+            getOptionValue={getOptionValue}
+            onChange={handleOnChange("from")}
+            getIconCode={getIconCode}
+            renderOption={RenderOption}
           />
-          
         </div>
         
         <div className="flex w-full justify-center mt-2">
@@ -93,19 +96,18 @@ function CreateRoom({
         </div>
 
         <div className={styles.SelectToken}>
-          <label
-            className={styles.Title}
-            htmlFor="get-token"
-          >
-            {t("exchange.to")}:
-          </label>
-          <Select
-            disabledCurrencies={[from.currency]}
-            isToken
-            tokenId={to.currency}
-            list={transformedList}
-            placeholderText="-select-"
-            onSelect={onToCurrencyChange}
+          <Select<ICtxCurrency>
+              searchable
+              label={`${t("exchange.to")}:`}
+              placeholder={"-select-"}
+              optionsKey={"name"}
+              value={value(to.currency)}
+              options={tokensList}
+              getFilterValue={getFilterValue(from.currency)}
+              getOptionValue={getOptionValue}
+              onChange={handleOnChange("to")}
+              getIconCode={getIconCode}
+              renderOption={RenderOption}
           />
         </div>
 

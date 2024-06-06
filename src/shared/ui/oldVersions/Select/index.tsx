@@ -1,6 +1,6 @@
 import {FC, MutableRefObject, useEffect, useRef, useState} from 'react'
 import styles from './styles.module.scss'
-import { IconApp } from '../icons/icon-app'
+import { IconApp } from '../../icons/icon-app'
 import { useTranslation } from 'react-i18next'
 
 

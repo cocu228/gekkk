@@ -1,6 +1,6 @@
 import Loader from "@/shared/ui/loader";
 import styles from './styles.module.scss';
-import {Select} from '@/shared/ui/Select';
+import {Select} from '@/shared/ui/oldVersions/Select';
 import {useTranslation} from 'react-i18next';
 import {Modal} from "@/shared/ui/modal/Modal";
 import Button from '@/shared/ui/button/Button';

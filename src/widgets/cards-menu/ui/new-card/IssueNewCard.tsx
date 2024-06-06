@@ -7,7 +7,7 @@ import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "@/shared/ui/Switch/index";
 import styles from './styles.module.scss'
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 export function IssueNewCard() {
     const {t} = useTranslation();

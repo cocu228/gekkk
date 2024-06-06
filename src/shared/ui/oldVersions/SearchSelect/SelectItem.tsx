@@ -1,7 +1,7 @@
 import {Dispatch, FC, SetStateAction} from 'react'
 import style from './styles.module.scss'
 import { ICtxCurrency } from '@/processes/CurrenciesContext'
-import { IconCoin } from '../icons/icon-coin';
+import { IconCoin } from '../../icons/icon-coin';
 
 interface SelectItemProps {
     item: ICtxCurrency;

@@ -7,7 +7,7 @@ import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import styles from '../style.module.scss'
 import Button from '@/shared/ui/button/Button';
-import { Select } from '@/shared/ui/Select';
+import { Select } from '@/shared/ui/oldVersions/Select';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();

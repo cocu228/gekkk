@@ -6,6 +6,7 @@ import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
 
 export class ICtxCurrency {
+    [key: string]: unknown;
     // Asset params
     id: null | number;
     name: null | string;

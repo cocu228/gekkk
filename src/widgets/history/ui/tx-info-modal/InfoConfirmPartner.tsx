@@ -45,7 +45,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
     setLoading(false);
   };
 
-  const applyInputRef = useRef<InputRef | null>(null);
+  const applyInputRef = useRef(null);
 
   useEffect(() => {
     !loading && applyInputRef.current && applyInputRef.current.focus();
@@ -70,9 +70,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
             <div className="col flex items-center border-[2px] rounded-[8px] border-[#2BAB72] border-solid w-3/5">
               <Input
                 placeholder={t("enter_sender_name")}
-                bordered={false}
                 ref={applyInputRef}
-                autoComplete="on"
                 value={input}
                 onChange={inputChage}
                 className="text-[10px] font-[400]"

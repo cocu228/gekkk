@@ -148,7 +148,7 @@ const WithdrawConfirmCrypto = memo(
             handleCancel();
             setRefresh();
             displayHistory();
-            setContent({content: <ModalTrxStatusSuccess onReceipt={getReceipt(result.txId)}/>});
+            setContent({content: <ModalTrxStatusSuccess/>});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }

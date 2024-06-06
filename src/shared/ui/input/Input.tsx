@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {MutableRefObject, useState} from "react";
 import styles from "./style.module.scss";
 import {validateInput} from "./model/helpers";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
@@ -39,7 +39,7 @@ const Input = React.forwardRef(
             onInput,
             ...props
         }: IParams,
-        ref: React.Ref<HTMLInputElement>
+        ref: MutableRefObject<any>
     ) => {
         const {md} = useBreakpoints();
         const inputSize = size || (md ? 'sm' : 'md');

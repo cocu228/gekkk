@@ -45,7 +45,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
     setLoading(false);
   };
 
-  const applyInputRef = useRef(null);
+  const applyInputRef = useRef<InputRef|null>(null);
 
   useEffect(() => {
     !loading && applyInputRef.current && applyInputRef.current.focus();

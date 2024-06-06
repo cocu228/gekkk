@@ -291,7 +291,6 @@ const WithdrawConfirmCrypto = memo(
                                 allowDigits
                                 type="text"
                                 onInput={onInput}
-                                autoComplete="off"
                                 onChange={inputChange}
                                 placeholder={
                                   stageReq.status === 0

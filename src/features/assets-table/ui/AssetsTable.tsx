@@ -103,7 +103,6 @@ const AssetsTable = ({
       <div className={`mb-2`}>
         {!md ? (
           <Input
-            allowClear
             ref={inputRef}
             data-testid="SearchName"
             placeholder={t("crypto_assets.search_name")}
@@ -114,7 +113,6 @@ const AssetsTable = ({
             <IconApp size={20} code="t12" color="#000" />
             <Input
               className={`${styles.searchInputInner}`}
-              wrapperClassName={"w-full"}
               type="text"
               ref={inputRef}
               data-testid="SearchName"

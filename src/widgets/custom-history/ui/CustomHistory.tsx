@@ -267,8 +267,6 @@ function CustomHistory() {
                 <IconApp size={20} code="t12" color="#000" />
                 <Input
                   className={`w-full text-[10px] border-[none]`}
-                  wrapperClassName={"w-full"}
-                  style={{ height: "10px", border: "none" }}
                   type="text"
                   ref={inputRef}
                   data-testid="SearchName"

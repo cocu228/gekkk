@@ -108,7 +108,6 @@ const usePinConfirmation = (): TypeUseConfirmation => {
               allowDigits
               type="text"
               onInput={onInput}
-              autoComplete="off"
               placeholder={t("enter_code")}
               onChange={({ target }) => {
                 localErrorClear();

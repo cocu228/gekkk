@@ -7,6 +7,7 @@ import style from '../style.module.scss'
 
 interface IParams {
     disabled?: boolean,
+    className?: string,
     children?: React.ReactNode,
     header?: string | JSX.Element,
     currency: ICtxCurrency | null,
@@ -20,6 +21,7 @@ const PercentSelector: FC<IParams> = ({
     disabled,
     currency,
     onSelect,
+    className,
     mobileSecHidden
 }: IParams) => {
     const {currencies} = useContext(CtxCurrencies);
@@ -42,7 +44,7 @@ const PercentSelector: FC<IParams> = ({
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
-        <div className="wrapper">
+        <div className={`wrapper ${className}`}>
             <div className="row flex justify-between items-center">
                 {header}
 

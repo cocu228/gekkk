@@ -20,13 +20,13 @@
   justify-content: space-between;
   width: 100%;
   font-size: 12px;
-  margin-bottom: 0.5rem;
   user-select: none;
 
 
   @media screen and (max-width: 768px) {
     // flex-direction: column;
     margin-bottom: 0;
+    margin-bottom: -2px;
   }
 }
 
@@ -154,4 +154,15 @@
     background: inherit;
     border-radius: none;
   }
+}
+
+.FieldPreTitle {
+  // font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px] text-[#29354C]
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-bottom: -3px;
+  margin-left: 8px;
+  user-select: none;
+  font-family: Inter;
+  color: #29354C;
 }

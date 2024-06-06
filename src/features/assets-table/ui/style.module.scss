@@ -22,7 +22,7 @@
   &Blocked {
     opacity: 50%;
     pointer-events: none;
-    display: none;
+    display: none !important;
     visibility: hidden;
     opacity: 0;
   }

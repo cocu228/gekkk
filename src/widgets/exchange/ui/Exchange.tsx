@@ -212,10 +212,11 @@ function Exchange() {
             <div className={`gap-x-[10px] bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  <span className="md:ml-[7px] text-[#29354C]">{t("exchange.you_pay")}:</span>
-                  <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
+                  <span className={`md:ml-[7px] md:mb-[-4.5px] mb-[-4px] ${styles.FieldPreTitle}`}>{t("exchange.you_pay")}:</span>
+                  <PercentSelector className='md:mb-[-3px]' mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
+                  // className='md:mt-[-8px]'
                   isBalance={true}
                   balanceFilter
                   roomType={roomType}
@@ -227,7 +228,7 @@ function Exchange() {
                   excludedCurrencies={[from.currency, to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
-                <div className={`flex justify-center ${styles.FieldsSpacer}`}>
+                <div className={`flex justify-center ${styles.FieldsSpacer} relative md:top-[-6px]`}>
                   <div
                     onClick={onCurrenciesSwap}
                     className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""
@@ -237,7 +238,7 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px] text-[#29354C]">
+                <div className={`${styles.FieldPreTitle} md:mb-[-4px]`}>
                   {t("exchange.get_no_less")}:
                 </div>
 
@@ -252,7 +253,7 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-semibold mt-4 text-xs md:ml-[7px] text-[#29354C]">
+                  <div className={`${styles.FieldPreTitle} md:mb-[3.5px] mb-[-2.3px] ml-[10px]`}>
                     {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />

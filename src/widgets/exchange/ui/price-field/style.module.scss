@@ -13,17 +13,60 @@
       border-color: var(--gek-light-grey) !important;
     }
   }
+
+  
+  :global(.ant-input) {
+    padding: 0 !important;
+    height: 70px;
+    border-radius: 10px !important;
+    // padding: 0 17px !important;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 0 5px 5px !important;
+      margin: auto 0;
+      height: 53px;
+      border-radius: 6px !important;
+    }
+
+    &::placeholder {
+      font-family: Inter;
+      color: var(--gek-mid-grey);
+      font-weight: 400;
+      font-size: 16px !important;
+      position: relative;
+      left: -9px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 9px !important;
+        position: relative;
+        left: -10px;
+      }
+
+      @media screen and (max-width: 576px) {
+        left: -10px;
+      }
+
+      @media screen and (max-width: 460px) {
+        left: -5px;
+      }
+
+      @media screen and (max-width: 380px) {
+        left: 1px;
+      }
+    }
+  }
 }
 
 .Field {
   position: relative;
   margin-top: 0.4rem;
   height: 50px;
-  padding: 0 12px;
+  padding: 0 0 0 10px;
   border: 1px solid var(--gek-light-grey) !important;
   border-radius: 8px;
   text-align: right;  
   outline: none;
+  height: 100%;
 
   &:active {
     outline: none !important;
@@ -36,16 +79,16 @@
 
   .ant-input-affix-wrapper-focused {
     border: none !important;
-    color: red !important;
   }
 
   :global(.ant-input[type=text]) {
     text-align: right;
   }
 
+
   @include max-devices("md") {
     height: 56px;
-    padding-right: 8px;
+    padding-right: 0px;
     margin-top: 0.3rem;
   }
 

@@ -21,6 +21,7 @@ interface SelectTokenProps {
   allowedFlags: CurrencyFlags[];
   balanceFilter?: boolean;
   value: string;
+  className?: string;
   isBalance: boolean;
   currency: string;
   onChange?: (value: string) => void;
@@ -35,6 +36,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   allowedFlags,
   excludedCurrencies,
   onChange,
+  className,
   onSelect,
   onError = null,
   isBalance = false,
@@ -57,7 +59,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
 
   return (
     <>
-      <div className={styles.SelectWrap} style={{paddingBottom: balance && '5px'}} >
+      <div className={`${styles.SelectWrap} ${className}`} style={{paddingBottom: balance && '5px'}} >
         <div className={`${styles.SelectedBody} ${currency && styles.CurrencyStyles}`}>
           {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
           <CurrencySelector

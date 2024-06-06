@@ -115,6 +115,7 @@ const ActionConfirmationWindow = () => {
         <div className="mb-4">
           <Input
             allowDigits
+            size={'md'}
             type="text"
             value={code}
             onInput={onInput}

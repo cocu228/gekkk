@@ -148,7 +148,7 @@ const WithdrawConfirmCrypto = memo(
             handleCancel();
             setRefresh();
             displayHistory();
-            setContent({content: <ModalTrxStatusSuccess onReceipt={getReceipt(result.txId)}/>});
+            setContent({content: <ModalTrxStatusSuccess/>});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -238,7 +238,7 @@ const WithdrawConfirmCrypto = memo(
               ) : null
             }
           </div>
-          <div className={styles.PayInfo}>
+          <div className={styles.ModalPayInfo}>
             <div className={styles.PayInfoCol}>
                 <div className="row">
                     <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>

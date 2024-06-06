@@ -47,10 +47,12 @@
 }
 
 .RedWrapper {
+  padding: 0 5px;
   background: rgba(var(--red) / 0.05);
 }
 
 .GreenWrapper {
+  padding: 0 5px;
   background: rgba(var(--green) / 0.05);
 }
 
@@ -63,7 +65,9 @@
 }
 
 .TokenTitle {
+  font-family: Inter;
+  user-select: none;
   color: #29354C;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 }

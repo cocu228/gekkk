@@ -70,7 +70,7 @@ const InfoContent = (props: TxInfoProps) => {
   }, [props.id_transaction]);
 
   return (
-    <div className="min-h-[400px]">
+    <div className="">
       {localErrorInfoBox ? (
         localErrorInfoBox
       ) : loading ? (
@@ -79,14 +79,10 @@ const InfoContent = (props: TxInfoProps) => {
         <div className={style.ModalWrap}>
           <div className="">
             <div className={style.InfoItem}>
-              <div>
-                <span className={style.InfoItemTitle}>{t("date")}</span>
-              </div>
-              <div>
-                <span className={style.InfoItemValue}>
+              <span className={style.InfoItemTitle}>{t("date")}</span>
+              <span className={style.InfoItemValue}>
                   {formatForCustomer(props.datetime)}
-                </span>
-              </div>
+              </span>
             </div>
             <div className={style.CopyBlock}>
               <div className={style.InfoItem}>
@@ -109,58 +105,38 @@ const InfoContent = (props: TxInfoProps) => {
               <CopyIcon value={props.id_transaction} />
             </div>
             <div className={style.InfoItem}>
-              <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
                   {t("transaction_type")}
                 </span>
-              </div>
-              <div>
                 <span className={style.InfoItemValue}>{props.tx_type_text}</span>
-              </div>
             </div>
             <div className={style.InfoItem}>
-              <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
                   {t("currency")}
                 </span>
-              </div>
-              <div>
                 <span className={style.InfoItemValue}>{props.currency}</span>
-              </div>
             </div>
             <div className={style.InfoItem}>
-              <div>
                 <span className={style.InfoItemTitle}>
                   {t("amount")}
                 </span>
-              </div>
-              <div>
                 <span className={style.InfoItemValue}>
                   {props.amount} {props.currency}
                 </span>
-              </div>
             </div>
             <div className={style.InfoItem}>
-              <div>
-                <span className={style.InfoItemTitle}>{t("fee")}</span>
-              </div>
-              <div>
-                <span className={style.InfoItemValue}>
-                  {new Decimal(props.fee).toString()} {props.currency}
-                </span>
-              </div>
+              <span className={style.InfoItemTitle}>{t("fee")}</span>
+              <span className={style.InfoItemValue}>
+                {new Decimal(props.fee).toString()} {props.currency}
+              </span>
             </div>
             <div className={style.InfoItem}>
-              <div>
                 <span className={style.InfoItemTitle}>
                   {t("status")}
                 </span>
-              </div>
-              <div>
                 <span className={style.InfoItemValue}>
                   {props.status_text}
                 </span>
-              </div>
             </div>
             {props.tag && (
               <div className={style.InfoItem}>
@@ -286,14 +262,14 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          <div className={"w-full flex justify-between mt-3"}>
+          <div className={"flex w-full justify-center"}> {/* justify-between mt-3
             <Button
                 skeleton
                 className='w-full'
                 onClick={handleOnReceipt}
             >
               <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
-            </Button>
+            </Button> */}
             <Button
                 className='w-full'
                 onClick={props.handleCancel}

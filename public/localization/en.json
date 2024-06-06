@@ -174,6 +174,7 @@
 
             "to_fulfill": "To fulfill our obligations under the Prevention of Money Laundering and Funding of Terrorism Regulations.",
 
+            
             "any_information": "Any information about personal or factual circumstances of a specific or identifiable natural person, such as e.g. name and surname, date of birth, place of birth, identification document (including type of identification document, issue date, ID number, issuing authority), address, telephone number, mobile number, e-mail address, IP address, online identifier, location data, images and information on transactions and accounts.",
 
             "general_data": "General Data Protection Regulation (GDPR) 2016/679 is a regulation in EU law on data protection and privacy for all individuals within the European Union (EU) and the European Economic Area (EEA). The GDPR aims primarily to give control to citizens and residents over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU.",
@@ -618,6 +619,7 @@
     "transfer_confirmation": "Transfer confirmation",
     "select_network": "Select topup type",
     "select_withdraw_network": "Select transfer type",
+    "select_card_design": "Select card design",
     "about": "About",
     "EUR": "Gekkoin EUR",
     "EUR_is_utility_token": "Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. All EURG tokens are subject to exchange for fiat money in accordance with the conditions on this site and the",

@@ -185,7 +185,11 @@
 
 
   @media screen and (max-width: 440px) {
-    margin-right: 5px;
+    margin-right: 10px;
+  }
+
+  @media screen and (max-width: 380px) {
+    margin-right: 6px;
   }
 }
 

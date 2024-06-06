@@ -24,6 +24,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
   return (
     <div className={styles.Wrap} >
       <Input
+      
       allowDigits
       className={styles.Field}
       onChange={priceChange}

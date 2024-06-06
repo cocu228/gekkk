@@ -34,7 +34,7 @@ const DepthPrice = ({loading, amount}: IParams) => {
     
     return (
         <div
-            className={`flex gap-1 my-4 w-full md:my-3.5 font-semibold text-md lg:text-sm md:text-md
+            className={`flex gap-1 my-4 w-full md:my-0 font-semibold text-md lg:text-sm md:text-md
                 ${styles.Rate}
                 ${rateState === RateState.UP ? styles.RateUp :
                 rateState === RateState.DOWN ? styles.RateDown : 'fill-none'}`

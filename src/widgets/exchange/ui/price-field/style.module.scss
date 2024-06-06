@@ -19,13 +19,18 @@
     padding: 0 !important;
     height: 70px;
     border-radius: 10px !important;
-    // padding: 0 17px !important;
+    padding: 0 15px !important;
+    font-weight: 700;
 
     @media screen and (max-width: 768px) {
-      padding: 0 0 5px 5px !important;
+      padding: 0 15px 5px 5px !important;
       margin: auto 0;
       height: 53px;
       border-radius: 6px !important;
+    }
+
+    @media screen and (max-width: 460px) {
+      padding: 0 10px 5px 5px !important;
     }
 
     &::placeholder {
@@ -34,24 +39,24 @@
       font-weight: 400;
       font-size: 16px !important;
       position: relative;
-      left: -9px;
+      left: 4px;
 
       @media screen and (max-width: 768px) {
         font-size: 9px !important;
         position: relative;
-        left: -10px;
+        left: 4px;
       }
 
       @media screen and (max-width: 576px) {
-        left: -10px;
+        // left: -10px;
       }
 
       @media screen and (max-width: 460px) {
-        left: -5px;
+        left: 5px;
       }
 
       @media screen and (max-width: 380px) {
-        left: 1px;
+        // left: 1px;
       }
     }
   }

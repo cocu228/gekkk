@@ -65,10 +65,13 @@ function CreateRoom({
         onToCurrencyChange(currency ? currency.$const : "");
   }
 
-  const value = (equalValue: string) => tokensList.find(t => t.$const === equalValue) || null;
+  const value = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
   const getFilterValue = (notEqualValue: string) => ({ $const }: ICtxCurrency) => $const !== notEqualValue;
   const getOptionValue = ({ name, $const }: ICtxCurrency) => md ? $const : name;
   const getIconCode = ({ $const }: ICtxCurrency) => $const;
+
+  console.log({from: from.currency, to: to.currency})
+  console.log({fromV: value(from.currency), toV: value(to.currency)})
 
   return (
     <>

@@ -62,6 +62,9 @@ const Select = <O extends ObjectType,>({
             setInputValue(inputValue)
             handleOnFilterOptions(inputValue)
         }
+        if (!inputValue && value) {
+            onChange(null)
+        }
     }
 
     const handleOnChange = (value: O) => {
@@ -71,9 +74,7 @@ const Select = <O extends ObjectType,>({
     }
 
     useEffect(() => {
-        if (value) {
-            setInputValue(`${getOptionValue(value)}`)
-        }
+        setInputValue(value ? `${getOptionValue(value)}` : "")
     }, [getOptionValue, value]);
 
     useEffect(() => {
@@ -83,12 +84,6 @@ const Select = <O extends ObjectType,>({
             setIconCode(null)
         }
     }, [getIconCode, value]);
-
-    useEffect(() => {
-        if (!inputValue && value) {
-           onChange(null)
-        }
-    }, [inputValue, value, onChange]);
 
     return (
         <SelectLayout label={label}>

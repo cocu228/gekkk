@@ -141,6 +141,7 @@ function  OpenOrders({ refreshKey }: IParams) {
     setCustomDateEnd(dayjs())
   },[activeTab])
 
+
   return (
     <>
       <div className={styles.Switch}>
@@ -152,10 +153,10 @@ function  OpenOrders({ refreshKey }: IParams) {
         </span>
         <Switch
           className={styles.SwitchWrap}
-          defaultCheked={activeTab === ordersTabs[0].Key}
-          onChange={(isCheked) =>
+          defaultCheked={false}
+          onChange={(isCheked) => {
             setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
-          }
+          }}
         />
         <span
           className={`${styles.SwitchText} text-${activeTab === "Opened" ? "[var(--gek-mid-grey)]" : "[var(--gek-dark-blue)]"

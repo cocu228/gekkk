@@ -110,7 +110,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
               <Button
                 size="lg"
                 onClick={confirmPartnerInfo}
-                className="w-full"
+                className="w-full m-auto"
               >
                 <span className="font-bold">{t("confirm")}</span>
               </Button>

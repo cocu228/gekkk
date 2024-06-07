@@ -249,10 +249,6 @@ export const deliveryCountriesList: ICountryData[] = [
     "code": "DO"
   },
   {
-    "name": "Dominican Republic",
-    "code": "DO"
-  },
-  {
     "name": "Ecuador",
     "code": "EC"
   },

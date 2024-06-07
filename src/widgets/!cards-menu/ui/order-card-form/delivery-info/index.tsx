@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useOrderCardContext} from '../../../model/context';
 import BankCard from '@/widgets/dashboard/ui/cards/bank-card/BankCard';
-import { deliveryCountriesList } from '@/shared/config/delivery-coutries-list';
+import {deliveryCountriesList} from '@/shared/config/delivery-coutries-list';
 
 export function DeliveryInfo() {
     const {t} = useTranslation();
@@ -36,6 +36,7 @@ export function DeliveryInfo() {
         </div>
 
         <ExtendedSelect
+            search
             className='mt-4'
             title={t('country')}
             label={t("select_country")}

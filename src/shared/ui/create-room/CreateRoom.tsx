@@ -8,12 +8,12 @@ import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Select from "@/shared/ui/select";
 import RenderOption from "@/shared/ui/create-room/ui/renderOption";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import styles from "./styles.module.scss";
 
 interface IParams {
   to: IExchangeField;
@@ -69,7 +69,7 @@ function CreateRoom({
           <div>
             <IconApp color="#8F123A" size={15} code="t27" />
           </div>
-          <div className="w-[80%]">
+          <div>
             {t("exchange.private_room_allows")}
           </div>
         </div>
@@ -88,13 +88,11 @@ function CreateRoom({
             renderOption={RenderOption}
           />
         </div>
-        
         <div className="flex w-full justify-center mt-2">
           <div onClick={onCurrenciesSwap} className="cursor-pointer">
             <IconApp code='t36' size={md ? 17 : 25} color="#B9B9B5" />
           </div>
         </div>
-
         <div className={styles.SelectToken}>
           <Select<ICtxCurrency>
               searchable
@@ -110,8 +108,7 @@ function CreateRoom({
               renderOption={RenderOption}
           />
         </div>
-
-        <div className="flex items-center gap-3 justify-center mt-6">
+        <div className="flex items-center gap-3 pl-[8px] mt-6">
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${
@@ -123,7 +120,7 @@ function CreateRoom({
                 ${isIco ? "left-[2px]" : "left-[calc(100%_-_17.5px)]"}
                 ${isIco ? "bg-[#fff]" : "bg-[var(--gek-additional)]"}
               `}
-            ></div>
+            />
           </div>
           <span
             onClick={() => {
@@ -152,7 +149,7 @@ function CreateRoom({
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-center">
+        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-between">
           <Button
             size="lg"
             className="!w-[120px]"

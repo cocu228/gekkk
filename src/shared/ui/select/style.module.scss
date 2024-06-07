@@ -71,7 +71,7 @@
     &::placeholder {
       font-size: 10px;
       color: #B9B9B5;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 }
@@ -83,14 +83,15 @@
   top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  max-height: 148px;
-  min-height: 148px;
+  max-height: 153px;
+  min-height: 153px;
   border-radius: 8px;
   overflow: hidden;
   transform: scaleY(0);
   transform-origin: top;
   display: flex;
   flex-direction: column;
+  padding: 8px 2px;
 
   &Open {
     transform: scaleY(1);
@@ -101,7 +102,7 @@
   &Inner {
     width: 100%;
     flex: 1 1 auto;
-    padding: 7px 10px;
+    padding: 0 9px;
     overflow-y: auto;
     display: flex;
     align-items: flex-start;

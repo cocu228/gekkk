@@ -53,8 +53,16 @@ function CreateRoom({
 
   const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
 
-  const handleOnChange = (type: "from" | "to") => ({ $const }: ICtxCurrency) => {
-    type === "from" ? onFromCurrencyChange($const) : onToCurrencyChange($const)
+  const handleOnCancel = () => {
+    onFromCurrencyChange("");
+    onToCurrencyChange("");
+    onCancel();
+  }
+
+  const handleOnChange = (type: "from" | "to") => (currency: ICtxCurrency | null) => {
+    type === "from" ?
+        onFromCurrencyChange(currency ? currency.$const : "") :
+        onToCurrencyChange(currency ? currency.$const : "");
   }
 
   const value = (equalValue: string) => tokensList.find(t => t.$const === equalValue) || null;
@@ -69,7 +77,7 @@ function CreateRoom({
           <div>
             <IconApp color="#8F123A" size={15} code="t27" />
           </div>
-          <div>
+          <div className={"text-justify"}>
             {t("exchange.private_room_allows")}
           </div>
         </div>
@@ -184,7 +192,7 @@ function CreateRoom({
           <Button
             className="!w-[120px]"
             skeleton
-            onClick={onCancel}
+            onClick={handleOnCancel}
           >
             {t("cancel")}
           </Button>

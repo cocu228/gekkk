@@ -4,7 +4,7 @@
   display: flex;
 
   :global(.ant-input) {
-    padding: 1.25rem;
+    padding: 10px;
     border-radius: 8px;
     border-color: var(--gek-light-grey);  
     font-weight: 400;  
@@ -21,7 +21,7 @@
     &::placeholder {
       font-weight: normal;
       color: #B9B9B5 !important;
-      font-size: 12px;
+      font-size: 10px;
       padding-right: 5px;
 
       @media screen and (max-width: 768px) {

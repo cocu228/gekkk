@@ -15,7 +15,7 @@ export interface ISelectProps<O extends ObjectType> {
     options: O[];
     getOptionValue: (option: O) => string | number;
     renderOption?: FC<{ option: O }>
-    onChange: (value: O) => void;
+    onChange: (value: O | null) => void;
 }
 
 export interface ISelectInput<O extends ObjectType> extends Pick<ISelectProps<O>, "placeholder" | "searchable" | "label"> {

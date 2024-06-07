@@ -43,12 +43,22 @@ const Select = <O extends ObjectType,>({
     })
 
     const handleOnToggleIsOpen = (open?: boolean) => () => {
-        setIsOpen(prevState => open === undefined ? !prevState : open)
+        setIsOpen(prevState => {
+            const isOpen = open === undefined ? !prevState : open
+            if (value) {
+                if (!inputValue) {
+                    setInputValue("")
+                    onChange(null)
+                } else if (!isOpen) {
+                    setInputValue(`${getOptionValue(value)}`)
+                }
+            }
+            return isOpen
+        })
     }
 
     const handleOnChangeInputValue = (inputValue: string) => {
         if (searchable) {
-            console.log({inputValue})
             setInputValue(inputValue)
             handleOnFilterOptions(inputValue)
         }
@@ -72,6 +82,12 @@ const Select = <O extends ObjectType,>({
             setIconCode(null)
         }
     }, [getIconCode, value]);
+
+    useEffect(() => {
+        if (!inputValue && value) {
+           onChange(null)
+        }
+    }, [inputValue, value, onChange]);
 
     return (
         <SelectLayout label={label}>

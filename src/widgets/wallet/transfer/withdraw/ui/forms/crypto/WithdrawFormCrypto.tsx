@@ -6,6 +6,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import {
   isDisabledBtnWithdraw,
+  reponseOfUpdatingTokensNetworks,
 } from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {
   CtxWalletNetworks,
@@ -31,6 +32,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { debounce } from "@/shared/lib";
+import useError from "@/shared/model/hooks/useError";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -49,6 +51,8 @@ const WithdrawFormCrypto = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
+  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
+
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -56,8 +60,16 @@ const WithdrawFormCrypto = () => {
     description: null,
   });
 
+  const delayRes = useCallback(debounce((amount) => {
+    setRefresh(true, amount)
+    reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
+        res?.error              
+            ? localErrorHunter(res.error)
+            : localErrorClear()
+    })     
+}, 2000), []);
+
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
 
   const {
     percent_fee = 0,
@@ -76,7 +88,7 @@ const WithdrawFormCrypto = () => {
     delayDisplay();
   }, [inputCurr.value.number]);
 
-  return tokenNetworks.length > 0 && (
+  return (
     <div className={style.FormWrap}>
       <div className={style.FormContainer}>
         <div className={style.FormBlock}>
@@ -118,6 +130,9 @@ const WithdrawFormCrypto = () => {
             </InputCurrency.PercentSelector>
           </InputCurrency.Validator>
         </div>
+        {localErrorInfoBox && <div className='py-5'>
+                {localErrorInfoBox}    
+            </div>}
         <div className={style.InpBlock}>
             <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
             <Input

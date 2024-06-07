@@ -33,6 +33,7 @@ const HeaderMobile = ({ items, actions }) => {
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
             case `wallet`:
+                if(tab === "top_up") return t("top_up_wallet")
                 return t("wallet").capitalize();
             case `partnership-program`:
                 return t("partnership_program.title").capitalize();

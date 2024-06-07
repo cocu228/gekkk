@@ -24,7 +24,7 @@ const InfoContent = (props: TxInfoProps) => {
   const navigate = useNavigate();
   const location = useLocation()
   const { t } = useTranslation();
-  const { setContent } = useContext(CtxGlobalModalContext);
+  const modalContext = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 
@@ -46,7 +46,7 @@ const InfoContent = (props: TxInfoProps) => {
         search: params.toString()
       })
     } else {
-      setContent({
+      modalContext.setContent({
         content: <ReceiptData txId={props.id_transaction}/>,
         title: 'Transaction receipt'
       })
@@ -262,21 +262,23 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          <div className={"flex w-full justify-center"}> {/* justify-between mt-3
-            <Button
-                skeleton
-                className='w-full'
-                onClick={handleOnReceipt}
-            >
-              <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
-            </Button> */}
-            <Button
-                className='w-full'
-                onClick={props.handleCancel}
-            >
-              {t("close")}
-            </Button>
-          </div>
+          {!isNeedConfirm && (
+              <div className={"flex w-full justify-center"}> {/* justify-between mt-3
+                <Button
+                    skeleton
+                    className='w-full'
+                    onClick={handleOnReceipt}
+                >
+                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
+                </Button> */}
+                <Button
+                    className='w-full'
+                    onClick={props.handleCancel}
+                >
+                  {t("close")}
+                </Button>
+              </div>
+          )}
         </div>
       )}
     </div>

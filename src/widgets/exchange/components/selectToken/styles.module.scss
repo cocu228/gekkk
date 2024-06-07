@@ -17,13 +17,14 @@
   width: 100%;
   background: inherit;
   padding: 0 5px !important;
-  font-family: Inter;
+  font-family: "Inter";
   outline: none !important;
   font-size: 14px;
   color: var(--gek-dark-blue);
   font-weight: 700; 
 
   &::placeholder {
+    font-family: "Inter";
     color: var(--gek-mid-grey);
     font-size: 9px;
     font-weight: 400;

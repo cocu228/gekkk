@@ -1,4 +1,5 @@
 import styles from './styles.module.scss';
+import Input from '@/shared/ui/input/Input';
 import {useTranslation} from 'react-i18next';
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {ReactNode, useEffect, useState} from "react";
@@ -9,8 +10,10 @@ interface IOption {
 }
 
 interface IParams {
-    label?: string;
+    label: string;
+    title?: string;
     value?: string;
+    search?: boolean;
     className?: string;
     options?: IOption[];
     children?: ReactNode;
@@ -21,7 +24,9 @@ interface IParams {
 
 const ExtendedSelect = ({
     value,
+    title,
     label,
+    search,
     options,
     children,
     onSelect,
@@ -32,6 +37,7 @@ const ExtendedSelect = ({
     const {t} = useTranslation();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>(value);
+    const [searchValue, setSearchValue] = useState<string>('');
 
     useEffect(() => {
         setSelected(value);
@@ -40,7 +46,7 @@ const ExtendedSelect = ({
     return <>
         <div className={`${styles.Container} ${className}`}>
             {preContent}
-            <div className={styles.Label}>{label}</div>
+            <div className={styles.Label}>{title}</div>
             <div className={styles.Suffix} onClick={() => setIsOpen(!isOpen)}>
                 <div className={styles.Selector}>
                     {value ? (options.find(o => o.value === selected))?.label : placeholder}
@@ -54,22 +60,41 @@ const ExtendedSelect = ({
 
         {!isOpen ? children : <>
             <div className={`${styles.Label} `}>
-                {t('select_card_type')}
+                {label}
             </div>
 
+            {search && (
+                <div className="bg-[white] mb-4 h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
+                  <IconApp size={20} code="t12" color="#000" />
+                  <Input
+                    wrapperClassName="w-full"
+                    style={{ height: "10px", border: "none" }}
+                    className="w-full text-[10px] border-[none]"
+                    placeholder={t("crypto_assets.search_currency")}
+                    onChange={({target}) => setSearchValue(target.value)}
+                  />
+                </div>
+            )}
+
             <div className={styles.OptionsContainer}>
-                {options.map((option) => (
-                    <div
-                        className={styles.Option}
-                        onClick={() => {
-                            setSelected(option.value);
-                            onSelect(option.value);
-                            setIsOpen(false);
-                        }}
-                    >
-                        {option.label}
-                    </div>
-                ))}
+                {options
+                    .filter(option => (
+                        option.label.toString().toLowerCase().includes(searchValue.toLowerCase().trim())
+                    ))
+                    .map((option) => (
+                        <div
+                            key={option.value}
+                            className={styles.Option}
+                            onClick={() => {
+                                setSelected(option.value);
+                                onSelect(option.value);
+                                setIsOpen(false);
+                            }}
+                        >
+                            {option.label}
+                        </div>
+                    )
+                )}
             </div>
         </>}
     </>

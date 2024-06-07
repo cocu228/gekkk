@@ -9,7 +9,8 @@ interface IOption {
 }
 
 interface IParams {
-    label?: string;
+    label: string;
+    title?: string;
     value?: string;
     className?: string;
     options?: IOption[];
@@ -21,6 +22,7 @@ interface IParams {
 
 const ExtendedSelect = ({
     value,
+    title,
     label,
     options,
     children,
@@ -40,7 +42,7 @@ const ExtendedSelect = ({
     return <>
         <div className={`${styles.Container} ${className}`}>
             {preContent}
-            <div className={styles.Label}>{label}</div>
+            <div className={styles.Label}>{title}</div>
             <div className={styles.Suffix} onClick={() => setIsOpen(!isOpen)}>
                 <div className={styles.Selector}>
                     {value ? (options.find(o => o.value === selected))?.label : placeholder}
@@ -54,12 +56,13 @@ const ExtendedSelect = ({
 
         {!isOpen ? children : <>
             <div className={`${styles.Label} `}>
-                {t('select_card_type')}
+                {label}
             </div>
 
             <div className={styles.OptionsContainer}>
                 {options.map((option) => (
                     <div
+                        key={option.value}
                         className={styles.Option}
                         onClick={() => {
                             setSelected(option.value);

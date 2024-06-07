@@ -21,7 +21,7 @@ interface IParams {
 }
 
 const OrderCardForm = ({
-    card,
+    card = null,
     closable = false,
     setIsNewCardOpened
 }: IParams) => {

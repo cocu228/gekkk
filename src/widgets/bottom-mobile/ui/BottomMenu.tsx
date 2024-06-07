@@ -18,7 +18,8 @@ export function BottomMenu(){
     
     const isHomePage = !!useMatch("/");
     const isHistoryPage = !!useMatch("/history");
-    const isExchangePage = !!useMatch("/exchange");
+    const isExchangePage = !!useMatch("/exchange")
+    const isExchangePrivate = !!useMatch("/private-room")
     const isPrivateRoom = !!useMatch("/private-room");
     const isOnTransferPage = !!useMatch(`/transfers`);
     const isOnTransferPageCurr = !!useMatch(`/transfers/${currency}`);
@@ -75,7 +76,7 @@ export function BottomMenu(){
                         className={styles.BottomMenuMobileButtons + " "
                             + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
                         }
-                        isActive={isExchangePage}
+                        isActive={isExchangePage || isExchangePrivate}
                     />
                 )}
 

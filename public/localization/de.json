@@ -576,6 +576,7 @@
       "create_order": "Bestellung erstellen",
       "broker_exchange_fee": "Maklerwechselgebühr",
       "title": "Austausch",
+      "private_title": "Privatraum",
       "closed_orders": "Abgeschlossene Bestellungen",
       "active_orders": "Aktive Bestellungen",
       "rooms": "Zimmer",

@@ -31,7 +31,7 @@
   display: inline-flex;
   text-overflow: ellipsis;
   width: calc(100%);
-  padding-top: 15px;
+  padding-top: 10px;
   flex-grow: 1;
   background: none;
   border: none;
@@ -44,7 +44,7 @@
     padding-bottom: 0.1rem;
   }
   @include max-devices("md") {
-      padding-top: 5px;
+      padding-top: 0;
       font-size: 1rem;
 
   }
@@ -66,6 +66,7 @@
     margin-top: 0.3rem;
     ::placeholder{
       font-size: 10px;
+      padding-left: 10px;
     }
   }
 
@@ -73,7 +74,7 @@
     z-index: 10;
     user-select: none;
     margin-left: 12px;
-    margin-top: -20px;
+    margin-top: -18px;
     line-height: 1rem;
     position: absolute;
     font-size: 0.75rem;

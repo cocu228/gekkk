@@ -124,7 +124,7 @@ const WithdrawFormCrypto = () => {
                       name={"address"}
                   />
                   <div onClick={qrCodeModal.showModal} className='pl-2.5'>
-                      <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34'/>
+                      <IconApp className="cursor-pointer" size={30}  code='t81'/>
                   </div>
               </div>
           </div>

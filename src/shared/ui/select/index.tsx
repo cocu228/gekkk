@@ -66,6 +66,7 @@ const Select = <O extends ObjectType,>({
 
     const handleOnChange = (value: O) => {
         setCurrentOptions(options)
+        setInputValue(`${getOptionValue(value)}`)
         onChange(value)
     }
 

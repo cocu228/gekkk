@@ -411,6 +411,7 @@ function Exchange() {
             onCurrenciesSwap={onCurrenciesSwap}
             onToCurrencyChange={onToCurrencyChange}
             onFromCurrencyChange={onFromCurrencyChange}
+            onCancel={roomInfoModal.handleCancel}
             onRoomCreation={(roomInfo) => {
               addExchangeRoom(roomInfo);
               roomInfoModal.handleCancel();

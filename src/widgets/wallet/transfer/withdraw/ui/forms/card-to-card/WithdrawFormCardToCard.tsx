@@ -234,16 +234,19 @@ const WithdrawFormCardToCard = () => {
               <div className={styles.PayInfoCol}>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexText}>
+                    {/* Total amount, that user pays */}
                     {inputCurr.value.number + withdraw_fee}
                   </span>
                 </div>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexText}>
+                    {/* Amount, that recipient recieve */}
                     {inputCurr.value.number}
                   </span>
                 </div>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexTextFee}>
+                    {/* Fee amount */}
                     {withdraw_fee}
                   </span>
                 </div>

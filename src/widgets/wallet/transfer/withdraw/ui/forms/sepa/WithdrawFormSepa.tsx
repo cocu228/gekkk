@@ -43,8 +43,8 @@ const WithdrawFormSepa = () => {
         setTransferDescriptionsTranslated(
             transferDescriptions.map(el=>{
             return {
-                    "value" : el.value,
-                    "label" : t(`${el.value}`)
+                    value : el.value,
+                    label : t(el.value.toLocaleLowerCase())
                 }
             })
         );

@@ -228,17 +228,20 @@ const WithdrawConfirmPhoneNumber = ({
                         <div className={styles.ModalPayInfoCol}>
                             <div className={styles.ModalPayInfoValueFlex}>
                                 <span className={styles.ModalPayInfoValueFlexText}>
-                                    {totalCommission?.total ?? '-'}
+                                    {/* Total amount, that user pays */}
+                                    {totalCommission?.total ?? `${t("loading")}...`}
                                 </span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>
                                 <span className={styles.ModalPayInfoValueFlexText}>
+                                    {/* Amount, that recipient recieve */}
                                     {amount}
                                 </span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>
                                 <span className={styles.ModalPayInfoValueFlexTextFee}>
-                                    {totalCommission?.commission ?? '-'}
+                                    {/* Fee amount */}
+                                    {totalCommission?.commission ?? `${t("loading")}...`}
                                 </span>
                             </div>
                         </div>

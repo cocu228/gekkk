@@ -47,7 +47,6 @@ type TProps = IWithdrawFormCryptoState & {
 const WithdrawConfirmCrypto = memo(
   ({ address, amount, recipient, description, handleCancel }: TProps) => {
     const [form] = useForm();
-    const { md } = useBreakpoints();
     const [input, setInput] = useState("");
     const { $const } = useContext(CtxWalletData);
     const [loading, setLoading] = useState(false);
@@ -258,16 +257,16 @@ const WithdrawConfirmCrypto = memo(
           
                 <div className={styles.PayInfoCol}>
                     <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}>{amount}</span>
+                        {/* Total amount, that user pays */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{amount + withdraw_fee}</span>}
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexText}>{amount + withdraw_fee}</span>}
+                        {/* Amount, that recipient recieve */}
+                        <span className={styles.PayInfoValueFlexText}>{amount}</span>
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                        {/* Fee amount */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                     </div>
                 </div>
                 

@@ -120,14 +120,17 @@ const WithdrawFormBroker = () => {
                     </div>
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row flex items-end">
+                            {/* Amount in EUR paid */}
                             <span
                                 className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
+                            {/* EURG amount recieved */}
                             {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
                         </div>
                         <div className="row flex items-end">
+                            {/* Fee amount */}
                             {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                         </div>

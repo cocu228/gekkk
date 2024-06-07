@@ -213,16 +213,16 @@ const WithdrawFormCrypto = () => {
 
                 <div className={styles.PayInfoCol}>
                     <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                      {/* Amount, that user pays */}
+                      {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>}
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>}
+                      {/* Amount, that recipient recieve */}
+                      <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                      {/* Fee amount */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                     </div>
                 </div>
                 

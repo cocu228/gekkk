@@ -141,19 +141,19 @@ const WithdrawFormPapaya = () => {
 
                     <div className={styles.PayInfoCol}>
                         <div className={styles.PayInfoValueFlex}>
-                            <span
-                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                            {/* Amount in EURG paid */}
+                            <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
                         </div>
                         <div className={styles.PayInfoValueFlex}>
-                            {loading ? t("loading")+"..." : <span
-                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
+                            {/* Amount in EUR received */}
+                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
                         </div>
                         <div className={styles.PayInfoValueFlex}>
-                            {loading ? t("loading")+"..." : <span
-                                className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                            {/* Fee amount */}
+                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                         </div>
                     </div>
-                        
+                    
                     <div className={styles.PayInfoCol}>
                         <span className={styles.PayInfoValueFlexTextCurrency}>
                             {currency.$const}

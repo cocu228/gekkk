@@ -123,20 +123,22 @@ const WithdrawFormCrypto = () => {
                       placeholder={t("enter_withdrawal_address")}
                       name={"address"}
                   />
-                  <div onClick={qrCodeModal.showModal} className='pl-2.5'>
-                      <IconApp className="cursor-pointer" size={30}  code='t81'/>
-                  </div>
-              </div>
-          </div>
+                  {md ? <div onClick={qrCodeModal.showModal} className='pl-2.5'>
+                      <IconApp className="cursor-pointer" size={30} code='t81'/>
+                  </div> : <div onClick={qrCodeModal.showModal} className='pl-2.5 pt-2.5'>
+                      <IconApp className="cursor-pointer" size={40} code='t81'/>
+                  </div>}
+                      </div>
+                      </div>
 
-          <ModalUi
-              isModalOpen={qrCodeModal.isModalOpen}
-              onCancel={qrCodeModal.handleCancel}
-              title="&nbsp;"
-              noBorder
-          >
-              <QrcodeScanner
-                  onSuccess={(value: string) => {
+                <ModalUi
+                    isModalOpen={qrCodeModal.isModalOpen}
+                    onCancel={qrCodeModal.handleCancel}
+                    title="&nbsp;"
+                    noBorder
+              >
+                  <QrcodeScanner
+                      onSuccess={(value: string) => {
                       setInputs(prev => ({
                           ...prev,
                           address: value

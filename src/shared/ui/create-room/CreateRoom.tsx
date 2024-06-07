@@ -59,7 +59,7 @@ function CreateRoom({
 
   const value = (equalValue: string) => tokensList.find(t => t.$const === equalValue) || null;
   const getFilterValue = (notEqualValue: string) => ({ $const }: ICtxCurrency) => $const !== notEqualValue;
-  const getOptionValue = ({ name }: ICtxCurrency) => name;
+  const getOptionValue = ({ name, $const }: ICtxCurrency) => md ? $const : name;
   const getIconCode = ({ $const }: ICtxCurrency) => $const;
 
   return (

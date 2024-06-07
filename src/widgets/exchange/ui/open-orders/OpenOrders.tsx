@@ -1,8 +1,6 @@
-import dayjs from "dayjs";
-import { DatePicker } from "antd";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { ordersTabs } from "../../model/heplers";
@@ -23,9 +21,10 @@ import {
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { RangePickerProps } from "antd/es/date-picker";
 import { Modal } from "@/shared/ui/modal/Modal";
 import {Switch } from "@/shared/ui/Switch/index";
+import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
+import { formatForApi } from "@/shared/lib/date-helper";
 
 interface IParams {
   refreshKey?: string;
@@ -33,7 +32,6 @@ interface IParams {
 
 function  OpenOrders({ refreshKey }: IParams) {
   const { t } = useTranslation();
-  const { md } = useBreakpoints();
   const cancelOrderModal = useModal();
   const { account } = useContext(CtxRootData);
   const { roomInfo } = useContext(CtxExchangeData);
@@ -46,18 +44,9 @@ function  OpenOrders({ refreshKey }: IParams) {
   const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
   const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const [customDateStart, setCustomDateStart] = useState<dayjs.Dayjs>(dayjs(addDays(new Date(), -90)));
-  const [customDateEnd, setCustomDateEnd] = useState<dayjs.Dayjs>(dayjs());
-
-  const disabledDateStart: RangePickerProps['disabledDate'] = (current) => {
-    // Can not select days before today and today
-    return current && (customDateEnd && current > customDateEnd)
-  };
-  const disabledDateEnd: RangePickerProps['disabledDate'] = (current) => {
-    // Can not select days before today and today
-    return current && ((customDateStart && current < customDateStart) || (dayjs().endOf('day') < current));
-  };
   
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   useEffect(() => {
     setIsLoading(true);
@@ -82,8 +71,8 @@ function  OpenOrders({ refreshKey }: IParams) {
         })
         : await apiGetOrders({
           room_key: roomInfo?.timetick,
-          end: customDateEnd.format("YYYY-MM-DD"),
-          start: customDateStart.format("YYYY-MM-DD"),
+          end: formatForApi(endDate),
+          start: formatForApi(startDate),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -109,8 +98,8 @@ function  OpenOrders({ refreshKey }: IParams) {
         : await apiGetOrders({
           from_order_id: lastValue.id,
           room_key: roomInfo?.timetick,
-          end: customDateEnd.format("YYYY-MM-DD"),
-          start: customDateStart.format("YYYY-MM-DD"),
+          end: formatForApi(endDate),
+          start: formatForApi(startDate),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -137,8 +126,8 @@ function  OpenOrders({ refreshKey }: IParams) {
   };
 
   useEffect(()=>{
-    setCustomDateStart(dayjs(addDays(new Date(), -90)))
-    setCustomDateEnd(dayjs())
+    setStartDate(new Date())
+    setEndDate(new Date())
   },[activeTab])
 
 
@@ -183,30 +172,32 @@ function  OpenOrders({ refreshKey }: IParams) {
 
           <div className={styles.CustomDateContainerSecondary}>
             <div className={styles.CustomDateContainerPickers}>
-              <DatePicker
-                suffixIcon={<IconApp code="t39" size={20}/>}
-                className={styles.CustomDateContainerPicker}
-                value={customDateStart}
-                onChange={setCustomDateStart}
-                disabledDate={disabledDateStart}
-              />
+              <div className={styles.DatepickerWrap}>
+                <Datepicker 
+                  date={startDate}
+                  setDate={setStartDate}
+                  isTo={false}
+                  border
+                />
+              </div>
 
-              <span>-</span>
+              <div className="">-</div>
 
-              <DatePicker
-                suffixIcon={<IconApp code="t39" size={20}/>}
-                className={styles.CustomDateContainerPicker}
-                value={customDateEnd}
-                onChange={setCustomDateEnd}
-                disabledDate={disabledDateEnd}
-              />
+              <div className={styles.DatepickerWrap}>
+                <Datepicker
+                  border
+                  date={endDate}
+                  setDate={setEndDate}
+                  isTo={true}
+                />
+              </div>
             </div>
 
             <div className={styles.CustomDateContainerButtons}>
               <Button
                 className={styles.CustomDateContainerButton}
                 color="blue"
-                disabled={isLoading || !customDateStart || !customDateEnd}
+                disabled={isLoading || !endDate || !startDate}
                 onClick={requestOrders}
               >
                 {t("apply")}
@@ -214,10 +205,10 @@ function  OpenOrders({ refreshKey }: IParams) {
               <Button
                 className={styles.CustomDateContainerButton}
                 color="gray"
-                disabled={isLoading || (!customDateStart && !customDateEnd)}
+                disabled={isLoading || !endDate || !startDate}
                 onClick={()=>{
-                  setCustomDateStart(null)
-                  setCustomDateEnd(null)
+                  setStartDate(new Date())
+                  setEndDate(new Date())
                 }}
               >
                 {t("clean")}

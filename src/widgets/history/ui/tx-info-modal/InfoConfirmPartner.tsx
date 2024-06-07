@@ -66,7 +66,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
               <span className={style.InfoItemTitle}>{t("sender_name")}</span>
             </div>
           </div>
-          <div className="row w-full flex justify-center h-[43px] mb-5">
+          <div className="row w-full flex justify-center gap-5 h-[43px] mb-5">
             <div className="col flex items-center border-[2px] rounded-[8px] border-[#2BAB72] border-solid w-3/5">
               <Input
                 placeholder={t("enter_sender_name")}
@@ -110,7 +110,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
               <Button
                 size="lg"
                 onClick={confirmPartnerInfo}
-                className="w-full"
+                className="w-full m-auto"
               >
                 <span className="font-bold">{t("confirm")}</span>
               </Button>

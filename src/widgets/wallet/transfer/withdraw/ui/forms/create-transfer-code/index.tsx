@@ -82,9 +82,9 @@ const CreateTransferCode = () => {
         <Modal
           isModalOpen={isModalOpen}
           onCancel={handleCancel}
-          title={t("create_transfer_code")}
+          title={t('your_transfer_code')}
         >
-          <CreateCode />
+          <CreateCode inputCurrMobile={inputCurr} />
         </Modal>
       </div>
       <div className="row mb-2">
@@ -333,7 +333,7 @@ const CreateTransferCode = () => {
         </div>
       </div>
       <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[10px]">
-        <TransferTableCode isOwner />
+        <TransferTableCode inputCurr={inputCurr} isOwner />
       </div>
     </div>
   );

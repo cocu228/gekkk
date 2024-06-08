@@ -17,15 +17,16 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
 
-const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
+const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inputCurr?: IUseInputState }) => {
     const [tableHeads, setTableHeads] = useState([
         'code',
         'amount',
         'status',
         'action'
     ])
-    const {$const} = useContext(CtxWalletData)
+    const currency = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
@@ -33,7 +34,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         (async () => {
             await getListTxCode()
         })()
-    }, [$const])
+    }, [currency.$const])
 
     useEffect(() => {
         if(window.innerWidth < 768) {
@@ -45,9 +46,12 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         }
     }, [])
 
-    const filteredListTxCode = listTxCode.filter(item => item.currency === $const && item.isOwner === isOwner)
+    const filteredListTxCode = listTxCode.filter(item => item.currency === currency.$const && item.isOwner === isOwner)
     const {t} = useTranslation();
     const {md} = useBreakpoints() 
+
+
+    console.log('sdfsdf', filteredListTxCode)
 
     return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
@@ -72,7 +76,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     <GTable.Col className="w-full" >
                         <div className="row flex w-full items-center pr-[6px]">
                             <div className="col pr-[15px] w-full">
-                                <CodeModalInfo code={it.code}/>
+                                <CodeModalInfo item={it} code={it.code}/>
                             </div>
                             <div className={styles.CopyIcon}>
                                 <CopyIcon value={it.code}/>
@@ -89,7 +93,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 }
                             </div>
                         </div>
-                        <span className={styles.MobileAmount}>{it.amount} {$const}</span>
+                        <span className={styles.MobileAmount}>{it.amount} {currency.$const}</span>
                     </GTable.Col>
 
                     {
@@ -119,9 +123,11 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     )
 }
 
-const CodeModalInfo = ({code, inputCurr=null}) => {
+const CodeModalInfo = ({code, item}) => {
     const {showModal, isModalOpen, handleCancel} = useModal()
     const {t} = useTranslation()
+
+    const payInfoInpValue = item.amount
 
     return <>
         <span onClick={showModal}
@@ -129,7 +135,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
 
         <Modal title={t("your_transfer_code")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
-            <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
+            <CodeTxInfo currency={item.currency} onClose={handleCancel} inputCurr={payInfoInpValue} code={code}/>
         </Modal>
     </> 
 }

@@ -87,7 +87,6 @@
     margin-bottom: 1rem;
     line-height: 1.25rem;
     justify-content: space-between;
-    padding: 0px 15%;
 
     @include max-devices("md") {
         gap: 1rem;

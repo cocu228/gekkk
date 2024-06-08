@@ -40,7 +40,7 @@ const WithdrawFormPapaya = () => {
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
 
-    const delayRes = useCallback(debounce((amount) => {
+    const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
         setRefresh(true, amount)
         reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
             res?.error              

@@ -35,14 +35,14 @@ const WithdrawFormBroker = () => {
       const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();  
 
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-      const delayRes = useCallback(debounce((amount) => {
-    setRefresh(true, amount)
-    reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
-        res?.error              
-            ? localErrorHunter(res.error)
-            : localErrorClear()
-    })     
-}, 2000), []);
+    const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
+        setRefresh(true, amount)
+        reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
+            res?.error              
+                ? localErrorHunter(res.error)
+                : localErrorClear()
+        })     
+    }, 2000), []);
 
     const {
         percent_fee = 0,

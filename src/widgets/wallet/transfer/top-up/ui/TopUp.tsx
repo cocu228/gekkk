@@ -16,6 +16,7 @@ import { getInitialProps, useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
 import { IconApp } from '@/shared/ui/icons/icon-app';
+import TransferTableCode from '../../components/transfer-code/table/TransferTableCode';
 
 const TopUp = memo(() => {
     const {t} = useTranslation()
@@ -130,6 +131,11 @@ const TopUp = memo(() => {
                 }
 
             </div>
+            {md && networkType === 231 &&
+                    <div className={styles.TransferTableContainer}>
+                        <TransferTableCode/>
+                    </div>
+            }
             
             {!md && displayedForm}
 

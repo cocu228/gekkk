@@ -129,9 +129,10 @@ const ApplyTransferCode = () => {
                     </Modal>
             </div>
         </div>
-        <div className={styles.TransferTableContainer}>
+        <div className={styles.TransferTableCont}>
             <TransferTableCode/>
         </div>
+
     </div>
 
 }

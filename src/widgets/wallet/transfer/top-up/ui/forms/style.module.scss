@@ -307,12 +307,11 @@
     }
 }
 
-.TransferTableContainer{
-    margin-top: 20px;
+.TransferTableCont {
+    
+    margin-top: 10px;
 
-    @include max-devices(md){
-        position: relative;
-        left: -15px;
-        width: calc(100% + 30px);
+    @include max-devices (md){
+        display: none;
     }
 }

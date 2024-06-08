@@ -60,14 +60,14 @@ const WithdrawFormCrypto = () => {
     description: null,
   });
 
-  const delayRes = useCallback(debounce((amount) => {
+  const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
     setRefresh(true, amount)
     reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
         res?.error              
             ? localErrorHunter(res.error)
             : localErrorClear()
     })     
-}, 2000), []);
+  }, 2000), []);
 
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
 

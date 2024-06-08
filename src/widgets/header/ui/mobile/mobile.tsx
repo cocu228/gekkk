@@ -23,6 +23,8 @@ const HeaderMobile = ({ items, actions }) => {
     const tab = params.get("tab");
     const roomId = params.get('roomId');
     const settingsTab = params.get("sessionsSection");
+    const currency = params.get("currency");
+
 
     const homePage = useMatch("/");
     const exchangePage = useMatch("/exchange");
@@ -33,7 +35,8 @@ const HeaderMobile = ({ items, actions }) => {
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
             case `wallet`:
-                if(tab === "top_up") return t("top_up_wallet")
+                if(tab === "top_up") {return t("top_up_wallet")}
+                if(tab === "about") {return `${t("about")} ${currency}`}
                 return t("wallet").capitalize();
             case `partnership-program`:
                 return t("partnership_program.title").capitalize();

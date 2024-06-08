@@ -39,22 +39,20 @@ const About = ({description}: IParams) => {
                 </h1>
             </div>
 
-            <div className='text-gray-500 text-sm font-medium'>
+            <div className='text-gray-500 text-sm font-medium md:text-justify md:text-[10px] md:font-[400]'>
                 {description}
             </div>
 
             {isEUR ? null : (
                 <div className={`w-full flex flex-row justify-center gap-5 mt-10`}>
                     <Button
-                        skeleton
-                        color="gray"
+                        color="blue"
                         className="w-full"
                         onClick={() => navigate(`/exchange?to=${$const}`)}>
                         {t("buy")}
                     </Button>
 
                     <Button
-                        skeleton
                         color="gray"
                         className="w-full"
                         onClick={() => navigate(`/exchange?from=${$const}`)}>

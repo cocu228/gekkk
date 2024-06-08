@@ -1169,7 +1169,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             {IS_GEKKARD_APP && 
                 <>
                     <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                        <div className='text-xl'>
+                        <div className='text-[14px]'>
                             {t("exchange_rate_fixed")}: <span className="font-bold">1 EUR = 1 EURG*</span>
                         </div>
                         <div className="col text-xs">
@@ -1189,7 +1189,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                         </div>
                     </div>
                     <div className='info-box-description mb-4'>
-                        <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
+                        <p className='font-bold text-[14px] mb-4'>4% {t("AER_interest")}</p>
                         <p>{t("you_get_per_annum")}:</p>
                         <p>(i) {t("your_weighted_average")};</p>
                         <p>(ii) {t("our_upper_limit")}.</p>

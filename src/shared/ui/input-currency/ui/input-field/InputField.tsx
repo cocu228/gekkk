@@ -37,7 +37,7 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
             className={`${inputCurrencyValid ? "!border-red-800" : md ? "border-[var(--gek-light-grey)] md:rounded-[8px]" : "border-[#CED4DA]"} ${className} ${transfers && styles.InputTransfers} md:text-[var(--gek-light-grey)]`}
             disabled={disabled || !currency}
             value={value}
-            placeholder={!currency ? '' : '-enter amount-'}
+            placeholder={!currency ? '' : `-${t("enter_amount")}-`}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 const value: string = event.target.value
                 onChange(value)

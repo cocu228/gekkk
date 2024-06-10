@@ -130,7 +130,7 @@ const TopUp = memo(() => {
                 }
 
             </div>
-            {md && networkType === 231 &&
+            {md && networkType === 231 && +type === 231 &&
                     <div className={styles.TransferTableContainer}>
                         <TransferTableCode/>
                     </div>

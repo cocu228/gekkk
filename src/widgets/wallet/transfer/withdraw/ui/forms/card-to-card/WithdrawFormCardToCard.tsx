@@ -166,7 +166,7 @@ const WithdrawFormCardToCard = () => {
           </span>
           <Input
               wrapperClassName={style.CardToCardInput}
-              placeholder="-enter description-"
+              placeholder={`-${"enter_description"}-`}
               tranfers
               bordered={false}
               allowDigits
@@ -195,7 +195,7 @@ const WithdrawFormCardToCard = () => {
                   cardholderName: target.value.toUpperCase(),
                 }));
               }}
-              placeholder="-enter cardholder name-"
+              placeholder={`-${t("enter_cardholder_name")}-`}
               name={"cardholderName"}
             />
         </div>
@@ -211,7 +211,7 @@ const WithdrawFormCardToCard = () => {
               value={inputs.comment}
               name={"comment"}
               onChange={onInputDefault}
-              placeholder='-enter description-'
+              placeholder={`-${t("enter_description")}-`}
               style={{
                 height: 56,
               }}

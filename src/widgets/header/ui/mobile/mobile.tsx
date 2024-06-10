@@ -55,7 +55,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `private-room`:
                 return t("exchange.private_title").capitalize();
             case 'card-menu':
-                if(location.search === '?how_it_works=true') {
+                if(location.search) {
                     return t("how_it_works").capitalize().slice(0, -1)
                 } else {
                     return t("payment_cards").capitalize()

@@ -68,7 +68,7 @@ const WithdrawFormSepa = () => {
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     onSelect={setInputCurr}
-                                    header={<span className={`${styles.TitleColText} ml-[10px]`}>{t("amount")}:</span>}
+                                    header={<span className={`${styles.TitleColText} ml-[7px]`}>{t("amount")}:</span>}
                                 >
                                 <InputCurrency
                                     transfers={md}
@@ -86,7 +86,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("beneficiary_name")}:</span>
+                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("beneficiary_name")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -102,18 +102,18 @@ const WithdrawFormSepa = () => {
                         </div>
                     </div>
                                                     
-                    <div className='text-gray-400'>
+                    <div className='text-gray-400 ml-[7px]'>
                         <span className='text-[var(--gek-orange)] text-[10px]'>
                             {!inputs.beneficiaryName && "*" + t("EW_law")}
                         </span>
                     </div>
                 </div>
             </div>
-            <div className="row mb-5 w-full">
+            <div className="row mb-[10px] w-full">
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("IBAN")}:</span>
+                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("IBAN")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -130,13 +130,9 @@ const WithdrawFormSepa = () => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-5 w-full">
-                <div className="col">
-                    <div className="row mb-[3px]">
-                        <div className="col">
-                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("transfer_desc")}:</span>
-                        </div>
-                    </div>
+            <div className="row mb-[10px] w-full">
+                <div className="flex flex-col">
+                    <span className={`${styles.TitleColText} ml-[7px] relative top-[3px]`}>{t("transfer_desc")}:</span>
                     <div className="row">
                         <div className="col">
                             <Select
@@ -157,7 +153,7 @@ const WithdrawFormSepa = () => {
                 <div className="col w-full">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("comment")}:</span>
+                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("comment")}:</span>
                         </div>
                     </div>
                     <div className="row w-full">

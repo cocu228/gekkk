@@ -7,12 +7,14 @@
         padding-bottom: 15px;
 
         &Text{
+            font-family: "Inter";
             color: #1F3446;
             font-weight: 500;
             font-size: 16px;
             
             @include max-devices("md") {
-                font-weight: 700;
+                font-weight: 600;
+                line-height: 10px;
                 font-size: 12px;
             }
 

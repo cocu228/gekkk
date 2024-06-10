@@ -124,114 +124,107 @@ const UniversalTransferConfirm = ({
         setLoading(false);
     }
     
-    return (
+    return (loading ? <Loader className='relative my-20'/> : (
         <div className="-md:px-4">
-            {loading && <Loader className='justify-center'/>}
-            
-            <div className={loading ? 'collapse' : ''}>
-                <div className="row mb-5 md:mb-0">
-                    <div className="col">
-                        <div className="p-4">
-                            <div className={`wrapper ${styles.ModalInfo}`}>
-                                <div className={styles.ModalInfoIcon + " self-start"}>
-                                    <div className="col">
-                                        <IconApp color="#8F123A" size={15} code="t27" />
-                                    </div>
+            <div className="row mb-5 md:mb-0">
+                <div className="col">
+                    <div className="p-4">
+                        <div className={`wrapper ${styles.ModalInfo}`}>
+                            <div className={styles.ModalInfoIcon + " self-start"}>
+                                <div className="col">
+                                    <IconApp color="#8F123A" size={15} code="t27" />
                                 </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <span className={styles.ModalInfoText}>
-                                            {t("check_your_information_carefully")}
-                                        </span>
-                                    </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <span className={styles.ModalInfoText}>
+                                        {t("check_your_information_carefully")}
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            
-                <div className={styles.ModalRows}>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={styles.ModalRowsValue}>{label}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>Amount</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>{amount} {$const}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>Requisite</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>{requisite}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>{t("recipient_name")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>{stage.recipient ?? '-'}</span>
-                        </div>
-                    </div>
-                    {comment && <>
-                        <div className="row mb-2 md:mb-1">
-                            <div className="col">
-                                <span className={styles.ModalRowsTitle}>{t("description")}</span>
-                            </div>
-                        </div>
-                        <div className="row mb-4 md:mb-2">
-                            <div className="col">
-                                <span className={styles.ModalRowsValue}>{comment}</span>
-                            </div>
-                        </div>
-                    </>}
-                </div>
-
-                <div className="row mt-4">
-                    <div className="col relative">
-                        <div className={styles.ButtonContainer + " px-4"}>
-                            <Button htmlType={"submit"}
-                                onClick={onConfirm}
-                                className={styles.ButtonTwo}
-                            >
-                                {t("confirm")}
-                            </Button>
-
-                            <Button
-                                skeleton
-                                className={styles.ButtonTwo}
-                                onClick={handleCancel}
-                            >
-                                {t("cancel")}
-                            </Button>
-                        </div>
-                    </div>
-                    
-                    <div className="col flex justify-center mt-4">
-                        {localErrorInfoBox}
                     </div>
                 </div>
             </div>
+            <div className={styles.ModalRows}>
+                <div className="row mb-2 md:mb-1">
+                    <div className="col">
+                        <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+                    </div>
+                </div>
+                <div className="row mb-4 md:mb-2">
+                    <div className="col text-[#3A5E66] font-semibold">
+                        <span className={styles.ModalRowsValue}>{label}</span>
+                    </div>
+                </div>
+                <div className="row mb-2 md:mb-1">
+                    <div className="col">
+                        <span className={styles.ModalRowsTitle}>Amount</span>
+                    </div>
+                </div>
+                <div className="row mb-4 md:mb-2">
+                    <div className="col">
+                        <span className={styles.ModalRowsValue}>{amount} {$const}</span>
+                    </div>
+                </div>
+                <div className="row mb-2 md:mb-1">
+                    <div className="col">
+                        <span className={styles.ModalRowsTitle}>Requisite</span>
+                    </div>
+                </div>
+                <div className="row mb-4 md:mb-2">
+                    <div className="col">
+                        <span className={styles.ModalRowsValue}>{requisite}</span>
+                    </div>
+                </div>
+                <div className="row mb-2 md:mb-1">
+                    <div className="col">
+                        <span className={styles.ModalRowsTitle}>{t("recipient_name")}</span>
+                    </div>
+                </div>
+                <div className="row mb-4 md:mb-2">
+                    <div className="col">
+                        <span className={styles.ModalRowsValue}>{stage.recipient ?? '-'}</span>
+                    </div>
+                </div>
+                {comment && <>
+                    <div className="row mb-2 md:mb-1">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("description")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4 md:mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsValue}>{comment}</span>
+                        </div>
+                    </div>
+                </>}
+            </div>
+            <div className="row mt-4">
+                <div className="col relative">
+                    <div className={styles.ButtonContainer + " px-4"}>
+                        <Button htmlType={"submit"}
+                            onClick={onConfirm}
+                            className={styles.ButtonTwo}
+                        >
+                            {t("confirm")}
+                        </Button>
+                        <Button
+                            skeleton
+                            className={styles.ButtonTwo}
+                            onClick={handleCancel}
+                        >
+                            {t("cancel")}
+                        </Button>
+                    </div>
+                </div>
+                
+                <div className="col flex justify-center mt-4">
+                    {localErrorInfoBox}
+                </div>
+            </div>
         </div>
-    );
+    ));
 }
 
 export default UniversalTransferConfirm;

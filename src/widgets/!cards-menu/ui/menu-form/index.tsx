@@ -14,6 +14,7 @@ import { CtxGlobalModalContext } from '@/app/providers/CtxGlobalModalProvider';
 import ConfirmationModal from './confirmation-modal';
 import CardInfo from './card-info';
 import { Switch } from '@/shared/ui/Switch';
+import { Link } from 'react-router-dom';
 
 interface IParams {
     cardsStorage: ICardStorage;
@@ -162,9 +163,8 @@ const MenuForm = ({
 
         {/* Desktop: show modal with "How it works"*/}
         {/* Mobile: replace content with "How it works"*/}
-        <a className={styles.LinkButton}
-            onClick={(e) => {
-                e.preventDefault();
+        <Link className={styles.LinkButton}
+            onClick={() => {
                 if (md) {
                     setSelectedItem("how-it-works");
                 } else {
@@ -174,9 +174,10 @@ const MenuForm = ({
                     });
                 }
             }}
+            to='/card-menu?how_it_works=true'
         >
             {t("how_it_works")}
-        </a>
+        </Link>
 
         <div className={styles.FooterContainer}>
             {selectedCard?.cardStatus !== 'ACTIVE' ? null : (

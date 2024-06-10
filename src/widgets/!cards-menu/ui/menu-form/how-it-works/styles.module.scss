@@ -8,11 +8,13 @@
 }
 
 .Text {
-    font-size: 12px;
+    font-size: 10px;
     text-align: left;
+    font-family: "Inter";
+    font-weight: 400;
     text-indent: 10px;
     margin-bottom: 10px;
-    color: var(--gek-dark-blue);
+    color: #000;
 }
 
 .ButtonContainer {

@@ -263,7 +263,7 @@ const InfoContent = (props: TxInfoProps) => {
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
           {!isNeedConfirm && (
-              <div className={"flex w-full justify-center"}> {/* justify-between mt-3
+              <div className={"flex gap-[20px] w-full justify-center mt-[10px]"}> {/* justify-between mt-3
                 <Button
                     skeleton
                     className='w-full'

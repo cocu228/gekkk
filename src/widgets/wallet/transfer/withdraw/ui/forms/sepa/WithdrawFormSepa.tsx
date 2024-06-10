@@ -14,7 +14,6 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
-import TextArea from '@/shared/ui/input/text-area/TextArea';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/Select';
@@ -29,7 +28,7 @@ const WithdrawFormSepa = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
-    const {min_withdraw = 0} = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+    const {min_withdraw = 0, withdraw_fee = 0} = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
 
     const [inputs, setInputs] = useState({
@@ -56,7 +55,7 @@ const WithdrawFormSepa = () => {
 
     return (
         <div className="wrapper">
-            <div className="row mb-5 w-full">
+            <div className="row md:mb-[10px] mb-[15px] w-full">
                 <div className="col">
                     <div className="row">
                         <div className="col">
@@ -82,21 +81,22 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
 
-            <div className="row mb-5 w-full">
+            <div className="row md:mb-[8px] mb-[15px] w-full">
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("beneficiary_name")}:</span>
+                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("recipient")}:</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
                             <Input
+                                wrapperClassName={styles.InputWrap}
                                 tranfers={md}
                                 bordered={!md}
                                 value={inputs.beneficiaryName}
                                 onChange={onInput}
-                                placeholder={t("enter_beneficiary_name")}
+                                placeholder={"-enter recepient name-"}
                                 name={"beneficiaryName"}
                             />
                         </div>
@@ -109,11 +109,11 @@ const WithdrawFormSepa = () => {
                     </div>
                 </div>
             </div>
-            <div className="row mb-[10px] w-full">
+            <div className="row md:mb-[10px] mb-[15px] w-full">
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("IBAN")}:</span>
+                            <span className={`${styles.TitleColText} ml-[7px]`}>IBAN:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -124,15 +124,15 @@ const WithdrawFormSepa = () => {
                                 value={inputs.accountNumber} 
                                 onChange={onInput}
                                 name={"accountNumber"} allowDigits
-                                placeholder={t("enter_account_number_or_IBAN")}
+                                placeholder={"-enter account number or IBAN-"}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="row mb-[10px] w-full">
+            <div className="row md:mb-[7px] mb-[15px] w-full">
                 <div className="flex flex-col">
-                    <span className={`${styles.TitleColText} ml-[7px] relative top-[3px]`}>{t("transfer_desc")}:</span>
+                    <span className={`${styles.TitleColText} ml-[7px] relative top-[3px]`}>{t("description")}:</span>
                     <div className="row">
                         <div className="col">
                             <Select
@@ -140,52 +140,62 @@ const WithdrawFormSepa = () => {
                                     ...inputs,
                                     transferDescription: v
                                 }))}
-                                listHeight={250}
+                                listHeight={170}
                                 options={transferDescriptionsTranslated}
-                                placeholder={t("transfer_details.name")}
+                                placeholder={'-enter description-'}
                                 value={inputs.transferDescription}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="row mb-5 w-full">
-                <div className="col w-full">
-                    <div className="row mb-[3px]">
-                        <div className="col">
-                            <span className={`${styles.TitleColText} ml-[7px]`}>{t("comment")}:</span>
-                        </div>
-                    </div>
-                    <div className="row w-full">
-                        <div className="col w-full flex items-center">
-                            {md?
-                                <Input
-                                    tranfers={md}
-                                    bordered={!md}
-                                    allowDigits
-                                    allowSymbols
-                                    value={inputs.comment}
-                                    name={"comment"}
-                                    placeholder={t("comment")}
-                                    onChange={onInput}
-                                />
-                            :
-                                <TextArea
-                                    allowDigits
-                                    allowSymbols
-                                    value={inputs.comment}
-                                    name={"comment"}
-                                    placeholder={t("comment")}
-                                    onChange={onInput}
-                                />
-                            }
-                        </div>
-                    </div>
+
+            <div className={`${styles.PayInfo} flex w-full justify-center`}>
+            <div className={`${styles.PayInfoCol} w-full max-w-[160px]`}>
+                <div className="row">
+                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                </div>
+                <div className="row">
+                <span className={styles.PayInfoText}>
+                    {t("you_will_get")}:
+                </span>
+                </div>
+                <div className="row">
+                    <span className={styles.PayInfoTextFee}>
+                        {t("fee")}:
+                    </span>
                 </div>
             </div>
+            <div className={styles.PayInfoColValue}>
+
+                <div className={styles.PayInfoCol}>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>
+                    </div>
+                </div>
+                
+                <div className={styles.PayInfoCol}>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {currency.$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {currency.$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextFee}>
+                        {currency.$const}
+                    </span>
+                </div>
+            </div>
+        </div>
             
             <Modal
-                placeBottom={window.innerWidth < 768}
                 zIndex
                 destroyOnClose
                 isModalOpen={isModalOpen}
@@ -208,6 +218,11 @@ const WithdrawFormSepa = () => {
                 >
                     <span className={styles.ButtonLabel}>{t("transfer")}</span>
                 </Button>
+                <div className={styles.BottomFeeInfo}>
+                    <span className={styles.BottomFeeInfoText}>
+                        {t("fee_is_prec")} <span className={styles.BottomFeeInfoTextBold}>{withdraw_fee} EURG</span> {t("per_transaction")}
+                    </span>
+                </div>
             </div>
         </div>
     );

@@ -164,7 +164,7 @@ const WithdrawConfirmSepa = ({
           <div className={`wrapper ${styles.ModalInfo}`}>
             <div className={styles.ModalInfoIcon}>
               <div className="col">
-                <IconApp color="#8F123A" size={22} code="t27" />
+                <IconApp color="#8F123A" size={15} code="t27" />
               </div>
             </div>
             <div className="row">
@@ -178,7 +178,7 @@ const WithdrawConfirmSepa = ({
         </div>
       </div>
 
-      <div className={styles.ModalRows}>
+      <div className={`${styles.ModalRows} p-[0_20px] mt-[15px]`}>
         <div className="row mb-1">
           <div className="col">
             <span className={styles.ModalRowsTitle}>
@@ -232,54 +232,56 @@ const WithdrawConfirmSepa = ({
         </div>
       </div>
 
-      <div className={styles.ModalPayInfo}>
-        <div className={styles.ModalPayInfoCol}>
-          <div className="row">
-            <span className={styles.ModalPayInfoText}>
-              {t("you_will_pay")}:
-            </span>
-          </div>
-          <div className="row">
-            <span className={styles.ModalPayInfoText}>
-              {t("you_will_get")}:
-            </span>
-          </div>
-          <div className="row">
-            <span className={styles.ModalPayInfoTextFee}>{t("fee")}:</span>
-          </div>
-        </div>
-        <div className={styles.ModalPayInfoColValue}>
-          <div className={styles.ModalPayInfoCol}>
-            <div className={styles.ModalPayInfoValueFlex}>
-              <span className={styles.ModalPayInfoValueFlexText}>
-                {/* Total amount, that user pays */}
-                {total?.total ?? `${t("loading")}...`}
+      <div className="w-full flex justify-center">
+        <div className={`${styles.ModalPayInfo} w-full max-w-[230px]`}>
+          <div className={`${styles.ModalPayInfoCol}`}>
+            <div className="row">
+              <span className={styles.ModalPayInfoText}>
+                {t("you_will_pay")}:
               </span>
             </div>
-            <div className={styles.ModalPayInfoValueFlex}>
-              <span className={styles.ModalPayInfoValueFlexText}>
-                {/* Amount, that recipient recieve */}
-                {amount}
+            <div className="row">
+              <span className={styles.ModalPayInfoText}>
+                {t("you_will_get")}:
               </span>
             </div>
-            <div className={styles.ModalPayInfoValueFlex}>
-              <span className={styles.ModalPayInfoValueFlexTextFee}>
-                {/* Fee amount */}
-                {total?.commission ?? `${t("loading")}...`}
-              </span>
+            <div className="row">
+              <span className={styles.ModalPayInfoTextFee}>{t("fee")}:</span>
             </div>
           </div>
+          <div className={styles.ModalPayInfoColValue}>
+            <div className={styles.ModalPayInfoCol}>
+              <div className={styles.ModalPayInfoValueFlex}>
+                <span className={styles.ModalPayInfoValueFlexText}>
+                  {/* Total amount, that user pays */}
+                  {total?.total ?? `${t("loading")}`}
+                </span>
+              </div>
+              <div className={styles.ModalPayInfoValueFlex}>
+                <span className={`${styles.ModalPayInfoValueFlexText}`}>
+                  {/* Amount, that recipient recieve */}
+                  {amount}
+                </span>
+              </div>
+              <div className={styles.ModalPayInfoValueFlex}>
+                <span className={styles.ModalPayInfoValueFlexTextFee}>
+                  {/* Fee amount */}
+                  {total?.commission ?? `${t("loading")}`}
+                </span>
+              </div>
+            </div>
 
-          <div className={styles.ModalPayInfoCol}>
-            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-              {$const}
-            </span>
-            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-              {$const}
-            </span>
-            <span className={styles.ModalPayInfoValueFlexTextFee}>
-              {$const}
-            </span>
+            <div className={styles.ModalPayInfoCol}>
+              <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                {$const}
+              </span>
+              <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                {$const}
+              </span>
+              <span className={styles.ModalPayInfoValueFlexTextFee}>
+                {$const}
+              </span>
+            </div>
           </div>
         </div>
       </div>

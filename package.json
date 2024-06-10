@@ -3,7 +3,7 @@
   "private": true,
   "gekkard-version": "2.0.93",
   "gekkoin-version": "2.0.1",
-  "gekwallet-version": "2.0.1",
+  "gekwallet-version": "2.0.5",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",

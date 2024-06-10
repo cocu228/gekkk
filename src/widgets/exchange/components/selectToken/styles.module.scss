@@ -31,7 +31,7 @@
     font-weight: 400;
 
     @media screen and (min-width: 770px) {
-      font-size: 16px;
+      font-size: 10px;
     }
   }
 
@@ -187,7 +187,7 @@
   text-wrap: nowrap;
 
   @media screen and (min-width: 770px) {
-    font-size: 16px;
+    font-size: 10px;
   }
 
 
@@ -203,9 +203,10 @@
 .SelectedToken {
   display: flex;
   // flex-direction: column;
+  font-family: "Inter";
   align-items: center;
   gap: 5px;
-  color: var(--gek-additional);
+  color: #285E69;
   font-size: 14px;
   font-weight: 600;
 

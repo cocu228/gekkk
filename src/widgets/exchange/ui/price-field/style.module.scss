@@ -21,8 +21,10 @@
     border-radius: 10px !important;
     padding: 0 15px !important;
     font-weight: 700;
+    font-size: 16px !important;
 
     @media screen and (max-width: 768px) {
+      font-size: 14px !important;
       padding: 0 15px 5px 5px !important;
       margin: auto 0;
       height: 53px;
@@ -35,9 +37,9 @@
 
     &::placeholder {
       font-family: "Inter";
-      color: var(--gek-mid-grey);
+      color: #B9B9B5 !important;
       font-weight: 400;
-      font-size: 16px !important;
+      font-size: 10px !important;
       position: relative;
       left: 4px;
       top: -1.5px;

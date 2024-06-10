@@ -9,7 +9,6 @@ import {
 } from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 import ApplyTransferCode from "./forms/ApplyTransferCode";
 import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';

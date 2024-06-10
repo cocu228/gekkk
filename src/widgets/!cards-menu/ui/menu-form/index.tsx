@@ -17,12 +17,14 @@ import { Switch } from '@/shared/ui/Switch';
 
 interface IParams {
     cardsStorage: ICardStorage;
+    onSelectCard: (card: ICardData) => void;
     setIsNewCardOpened: (isOpen: boolean) => void;
     setCardsStorage: (cards: ICardStorage) => void;
 }
 
 const MenuForm = ({
     cardsStorage,
+    onSelectCard,
     setCardsStorage,
     setIsNewCardOpened
 }: IParams) => {
@@ -65,14 +67,17 @@ const MenuForm = ({
         return (<HowItWorks onBack={() => setSelectedItem(null)}/>);
     }
 
-    return <>
+    return <div className='px-2'>
         {/* Display header only in desktop mode */}
         {!md && (
             <div className={styles.Header}>
                 <span className={styles.HeaderTitle}>{t("payment_cards")}</span>
                 <span
                     className={styles.HeaderButton}
-                    onClick={() => setIsNewCardOpened(true)}
+                    onClick={() => {
+                        onSelectCard(null);
+                        setIsNewCardOpened(true);
+                    }}
                 >
                     {t("issue_new_card")}
                 </span>
@@ -85,6 +90,7 @@ const MenuForm = ({
                 refreshKey={cardsStorage.refreshKey}
                 onSelect={(card) => {
                     setSelectedCard(card);
+                    onSelectCard(card);
                     setSwitchChecked(card?.options?.limits?.disable);
                 }}
             />
@@ -92,7 +98,7 @@ const MenuForm = ({
 
         {selectedCard?.isVirtual && (
             <MenuItem
-                onClick={onClick}
+                onClick={() => setIsNewCardOpened(true)}
                 dataItem="orderPlastic"
                 leftPrimary={t("order_plastic_card")}
                 rightPrimary={<IconApp code="t08" color="#888a92" size={12} />}
@@ -144,6 +150,16 @@ const MenuForm = ({
             }}
         />
 
+        {selectedCard?.cardStatus !== 'LOCKED' ? null : (
+            <MenuItem
+                leftPrimary={t("unblock_card")}
+                rightPrimary={<IconApp code="t08" color="#888a92" size={12} />}
+                onClick={() => {
+                    setSelectedItem("unblockCard");
+                }}
+            />
+        )}
+
         {/* Desktop: show modal with "How it works"*/}
         {/* Mobile: replace content with "How it works"*/}
         <a className={styles.LinkButton}
@@ -163,26 +179,31 @@ const MenuForm = ({
         </a>
 
         <div className={styles.FooterContainer}>
-            <Button
-                color='red'
-                onClick={() => {
-                    setSelectedItem(selectedCard?.cardStatus !== "LOCKED"
-                        ? "blockCard"
-                        : "unblockCard"
-                    );
-                }}
-            >
-                <IconApp code="t54" size={10} color="#fff" />
-                <div>
-                    {selectedCard?.cardStatus === "ACTIVE"
-                        ? t("block_card")
-                        : t("unblock_card")}
-                </div>
-            </Button>
+            {selectedCard?.cardStatus !== 'ACTIVE' ? null : (
+                <Button
+                    color='red'
+                    onClick={() => {
+                        setSelectedItem(selectedCard?.cardStatus !== "LOCKED"
+                            ? "blockCard"
+                            : "unblockCard"
+                        );
+                    }}
+                >
+                    <IconApp code="t54" size={10} color="#fff" />
+                    <div>
+                        {selectedCard?.cardStatus === "ACTIVE"
+                            ? t("block_card")
+                            : t("unblock_card")}
+                    </div>
+                </Button>
+            )}
 
             {/* Order new card displays in header on desktop */}
             {md && (
-                <Button onClick={() => setIsNewCardOpened(true)}>
+                <Button onClick={() => {
+                    onSelectCard(null);
+                    setIsNewCardOpened(true);
+                }}>
                   <div>{t("order_new_card")}</div>
                 </Button>
             )}
@@ -196,7 +217,7 @@ const MenuForm = ({
             setSwitchChecked={setSwitchChecked}
             onCancel={() => setSelectedItem(null)}
         />
-    </>
+    </div>
 }
 
 export default MenuForm;

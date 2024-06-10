@@ -1166,7 +1166,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             >{t("white_paper")}</a>.
             </p>
 
-            {IS_GEKKARD_APP && 
+            {IS_GEKKARD_APP() && 
                 <>
                     <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
                         <div className='text-[14px]'>

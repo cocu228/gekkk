@@ -33,8 +33,6 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
         })();
     }, []);
 
-    console.log('currency', currency, inputCurr)
-
     return <>
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>
             <div className="row mb-8">

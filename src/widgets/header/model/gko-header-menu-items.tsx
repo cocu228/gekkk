@@ -2,7 +2,7 @@ import React from "react";
 import {TFunction} from "i18next";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 import {IconApp} from "@/shared/ui/icons/icon-app";
-import {EnableNotifications, GekkoinInvestPlatform} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {EnableNotifications, CrossPlatformNav} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 // import {GekkardPersonalAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 // export class HeaderMenuItems {
@@ -41,7 +41,7 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
             }
         },
         {
-            item: <GekkoinInvestPlatform/>,
+            item: <CrossPlatformNav/>,
             id: 'investPlatform',
             action: {
                 type: null,

@@ -123,7 +123,7 @@ const WalletHeader = () => {
                     </div>
                 </div>
                 {
-                    IS_GEKKARD_APP && isEUR ?
+                    IS_GEKKARD_APP() && isEUR ?
                         <div className={styles.IconRate}>
                             <span className={styles.RateText}>{t("card")}</span>
                             <span className={styles.RatePercentText}>1% {t("cashback")}</span>

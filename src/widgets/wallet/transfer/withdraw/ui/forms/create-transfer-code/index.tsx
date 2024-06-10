@@ -94,68 +94,6 @@ const CreateTransferCode = () => {
         <TransferTableCode isOwner />
       </div>
     </div>
-    <Checkbox onChange={({ target }) => setCheckbox(target.checked)}>
-    <div className="flex items-center">
-      {t("use_confirmation")}
-      <div
-        onClick={() => {
-          setIsHelpClicked(true);
-        }}
-        className="inline-block relative align-middle w-[14px] ml-1 cursor-help"
-      >
-        <img src="/img/icon/HelpIcon.svg" alt="tooltip" />
-      </div>
-
-      <Modal
-        title={t("use_confirmation")}
-        isModalOpen={isHelpClicked}
-        onCancel={() => {
-          setIsHelpClicked(false);
-        }}
-      >
-        <div>{/* TODO: image */}</div>
-        <div className="flex items-center">
-          <span>{t("when_using_confirmation")}</span>
-        </div>
-        <div className="w-full">
-          <Button
-            size="lg"
-            color="blue"
-            className="w-full mt-5"
-            onClick={() => {
-              setIsHelpClicked(false);
-            }}
-          >
-            {t("close")}
-          </Button>
-        </div>
-      </Modal>
-    </div>
-  </Checkbox>
-    <div className="row">
-          <div className="col">
-            <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-              <div className="col flex flex-col w-[max-content] gap-2">
-                <div className="row">
-                  <span>{t("you_will_pay")}</span>
-                </div>
-                <div className="row">
-                  <span>{t("you_will_get")}</span>
-                </div>
-                <div className="row">
-                  <span>{t("fee")}</span>
-                </div>
-              </div>
-              <div className="col flex flex-col w-[max-content] gap-2">
-                <div className="row flex items-end">
-                  <span className="w-full text-start">
-                    {inputCurr.value.number} {currency.$const}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
     </>
   ) : (
     <div>
@@ -192,7 +130,7 @@ const CreateTransferCode = () => {
         </div>
       </div>
       <div className="row mb-4 mt-[10px]">
-        {!!!inputCurr.value.number && (
+        {!inputCurr.value.number && (
           <span className="text-[10px] text-[var(--gek-orange)] ml-[10px] leading-[12.5px] block">
             *Create a special code with which you can transfer or receive{" "}
             {currency.$const} funds between Gekkoin users with or without your

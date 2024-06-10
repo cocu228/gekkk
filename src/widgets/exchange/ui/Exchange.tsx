@@ -309,7 +309,7 @@ function Exchange() {
               </div>
             </div>
 
-            <div className="mt-4 md:mx-4">
+            <div className="mt-4 md:mx-[6px]">
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 

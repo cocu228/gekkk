@@ -50,9 +50,6 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
     const {t} = useTranslation();
     const {md} = useBreakpoints() 
 
-
-    console.log('sdfsdf', filteredListTxCode)
-
     return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead}>
@@ -110,7 +107,7 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                         </span>
                     </GTable.Col>
 
-                    <GTable.Col className={styles.StatusCol}>
+                    <GTable.Col className={styles.ActionCol}>
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
                             <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
                     </GTable.Col>
@@ -131,7 +128,7 @@ const CodeModalInfo = ({code, item}) => {
 
     return <>
         <span onClick={showModal}
-              className={styles.CodeModalTitle}>*{code}</span>
+              className={styles.CodeModalTitle}>{code}</span>
 
         <Modal title={t("your_transfer_code")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
@@ -193,40 +190,40 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         'amount': `${amount} ${currency}`,
     }
 
-    return (
-        <>
-            {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
-            <Modal placeBottom={window.innerWidth<768} title={t("the_code_confirmed")} isModalOpen={isModalOpen}
-               onCancel={handleCancel}>
-            <>
-                        {localErrorInfoBox ? localErrorInfoBox : <>
-                            <div>
-                            <div className={stylesForms.ModalRows}>3
-                                <div className={styles.ModalDateList}>
-                                    {
-                                        modalDateArray.map((item, ind) => (
-                                            <div key={ind} className={styles.ModalDateListItem}>
-                                                <span className={styles.ModalDateListItemTitle} >{t(item.titleKey)}</span>
-                                                <span className={styles.ModalDateListItemValue}>{modalKeys[item.key]}</span>
-                                            </div>
-                                        ))
-                                    }
+    return <>
+        {loading ? <div className="w-full h-full relative"><Loader/></div> :
+        <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
+        <Modal
+            placeBottom={md}
+            onCancel={handleCancel}
+            isModalOpen={isModalOpen} 
+            title={t("the_code_confirmed")}
+        >
+            {localErrorInfoBox ? localErrorInfoBox : <>
+                <div>
+                <div className={stylesForms.ModalRows}>3
+                    <div className={styles.ModalDateList}>
+                        {
+                            modalDateArray.map((item, ind) => (
+                                <div key={ind} className={styles.ModalDateListItem}>
+                                    <span className={styles.ModalDateListItemTitle} >{t(item.titleKey)}</span>
+                                    <span className={styles.ModalDateListItemValue}>{modalKeys[item.key]}</span>
                                 </div>
-                            </div>
-                            <div className={stylesForms.ButtonContainer}>
-                                <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
-                                    {t("confirm")}
-                                </Button>
-                                <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
-                                    {t("cancel")}
-                                </Button>
-                            </div>
-                            </div>
-                        </>}
-                    </>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className={stylesForms.ButtonContainer}>
+                    <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                        {t("confirm")}
+                    </Button>
+                    <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
+                        {t("cancel")}
+                    </Button>
+                </div>
+                </div>
+            </>}
         </Modal>
-        </>
-    )   
+    </>   
 }
 export default TransferTableCode;

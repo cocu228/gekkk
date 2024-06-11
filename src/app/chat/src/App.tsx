@@ -141,11 +141,10 @@ function App() {
                 />
             </BodyLayout>
             <MessageInput
-                onSendMessage={onSendMessage}
                 showSendButton
-                showAttachButton={true}
+                showAttachButton
+                onSendMessage={onSendMessage}
                 onAttachClick={onAttachClick}
-                placeholder="Type message here"
             />
         </MainLayout>
     )

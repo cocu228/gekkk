@@ -1,165 +1,185 @@
 ﻿{
   "GEKKARD": [
-  {
-    "version": "2.0.66",
-    "date": "2024-03-22T14:30:18.689Z",
-    "description": "- Added the ability to sign withdrawals with FIDO-key for better safety and smoother user experience\n- Updated the withdrawal logic and changed the technical addresses management for better withdrawal speed and possible fee economy\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.65",
-    "date": "2024-02-07T13:40:18.689Z",
-    "description": "- Added the functionality for sending internal transfers to other Gekkard users using only their phone number or IBAN\n- Updated authentication process with the ability to use FIDO-keys\n- Merged Withdraw and Transfer pages — now you can initiate transfers of all kinds in one place\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.64",
-    "date": "2024-01-22T18:11:18.689Z",
-    "description": "- Added application's versions to dashboard\n- Moved full transaction history to dedicated page\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.63",
-    "date": "2024-01-09T11:30:18.689Z",
-    "description": "- Released beta-version of PWA-mode (Progressive Web Application) — you can now install Gekkard web application right from the browser\n- Updated mobile pages for the accounts and token search\n- Updated desktop page for the account\n- Fixed minor bugs and issues"
-  },
-  {
-    "version": "2.0.62",
-    "date": "2023-12-29T17:12:18.689Z",
-    "description": "- Added bank card functionality (limits setup, temporary disabling limits, full card details)\n- Added pages My settings, FAQ\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.61",
-    "date": "2023-12-18T12:44:18.689Z",
-    "description": "- Added functionality for agent to create agent code, monitor referrals' activity and see reward history\n- Added the ability for agent to choose the reward program\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.60",
-    "date": "2023-12-04T15:55:18.689Z",
-    "description": "- Added detailed information about service fees to the Settings page\n- Added legal information to the Settings page\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.59",
-    "date": "2023-11-28T11:50:18.689Z",
-    "description": "- Added authorised chat with support\n- Added full history — now you can see full transactions history across all currencies in one place\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.58",
-    "date": "2023-11-13T09:33:18.689Z",
-    "description": "- Added unauthorised chat with support\n- Added localisation for German\n- Updated the login page design\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.57",
-    "date": "2023-10-30T14:07:18.689Z",
-    "description": "- Added the ability to transfer session to Gekkoin invest platform — now you can smoothly and safely visit Gekkoin invest platform without the need for additional authentication\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.56",
-    "date": "2023-10-09T11:50:18.689Z",
-    "description": "- Added bank card functionality (block card, order additional card)\n- Updated the design and functionality of the mobile version of the main screen\n- Updated the dropdown account menu\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.55",
-    "date": "2023-09-25T08:52:18.689Z",
-    "description": "- Added bank card functionality (send SEPA transfer, send transfer to contact, see balance)\n- Added independent 2FA for withdraw operations for security measures\n- Added detailed descriptions of various cashback programs available on the platform\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.54",
-    "date": "2023-09-11T14:40:18.689Z",
-    "description": "- Updated the status check for certain transactions in EVM-based blockchains — now the failed transactions doesn't require manual sorting and you can access your funds faster and try to withdraw once more in case blockchain has rejected the initial transaction\n- Updated the design elements across the web application according to a new visual style guide for better and smoother visual user experience\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.53",
-    "date": "2023-08-28T12:56:18.689Z",
-    "description": "- Updated the list of the crypto assets according to current market conditions\n- Added bank card functionality (list cards, choose card, see history for chosen card)\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.52",
-    "date": "2023-08-14T17:21:18.689Z",
-    "description": "- Added the ability to set wallet-base personal fees for operations\n- Blocked operations between physical persons and legal persons except if the client person is the same\n- Added the ability to manual set blockchain fees as a failsafe system so you can use networks even if there are some technical difficulties with automatic fee updates\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.51",
-    "date": "2023-08-01T16:54:18.689Z",
-    "description": "- Added the ability to automatically monitor the bank statement — now the buy/sell operations with EURG and EUR will run much faster than before\n- Updated the transaction history data — now more information about the transaction and in a better visual style\n- Added the automatic updates for blockchain fee — now you can be sure that the fee is relevant and the transaction will be most likely added to blockchain as soon as possible\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.50",
-    "date": "2023-07-17T18:26:18.689Z",
-    "description": "- Updated Partnership program page\n- Implemented measures for a better loading experience for slow Internet connection\n- Added full descriptions to Crypto assets page\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.49",
-    "date": "2023-07-03T12:31:18.689Z",
-    "description": "- Added the ability to see the full wallet lists available for the client and switch between them\n- Added the ability to initiate full update of the bank client's data in case the data has changed (new phone number, added Gekkard PRO account, etc.)\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.48",
-    "date": "2023-06-26T11:55:18.689Z",
-    "description": "- Moved the crypto deposit functionality to a different platform — now you can see all your Gekkoin investment products and interact with them in a separate dedicated Gekkoin investment platform\n- Added the functionality of packaged transfers with a code — now you can create a transfer with a certain currency and of a certain amount, package it to a short code and share with another Gekkard user\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.47",
-    "date": "2023-06-13T10:30:18.689Z",
-    "description": "- Released the algorithm for GKE reward on balance\n- Released the algorithm for agent rewards for investments\n- Increased Binance Smart Chain blockchain performance\n- Increased the speed and safety of bank operations and data extraction using internal data exchange mechanisms\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.46",
-    "date": "2023-05-29T09:53:18.689Z",
-    "description": "- Added the functionality of packaged transfers with a code — now you can create a transfer with a certain currency and of a certain amount, package it to a short code and share with another Gekkard user\n- Added the ability to monitor, cancel short code transfers\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.45",
-    "date": "2023-05-15T12:35:18.689Z",
-    "description": "- Added the ability to create and utilise promotion codes with agent links and with short code transfers\n- Added the ability to unblock incoming transactions after specifying the sender's name\n- Added the ability to see the full data about a blockchain transaction — now you can even follow the link and inspect the transaction in the corresponding blockchain explorer\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.44",
-    "date": "2023-04-24T11:55:18.689Z",
-    "description": "- Updated the crypto wallet page — now you will have a better experience with your wallet \n- Updated EURG wallet page — added functionality and better experience with Gekkoin Euro utility token\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.43",
-    "date": "2023-04-10T10:30:18.689Z",
-    "description": "- Better performance — data synchronisation with banking institution\n- Set up necessary functionality updates the Gekkard PRO users\n- Added the ability to early close every investment according to relevant terms and conditions\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.41",
-    "date": "2023-03-27T09:33:18.689Z",
-    "description": "- Added filtration for transaction types in transaction history\n- Added the withdraw functionality for Ethereum-based ERC-20 tokens\n- Added the withdraw functionality for TRON-based TRC-20 tokens\n- Added the withdraw functionality for BSC-based BEP-20 tokens\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.40",
-    "date": "2023-03-10T16:54:18.689Z",
-    "description": "- Added sidebar menu — now you can easily access all accounts and see balance and incoming transactions right in the interactive sidebar\n- Added the exchange page — now you can monitor trading activity, place orders, cancel orders and see your trading history in one place\n- Added the ability to create private exchange rooms for private exchanges — create private room that only people you invite can enter, invite people with easily sharable link, manage permissions, close rooms as you wish\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.39",
-    "date": "2023-02-27T12:35:18.689Z",
-    "description": "- Added the top-up functionality for Ethereum-based ERC-20 tokens\n- Added the top-up functionality for TRON-based TRC-20 tokens\n- Added the top-up functionality for BSC-based BEP-20 tokens\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.38",
-    "date": "2023-02-14T09:23:18.689Z",
-    "description": "- Added the cashback program for GKE token — now you can get cashback for your GKE balance every month\n- Added GKE boost for investments — now you can get up to a 2x more profitable and 2x safer investments if you 'freeze' the same amount of GKE tokens\n- Added the ability to get a 100% discount for but and sell operations with EURG and EUR\n- Added GKE token support — now you can store GKE tokens in the wallet and get perks and bonuses with it\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.37",
-    "date": "2023-01-30T15:53:18.689Z",
-    "description": "- Added the withdraw functionality for Ethereum\n- Added the withdraw functionality for Monero\n- Added the withdraw functionality for Bitcoin\n- Added the withdraw functionality for TRON\n- Added the withdraw functionality for Binance Smart Chain\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.36",
-    "date": "2023-01-17T16:42:18.689Z",
-    "description": "- Added the ability to buy EURG tokens directly from your bank account\n- Added the ability to sell EURG token and get the EUR directly to your bank account\n- Added the ability to authenticate with the Gekkard mobile app credentials — now you can enter Gekkard web application just as easily as you enter your Gekkard mobile app\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.35",
-    "date": "2023-01-09T12:22:18.689Z",
-    "description": "- Added the top-up functionality for Ethereum\n- Added the top-up functionality for Monero\n- Added the top-up functionality for Bitcoin\n- Added the top-up functionality for TRON\n- Added the top-up functionality for Binance Smart Chain\n- Minor bug fixes"
-  },
-  {
-    "version": "2.0.34",
-    "date": "2022-12-29T12:22:18.689Z",
-    "description": "- Added technical address generation for Ethereum\n- Added technical address generation for TRON\n- Added technical address generation for Monero\n- Added technical address generation for Bitcoin\n- Added technical address generation for Binance Smart Chain\n- Minor bug fixes"
-  }
+    {
+      "version": "2.0.70",
+      "date": "2024-06-10T11:21:18.689Z",
+      "description": "— Added receipts for cryptocurrency transactions\n— Redesigned the interface of the exchange section\n— Implemented a notification scheme when the browser is inactive for the web application on Android\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.69",
+      "date": "2024-05-27T13:33:18.689Z",
+      "description": "— Added a custom search in the transaction history\n— Implemented the ability to confirm card transactions in the Gekkard web application\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.68",
+      "date": "2024-04-29T10:12:18.689Z",
+      "description": "— Optimized the work of authorized and unauthorized chat\n— Updated the design and made a mobile layout of the card management section\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.67",
+      "date": "2024-04-15T11:21:18.689Z",
+      "description": "— Updated the design and made a mobile layout of the exchange module\n— Improved the transaction scanning scheme in the TRON blockchain to protect against scam schemes of tiny transactions and scam airdrops (TRC-10)\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.66",
+      "date": "2024-03-22T14:30:18.689Z",
+      "description": "- Added the ability to sign withdrawals with FIDO-key for better safety and smoother user experience\n- Updated the withdrawal logic and changed the technical addresses management for better withdrawal speed and possible fee economy\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.65",
+      "date": "2024-02-07T13:40:18.689Z",
+      "description": "- Added the functionality for sending internal transfers to other Gekkard users using only their phone number or IBAN\n- Updated authentication process with the ability to use FIDO-keys\n- Merged Withdraw and Transfer pages — now you can initiate transfers of all kinds in one place\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.64",
+      "date": "2024-01-22T18:11:18.689Z",
+      "description": "- Added application's versions to dashboard\n- Moved full transaction history to dedicated page\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.63",
+      "date": "2024-01-09T11:30:18.689Z",
+      "description": "- Released beta-version of PWA-mode (Progressive Web Application) — you can now install Gekkard web application right from the browser\n- Updated mobile pages for the accounts and token search\n- Updated desktop page for the account\n- Fixed minor bugs and issues"
+    },
+    {
+      "version": "2.0.62",
+      "date": "2023-12-29T17:12:18.689Z",
+      "description": "- Added bank card functionality (limits setup, temporary disabling limits, full card details)\n- Added pages My settings, FAQ\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.61",
+      "date": "2023-12-18T12:44:18.689Z",
+      "description": "- Added functionality for agent to create agent code, monitor referrals' activity and see reward history\n- Added the ability for agent to choose the reward program\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.60",
+      "date": "2023-12-04T15:55:18.689Z",
+      "description": "- Added detailed information about service fees to the Settings page\n- Added legal information to the Settings page\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.59",
+      "date": "2023-11-28T11:50:18.689Z",
+      "description": "- Added authorised chat with support\n- Added full history — now you can see full transactions history across all currencies in one place\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.58",
+      "date": "2023-11-13T09:33:18.689Z",
+      "description": "- Added unauthorised chat with support\n- Added localisation for German\n- Updated the login page design\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.57",
+      "date": "2023-10-30T14:07:18.689Z",
+      "description": "- Added the ability to transfer session to Gekkoin invest platform — now you can smoothly and safely visit Gekkoin invest platform without the need for additional authentication\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.56",
+      "date": "2023-10-09T11:50:18.689Z",
+      "description": "- Added bank card functionality (block card, order additional card)\n- Updated the design and functionality of the mobile version of the main screen\n- Updated the dropdown account menu\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.55",
+      "date": "2023-09-25T08:52:18.689Z",
+      "description": "- Added bank card functionality (send SEPA transfer, send transfer to contact, see balance)\n- Added independent 2FA for withdraw operations for security measures\n- Added detailed descriptions of various cashback programs available on the platform\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.54",
+      "date": "2023-09-11T14:40:18.689Z",
+      "description": "- Updated the status check for certain transactions in EVM-based blockchains — now the failed transactions doesn't require manual sorting and you can access your funds faster and try to withdraw once more in case blockchain has rejected the initial transaction\n- Updated the design elements across the web application according to a new visual style guide for better and smoother visual user experience\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.53",
+      "date": "2023-08-28T12:56:18.689Z",
+      "description": "- Updated the list of the crypto assets according to current market conditions\n- Added bank card functionality (list cards, choose card, see history for chosen card)\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.52",
+      "date": "2023-08-14T17:21:18.689Z",
+      "description": "- Added the ability to set wallet-base personal fees for operations\n- Blocked operations between physical persons and legal persons except if the client person is the same\n- Added the ability to manual set blockchain fees as a failsafe system so you can use networks even if there are some technical difficulties with automatic fee updates\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.51",
+      "date": "2023-08-01T16:54:18.689Z",
+      "description": "- Added the ability to automatically monitor the bank statement — now the buy/sell operations with EURG and EUR will run much faster than before\n- Updated the transaction history data — now more information about the transaction and in a better visual style\n- Added the automatic updates for blockchain fee — now you can be sure that the fee is relevant and the transaction will be most likely added to blockchain as soon as possible\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.50",
+      "date": "2023-07-17T18:26:18.689Z",
+      "description": "- Updated Partnership program page\n- Implemented measures for a better loading experience for slow Internet connection\n- Added full descriptions to Crypto assets page\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.49",
+      "date": "2023-07-03T12:31:18.689Z",
+      "description": "- Added the ability to see the full wallet lists available for the client and switch between them\n- Added the ability to initiate full update of the bank client's data in case the data has changed (new phone number, added Gekkard PRO account, etc.)\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.48",
+      "date": "2023-06-26T11:55:18.689Z",
+      "description": "- Moved the crypto deposit functionality to a different platform — now you can see all your Gekkoin investment products and interact with them in a separate dedicated Gekkoin investment platform\n- Added the functionality of packaged transfers with a code — now you can create a transfer with a certain currency and of a certain amount, package it to a short code and share with another Gekkard user\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.47",
+      "date": "2023-06-13T10:30:18.689Z",
+      "description": "- Released the algorithm for GKE reward on balance\n- Released the algorithm for agent rewards for investments\n- Increased Binance Smart Chain blockchain performance\n- Increased the speed and safety of bank operations and data extraction using internal data exchange mechanisms\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.46",
+      "date": "2023-05-29T09:53:18.689Z",
+      "description": "- Added the functionality of packaged transfers with a code — now you can create a transfer with a certain currency and of a certain amount, package it to a short code and share with another Gekkard user\n- Added the ability to monitor, cancel short code transfers\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.45",
+      "date": "2023-05-15T12:35:18.689Z",
+      "description": "- Added the ability to create and utilise promotion codes with agent links and with short code transfers\n- Added the ability to unblock incoming transactions after specifying the sender's name\n- Added the ability to see the full data about a blockchain transaction — now you can even follow the link and inspect the transaction in the corresponding blockchain explorer\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.44",
+      "date": "2023-04-24T11:55:18.689Z",
+      "description": "- Updated the crypto wallet page — now you will have a better experience with your wallet \n- Updated EURG wallet page — added functionality and better experience with Gekkoin Euro utility token\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.43",
+      "date": "2023-04-10T10:30:18.689Z",
+      "description": "- Better performance — data synchronisation with banking institution\n- Set up necessary functionality updates the Gekkard PRO users\n- Added the ability to early close every investment according to relevant terms and conditions\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.41",
+      "date": "2023-03-27T09:33:18.689Z",
+      "description": "- Added filtration for transaction types in transaction history\n- Added the withdraw functionality for Ethereum-based ERC-20 tokens\n- Added the withdraw functionality for TRON-based TRC-20 tokens\n- Added the withdraw functionality for BSC-based BEP-20 tokens\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.40",
+      "date": "2023-03-10T16:54:18.689Z",
+      "description": "- Added sidebar menu — now you can easily access all accounts and see balance and incoming transactions right in the interactive sidebar\n- Added the exchange page — now you can monitor trading activity, place orders, cancel orders and see your trading history in one place\n- Added the ability to create private exchange rooms for private exchanges — create private room that only people you invite can enter, invite people with easily sharable link, manage permissions, close rooms as you wish\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.39",
+      "date": "2023-02-27T12:35:18.689Z",
+      "description": "- Added the top-up functionality for Ethereum-based ERC-20 tokens\n- Added the top-up functionality for TRON-based TRC-20 tokens\n- Added the top-up functionality for BSC-based BEP-20 tokens\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.38",
+      "date": "2023-02-14T09:23:18.689Z",
+      "description": "- Added the cashback program for GKE token — now you can get cashback for your GKE balance every month\n- Added GKE boost for investments — now you can get up to a 2x more profitable and 2x safer investments if you 'freeze' the same amount of GKE tokens\n- Added the ability to get a 100% discount for but and sell operations with EURG and EUR\n- Added GKE token support — now you can store GKE tokens in the wallet and get perks and bonuses with it\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.37",
+      "date": "2023-01-30T15:53:18.689Z",
+      "description": "- Added the withdraw functionality for Ethereum\n- Added the withdraw functionality for Monero\n- Added the withdraw functionality for Bitcoin\n- Added the withdraw functionality for TRON\n- Added the withdraw functionality for Binance Smart Chain\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.36",
+      "date": "2023-01-17T16:42:18.689Z",
+      "description": "- Added the ability to buy EURG tokens directly from your bank account\n- Added the ability to sell EURG token and get the EUR directly to your bank account\n- Added the ability to authenticate with the Gekkard mobile app credentials — now you can enter Gekkard web application just as easily as you enter your Gekkard mobile app\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.35",
+      "date": "2023-01-09T12:22:18.689Z",
+      "description": "- Added the top-up functionality for Ethereum\n- Added the top-up functionality for Monero\n- Added the top-up functionality for Bitcoin\n- Added the top-up functionality for TRON\n- Added the top-up functionality for Binance Smart Chain\n- Minor bug fixes"
+    },
+    {
+      "version": "2.0.34",
+      "date": "2022-12-29T12:22:18.689Z",
+      "description": "- Added technical address generation for Ethereum\n- Added technical address generation for TRON\n- Added technical address generation for Monero\n- Added technical address generation for Bitcoin\n- Added technical address generation for Binance Smart Chain\n- Minor bug fixes"
+    }
   ],
   "GEKKOIN": [
     {

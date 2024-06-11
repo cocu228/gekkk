@@ -33,7 +33,7 @@ export const sortingNetworksForSelector = function (networks: Array<TokensNetwor
 // }
 
 export const getChosenNetwork = function (networks: Array<TokensNetwork>, networkType: number): TokensNetwork {
-    return networks?.find(it => it.network_type === networkType);
+    return networks && networks?.find(it => it.network_type === networkType);
 }
 
 

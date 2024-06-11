@@ -1,6 +1,6 @@
 import React from "react";
 import {TFunction} from "i18next";
-import {EnableNotifications, GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {EnableNotifications, CrossPlatformNav, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
 
@@ -38,7 +38,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             }
         },
         {
-            item: <GekkoinInvestPlatform/>,
+            item: <CrossPlatformNav/>,
             id: 'investPlatform',
             action: {
                 type: null,

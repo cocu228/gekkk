@@ -69,7 +69,7 @@ const ApplyTransferCode = () => {
                 {!md ? <Input 
                     value={input} 
                     disabled={loading}
-                    wrapperClassName={"w-full"}
+                    className={"w-full"}
                     allowDigits
                     onChange={({target}) => setInput(target.value)}
                     placeholder={t("enter_top_up_code")} type={"text"}
@@ -129,9 +129,10 @@ const ApplyTransferCode = () => {
                     </Modal>
             </div>
         </div>
-        <div className={styles.TransferTableContainer}>
+        <div className={styles.TransferTableCont}>
             <TransferTableCode/>
         </div>
+
     </div>
 
 }

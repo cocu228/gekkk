@@ -6,6 +6,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import {
   isDisabledBtnWithdraw,
+  reponseOfUpdatingTokensNetworks,
 } from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {
   CtxWalletNetworks,
@@ -17,7 +18,6 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import style from './styles.module.scss'
 import InputCurrency from "@/shared/ui/input-currency/ui";
@@ -31,6 +31,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { debounce } from "@/shared/lib";
+import useError from "@/shared/model/hooks/useError";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -49,6 +50,8 @@ const WithdrawFormCrypto = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
+  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
+
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -56,8 +59,16 @@ const WithdrawFormCrypto = () => {
     description: null,
   });
 
+  const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
+    setRefresh(true, amount)
+    reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
+        res?.error              
+            ? localErrorHunter(res.error)
+            : localErrorClear()
+    })     
+  }, 2000), []);
+
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
 
   const {
     percent_fee = 0,
@@ -76,7 +87,7 @@ const WithdrawFormCrypto = () => {
     delayDisplay();
   }, [inputCurr.value.number]);
 
-  return tokenNetworks.length > 0 && (
+  return (
     <div className={style.FormWrap}>
       <div className={style.FormContainer}>
         <div className={style.FormBlock}>
@@ -118,29 +129,38 @@ const WithdrawFormCrypto = () => {
             </InputCurrency.PercentSelector>
           </InputCurrency.Validator>
         </div>
-        <div className={style.InpBlock}>
-            <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
-            <Input
-            allowDigits
-            allowSymbols
-            value={inputs.address}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-            placeholder={t("enter_withdrawal_address")}
-            name={"address"}
-            suffix={<div onClick={qrCodeModal.showModal}>
-              <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34' />
+        {localErrorInfoBox && <div className='py-5'>
+                {localErrorInfoBox}    
             </div>}
-          />
-        </div>   
-        <Modal
-          isModalOpen={qrCodeModal.isModalOpen}
-          onCancel={qrCodeModal.handleCancel}
-          title="&nbsp;"
-          noBorder
-        >
-          <QrcodeScanner
-            onSuccess={(value: string) => {
+          <div className={style.InpBlock}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
+              <div className='flex'>
+                  <Input
+                      allowDigits
+                      allowSymbols
+                      value={inputs.address}
+                      onChange={onInput}
+                      disabled={!networkTypeSelect}
+                      placeholder={t("enter_withdrawal_address")}
+                      name={"address"}
+                  />
+                  {md ?
+                        <div className='pl-2' onClick={qrCodeModal.showModal}>
+                            <IconApp className="cursor-pointer" size={30} code='t81'/>
+                        </div> :
+                        <div className='pl-2 pt-2.5' onClick={qrCodeModal.showModal}>
+                            <IconApp className="cursor-pointer" size={40} code='t81'/>
+                        </div>
+                  }
+                      </div>
+                      </div>
+                      <Modal
+                      isModalOpen={qrCodeModal.isModalOpen}
+                  onCancel={qrCodeModal.handleCancel}
+                  title="&nbsp;"
+              >
+                  <QrcodeScanner
+                      onSuccess={(value: string) => {
               setInputs(prev => ({
                 ...prev,
                 address: value
@@ -158,16 +178,13 @@ const WithdrawFormCrypto = () => {
               disabled={!networkTypeSelect}
               name={"recipient"}
               placeholder={t("enter_recepients_name")}
+              caption={!inputs.recipient && t("EW_law")}
             />
-
-          <span className={style.LawText}>
-            {!inputs.recipient && t("EW_law")}
-          </span>
         </div>   
 
         <div className={style.InpBlock}>
             <span className={`${styles.TitleColText} ml-[10px]`}>{t("desc_optional")}:</span>
-            <TextArea
+            <Input
               allowDigits
               allowSymbols
               placeholder={t('enter_description')}
@@ -198,16 +215,16 @@ const WithdrawFormCrypto = () => {
 
                 <div className={styles.PayInfoCol}>
                     <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                      {/* Amount, that user pays */}
+                      {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>}
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>}
+                      {/* Amount, that recipient recieve */}
+                      <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
                     </div>
                     <div className={styles.PayInfoValueFlex}>
-                        {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                      {/* Fee amount */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                     </div>
                 </div>
                 

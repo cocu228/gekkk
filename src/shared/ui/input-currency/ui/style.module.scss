@@ -8,43 +8,73 @@
   }
 }
 
+.SuffixWrapper{
+  padding-top: 10px;
+  right: 20px;
+  display: flex;
+  background-color: white;
+
+  @media screen and (max-width: 767px) {
+    right: 10px;
+  }
+}
+
+.Token{
+  padding-top: 10px;
+  padding-right: 20px;
+  font-size: 1rem;
+  color: #1F3446;
+  font-weight: bold;
+}
+
+.Input {
+  display: inline-flex;
+  text-overflow: ellipsis;
+  width: calc(100%);
+  padding-top: 10px;
+  flex-grow: 1;
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1F3446;
+  line-height: 1;
+  outline: none;
+  &:not(:last-child) {
+    padding-bottom: 0.1rem;
+  }
+  @include max-devices("md") {
+      padding-top: 0;
+      font-size: 1rem;
+
+  }
+}
+
 .Field {
   position: relative;
   margin-top: 0.4rem;
-  height: 60px;
+  height: 64px;
   padding: 0 12px;
   border: 1px solid var(--color-secondary);
-  border-radius: 4px;
-
+  border-radius: 8px;
+  ::placeholder{
+    font-weight: normal;
+  }
   @include max-devices("md") {
     height: 56px;
     padding-right: 8px;
     margin-top: 0.3rem;
-  }
-
-  &Input {
-    display: inline-flex;
-    width: 100%;
-    height: 100%;
-    flex-grow: 1;
-    padding: 0;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    line-height: 1;
-    outline: none;
-
-    &:not(:last-child) {
-      padding-bottom: 0.1rem;
+    ::placeholder{
+      font-size: 10px;
+      padding-left: 10px;
     }
   }
 
-  
   &InfoText {
     z-index: 10;
     user-select: none;
     margin-left: 12px;
-    margin-top: -20px;
+    margin-top: -18px;
     line-height: 1rem;
     position: absolute;
     font-size: 0.75rem;
@@ -117,6 +147,7 @@
     width: 34px;
     min-width: 34px;
 
+
     @include max-devices("lg") {
       width: 28px;
       min-width: 28px;
@@ -156,21 +187,3 @@
   }
 }
 
-.InputTransfers{
-
-  @include max-devices(md) {
-    :global(.ant-input){
-      
-      font-size: 14px !important;
-      color: var(--gek-additional);    
-      font-weight: bold;
-  
-      &::placeholder {
-        font-weight: bold;
-        color: var(--gek-light-grey);
-        font-size: 12px;
-      } 
-    }
-
-  }
-}

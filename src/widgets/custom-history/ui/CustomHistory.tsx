@@ -131,7 +131,7 @@ function CustomHistory() {
     setSearchValue(e.target.value.trim().toLowerCase());
   };
 
-  // refactor display of selectors
+  // TODO:refactor display of selectors
   return (
     <>
       <div className={styles.wrapper}>
@@ -140,15 +140,15 @@ function CustomHistory() {
           <div>
             <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
               <Datepicker 
+                isTo={false}
                 date={startDate}
                 setDate={setStartDate}
-                isTo={false}
               />
               <div className="mt-[5px]">_</div>
               <Datepicker 
+                isTo={true}
                 date={endDate}
                 setDate={setEndDate}
-                isTo={true}
               />
             </div>
           </div>
@@ -250,8 +250,6 @@ function CustomHistory() {
                 <IconApp size={20} code="t12" color="#000" />
                 <Input
                   className={`w-full text-[10px] border-[none]`}
-                  wrapperClassName={"w-full"}
-                  style={{ height: "10px", border: "none" }}
                   type="text"
                   ref={inputRef}
                   data-testid="SearchName"
@@ -363,7 +361,6 @@ function CustomHistory() {
                 setApply(true);
                 applyHandler();
               }}
-              disabled={formatForApi(startDate) === formatForApi(endDate) || formatForApi(startDate) > formatForApi(endDate)}
             >
               {t("apply")}
             </Button>

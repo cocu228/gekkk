@@ -1,6 +1,6 @@
-﻿import {INewCardState} from "@/widgets/cards-menu/ui/new-card/newCardContext";
 import {isNullOrEmpty} from "@/shared/lib/helpers";
-import {IOrderCardState} from "@/widgets/cards-menu/ui/order-card/newCardContext";
+import { INewCardState } from "../ui/new-card/newCardContext";
+import { IOrderCardState } from "./types";
 
 export function ValidateNewCardState(state: INewCardState): boolean {
 	const {

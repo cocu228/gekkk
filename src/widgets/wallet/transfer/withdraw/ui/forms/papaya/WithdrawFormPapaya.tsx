@@ -18,8 +18,16 @@ import {useTranslation} from "react-i18next";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
+import useError from '@/shared/model/hooks/useError';
+import { apiTokensNetworks } from '@/shared/(orval)api';
+import { AxiosResponse } from 'axios';
+import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
+
+
+
 
 const WithdrawFormPapaya = () => {
+    
     const {t} = useTranslation();
     const {md} = useBreakpoints();
     const navigate = useNavigate();
@@ -30,8 +38,17 @@ const WithdrawFormPapaya = () => {
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
 
-    const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+    const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
+        setRefresh(true, amount)
+        reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
+            res?.error              
+                ? localErrorHunter(res.error)
+                : localErrorClear()
+        })     
+    }, 2000), []);
+
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
 
     const {
@@ -39,7 +56,7 @@ const WithdrawFormPapaya = () => {
         withdraw_fee = 0,
         percent_fee = 0
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
+    
     useEffect(() => {
         setLoading(true);
         delayRes(inputCurr.value.number);
@@ -77,7 +94,9 @@ const WithdrawFormPapaya = () => {
                     </InputCurrency.Validator>
                 </div>
             </div>
-
+            {localErrorInfoBox && <div className='py-5'>
+                {localErrorInfoBox}    
+            </div>}
             <div className={styles.EURCost}>
                 <div className="col">
                     <span className={styles.EURCostValue}>
@@ -122,19 +141,19 @@ const WithdrawFormPapaya = () => {
 
                     <div className={styles.PayInfoCol}>
                         <div className={styles.PayInfoValueFlex}>
-                            <span
-                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                            {/* Amount in EURG paid */}
+                            <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
                         </div>
                         <div className={styles.PayInfoValueFlex}>
-                            {loading ? t("loading")+"..." : <span
-                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
+                            {/* Amount in EUR received */}
+                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
                         </div>
                         <div className={styles.PayInfoValueFlex}>
-                            {loading ? t("loading")+"..." : <span
-                                className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                            {/* Fee amount */}
+                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                         </div>
                     </div>
-                        
+                    
                     <div className={styles.PayInfoCol}>
                         <span className={styles.PayInfoValueFlexTextCurrency}>
                             {currency.$const}

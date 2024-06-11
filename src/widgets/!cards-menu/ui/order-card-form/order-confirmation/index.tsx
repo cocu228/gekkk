@@ -12,9 +12,9 @@ import {apiPersonalize, apiCreateCard} from "@/shared/(orval)api";
 import {Format as CardFormat} from "@/shared/(orval)api/gek/model";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
-import {getAddressPartOrEmpty} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-delivery-options";
+import { getAddressPartOrEmpty } from "@/widgets/!cards-menu/model/helpers";
 
 export function OrderConfirmation() {
     const {t} = useTranslation();

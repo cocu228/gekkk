@@ -14,8 +14,8 @@ const HistoryWrapper = ({children}: IParams) => {
     const {$const} = useContext(CtxWalletData);
     const [visible, setVisible] = useState<boolean>(false);
 
-    const displayHistory = () => {
-        setVisible(true);
+    const displayHistory = (value: boolean = true) => {
+        setVisible(value);
     }
 
     return (

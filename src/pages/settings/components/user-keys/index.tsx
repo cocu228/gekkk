@@ -59,7 +59,6 @@ export function UserKeys() {
                 </span>
                 <Input
                     allowDigits
-                    wrapperClassName="w-1/2 "
                     className={style.CodeInput}
                     placeholder={"-" + t("enter_sms_code") + "-"}
                     value={code}
@@ -125,7 +124,7 @@ export function UserKeys() {
             </div>
             <Modal
               closable={false}
-              noBorder
+              noHeaderBorder
               onCancel={handleCancel}
               placeBottom={window.innerWidth<768}
               isModalOpen={isModalOpen}

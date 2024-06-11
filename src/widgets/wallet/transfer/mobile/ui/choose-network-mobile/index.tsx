@@ -6,6 +6,7 @@ import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
 import { useQuery } from "@/shared/lib";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) => {
     const {t} = useTranslation();
@@ -13,6 +14,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
     const query = useQuery()
     const currency = query.get("currency")
     const [open, setOpen] = useState<boolean>(false)
+    const {displayHistory} = useContext(CtxDisplayHistory);
 
     const {networksForSelector} = useContext(CtxWalletNetworks);
 
@@ -28,9 +30,10 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
         <div className="w-full relative h-[32px] flex flex-row">
             <div 
                 onClick={()=>{
-                    setNetwork(null)
-                    navigate(`/transfers?currency=${currency}`)
-                }} 
+                    setNetwork(null);
+                    displayHistory(false);
+                    navigate(`/transfers?currency=${currency}`);
+                }}
                 className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-l-[8px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[var(--gek-light-grey)]"
             >
                 <Select

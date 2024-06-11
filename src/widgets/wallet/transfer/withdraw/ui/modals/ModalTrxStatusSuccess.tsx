@@ -33,7 +33,7 @@ function ModalTrxStatusSuccess({
                 </NavLink>
             </span>
         </div>
-        <div className={(onReceipt !== null ? styles.ButtonContainer : styles.ButtonContainerCenter) + " mt-[10px] md:mt-[30px] px-4"}>
+        <div className={(onReceipt !== null ? styles.ButtonContainer : styles.ButtonContainerCenter) + " flex gap-[20px] align-center mt-[10px] md:mt-[30px] px-4"}>
             {onReceipt === null ? null : (
                 <Button
                     skeleton

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import Success from '@/assets/success.svg?react';
-import {useNewCardContext} from "@/widgets/cards-menu/ui/new-card/newCardContext";
+import { useNewCardContext } from '../../new-card/newCardContext';
 
 export function SuccessCardOrder() {
     const {t} = useTranslation();

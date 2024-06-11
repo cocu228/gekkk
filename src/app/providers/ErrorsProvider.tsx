@@ -146,7 +146,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
         <Modal
             isModalOpen={isModalOpen}
             title='Account generation'
-            noBorder
+            noHeaderBorder
             closable={false}
             onCancel={() => null}
         >

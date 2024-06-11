@@ -55,7 +55,7 @@ export const Select:FC<SelectProps> = ({
     return ( 
         <div ref={bodyRef} className={`${styles.SelectWrap} ${active && styles.active} ${listHeight && styles.ScrollStyle} ${mobile && styles.MobileHeight}`}>
             <div onClick={() => setActive(!active)} className={styles.SelectActive}>
-                <span className={styles.SelectTitle}>{value || placeholder}</span>
+                <span className={`${styles.SelectTitle} ${!value && placeholder && styles.Placeholder}`}>{value || placeholder}</span>
                 <IconApp code='t08' size={10} className={`${!active ? 'rotate-[90deg]' : 'rotate-[-90deg]'}`} color='#var(--color-gray-600)' />
             </div>
            <div className={styles.SelectListWrap} style={{height: listHeight && `${listHeight}px`}}>

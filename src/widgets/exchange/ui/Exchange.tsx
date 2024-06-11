@@ -230,7 +230,7 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className={`flex justify-center ${styles.FieldsSpacer}`}>
+                <div className={`flex mb-[5px] justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
                     className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""

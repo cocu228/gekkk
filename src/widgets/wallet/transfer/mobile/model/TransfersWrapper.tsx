@@ -121,7 +121,7 @@ export default function TransfersWrapper({
                   <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                     <IconApp size={20} code="t12" color="#000" />
                     <input
-                      className={`w-full text-[10px] border-[none] outline-none`}
+                      className={`w-full text-[10px] border-[none] bg-inherit outline-none`}
                       type="text"
                       ref={inputRef}
                       data-testid="SearchName"

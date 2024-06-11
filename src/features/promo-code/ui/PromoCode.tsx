@@ -74,35 +74,33 @@ const PromoCode = memo(({handleCancel}: IProps) => {
           <div className={style.InputWrap}>
               <Input
                 allowDigits
-                bordered={false}
                 type={"text"}
-                wrapperClassName="w-full"
                 className="text-[10px] text-[var(--gek-mid-grey)]"
                 placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
-                suffix={false}
+                suffix={<div className={style.IconsWrap}>
+                    {
+                        err ? (
+                            <IconApp code="t26" size={20} color="#ff4d4f"/>
+                        ) : !err && valInput.length ? (
+                            <IconApp code="t57" size={20} color="#45AD77"/>
+                        ) : null
+                    }
+                    <IconApp onClick={onClick} code="t28" className="mr-2 cursor-pointer" color="#285E69" size={18}/>
+                </div>}
                 value={valInput}
                 disabled={loading}
                 onChange={handlerInput}
               />
 
-              <div className={style.IconsWrap}>
-                {
-                  err ? (
-                    <IconApp code="t26" size={20} color="#ff4d4f" />
-                  ) : !err && valInput.length ? (
-                    <IconApp code="t57" size={20} color="#45AD77" />
-                  ) : null
-                }
-                <IconApp onClick={onClick} code="t28" className="mr-2 cursor-pointer" color="#285E69" size={18}/>
-              </div>
+
           </div>
-          <div className={`${style.HelpMessage} ${err && style.HelpMessageRed}`}>{message}</div>
-          <div className={buttonStyles.ButtonContainer}>
-            <Button
-              htmlType="submit"
-              className={buttonStyles.ButtonTwo}
-              disabled={
-                valInput === "" ||
+            <div className={`${style.HelpMessage} ${err && style.HelpMessageRed}`}>{message}</div>
+            <div className={buttonStyles.ButtonContainer}>
+                <Button
+                    htmlType="submit"
+                    className={buttonStyles.ButtonTwo}
+                    disabled={
+                    valInput === "" ||
                 loading ||
                 isCodeApplied
               }

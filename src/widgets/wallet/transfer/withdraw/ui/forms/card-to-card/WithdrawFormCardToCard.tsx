@@ -1,10 +1,13 @@
+import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
+import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useContext, useEffect, useState } from "react";
 import { MASK_BANK_CARD_NUMBER } from "@/shared/config/mask";
+import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { formatCardNumber } from "@/widgets/dashboard/model/helpers";
 import {
@@ -25,10 +28,11 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import {Modal} from "@/shared/ui/modal/Modal";
-import { Select } from "@/shared/ui/SearchSelect/Select";
-import style from './styles.module.scss'
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+
+const { Option } = Select;
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -65,6 +69,7 @@ const WithdrawFormCardToCard = () => {
 
   const {
     min_withdraw = 0,
+    // max_withdraw = null,
     percent_fee = 0,
     withdraw_fee = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
@@ -87,19 +92,130 @@ const WithdrawFormCardToCard = () => {
         : null,
     }));
   }, [cards]);
-
-  const transformedList = cards.map(item => ({
-    id: item.cardId,
-    name: formatCardNumber(item.displayPan)
-  }));
-
-  return (
+  
+  return !md ? (
     !cards ? (
       <Loader className={"relative"} />
     ) : (
-      <div className="wrapper md:mx-[-10px]">
-        <div className="row mb-[10px] w-full">
-          <div className={style.AmountInputWrap}>
+      <div className="wrapper">
+        <div className="row mb-8 w-full">
+          <div className="col">
+            <div className="row mb-2">
+              <div className="col">
+                <span className="font-medium">{t("from_card")}:</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <SearchSelect
+                  value={inputs.selectedCard}
+                  notFoundContent={
+                    <div className="my-3">{t("no_active_cards")}</div>
+                  }
+                  placeholder={
+                    <span className="font-normal text-gray-400">
+                      {t("choose_source_card")}
+                    </span>
+                  }
+                  prefixIcon={
+                    inputs.selectedCard ? <IconCoin code={"EUR"} /> : null
+                  }
+                  onChange={(val: string) => {
+                    setInputs(() => ({
+                      ...inputs,
+                      selectedCard: val,
+                    }));
+                  }}
+                >
+                  {cards
+                    ?.filter((c) => c.cardStatus === "ACTIVE")
+                    .map((c) => (
+                      <Option
+                        value={c.cardId}
+                        label={formatCardNumber(c.displayPan)}
+                      >
+                        <div>{formatCardNumber(c.displayPan)}</div>
+                      </Option>
+                    ))}
+                </SearchSelect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-8 w-full">
+          <div className="col">
+            <div className="row mb-2">
+              <div className="col">
+                <span className="font-medium">{t("card_number_title")}:</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <Input
+                  allowDigits
+                  type={"text"}
+                  onInput={onCardNumberInput}
+                  onChange={({ target }) => {
+                    setInputs(() => ({
+                      ...inputs,
+                      cardNumber: target.value.replaceAll(" ", ""),
+                    }));
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-8 w-full">
+          <div className="col">
+            <div className="row mb-2">
+              <div className="col">
+                <span className="font-medium">{t("cardholder_name")}:</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <Input
+                  value={inputs.cardholderName}
+                  onChange={({ target }) => {
+                    setInputs(() => ({
+                      ...inputs,
+                      cardholderName: target.value.toUpperCase(),
+                    }));
+                  }}
+                  placeholder={""}
+                  name={"cardholderName"}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-8 w-full">
+          <div className="col">
+            <div className="row mb-2">
+              <div className="col">
+                <span className="font-medium">{t("comment")}:</span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col flex items-center">
+                <TextArea
+                  allowDigits
+                  allowSymbols
+                  value={inputs.comment}
+                  name={"comment"}
+                  onChange={onInputDefault}
+                  placeholder={""}
+                  style={{
+                    minHeight: 100,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mb-8 w-full">
+          <div className="col">
             <InputCurrency.Validator
               value={inputCurr.value.number}
               description={getWithdrawDesc(min_withdraw, currency.$const)}
@@ -117,190 +233,293 @@ const WithdrawFormCardToCard = () => {
               <InputCurrency.PercentSelector
                 currency={currency}
                 header={
-                  <span className={`${style.InputTitle} mb-[0]`}>
+                  <span className="text-gray-600 font-medium">
                     {t("amount")}:
                   </span>
                 }
                 onSelect={setInputCurr}
               >
-                <InputCurrency.DisplayBalance currency={currency}>
-                  <InputCurrency
-                    className="p-[4px_17px]"
-                    transfers
-                    onChange={setInputCurr}
-                    value={inputCurr.value.string}
-                    currency={currency.$const}
-                  />
-                </InputCurrency.DisplayBalance>
+                <InputCurrency
+                  onChange={setInputCurr}
+                  value={inputCurr.value.string}
+                  currency={currency.$const}
+                />
               </InputCurrency.PercentSelector>
             </InputCurrency.Validator>
           </div>
         </div>
-        <div className="row mb-[45px] w-full md:mb-[10px]">
-            <span className={style.InputTitle}>
-              {t("from_card")}:
-            </span>
-            <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-              <div className="w-full">
-                <div className="basis-full">
-                  <Select
-                      list={transformedList}
-                      placeholderText="-select card-"
-                      onSelect={(val) => {
-                        setInputs(() => ({
-                          ...inputs,
-                          selectedCard: val,
-                        }));
-                      }}
-                    />
-                </div>
-              </div>
-              <div className={style.FromCardMobArrow}>
-                  <IconApp code='t08' color='#fff' size={12} className={"rotate-90"}/>
-              </div>
-            </div>
-        </div>
-        <div className="mb-[10px]">
-          <span className={style.InputTitle}>
-            {t("to_card")}:
-          </span>
-          <Input
-              wrapperClassName={style.CardToCardInput}
-              placeholder={`-${"enter_description"}-`}
-              tranfers
-              bordered={false}
-              allowDigits
-              type={"text"}
-              onInput={onCardNumberInput}
-              onChange={({ target }) => {
-                setInputs(() => ({
-                  ...inputs,
-                  cardNumber: target.value.replaceAll(" ", ""),
-                }));
-              }}
-            />
-        </div>
-        <div className="row mb-[10px] w-full">
-          <span className={style.InputTitle}>
-            {t("cardholder")}:
-          </span>
-          <Input
-              wrapperClassName={style.CardToCardInput}
-              tranfers
-              bordered={false}
-              value={inputs.cardholderName}
-              onChange={({ target }) => {
-                setInputs(() => ({
-                  ...inputs,
-                  cardholderName: target.value.toUpperCase(),
-                }));
-              }}
-              placeholder={`-${t("enter_cardholder_name")}-`}
-              name={"cardholderName"}
-            />
-        </div>
-        <div className="row w-full">
-          <span className={style.InputTitle}>
-            {t("description")}:
-          </span>
-          <Input
-              tranfers={md}
-              bordered={!md}
-              allowDigits
-              allowSymbols
-              value={inputs.comment}
-              name={"comment"}
-              onChange={onInputDefault}
-              placeholder={`-${t("enter_description")}-`}
-              style={{
-                height: 56,
-              }}
-            />
-        </div>   
-        <div className={style.PayInfoWrap}>
-          <div className={styles.PayInfo}>
-            <div className={styles.PayInfoCol}>
-              <div className="row">
-                <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-              </div>
-              <div className="row">
-                <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-              </div>
-              <div className="row">
-                <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-              </div>
-            </div>
-            <div className={styles.PayInfoColValue}>
-              <div className={styles.PayInfoCol}>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexText}>
-                    {/* Total amount, that user pays */}
-                    {inputCurr.value.number + withdraw_fee}
-                  </span>
-                </div>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexText}>
-                    {/* Amount, that recipient recieve */}
-                    {inputCurr.value.number}
-                  </span>
-                </div>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexTextFee}>
-                    {/* Fee amount */}
-                    {withdraw_fee}
-                  </span>
-                </div>
-              </div>
 
-              <div className={styles.PayInfoCol}>
-                <span className={styles.PayInfoValueFlexTextCurrency}>
-                  {currency.$const}
-                </span>
-                <span className={styles.PayInfoValueFlexTextCurrency}>EURG</span>
-                <span className={styles.PayInfoValueFlexTextFee}>
-                  {currency.$const}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <Modal
+        <ModalUi
           title={t("confirm_transaction")}
           onCancel={handleCancel}
           isModalOpen={isModalOpen}
+          placeBottom={window.innerWidth<768}
         >
           <WithdrawConfirmCardToCard
             {...inputs}
             amount={inputCurr.value.number}
             handleCancel={handleCancel}
           />
-        </Modal>
+        </ModalUi>
 
-        <div className="row w-full mb-[10px]">
-          <div className={styles.ButtonContainerCenter}>
+        <div className="row w-full">
+          <div className="flex justify-center col">
             <Button
               size="lg"
               className="w-full"
               onClick={showModal}
               disabled={!isValidated || inputCurrValid.value}
             >
-              {t("transfer")}
+              {t("withdraw_title")}
             </Button>
           </div>
         </div>
-        <div className="w-full flex justify-center">
-          <span className="text-[#9D9D9D] text-[10px]">
-            {t("fee_is_prec")}&nbsp;
-            <span className="font-bold">
-              {withdraw_fee} {currency.$const}{" "}
-            </span>{" "}
-            {t("after_n_transactions_per_m", { times: 5, period: t("month") })}
-          </span>
-        </div>
-    </div>
+      </div>
     )
-  )
+  ) : !cards ? (
+    <Loader className={"relative"} />
+  ) : (
+    <div className="wrapper">
+      <div className="row mb-8 w-full">
+        <div className="col">
+          <InputCurrency.Validator
+            value={inputCurr.value.number}
+            description={getWithdrawDesc(min_withdraw, currency.$const)}
+            onError={setInputCurrValid}
+            validators={[
+              validateBalance(currency, navigate, t),
+              validateMinimumAmount(
+                min_withdraw,
+                inputCurr.value.number,
+                currency.$const,
+                t
+              ),
+            ]}
+          >
+            <InputCurrency.PercentSelector
+              currency={currency}
+              header={
+                <span className="text-[#1F3446] text-[12px] ml-[10px] font-semibold">
+                  {t("amount")}:
+                </span>
+              }
+              onSelect={setInputCurr}
+            >
+              <InputCurrency.DisplayBalance currency={currency}>
+                <InputCurrency
+                  transfers
+                  onChange={setInputCurr}
+                  value={inputCurr.value.string}
+                  currency={currency.$const}
+                />
+              </InputCurrency.DisplayBalance>
+            </InputCurrency.PercentSelector>
+          </InputCurrency.Validator>
+        </div>
+      </div>
+      <div className="row mb-8 w-full">
+        <div className="flex flex-col">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
+            <div className="col w-full">
+              <span className="w-full text-[#1F3446] text-[12px] ml-[10px] font-semibold">
+                {t("from_card")}:
+              </span>
+            </div>
+          </div>
+          <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
+              <div className="basis-full">
+                <SearchSelect
+                  transfers
+                  value={inputs.selectedCard}
+                  notFoundContent={
+                    <div className="my-3">{t("no_active_cards")}</div>
+                  }
+                  placeholder={
+                    <span className="font-normal text-gray-400">
+                      {t("choose_source_card")}
+                    </span>
+                  }
+                  onChange={(val: string) => {
+                    setInputs(() => ({
+                      ...inputs,
+                      selectedCard: val,
+                    }));
+                  }}
+                >
+                  {cards
+                    ?.filter((c) => c.cardStatus === "ACTIVE")
+                    .map((c) => (
+                      <Option
+                        value={c.cardId}
+                        label={formatCardNumber(c.displayPan)}
+                      >
+                        <div>{formatCardNumber(c.displayPan)}</div>
+                      </Option>
+                    ))}
+                </SearchSelect>
+              </div>
+            </div>
+            <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+                <IconApp code='t08' color='#fff' size={12} className={"rotate-90"}/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row mb-8 w-full">
+        <div className="flex flex-col">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
+            <div className="col">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
+                {t("to_card")}:
+              </span>
+            </div>
+          </div>
+          <div className="row basis-[100%]">
+            <div className="col">
+              <Input
+                allowDigits
+                type={"text"}
+                onInput={onCardNumberInput}
+                onChange={({ target }) => {
+                  setInputs(() => ({
+                    ...inputs,
+                    cardNumber: target.value.replaceAll(" ", ""),
+                  }));
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row mb-8 w-full">
+        <div className="flex flex-col">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
+            <div className="col">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
+                {t("cardholder")}:
+              </span>
+            </div>
+          </div>
+          <div className="row basis-[100%]">
+            <div className="col">
+              <Input
+                value={inputs.cardholderName}
+                onChange={({ target }) => {
+                  setInputs(() => ({
+                    ...inputs,
+                    cardholderName: target.value.toUpperCase(),
+                  }));
+                }}
+                placeholder={""}
+                name={"cardholderName"}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row mb-8 w-full">
+        <div className="flex flex-col">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
+            <div className="col">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
+                {t("description")}:
+              </span>
+            </div>
+          </div>
+          <div className="row w-full">
+            <div className="col flex items-center">
+              <Input
+                allowDigits
+                allowSymbols
+                value={inputs.comment}
+                name={"comment"}
+                onChange={onInputDefault}
+                placeholder={""}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.PayInfo}>
+        <div className={styles.PayInfoCol}>
+          <div className="row">
+            <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+          </div>
+          <div className="row">
+            <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
+          </div>
+          <div className="row">
+            <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
+          </div>
+        </div>
+        <div className={styles.PayInfoColValue}>
+          <div className={styles.PayInfoCol}>
+            <div className={styles.PayInfoValueFlex}>
+              <span className={styles.PayInfoValueFlexText}>
+                {inputCurr.value.number + withdraw_fee}
+              </span>
+            </div>
+            <div className={styles.PayInfoValueFlex}>
+              <span className={styles.PayInfoValueFlexText}>
+                {inputCurr.value.number}
+              </span>
+            </div>
+            <div className={styles.PayInfoValueFlex}>
+              <span className={styles.PayInfoValueFlexTextFee}>
+                {withdraw_fee}
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.PayInfoCol}>
+            <span className={styles.PayInfoValueFlexTextCurrency}>
+              {currency.$const}
+            </span>
+            <span className={styles.PayInfoValueFlexTextCurrency}>EURG</span>
+            <span className={styles.PayInfoValueFlexTextFee}>
+              {currency.$const}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ModalUi
+        title={t("confirm_transaction")}
+        onCancel={handleCancel}
+        isModalOpen={isModalOpen}
+      >
+        <WithdrawConfirmCardToCard
+          {...inputs}
+          amount={inputCurr.value.number}
+          handleCancel={handleCancel}
+        />
+      </ModalUi>
+
+      <div className="row w-full mb-[10px]">
+        <div className={styles.ButtonContainerCenter}>
+          <Button
+            size="lg"
+            className="w-full"
+            onClick={showModal}
+            disabled={!isValidated || inputCurrValid.value}
+          >
+            {t("transfer")}
+          </Button>
+        </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <span className="text-[#9D9D9D] text-[10px]">
+          {t("fee_is_prec")}{" "}
+          <span className="font-bold">
+            {withdraw_fee} {currency.$const}{" "}
+          </span>{" "}
+          {t("after_n_transactions_per_m", { times: 5, period: t("month") })}
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default WithdrawFormCardToCard;

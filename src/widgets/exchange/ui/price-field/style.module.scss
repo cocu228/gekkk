@@ -2,79 +2,40 @@
 
 
 .Wrap {
-  :global(.ant-input-affix-wrapper-focused) {
-    border: 1px solid var(--gek-light-grey) !important;
-    box-shadow: none !important;
-    border-color: var(--gek-light-grey) !important;
+  position: relative;
+  display: flex;
+  margin-top: 0.4rem;
+  height: 64px;
+  padding: 0 12px;
+  border: 1px solid var(--gek-light-grey);
+  border-radius: 6px;
 
-    &:active, &:focus {
-      border: 1px solid var(--gek-light-grey) !important;
-      box-shadow: none !important;
-      border-color: var(--gek-light-grey) !important;
-    }
-  }
-
-  
-  :global(.ant-input) {
-    padding: 0 !important;
-    height: 70px;
-    border-radius: 10px !important;
-    padding: 0 15px !important;
-    font-weight: 700;
-    font-size: 16px !important;
-
-    @media screen and (max-width: 768px) {
-      font-size: 14px !important;
-      padding: 0 15px 5px 5px !important;
-      margin: auto 0;
-      height: 53px;
-      border-radius: 6px !important;
-    }
-
-    @media screen and (max-width: 460px) {
-      padding: 0 10px 0px 5px !important;
-    }
-
-    &::placeholder {
-      font-family: "Inter";
-      color: #B9B9B5 !important;
-      font-weight: 400;
-      font-size: 10px !important;
-      position: relative;
-      left: 4px;
-      top: -1.5px;
-
-      @media screen and (max-width: 768px) {
-        font-size: 9px !important;
-        position: relative;
-        left: 4px;
-      }
-
-      @media screen and (max-width: 576px) {
-        // left: -10px;
-      }
-
-      @media screen and (max-width: 460px) {
-        left: 5px;
-      }
-
-      @media screen and (max-width: 380px) {
-        // left: 1px;
-      }
-    }
+  @include max-devices("md") {
+    padding: 0 9px;
+    height: 50px;
   }
 }
 
 .Field {
-  position: relative;
-  height: 50px;
-  padding: 0 0 0 10px;
-  border: 1px solid var(--gek-light-grey) !important;
-  border-radius: 8px;
-  text-align: right;  
+  font-size: 16px;
+  color: var(--gek-dark-blue);
+  font-weight: 700;
+  border: none;
+  text-overflow: ellipsis;
   outline: none;
-  height: 100%;
+  padding-left: 5px;
+  width: 100%;
+  text-align: end;
+  background: white;
+  &::placeholder{
+    font-size: 16px;
+    color: var(--gek-mid-grey);
+    font-weight: normal;
 
+    @include max-devices("md") {
+      font-size: 9px;
+    }
+  }
   &:active {
     outline: none !important;
     border: none !important;
@@ -84,18 +45,8 @@
     border: none !important;
   }
 
-  .ant-input-affix-wrapper-focused {
-    border: none !important;
-  }
-
-  :global(.ant-input[type=text]) {
-    text-align: right;
-  }
-
-
   @include max-devices("md") {
-    height: 56px;
-    padding-right: 0px;
+    font-size: 14px;
   }
 
   &PriceLabel {
@@ -103,12 +54,12 @@
     align-items: center;
     height: 100%;
     gap: 0.25rem;
-    font-weight: 500;
+    color: var(--gek-mid-grey);
     white-space: nowrap;
     text-align: left;
 
     @include max-devices("lg") {
-      font-size: 0.875rem;
+      font-size: 10px;
       flex-shrink: initial;
       white-space: initial;
     }
@@ -126,6 +77,7 @@
     border: none;
     white-space: nowrap;
     align-items: center;
+    background: white;
     pointer-events: all;
 
     img {
@@ -139,6 +91,7 @@
 
   &.disabled {
     pointer-events: none;
-    background: var(--gek-light-grey);   
+    background: var(--gek-light-grey);
   }
 }
+

@@ -111,8 +111,6 @@ const UniversalTransferForm = () => {
         <div className="row flex w-full">
           <div className="col basis-[100%]">
             <Input
-              tranfers={md}
-              bordered={!md}
               allowDigits
               allowSymbols
               name={"requisite"}
@@ -136,17 +134,12 @@ const UniversalTransferForm = () => {
           <div className="col w-full">
             {md?
               <Input
-                tranfers={md}
-                bordered={!md}
                 allowDigits
                 allowSymbols
                 name={"comment"}
                 value={inputs.comment}
                 onChange={onInputDefault}
                 placeholder={t("comment_optional")}
-                style={{
-                  minHeight: 100,
-                }}
               />
             :
               <TextArea

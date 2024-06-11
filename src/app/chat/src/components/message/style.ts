@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const MessagesContainer = styled.div<{ incoming?: boolean }>`
+export const MessagesContainer = styled.div`
     position: relative;
     z-index: 1;
     display:flex;
     gap: 5px;
-    margin-block: 10px;
-    align-items: ${({ incoming }) => incoming ? "flex-end" : "flex-start"};
+    margin-block: 5px;
+    align-items: flex-end;
 `
 
 export const MessageContent = styled.div<{ incoming?: boolean }>`

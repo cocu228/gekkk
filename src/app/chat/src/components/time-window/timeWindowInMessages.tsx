@@ -9,6 +9,7 @@ interface IProps {
 
 const Container = styled.div`
     width: 100%;
+    padding-block: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;

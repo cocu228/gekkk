@@ -11,17 +11,14 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useForm} from "antd/es/form/Form";
-import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
-import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import styles from "../styles.module.scss";
-import style from './styles.module.scss'
-import { PriceInfo } from "./components/PriceInfo";
+import styles from './styles.module.scss'
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
 import Timer from "@/shared/model/hooks/useTimer";
@@ -29,8 +26,7 @@ import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
-import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
-import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
+import ReceiptData from "@/widgets/receipt/receiptData";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
 
@@ -50,12 +46,11 @@ type TProps = IWithdrawFormCryptoState & {
 const WithdrawConfirmCrypto = memo(
   ({ address, amount, recipient, description, handleCancel }: TProps) => {
     const [form] = useForm();
-    const { md } = useBreakpoints();
     const [input, setInput] = useState("");
     const { $const } = useContext(CtxWalletData);
     const [loading, setLoading] = useState(false);
     const { setRefresh } = useContext(CtxRootData);
-    const { setContent } = useContext(CtxModalTrxResult);
+    const { setContent } = useContext(CtxGlobalModalContext);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const [localErrorHunter,,localErrorInfoBox] = useError();
     const [stageReq, setStageReq] = useState(initStageConfirm);
@@ -131,7 +126,7 @@ const WithdrawConfirmCrypto = memo(
 
       actionResSuccess(response)
         .success(() => {
-          const result: any = response.data?.result;
+          const result = response.data?.result;
 
           if (
             reSendCode ||
@@ -151,11 +146,7 @@ const WithdrawConfirmCrypto = memo(
             handleCancel();
             setRefresh();
             displayHistory();
-            setContent({content: <ModalTrxStatusSuccess
-              onReceipt={() => {
-                getReceipt(result.txId);
-              }}
-            />});
+            setContent({content: <ModalTrxStatusSuccess/>});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -175,9 +166,9 @@ const WithdrawConfirmCrypto = memo(
       setLoading(false);
     };
 
-    const getReceipt = async (txId: number) => {
+    const getReceipt = (txId: string) => async () => {
       setContent({
-          content: <GekReceipt txId={txId}/>,
+          content: <ReceiptData txId={txId}/>,
           title: 'Transaction receipt'
       });
     };
@@ -188,168 +179,195 @@ const WithdrawConfirmCrypto = memo(
 
     return (
       <>
-        <div className="flex justify-center">
-          <div className="flex flex-col items-start self-center w-[90%]">
-            <div className={style.MobileWarnBlock}>
-              <IconApp color="#8F123A" size={50} code="t27" />
-              <span className={styles.ModalInfoText}>
-                {t("use_withdraw_addr_supported")}
-              </span>
+        <div className="flex justify-center flex-col items-start self-center w-full">
+          <div className={styles.MobileWarnBlock}>
+            <IconApp color="#8F123A" size={50} code="t27" />
+            <span className={styles.ModalInfoText}>
+              {t("use_withdraw_addr_supported")}
+            </span>
+          </div>
+          <div className="flex flex-col gap-[10px]">
+            {
+              label ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('type_transaction')}</span>
+                  <span className={styles.ConfirmItemValue}>{label}</span>
+                </div>
+              ) : null
+            }
+            {
+              address ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('address')}</span>
+                  <span className={styles.ConfirmItemValue}>{address}</span>
+                </div>
+              ) : null
+            }
+            {
+              recipient ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('recipient_name')}</span>
+                  <span className={styles.ConfirmItemValue}>{recipient}</span>
+                </div>
+              ) : null
+            }
+            {
+              amount && $const ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('amount')}</span>
+                  <span className={styles.ConfirmItemValue}>{amount} {$const}</span>
+                </div>
+              ) : null
+            }
+            {
+              withdraw_fee && $const ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('fee')}</span>
+                  <span className={styles.ConfirmItemValue}>{new Decimal(withdraw_fee).toString()} {$const}</span>
+                </div>
+              ) : null
+            }
+            {
+              description ? (
+                <div className={styles.ConfirmItem}>
+                  <span className={styles.ConfirmItemTitle}>{t('description')}</span>
+                  <span className={styles.ConfirmItemValue}>{description}</span>
+                </div>
+              ) : null
+            }
+          </div>
+          <div className={styles.ModalPayInfo}>
+            <div className={styles.PayInfoCol}>
+                <div className="row">
+                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                </div>
+                <div className="row">
+                <span className={styles.PayInfoText}>
+                    {t("you_will_get")}:
+                </span>
+                </div>
+                <div className="row">
+                    <span className={styles.PayInfoTextFee}>
+                        {t("fee")}:
+                    </span>
+                </div>
             </div>
-            <div className="flex flex-col gap-[10px]">
-              {
-                label ? (
-                  <div className={`${style.ConfirmList} ${md && style.ConfirmListMobile}`}>
-                    <div className={style.ConfirmItem}>
-                      <span className={`text-gray-400 ${style.ConfirmItemTitle}`}>{t('type_transaction')}</span>
-                      <span className={style.ConfirmItemValue}>{label}</span>
+            <div className={styles.PayInfoColValue}>
+          
+                <div className={styles.PayInfoCol}>
+                    <div className={styles.PayInfoValueFlex}>
+                        {/* Total amount, that user pays */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{amount + withdraw_fee}</span>}
                     </div>
-                  </div>
-                ) : null
-              }
-              {
-                address ? (
-                  <div className={`${style.ConfirmList} ${md && style.ConfirmListMobile}`}>
-                    <div className={style.ConfirmItem}>
-                      <span className={`text-gray-400 ${style.ConfirmItemTitle}`}>{t('address')}</span>
-                      <span className={style.ConfirmItemValue}>{address}</span>
+                    <div className={styles.PayInfoValueFlex}>
+                        {/* Amount, that recipient recieve */}
+                        <span className={styles.PayInfoValueFlexText}>{amount}</span>
                     </div>
-                  </div>
-                ) : null
-              }
-              {
-                recipient ? (
-                  <div className={`${style.ConfirmList} ${md && style.ConfirmListMobile}`}>
-                    <div className={style.ConfirmItem}>
-                      <span className={`text-gray-400 ${style.ConfirmItemTitle}`}>{t('recipient_name')}</span>
-                      <span className={style.ConfirmItemValue}>{recipient}</span>
+                    <div className={styles.PayInfoValueFlex}>
+                        {/* Fee amount */}
+                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                     </div>
-                  </div>
-                ) : null
-              }
-              {
-                amount && $const ? (
-                  <div className={`${style.ConfirmList} ${md && style.ConfirmListMobile}`}>
-                    <div className={style.ConfirmItem}>
-                      <span className={`text-gray-400 ${style.ConfirmItemTitle}`}>{t('amount')}</span>
-                      <span className={style.ConfirmItemValue}>{amount} {$const}</span>
-                    </div>
-                  </div>
-                ) : null
-              }
-              {
-                withdraw_fee && $const ? (
-                  <div className={`${style.ConfirmList} ${md && style.ConfirmListMobile}`}>
-                    <div className={style.ConfirmItem}>
-                      <span className={`text-gray-400 ${style.ConfirmItemTitle}`}>{t('fee')}</span>
-                      <span className={style.ConfirmItemValue}>{new Decimal(withdraw_fee).toString()} {$const}</span>
-                    </div>
-                  </div>
-                ) : null
-              }
+                </div>
+                
+                <div className={styles.PayInfoCol}>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextFee}>
+                        {$const}
+                    </span>
+                </div>
             </div>
-          {description && (
-            <>
-              <div className="row mb-2">
-                <div className="col">
-                  <span className="text-gray-400">{t("description")}</span>
-                </div>
-              </div>
-              <div className="row mb-4">
-                <div className="col">
-                  <span>{description}</span>
-                </div>
-              </div>
-            </>
-          )}
-            <PriceInfo currencyTitle={$const} amount={amount} withdraw_fee={withdraw_fee} />
-            <div className="w-full">
-              <Form
-              form={form}
-              wrapperClassName="w-full"
-              onSubmit={() => onConfirm()}
-            >
-              <div className="w-full row mt-4">
-                <div className="w-full flex flex-row gap-[5px] relative">
-                  {loading ? (
-                    <Loader className={"relative w-[24px] h-[24px]"} />
-                  ) : (
-                    <>
-                      <div className="w-full gap-5 flex flex-col justify-between">
-                        {(stageReq.status === 0 || stageReq.status === 1) && (
-                          <>
-                            <span className="text-gray-400">
-                              {t("transfer_confirmation")}
-                            </span>
-                            <FormItem
-                              name="code"
-                              label="Code"
-                              preserve
-                              rules={[{ required: true, ...codeMessage }]}
-                            >
-                              <Input
-                                allowDigits
-                                type="text"
-                                onInput={onInput}
-                                onChange={inputChange}
-                                placeholder={
-                                  stageReq.status === 0
-                                    ? t("enter_sms_code")
-                                    : stageReq.status === 1
-                                    ? t("enter_code")
-                                    : t("enter_pin_code")
-                                }
-                              />
-                            </FormItem>
-                            <Timer onAction={onReSendCode} />
-                          </>
-                        )}
-                        <div className={styles.ButtonContainer + " w-full"}>
-                          <Button
-                            htmlType={"submit"}
-                            onClick={() => {
-                              onConfirm();
-                            }}
-                            disabled={
-                              input === "" &&
-                              (stageReq.status === 0 || stageReq.status === 1)
-                            }
-                            className={styles.ButtonTwo}
+          </div>
+          <div className="w-full">
+            <Form
+            form={form}
+            wrapperClassName="w-full"
+            onSubmit={() => onConfirm()}
+          >
+            <div className="w-full row mt-4">
+              <div className="w-full flex flex-row gap-[5px] relative">
+                {loading ? (
+                  <Loader className={"relative w-[24px] h-[24px]"} />
+                ) : (
+                  <>
+                    <div className="w-full gap-5 flex flex-col justify-between">
+                      {(stageReq.status === 0 || stageReq.status === 1) && (
+                        <>
+                          <span className="text-gray-400">
+                            {t("transfer_confirmation")}
+                          </span>
+                          <FormItem
+                            name="code"
+                            label="Code"
+                            preserve
+                            rules={[{ required: true, ...codeMessage }]}
                           >
-                            {t(
-                              stageReq.status === 2
-                                ? "sign_transfer"
-                                : "confirm"
-                            )}
-                          </Button>
-                          <Button
-                            skeleton
-                            onClick={() => {
-                              handleCancel();
-                            }}
-                            className={styles.ButtonTwo}
-                          >
-                            {t("cancel")}
-                          </Button>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="col flex justify-center mt-4">
-                  {localErrorInfoBox
-                    ? localErrorInfoBox
-                    : stageReq.autoInnerTransfer && (
-                        <InfoBox>
-                          The address is within our system. The transfer will be
-                          made via the internal network, and not through the
-                          blockchain. Are you sure you want to continue?
-                        </InfoBox>
+                            <Input
+                              allowDigits
+                              type="text"
+                              onInput={onInput}
+                              onChange={inputChange}
+                              placeholder={
+                                stageReq.status === 0
+                                  ? t("enter_sms_code")
+                                  : stageReq.status === 1
+                                  ? t("enter_code")
+                                  : t("enter_pin_code")
+                              }
+                            />
+                          </FormItem>
+                          <Timer onAction={onReSendCode} />
+                        </>
                       )}
-                </div>
+                      <div className={styles.ButtonContainer + " w-full"}>
+                        <Button
+                          htmlType={"submit"}
+                          onClick={() => {
+                            onConfirm();
+                          }}
+                          disabled={
+                            input === "" &&
+                            (stageReq.status === 0 || stageReq.status === 1)
+                          }
+                          className={styles.ButtonTwo}
+                        >
+                          {t(
+                            stageReq.status === 2
+                              ? "sign_transfer"
+                              : "confirm"
+                          )}
+                        </Button>
+                        <Button
+                          skeleton
+                          onClick={() => {
+                            handleCancel();
+                          }}
+                          className={styles.ButtonTwo}
+                        >
+                          {t("cancel")}
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-            </Form>
+              <div className="col flex justify-center mt-4">
+                {localErrorInfoBox
+                  ? localErrorInfoBox
+                  : stageReq.autoInnerTransfer && (
+                      <InfoBox>
+                        The address is within our system. The transfer will be
+                        made via the internal network, and not through the
+                        blockchain. Are you sure you want to continue?
+                      </InfoBox>
+                    )}
+              </div>
             </div>
+          </Form>
           </div>
         </div>
       </>

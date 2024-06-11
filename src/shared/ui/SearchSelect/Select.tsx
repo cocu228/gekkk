@@ -10,7 +10,7 @@ interface SelectProps {
     disabledCurrencies?: Array<string>;
     onSelect: (value: string) => void;
     list: any[];
-    placeholderText: string
+    placeholderText?: string
     isToken?: boolean,
     tokenId?: string;
 }

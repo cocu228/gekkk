@@ -97,7 +97,7 @@ const WithdrawFormCardToCard = () => {
     !cards ? (
       <Loader className={"relative"} />
     ) : (
-      <div className="wrapper md:mx-[-10px]">
+      <div className="wrapper">
         <div className="row mb-[10px] w-full">
           <div className={style.AmountInputWrap}>
             <InputCurrency.Validator

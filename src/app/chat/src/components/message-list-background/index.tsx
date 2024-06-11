@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import useColorSet from '../../hooks/useColorSet'
 
 const ScrollBackground = styled.div<{
     roundedCorners?: boolean
@@ -21,10 +20,6 @@ width: 100%;
 height: 100%;
 z-index: 0;
 box-sizing: border-box;
-${({ mobile }) => !mobile ? `
-padding-right: 12px;
-` : ""}
-
 `
 
 type Props = {
@@ -37,12 +32,10 @@ export default function MessageListBackground({
     roundedCorners = true
 }: Props) {
 
-    const backgroundColor = useColorSet("--messagelist-background-color")
-
     return (
         <ScrollBackgroundContainer mobile={mobileView}>
             <ScrollBackground
-                backgroundColor={backgroundColor}
+                backgroundColor={"backgroundColor"}
                 roundedCorners={roundedCorners} />
         </ScrollBackgroundContainer>
     )

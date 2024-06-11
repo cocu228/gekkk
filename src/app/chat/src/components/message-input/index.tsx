@@ -1,8 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 import useTypingListener from '../../hooks/useTypingListener'
-import useColorSet from '../../hooks/useColorSet'
-import MinChatUIContext from '../../contexts/ChatThemeContext'
 import { CtxAuthInfo } from '../../contexts/AuthContext'
 
 export type Props = {
@@ -200,8 +198,6 @@ export default function MessageInput({
     onKeyUp
 }: Props) {
 
-    const { themeColor } = useContext(MinChatUIContext)
-
     const [text, setText] = useState("")
     const inputRef = useRef<any>(null);
     const {
@@ -221,14 +217,6 @@ export default function MessageInput({
         }
     }
 
-    // colorSets 
-    const backgroundColor = useColorSet("--input-background-color")
-    const inputTextColor = useColorSet("--input-text-color")
-    const inputAttachColor = useColorSet("--input-attach-color")
-    const inputSendColor = useColorSet("--input-send-color")
-    const inputElementColor = useColorSet("--input-element-color")
-    const inputPlaceholderColor = useColorSet("--input-placeholder-color")
-
     return (
         <Container
             mobile={mobileView}
@@ -236,7 +224,7 @@ export default function MessageInput({
             <Form
                 data-testid='message-form'
                 className='fade-animation'
-                backgroundColor={backgroundColor}
+                backgroundColor={"backgroundColor"}
                 onSubmit={(e: any) => {
                     e.preventDefault()
                     handleSubmit()
@@ -250,7 +238,7 @@ export default function MessageInput({
                     >
 
                         <svg
-                            fill={inputAttachColor || themeColor}
+                            fill={"inputAttachColor" || "themeColor"}
                             width="24"
                             height="24"
                             viewBox="0 0 32 32"
@@ -272,14 +260,14 @@ export default function MessageInput({
                 <InputContainer
                 >
                     <InputBackground
-                        showOpacity={inputElementColor ? false : true}
-                        bgColor={inputElementColor || themeColor}
+                        showOpacity={"inputElementColor" ? false : true}
+                        bgColor={"inputElementColor" || "themeColor"}
                     />
 
 
                     <InputElementContainer>
                         <InputElement
-                            color={inputTextColor}
+                            color={"inputTextColor"}
                             ref={inputRef}
                             data-testid='message-input'
                             onInput={(event: any) => setText(event.target.innerText)}
@@ -301,7 +289,7 @@ export default function MessageInput({
                             }}
                         />
                         {text === '' && <PlaceHolder
-                            color={inputPlaceholderColor}
+                            color={"inputPlaceholderColor"}
                         >{placeholder}</PlaceHolder>}
                     </InputElementContainer>
                 </InputContainer>
@@ -316,7 +304,7 @@ export default function MessageInput({
                     >
 
                         <svg
-                            fill={inputSendColor || themeColor}
+                            fill={"inputSendColor" || "themeColor"}
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"

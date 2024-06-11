@@ -49,7 +49,6 @@ export default function Loading({ color }: Props) {
                 <div />
                 <div />
             </div>
-
         </Container >
     )
 }

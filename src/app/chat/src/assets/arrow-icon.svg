@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="white">
+    <symbol id="t08" viewBox="0 0 30 30">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.75 26.1981L20.4688 29.5161L6.25 15L20.4688 0.483887L23.75 3.80186L12.8125 15L23.75 26.1981Z" stroke="white"/>
+    </symbol>
+    <use href="#t08"/>
+</svg>

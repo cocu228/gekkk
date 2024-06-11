@@ -15,9 +15,6 @@ import useTypingListener from "./hooks/useTypingListener";
 import Sidebar from "./components/sidebar"
 import ChatThemeProvider from "./providers/ChatThemeProvider";
 
-
-
-
 export {
   Loading,
   Message,

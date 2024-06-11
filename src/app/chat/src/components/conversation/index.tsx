@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MessageType from '../../types/MessageType';
 import placeholderProfilePNG from './profile.png';
 import { calculateTimeAgo } from '../../utils/date-utils';
-import useColorSet from '../../hooks/useColorSet';
-import MinChatUIContext from '../../contexts/ChatThemeContext';
 
 export type Props = {
   title: string;
@@ -104,7 +102,6 @@ margin-left: 6px;
 margin-top:2px;
 margin-right:2px;
 align-self:flex-start;
-line-height:auto;
 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 ${({ unread, color }) =>
@@ -232,8 +229,6 @@ export default function Conversation({
   const [dateSent, setDateSent] = useState<string | undefined>()
   const [intervalId, setIntervalId] = useState<any>()
 
-  const { themeColor } = useContext(MinChatUIContext)
-
   useEffect(() => {
     function updateDateSent() {
       if (lastMessage?.createdAt) {
@@ -274,13 +269,6 @@ export default function Conversation({
   useEffect(() => {
     calculateContainerWidth();
   }, [containerRef]);
-
-
-  const backgroundColor = useColorSet("--chatitem-background-color")
-  const titleTextColor = useColorSet("--chatitem-title-text-color")
-  const contentTextColor = useColorSet("--chatitem-content-text-color")
-  const hoverColor = useColorSet("--chatitem-hover-color")
-  const selectedBackgroundColor = useColorSet("--chatitem-selected-background-color")
 
 
   /**
@@ -364,10 +352,10 @@ export default function Conversation({
   return (
     <Container ref={containerRef} onClick={onClick} className="fade-animation">
       <Background selected={selected}
-        hoverColor={hoverColor}
-        selectedBackgroundColor={selectedBackgroundColor}
-        backgroundColor={backgroundColor}
-        themeColor={themeColor} />
+        hoverColor={"hoverColor"}
+        selectedBackgroundColor={"selectedBackgroundColor"}
+        backgroundColor={"backgroundColor"}
+        themeColor={"themeColor"} />
 
       <ContentContainer>
         <div>
@@ -385,16 +373,16 @@ export default function Conversation({
 
           <NameContainer>
             <Name
-              titleTextColor={titleTextColor}
+              titleTextColor={"titleTextColor"}
               unread={unread}>{title}</Name>
 
             <Timestamp
               unread={unread}
-              color={contentTextColor}>{dateSent}</Timestamp>
+              color={"contentTextColor"}>{dateSent}</Timestamp>
           </NameContainer>
 
           <MessageComponent
-            color={contentTextColor}
+            color={"contentTextColor"}
             width={containerWidth - 96}
             unread={unread}
           >

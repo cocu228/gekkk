@@ -1,26 +1,19 @@
-import {
-    ChatThemeProvider,
-    MainContainer,
-    MessageInput,
-    MessageContainer,
-    MessageList,
-    MessageHeader
-} from "./";
-import StompSocketProvider from "./providers/StompSocketProvider";
 import {useEffect, useState} from "react";
+import {MessageHeader, MessageInput, MessageList} from "./";
 import {ChatMessage} from "./types/Shared";
 import {apiPostMessage} from "./api/post-message";
 import {getCookieData, isMediaFile} from "./utils/shared";
 import {apiGetMessages} from "./api/get-messages";
 import {apiPostFile} from "./api/post-file";
-import AuthProvider from "./providers/AuthProvider";
+import MainLayout from "./shared/layouts/main-layout";
+import BodyLayout from "./shared/layouts/body-layout";
 
 function App() {
     const [ws, setWS] = useState(false);
     const [offset, setOffset] = useState<number>(0);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [lazyLoading, setLazyLoading] = useState<boolean>(false);
-    
+
     const onSendMessage = async (message: string) => {
         const cookies = getCookieData()
         // @ts-ignore
@@ -39,15 +32,15 @@ function App() {
         const sessionId = cookies["chat-session-id"];
 
         try {
-            const fileInput: HTMLInputElement  = document.createElement('input');
+            const fileInput: HTMLInputElement = document.createElement('input');
             fileInput.type = 'file';
 
             fileInput.addEventListener('change', async (event: Event) => {
-                
+
                 const target = event.target as HTMLInputElement;
                 const file: File | null = target.files ? target.files[0] : null;
 
-                if(file){
+                if (file) {
                     const response = await apiPostFile(file, sessionId)
                     console.log('Download result:', response);
                 }
@@ -70,7 +63,7 @@ function App() {
             id: item.role,
             name: item.sender,
         },
-        
+
         media: (item.messageType === "file" && item.file && (item.file.length > 0) && item.file[0].picture && isMediaFile(item.file[0].path)) ? {
             type: "image",
             url: item.file[0].downloadLink,
@@ -112,52 +105,49 @@ function App() {
                         file: item.files,
                         messageType: item.messageType
                     }))
-                    
-                    if(messages.length !== 0){                        
-                        setMessages(n => [...n, ...messages].sort((a, b) =>+a.id - +b.id))
+
+                    if (messages.length !== 0) {
+                        setMessages(n => [...n, ...messages].sort((a, b) => +a.id - +b.id))
                     }
                 }
-                
+
             }
         })();
     }, [ws, offset]);
 
     // @ts-ignore
-    useEffect(()=>{
-        if(lazyLoading){
-            const timer = setTimeout(()=>{
+    useEffect(() => {
+        if (lazyLoading) {
+            const timer = setTimeout(() => {
                 setLazyLoading(false)
                 setOffset(offset + 50)
             }, 1000)
-            return ()=>{
+            return () => {
                 clearTimeout(timer)
             }
         }
     }, [lazyLoading]);
 
     return (
-        <AuthProvider>
-            <StompSocketProvider setIsWebSocketReady={setIsWebSocketReady} setMessages={setMessages}>
-                <ChatThemeProvider theme="#72BF44">
-                    <MainContainer style={{height: '100%'}}>
-                        <MessageContainer>
-                            <MessageHeader/>
-                            <MessageList
-                                currentUserId="client"
-                                // @ts-ignore
-                                messages={uiMessages}
-                                lazyLoading={lazyLoading}
-                                setLazyLoading={setLazyLoading}
-                            />
-                            <MessageInput onSendMessage={onSendMessage} showSendButton
-                                        showAttachButton={true}
-                                        onAttachClick={onAttachClick}
-                                        placeholder="Type message here"/>
-                        </MessageContainer>
-                    </MainContainer>
-                </ChatThemeProvider>
-            </StompSocketProvider>
-        </AuthProvider>
+        <MainLayout setMessages={setMessages} setIsWebSocketReady={setIsWebSocketReady}>
+            <MessageHeader />
+            <BodyLayout>
+                <MessageList
+                    currentUserId="client"
+                    // @ts-ignore
+                    messages={uiMessages}
+                    lazyLoading={lazyLoading}
+                    setLazyLoading={setLazyLoading}
+                />
+            </BodyLayout>
+            <MessageInput
+                onSendMessage={onSendMessage}
+                showSendButton
+                showAttachButton={true}
+                onAttachClick={onAttachClick}
+                placeholder="Type message here"
+            />
+        </MainLayout>
     )
 }
 

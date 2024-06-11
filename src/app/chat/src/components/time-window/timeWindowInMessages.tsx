@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import MessageType from '../../types/MessageType';
 
-
-
 interface IProps {
     messages: MessageType[]
     date: string | undefined,
@@ -10,32 +8,29 @@ interface IProps {
 }
 
 const Container = styled.div`
-width: 100%;
-display: flex;
-flex-direction: row;
-justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `
 
 const DateContainer = styled.div`
-width: 100%;
-display: flex;
-flex-direction: row;
-justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `
 
 const DateText = styled.div`
-z-index:100;
-margin-top: 15px;
-min-width: 100px;
-padding: 3px;
-font-size: 20px;
-color: #ffffff;
-display: flex;
-flex-direction: row;
-justify-content: center;
-background-color: #616060;
-border-radius: 10px;
-opacity: 0.8;
+    z-index:100;
+    font-size: 10px;
+    font-weight: 700;
+    color: ${({ theme }) => theme.darkGray};
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 10px;
+    opacity: 0.8;
 `
 // Попап окошко, разделяющее сообщения по датам между разными днями (реализовано на основе группировки из виджета History)
 function DatePopupInMessages({messages, index, date}: IProps) {
@@ -50,8 +45,11 @@ function DatePopupInMessages({messages, index, date}: IProps) {
         }
     
     }
+
+    const currentMessage = messages[index]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"});
+    const lastMessage = messages[index - 1]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"});
+
     return(
-    
         !doesPrevDateTimeExist ? (
             <Container data-popupInMessages={true}>
                 <DateContainer>
@@ -61,7 +59,7 @@ function DatePopupInMessages({messages, index, date}: IProps) {
                 </DateContainer>
             </Container>
         ) : (
-            (messages[index]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) !== (messages[index - 1]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) && (
+            currentMessage !== lastMessage && (
                 <Container data-popupInMessages={true}>
                     <DateContainer>
                         <DateText>

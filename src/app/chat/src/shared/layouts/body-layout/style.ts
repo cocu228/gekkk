@@ -7,7 +7,7 @@ export const Layout = styled.div`
     padding: 0;
     
     ${mediaQuery.isMobile} {
-        padding: 10px;
+        padding: 10px 10px 0;
         border-radius: 8px;
         overflow: hidden;
     }

@@ -2,61 +2,6 @@
 
 .Input {
   display: flex;
-<<<<<<< HEAD
-
-  :global(.ant-input) {
-    padding: 10px;
-    border-radius: 8px;
-    border-color: var(--gek-light-grey);  
-    font-weight: 400;  
-    color: var(--gek-dark-blue);    
-
-    @include max-devices('sm') {
-      padding: 1rem 1.25rem;
-    }
-    
-    @include max-devices(md) {
-      font-size: 12px;
-    }
-
-    &::placeholder {
-      font-weight: normal;
-      color: #B9B9B5 !important;
-      font-size: 10px;
-      padding-right: 5px;
-
-      @media screen and (max-width: 768px) {
-        font-size: 9.3px !important;
-      }
-    }   
-
-    &:focus {
-      border-color: var(--gek-light-grey);
-    }
-
-    &:disabled {
-      background-color: #fff !important;
-    }
-  }
-}
-
-.EyeStyles {
-  position: relative;
-
-  input {
-    padding: 1rem 2.2rem 1rem 1.25rem !important;
-  }
-}
-
-.TransfersInput{
-  height: 32px;
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  border: 1px solid var(--gek-light-grey);
-  border-radius: 5px;
-=======
->>>>>>> d0f4fcd6f3e1fa46adb4b2784655c4e4c9270e1e
   width: 100%;
   border: 1px solid var(--gek-light-grey);
   color: var(--gek-dark-blue);
@@ -104,11 +49,11 @@
 //}
 
 .SuffixBlock {
-    background-color: white;
-    display: flex;
-    margin: auto;
-    padding-right: 10px;
-    overflow: hidden;
+  background-color: white;
+  display: flex;
+  margin: auto;
+  padding-right: 10px;
+  overflow: hidden;
 }
 
 .InputMobileWrapper{

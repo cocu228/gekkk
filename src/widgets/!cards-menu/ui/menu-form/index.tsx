@@ -174,7 +174,7 @@ const MenuForm = ({
                     });
                 }
             }}
-            to='/card-menu?how_it_works=true'
+            to={md ? '/card-menu?how_it_works=true' : '/wallet?currency=EUR&tab=bank_cards'}
         >
             {t("how_it_works")}
         </Link>

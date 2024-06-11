@@ -77,9 +77,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
                 <span className={styles.SelectPreTitle}>
                   {t("exchange.select_token")}
                 </span>
-                <div className='pl-[7px]'>
-                  <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] ${!md && 'hidden'}`}/>
-                </div>
+                <IconApp code="t08" size={12} color="#3A5E66" className={styles.PreArr} />
               </>
             ) : (
                 <span className={styles.SelectedToken}>
@@ -95,7 +93,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
             
           </CurrencySelector>
         </div>
-        <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] min-w-[12px] translate-x-[-50%] ${md && "hidden"}`} />
+        <IconApp code="t08" size={12} color="#3A5E66" className={`${styles.deskArrow} ${currency && styles.ActiveArrow}`} />
         <div className={styles.InputBody}>
           <input
             value={value}
@@ -104,7 +102,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
               const valueNew: string = event.target.value;
               onChange(valueNew);
             }}
-            className={styles.Input}
+            className={`${styles.Input} ${currency && styles.InputActive}`}
             placeholder={`-${t("exchange.enter_amount").toLowerCase()}-`}
           />
         </div>

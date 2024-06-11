@@ -59,6 +59,7 @@
   border-radius: 8px;
   ::placeholder{
     font-weight: normal;
+    color: #DCDCD9;
   }
   @include max-devices("md") {
     height: 56px;

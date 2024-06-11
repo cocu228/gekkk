@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     min-height: 30px;
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 .Key{
     position: relative;
@@ -47,8 +47,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 40px 0px;
-    padding: 10px 0px;
+    margin: 40px 0;
+    padding: 10px 0;
     gap: 15px;
 }
 
@@ -79,8 +79,8 @@
 
 .inputTitle {
     color: #1F3446;
-    font-family: Inter;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
+    width: 40%;
 }

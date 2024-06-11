@@ -116,3 +116,10 @@
 
 }
 
+.TransferTableContainer{
+    margin-top: 10px;
+
+    @include max-devices(md){
+        position: relative;
+    }
+}

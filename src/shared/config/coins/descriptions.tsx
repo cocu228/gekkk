@@ -11,7 +11,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
     const {t} = useTranslation();
 
     return {
-        [ETokensConst.ONEINCH]: <div>
+        [ETokensConst.ONEINCH]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("oneinch.unites")}
             </p>
@@ -51,7 +51,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.AAVE]: <div>
+        [ETokensConst.AAVE]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("aave.cryptocurrency")}
             </p>
@@ -65,7 +65,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.AGLD]: <div>
+        [ETokensConst.AGLD]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("agld.randomized")}
             </p>
@@ -107,7 +107,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ANKR]: <div>
+        [ETokensConst.ANKR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ankr.developer")}
             </p>
@@ -123,7 +123,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.APE]: <div>
+        [ETokensConst.APE]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ape.governance")}
             </p>
@@ -145,13 +145,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ANT]: <div>
+        [ETokensConst.ANT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("ant.aragon_is")}
             </p>
         </div>,
 
-        [ETokensConst.ARPA]: <div>
+        [ETokensConst.ARPA]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("arpa.separate")}
             </p>
@@ -161,7 +161,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.AVAX]: <div>
+        [ETokensConst.AVAX]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("avax.cryptocurrency")}
             </p>
@@ -175,7 +175,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.AXS]: <div>
+        [ETokensConst.AXS]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("axs.gaming")}
             </p>
@@ -185,7 +185,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ADA]: <div>
+        [ETokensConst.ADA]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ada.third_generation")}
             </p>
@@ -199,7 +199,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ATOM]: <div>
+        [ETokensConst.ATOM]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("atom.ecosystem")}
             </p>
@@ -209,7 +209,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BAL]: <div>
+        [ETokensConst.BAL]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("bal.portfolio")}
             </p>
@@ -235,7 +235,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BAND]: <div>
+        [ETokensConst.BAND]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("band.connecting")}
             </p>
@@ -281,7 +281,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p>{t("band.based")}</p>
         </div>,
 
-        [ETokensConst.BICO]: <div>
+        [ETokensConst.BICO]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("bico.developer")}
             </p>
@@ -291,7 +291,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BLZ]: <div>
+        [ETokensConst.BLZ]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("blz.blockchain")}
             </p>
@@ -318,7 +318,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BNT]: <div>
+        [ETokensConst.BNT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("bnt.collection")}
             </p>
@@ -336,7 +336,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BTT]: <div>
+        [ETokensConst.BTT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("btt.technology")}
             </p>
@@ -366,7 +366,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.C98]: <div>
+        [ETokensConst.C98]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("c98.platform")}
             </p>
@@ -390,7 +390,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ul>
         </div>,
 
-        [ETokensConst.COMP]: <div>
+        [ETokensConst.COMP]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("comp.govern")}
             </p>
@@ -412,7 +412,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.CRV]: <div>
+        [ETokensConst.CRV]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("crv.widely")}
             </p>
@@ -422,7 +422,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.CTSI]: <div>
+        [ETokensConst.CTSI]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ctsi.utility")}
             </p>
@@ -436,7 +436,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.CVC]: <div>
+        [ETokensConst.CVC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("cvc.ecosystem")}
             </p>
@@ -450,7 +450,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.DASH]: <div>
+        [ETokensConst.DASH]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("dash.cryptocurrency")}
             </p>
@@ -486,7 +486,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ENJ]: <div>
+        [ETokensConst.ENJ]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("enj.community")}
             </p>
@@ -496,7 +496,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ENS]: <div>
+        [ETokensConst.ENS]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ens.system")}
             </p>
@@ -522,7 +522,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.EOS]: <div>
+        [ETokensConst.EOS]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("eos.leveraging")}
             </p>
@@ -540,7 +540,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.FIL]: <div>
+        [ETokensConst.FIL]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("fil.introduces")}
             </p>
@@ -556,7 +556,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p>{t("fil.cryptocurrency")}</p>
         </div>,
 
-        [ETokensConst.GALA]: <div>
+        [ETokensConst.GALA]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("gala.secured")}
             </p>
@@ -574,7 +574,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.GRT]: <div>
+        [ETokensConst.GRT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("grt.indexing")}
             </p>
@@ -588,7 +588,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ICX]: <div>
+        [ETokensConst.ICX]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("icx.protocol")}
             </p>
@@ -606,7 +606,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.IDEX]: <div>
+        [ETokensConst.IDEX]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("idex.hybrid")}
             </p>
@@ -632,7 +632,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.INJ]: <div>
+        [ETokensConst.INJ]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("inj.blockchain")}
             </p>
@@ -650,7 +650,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.USDT]: <div>
+        [ETokensConst.USDT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("tether_info_p1")}
             </p>
@@ -664,7 +664,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BCH]: <div>
+        [ETokensConst.BCH]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("bch.important")}
             </p>
@@ -678,7 +678,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.KNC]: <div>
+        [ETokensConst.KNC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("knc.liquidity")}
             </p>
@@ -696,7 +696,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.KSM]: <div>
+        [ETokensConst.KSM]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ksm.scalable")}
             </p>
@@ -710,7 +710,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.LPT]: <div>
+        [ETokensConst.LPT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("lpt.decentralized")}
             </p>
@@ -728,7 +728,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.LRC]: <div>
+        [ETokensConst.LRC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("lrc.describes")}
             </p>
@@ -746,7 +746,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.MASK]: <div>
+        [ETokensConst.MASK]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("mask.gateway")}
             </p>
@@ -790,7 +790,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.MIR]: <div>
+        [ETokensConst.MIR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("mir.synthetic")}
             </p>
@@ -808,7 +808,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.MKR]: <div>
+        [ETokensConst.MKR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("mkr.governance")}
             </p>
@@ -838,13 +838,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ol>
         </div>,
 
-        [ETokensConst.MLN]: <div>
+        [ETokensConst.MLN]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("mln.mln_is")}
             </p>
         </div>,
 
-        [ETokensConst.OGN]: <div>
+        [ETokensConst.OGN]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ogn.platform")}
             </p>
@@ -858,19 +858,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.OMG]: <div>
+        [ETokensConst.OMG]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("omg.omg_is")}
             </p>
         </div>,
 
-        [ETokensConst.OXT]: <div>
+        [ETokensConst.OXT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("oxt.oxt_is")}
             </p>
         </div>,
 
-        [ETokensConst.POWR]: <div>
+        [ETokensConst.POWR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("powr.technology")}
             </p>
@@ -880,13 +880,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.REN]: <div>
+        [ETokensConst.REN]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("ren.ren_is")}
             </p>
         </div>,
 
-        [ETokensConst.REQ]: <div>
+        [ETokensConst.REQ]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("req.protocol")}
             </p>
@@ -908,19 +908,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.RLC]: <div>
+        [ETokensConst.RLC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("rlc.rlc_is")}
             </p>
         </div>,
 
-        [ETokensConst.SAND]: <div>
+        [ETokensConst.SAND]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("sand.sand_is")}
             </p>
         </div>,
 
-        [ETokensConst.SNX]: <div>
+        [ETokensConst.SNX]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("snx.software")}
             </p>
@@ -938,7 +938,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.SRM]: <div>
+        [ETokensConst.SRM]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("srm.protocol")}
             </p>
@@ -952,19 +952,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.STORJ]: <div>
+        [ETokensConst.STORJ]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("storj.storj_is")}
             </p>
         </div>,
 
-        [ETokensConst.SUSHI]: <div>
+        [ETokensConst.SUSHI]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("sushi.sushi_is")}
             </p>
         </div>,
 
-        [ETokensConst.TRIBE]: <div>
+        [ETokensConst.TRIBE]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 TRIBE is an Ethereum token that governs Fei Protocol, which issues a separate,
                 decentralized stablecoin called FEI that attempts to maintain a value of US$1.00.
@@ -973,13 +973,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.USDC]: <div>
+        [ETokensConst.USDC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("usdc.usdc_is")}
             </p>
         </div>,
 
-        [ETokensConst.WAVES]: <div>
+        [ETokensConst.WAVES]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("waves.multipurpose")}
             </p>
@@ -989,7 +989,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.XLM]: <div>
+        [ETokensConst.XLM]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("xlm.powers")}
             </p>
@@ -999,13 +999,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.YFI]: <div>
+        [ETokensConst.YFI]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p>
                 {t("yfi.yfi_is")}
             </p>
         </div>,
 
-        [ETokensConst.ZEC]: <div>
+        [ETokensConst.ZEC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("zec.decentralized")}
             </p>
@@ -1023,7 +1023,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BNB]: <div>
+        [ETokensConst.BNB]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("bnb.binance_coin_is")}
             </p>
@@ -1041,7 +1041,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.BTC]: <div>
+        [ETokensConst.BTC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("btc.first_cryptocurrency")}
             </p>
@@ -1057,7 +1057,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ul>
         </div>,
 
-        [ETokensConst.DAI]: <div>
+        [ETokensConst.DAI]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("dai.the_dai_stablecoin")}
             </p>
@@ -1079,7 +1079,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.DOGE]: <div>
+        [ETokensConst.DOGE]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("doge.open_source")}
             </p>
@@ -1097,7 +1097,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.DOT]: <div>
+        [ETokensConst.DOT]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("dot.cryptocurrency")}
             </p>
@@ -1111,7 +1111,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ETC]: <div>
+        [ETokensConst.ETC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("etc.decentralized")}
             </p>
@@ -1121,7 +1121,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.ETH]: <div>
+        [ETokensConst.ETH]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("eth.etherum_is_both")}
             </p>
@@ -1140,7 +1140,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ul>
         </div>,
 
-        // [ETokensConst.EUR]: <div>
+        // [ETokensConst.EUR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
         //     <p className='mb-3'>
         //         Euro (EURG) is the fiat currency of the Eurozone countries.
         //         On the Gekkard platform, Euros can be exchanged for EURG cryptocurrency
@@ -1148,10 +1148,10 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         //     </p>
         // </div>,
 
-        [ETokensConst.EURG]: <div>
+        [ETokensConst.EURG]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'> 
             <p className='mb-3'>
                 {t("EUR_is_utility_token")} <a
-                className='font-bold underline hover:cursor-pointer'
+                className='font-semibold underline hover:cursor-pointer'
                 href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1159,18 +1159,18 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p className='mb-3'>{t("for_more_information")} <a
-                className='underline font-bold hover:cursor-pointer'
+                className='underline font-semibold hover:cursor-pointer'
                 href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
                 target="_blank"
                 rel="noopener noreferrer"
             >{t("white_paper")}</a>.
             </p>
 
-            {IS_GEKKARD_APP && 
+            {IS_GEKKARD_APP() && 
                 <>
-                    <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                        <div className='text-xl'>
-                            {t("exchange_rate_fixed")}: <span className="font-bold">1 EUR = 1 EURG*</span>
+                    <div className="row  flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
+                        <div className='text-[14px]'>
+                            {t("exchange_rate_fixed")}: <span className="font-[700]">1 EUR = 1 EURG*</span>
                         </div>
                         <div className="col text-xs">
                             {account && <span>{t("exchange_fee")} 1,5%.
@@ -1189,10 +1189,12 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                         </div>
                     </div>
                     <div className='info-box-description mb-4'>
-                        <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
-                        <p>{t("you_get_per_annum")}:</p>
-                        <p>(i) {t("your_weighted_average")};</p>
-                        <p>(ii) {t("our_upper_limit")}.</p>
+                            <p className='font-bold text-[14px]'>4% {t("AER_interest")}</p>
+                            <p>{t("you_get_per_annum")}:</p>
+                        <ul className='list-disc list-inside'>
+                            <li>{t("your_weighted_average")};</li>
+                            <li>{t("our_upper_limit")}.</li>
+                        </ul>
                     </div>
                 </>
             }
@@ -1229,7 +1231,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         </div>,
 
-        [ETokensConst.EVER]: <div>
+        [ETokensConst.EVER]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 Everscale is a new and unique blockchain design that proposes a scalable decentralized world computer,
                 paired with a distributed operating system.
@@ -1254,7 +1256,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.GKE]: <div>
+        [ETokensConst.GKE]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("GKE_tokens")}.
             </p>
@@ -1309,7 +1311,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ol>
         </div>,
 
-        [ETokensConst.LINK]: <div>
+        [ETokensConst.LINK]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("link_token.cryptocurrency")}
             </p>
@@ -1331,7 +1333,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.LTC]: <div>
+        [ETokensConst.LTC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("ltc.cryptocurrency")}
             </p>
@@ -1343,7 +1345,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p>{t("ltc.transaction")}</p>
         </div>,
 
-        [ETokensConst.MANA]: <div>
+        [ETokensConst.MANA]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("mana.reality")}
             </p>
@@ -1361,7 +1363,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.MATIC]: <div>
+        [ETokensConst.MATIC]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("matic.polygon_is_a")}
             </p>
@@ -1379,7 +1381,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.NEAR]: <div>
+        [ETokensConst.NEAR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("near.layer_one")}
             </p>
@@ -1393,7 +1395,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.SHIB]: <div>
+        [ETokensConst.SHIB]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("shib.altcoin")}
             </p>
@@ -1411,7 +1413,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.SOL]: <div>
+        [ETokensConst.SOL]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("sol.sol_is_a_blockchain")}
             </p>
@@ -1429,7 +1431,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.TON]: <div>
+        [ETokensConst.TON]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>TON is the next gen network to unite all blockchains and the existing Internet</p>
 
             <p className='mb-3'>
@@ -1454,7 +1456,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.TRX]: <div>
+        [ETokensConst.TRX]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("trx.tron_is_a")}
             </p>
@@ -1468,7 +1470,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.UNI]: <div>
+        [ETokensConst.UNI]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("uni.decentralized")}
             </p>
@@ -1486,7 +1488,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
         </div>,
 
-        [ETokensConst.XMR]: <div>
+        [ETokensConst.XMR]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("xmr.monero_is_a")}
             </p>
@@ -1520,7 +1522,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ul>
         </div>,
 
-        [ETokensConst.XRP]: <div>
+        [ETokensConst.XRP]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>
                 {t("xrp.xrp_is")}
             </p>

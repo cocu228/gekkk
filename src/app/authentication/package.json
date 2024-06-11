@@ -13,6 +13,7 @@
     "STG-GEKKARD": "tsc && vite build --mode stg.gekkard",
     "DEV-GEKKARD": "tsc && vite build --mode dev.gekkard",
     "DEV-GEKWALLET": "tsc && vite build --mode dev.gekwallet",
+    "STG-GEKWALLET": "tsc && vite build --mode stg.gekwallet",
     "PRD-GEKWALLET": "tsc && vite build --mode prd.gekwallet",
     "DEV-GEKKOIN": "tsc && vite build --mode dev.gekkoin"
   },

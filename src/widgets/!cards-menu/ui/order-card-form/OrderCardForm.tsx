@@ -6,13 +6,12 @@ import {useTranslation} from "react-i18next";
 import {IssueNewCard} from "./issue-new-card";
 import {OrderCardContext} from "../../model/context";
 import {SuccessCardOrder} from "./success-card-order";
-// import {ConfirmationNewCard} from "./ConfirmationNewCard";
+import {OrderConfirmation} from "./order-confirmation";
 import {IOrderCardState, IOrderCardStep} from "../../model/types";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {ClientDetails, Card as ICardData} from "@/shared/(orval)api/gek/model";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
-import { OrderConfirmation } from "./order-confirmation";
 
 interface IParams {
     closable: boolean;
@@ -21,7 +20,7 @@ interface IParams {
 }
 
 const OrderCardForm = ({
-    card,
+    card = null,
     closable = false,
     setIsNewCardOpened
 }: IParams) => {
@@ -39,11 +38,11 @@ const OrderCardForm = ({
         countryCode: null,
         recipientName: null,
         cardholderName: null,
-        step: 'IssueNewCard',
         apartmentNumber: null,
         isExpressDelivery: false,
         isResidenceAddress: false,
         cardType: !card ? 'VIRTUAL' : 'PLASTIC',
+        step: card ? 'DeliveryInfo' : 'IssueNewCard',
     });
 
     const setStep = (nextStep: IOrderCardStep) => {

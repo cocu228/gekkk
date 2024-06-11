@@ -23,7 +23,8 @@ export function IssueNewCard({closable}: {closable: boolean}) {
 
         <ExtendedSelect
             className='mt-4'
-            label='Card type:'
+            title='Card type:'
+            label={t("select_card_type")}
             value={state.cardType}
             onSelect={(v: 'VIRTUAL' | 'PLASTIC') => setState({
                 ...state,
@@ -43,7 +44,7 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                         <div className={styles.Label}>{t("cardholder_name")}:</div>
                         <Input
                             value={state.cardholderName}
-                            placeholder={'-enter name-'} 
+                            placeholder={`-${t("enter_name")}-`} 
                             onChange={({target}) => setState({
                                 ...state,
                                 cardholderName: target.value
@@ -55,9 +56,8 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                         <div className={styles.Label}>{t("linked_phone_number")}:</div>
                         <Input
                             allowDigits
-                            allowSymbols
                             value={state.linkedPhone}
-                            placeholder={"-enter phone number-"} 
+                            placeholder={`-${t("enter_phone_number")}-`} 
                             onChange={({target}) => setState({
                                 ...state,
                                 linkedPhone: target.value
@@ -66,13 +66,12 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                     </div>
                 </>}
 
-                <div className='h-[55px] flex flex-row w-full justify-center gap-2 pt-3'>
-                    <Button 
-                        color='green'
+                <div className={styles.ButtonsContainer}>
+                    <Button
                         className='w-full'
-                        disabled={!state.cardholderName || !state.linkedPhone}
-                        // If plastic card, we need delivery information
-                        // Otherwise, we can proceed to confirmation
+                        disabled={!state.cardholderName || !state.linkedPhone || !/^\d+$/.test(state.linkedPhone)}
+                        // If plastic card or virtual card personalization, we need delivery information
+                        // Otherwise, we can proceed to card order confirmation
                         onClick={() => state.cardType === 'PLASTIC'
                             ? setStep('DeliveryInfo')
                             : setStep('OrderConfirmation')
@@ -84,7 +83,6 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                     {closable && (
                         <Button
                             skeleton
-                            color='green'
                             onClick={close}
                             className='w-full'
                         >

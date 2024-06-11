@@ -12,7 +12,7 @@ import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
-import {IS_GEKKOIN_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
+import {IS_GEKKARD_APP, IS_GEKKOIN_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
 const hClassName = new HelperClassName(styles)
 
@@ -121,7 +121,7 @@ export const EnableNotifications = () => {
                 {t("header_menu.enable_notifications")}
             </button>
             <Modal
-                noBorder
+                noHeaderBorder
                 title="&nbsp;"
                 closable={false}
                 isModalOpen={isModalOpen}
@@ -152,29 +152,15 @@ export const EnableNotifications = () => {
     )
 }
 
-export const GekkoinInvestPlatform = () => {
-    const [loading, setLoading] = useState<boolean>(false);
+export const CrossPlatformNav = () => {
     const {showModal, handleCancel, isModalOpen} = useModal();
 
-    const onClick = async () => {
-        setLoading(true)
-
-        const {phone, token, tokenHeaderName} = getCookieData<{
-            phone: string,
-            token: string,
-            tokenHeaderName: string
-        }>()
-
-        const response = await $axios.post('/gek/v1/auth', {
-            authorization: phone,
-            token: token,
-            tokenHeaderName: tokenHeaderName
-        })
-        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
-        actionResSuccess(response).success(() => {
-            window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
-        })
-        setLoading(false)
+    const onClick = () => {
+        window.open(IS_GEKKARD_APP()
+            ? import.meta.env.VITE_GEKKOIN_URL
+            : import.meta.env.VITE_GEKKARD_URL,
+        "_blank");
+        handleCancel();
     }
 
     const isKoinAndWallet = IS_GEKKOIN_APP() || IS_GEKKWALLET_APP()
@@ -199,15 +185,12 @@ export const GekkoinInvestPlatform = () => {
                 </div>
                 <div className="row relative">
                     <div className="flex justify-center col">
-                        {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button
-                                size="md"
-                                onClick={onClick}
-                                className="w-full"
-                            >
-                                {t("confirm")}
-                            </Button>
-                        }
+                        <Button
+                            onClick={onClick}
+                            className="w-full"
+                        >
+                            {t("confirm")}
+                        </Button>
                     </div>
                 </div>
             </Modal>

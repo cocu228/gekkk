@@ -36,5 +36,6 @@ export const apiGetUas = ({
         Authorization: phone,
         ApplicationId: "GEKKARD",
         ProductId: "GEKKARD",
-    }
+    },
+    withCredentials: true
   });

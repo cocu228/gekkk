@@ -233,16 +233,19 @@ const WithdrawConfirmCardToCard = ({
 
                         <div className={styles.ModalPayInfoCol}>
                             <div className={styles.ModalPayInfoValueFlex}>
+                                {/* Total amount, that user pays */}
                                 <span
                                     className={styles.ModalPayInfoValueFlexText}>{amount + (totalCommission?.commission ? totalCommission?.commission : 0)}</span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>
+                                {/* Amount, that recipient recieve */}
                                 <span
                                     className={styles.ModalPayInfoValueFlexText}>
                                         {amount}
                                 </span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>
+                                {/* Fee amount */}
                                 <span
                                     className={styles.ModalPayInfoValueFlexTextFee}>
                                         {totalCommission?.commission ?? '-'}

@@ -1,64 +1,94 @@
-import React, { useState } from "react";
+import React, {MutableRefObject, useState} from "react";
 import styles from "./style.module.scss";
-import { validateInput } from "./model/helpers";
-import { Input as InputAntd, InputProps, InputRef } from "antd";
-import { IconApp } from "../icons/icon-app";
+import {validateInput} from "./model/helpers";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
-type IParams = InputProps & {
-  allowDigits?: boolean;
-  allowSymbols?: boolean;
-  wrapperClassName?: string;
-  tranfers?:boolean
-  eye?:boolean
+type IParams = {
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    allowDigits?: boolean,
+    allowSymbols?: boolean,
+    className?: string,
+    suffix?: React.ReactNode,
+    caption?: string,
+    size?: 'md' | 'sm',
+    value?: string,
+    name?: string,
+    placeholder?: string,
+    prefix?: React.ReactNode,
+    disabled?: boolean,
+    type?: string,
+    onInput?: (event: React.FormEvent) => void
 };
 
 const Input = React.forwardRef(
-  (
-    {
-      onChange,
-      allowDigits,
-      allowSymbols,
-      wrapperClassName,
-      tranfers = false,
-      eye,
-      ...props
-    }: IParams,
-    ref: React.ForwardedRef<InputRef>
-  ) => {
-    const [eyeState, setEyeState] = useState(false)
-
-    return (
-      <div 
-        className={`${styles.Input} ${
-          wrapperClassName ? wrapperClassName : ""
-        } ${tranfers && styles.TransfersInput} ${eye && styles.EyeStyles}`}
-      >
-        <InputAntd
-          type={eyeState ? 'password' : ''}
-          {...props}
-          ref={ref}
-          onChange={(event) => {
-            if (validateInput(event, allowDigits, allowSymbols)) {
-              onChange(event);
-            }
-          }}
-        />
+    (
         {
-          eye && (
-            <div className={styles.EyeBlock} onClick={() => setEyeState(!eyeState)} >
-              {
-                eyeState ? (
-                  <IconApp color='#285E69' size={13} code="t41" />
-                ) : (
-                  <IconApp color='#285E69' size={13} code="t71" />
-                )
-              }
-            </div>
-          )
-        }
-      </div>
-    );
-  }
+            onChange,
+            allowDigits,
+            allowSymbols,
+            className,
+            suffix,
+            prefix,
+            caption,
+            value,
+            name,
+            placeholder,
+            size,
+            disabled,
+            type,
+            onInput,
+            ...props
+        }: IParams,
+        ref: MutableRefObject<any>
+    ) => {
+        const {md} = useBreakpoints();
+        const inputSize = size || (md ? 'sm' : 'md');
+
+        const [showCaption, setShowCaption] = useState(true);
+
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            if (validateInput(event, allowDigits, allowSymbols)) {
+                onChange(event);
+                setShowCaption(event.target.value.length === 0);
+            }
+        };
+        return (
+            <>
+                <div
+                    data-size={inputSize}
+                    className={`${styles.Input} ${
+                        className || ""
+                    }${inputSize === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
+                    <div className={styles.PrefixWrap}>
+                        {prefix && (<span className={styles.Prefix}>{prefix}</span>
+                        )}
+                        <input
+                            className={inputSize === 'md' ? styles.InputDesktop : styles.InputMobile}
+                            {...props}
+                            type={type}
+                            onInput={onInput}
+                            ref={ref}
+                            disabled={disabled}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    {
+                        suffix && (
+                            <div className={styles.SuffixBlock}>
+                                {suffix}
+                            </div>
+                        )
+                    }
+                </div>
+                {caption && showCaption ? <div className='display: flex'>
+                    <text className={styles.Caption}>*{caption}</text>
+                </div> : ''}
+            </>
+        );
+    }
 );
 
 export default Input;

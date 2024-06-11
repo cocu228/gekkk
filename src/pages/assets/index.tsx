@@ -130,7 +130,7 @@ const InfoBox = () => {
             className="font-bold underline hover:cursor-pointer"
             onClick={showModal}>{t("crypto_assets.deposits")}</a>.</p>
 
-        <Modal onCancel={handleCancel} isModalOpen={isModalOpen} title='&nbsp;' noBorder>
+        <Modal onCancel={handleCancel} isModalOpen={isModalOpen} title='&nbsp;' noHeaderBorder>
             <>
                 <div className="row mb-10">
                     <div className="col">

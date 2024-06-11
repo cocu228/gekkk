@@ -45,7 +45,7 @@ const PercentSelector: FC<IParams> = ({
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
         <div className={`wrapper ${className}`}>
-            <div className="row flex justify-between items-center">
+            <div className="row flex justify-between items-end mb-[5px]">
                 {header}
 
                 <div className={`row flex gap-1 text-xs
@@ -58,6 +58,7 @@ const PercentSelector: FC<IParams> = ({
                     <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
+                   {/*TODO  Recalculate 100% taking fee*/}
                     <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
                 </div>
             </div>

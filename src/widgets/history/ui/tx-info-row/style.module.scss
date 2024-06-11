@@ -11,9 +11,21 @@
   border: 1px transparent solid;
   grid-template-columns: auto 1fr auto auto;
 
-  &:hover {
-    background-color: #f9f9fa;
-    border: 1px var(--gek-light-grey) solid;
+
+
+  @media screen and (min-width: 768px) {
+    border: 1px solid #F7F7F0;
+
+    &:hover {
+      border: 1px solid #2BAB72;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    &:hover {
+      background-color: #f9f9fa;
+      border: 1px var(--gek-light-grey) solid;
+    }
   }
 
   border-radius: 8px;

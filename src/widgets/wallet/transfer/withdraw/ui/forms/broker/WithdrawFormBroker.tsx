@@ -18,6 +18,8 @@ import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
 import {Modal} from "@/shared/ui/modal/Modal";
+import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
+import useError from '@/shared/model/hooks/useError';
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -30,9 +32,17 @@ const WithdrawFormBroker = () => {
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
+      const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();  
 
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-    const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+    const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
+        setRefresh(true, amount)
+        reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
+            res?.error              
+                ? localErrorHunter(res.error)
+                : localErrorClear()
+        })     
+    }, 2000), []);
 
     const {
         percent_fee = 0,
@@ -76,7 +86,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium ml-[10px] mb-[5px]'>{t("amount")}:</span>}
+                                                   header={<span className='text-gray-600 font-medium ml-[10px] mb-[5px]'>{t("amount1")}:</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -89,6 +99,9 @@ const WithdrawFormBroker = () => {
                 </InputCurrency.Validator>
             </div>
         </div>
+        {localErrorInfoBox && <div className='py-5'>
+                {localErrorInfoBox}    
+            </div>}
         <div className="row">
             <div className="col">
                 <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
@@ -107,14 +120,17 @@ const WithdrawFormBroker = () => {
                     </div>
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row flex items-end">
+                            {/* Amount in EUR paid */}
                             <span
                                 className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
+                            {/* EURG amount recieved */}
                             {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
                         </div>
                         <div className="row flex items-end">
+                            {/* Fee amount */}
                             {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                         </div>
@@ -169,6 +185,9 @@ const WithdrawFormBroker = () => {
                     </InputCurrency.PercentSelector>
                 </InputCurrency.Validator>
             </div>
+            {localErrorInfoBox && <div className='py-5'>
+                {localErrorInfoBox}    
+            </div>}
             <div className={styles.EURCost}>
                 <div className="col">
                     <span className={styles.EURCostValue}>

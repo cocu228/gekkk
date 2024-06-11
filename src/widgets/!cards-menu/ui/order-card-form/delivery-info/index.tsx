@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useOrderCardContext} from '../../../model/context';
 import BankCard from '@/widgets/dashboard/ui/cards/bank-card/BankCard';
-import { deliveryCountriesList } from '@/shared/config/delivery-coutries-list';
+import {deliveryCountriesList} from '@/shared/config/delivery-coutries-list';
 
 export function DeliveryInfo() {
     const {t} = useTranslation();
@@ -20,13 +20,26 @@ export function DeliveryInfo() {
     
     return <>
         <div className={styles.DesignContainer}>
-            <span className={styles.DesignTitle}>{t('select_card_design')}: </span>
-            <BankCard cardNumber='5270 0000 0000 0000' expiresAt='00/00' holderName='CARDHOLDER'/>
+            {state.card ? (
+                <BankCard
+                    cardNumber={state.card.displayPan}
+                    holderName={state.card.cardholder}
+                    expiresAt={state.card.expiryDate}
+                />
+            ) : (
+                <BankCard
+                    cardNumber='5270 0000 0000 0000'
+                    holderName={state.cardholderName}
+                    expiresAt='00/00'
+                />
+            )}
         </div>
 
         <ExtendedSelect
+            search
             className='mt-4'
-            label={t('country')}
+            title={t('country')}
+            label={t("select_country")}
             placeholder={t("select_country")}
             value={state.countryCode}
             options={deliveryCountriesList.map(c => ({
@@ -66,6 +79,7 @@ export function DeliveryInfo() {
                 <div>
                     <div className={styles.Label}>{t("post_code")}:</div>
                     <Input
+                        allowDigits
                         value={state.postalCode}
                         placeholder={`-${t('enter_post_code').toLowerCase()}-`} 
                         onChange={({target}) => setState({
@@ -78,6 +92,7 @@ export function DeliveryInfo() {
                 <div>
                     <div className={styles.Label}>{t("street")}:</div>
                     <Input
+                        allowDigits
                         value={state.street}
                         placeholder={`-${t('enter_street_name').toLowerCase()}-`} 
                         onChange={({target}) => setState({
@@ -90,6 +105,7 @@ export function DeliveryInfo() {
                 <div>
                     <div className={styles.Label}>{t("house")}:</div>
                     <Input
+                        allowDigits
                         value={state.houseNumber}
                         placeholder={`-${t('enter_house_number').toLowerCase()}-`} 
                         onChange={({target}) => setState({
@@ -100,10 +116,11 @@ export function DeliveryInfo() {
                 </div>
 
                 <div>
-                    <div className={styles.Label}>{t("flat")}:</div>
+                    <div className={styles.Label}>{t("flat_optional")}:</div>
                     <Input
+                        allowDigits
                         value={state.apartmentNumber}
-                        placeholder={`-${t('enter_flat_number').toLowerCase()}-`} 
+                        placeholder={`-${t('enter_flat_name_or_number_if_available').toLowerCase()}-`} 
                         onChange={({target}) => setState({
                             ...state,
                             apartmentNumber: target.value
@@ -123,18 +140,24 @@ export function DeliveryInfo() {
                     />
                 </div>
 
-                <div className='h-[55px] flex flex-row w-full justify-center gap-2 pt-3'>
-                    <Button 
-                        color='green'
+                <div className={styles.ButtonsContainer}>
+                    <Button
                         className='w-full'
                         onClick={() => setStep('OrderConfirmation')}
+                        disabled={
+                            !state.city ||
+                            !state.street ||
+                            !state.postalCode ||
+                            !state.countryCode ||
+                            !state.houseNumber ||
+                            !state.recipientName
+                        }
                     >
                         {t("proceed")}   
                     </Button>
 
                     <Button
                         skeleton
-                        color='green'
                         className='w-full'
                         onClick={() => state.cardholderName
                             ? setStep('IssueNewCard')

@@ -48,3 +48,11 @@
         font-size: 12px;
     }
 }
+
+.ButtonsContainer {
+    gap: 8px;
+    width: 100%;
+    display: flex;
+    padding-top: 12px;
+    justify-content: center;
+}

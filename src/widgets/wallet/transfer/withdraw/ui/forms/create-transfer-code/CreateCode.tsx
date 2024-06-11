@@ -13,12 +13,9 @@ import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import {IUseInputState, useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { CtxRootData } from "@/processes/RootContext";
-
-const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
 interface IParams{
     code?:string,
@@ -68,7 +65,9 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
 
     }
 
-    return !md ? (loading ? <Loader/> : newCode ? <CodeTxInfo onClose={onClose} code={newCode}/> :
+    console.log('mob', currency, inputCurr)
+
+    return !md ? (loading ? <Loader/> : newCode ? <CodeTxInfo currency={currency.$const} inputCurr={inputCurr.value.number} onClose={onClose} code={newCode}/> :
             <>
                 <div className="row bg-gray-300 max-w-[450px] spx-14 py-4 mb-6">
                     <p>{t("create_special_code")}</p>
@@ -121,7 +120,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
             </>
-    ) : (loading ? <div className="flex relative mt-10 min-h-[200px]"><Loader/></div> : code ? <CodeTxInfo onClose={onClose} inputCurr={inputCurrMobile} code={code}/> :
+    ) : (loading ? <div className="flex relative mt-10 min-h-[200px]"><Loader/></div> : code ? <CodeTxInfo onClose={onClose} currency={currency.$const} inputCurr={inputCurrMobile.value.number} code={code}/> :
         <>
             {localErrorInfoBox && <div className="row min-h-[200px] mt-4">{localErrorInfoBox}</div>}
         </>

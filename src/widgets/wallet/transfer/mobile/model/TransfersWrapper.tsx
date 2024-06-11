@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import { CtxWalletNetworks } from "../../model/context";
-import Input from "@/shared/ui/input/Input";
 import { useTranslation } from "react-i18next";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
@@ -100,7 +99,7 @@ export default function TransfersWrapper({
 
   return (
     <>
-      {children.map((child, index): JSX.Element => {
+      {children.map((child): JSX.Element => {
         if (child?.props["data-tag"] !== "main" && child) {
           return (
             <div className="flex flex-col items-center justify-center">
@@ -121,10 +120,8 @@ export default function TransfersWrapper({
                 <div className="min-h-[200px]  gap-5 w-full">
                   <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                     <IconApp size={20} code="t12" color="#000" />
-                    <Input
-                      className={`w-full text-[10px] border-[none]`}
-                      wrapperClassName={"w-full"}
-                      style={{ height: "10px", border: "none" }}
+                    <input
+                      className={`w-full text-[10px] border-[none] outline-none`}
                       type="text"
                       ref={inputRef}
                       data-testid="SearchName"
@@ -136,7 +133,7 @@ export default function TransfersWrapper({
                     ?.filter((curr) =>
                       searchTokenFilter(curr.currency, searchValue)
                     )
-                    ?.map((currency, index) => (
+                    ?.map((currency) => (
                       <div
                         className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                         onClick={() => {

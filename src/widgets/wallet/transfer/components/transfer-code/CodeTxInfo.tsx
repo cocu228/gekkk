@@ -10,8 +10,9 @@ import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useTranslation } from "react-i18next";
 import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
 import style from "./style.module.scss"
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
-const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
+const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
     const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
     const {t} = useTranslation()
@@ -36,7 +37,8 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>
             <div className="row mb-8">
                 <div className="col">
-                    <div className={`info-box-note w-auto`}>
+                    <div className={`w-auto flex gap-[5px]`}>
+                        <IconApp code="t27" size={15} color="#8F123A" />
                         <span className={style.WarnText}>{t("this_code_can_be_used")}</span>
                     </div>
                 </div>
@@ -51,38 +53,77 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         />
                     </div>
                 </div>
-                <div className="row w-full mt-[20px]">
-                <div className="col">
-                    <div className="row mb-4 w-full flex">
-                        <div className="col w-1/2">
-                            <div className="row flex">
-                                <div className="col">
-                                    <span className="text-gray-400 mr-2 text-[15px] sm:text-[13px]">{t("amount")}:</span>
-                                </div>
-                                <div className="col">
-                                    <span className="text-green text-right text-[14px] sm:text-[12px]">{infoCode.amount} {infoCode.currency}</span>
-                                </div>
-                            </div>
+                <div className="row w-full">
+                <div className={styles.PayInfo}>
+                    <div className={styles.PayInfoCol}>
+                        <div className="row flex justify-start">
+                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
                         </div>
+                        <div className="row flex justify-start ml-[1px]">
+                        <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
+                        </div>
+                        <div className="row flex justify-start pl-[2px]">
+                        <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
+                        </div>
+                    </div>
+                    <div className={styles.PayInfoColValue}>
+                        <div className={styles.PayInfoCol}>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span className={styles.PayInfoValueFlexText}>
+                            {inputCurr}
+                            </span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span className={styles.PayInfoValueFlexText}>
+                            {inputCurr}
+                            </span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span className={styles.PayInfoValueFlexTextFee}>-</span>
+                        </div>
+                        </div>
+
+                        <div className={styles.PayInfoCol}>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextFee}>
+                            {currency}
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="row ml-[6px] w-full flex">
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400 mr-2 text-[15px] sm:text-[13px]">{t("confirmation")}:</span>
+                                    <span className="text-[#B9B9B5] mr-2 text-[14px] font-normal md:text-[12px]">{t("confirmation")}:</span>
                                 </div>
                                 <div className="col">
-                                    <span className="text-[14px] sm:text-[12px]">{infoCode.typeTx === 12 ? "used" : "not used"}</span>
+                                    
+                                    {
+                                        infoCode.typeTx === 12 ? (
+                                            <span className="text-[14px] sm:text-[12px] text-[#2BAB72]">on</span>
+                                        ) : (
+                                            <span className="text-[14px] sm:text-[12px]">off</span>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                <div className="row mt-2 w-full md:flex md:justify-center">
+                <div className="row mt-2 w-full">
                     <ClipboardField value={infoCode.code}/>
                 </div>
                 <div className={'w-full flex justify-center'}>
                     <Button
-                        size="lg"
+                        size="md"
                         color="blue"
                         className="h-[43px] w-full mt-4"
                         onClick={onClose}
@@ -94,7 +135,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
             {onBtnApply && <div className="row">
                 <div className="flex justify-center col">
                     <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
-                            size="lg"
+                            size="md"
                             className={"w-full"}>
                         {t("confirm")}
                     </Button>

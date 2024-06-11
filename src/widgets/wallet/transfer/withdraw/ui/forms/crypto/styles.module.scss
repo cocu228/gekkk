@@ -40,6 +40,10 @@
     gap: 0.5rem;
 }
 
+.AdrWrap{
+    display: flex;
+    flex-direction: row !important;
+}
 .LawText {
     font-size: 12px;
     color: #b4c0cd;

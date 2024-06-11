@@ -115,11 +115,10 @@ const ActionConfirmationWindow = () => {
         <div className="mb-4">
           <Input
             allowDigits
+            size={'md'}
             type="text"
             value={code}
-            maxLength={11}
             onInput={onInput}
-            autoComplete="off"
             placeholder={t("enter_sms_code")}
             onChange={({ target }) => {
               localErrorClear();

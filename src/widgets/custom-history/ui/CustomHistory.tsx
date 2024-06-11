@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import { format } from "date-fns";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import { DatePicker, Space } from "antd";
 import Input from "@/shared/ui/input/Input";
 import type { DatePickerProps } from "antd";
 import Button from "@/shared/ui/button/Button";
@@ -19,6 +18,8 @@ import { formatCardNumber } from "../../dashboard/model/helpers";
 import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
+import { formatForApi } from "@/shared/lib/date-helper";
 
 // TODO: clean up
 function CustomHistory() {
@@ -30,10 +31,8 @@ function CustomHistory() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
   
-  const [date, setDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs("2022-01-01", dateFormat),
-    dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
-  ]);
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   const {
     activeCards: cards,
@@ -67,23 +66,9 @@ function CustomHistory() {
     includeFiat: fiat,
   });
 
-  const handleStartDateChange: DatePickerProps["onChange"] = (
-    newDate
-  ) => {
-    setDate([newDate, date[1]]);
-  };
-
-  const handleFinishDateChange: DatePickerProps["onChange"] = (
-    newDate
-  ) => {
-    setDate([date[0], newDate]);
-  }
-
   const handleReset = () => {
-    setDate([
-      dayjs("2022-01-01", dateFormat),
-      dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
-    ]);
+    setStartDate(new Date())
+    setEndDate(new Date())
     setFiat(false);
     setCurr('');
     setSelector(null);
@@ -146,26 +131,24 @@ function CustomHistory() {
     setSearchValue(e.target.value.trim().toLowerCase());
   };
 
-  // refactor display of selectors
+  // TODO:refactor display of selectors
   return (
     <>
       <div className={styles.wrapper}>
         <form className={styles.filters}>
           <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
           <div>
-            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2">
-              <DatePicker
-                onChange={handleStartDateChange}
-                value={date[0]}
-                suffixIcon={<IconApp code="t39" size={20} color="#29354C" />}
-                className={styles.Inp}
+            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
+              <Datepicker 
+                isTo={false}
+                date={startDate}
+                setDate={setStartDate}
               />
-              <div className="mb-0">_</div>
-              <DatePicker
-                className="max-h-[30px]"
-                onChange={handleFinishDateChange}
-                value={date[1]}
-                suffixIcon={<IconApp code="t39" size={20} color="#29354C" />}
+              <div className="mt-[5px]">_</div>
+              <Datepicker 
+                isTo={true}
+                date={endDate}
+                setDate={setEndDate}
               />
             </div>
           </div>
@@ -267,8 +250,6 @@ function CustomHistory() {
                 <IconApp size={20} code="t12" color="#000" />
                 <Input
                   className={`w-full text-[10px] border-[none]`}
-                  wrapperClassName={"w-full"}
-                  style={{ height: "10px", border: "none" }}
                   type="text"
                   ref={inputRef}
                   data-testid="SearchName"
@@ -380,7 +361,6 @@ function CustomHistory() {
                 setApply(true);
                 applyHandler();
               }}
-              disabled={!date.every((el) => !!el)}
             >
               {t("apply")}
             </Button>
@@ -401,8 +381,8 @@ function CustomHistory() {
         <History
           tab="custom"
           className="mt-2"
-          to={date[1].toDate()}
-          from={date[0].toDate()}
+          to={endDate}
+          from={startDate}
           types={historyData.types}
           includeFiat={historyData.includeFiat}
           currenciesFilter={historyData.assets}

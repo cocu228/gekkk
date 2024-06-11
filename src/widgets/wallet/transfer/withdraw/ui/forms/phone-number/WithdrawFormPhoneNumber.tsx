@@ -112,8 +112,6 @@ const WithdrawFormPhoneNumber = () => {
           <div className="row">
             <div className="col">
               <Input
-                tranfers={md}
-                bordered={!md}
                 allowDigits
                 allowSymbols
                 name={"phoneNumber"}
@@ -139,17 +137,12 @@ const WithdrawFormPhoneNumber = () => {
             <div className="col flex items-center">
               {md?
                 <Input
-                  tranfers
-                  bordered={false}
                   allowDigits
                   allowSymbols
                   value={inputs.comment}
                   name={"comment"}
                   onChange={onInputDefault}
                   placeholder={t("enter_description")}
-                  style={{
-                    minHeight: 100,
-                  }}
                 />
               :
                 <TextArea

@@ -23,7 +23,6 @@ import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entity
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from "react-i18next";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
@@ -40,7 +39,6 @@ const WithdrawFormCardToCard = () => {
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { md } = useBreakpoints();
 
   const [inputs, setInputs] = useState<{
     comment: string;
@@ -165,10 +163,7 @@ const WithdrawFormCardToCard = () => {
             {t("to_card")}:
           </span>
           <Input
-              wrapperClassName={style.CardToCardInput}
-              placeholder="-enter description-"
-              tranfers
-              bordered={false}
+              placeholder={`-${"enter_description"}-`}
               allowDigits
               type={"text"}
               onInput={onCardNumberInput}
@@ -185,9 +180,6 @@ const WithdrawFormCardToCard = () => {
             {t("cardholder")}:
           </span>
           <Input
-              wrapperClassName={style.CardToCardInput}
-              tranfers
-              bordered={false}
               value={inputs.cardholderName}
               onChange={({ target }) => {
                 setInputs(() => ({
@@ -195,7 +187,7 @@ const WithdrawFormCardToCard = () => {
                   cardholderName: target.value.toUpperCase(),
                 }));
               }}
-              placeholder="-enter cardholder name-"
+              placeholder={`-${t("enter_cardholder_name")}-`}
               name={"cardholderName"}
             />
         </div>
@@ -204,17 +196,12 @@ const WithdrawFormCardToCard = () => {
             {t("description")}:
           </span>
           <Input
-              tranfers={md}
-              bordered={!md}
               allowDigits
               allowSymbols
               value={inputs.comment}
               name={"comment"}
               onChange={onInputDefault}
-              placeholder='-enter description-'
-              style={{
-                height: 56,
-              }}
+              placeholder={`-${t("enter_description")}-`}
             />
         </div>   
         <div className={style.PayInfoWrap}>
@@ -234,16 +221,19 @@ const WithdrawFormCardToCard = () => {
               <div className={styles.PayInfoCol}>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexText}>
+                    {/* Total amount, that user pays */}
                     {inputCurr.value.number + withdraw_fee}
                   </span>
                 </div>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexText}>
+                    {/* Amount, that recipient recieve */}
                     {inputCurr.value.number}
                   </span>
                 </div>
                 <div className={styles.PayInfoValueFlex}>
                   <span className={styles.PayInfoValueFlexTextFee}>
+                    {/* Fee amount */}
                     {withdraw_fee}
                   </span>
                 </div>

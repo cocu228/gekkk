@@ -48,6 +48,8 @@ function DepthOfMarket({
         tradeInfo
     }, setState] = useState<DepthOfMarketState>(initialState);
 
+    
+
     useEffect(() => {
         if (!roomKey && currencyTo && currencyFrom) {
             updateRate();
@@ -72,6 +74,7 @@ function DepthOfMarket({
                 }));
             }
         }
+
     }, [tradeInfo, isSwapped]);
 
     useEffect(() => {

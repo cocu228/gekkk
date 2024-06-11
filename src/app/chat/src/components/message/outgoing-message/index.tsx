@@ -34,7 +34,6 @@ export default function OutgoingMessage({
 }: Omit<Props, "showHeader" | "showAvatar" | "type" | "loading" | "seen">) {
     return (
         <MessagesContainer
-            incoming
             data-testid="outgoing-message"
             data-date={created_at?.toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"})}
             className='fade-animation'
@@ -49,7 +48,7 @@ export default function OutgoingMessage({
                     <Timestamp date={created_at} />
             </MessageContent>
             <UserAvatarContainer>
-                <AppIcons type={"client"} size={25}/>
+                <AppIcons type={"operator"} size={25}/>
             </UserAvatarContainer>
         </MessagesContainer>
     )

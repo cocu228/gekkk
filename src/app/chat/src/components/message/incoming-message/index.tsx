@@ -35,7 +35,7 @@ export default function IncomingMessage({
                 {avatar ?
                     <UserAvatar src={avatar} onError={handleOnError}/>
                     :
-                    <AppIcons type={"operator"} size={25}/>
+                    <AppIcons type={"client"} size={25}/>
                 }
             </UserAvatarContainer>
             <MessageContent>

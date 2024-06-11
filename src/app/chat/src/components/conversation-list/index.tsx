@@ -1,10 +1,8 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Loading from '../loading';
 import ConversationType from '../../types/ConversationType';
 import Conversation from '../conversation';
-import useColorSet from '../../hooks/useColorSet';
-import MinChatUIContext from '../../contexts/ChatThemeContext';
 
 export interface Props {
   onConversationClick?: (index: number) => void;
@@ -62,7 +60,6 @@ const Container = styled.div`
 // border:1px solid #ecebeb;
 // font-size:14px;
 // font-family:SF Pro Text;
-// line-height:auto;
 // padding-left: 16px;
 // text-align:left;
 // vertical-align:text-top;
@@ -111,16 +108,10 @@ export default function ConversationList({
 }: Props) {
   const scrollContainerRef = useRef<any>();
 
-  const backgroundColor = useColorSet("--chatlist-background-color")
-  const noConversation = useColorSet("--no-conversation-text-color")
-
-  const { themeColor } = useContext(MinChatUIContext)
-
-
   return (
     <Container>
       <ScrollContainer
-        backgroundColor={backgroundColor}
+        backgroundColor={"backgroundColor"}
         loading={loading}
         onScroll={() => {
           //detect when scrolled to bottom
@@ -138,13 +129,13 @@ export default function ConversationList({
           <LoadingContainer>
             {customLoaderComponent ?
               customLoaderComponent :
-              <Loading themeColor={themeColor} />}
+              <Loading themeColor={"themeColor"} />}
           </LoadingContainer> : (
             <>
               {conversations && conversations.length <= 0 && (
                 customEmptyConversationsComponent ?
                   customEmptyConversationsComponent :
-                  <NoChatsTextContainer color={noConversation}>
+                  <NoChatsTextContainer color={"noConversation"}>
                     <p>No conversation started...</p>
                   </NoChatsTextContainer>
               )}

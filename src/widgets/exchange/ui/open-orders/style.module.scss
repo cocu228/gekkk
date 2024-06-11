@@ -8,16 +8,20 @@
   padding: 5px 10px;
   border: 1px transparent solid;
   border-radius: 8px;
-  &:hover
-  {
-    border: 1px var(--gek-light-grey) solid;
-  } 
+
+  @media screen and (min-width: 768px) {
+    border: 1px solid #F7F7F0;
+  }
 
   &Info {
     display: inline-block;
 
     @include max-devices("md") {
       font-size: 0.375rem;
+
+      &:hover{
+          border: 1px var(--gek-light-grey) solid;
+      } 
     }
   }
 }

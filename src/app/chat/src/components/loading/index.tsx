@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import './index.css';
-import useColorSet from '../../hooks/useColorSet';
 
 type Props = {
   themeColor?: string;
@@ -32,15 +31,13 @@ const InternalDiv = styled.div<{ themeColor?: string }>`
 
 export default function Loading({ themeColor }: Props) {
 
-  const color = useColorSet("--loader-color")
-
   return (
     <Container>
       <div className="lds-ring">
-        <InternalDiv themeColor={color || themeColor} />
-        <InternalDiv themeColor={color || themeColor} />
-        <InternalDiv themeColor={color || themeColor} />
-        <InternalDiv themeColor={color || themeColor} />
+        <InternalDiv themeColor={themeColor} />
+        <InternalDiv themeColor={themeColor} />
+        <InternalDiv themeColor={themeColor} />
+        <InternalDiv themeColor={themeColor} />
       </div>
     </Container>
   );

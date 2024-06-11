@@ -40,7 +40,6 @@ text-align:left;
 vertical-align:text-top;
 font-size:14px;
 align-self:flex-start;
-line-height:auto;
 color:#000000;
 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 padding-left:16px;

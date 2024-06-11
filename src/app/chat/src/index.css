@@ -1,3 +1,7 @@
+#chat * {
+    user-select: none;
+}
+
 .fade-animation {
     animation: fadeIn 0.2s ease-in-out;
 }

@@ -44,7 +44,7 @@ const DepthPrice = ({loading, amount}: IParams) => {
                 <Loader className='relative h-[25px] w-[25px]' />
             ) : <div className="flex items-center w-full justify-center">
                 {displayAmount ? (
-                    <>~{getCurrencyRounding(displayAmount)} <IconApp code="t59" size={20} className="rotate-[180deg]" color="rgb(var(--green))" /></>
+                    <>~{getCurrencyRounding(displayAmount)} <IconApp code="t59" size={20} className={`${rateState === RateState.UP ? 'rotate-[180deg]' : 'rotate-[360deg]'}`} color="rgb(var(--green))" /></>
                 ) : (
                     <>-</>
                 )}

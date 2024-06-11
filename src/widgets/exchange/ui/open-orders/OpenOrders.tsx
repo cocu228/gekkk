@@ -218,7 +218,7 @@ function  OpenOrders({ refreshKey }: IParams) {
         </div>
       )}
 
-      <div className="mt-1.5">
+      <div className="mt-1.5 m-[0_10px]">
         {!isLoading ? null : <div className="min-h-[70px]">
           <Loader className="relative mt-10 mb-10" />
         </div>}

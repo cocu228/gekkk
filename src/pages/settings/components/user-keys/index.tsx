@@ -124,7 +124,7 @@ export function UserKeys() {
             </div>
             <Modal
               closable={false}
-              noBorder
+              noHeaderBorder
               onCancel={handleCancel}
               placeBottom={window.innerWidth<768}
               isModalOpen={isModalOpen}

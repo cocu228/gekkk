@@ -152,7 +152,7 @@ const WithdrawFormCrypto = () => {
           isModalOpen={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
           title="&nbsp;"
-          noBorder
+          noHeaderBorder
         >
           <QrcodeScanner
             onSuccess={(value: string) => {

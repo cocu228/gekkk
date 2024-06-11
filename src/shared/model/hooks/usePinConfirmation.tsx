@@ -93,7 +93,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
     <Modal
       isModalOpen={isModalOpen}
       title={t("confirm_action")}
-      noBorder
+      noHeaderBorder
       onCancel={() => {
         handleCancel();
         localErrorClear();

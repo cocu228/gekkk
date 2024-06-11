@@ -18,7 +18,6 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import style from './styles.module.scss'
 import InputCurrency from "@/shared/ui/input-currency/ui";

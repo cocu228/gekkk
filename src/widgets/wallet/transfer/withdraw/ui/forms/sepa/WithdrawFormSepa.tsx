@@ -195,7 +195,6 @@ const WithdrawFormSepa = () => {
         </div>
             
             <Modal
-                zIndex
                 destroyOnClose
                 isModalOpen={isModalOpen}
                 onCancel={handleCancel}

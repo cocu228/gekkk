@@ -38,7 +38,7 @@ export const Modal:FC<ModalProps> = ({
             appear 
             show={isModalOpen}
         >
-            <Dialog as="div" unmount={destroyOnClose} className={`relative ${zIndex ? 'z-[160]' : 'z-[150]'} focus:outline-none`} onClose={onCancel}>
+            <Dialog as="div" unmount={destroyOnClose} className={`relative ${zIndex ? 'z-[200]' : 'z-[150]'} focus:outline-none`} onClose={onCancel}>
                 <div className={`${styles.Modal} ${noBorder && styles.ModalNoBorder}`}>
                     <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
                     <TransitionChild

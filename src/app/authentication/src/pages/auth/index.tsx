@@ -1,6 +1,7 @@
 ﻿import styles from './style.module.css';
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
+import GekwalletLogoIcon from "../../widgets/components/icons/GekwalletLogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 import {useEffect, useState} from "preact/hooks";
 import {CallResetForm} from '../../widgets/call-reset-form/CallResetForm';
@@ -26,6 +27,7 @@ const Auth = () => {
     const [form, setForm] = useState<IForm>(!emailCode ? 'LOGIN' : 'RESET_PASSWORD');
 
     // const [chatOpened, setChatOpened] = useState<boolean>(false)
+    const isGekwallet = import.meta.env.MODE.includes("gekwallet");
 
     useEffect(() => {
         const runCMA = async () => {
@@ -55,7 +57,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    <LogoIcon/>
+                    {isGekwallet? <GekwalletLogoIcon/>:<LogoIcon/>}
                 </div>
                 <div
                     onClick={() => {
@@ -73,7 +75,7 @@ const Auth = () => {
                     <header>
                         <h2>
                             {form === 'LOGIN'
-                                ? 'Welcome to Gekkard online bank'
+                                ? isGekwallet? 'Welcome to Gekwallet' : 'Welcome to Gekkard online bank'
                                 : 'Password reset form'
                             }
                         </h2>

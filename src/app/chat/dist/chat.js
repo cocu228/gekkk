@@ -99,8 +99,8 @@ font-size: 11px;
     z-index: 1;
     display:flex;
     gap: 5px;
-    margin-block: 10px;
-    align-items: ${({incoming:e})=>e?"flex-end":"flex-start"};
+    margin-block: 5px;
+    align-items: flex-end;
 `,oc=q.div`
     flex: 1 1 auto;
     padding: 5px 10px;
@@ -132,8 +132,9 @@ font-size: 11px;
     background-color: ${({bgColor:e})=>e};
 
     ${({borderCss:e})=>e};
-`;function dh({text:e,media:t,last:r,single:n,created_at:i}){return U(nc,{incoming:!0,"data-testid":"outgoing-message","data-date":i==null?void 0:i.toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"}),className:"fade-animation",children:[U(Qr,{}),U(oc,{incoming:!0,children:[t?U(ec,{last:r,single:n,messageType:"outgoing",...t}):U(tc,{children:e}),U(rc,{date:i})]}),U(Qr,{children:U(er,{type:"client",size:25})})]})}function fh({text:e,media:t,user:r,last:n,single:i,created_at:s}){const[c,f]=gt.useState(null),v=()=>{f(null)};je(()=>{r!=null&&r.avatar&&r.avatar.trim().length>0&&f(r.avatar)},[r]);const u=s==null?void 0:s.toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"});return U(nc,{"data-testid":"incoming-message",className:"fade-animation","data-date":u,children:[U(Qr,{children:c?U(oh,{src:c,onError:v}):U(er,{type:"operator",size:25})}),U(oc,{children:[t?U(ec,{last:n,single:i,messageType:"incoming",...t}):U(tc,{children:e}),U(rc,{date:s})]}),U(Qr,{})]})}const ta=q.div`
+`;function dh({text:e,media:t,last:r,single:n,created_at:i}){return U(nc,{"data-testid":"outgoing-message","data-date":i==null?void 0:i.toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"}),className:"fade-animation",children:[U(Qr,{}),U(oc,{incoming:!0,children:[t?U(ec,{last:r,single:n,messageType:"outgoing",...t}):U(tc,{children:e}),U(rc,{date:i})]}),U(Qr,{children:U(er,{type:"operator",size:25})})]})}function fh({text:e,media:t,user:r,last:n,single:i,created_at:s}){const[c,f]=gt.useState(null),v=()=>{f(null)};je(()=>{r!=null&&r.avatar&&r.avatar.trim().length>0&&f(r.avatar)},[r]);const u=s==null?void 0:s.toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"});return U(nc,{"data-testid":"incoming-message",className:"fade-animation","data-date":u,children:[U(Qr,{children:c?U(oh,{src:c,onError:v}):U(er,{type:"client",size:25})}),U(oc,{children:[t?U(ec,{last:n,single:i,messageType:"incoming",...t}):U(tc,{children:e}),U(rc,{date:s})]}),U(Qr,{})]})}const ta=q.div`
     width: 100%;
+    padding-block: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -702,7 +703,7 @@ https://sweetalert2.github.io/#ajax-request`),Bu(d),typeof d.title=="string"&&(d
     padding: 0;
     
     ${$t.isMobile} {
-        padding: 10px;
+        padding: 10px 10px 0;
         border-radius: 8px;
         overflow: hidden;
     }

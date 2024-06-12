@@ -80,7 +80,7 @@ const ApplyTransferCode = () => {
                             value={input}
                             disabled={loading}
                             onChange={(event) => {
-                                if(validateInput(event, true, false)){
+                                if(validateInput(event, true, false, false)){
                                     setInput(event.target.value)
                                 }
                             }}

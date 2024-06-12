@@ -274,12 +274,14 @@
 }
 
 .ItemEven {
+  background: #F7F7F0;
   margin: 0 -40.5px !important;
   padding: 12px 38px !important;
 
   @media screen and (max-width: 768px) {
     margin: 0 0 10px 0 !important;
     padding: 0 !important;
+    background: #fff;
   }
 }
 

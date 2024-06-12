@@ -83,14 +83,14 @@
   top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  max-height: 153px;
-  min-height: 153px;
   border-radius: 8px;
   overflow: hidden;
   transform: scaleY(0);
   transform-origin: top;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 8px 2px;
 
   &Open {
@@ -124,5 +124,9 @@
       margin-block: 2px;
       border-radius: 10px;
     }
+  }
+
+  &NoData {
+    text-align: center;
   }
 }

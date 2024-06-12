@@ -10,6 +10,7 @@ export interface ISelectProps<O extends ObjectType> {
     getIconCode?: (option: O) => string | number;
     getFilterValue?: (option: O) => boolean;
     label?: string;
+    noDataText?: string;
     optionsKey: keyof O;
     value?: O | null;
     options: O[];

@@ -16,11 +16,11 @@
 
 
 .Title{
-  display: inline-flex; 
+  display: inline-flex;
   margin: 0 0 5px 8px;
   font-size: 0.875rem;
-  line-height: 1.25rem; 
-  font-weight: 500; 
+  line-height: 1.25rem;
+  font-weight: 500;
 
   @include max-devices(md){
     font-size: 12px;
@@ -30,7 +30,7 @@
 }
 
 .SelectToken{
-  
+
   width: 100%;
 
   :global(.ant-select-selector){
@@ -80,7 +80,6 @@
 
 .RenderOptionContainer {
   width: 100%;
-  max-height: 30px;
   padding: 5px 12px;
   border-radius: 8px;
   border: 1px solid #DCDCD9;
@@ -92,12 +91,12 @@
 
   &Text {
     flex: 1 1 100px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
     color: #285E69;
 
     &:last-of-type {
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 400;
       color: #7B797C;
       flex: 1 1 150px;
@@ -109,5 +108,18 @@
 
   &:hover {
     border-color: #2BAB72;
+  }
+
+  @media only screen and (max-width: 768px) {
+    max-height: 30px;
+    padding: 5px 12px;
+
+    &Text {
+      font-size: 12px;
+
+      &:last-of-type {
+        font-size: 10px;
+      }
+    }
   }
 }

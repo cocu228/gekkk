@@ -1,7 +1,6 @@
 ﻿import styles from './style.module.css';
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
-import SupportIcon from "../../widgets/components/icons/SupportIcon";
 import {useEffect, useState} from "preact/hooks";
 import {CallResetForm} from '../../widgets/call-reset-form/CallResetForm';
 import {ChangePasswordForm} from '../../widgets/change-password-form/ChangePasswordForm';
@@ -13,6 +12,7 @@ import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
+import { IconApp } from "../../widgets/components/IconApp/index"
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -64,7 +64,7 @@ const Auth = () => {
                     }}
                     style={{cursor: "pointer"}}
                 >
-                    <SupportIcon fill={"white"}/>
+                    <IconApp code='t25' color='#fff' size={22} />
                 </div>
             </div>
 

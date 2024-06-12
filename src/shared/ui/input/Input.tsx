@@ -71,7 +71,7 @@ const Input = React.forwardRef(
                             disabled={disabled}
                             name={name}
                             value={value}
-                            placeholder={"-" + placeholder.toLowerCase() + "-"}
+                            placeholder={`-${placeholder.toLowerCase()}-`}
                             onChange={handleChange}
                         />
                     </div>

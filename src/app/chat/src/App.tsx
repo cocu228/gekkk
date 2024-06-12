@@ -139,13 +139,13 @@ function App() {
                     lazyLoading={lazyLoading}
                     setLazyLoading={setLazyLoading}
                 />
+                <MessageInput
+                    showSendButton
+                    showAttachButton
+                    onSendMessage={onSendMessage}
+                    onAttachClick={onAttachClick}
+                />
             </BodyLayout>
-            <MessageInput
-                showSendButton
-                showAttachButton
-                onSendMessage={onSendMessage}
-                onAttachClick={onAttachClick}
-            />
         </MainLayout>
     )
 }

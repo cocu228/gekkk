@@ -38,9 +38,9 @@ export const InputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid ${({ theme }) => theme.lightBlue};
+    border: 1px solid ${({ theme }) => theme.lightGray};
     border-radius: 8px;
-    padding: 5px 31px;
+    padding: 10px 31px;
     
     &::placeholder {
         color: ${({ theme }) => theme.darkGray}

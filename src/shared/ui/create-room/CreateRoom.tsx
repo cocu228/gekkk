@@ -150,7 +150,6 @@ function CreateRoom({
           </label>
           <Input
             allowDigits
-            className={styles.PurchaseLimit}
             placeholder={t("exchange.it_is_empty")}
             onChange={(event) => {
               setPurchaseLimit(+event.target.value)

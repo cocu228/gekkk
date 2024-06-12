@@ -72,6 +72,6 @@ function DatePopupInMessages({messages, index, date}: IProps) {
         )
     )
     
-};
+}
 
 export default DatePopupInMessages;

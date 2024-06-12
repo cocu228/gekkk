@@ -16,6 +16,7 @@ interface IParams {
     onChange: (value: string) => void;
     transfers?: boolean;
     name?:string;
+    placeholder?: string;
 }
 
 const InputField: FC<IParams> & {
@@ -23,7 +24,7 @@ const InputField: FC<IParams> & {
     DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
-} = ({ currency, value, wrapperClassName, disabled = false, onChange, name }) => {
+} = ({ currency, value, wrapperClassName, disabled = false, onChange, name, placeholder }) => {
     const { t } = useTranslation();
 
     return (
@@ -35,7 +36,7 @@ const InputField: FC<IParams> & {
                     disabled={disabled || !currency}
                     className={styles.Input}
                     value={value}
-                    placeholder={!currency ? '' : `-${t("exchange.enter_amount").toLowerCase()}-`}
+                    placeholder={!currency ? '' : `-${placeholder.toLowerCase()}-`}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         const value: string = event.target.value
                         onChange(value)

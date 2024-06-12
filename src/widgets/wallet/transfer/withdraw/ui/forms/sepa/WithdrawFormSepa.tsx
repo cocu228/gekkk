@@ -73,6 +73,7 @@ const WithdrawFormSepa = () => {
                                     transfers={md}
                                     onChange={setInputCurr}
                                     value={inputCurr.value.string}
+                                    placeholder={t("exchange.enter_amount")}
                                     currency={currency.$const}/>
                                 </InputCurrency.PercentSelector>
                             </InputCurrency.Validator>

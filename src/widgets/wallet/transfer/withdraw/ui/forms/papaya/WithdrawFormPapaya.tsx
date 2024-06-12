@@ -19,8 +19,6 @@ import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
-import { apiTokensNetworks } from '@/shared/(orval)api';
-import { AxiosResponse } from 'axios';
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
 
 
@@ -84,8 +82,7 @@ const WithdrawFormPapaya = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
-                                    className=''
-                                    transfers={md}
+                                    placeholder={t("exchange.enter_amount")}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}

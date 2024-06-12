@@ -82,8 +82,7 @@ const WithdrawFormPapaya = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
-                                    className=''
-                                    transfers={md}
+                                    placeholder={t("exchange.enter_amount")}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}

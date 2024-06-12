@@ -99,7 +99,7 @@ export default memo(function () {
                     ) : (
                         <>
                             <Header/>
-                            <CopyModal />
+                             {/* <CopyModal /> */}
                             {md ? (
                                 <ReactPullToRefresh
                                     canFetchMore

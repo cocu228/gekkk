@@ -1,12 +1,10 @@
-import React, { FC, useContext} from 'react';
+import React, { FC } from 'react';
 import Validator from '../validator/Validator';
 import {IconCoin} from '@/shared/ui/icons/icon-coin';
 import DisplayBalance from '../balance/DisplayBalance';
 import PercentSelector from '../percent-selector/PercentSelector';
 import CurrencySelector from '../currency-selector/CurrencySelector';
-import {CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 import { useTranslation } from 'react-i18next';
-import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../style.module.scss"
 
 interface IParams {
@@ -25,10 +23,8 @@ const InputField: FC<IParams> & {
     DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
-} = ({ currency, value, wrapperClassName, disabled = false, className, onChange, name }) => {
-    const inputCurrencyValid = useContext(CtxInputCurrencyValid);
+} = ({ currency, value, wrapperClassName, disabled = false, onChange, name }) => {
     const { t } = useTranslation();
-    const { md } = useBreakpoints();
 
     return (
         <div className={wrapperClassName ? wrapperClassName : styles.Field}>
@@ -39,7 +35,7 @@ const InputField: FC<IParams> & {
                     disabled={disabled || !currency}
                     className={styles.Input}
                     value={value}
-                    placeholder={!currency ? '' : t("exchange.enter_amount")}
+                    placeholder={!currency ? '' : "-" + t("exchange.enter_amount").toLowerCase() + "-"}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         const value: string = event.target.value
                         onChange(value)

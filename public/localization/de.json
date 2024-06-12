@@ -1479,7 +1479,9 @@
     "canceled": "Abgebrochen",
     "finished": "Beendet",
     "select_type": "Typ auswählen",
-    "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen"
+    "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen",
+    "select": "Auswählen", 
+    "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können"
 
 
 

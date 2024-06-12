@@ -18,9 +18,12 @@
 }
 
 .Caption{
-  font-size: 10px;
+  font-size: 12px;
   color: var(--gek-orange);
   margin-left: 10px;
+  @include max-devices(md){
+    font-size: 10px;
+  }
 }
 
 .SuffixBlock {

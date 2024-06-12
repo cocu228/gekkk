@@ -66,7 +66,7 @@ const Validator: FC<IParams> = (({
                 {description.length > 0 && showDescription===true && isNull(error)  ? <span className='mt-0.5 ml-[10px] text-[var(--gek-orange)]  text-fs10'>*{description}</span> :
                     <div className="flex ml-[12px] mt-[6px] gap-1 items-center">
                         {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t56" size={13}/></div>}
-                        <span className='text-[var(--gek-orange)] text-fs10'>{error}</span>
+                        <span className='text-[var(--gek-orange)] md:text-fs10 ? text-fs12'>{error}</span>
                     </div>}
             </div>
             </CtxInputCurrencyValid.Provider>

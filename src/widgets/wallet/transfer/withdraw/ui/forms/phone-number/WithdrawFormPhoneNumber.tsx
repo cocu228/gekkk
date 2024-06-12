@@ -87,7 +87,7 @@ const WithdrawFormPhoneNumber = () => {
               onSelect={setInputCurr}
             >
               <InputCurrency
-                transfers
+                placeholder={t("exchange.enter_amount")}
                 onChange={setInputCurr}
                 value={inputCurr.value.string}
                 currency={currency.$const}

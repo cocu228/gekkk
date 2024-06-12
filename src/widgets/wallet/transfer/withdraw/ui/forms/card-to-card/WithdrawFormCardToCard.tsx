@@ -63,7 +63,7 @@ const WithdrawFormCardToCard = () => {
 
   const {
     min_withdraw = 0,
-    percent_fee = 0,
+    // percent_fee = 0,
     withdraw_fee = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
@@ -126,6 +126,7 @@ const WithdrawFormCardToCard = () => {
                     className=""
                     transfers
                     onChange={setInputCurr}
+                    placeholder={t("exchange.enter_amount")}
                     value={inputCurr.value.string}
                     currency={currency.$const}
                   />

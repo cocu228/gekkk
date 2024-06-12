@@ -20,11 +20,9 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import {Modal} from "@/shared/ui/modal/Modal";
 
 const UniversalTransferForm = () => {
-  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -90,7 +88,7 @@ const UniversalTransferForm = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
-                  transfers={md}
+                  placeholder={t("exchange.enter_amount")}
                   onChange={setInputCurr}
                   value={inputCurr.value.string}
                   currency={currency.$const}

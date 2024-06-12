@@ -36,7 +36,7 @@ const InputField: FC<IParams> & {
                     disabled={disabled || !currency}
                     className={styles.Input}
                     value={value}
-                    placeholder={!currency ? '' : `-${placeholder.toLowerCase()}-`}
+                    placeholder={!currency ? '' : `-${placeholder?.toLowerCase()}-`}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         const value: string = event.target.value
                         onChange(value)

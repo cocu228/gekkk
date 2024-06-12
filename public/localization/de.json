@@ -2,6 +2,7 @@
   "lang": "de",
   "languageName": "Deutsch",
   "locale": {
+    "copied": "Kopiert",
     "auth": {
       "login_to_your_account": "Melden Sie sich in Ihrem Konto an",
       "login": "Die Anmeldung in Ihrem persönlichen Konto erfolgt über die",

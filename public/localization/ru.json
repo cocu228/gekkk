@@ -2,6 +2,7 @@
   "lang": "ru",
   "languageName": "Русский",
   "locale": {
+    "copied": "Скопировано",
     "auth": {
       "login_to_your_account": "Войти в свой аккаунт",
       "login": "Вход в личный кабинет осуществляется через",

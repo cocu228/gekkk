@@ -10,9 +10,6 @@ import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP } from "@/shared/lib";
-import Tooltip from "@/shared/ui/tooltip/Tooltip";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import useCopyStore from "@/shared/store/useCopy/useCopyStore";
 
 const SvgGekkardLogo = (
   <svg
@@ -54,7 +51,6 @@ const HeaderDesktop = ({ items, actions }) => {
   const navigate = useNavigate();
   const { account } = useContext(CtxRootData);
   const { t } = useTranslation();
-  const {isCopied, setIsCopied} = useCopyStore()
 
   return (
     <header className={styles.Header}>

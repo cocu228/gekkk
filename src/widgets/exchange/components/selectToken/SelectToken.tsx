@@ -110,7 +110,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
       {onError !== null && (
         <InputCurrency.Validator
           onError={onError}
-          className={`${styles.SelectValidatorText} mt-[-6px]`}
+          className={`${styles.SelectValidatorText} mt-[-5px]`}
           value={+from.amount}
           description={
             !from.currency

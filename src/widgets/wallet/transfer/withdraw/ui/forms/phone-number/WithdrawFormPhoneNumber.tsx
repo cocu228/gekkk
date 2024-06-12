@@ -21,12 +21,9 @@ import {
   CtxWalletNetworks,
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormPhoneNumber = () => {
-  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -123,7 +120,6 @@ const WithdrawFormPhoneNumber = () => {
           </div>
         </div>
       </div>
-
       <div className="row mb-5 w-full">
         <div className="col">
           <div className="row mb-[3px]">
@@ -135,7 +131,6 @@ const WithdrawFormPhoneNumber = () => {
           </div>
           <div className="row">
             <div className="col flex items-center">
-              {md?
                 <Input
                   allowDigits
                   allowSymbols
@@ -144,19 +139,6 @@ const WithdrawFormPhoneNumber = () => {
                   onChange={onInputDefault}
                   placeholder={t("enter_description")}
                 />
-              :
-                <TextArea
-                  allowDigits
-                  allowSymbols
-                  value={inputs.comment}
-                  name={"comment"}
-                  onChange={onInputDefault}
-                  placeholder={t("enter_description")}
-                  style={{
-                    minHeight: 100,
-                  }}
-                />
-              }
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ const WithdrawFormCrypto = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
-  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
+  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();
 
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
@@ -123,6 +123,7 @@ const WithdrawFormCrypto = () => {
                   name={"amount"}
                   value={inputCurr.value.string}
                   currency={currency.$const}
+                  placeholder={t("exchange.enter_amount")}
                   onChange={setInputCurr}
                 />
               </InputCurrency.DisplayBalance>

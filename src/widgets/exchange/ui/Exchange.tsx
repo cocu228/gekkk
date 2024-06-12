@@ -217,7 +217,6 @@ function Exchange() {
                     <PercentSelector className='' mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                   </div>
                   <SelectToken
-                    // className='md:mt-[-8px]'
                     isBalance={true}
                     balanceFilter
                     roomType={roomType}

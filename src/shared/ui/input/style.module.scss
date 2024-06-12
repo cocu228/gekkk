@@ -23,31 +23,6 @@
   padding-left: 10px;
 }
 
-
-
-//.TransfersInput{
-//  height: 32px;
-//  position: relative;
-//  overflow: hidden;
-//  align-items: center;
-//  border: 1px solid var(--gek-light-grey);
-//  border-radius: 5px;
-//  width: 100%;
-//  :global(.ant-input) {
-//    @include max-devices(md) {
-//      padding-left: 15px !important;
-//      font-size: 12px !important;
-//      color: var(--gek-additional);
-//    }
-//  }
-//
-//  :global(.ant-input-affix-wrapper){
-//    @include max-devices(md) {
-//      padding-left: 0px;
-//    }
-//  }
-//}
-
 .SuffixBlock {
   background-color: white;
   display: flex;
@@ -93,4 +68,7 @@
   font-weight: 400;
   color:#3A5E66 ;
   width: calc(100%);
+    &::placeholder{
+      color: #DCDCD9;
+    }
 }

@@ -95,14 +95,9 @@ const WithdrawFormSepa = () => {
                                 name={"beneficiaryName"}
                                 value={inputs.beneficiaryName}
                                 placeholder={`-${t("enter_recipient_name")}-`}
+                                caption={!inputs.beneficiaryName && t("EW_law")}
                             />
                         </div>
-                    </div>
-                                                    
-                    <div className='text-gray-400 ml-[7px]'>
-                        <span className='text-[var(--gek-orange)] text-[10px]'>
-                            {!inputs.beneficiaryName && "*" + t("EW_law")}
-                        </span>
                     </div>
                 </div>
             </div>

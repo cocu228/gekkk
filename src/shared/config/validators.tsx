@@ -15,7 +15,7 @@ export function validateBalance(currency: ICtxCurrency, navigate: NavigateFuncti
 
     return (value) => ({
         validated: new Decimal(value).lte(balance),
-        errorMessage: <span className="text-fs12">
+        errorMessage: <span className="text-fs10">
             {t("no_have_enough_funds")} <span className="text-blue-400 hover:cursor-pointer hover:underline"
                                                       onClick={() => navigate(`/wallet?currency=${currency.$const}&tab=top_up`)}
             >{t("top_up")}</span> {t("your_currency_account", {currency: currency.$const})}

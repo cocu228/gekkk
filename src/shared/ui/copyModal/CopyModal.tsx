@@ -21,7 +21,7 @@ export const CopyModal:FC<CopyModalProps> = () => {
     return (
         <div className={`${s.Modal} ${isCopied && s.ModalActive}`}>
             <div className={s.ModalBody}>
-                <IconApp code='t62' color='#2BAB72' className='min-w-[24px]' size={24} />
+                <IconApp code='t83' color='#2BAB72' className='min-w-[24px]' size={24} />
                 <span className={s.ModalBodyTitle}>{t("copied")}</span>
             </div>
         </div>

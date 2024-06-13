@@ -13,7 +13,7 @@ export const Content = styled.p`
     vertical-align: text-top;
     font-size: 8px;
     align-self: flex-end;
-    color: ${({theme}) => theme.darkGray};
+    color: ${({theme}) => theme.midGray};
 `
 
 type Props = {

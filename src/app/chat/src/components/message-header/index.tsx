@@ -1,9 +1,11 @@
 import {InnerContainer, Title} from "./style";
-import AppIcons from "../../shared/components/app-icons";
 import useMedia from "../../hooks/useMedia";
+import {IconApp} from "../../shared/components/icon-app";
+import {useTheme} from "styled-components";
 
 export default function MessageHeader() {
     const { isMobile } = useMedia()
+    const theme = useTheme()
 
     const handleOnClose = () => {
         document.getElementById("chat")?.classList.toggle("isOpen")
@@ -11,9 +13,9 @@ export default function MessageHeader() {
 
     return (
         <InnerContainer>
-            {isMobile ? <AppIcons type={"arrow"} cursor={"pointer"} size={15} onClick={handleOnClose}/> : null}
+            {isMobile ? <IconApp code={"t08"} size={15} color={theme.white} onClick={handleOnClose} /> : null}
             <Title>Chat us</Title>
-            {isMobile ? null : <AppIcons type={"close"} cursor={"pointer"} size={20} onClick={handleOnClose}/>}
+            {isMobile ? null : <IconApp code={"t26"} size={20} color={theme.darkGray} onClick={handleOnClose}/>}
         </InnerContainer>
     );
 }

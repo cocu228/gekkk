@@ -25,12 +25,21 @@ export const AttachmentContainer = styled(IconsContainer)<{ disabled: boolean }>
         opacity: 0.6;
         pointer-events: none;
     `}
+
+    & > svg {
+        cursor: pointer;
+        transform: rotate(45deg);
+    }
 `
 
 export const ArrowContainer = styled(IconsContainer)<{ showCursor: boolean, disabled: boolean }>`
     cursor: ${({showCursor, disabled}) => showCursor && !disabled ? 'pointer' : 'default'};
     opacity: ${({showCursor, disabled}) => showCursor && !disabled ? '1' : '0.4'};
     ${({disabled}) => disabled ? `pointer-events: none;` : ''}
+
+    & > svg {
+        cursor: pointer;
+    }
 `
 
 export const InputContainer = styled.div`
@@ -43,7 +52,7 @@ export const InputContainer = styled.div`
     padding: 10px 31px;
     
     &::placeholder {
-        color: ${({ theme }) => theme.darkGray}
+        color: ${({ theme }) => theme.midGray}
     }
 `
 

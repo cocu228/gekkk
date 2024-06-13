@@ -3,6 +3,7 @@ export interface ThemeProps {
     darkBlue: string;
     lightBlue: string;
     lightGray: string
+    midGray: string
     darkGray: string;
     white: string;
     black: string;

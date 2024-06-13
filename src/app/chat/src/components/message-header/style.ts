@@ -17,6 +17,11 @@ export const InnerContainer = styled.div`
         border-radius: 0;
         background-color: ${({ theme }) => theme.darkBlue};
     }
+    
+    & > svg {
+        cursor: pointer;
+        transform: rotate(180deg);
+    }
 `
 
 export const Title = styled.p`

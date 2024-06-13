@@ -1,6 +1,6 @@
 {
-    "name": "Gekwallet Web",
-    "short_name": "Gekwallet",
+    "name": "Gekkard Web",
+    "short_name": "Gekkard",
     "categories": ["business", "finance"],
     "icons": [
         { "src": "/img/favicon/favicon-192x192.png", "type": "image/png", "sizes": "192x192" },

@@ -1,5 +1,4 @@
 import {FC, useCallback} from "react";
-import ReactToPrint from "react-to-print";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import Button from "@/shared/ui/button/Button";
@@ -38,17 +37,12 @@ const ReceiptButtons: FC<IReceiptButtonsProps> = ({onCancel, isLoading, isMobile
 
     return (
         <div className={styles.ButtonContainer}>
-            {isMobile ? (
+            {/* {isMobile ? ( */}
                 <Button skeleton disabled={isLoading} className='w-full' onClick={handleOnShare}>
                     <IconApp size={20} code="t38" color="#2BAB72"/> {t("share")}
                 </Button>
-            ) : (
-                <ReactToPrint
-                    trigger={trigger}
-                    content={content}
-                    documentTitle={dayjs().format("dd-MM-YYYY_hh-mm-hh")}
-                />
-            )}
+            {/* ) : ( */}
+            {/* )} */}
             <Button
                 color="blue"
                 className='w-full'

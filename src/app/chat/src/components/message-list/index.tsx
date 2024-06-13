@@ -1,21 +1,26 @@
 import React, { SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import Message from '../message'
-import styled from 'styled-components'
 import Loading from '../loading'
 import useDetectScrollPosition from '../../hooks/useDetectScrollPosition'
 import MessageType from '../../types/MessageType'
 import TypingIndicator from '../typing-indicator'
 import MessageListBackground from '../message-list-background'
-import useColorSet from '../../hooks/useColorSet'
-import DatePopup from '../time-window'
-import { isMessageVisible } from '../../utils/shared'
 import { Dispatch } from 'preact/hooks'
 import { CtxAuthInfo } from '../../contexts/AuthContext'
 import LoaderIco from '../../assets/logo-loading.svg'
 import Loader from '../loader'
+import {
+    Buffer,
+    Container,
+    Image,
+    ImageContainer,
+    InnerContainer,
+    LoadingContainer,
+    NoMessagesTextContainer,
+    ScrollContainer
+} from "./style";
 
 export type MessageListProps = {
-    themeColor?: string
     messages?: MessageType[]
     currentUserId?: string
     loading?: boolean
@@ -25,102 +30,23 @@ export type MessageListProps = {
     typingIndicatorContent?: string
     customTypingIndicatorComponent?: React.ReactNode
     customEmptyMessagesComponent?: React.ReactNode
-    customLoaderComponent?: React.ReactNode
     setLazyLoading: Dispatch<SetStateAction<boolean>>
     lazyLoading: boolean
 }
-
-const ImageContainer = styled.div`
-width: 100%;
-display: flex;
-flex-direction: row;
-justify-content: center;
-`
-const Image = styled.img`
-position: absolute;
-z-index:100;
-margin-top: 50px;
-
- `
-const Container = styled.div`
-height: 100%;
-/* display: flex;
-flex-direction: column; */
-position: relative;
-max-height: 100vh;
-overflow-y: hidden;
-/* background-color: #ffffff; */
-padding-left: 0px;
-padding-right: 12px; 
-`
-
-const InnerContainer = styled.div`
-height: 100%;
-`
-
-
-const ScrollContainer = styled.div`
-overflow-y: auto;
-position: relative;
-height: 100%;
-width: 100%;
-max-height: 100vh;
-box-sizing: border-box;
-display: flex;
-flex-direction: column;
-scrollbar-width: none; /* Firefox */
- -ms-overflow-style: none;  /* Internet Explorer 10+ */
-::-webkit-scrollbar { /* WebKit */
-    width: 0;
-    height: 0;
-}
-`
-
-const Buffer = styled.div`
-    height: 2px;
-    width: 100%;
-    position: relative;
-`
-
-const NoMessagesTextContainer = styled.div<{
-    color?: string
-}>`
-  color:${({ color }) => color || 'rgba(0,0,0,.36)'};
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size:14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    user-select: none;
-`
-
-const LoadingContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-position: relative;
-`
 
 export default function MessageList({
     messages,
     currentUserId,
     loading = false,
     onScrollToTop,
-    themeColor = '#6ea9d7',
     mobileView,
     typingIndicatorContent,
     showTypingIndicator,
     customTypingIndicatorComponent,
-    customLoaderComponent,
     customEmptyMessagesComponent,
     setLazyLoading,
     lazyLoading
 }: MessageListProps) {
-    
 
     /** keeps track of whether messages was previously empty or whether it has already scrolled */
     const [messagesWasEmpty, setMessagesWasEmpty] = useState(true)
@@ -133,10 +59,8 @@ export default function MessageList({
         loading: authLoading
     } = useContext(CtxAuthInfo)
 
-    const [dateOfFirstVisibleMessage, setDateOfFirstVisibleMessage] = useState<string>()
-
     const [isScrolling, setIsScrolling] = useState<boolean>(false)
-    
+
     const { detectBottom, detectTop } = useDetectScrollPosition(scrollContainerRef)
 
     const [lockedScrollBottom ,setLockedScrollBottom] = useState<boolean>(false)
@@ -193,8 +117,32 @@ export default function MessageList({
         }
     }, [showTypingIndicator])
 
+    const handleOnScroll = () => {
+        /*if(scrollContainerRef.current){
+            // Находим первое по счёту сообщение, которое находится в видимой области
+            // const firstVisibleMessage = [...scrollContainerRef.current.children].find(el => {
+            //     const {popupinmessages} = el.dataset
+            //     const rect = el.getBoundingClientRect()
+            //     const isVisible = isMessageVisible(rect)
+            //     return isVisible && !popupinmessages
+            // })
+            // Вытаскиваем дату создания сообщения из атрибутов
+            // const {date} = firstVisibleMessage.dataset
+            // setDateOfFirstVisibleMessage(date)
 
-    const noMessageTextColor = useColorSet("--no-message-text-color")
+        }*/
+
+        if(!isScrolling){
+            setIsScrolling(true)
+        }
+
+        //detect when scrolled to top
+        if (detectTop() && messages && messages?.length % 50 === 0) {
+            onScrollToTop && onScrollToTop()
+            setLazyLoading(true)
+
+        }
+    }
 
 
     const scrollToBottom = async () => {
@@ -207,7 +155,7 @@ export default function MessageList({
 
             // Scroll by offset relative to parent
             const scrollOffset = childRect.top + container.scrollTop - parentRect.top;
-            
+
             if (container.scrollBy) {
                 container.scrollBy({ top: scrollOffset, behavior: "auto" });
             } else {
@@ -217,16 +165,9 @@ export default function MessageList({
     }
 
     return (
-        <Container
-            ref={containerRef}
-        >
-
-            <DatePopup 
-                isScrolling={isScrolling} 
-                onScroll={setIsScrolling} 
-                date={dateOfFirstVisibleMessage} />
-
-            {lazyLoading && 
+        <Container ref={containerRef}>
+            {/*<DatePopup isScrolling={isScrolling} onScroll={setIsScrolling} date={dateOfFirstVisibleMessage} />*/}
+            {lazyLoading &&
                 <ImageContainer>
                     <Image
                         height={30}
@@ -235,53 +176,14 @@ export default function MessageList({
                     />
                 </ImageContainer>
             }
-
-            <MessageListBackground
-                roundedCorners={false}
-                mobileView={mobileView} />
-
-
+            <MessageListBackground roundedCorners={false} mobileView={mobileView} />
             <InnerContainer>
-
                 {loading ?
                     <LoadingContainer>
-                        {customLoaderComponent ?
-                            customLoaderComponent :
-                            <Loading themeColor={themeColor} />}
+                        <Loading />
                     </LoadingContainer>
                     :
-                    <>
-
-                        <ScrollContainer
-                            
-                            onScroll={() => {
-                                if(scrollContainerRef.current){
-                                    // Находим первое по счёту сообщение, которое находится в видимой области
-                                    const firstVisibleMessage = [...scrollContainerRef.current.children].find(el => {
-                                        const {popupinmessages} = el.dataset
-                                        const rect = el.getBoundingClientRect()
-                                        const isVisible = isMessageVisible(rect)
-                                        return isVisible && !popupinmessages
-                                    })
-                                    // Вытаскиваем дату создания сообщения из атрибутов                                    
-                                    const {date} = firstVisibleMessage.dataset
-                                    setDateOfFirstVisibleMessage(date)
-                                    
-                                }
-                                
-                                if(!isScrolling){
-                                    setIsScrolling(true)
-                                }
-
-                                //detect when scrolled to top
-                                if (detectTop() && messages && messages?.length % 50 === 0) {
-                                    onScrollToTop && onScrollToTop()
-                                    setLazyLoading(true)
-                                    
-                                }
-                            }}
-                            ref={scrollContainerRef}>
-
+                    <ScrollContainer ref={scrollContainerRef} onScroll={handleOnScroll}>
                             {authLoading
                                 ? <Loader/>
                                 : (messages && messages.length <= 0)
@@ -289,7 +191,7 @@ export default function MessageList({
                                     ? customEmptyMessagesComponent
                                     : (
                                         <NoMessagesTextContainer
-                                            color={noMessageTextColor}>
+                                            color={"noMessageTextColor"}>
                                             {!authConfig?.token
                                                 ? <p>Click here to load messages</p>
                                                 : <p>No messages yet...</p>}
@@ -297,16 +199,12 @@ export default function MessageList({
                                     )
                                 )
                             }
-                            
+
                             {messages && scrollContainerRef.current && bottomBufferRef.current && messages.map(({ user, text, media, loading: messageLoading, seen, createdAt }, index) => {
                                 //determining the type of message to render
-                                let lastClusterMessage, firstClusterMessage, last, single
-                                
+                                let lastClusterMessage, last, single
 
-                                //if it is the first message in the messages array then show the header
-                                if (index === 0) { firstClusterMessage = true }
-                                //if the previous message from a different user then show the header
-                                if (index > 0 && messages[index - 1].user.id !== user.id) { firstClusterMessage = true }
+
                                 //if it is the last message in the messages array then show the avatar and is the last incoming
                                 if (index === messages.length - 1) { lastClusterMessage = true; last = true }
                                 //if the next message from a different user then show the avatar and is last message incoming
@@ -320,9 +218,8 @@ export default function MessageList({
                                 //if the messages array contains only 1 message then single incoming is true
                                 if (messages.length === 1) { single = true }
 
-                                
-                                if (user.id == (currentUserId && currentUserId.toLowerCase())) {
 
+                                if (user.id == (currentUserId && currentUserId.toLowerCase())) {
                                     // my message
                                     return <Message key={index}
                                         type="outgoing"
@@ -334,14 +231,11 @@ export default function MessageList({
                                         media={media}
                                         // the last message should show loading if sendMessage loading is true
                                         loading={messageLoading}
-                                        clusterFirstMessage={firstClusterMessage}
-                                        clusterLastMessage={lastClusterMessage}
                                         messages={messages}
                                         index={index}
                                     />
 
                                 } else {
-
                                     // other message
                                     return <Message
                                         type='incoming'
@@ -351,7 +245,6 @@ export default function MessageList({
                                         seen={seen}
                                         created_at={createdAt}
                                         showAvatar={lastClusterMessage}
-                                        showHeader={firstClusterMessage}
                                         last={single ? false : last}
                                         single={single}
                                         text={text}
@@ -359,15 +252,13 @@ export default function MessageList({
                                         index={index}
                                     />
                                 }
-                                
+
                             })}
 
                             {showTypingIndicator && (
                                 customTypingIndicatorComponent ?
                                     customTypingIndicatorComponent
-                                    : <TypingIndicator
-                                        content={typingIndicatorContent}
-                                        themeColor={themeColor} />
+                                    : <TypingIndicator content={typingIndicatorContent} />
                             )}
 
                             {/* bottom buffer */}
@@ -375,11 +266,8 @@ export default function MessageList({
                                 <Buffer ref={bottomBufferRef} />
                             </div>
                         </ScrollContainer>
-                    </>
-
                 }
             </InnerContainer>
-
         </Container>
     )
 }

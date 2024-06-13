@@ -142,6 +142,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
           <CreateRoom
             to={to}
             from={from}
+            onCancel={roomModal.handleCancel}
             onCurrenciesSwap={() => {
               const fromCurr = from.currency;
               const toCurr = to.currency;

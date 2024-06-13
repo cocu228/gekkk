@@ -3,6 +3,7 @@ import style from './styles.module.scss'
 import { CurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { IconCoin } from '../../icons/icon-coin';
 import { SelectItem } from './SelectItem';
+import { useTranslation } from 'react-i18next';
 
 interface SelectProps {
     className?: string;
@@ -28,6 +29,7 @@ export const Select:FC<SelectProps> = ({
     const [selected, setSelected] = useState(null)
     const [inpValue, setInpValue] = useState('')
     const [placeholder, setPlaceholder] = useState(placeholderText)
+    const {t} = useTranslation()
 
     const bodyRef = useRef(null)
 
@@ -63,7 +65,7 @@ export const Select:FC<SelectProps> = ({
         if(inpValue.length >= 1) {
             setPlaceholder('')
         } else {
-            setPlaceholder('-select-')
+            setPlaceholder(`-${t("select")}-`)
         }
     }, [inpValue])
 

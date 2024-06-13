@@ -3,6 +3,9 @@ import {formatDateTime} from "@/widgets/dashboard/model/helpers";
 import {isNumber} from "@/shared/lib";
 import styles from "../../styles.module.scss";
 import {AddressTxOut} from "@/shared/(orval)api/gek/model";
+import React from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 interface IGekPdfProps {
     state: AddressTxOut & {
@@ -13,8 +16,55 @@ interface IGekPdfProps {
 }
 
 const ReceiptInfo = forwardRef<HTMLDivElement | null, IGekPdfProps>(({state, txId, loading}, ref) => {
+    // const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+    // generatePDF(targetRef, {filename: 'page.pdf'}).then((pdf) => pdf.save());
+    const refa = React.createRef<any>();
+
+    const generatePDF = async () => {
+        const input = document.getElementById('pdf-content');
+        const canvas = await html2canvas(input);
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+    
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+    
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+    
+        const pdfBlob = pdf.output('blob');
+    
+        if (navigator.share) {
+          const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+          navigator.share({
+            files: [file],
+            title: 'PDF Document',
+            text: 'Here is your PDF document.',
+          }).then(() => {
+            console.log('Share was successful.');
+          }).catch((error) => {
+            console.log('Sharing failed', error);
+          });
+        } else {
+          console.log('Web Share API is not supported in your browser.');
+        }
+      };
+
     return (
-        <div ref={ref} className={styles.Block + (!loading ? '' : ' collapse')}>
+        // <div ref={targetRef}
+        <div ref={refa} id="pdf-content"
+        className={styles.Block + (!loading ? '' : ' collapse')}>
+            <div onClick={generatePDF}>SAVE TO PDF</div>
+
             <div className={styles.Header}>
                 <div className={styles.HeaderLogo}>
                     <img src="/img/icon/GekkardLogoReceipt.svg" alt="AlertIcon"/>

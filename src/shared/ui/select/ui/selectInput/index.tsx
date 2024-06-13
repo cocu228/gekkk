@@ -30,7 +30,7 @@ const SelectInput = <O extends ObjectType,>({
         } else {
             return <IconCoin width={20} height={20} code={iconCode} />
         }
-    }, [iconCode])
+    }, [iconCode, isOpen])
 
     useEffect(() => {
         if (inputRef.current && isOpen) {

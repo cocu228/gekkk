@@ -73,6 +73,7 @@ const WithdrawFormSepa = () => {
                                     transfers={md}
                                     onChange={setInputCurr}
                                     value={inputCurr.value.string}
+                                    placeholder={t("exchange.enter_amount")}
                                     currency={currency.$const}/>
                                 </InputCurrency.PercentSelector>
                             </InputCurrency.Validator>
@@ -95,14 +96,9 @@ const WithdrawFormSepa = () => {
                                 name={"beneficiaryName"}
                                 value={inputs.beneficiaryName}
                                 placeholder={`-${t("enter_recipient_name")}-`}
+                                caption={!inputs.beneficiaryName && t("EW_law")}
                             />
                         </div>
-                    </div>
-                                                    
-                    <div className='text-gray-400 ml-[7px]'>
-                        <span className='text-[var(--gek-orange)] text-[10px]'>
-                            {!inputs.beneficiaryName && "*" + t("EW_law")}
-                        </span>
                     </div>
                 </div>
             </div>
@@ -145,50 +141,52 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
 
-            <div className={`${styles.PayInfo} flex w-full justify-center`}>
-            <div className={`${styles.PayInfoCol} w-full max-w-[160px]`}>
-                <div className="row">
-                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                <span className={styles.PayInfoText}>
-                    {t("you_will_get")}:
-                </span>
-                </div>
-                <div className="row">
-                    <span className={styles.PayInfoTextFee}>
-                        {t("fee")}:
+            <div className='flex justify-center w-full'>
+                <div className={`${styles.PayInfo} max-w-[210px] gap-[20px] w-full`}>
+                <div className={`${styles.PayInfoCol}`}>
+                    <div className="row">
+                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                    </div>
+                    <div className="row">
+                    <span className={styles.PayInfoText}>
+                        {t("you_will_get")}:
                     </span>
+                    </div>
+                    <div className="row">
+                        <span className={styles.PayInfoTextFee}>
+                            {t("fee")}:
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.PayInfoColValue}>
+                <div className={styles.PayInfoColValue}>
 
-                <div className={styles.PayInfoCol}>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                    <div className={styles.PayInfoCol}>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>
+                        </div>
                     </div>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>
+                    
+                    <div className={styles.PayInfoCol}>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency.$const}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency.$const}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextFee}>
+                            {currency.$const}
+                        </span>
                     </div>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>
-                    </div>
-                </div>
-                
-                <div className={styles.PayInfoCol}>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
-                        {currency.$const}
-                    </span>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
-                        {currency.$const}
-                    </span>
-                    <span className={styles.PayInfoValueFlexTextFee}>
-                        {currency.$const}
-                    </span>
                 </div>
             </div>
-        </div>
+            </div>
             
             <Modal
                 zIndex

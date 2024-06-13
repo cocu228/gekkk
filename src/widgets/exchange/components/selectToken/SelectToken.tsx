@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
@@ -77,22 +77,23 @@ export const SelectToken: FC<SelectTokenProps> = ({
                 <span className={styles.SelectPreTitle}>
                   {t("exchange.select_token")}
                 </span>
-                <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] ${!md && "hidden"}`} />
+                <IconApp code="t08" size={12} color="#3A5E66" className={styles.PreArr} />
               </>
             ) : (
-              <span className={styles.SelectedToken}>
+                <span className={styles.SelectedToken}>
                 <div className="flex items-center gap-[5px]">
                   <IconCoin className={styles.Ico} code={currency} />
                   {currency}
                 </div>
-                <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] ${!md && 'hidden'}`} />
+                <div className='pl-[5px] pt-[6px]'>
+                  <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] ${!md && 'hidden'}`} />
+                </div>
               </span>
-              
             )}
             
           </CurrencySelector>
         </div>
-        <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] min-w-[12px] absolute left-[49%] translate-x-[-50%] ${md && "hidden"}`} />
+        <IconApp code="t08" size={12} color="#3A5E66" className={`${styles.deskArrow} ${currency && styles.ActiveArrow}`} />
         <div className={styles.InputBody}>
           <input
             value={value}
@@ -101,7 +102,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
               const valueNew: string = event.target.value;
               onChange(valueNew);
             }}
-            className={styles.Input}
+            className={`${styles.Input} ${currency && styles.InputActive}`}
             placeholder={`-${t("exchange.enter_amount").toLowerCase()}-`}
           />
         </div>
@@ -109,7 +110,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
       {onError !== null && (
         <InputCurrency.Validator
           onError={onError}
-          className={`${styles.SelectValidatorText} text-sm`}
+          className={`${styles.SelectValidatorText} mt-[-5px]`}
           value={+from.amount}
           description={
             !from.currency

@@ -19,8 +19,6 @@ import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
-import { apiTokensNetworks } from '@/shared/(orval)api';
-import { AxiosResponse } from 'axios';
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
 
 
@@ -76,7 +74,7 @@ const WithdrawFormPapaya = () => {
                             validateBalance(currency, navigate, t)]}>
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className={`${styles.TitleColText} m-[0_0_6px_12px]`}>{t("amount")}:</span>}
+                            header={<span className={`${styles.TitleColText} m-[0_0_0px_12px]`}>{t("amount")}:</span>}
                             onSelect={val => {
                                 const amount = new Decimal(val);
                                 setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -84,7 +82,7 @@ const WithdrawFormPapaya = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
-                                    transfers={md}
+                                    placeholder={t("exchange.enter_amount")}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}

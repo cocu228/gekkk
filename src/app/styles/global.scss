@@ -164,6 +164,15 @@
   }
 }
 
+input {
+  outline: none !important;
+  background-color: #fff;
+
+  &:active {
+    outline: none !important
+  }
+}
+
 .info-box-note {
   padding: 16px 54px 14px 78px;
   color: var(--color-gray-400);

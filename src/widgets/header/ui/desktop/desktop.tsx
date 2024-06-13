@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { CtxRootData } from "@/processes/RootContext";
@@ -10,7 +10,6 @@ import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP } from "@/shared/lib";
-import Tooltip from "@/shared/ui/tooltip/Tooltip";
 
 const SvgGekkardLogo = (
   <svg

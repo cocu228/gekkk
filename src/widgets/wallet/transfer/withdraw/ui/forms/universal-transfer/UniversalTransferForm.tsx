@@ -20,12 +20,9 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import {Modal} from "@/shared/ui/modal/Modal";
 
 const UniversalTransferForm = () => {
-  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -91,7 +88,7 @@ const UniversalTransferForm = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
-                  transfers={md}
+                  placeholder={t("exchange.enter_amount")}
                   onChange={setInputCurr}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -132,7 +129,6 @@ const UniversalTransferForm = () => {
         </div>
         <div className="row w-full">
           <div className="col w-full">
-            {md?
               <Input
                 allowDigits
                 allowSymbols
@@ -141,19 +137,6 @@ const UniversalTransferForm = () => {
                 onChange={onInputDefault}
                 placeholder={t("comment_optional")}
               />
-            :
-              <TextArea
-                allowDigits
-                allowSymbols
-                name={"comment"}
-                value={inputs.comment}
-                onChange={onInputDefault}
-                placeholder={t("comment_optional")}
-                style={{
-                  minHeight: 100,
-                }}
-              />
-            }
           </div>
         </div>
       </div>

@@ -20,11 +20,11 @@ import ReceiptData from "@/widgets/receipt/receiptData";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
-  // const {md} = useBreakpoints();
+  const {md} = useBreakpoints();
   const navigate = useNavigate();
   const location = useLocation()
   const { t } = useTranslation();
-  // const modalContext = useContext(CtxGlobalModalContext);
+  const modalContext = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 
@@ -32,26 +32,26 @@ const InfoContent = (props: TxInfoProps) => {
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
   const loading = isNull(state) && isAvailableType;
 
-  // const handleOnReceipt = () => {
-  //   props.handleCancel()
-  //   if (md) {
-  //     const searchParams = new URLSearchParams(location.search)
-  //     const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
-  //     const params = createSearchParams({
-  //       txId: props.id_transaction,
-  //       ...search
-  //     })
-  //     navigate({
-  //       pathname: "/receipt",
-  //       search: params.toString()
-  //     })
-  //   } else {
-  //     modalContext.setContent({
-  //       content: <ReceiptData txId={props.id_transaction}/>,
-  //       title: 'Transaction receipt'
-  //     })
-  //   }
-  // }
+  const handleOnReceipt = () => {
+    props.handleCancel()
+    if (md) {
+      const searchParams = new URLSearchParams(location.search)
+      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      const params = createSearchParams({
+        txId: props.id_transaction,
+        ...search
+      })
+      navigate({
+        pathname: "/receipt",
+        search: params.toString()
+      })
+    } else {
+      modalContext.setContent({
+        content: <ReceiptData txId={props.id_transaction}/>,
+        title: 'Transaction receipt'
+      })
+    }
+  }
 
   useEffect(() => {
     if (isAvailableType) {
@@ -263,14 +263,14 @@ const InfoContent = (props: TxInfoProps) => {
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
           {!isNeedConfirm && (
-              <div className={"flex gap-[20px] w-full justify-center mt-[10px]"}> {/* justify-between mt-3
+              <div className={"flex gap-[20px] w-full justify-between mt-3"}>
                 <Button
                     skeleton
                     className='w-full'
                     onClick={handleOnReceipt}
                 >
                   <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
-                </Button> */}
+                </Button>
                 <Button
                     className='w-full'
                     onClick={props.handleCancel}

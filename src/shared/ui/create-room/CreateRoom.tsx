@@ -8,12 +8,12 @@ import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Select from "@/shared/ui/select";
 import RenderOption from "@/shared/ui/create-room/ui/renderOption";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import styles from "./styles.module.scss";
 
 interface IParams {
   to: IExchangeField;
@@ -53,14 +53,25 @@ function CreateRoom({
 
   const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
 
-  const handleOnChange = (type: "from" | "to") => ({ $const }: ICtxCurrency) => {
-    type === "from" ? onFromCurrencyChange($const) : onToCurrencyChange($const)
+  const handleOnCancel = () => {
+    onFromCurrencyChange("");
+    onToCurrencyChange("");
+    onCancel();
   }
 
-  const value = (equalValue: string) => tokensList.find(t => t.$const === equalValue) || null;
+  const handleOnChange = (type: "from" | "to") => (currency: ICtxCurrency | null) => {
+    type === "from" ?
+        onFromCurrencyChange(currency ? currency.$const : "") :
+        onToCurrencyChange(currency ? currency.$const : "");
+  }
+
+  const value = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
   const getFilterValue = (notEqualValue: string) => ({ $const }: ICtxCurrency) => $const !== notEqualValue;
-  const getOptionValue = ({ name }: ICtxCurrency) => name;
+  const getOptionValue = ({ name, $const }: ICtxCurrency) => md ? $const : name;
   const getIconCode = ({ $const }: ICtxCurrency) => $const;
+
+  console.log({from: from.currency, to: to.currency})
+  console.log({fromV: value(from.currency), toV: value(to.currency)})
 
   return (
     <>
@@ -69,7 +80,7 @@ function CreateRoom({
           <div>
             <IconApp color="#8F123A" size={15} code="t27" />
           </div>
-          <div className="w-[80%]">
+          <div className={"text-justify"}>
             {t("exchange.private_room_allows")}
           </div>
         </div>
@@ -88,13 +99,11 @@ function CreateRoom({
             renderOption={RenderOption}
           />
         </div>
-        
         <div className="flex w-full justify-center mt-2">
           <div onClick={onCurrenciesSwap} className="cursor-pointer">
             <IconApp code='t36' size={md ? 17 : 25} color="#B9B9B5" />
           </div>
         </div>
-
         <div className={styles.SelectToken}>
           <Select<ICtxCurrency>
               searchable
@@ -110,8 +119,7 @@ function CreateRoom({
               renderOption={RenderOption}
           />
         </div>
-
-        <div className="flex items-center gap-3 justify-center mt-6">
+        <div className="flex items-center gap-3 pl-[8px] mt-6">
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${
@@ -123,7 +131,7 @@ function CreateRoom({
                 ${isIco ? "left-[2px]" : "left-[calc(100%_-_17.5px)]"}
                 ${isIco ? "bg-[#fff]" : "bg-[var(--gek-additional)]"}
               `}
-            ></div>
+            />
           </div>
           <span
             onClick={() => {
@@ -142,7 +150,6 @@ function CreateRoom({
           </label>
           <Input
             allowDigits
-            className={styles.PurchaseLimit}
             placeholder={t("exchange.it_is_empty")}
             onChange={(event) => {
               setPurchaseLimit(+event.target.value)
@@ -152,7 +159,7 @@ function CreateRoom({
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-center">
+        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-between">
           <Button
             size="lg"
             className="!w-[120px]"
@@ -187,7 +194,7 @@ function CreateRoom({
           <Button
             className="!w-[120px]"
             skeleton
-            onClick={onCancel}
+            onClick={handleOnCancel}
           >
             {t("cancel")}
           </Button>

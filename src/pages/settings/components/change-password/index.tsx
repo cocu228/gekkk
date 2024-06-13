@@ -62,7 +62,7 @@ export function ChangePassword() {
             placeholder={t("confirm_new_password")}
           />
         </div>
-        <div className="flex justify-end">
+        <div className="flex justify-end pr-4">
           <CheckList setValid={setValid} value={newPass} />
         </div>
         {

@@ -1,7 +1,5 @@
 ﻿import styles from './style.module.css';
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
-import LogoIcon from "../../widgets/components/icons/LogoIcon";
-import SupportIcon from "../../widgets/components/icons/SupportIcon";
 import {useEffect, useState} from "preact/hooks";
 import {CallResetForm} from '../../widgets/call-reset-form/CallResetForm';
 import {ChangePasswordForm} from '../../widgets/change-password-form/ChangePasswordForm';
@@ -13,10 +11,12 @@ import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
+import { IconApp } from "../../widgets/components/IconApp/index"
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
 const Auth = () => {
+    const [detailsActive, setDetailsActive] = useState(false)
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const emailCode = urlParams.get('emailCode');
@@ -55,7 +55,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    <LogoIcon/>
+                    <IconApp width={120} height={40} code='w2' color='none' authLib />
                 </div>
                 <div
                     onClick={() => {
@@ -64,7 +64,7 @@ const Auth = () => {
                     }}
                     style={{cursor: "pointer"}}
                 >
-                    <SupportIcon fill={"white"}/>
+                    <IconApp code='t25' color='#fff' size={22} />
                 </div>
             </div>
 
@@ -112,7 +112,14 @@ const Auth = () => {
                     <CookiePolicy/>
 
                     <details>
-                        <summary><h4>Don’t have an account?</h4></summary>
+                        <summary onClick={() => setDetailsActive(!detailsActive)} >
+                            <h4>
+                                <div style={{rotate: detailsActive ? '90deg' : '0deg'}} class={`detailsArr`} >
+                                    <IconApp code='w4' color='#000' size={10} authLib />
+                                </div>
+                                Don’t have an account?
+                            </h4>
+                        </summary>
 
                         <a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
                             Go to Gekkard registration form

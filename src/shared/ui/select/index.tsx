@@ -43,26 +43,38 @@ const Select = <O extends ObjectType,>({
     })
 
     const handleOnToggleIsOpen = (open?: boolean) => () => {
-        setIsOpen(prevState => open === undefined ? !prevState : open)
+        setIsOpen(prevState => {
+            const isOpen = open === undefined ? !prevState : open
+            if (value) {
+                if (!inputValue) {
+                    setInputValue("")
+                    onChange(null)
+                } else if (!isOpen) {
+                    setInputValue(`${getOptionValue(value)}`)
+                }
+            }
+            return isOpen
+        })
     }
 
     const handleOnChangeInputValue = (inputValue: string) => {
         if (searchable) {
-            console.log({inputValue})
             setInputValue(inputValue)
             handleOnFilterOptions(inputValue)
+        }
+        if (!inputValue && value) {
+            onChange(null)
         }
     }
 
     const handleOnChange = (value: O) => {
         setCurrentOptions(options)
+        setInputValue(`${getOptionValue(value)}`)
         onChange(value)
     }
 
     useEffect(() => {
-        if (value) {
-            setInputValue(`${getOptionValue(value)}`)
-        }
+        setInputValue(value ? `${getOptionValue(value)}` : "")
     }, [getOptionValue, value]);
 
     useEffect(() => {

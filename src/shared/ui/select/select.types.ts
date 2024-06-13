@@ -10,12 +10,13 @@ export interface ISelectProps<O extends ObjectType> {
     getIconCode?: (option: O) => string | number;
     getFilterValue?: (option: O) => boolean;
     label?: string;
+    noDataText?: string;
     optionsKey: keyof O;
     value?: O | null;
     options: O[];
     getOptionValue: (option: O) => string | number;
     renderOption?: FC<{ option: O }>
-    onChange: (value: O) => void;
+    onChange: (value: O | null) => void;
 }
 
 export interface ISelectInput<O extends ObjectType> extends Pick<ISelectProps<O>, "placeholder" | "searchable" | "label"> {

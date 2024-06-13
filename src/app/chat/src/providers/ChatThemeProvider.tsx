@@ -1,20 +1,17 @@
-import ChatThemeContext from '../contexts/ChatThemeContext'
+import {ThemeProvider} from "styled-components";
+import {PropsWithChildren} from "react";
+import {GlobalStyle, darkTheme, lightTheme} from "../theme";
 
-type Props = {
-    colorSet?: {},
-    theme?: string
-    children: any
-}
+export default function ChatThemeProvider({ children }: PropsWithChildren) {
+    // Todo: For Color Mode
+    const mode: "dark" | "light" = "light"
 
-export default function ChatThemeProvider({
-    colorSet,
-    children,
-    theme
-}: Props) {
+    const themeMode = mode === "light" ? lightTheme : darkTheme
 
     return (
-        <ChatThemeContext.Provider value={{ colorSet, themeColor: theme || '#6ea9d7' }} >
+        <ThemeProvider theme={themeMode}>
+            <GlobalStyle />
             {children}
-        </ChatThemeContext.Provider>
+        </ThemeProvider>
     )
 }

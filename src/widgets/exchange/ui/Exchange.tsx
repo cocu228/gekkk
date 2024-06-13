@@ -217,7 +217,6 @@ function Exchange() {
                     <PercentSelector className='' mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                   </div>
                   <SelectToken
-                    // className='md:mt-[-8px]'
                     isBalance={true}
                     balanceFilter
                     roomType={roomType}
@@ -230,7 +229,7 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className={`flex justify-center ${styles.FieldsSpacer}`}>
+                <div className={`flex mb-[5px] justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
                     className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""
@@ -415,6 +414,7 @@ function Exchange() {
             onCurrenciesSwap={onCurrenciesSwap}
             onToCurrencyChange={onToCurrencyChange}
             onFromCurrencyChange={onFromCurrencyChange}
+            onCancel={roomInfoModal.handleCancel}
             onRoomCreation={(roomInfo) => {
               addExchangeRoom(roomInfo);
               roomInfoModal.handleCancel();

@@ -10,8 +10,7 @@ import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import Select from "@/shared/ui/select";
-import RenderOption from "@/shared/ui/create-room/ui/renderOption";
+import Select from "@/shared/ui/create-room/ui/select";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import styles from "./styles.module.scss";
 
@@ -65,13 +64,8 @@ function CreateRoom({
         onToCurrencyChange(currency ? currency.$const : "");
   }
 
-  const value = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
-  const getFilterValue = (notEqualValue: string) => ({ $const }: ICtxCurrency) => $const !== notEqualValue;
-  const getOptionValue = ({ name, $const }: ICtxCurrency) => md ? $const : name;
-  const getIconCode = ({ $const }: ICtxCurrency) => $const;
-
-  console.log({from: from.currency, to: to.currency})
-  console.log({fromV: value(from.currency), toV: value(to.currency)})
+  const getValue = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
+  const getFilterValue = (notEqualValue: string) => tokensList.filter(({ $const }) => $const !== notEqualValue);
 
   return (
     <>
@@ -85,18 +79,12 @@ function CreateRoom({
           </div>
         </div>
         <div className={"mt-4 " + styles.SelectToken}>
-          <Select<ICtxCurrency>
-            searchable
+          <Select
             label={`${t("exchange.from")}:`}
             placeholder={"-select-"}
-            optionsKey={"name"}
-            value={value(from.currency)}
-            options={tokensList}
-            getFilterValue={getFilterValue(to.currency)}
-            getOptionValue={getOptionValue}
+            value={getValue(from.currency)}
+            options={getFilterValue(to.currency)}
             onChange={handleOnChange("from")}
-            getIconCode={getIconCode}
-            renderOption={RenderOption}
           />
         </div>
         <div className="flex w-full justify-center mt-2">
@@ -105,18 +93,12 @@ function CreateRoom({
           </div>
         </div>
         <div className={styles.SelectToken}>
-          <Select<ICtxCurrency>
-              searchable
+          <Select
               label={`${t("exchange.to")}:`}
               placeholder={"-select-"}
-              optionsKey={"name"}
-              value={value(to.currency)}
-              options={tokensList}
-              getFilterValue={getFilterValue(from.currency)}
-              getOptionValue={getOptionValue}
+              value={getValue(to.currency)}
+              options={getFilterValue(from.currency)}
               onChange={handleOnChange("to")}
-              getIconCode={getIconCode}
-              renderOption={RenderOption}
           />
         </div>
         <div className="flex items-center gap-3 pl-[8px] mt-6">

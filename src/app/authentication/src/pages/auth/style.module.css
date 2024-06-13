@@ -157,6 +157,14 @@ details {
   }
 }
 
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
 footer {
   p {
     margin: 0px;
@@ -269,4 +277,9 @@ nav {
   to{
     background-color: var(--gek-background);    
   }
+}
+
+details > summary > h4 > div {
+  margin-right: 5px;
+  display: inline-block;
 }

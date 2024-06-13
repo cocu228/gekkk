@@ -44,7 +44,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     placeholder={<div onClick={()=>{setNetwork(null)}} className="flex w-full text-[12px] text-[#3A5E66] h-full justify-start items-center">
                         {(!networksForSelector?.length && !loading) ? <span className="inline-flex justify-center w-full text-[10px] text-[var(--gek-mid-grey)]">
                             {t("networks_not_found")}
-                        </span> : loading ? <div className="flex items-center justify-center w-full relative"><Loader className="w-[24px] h-[24px]"/></div> : !network ? <span className="inline-flex justify-center w-full text-[10px] text-[var(--gek-mid-grey)]">{t("-select-")}</span> : <span className="text-[12px] text-[#3A5E66]">
+                        </span> : loading ? <div className="flex items-center justify-center w-full relative"><Loader className="w-[24px] h-[24px]"/></div> : !network ? <span className="inline-flex justify-center w-full text-[10px] text-[var(--gek-mid-grey)]">-{t("select")}-</span> : <span className="text-[12px] text-[#3A5E66]">
                             {[...networksForSelector].filter(el => el.value === network)[0]?.label}
                         </span>}
                         

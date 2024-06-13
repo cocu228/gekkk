@@ -132,9 +132,7 @@ const CreateTransferCode = () => {
       <div className="row mb-4 mt-[10px]">
         {!inputCurr.value.number && (
           <span className="text-[10px] text-[var(--gek-orange)] ml-[10px] leading-[12.5px] block">
-            *Create a special code with which you can transfer or receive{" "}
-            {currency.$const} funds between Gekkoin users with or without your
-            confirmation
+            {t("create_special_code_currency", {currency: currency.$const})}
           </span>
         )}
       </div>

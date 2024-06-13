@@ -2,7 +2,8 @@ import styles from './style.module.css';
 import {memo, useState} from 'preact/compat';
 import {getCookieData, setCookieData} from '../../shared';
 import Button from '../components/button/Button';
-import CookieIcon from '../components/icons/CookieIcon';
+
+import { IconApp } from '../components/IconApp';
 
 export const CookiePolicy = memo(() => {
     const {CookieAccepted} = getCookieData<{CookieAccepted: boolean}>();
@@ -20,7 +21,7 @@ export const CookiePolicy = memo(() => {
     
     return !isShown ? null : <div className={styles.Body}>
         <div className={styles.Header}>
-            <CookieIcon height={50} width={50}/>
+            <IconApp size={50} code='w1' color='' authLib />
             <span>Cookie policy applies</span>
         </div>
 

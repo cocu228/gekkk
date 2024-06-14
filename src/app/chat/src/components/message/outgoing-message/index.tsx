@@ -1,18 +1,20 @@
+import {FC} from "react";
+import {useTheme} from "styled-components";
 import MediaContent from '../media-content'
 import TextContent from '../text-content'
 import Timestamp from '../timestamp'
-import {Props} from '..'
-import {MessageContent, MessagesContainer, UserAvatarContainer} from "../style";
 import {IconApp} from "../../../shared/components/icon-app";
-import {useTheme} from "styled-components";
+import {IOutgoingMessageProps} from "../messageTypes";
 
-export default function OutgoingMessage({
+import {MessageContent, MessagesContainer, UserAvatarContainer} from "../style";
+
+const OutgoingMessage: FC<IOutgoingMessageProps> = ({
     text,
     media,
     last,
     single,
     created_at,
-}: Omit<Props, "showHeader" | "showAvatar" | "type" | "loading" | "seen">) {
+}) => {
     const theme = useTheme();
 
     return (
@@ -36,4 +38,6 @@ export default function OutgoingMessage({
         </MessagesContainer>
     )
 }
+
+export default OutgoingMessage;
 

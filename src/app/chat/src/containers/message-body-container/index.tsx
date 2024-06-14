@@ -1,90 +1,62 @@
-import React, {FC, SetStateAction, useContext, useEffect, useRef, useState} from 'react'
-import Message from '../../components/message'
-import Loading from '../../components/loading'
+import {Dispatch, FC, SetStateAction, useEffect, useLayoutEffect, useRef, useState} from 'react'
 import useDetectScrollPosition from '../../hooks/useDetectScrollPosition'
 import MessageType from '../../types/MessageType'
-import TypingIndicator from '../../components/typing-indicator'
-import MessageListBackground from '../../components/message-list-background'
-import { Dispatch } from 'preact/hooks'
-import { CtxAuthInfo } from '../../contexts/AuthContext'
-import LoaderIco from '../../assets/logo-loading.svg'
-import Loader from '../../components/loader'
-import {
-    Buffer,
-    Container,
-    Image,
-    ImageContainer,
-    InnerContainer,
-    LoadingContainer,
-    NoMessagesTextContainer,
-    ScrollContainer
-} from "./style";
+import MessageLayout from "../../layouts/message-layout";
+import ScrollLayout from "../../layouts/scroll-layout";
+import Message from "../../components/message";
 
 export interface IMessageBodyContainerProps {
-    messages?: MessageType[]
     currentUserId?: string
-    loading?: boolean
-    onScrollToTop?: () => void
-    mobileView?: boolean
-    showTypingIndicator?: boolean
-    typingIndicatorContent?: string
-    customTypingIndicatorComponent?: React.ReactNode
-    customEmptyMessagesComponent?: React.ReactNode
-    setLazyLoading: Dispatch<SetStateAction<boolean>>
+    messages?: MessageType[]
     lazyLoading: boolean
+    setLazyLoading: Dispatch<SetStateAction<boolean>>
 }
 
 const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
     messages,
     currentUserId,
-    loading = false,
-    onScrollToTop,
-    mobileView,
-    typingIndicatorContent,
-    showTypingIndicator,
-    customTypingIndicatorComponent,
-    customEmptyMessagesComponent,
-    setLazyLoading,
-    lazyLoading
+    lazyLoading,
+    setLazyLoading
 }) => {
 
     /** keeps track of whether messages was previously empty or whether it has already scrolled */
     const [messagesWasEmpty, setMessagesWasEmpty] = useState(true)
-    const containerRef = useRef<any>()
+    const containerRef = useRef<HTMLDivElement | null>(null)
 
-    const bottomBufferRef = useRef<any>()
-    const scrollContainerRef = useRef<any>()
-    const {
-        config: authConfig,
-        loading: authLoading
-    } = useContext(CtxAuthInfo)
+    const bottomBufferRef = useRef<HTMLDivElement | null>(null)
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
     const [isScrolling, setIsScrolling] = useState<boolean>(false)
 
-    const { detectBottom, detectTop } = useDetectScrollPosition(scrollContainerRef)
+    const {detectBottom, detectTop} = useDetectScrollPosition(scrollContainerRef)
 
-    const [lockedScrollBottom ,setLockedScrollBottom] = useState<boolean>(false)
-
-
-
-    useEffect(()=>{
-        lazyLoading && setLockedScrollBottom(true)
-    },[lazyLoading])
+    const [lockedScrollBottom, setLockedScrollBottom] = useState<boolean>(false)
 
     useEffect(() => {
+        setLockedScrollBottom(lazyLoading)
+    }, [lazyLoading])
+
+    useLayoutEffect(() => {
         //detecting when the scroll view is first rendered and messages have rendered then you can scroll to the bottom
         if (bottomBufferRef.current && scrollContainerRef.current && !messagesWasEmpty && !lazyLoading && !lockedScrollBottom) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 scrollToBottom()
-            },1000)
+            }, 300)
 
         }
 
-    }, [messagesWasEmpty, bottomBufferRef.current, scrollContainerRef.current, messages])
+    }, [
+        messagesWasEmpty,
+        bottomBufferRef.current,
+        scrollContainerRef.current,
+        messages,
+        lazyLoading,
+        lockedScrollBottom
+    ])
 
-    useEffect(()=>{
+    useEffect(() => {
         scrollToBottom()
-    },[])
+    }, [])
 
     useEffect(() => {
         if (!messages) {
@@ -115,7 +87,7 @@ const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
         if (detectBottom()) {
             scrollToBottom()
         }
-    }, [showTypingIndicator])
+    }, [])
 
     const handleOnScroll = () => {
         /*if(scrollContainerRef.current){
@@ -132,13 +104,12 @@ const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
 
         }*/
 
-        if(!isScrolling){
+        if (!isScrolling) {
             setIsScrolling(true)
         }
 
         //detect when scrolled to top
         if (detectTop() && messages && messages?.length % 50 === 0) {
-            onScrollToTop && onScrollToTop()
             setLazyLoading(true)
 
         }
@@ -157,7 +128,7 @@ const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
             const scrollOffset = childRect.top + container.scrollTop - parentRect.top;
 
             if (container.scrollBy) {
-                container.scrollBy({ top: scrollOffset, behavior: "auto" });
+                container.scrollBy({top: scrollOffset, behavior: "auto"});
             } else {
                 container.scrollTop = scrollOffset;
             }
@@ -165,110 +136,46 @@ const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
     }
 
     return (
-        <Container ref={containerRef}>
-            {/*<DatePopup isScrolling={isScrolling} onScroll={setIsScrolling} date={dateOfFirstVisibleMessage} />*/}
-            {lazyLoading &&
-                <ImageContainer>
-                    <Image
-                        height={30}
-                        src={LoaderIco}
-                        alt={LoaderIco}
-                    />
-                </ImageContainer>
-            }
-            <MessageListBackground roundedCorners={false} mobileView={mobileView} />
-            <InnerContainer>
-                {loading ?
-                    <LoadingContainer>
-                        <Loading />
-                    </LoadingContainer>
-                    :
-                    <ScrollContainer ref={scrollContainerRef} onScroll={handleOnScroll}>
-                            {authLoading
-                                ? <Loader/>
-                                : (messages && messages.length <= 0)
-                                && (customEmptyMessagesComponent
-                                    ? customEmptyMessagesComponent
-                                    : (
-                                        <NoMessagesTextContainer
-                                            color={"noMessageTextColor"}>
-                                            {!authConfig?.token
-                                                ? <p>Click here to load messages</p>
-                                                : <p>No messages yet...</p>}
-                                        </NoMessagesTextContainer>
-                                    )
-                                )
-                            }
+        <MessageLayout ref={containerRef} loading={lazyLoading}>
+            <ScrollLayout
+                scrollContainerRef={scrollContainerRef}
+                bottomBufferRef={bottomBufferRef}
+                messages={messages}
+                onScroll={handleOnScroll}
+            >
+                {({
+                      last,
+                      single,
+                      user,
+                      id,
+                      loading,
+                      ...others
+                }) => user.id == (currentUserId && currentUserId.toLowerCase()) ?
+                        // my message
+                        <Message
+                            key={id}
+                            type="outgoing"
+                            single={single}
+                            last={single ? false : last}
+                            {...others}
+                            // the last message should show loading if sendMessage loading is true
+                            messages={messages}
+                        />
+                    : (
+                        // other message
+                        <Message
+                            key={id}
+                            type='incoming'
+                            single={single}
+                            user={user}
+                            last={single ? false : last}
+                            messages={messages}
+                            {...others}
+                        />
 
-                            {messages && scrollContainerRef.current && bottomBufferRef.current && messages.map(({ user, text, media, loading: messageLoading, seen, createdAt }, index) => {
-                                //determining the type of message to render
-                                let lastClusterMessage, last, single
-
-
-                                //if it is the last message in the messages array then show the avatar and is the last incoming
-                                if (index === messages.length - 1) { lastClusterMessage = true; last = true }
-                                //if the next message from a different user then show the avatar and is last message incoming
-                                if (index < messages.length - 1 && messages[index + 1].user.id !== user.id) { lastClusterMessage = true; last = true }
-                                //if the next message and the previous message are not from the same user then single incoming is true
-                                if (index < messages.length - 1 && index > 0 && messages[index + 1].user.id !== user.id && messages[index - 1].user.id !== user.id) { single = true }
-                                //if it is the first message in the messages array and the next message is from a different user then single incoming is true
-                                if (index === 0 && index < messages.length - 1 && messages[index + 1].user.id !== user.id) { single = true }
-                                //if it is the last message in the messages array and the previous message is from a different user then single incoming is true
-                                if (index === messages.length - 1 && index > 0 && messages[index - 1].user.id !== user.id) { single = true }
-                                //if the messages array contains only 1 message then single incoming is true
-                                if (messages.length === 1) { single = true }
-
-
-                                if (user.id == (currentUserId && currentUserId.toLowerCase())) {
-                                    // my message
-                                    return <Message key={index}
-                                        type="outgoing"
-                                        last={single ? false : last}
-                                        single={single}
-                                        text={text}
-                                        seen={seen}
-                                        created_at={createdAt}
-                                        media={media}
-                                        // the last message should show loading if sendMessage loading is true
-                                        loading={messageLoading}
-                                        messages={messages}
-                                        index={index}
-                                    />
-
-                                } else {
-                                    // other message
-                                    return <Message
-                                        type='incoming'
-                                        key={index}
-                                        user={user}
-                                        media={media}
-                                        seen={seen}
-                                        created_at={createdAt}
-                                        showAvatar={lastClusterMessage}
-                                        last={single ? false : last}
-                                        single={single}
-                                        text={text}
-                                        messages={messages}
-                                        index={index}
-                                    />
-                                }
-
-                            })}
-
-                            {showTypingIndicator && (
-                                customTypingIndicatorComponent ?
-                                    customTypingIndicatorComponent
-                                    : <TypingIndicator content={typingIndicatorContent} />
-                            )}
-
-                            {/* bottom buffer */}
-                            <div>
-                                <Buffer ref={bottomBufferRef} />
-                            </div>
-                        </ScrollContainer>
-                }
-            </InnerContainer>
-        </Container>
+                )}
+            </ScrollLayout>
+        </MessageLayout>
     )
 }
 

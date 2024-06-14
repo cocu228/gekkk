@@ -1,5 +1,9 @@
 import {FC, useContext} from "react";
 import {CtxAuthInfo} from '../../contexts/AuthContext'
+import {IconApp} from "../../shared/components/icon-app";
+import {useTheme} from "styled-components";
+import useMessage from "../../hooks/useMessage";
+
 import {
     ArrowContainer,
     AttachmentContainer,
@@ -7,9 +11,6 @@ import {
     Input,
     InputContainer,
 } from "./style";
-import {IconApp} from "../../shared/components/icon-app";
-import {useTheme} from "styled-components";
-import useMessage from "../../hooks/useMessage";
 
 const MessageFooterContainer: FC = () => {
     const theme = useTheme()

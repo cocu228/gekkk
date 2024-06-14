@@ -1,20 +1,21 @@
-import React, {useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
+import {useTheme} from "styled-components";
 import MediaContent from '../media-content'
 import TextContent from '../text-content'
-import {Props} from '..'
 import Timestamp from '../timestamp'
-import {MessageContent, MessagesContainer, UserAvatar, UserAvatarContainer} from "../style";
 import {IconApp} from "../../../shared/components/icon-app";
-import {useTheme} from "styled-components";
+import {IIncomingMessageProps} from "../messageTypes";
 
-export default function IncomingMessage({
+import {MessageContent, MessagesContainer, UserAvatar, UserAvatarContainer} from "../style";
+
+const IncomingMessage: FC<IIncomingMessageProps> = ({
     text,
     media,
     user,
     last,
     single,
     created_at,
-}: Omit<Props, "type" | "clusterFirstMessage" | "clusterLastMessage" | "seen">) {
+}) => {
     const theme = useTheme();
 
     const [avatar, setAvatar] = React.useState<string | null>(null)
@@ -52,4 +53,6 @@ export default function IncomingMessage({
         </MessagesContainer>
     )
 }
+
+export default IncomingMessage;
 

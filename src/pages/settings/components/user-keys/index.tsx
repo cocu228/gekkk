@@ -123,8 +123,6 @@ export function UserKeys() {
                 )}
             </div>
             <Modal
-              closable={false}
-              noHeaderBorder
               onCancel={handleCancel}
               placeBottom={window.innerWidth<768}
               isModalOpen={isModalOpen}
@@ -133,9 +131,11 @@ export function UserKeys() {
               <span>
                 {keyToRemove?t("remove_key_warning"):t("close_session_warning")}
               </span>
-              <div className='w-full flex mt-[20px] justify-center gap-2'>
+              <div className='w-full flex mt-[25px] justify-center gap-[20px]'>
                   {keyToRemove ? <><Button
-                    color="blue"
+                    color="red"
+                    skeleton
+                    className="w-full"
                     onClick={()=>{
                       onRemoveKey(keyToRemove.id)
                       handleCancel()
@@ -144,7 +144,9 @@ export function UserKeys() {
                     {t("remove")}
                   </Button>
                   <Button
-                    color="blue"
+                    color="green"
+                    skeleton
+                    className="w-full"
                     onClick={()=>{
                       handleCancel()
                       setKeyToRemove(null)

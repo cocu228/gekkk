@@ -61,7 +61,7 @@ const WalletHeaderMobile = () => {
     }
 
     return (
-        <>
+        <div className={styles.HeaderWalletMobileWrap}>
             <div className={styles.HeaderWalletMobile}>
                 
                 <div className={styles.WalletInfoHeader}>
@@ -137,11 +137,11 @@ const WalletHeaderMobile = () => {
                     {
                         isEUR && (
                             <div onClick={ibanCopy} className="flex group gap-[4px] items-center">
-                                <span className="text-[#B9B9B5] text-[12px] font-bold flex items-center gap-[5px]">
+                                <span className="text-[#B9B9B5] text-[12px] group-hover:text-[#2BAB72] font-bold flex items-center gap-[5px]">
                                     <IconApp color="#B9B9B5" code="t31" size={8} className="min-w-[8px] group-hover:stroke-[#2BAB72]" />
                                     IBAN:
                                 </span>
-                                <p className="text-[#B9B9B5] text-[12px] font-normal">{IBAN}</p>
+                                <p className="text-[#B9B9B5] group-hover:text-[#2BAB72] text-[12px] font-normal">{IBAN}</p>
                             </div>
                         )
                     }
@@ -155,7 +155,7 @@ const WalletHeaderMobile = () => {
                     }
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

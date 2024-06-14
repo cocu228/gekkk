@@ -1,5 +1,5 @@
 ﻿import styles from './style.module.css';
-import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
+import backgroundLogoIcon from "../../../../../../public/img/G_logo.svg";
 import {useEffect, useState} from "preact/hooks";
 import {CallResetForm} from '../../widgets/call-reset-form/CallResetForm';
 import {ChangePasswordForm} from '../../widgets/change-password-form/ChangePasswordForm';
@@ -170,7 +170,9 @@ const Auth = () => {
                 </div>
 
                 <figure>
-                    <div className={styles.MainBackground}><BackgroundLogoIcon/></div>
+                    <div className={styles.MainBackground}>
+                        <img src={backgroundLogoIcon} />
+                    </div>
                 </figure>
             </div>
         </>

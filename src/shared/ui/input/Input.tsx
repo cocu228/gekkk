@@ -65,7 +65,7 @@ const Input = React.forwardRef(
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={inputSize === 'md' ? styles.InputDesktop : styles.InputMobile}
+                            className={`${inputSize === 'md' ? styles.InputDesktop : styles.InputMobile} ${className && className   }`}
                             {...props}
                             type={type}
                             onInput={onInput}

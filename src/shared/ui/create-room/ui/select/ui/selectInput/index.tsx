@@ -1,19 +1,27 @@
-import {ChangeEvent, MouseEvent, ReactNode, useEffect, useMemo, useRef} from "react";
+import {ChangeEvent, FC, MouseEvent, ReactNode, useEffect, useMemo, useRef} from "react";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {ISelectInput, ObjectType} from "../../select.types";
 import styles from '../../style.module.scss'
 
-const SelectInput = <O extends ObjectType,>({
+export interface ISelectInputProps {
+    label: string;
+    placeholder: string;
+    isOpen: boolean;
+    iconCode: string | number | null;
+    inputValue: string
+    onToggleIsOpen: (open?: boolean) => () => void;
+    onChangeInputValue: (inputValue: string) => void
+}
+
+const SelectInput: FC<ISelectInputProps> = ({
     isOpen,
     label,
     placeholder,
-    searchable,
-    onToggleIsOpen,
     inputValue,
     iconCode,
+    onToggleIsOpen,
     onChangeInputValue
-}: ISelectInput<O>) => {
+}) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleOnPreventDefault = (e: MouseEvent<HTMLInputElement>) => {
@@ -47,7 +55,6 @@ const SelectInput = <O extends ObjectType,>({
                 placeholder={placeholder}
                 className={styles.SelectInputContainerInput}
                 value={inputValue}
-                readOnly={!searchable}
                 onClick={handleOnPreventDefault}
                 onChange={handleOnChange}
             />

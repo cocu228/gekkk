@@ -1,5 +1,5 @@
-import {Container, Layout} from "./style";
 import {PropsWithChildren} from "react";
+import {Container, Layout} from "./style";
 
 export default function BodyLayout({children}: PropsWithChildren) {
     return (

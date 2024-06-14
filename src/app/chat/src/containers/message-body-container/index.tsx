@@ -1,14 +1,14 @@
-import React, { SetStateAction, useContext, useEffect, useRef, useState } from 'react'
-import Message from '../message'
-import Loading from '../loading'
+import React, {FC, SetStateAction, useContext, useEffect, useRef, useState} from 'react'
+import Message from '../../components/message'
+import Loading from '../../components/loading'
 import useDetectScrollPosition from '../../hooks/useDetectScrollPosition'
 import MessageType from '../../types/MessageType'
-import TypingIndicator from '../typing-indicator'
-import MessageListBackground from '../message-list-background'
+import TypingIndicator from '../../components/typing-indicator'
+import MessageListBackground from '../../components/message-list-background'
 import { Dispatch } from 'preact/hooks'
 import { CtxAuthInfo } from '../../contexts/AuthContext'
 import LoaderIco from '../../assets/logo-loading.svg'
-import Loader from '../loader'
+import Loader from '../../components/loader'
 import {
     Buffer,
     Container,
@@ -20,7 +20,7 @@ import {
     ScrollContainer
 } from "./style";
 
-export type MessageListProps = {
+export interface IMessageBodyContainerProps {
     messages?: MessageType[]
     currentUserId?: string
     loading?: boolean
@@ -34,7 +34,7 @@ export type MessageListProps = {
     lazyLoading: boolean
 }
 
-export default function MessageList({
+const MessageBodyContainer: FC<IMessageBodyContainerProps> = ({
     messages,
     currentUserId,
     loading = false,
@@ -46,7 +46,7 @@ export default function MessageList({
     customEmptyMessagesComponent,
     setLazyLoading,
     lazyLoading
-}: MessageListProps) {
+}) => {
 
     /** keeps track of whether messages was previously empty or whether it has already scrolled */
     const [messagesWasEmpty, setMessagesWasEmpty] = useState(true)
@@ -271,3 +271,5 @@ export default function MessageList({
         </Container>
     )
 }
+
+export default MessageBodyContainer;

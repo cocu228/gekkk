@@ -1,57 +1,18 @@
 import {useEffect, useState} from "react";
-import {MessageHeader, MessageInput, MessageList} from "./";
 import {ChatMessage} from "./types/Shared";
-import {apiPostMessage} from "./api/post-message";
 import {getCookieData, isMediaFile} from "./utils/shared";
 import {apiGetMessages} from "./api/get-messages";
-import {apiPostFile} from "./api/post-file";
-import MainLayout from "./shared/layouts/main-layout";
-import BodyLayout from "./shared/layouts/body-layout";
+import MainLayout from "./layouts/main-layout";
+import BodyLayout from "./layouts/body-layout";
+import MessageHeaderContainer from "./containers/message-header-container";
+import MessageBodyContainer from "./containers/message-body-container";
+import MessageFooterContainer from "./containers/message-footer-container";
 
 function App() {
     const [ws, setWS] = useState(false);
     const [offset, setOffset] = useState<number>(0);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [lazyLoading, setLazyLoading] = useState<boolean>(false);
-
-    const onSendMessage = async (message: string) => {
-        const cookies = getCookieData()
-        // @ts-ignore
-        const sessionId = cookies["chat-session-id"]
-
-        const response = await apiPostMessage("raw", sessionId, message)
-
-        if (response.status !== "success") {
-            console.log("Error status PostMessage")
-        }
-    }
-
-    const onAttachClick = async () => {
-        const cookies = getCookieData();
-        //@ts-ignore
-        const sessionId = cookies["chat-session-id"];
-
-        try {
-            const fileInput: HTMLInputElement = document.createElement('input');
-            fileInput.type = 'file';
-
-            fileInput.addEventListener('change', async (event: Event) => {
-
-                const target = event.target as HTMLInputElement;
-                const file: File | null = target.files ? target.files[0] : null;
-
-                if (file) {
-                    const response = await apiPostFile(file, sessionId)
-                    console.log('Download result:', response);
-                }
-
-            });
-
-            fileInput.click();
-        } catch (error) {
-            console.error('Error occured when loading file:', error);
-        }
-    }
 
     const setIsWebSocketReady = (val: boolean) => {
         setWS(val)
@@ -91,7 +52,7 @@ function App() {
                 const cookies = getCookieData()
                 //@ts-ignore
                 const sessionId = cookies["chat-session-id"]
-                const response = await apiGetMessages(sessionId, offset)
+                const response = await apiGetMessages(+sessionId, offset)
                 
                 if (response.status === "success") {
                     console.log(response)
@@ -130,21 +91,16 @@ function App() {
 
     return (
         <MainLayout setMessages={setMessages} setIsWebSocketReady={setIsWebSocketReady}>
-            <MessageHeader />
+            <MessageHeaderContainer />
             <BodyLayout>
-                <MessageList
+                <MessageBodyContainer
                     currentUserId="client"
                     // @ts-ignore
                     messages={uiMessages}
                     lazyLoading={lazyLoading}
                     setLazyLoading={setLazyLoading}
                 />
-                <MessageInput
-                    showSendButton
-                    showAttachButton
-                    onSendMessage={onSendMessage}
-                    onAttachClick={onAttachClick}
-                />
+                <MessageFooterContainer />
             </BodyLayout>
         </MainLayout>
     )

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {mediaQuery} from "../../../theme";
+import {mediaQuery} from "../../theme";
 
 export const Layout = styled.div`
     width: 100%;

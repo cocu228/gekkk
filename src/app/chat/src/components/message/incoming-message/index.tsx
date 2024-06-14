@@ -3,8 +3,9 @@ import MediaContent from '../media-content'
 import TextContent from '../text-content'
 import {Props} from '..'
 import Timestamp from '../timestamp'
-import AppIcons from "../../../shared/components/app-icons";
 import {MessageContent, MessagesContainer, UserAvatar, UserAvatarContainer} from "../style";
+import {IconApp} from "../../../shared/components/icon-app";
+import {useTheme} from "styled-components";
 
 export default function IncomingMessage({
     text,
@@ -14,6 +15,7 @@ export default function IncomingMessage({
     single,
     created_at,
 }: Omit<Props, "type" | "clusterFirstMessage" | "clusterLastMessage" | "seen">) {
+    const theme = useTheme();
 
     const [avatar, setAvatar] = React.useState<string | null>(null)
 
@@ -35,7 +37,7 @@ export default function IncomingMessage({
                 {avatar ?
                     <UserAvatar src={avatar} onError={handleOnError}/>
                     :
-                    <AppIcons type={"client"} size={25}/>
+                    <IconApp code={"t24"} size={25} color={theme.lightBlue}/>
                 }
             </UserAvatarContainer>
             <MessageContent>

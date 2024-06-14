@@ -26,7 +26,7 @@ const DateText = styled.div`
     z-index:100;
     font-size: 10px;
     font-weight: 700;
-    color: ${({ theme }) => theme.darkGray};
+    color: ${({ theme }) => theme.midGray};
     display: flex;
     flex-direction: row;
     justify-content: center;

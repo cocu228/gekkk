@@ -3,7 +3,8 @@ import TextContent from '../text-content'
 import Timestamp from '../timestamp'
 import {Props} from '..'
 import {MessageContent, MessagesContainer, UserAvatarContainer} from "../style";
-import AppIcons from "../../../shared/components/app-icons";
+import {IconApp} from "../../../shared/components/icon-app";
+import {useTheme} from "styled-components";
 
 export default function OutgoingMessage({
     text,
@@ -12,6 +13,8 @@ export default function OutgoingMessage({
     single,
     created_at,
 }: Omit<Props, "showHeader" | "showAvatar" | "type" | "loading" | "seen">) {
+    const theme = useTheme();
+
     return (
         <MessagesContainer
             data-testid="outgoing-message"
@@ -28,7 +31,7 @@ export default function OutgoingMessage({
                     <Timestamp date={created_at} />
             </MessageContent>
             <UserAvatarContainer>
-                <AppIcons type={"operator"} size={25}/>
+                <IconApp code={"t82"} size={25} color={theme.lightBlue}/>
             </UserAvatarContainer>
         </MessagesContainer>
     )

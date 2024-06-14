@@ -8,7 +8,8 @@ import {
     Input,
     InputContainer,
 } from "./style";
-import AppIcons from "../../shared/components/app-icons";
+import {IconApp} from "../../shared/components/icon-app";
+import {useTheme} from "styled-components";
 
 export type Props = {
     onSendMessage?: (text: string) => void
@@ -34,6 +35,7 @@ export default function MessageInput({
     onKeyDown,
     onKeyUp
 }: Props) {
+    const theme = useTheme()
 
     const [text, setText] = useState("")
     const {
@@ -76,7 +78,7 @@ export default function MessageInput({
     return (
         <Container data-testid='message-form' className='fade-animation'>
             <AttachmentContainer disabled={isAttachmentDisable} onClick={onAttachClick}>
-                {showAttachButton && <AppIcons type={"share"} size={30}/>}
+                {showAttachButton && <IconApp code={"t80"} size={20} color={theme.lightBlue} />}
             </AttachmentContainer>
             <InputContainer>
                 <Input
@@ -89,7 +91,7 @@ export default function MessageInput({
                 />
             </InputContainer>
             <ArrowContainer disabled={isAttachmentDisable} showCursor={showSendCursor} onClick={handleSubmit}>
-                {showSendButton && <AppIcons type={"send"} size={20}/>}
+                {showSendButton && <IconApp code={"t51"} size={20} color={theme.lightBlue} />}
             </ArrowContainer>
         </Container>
 

@@ -91,6 +91,8 @@ const WithdrawFormCardToCard = () => {
     name: formatCardNumber(item.displayPan)
   }));
 
+  console.log(cards)
+
   return (
     !cards ? (
       <Loader className={"relative"} />

@@ -1,9 +1,10 @@
-import {useEffect, useRef, useState} from "react";
-import {ISelectProps, ObjectType} from "./select.types";
+import {FC, useEffect, useRef, useState} from "react";
 import SelectLayout from "./ui/selectLayout";
 import SelectInput from "./ui/selectInput";
 import SelectDropdown from "./ui/selectDropdown";
 import SelectOverlay from "./ui/selectOverlay";
+import {ICtxCurrency} from "@/processes/CurrenciesContext";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const useDebounce = () => {
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -18,28 +19,36 @@ const useDebounce = () => {
     }
 }
 
-const Select = <O extends ObjectType,>({
-    searchable,
+interface ISelectProps {
+    label: string;
+    placeholder: string;
+    value: ICtxCurrency | null;
+    options: ICtxCurrency[];
+    onChange: (value: ICtxCurrency | null) => void;
+}
+
+const Select: FC<ISelectProps> = ({
     placeholder,
     value,
     label,
-    getOptionValue,
-    getFilterValue,
     options,
     onChange,
-    optionsKey,
-    renderOption,
-    getIconCode,
-}: ISelectProps<O>) => {
+}) => {
+    const { md } = useBreakpoints()
     const debounce = useDebounce()
 
-    const [currentOptions, setCurrentOptions] = useState<O[]>(options);
+    const [currentOptions, setCurrentOptions] = useState<ICtxCurrency[]>(options);
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [iconCode, setIconCode] = useState<string | number | null>(null)
-    const [inputValue, setInputValue] = useState<string>(value ? `${getOptionValue(value)}` : "")
+    const [inputValue, setInputValue] = useState<string>(value?.name || "")
 
     const handleOnFilterOptions = debounce((inputValue: string) => {
-        setCurrentOptions(() => !inputValue ? options : options.filter(opt => `${getOptionValue(opt)}`.toLowerCase().includes(inputValue.toLowerCase())))
+        if (md) {
+            setCurrentOptions(() => !inputValue ? options : options.filter(opt => opt.$const.toLowerCase().includes(inputValue.toLowerCase())))
+        } else {
+            setCurrentOptions(() => !inputValue ? options : options.filter(opt => opt.name.toLowerCase().includes(inputValue.toLowerCase())))
+        }
+
     })
 
     const handleOnToggleIsOpen = (open?: boolean) => () => {
@@ -50,7 +59,7 @@ const Select = <O extends ObjectType,>({
                     setInputValue("")
                     onChange(null)
                 } else if (!isOpen) {
-                    setInputValue(`${getOptionValue(value)}`)
+                    setInputValue(md ? value.$const : value.name)
                 }
             }
             return isOpen
@@ -58,32 +67,32 @@ const Select = <O extends ObjectType,>({
     }
 
     const handleOnChangeInputValue = (inputValue: string) => {
-        if (searchable) {
-            setInputValue(inputValue)
-            handleOnFilterOptions(inputValue)
-        }
+        setInputValue(inputValue)
+        handleOnFilterOptions(inputValue)
         if (!inputValue && value) {
             onChange(null)
         }
     }
 
-    const handleOnChange = (value: O) => {
+    const handleOnChange = (value: ICtxCurrency) => {
         setCurrentOptions(options)
-        setInputValue(`${getOptionValue(value)}`)
+        setInputValue(md ? value.$const : value.name)
         onChange(value)
     }
 
     useEffect(() => {
-        setInputValue(value ? `${getOptionValue(value)}` : "")
-    }, [getOptionValue, value]);
-
-    useEffect(() => {
-        if (getIconCode && value) {
-            setIconCode(getIconCode(value))
+        if (value) {
+            setInputValue(md ? value.$const : value.name)
+            setIconCode(value.$const)
         } else {
+            setInputValue("")
             setIconCode(null)
         }
-    }, [getIconCode, value]);
+    }, [value, md]);
+
+    useEffect(() => {
+        setCurrentOptions(options)
+    }, [options]);
 
     return (
         <SelectLayout label={label}>
@@ -92,7 +101,6 @@ const Select = <O extends ObjectType,>({
                 isOpen={isOpen}
                 iconCode={iconCode}
                 placeholder={placeholder}
-                searchable={searchable}
                 inputValue={inputValue}
                 onToggleIsOpen={handleOnToggleIsOpen}
                 onChangeInputValue={handleOnChangeInputValue}
@@ -100,11 +108,7 @@ const Select = <O extends ObjectType,>({
             <SelectDropdown
                 isOpen={isOpen}
                 options={currentOptions}
-                optionsKey={optionsKey}
                 value={value}
-                getFilterValue={getFilterValue}
-                getOptionValue={getOptionValue}
-                renderOption={renderOption}
                 onChange={handleOnChange}
                 onToggleIsOpen={handleOnToggleIsOpen}
             />

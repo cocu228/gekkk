@@ -19,7 +19,7 @@ import { CtxRootData } from "@/processes/RootContext";
 
 interface IParams{
     code?:string,
-    onClose?: () => void,
+    onClose?: () => void
     inputCurrMobile?: IUseInputState
 }
 

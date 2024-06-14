@@ -10,6 +10,8 @@ import {apiGetRates} from "@/shared/(orval)api/gek";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import useCopyStore from "@/shared/store/useCopy/useCopyStore";
 
 
 const WalletHeaderMobile = () => {
@@ -19,6 +21,7 @@ const WalletHeaderMobile = () => {
         balance,
         decimalPrec
     } = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
 
     const [params] = useSearchParams();
     const currency = params.get('currency');
@@ -33,6 +36,7 @@ const WalletHeaderMobile = () => {
 
     const [rates, setRates] = useState<Record<ETokensConst, number>>();
 
+    const IBAN = account?.number
 
     useEffect(() => {
         (async () => {
@@ -49,10 +53,17 @@ const WalletHeaderMobile = () => {
         return <></>
     }
 
-    return (
-        <>
-            <div className={styles.HeaderWalletMobile}>
+    const {setIsCopied} = useCopyStore()
 
+    const ibanCopy = () => {
+        navigator.clipboard.writeText(IBAN)
+        setIsCopied(true)
+    }
+
+    return (
+        <div className={styles.HeaderWalletMobileWrap}>
+            <div className={styles.HeaderWalletMobile}>
+                
                 <div className={styles.WalletInfoHeader}>
                     <div className={styles.WalletInfoHeaderIconAndName}>
                         <div className="grid auto-cols-max">
@@ -123,6 +134,17 @@ const WalletHeaderMobile = () => {
                 </div>
 
                 <div className={styles.EurGekkoinPrice}>
+                    {
+                        isEUR && (
+                            <div onClick={ibanCopy} className="flex group gap-[4px] items-center">
+                                <span className="text-[#B9B9B5] text-[12px] group-hover:text-[#2BAB72] font-bold flex items-center gap-[5px]">
+                                    <IconApp color="#B9B9B5" code="t31" size={8} className="min-w-[8px] group-hover:stroke-[#2BAB72]" />
+                                    IBAN:
+                                </span>
+                                <p className="text-[#B9B9B5] group-hover:text-[#2BAB72] text-[12px] font-normal">{IBAN}</p>
+                            </div>
+                        )
+                    }
                     <span className={styles.IsEqualEuro}>
                         {(!isEUR && rates && rates[currency]) && currency + " = " + getCurrencyRounding(rates[currency]) + "€"}
                     </span>
@@ -133,7 +155,7 @@ const WalletHeaderMobile = () => {
                     }
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

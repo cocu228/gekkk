@@ -13,6 +13,8 @@ import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
 import { IconApp } from "../../widgets/components/IconApp"
 import {AppType, getInitialAppType} from "../../utils/getMode";
+import GekkoinLogoIcon from "./icons/gekkoin-logo-icon";
+import GekwalletLogoIcon from "./icons/gekwallet-logo-icon";
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -49,13 +51,22 @@ const Auth = () => {
         runCMA();
     }, []);
 
-    const iconCodes: Record<AppType, string> = {
-        GEKKARD: "w2",
-        GEKKOIN: "w3",
-        GEKWALLET: "w4"
+    const iconCodes: Record<AppType, { title: string, icon: JSX.Element }> = {
+        gekkard: {
+            title: "Welcome to Gekkard online bank",
+            icon: <IconApp width={120} height={40} code={"w2"} color='none' lib={3}/>
+        },
+        gekkoin: {
+            title: "Welcome to Gekkoin invest platform",
+            icon: <GekkoinLogoIcon />
+        },
+        gekwallet: {
+            title: "Welcome to Gekwallet",
+            icon: <GekwalletLogoIcon />
+        },
     };
 
-    const logoCode = iconCodes[getInitialAppType()];
+    const modeInfo = iconCodes[getInitialAppType()];
 
     return (
         // chatOpened ? <SupportChatUnauthorized setClose={setChatOpened}/> :
@@ -63,7 +74,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    <IconApp width={120} height={40} code={logoCode} color='none' lib={3} />
+                    {modeInfo.icon}
                 </div>
                 <div
                     onClick={() => {
@@ -81,7 +92,7 @@ const Auth = () => {
                     <header>
                         <h2>
                             {form === 'LOGIN'
-                                ? 'Welcome to Gekkard online bank'
+                                ? modeInfo.title
                                 : 'Password reset form'
                             }
                         </h2>

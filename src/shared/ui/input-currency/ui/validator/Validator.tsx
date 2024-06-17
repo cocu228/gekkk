@@ -28,7 +28,7 @@ const Validator: FC<IParams> = (({
     const {t} = useTranslation();
     const firstEffect = useRef(true);
     const [error, setError] = useState<null | string | JSX.Element>(null);
-    
+    const [showDescription, setShowDescription] = useState(true)
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false
@@ -43,6 +43,7 @@ const Validator: FC<IParams> = (({
                     if (!result.validated) {
                         setError(result.errorMessage);
                         onError(true);
+                        setShowDescription(true)
                         return false;
                     }
                     return true;
@@ -51,6 +52,7 @@ const Validator: FC<IParams> = (({
                 if (isValid) {
                     setError(null);
                     onError(false);
+                    setShowDescription(value.toString().length === 0);
                 }
             }
         }
@@ -61,12 +63,10 @@ const Validator: FC<IParams> = (({
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>
-                {!isNull(error) &&
+                {description && showDescription===true && isNull(error)  ? <div className='mt-0.5 ml-[10px] text-[var(--gek-orange)]  md:text-fs10 ? text-fs12'>*{description}</div> :
                     <div className="flex ml-[12px] mt-[6px] gap-1 items-center">
-                        <div className="mt-[1px]">
-                            <IconApp color="#EB5454" code="t56" size={13} />
-                        </div>
-                        <span className='text-[var(--gek-red)] text-fs12'>{error}</span>
+                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t56" size={13}/></div>}
+                        <span className='text-[var(--gek-orange)] md:text-fs10 ? text-fs12'>{error}</span>
                     </div>}
             </div>
             </CtxInputCurrencyValid.Provider>

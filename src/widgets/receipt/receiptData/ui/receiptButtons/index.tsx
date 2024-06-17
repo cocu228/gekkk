@@ -39,7 +39,9 @@ const ReceiptButtons: FC<IReceiptButtonsProps> = ({onCancel, isLoading, isMobile
         <div className={styles.ButtonContainer}>
             {/* {isMobile ? ( */}
                 <Button skeleton disabled={isLoading} className='w-full' onClick={handleOnShare}>
-                    <IconApp size={20} code="t38" color="#2BAB72"/> {t("share")}
+                    <div className="w-full flex items-center justify-evenly">
+                        <IconApp size={14} code="t38" color="#2BAB72"/> {t("share")}
+                    </div>
                 </Button>
             {/* ) : ( */}
             {/* )} */}

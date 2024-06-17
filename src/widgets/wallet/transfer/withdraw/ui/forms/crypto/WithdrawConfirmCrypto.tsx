@@ -237,46 +237,46 @@ const WithdrawConfirmCrypto = memo(
             }
           </div>
           <div className={styles.ModalPayInfo}>
-            <div className={styles.PayInfoCol}>
+            <div className={styles.ModalPayInfoCol}>
                 <div className="row">
-                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                    <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
                 </div>
                 <div className="row">
-                <span className={styles.PayInfoText}>
+                <span className={styles.ModalPayInfoText}>
                     {t("you_will_get")}:
                 </span>
                 </div>
                 <div className="row">
-                    <span className={styles.PayInfoTextFee}>
+                    <span className={styles.ModalPayInfoTextFee}>
                         {t("fee")}:
                     </span>
                 </div>
             </div>
-            <div className={styles.PayInfoColValue}>
+            <div className={styles.ModalPayInfoColValue}>
           
-                <div className={styles.PayInfoCol}>
-                    <div className={styles.PayInfoValueFlex}>
+                <div className={styles.ModalPayInfoCol}>
+                    <div className={styles.ModalPayInfoValueFlex}>
                         {/* Total amount, that user pays */}
-                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{amount + withdraw_fee}</span>}
+                        {loading ? t("loading")+"..." : <span className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>}
                     </div>
-                    <div className={styles.PayInfoValueFlex}>
+                    <div className={styles.ModalPayInfoValueFlex}>
                         {/* Amount, that recipient recieve */}
-                        <span className={styles.PayInfoValueFlexText}>{amount}</span>
+                        <span className={styles.ModalPayInfoValueFlexText}>{amount}</span>
                     </div>
-                    <div className={styles.PayInfoValueFlex}>
+                    <div className={styles.ModalPayInfoValueFlex}>
                         {/* Fee amount */}
-                        {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                        {loading ? t("loading")+"..." : <span className={styles.ModalPayInfoValueFlexTextFee}>{withdraw_fee}</span>}
                     </div>
                 </div>
                 
-                <div className={styles.PayInfoCol}>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                <div className={styles.ModalPayInfoCol}>
+                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
                         {$const}
                     </span>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
                         {$const}
                     </span>
-                    <span className={styles.PayInfoValueFlexTextFee}>
+                    <span className={styles.ModalPayInfoValueFlexTextFee}>
                         {$const}
                     </span>
                 </div>

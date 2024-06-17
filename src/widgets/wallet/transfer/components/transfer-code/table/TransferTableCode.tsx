@@ -20,6 +20,8 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
 
 const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inputCurr?: IUseInputState }) => {
+    const {md, lg} = useBreakpoints() 
+
     const [tableHeads, setTableHeads] = useState([
         'code',
         'amount',
@@ -37,7 +39,7 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
     }, [currency.$const])
 
     useEffect(() => {
-        if(window.innerWidth < 768) {
+        if(md || lg) {
             setTableHeads([
                 'code',
                 'status',
@@ -48,7 +50,6 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
 
     const filteredListTxCode = listTxCode.filter(item => item.currency === currency.$const && item.isOwner === isOwner)
     const {t} = useTranslation();
-    const {md} = useBreakpoints() 
 
     return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
@@ -94,7 +95,7 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                     </GTable.Col>
 
                     {
-                        !md && (
+                        !md && !lg && (
                             <GTable.Col className="text-center">
                                 <span className="text-gra-600 text-xs">{it.amount}</span>
                             </GTable.Col>

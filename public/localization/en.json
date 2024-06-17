@@ -1722,7 +1722,8 @@
     "finished": "Finished",
     "select_type": "Select type",
     "select": "Select",
-    "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation"
+    "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation",
+    "not_found": "Not found"
 
   }
 }

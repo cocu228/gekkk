@@ -84,6 +84,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                                                                currency={currency}>
                                     <InputCurrency.DisplayBalance currency={currency}>
                                         <InputCurrency
+                                            placeholder={t("exchange.enter_amount")}
                                             className="mt-1"
                                             value={inputCurr.value.string}
                                             currency={currency.$const}

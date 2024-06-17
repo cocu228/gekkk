@@ -210,6 +210,7 @@ const ConfirmationModal = ({
                             <div className="mb-2 font-semibold">{t("limit_amount")}</div>
                             <div className="mb-5">
                                 <InputCurrency
+                                    placeholder={t("exchange.enter_amount")}
                                     currency={"EUR"}
                                     onChange={setLimitAmount}
                                     value={limitAmount.value.string}

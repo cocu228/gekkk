@@ -68,7 +68,7 @@ export function DeliveryInfo() {
                     <div className={styles.Label}>{t("city")}:</div>
                     <Input
                         value={state.city}
-                        placeholder={`-${t('enter_city_name').toLowerCase()}-`} 
+                        placeholder={t('enter_city_name').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             city: target.value
@@ -81,7 +81,7 @@ export function DeliveryInfo() {
                     <Input
                         allowDigits
                         value={state.postalCode}
-                        placeholder={`-${t('enter_post_code').toLowerCase()}-`} 
+                        placeholder={t('enter_post_code').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             postalCode: target.value
@@ -94,7 +94,7 @@ export function DeliveryInfo() {
                     <Input
                         allowDigits
                         value={state.street}
-                        placeholder={`-${t('enter_street_name').toLowerCase()}-`} 
+                        placeholder={t('enter_street_name').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             street: target.value
@@ -107,7 +107,7 @@ export function DeliveryInfo() {
                     <Input
                         allowDigits
                         value={state.houseNumber}
-                        placeholder={`-${t('enter_house_number').toLowerCase()}-`} 
+                        placeholder={t('enter_house_number').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             houseNumber: target.value
@@ -120,7 +120,7 @@ export function DeliveryInfo() {
                     <Input
                         allowDigits
                         value={state.apartmentNumber}
-                        placeholder={`-${t('enter_flat_name_or_number_if_available').toLowerCase()}-`} 
+                        placeholder={t('enter_flat_name_or_number_if_available').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             apartmentNumber: target.value
@@ -132,7 +132,7 @@ export function DeliveryInfo() {
                     <div className={styles.Label}>{t("recipient")}:</div>
                     <Input
                         value={state.recipientName}
-                        placeholder={`-${t('enter_recipient_name').toLowerCase()}-`} 
+                        placeholder={t('enter_recipient_name').toLowerCase()} 
                         onChange={({target}) => setState({
                             ...state,
                             recipientName: target.value

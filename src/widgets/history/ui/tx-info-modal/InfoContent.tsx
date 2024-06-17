@@ -48,7 +48,7 @@ const InfoContent = (props: TxInfoProps) => {
     } else {
       modalContext.setContent({
         content: <ReceiptData txId={props.id_transaction}/>,
-        title: 'Transaction receipt'
+        title: t("transaction_receipt")
       })
     }
   }
@@ -269,7 +269,7 @@ const InfoContent = (props: TxInfoProps) => {
                     className='w-full'
                     onClick={handleOnReceipt}
                 >
-                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
+                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
                 </Button>
                 <Button
                     className='w-full'

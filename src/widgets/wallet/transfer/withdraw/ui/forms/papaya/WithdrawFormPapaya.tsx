@@ -118,54 +118,54 @@ const WithdrawFormPapaya = () => {
                     </span>
                 </div>
             </div>
-
-            <div className={styles.PayInfo}>
-                <div className={styles.PayInfoCol}>
-                    <div className="row">
-                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                    </div>
-                    <div className="row">
-                    <span className={styles.PayInfoText}>
-                        {t("you_will_get")}:
-                    </span>
-                    </div>
-                    <div className="row">
-                        <span className={styles.PayInfoTextFee}>
-                            {t("fee")}:
-                        </span>
-                    </div>
-                </div>
-                <div className={styles.PayInfoColValue}>
-
+            <div className='w-full flex justify-center'>
+                <div className={styles.PayInfo}>
                     <div className={styles.PayInfoCol}>
-                        <div className={styles.PayInfoValueFlex}>
-                            {/* Amount in EURG paid */}
-                            <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                        <div className="row">
+                            <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
                         </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            {/* Amount in EUR received */}
-                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
+                        <div className="row">
+                        <span className={styles.PayInfoText}>
+                            {t("you_will_get")}:
+                        </span>
                         </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            {/* Fee amount */}
-                            {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                        <div className="row">
+                            <span className={styles.PayInfoTextFee}>
+                                {t("fee")}:
+                            </span>
                         </div>
                     </div>
-                    
-                    <div className={styles.PayInfoCol}>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            {currency.$const}
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            EUR
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextFee}>
-                            {currency.$const}
-                        </span>
+                    <div className={styles.PayInfoColValue}>
+
+                        <div className={styles.PayInfoCol}>
+                            <div className={styles.PayInfoValueFlex}>
+                                {/* Amount in EURG paid */}
+                                <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                            </div>
+                            <div className={styles.PayInfoValueFlex}>
+                                {/* Amount in EUR received */}
+                                {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
+                            </div>
+                            <div className={styles.PayInfoValueFlex}>
+                                {/* Fee amount */}
+                                {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                            </div>
+                        </div>
+                        
+                        <div className={styles.PayInfoCol}>
+                            <span className={styles.PayInfoValueFlexTextCurrency}>
+                                {currency.$const}
+                            </span>
+                            <span className={styles.PayInfoValueFlexTextCurrency}>
+                                EUR
+                            </span>
+                            <span className={styles.PayInfoValueFlexTextFee}>
+                                {currency.$const}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <Modal
                 placeBottom={window.innerWidth<768}
                 isModalOpen={isModalOpen}

@@ -59,7 +59,7 @@ const ExtendedSelect = ({
         </div>
 
         {!isOpen ? children : <>
-            <div className={`${styles.Label} `}>
+            <div className={`${styles.Label} mb-5`}>
                 {label}
             </div>
 

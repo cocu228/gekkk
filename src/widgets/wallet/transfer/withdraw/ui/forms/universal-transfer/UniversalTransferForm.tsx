@@ -154,7 +154,8 @@ const UniversalTransferForm = () => {
           amount={inputCurr.value.number}
         />
       </Modal>
-      <div className={styles.PayInfo}>
+      <div className='w-full flex justify-center'>
+        <div className={styles.PayInfo}>
           <div className={styles.PayInfoCol}>
             <div className="row">
               <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
@@ -196,6 +197,7 @@ const UniversalTransferForm = () => {
             </div>
           </div>
         </div>
+      </div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"

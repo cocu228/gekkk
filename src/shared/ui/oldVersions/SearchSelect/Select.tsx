@@ -107,7 +107,7 @@ export const Select:FC<SelectProps> = ({
                     ))
                 }
                 {
-                    emptyData && <div className={style.EmptyDataBlock}>Not Found</div>
+                    emptyData && <div className={style.EmptyDataBlock}>{t("not_found")}</div>
                 }
             </div>
         </div>

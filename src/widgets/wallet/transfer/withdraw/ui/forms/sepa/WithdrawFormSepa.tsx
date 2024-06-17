@@ -94,7 +94,7 @@ const WithdrawFormSepa = () => {
                                 onChange={onInput}
                                 name={"beneficiaryName"}
                                 value={inputs.beneficiaryName}
-                                placeholder={`-${t("enter_recipient_name")}-`}
+                                placeholder={t("enter_recipient_name")}
                                 caption={!inputs.beneficiaryName && t("EW_law")}
                             />
                         </div>
@@ -114,7 +114,7 @@ const WithdrawFormSepa = () => {
                                 onChange={onInput}
                                 value={inputs.accountNumber}
                                 name={"accountNumber"} allowDigits
-                                placeholder={`-${t("enter_account_number_or_IBAN")}-`}
+                                placeholder={t("enter_account_number_or_IBAN")}
                             />
                         </div>
                     </div>

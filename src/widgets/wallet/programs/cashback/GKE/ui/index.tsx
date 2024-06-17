@@ -118,6 +118,7 @@ const GkeCashbackProgram = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                                 <InputCurrency
+                                    placeholder={t("exchange.enter_amount")}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}

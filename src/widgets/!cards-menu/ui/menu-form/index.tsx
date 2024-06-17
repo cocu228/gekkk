@@ -141,7 +141,7 @@ const MenuForm = ({
                     setSelectedItem("showData");
                 } else {
                     setGlobalModal({
-                        title: "Card info",
+                        title: t("card_info"),
                         content: <CardInfo
                             cardId={selectedCard.cardId}
                             onBack={onGlobalCancel}

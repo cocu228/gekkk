@@ -81,7 +81,7 @@ function CreateRoom({
         <div className={"mt-4 " + styles.SelectToken}>
           <Select
             label={`${t("exchange.from")}:`}
-            placeholder={"-select-"}
+            placeholder={`-${t('select')}-`}
             value={getValue(from.currency)}
             options={getFilterValue(to.currency)}
             onChange={handleOnChange("from")}
@@ -95,7 +95,7 @@ function CreateRoom({
         <div className={styles.SelectToken}>
           <Select
               label={`${t("exchange.to")}:`}
-              placeholder={"-select-"}
+              placeholder={`-${t('select')}-`}
               value={getValue(to.currency)}
               options={getFilterValue(from.currency)}
               onChange={handleOnChange("to")}

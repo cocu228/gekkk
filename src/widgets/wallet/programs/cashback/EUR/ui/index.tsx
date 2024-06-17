@@ -9,7 +9,7 @@ import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 function Programs() {
     const [params] = useSearchParams();
     const currency = params.get("currency");
-    const {sm, md, lg, xl, xxl} = useContext(BreakpointsContext);
+    const {sm, md, lg, xl, xxl, xxxl} = useContext(BreakpointsContext);
 
     return (
         <div className='grid grid-cols-1 justify-center rlative'>
@@ -26,7 +26,7 @@ function Programs() {
                         mobileModalColor
                     } = cashback;
 
-                    return !(sm || (!md && lg) || (!xl && xxl))
+                    return !(sm || (!md && lg) || (!xl && xxxl))
                     ? (
                         <CashbackCard
                             key={id}

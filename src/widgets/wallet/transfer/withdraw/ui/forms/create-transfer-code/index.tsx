@@ -119,6 +119,7 @@ const CreateTransferCode = () => {
                 <InputCurrency.DisplayBalance currency={currency}>
                   <InputCurrency
                     transfers
+                    placeholder={t('enter_amount')}
                     value={inputCurr.value.string}
                     currency={currency.$const}
                     onChange={setInputCurr}
@@ -182,51 +183,49 @@ const CreateTransferCode = () => {
           </div>
       </div>
       <div className="flex w-full justify-center">
-          <div className="w-full max-w-[200px]">
-            <div className={styles.PayInfo}>
-              <div className={styles.PayInfoCol}>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-                </div>
+        <div className={styles.PayInfo}>
+          <div className={styles.PayInfoCol}>
+            <div className="row">
+              <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+            </div>
+            <div className="row">
+              <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
+            </div>
+            <div className="row">
+              <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
+            </div>
+          </div>
+          <div className={styles.PayInfoColValue}>
+            <div className={styles.PayInfoCol}>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexText}>
+                  {inputCurr.value.number}
+                </span>
               </div>
-              <div className={styles.PayInfoColValue}>
-                <div className={styles.PayInfoCol}>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {inputCurr.value.number}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {inputCurr.value.number}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexTextFee}>-</span>
-                  </div>
-                </div>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexText}>
+                  {inputCurr.value.number}
+                </span>
+              </div>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexTextFee}>-</span>
+              </div>
+            </div>
 
-                <div className={styles.PayInfoCol}>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>
-                    {currency.$const}
-                  </span>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>
-                    {currency.$const}
-                  </span>
-                  <span className={styles.PayInfoValueFlexTextFee}>
-                    {currency.$const}
-                  </span>
-                </div>
-              </div>
+            <div className={styles.PayInfoCol}>
+              <span className={styles.PayInfoValueFlexTextCurrency}>
+                {currency.$const}
+              </span>
+              <span className={styles.PayInfoValueFlexTextCurrency}>
+                {currency.$const}
+              </span>
+              <span className={styles.PayInfoValueFlexTextFee}>
+                {currency.$const}
+              </span>
             </div>
           </div>
         </div>
+      </div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           disabled={

@@ -144,7 +144,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="basis-full">
                   <Select
                       list={transformedList}
-                      placeholderText="-select card-"
+                      placeholderText={t("select_card")}
                       onSelect={(val) => {
                         setInputs(() => ({
                           ...inputs,
@@ -164,7 +164,7 @@ const WithdrawFormCardToCard = () => {
             {t("to_card")}:
           </span>
           <Input
-              placeholder={`-${"enter_description"}-`}
+              placeholder={t("enter_description")}
               allowDigits
               type={"text"}
               onInput={onCardNumberInput}
@@ -188,7 +188,7 @@ const WithdrawFormCardToCard = () => {
                   cardholderName: target.value.toUpperCase(),
                 }));
               }}
-              placeholder={`-${t("enter_cardholder_name")}-`}
+              placeholder={t("enter_cardholder_name")}
               name={"cardholderName"}
             />
         </div>
@@ -202,7 +202,7 @@ const WithdrawFormCardToCard = () => {
               value={inputs.comment}
               name={"comment"}
               onChange={onInputDefault}
-              placeholder={`-${t("enter_description")}-`}
+              placeholder={t("enter_description")}
             />
         </div>   
         

@@ -44,8 +44,7 @@ export function OrderConfirmation() {
             ? apiPersonalize({
                 isExpressDelivery: state.isExpressDelivery,
                 deliveryAddress: {
-                    // TODO: fix after test
-                    //city: state.city,
+                    city: state.city,
                     countryCode: state.countryCode,
                     postalCode: state.postalCode,
                     street: state.street,
@@ -56,8 +55,7 @@ export function OrderConfirmation() {
             }, {cardId: state.card.cardId})
             // Order new card
             : apiCreateCard({
-                // TODO: fix after test
-                // accountId: account.account_id
+                accountId: account.account_id,
                 format: CardFormat[state.cardType],
                 cardHolderName: state.cardholderName,
                 cardHolderPhoneNumber: state.linkedPhone,

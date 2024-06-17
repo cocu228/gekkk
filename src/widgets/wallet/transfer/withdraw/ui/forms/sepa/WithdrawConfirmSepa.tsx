@@ -1,4 +1,3 @@
-import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
 import { apiPaymentSepa, IResCommission, IResErrors, IResResult } from "@/shared/api";
@@ -29,7 +28,6 @@ interface IState {
 
 const WithdrawConfirmSepa = ({
   amount,
-  comment,
   accountNumber,
   beneficiaryName,
   transferDescription,
@@ -53,7 +51,7 @@ const WithdrawConfirmSepa = ({
   });
 
   const details = useRef({
-    purpose: comment,
+    purpose: ' ',
     iban: accountNumber,
     account: account.account_id,
     beneficiaryName: beneficiaryName,

@@ -35,7 +35,6 @@
     "@fontsource/inter": "^5.0.18",
     "@headlessui/react": "^2.0.4",
     "@stomp/stompjs": "^7.0.0",
-    "@twa-dev/sdk": "^7.0.0",
     "antd": "5.2.3",
     "axios": "^1.7.2",
     "base64url": "^3.0.1",

@@ -146,7 +146,6 @@ const WithdrawFormPhoneNumber = () => {
 
       <Modal
         placeBottom={window.innerWidth < 768}
-        zIndex
         destroyOnClose
         isModalOpen={isModalOpen}
         onCancel={handleCancel}

@@ -42,13 +42,14 @@ const Select: FC<ISelectProps> = ({
     const [iconCode, setIconCode] = useState<string | number | null>(null)
     const [inputValue, setInputValue] = useState<string>(value?.name || "")
 
-    const handleOnFilterOptions = debounce((inputValue: string) => {
-        if (md) {
-            setCurrentOptions(() => !inputValue ? options : options.filter(opt => opt.$const.toLowerCase().includes(inputValue.toLowerCase())))
-        } else {
-            setCurrentOptions(() => !inputValue ? options : options.filter(opt => opt.name.toLowerCase().includes(inputValue.toLowerCase())))
-        }
+    const filterOptions = (inputValue: string) => ({ name, $const }: ICtxCurrency) => {
+        const byCode = $const.toLowerCase().includes(inputValue.toLowerCase());
+        const byName = name.toLowerCase().includes(inputValue.toLowerCase())
+        return byCode || byName;
+    }
 
+    const handleOnFilterOptions = debounce((inputValue: string) => {
+        setCurrentOptions(() => !inputValue ? options : options.filter(filterOptions(inputValue)))
     })
 
     const handleOnToggleIsOpen = (open?: boolean) => () => {

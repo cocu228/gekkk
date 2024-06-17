@@ -19,9 +19,7 @@
       "invalid_password": "Check that the password is 8+ characters, contains at least one of each: number, upper case character, special character.",
       "invalid_phone": "Please enter your full number"
     },
-    "select": {
-      "token_no_data": "tokens not found"
-    },
+    "select_token_no_data": "tokens not found",
     "download": "Download",
     "next": "Next",
     "login": "Login",

@@ -19,9 +19,7 @@
       "invalid_password": "Es sind nur Zahlen erlaubt, Mindestlänge 6 Zeichen",
       "invalid_phone": "Bitte geben Sie Ihre vollständige Nummer ein"
     },
-    "select": {
-      "token_no_data": "Token nicht gefunden"
-    },
+    "select_token_no_data": "Token nicht gefunden",
     "download": "Herunterladen",
     "next": "Weiter",
     "login": "Anmelden",

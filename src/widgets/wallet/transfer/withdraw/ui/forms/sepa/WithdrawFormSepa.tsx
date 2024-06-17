@@ -34,8 +34,7 @@ const WithdrawFormSepa = () => {
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
         accountNumber: null,
-        transferDescription: null,
-        comment: null
+        transferDescription: null
     });
 
     useEffect(()=>{
@@ -189,7 +188,6 @@ const WithdrawFormSepa = () => {
             </div>
             
             <Modal
-                zIndex
                 destroyOnClose
                 isModalOpen={isModalOpen}
                 onCancel={handleCancel}

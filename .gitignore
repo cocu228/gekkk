@@ -19,6 +19,7 @@ dev-dist
 .env.local
 
 !src/app/chat/dist/
+public/site.webmanifest
 
 # Editor directories and files
 .vscode/*

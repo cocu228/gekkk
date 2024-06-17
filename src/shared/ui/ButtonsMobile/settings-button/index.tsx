@@ -29,7 +29,7 @@ export function SettingsButton(props: Props ) {
           >{props.text}</h4>
         </div>
         <div className={"flex gap-[10px] items-center"}>
-            {props?.isLang ? <p className={"text-[10px] text-[var(--gek-dark-grey)]"}>{t("language_name")}</p> : null}
+            {md && props?.isLang ? <p className={"text-fs10 text-[var(--gek-dark-grey)]"}>{t("language_name")}</p> : null}
             {md && <IconApp size={13} code="t08" color="#B9B9B5" className="min-w-[13px]" />}
         </div>
       </FrameItem>

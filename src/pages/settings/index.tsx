@@ -117,6 +117,7 @@ export function Settings() {
                       key={ind}
                       icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
                       text={t(item.text)}
+                      isLang={item.selectArea === "language"}
                       onClick={() => {
                         setSelectedArea(item.selectArea);
                       }}

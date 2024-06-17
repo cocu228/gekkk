@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import {useTranslation} from "react-i18next";
 import { FrameItem } from "../../FrameItem";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from '../styles.module.scss'
@@ -9,12 +10,13 @@ interface Props {
     isSelected?: boolean;
     icon: ReactNode;
     text: string;
-
+    isLang?: boolean;
 }
 
 export function SettingsButton(props: Props ) {
     const {md} = useBreakpoints();
-    
+    const {t} = useTranslation();
+
     return (
         <FrameItem
           onClick={props.onClick}
@@ -26,7 +28,10 @@ export function SettingsButton(props: Props ) {
             className={`${styles.itemTitle} ${props.isSelected && styles.itemTitleSelected}`}
           >{props.text}</h4>
         </div>
-        {md && <IconApp size={13} code="t08" color="#B9B9B5" className="min-w-[13px]" />}
+        <div className={"flex gap-[10px] items-center"}>
+            {props?.isLang ? <p className={"text-[10px] text-[var(--gek-dark-grey)]"}>{t("language_name")}</p> : null}
+            {md && <IconApp size={13} code="t08" color="#B9B9B5" className="min-w-[13px]" />}
+        </div>
       </FrameItem>
     );
 }

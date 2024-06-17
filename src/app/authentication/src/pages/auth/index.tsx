@@ -1,8 +1,5 @@
 ﻿import styles from './style.module.css';
-import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
-import LogoIcon from "../../widgets/components/icons/LogoIcon";
-import GekwalletLogoIcon from "../../widgets/components/icons/GekwalletLogoIcon";
-import SupportIcon from "../../widgets/components/icons/SupportIcon";
+import backgroundLogoIcon from "../../../../../../public/img/G_logo.svg";
 import {useEffect, useState} from "preact/hooks";
 import {CallResetForm} from '../../widgets/call-reset-form/CallResetForm';
 import {ChangePasswordForm} from '../../widgets/change-password-form/ChangePasswordForm';
@@ -14,10 +11,15 @@ import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
+import { IconApp } from "../../widgets/components/IconApp"
+import {AppType, getInitialAppType} from "../../utils/getMode";
+import GekkoinLogoIcon from "./icons/gekkoin-logo-icon";
+import GekwalletLogoIcon from "./icons/gekwallet-logo-icon";
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
 const Auth = () => {
+    const [detailsActive, setDetailsActive] = useState(false)
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const emailCode = urlParams.get('emailCode');
@@ -27,7 +29,6 @@ const Auth = () => {
     const [form, setForm] = useState<IForm>(!emailCode ? 'LOGIN' : 'RESET_PASSWORD');
 
     // const [chatOpened, setChatOpened] = useState<boolean>(false)
-    const isGekwallet = import.meta.env.MODE.includes("gekwallet");
 
     useEffect(() => {
         const runCMA = async () => {
@@ -50,6 +51,22 @@ const Auth = () => {
         runCMA();
     }, []);
 
+    const iconCodes: Record<AppType, { title: string, icon: JSX.Element }> = {
+        gekkard: {
+            title: "Welcome to Gekkard online bank",
+            icon: <IconApp width={120} height={40} code={"w2"} color='none' lib={3}/>
+        },
+        gekkoin: {
+            title: "Welcome to Gekkoin invest platform",
+            icon: <GekkoinLogoIcon />
+        },
+        gekwallet: {
+            title: "Welcome to Gekwallet",
+            icon: <GekwalletLogoIcon />
+        },
+    };
+
+    const modeInfo = iconCodes[getInitialAppType()];
 
     return (
         // chatOpened ? <SupportChatUnauthorized setClose={setChatOpened}/> :
@@ -57,7 +74,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    {isGekwallet? <GekwalletLogoIcon/>:<LogoIcon/>}
+                    {modeInfo.icon}
                 </div>
                 <div
                     onClick={() => {
@@ -66,7 +83,7 @@ const Auth = () => {
                     }}
                     style={{cursor: "pointer"}}
                 >
-                    <SupportIcon fill={"white"}/>
+                    <IconApp code='t25' color='#fff' size={22} />
                 </div>
             </div>
 
@@ -75,7 +92,7 @@ const Auth = () => {
                     <header>
                         <h2>
                             {form === 'LOGIN'
-                                ? isGekwallet? 'Welcome to Gekwallet' : 'Welcome to Gekkard online bank'
+                                ? modeInfo.title
                                 : 'Password reset form'
                             }
                         </h2>
@@ -114,7 +131,14 @@ const Auth = () => {
                     <CookiePolicy/>
 
                     <details>
-                        <summary><h4>Don’t have an account?</h4></summary>
+                        <summary onClick={() => setDetailsActive(!detailsActive)} >
+                            <h4>
+                                <div style={{rotate: detailsActive ? '90deg' : '0deg'}} class={`detailsArr`} >
+                                    <IconApp code='w4' color='#000' size={10} lib={3} />
+                                </div>
+                                Don’t have an account?
+                            </h4>
+                        </summary>
 
                         <a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
                             Go to Gekkard registration form
@@ -165,7 +189,9 @@ const Auth = () => {
                 </div>
 
                 <figure>
-                    <div className={styles.MainBackground}><BackgroundLogoIcon/></div>
+                    <div className={styles.MainBackground}>
+                        <img src={backgroundLogoIcon} />
+                    </div>
                 </figure>
             </div>
         </>

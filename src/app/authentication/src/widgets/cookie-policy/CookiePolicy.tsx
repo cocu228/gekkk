@@ -21,7 +21,7 @@ export const CookiePolicy = memo(() => {
     
     return !isShown ? null : <div className={styles.Body}>
         <div className={styles.Header}>
-            <IconApp size={50} code='w1' color='' authLib />
+            <IconApp size={50} code='w1' color='' lib={3} />
             <span>Cookie policy applies</span>
         </div>
 

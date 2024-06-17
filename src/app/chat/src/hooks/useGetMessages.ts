@@ -43,7 +43,7 @@ const useGetMessages = () => {
     }, [ws, offset]);
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        let timer: any;
         if (lazyLoading) {
             timer = setTimeout(() => {
                 setLazyLoading(false)

@@ -26,8 +26,8 @@ export const CookiePolicy = memo(() => {
         </div>
 
         <div className={styles.Description} style={{ color: 'var(--new-dark-blue)'}}>
-            Our website uses cookies. The policy objective is to explain how Papaya (hereafter referred to as “we”) uses cookies and processes personal data.
-            
+            Our website uses cookies. The policy objective is to explain
+            how we uses cookies and processes personal data.
             <div>
                 Read more information <a className='typography-b2' href='https://gekkard.com/cookies-policy.html'>here</a>.
             </div>

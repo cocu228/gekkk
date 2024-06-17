@@ -1,56 +1,84 @@
 .Body {
   flex: 0 0 auto;
-  width: 480px;
-  background: white;
   position: fixed;
-  bottom: 29px;
-  right: 126px;
-  padding: 24px 27px;
+  right: 63px;
+  bottom: 42px;
+  width: 437px;
+  background: white;
+  padding: 24px 50px;
   display: flex;
   flex-direction: column;
+  border: 2px solid #EEEEEEA6;
   gap: 24px;
-  border-radius: '8px';
+  border-radius: 8px;
   z-index: 1;
   box-shadow:
-    3px 2px 8px 0px #A8A8A84A,
-    13px 8px 15px 0px #A8A8A842,
-    28px 17px 20px 0px #A8A8A826,
-    50px 30px 23px 0px #A8A8A80A,
-    79px 47px 26px 0px #A8A8A803;
+    3px 2px 8px 0 #A8A8A84A,
+    13px 8px 15px 0 #A8A8A842,
+    28px 17px 20px 0 #A8A8A826,
+    50px 30px 23px 0 #A8A8A80A,
+    79px 47px 26px 0 #A8A8A803;
 
   @media (max-width:768px) {
-    width: calc(100% - 40px);
-    margin-top: 40px;
-    margin-bottom: 20px;
-    bottom: 20px;
-    right: 20px;
+    width: calc(100% - 100px);
+    padding: 10px 15px;
+    gap: 10px;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #DCDCD9
   }
 }
 
 .Header {
-  font-weight: 700;
-  gap: 24px;
-  font-size: 20px;
-  line-height: 26px;
   display: flex;
   align-items: center;
+  gap: 24px;
+  font-size: clamp(0.625rem, -0.4167rem + 3.4722vw, 1.25rem);
+  font-weight: 700;
   color: var(--gek-text-primary);
+
+  @media (max-width:768px) {
+    gap: 15px;
+  }
+}
+
+.Header > svg {
+  @media (max-width:768px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .Description {
-  font-size: 12px;
+  font-size: clamp(0.5rem, 0.0833rem + 1.3889vw, 0.75rem);
   font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: left;
   color: var(--gek-additional);
 
   a {
+    text-decoration: none;
+    font-weight: 700;
     cursor: pointer;
   }
 }
 
 .FormButtons {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 24px;
+}
+
+.FormButtons > button {
+  width: 120px;
+  height: 43px;
+
+  @media (max-width:768px) {
+    font-size: 10px;
+    width: auto;
+    height: auto;
+    padding: 6px 22px;
+  }
 }

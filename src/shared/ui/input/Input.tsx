@@ -55,7 +55,7 @@ const Input = React.forwardRef(
             }
         };
         return (
-            <>
+            <div className={'w-full'}>
                 <div
                     data-size={inputSize}
                     className={`${styles.Input} ${
@@ -85,10 +85,10 @@ const Input = React.forwardRef(
                         )
                     }
                 </div>
-                {caption && showCaption ? <div className='display: flex'>
+                {caption && showCaption ? <div className='display: flex mt-[5px]'>
                     <text className={styles.Caption}>*{caption}</text>
                 </div> : ''}
-            </>
+            </div>
         );
     }
 );

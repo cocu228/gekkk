@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
+import {IconApp} from "@/shared/ui/icons/icon-app";
 
 export function ChangePassword() {
   const { t } = useTranslation();
@@ -20,10 +21,22 @@ export function ChangePassword() {
   const [confirmCode, setConfirmCode] = useState<string>();
   const [confirmNewPass, setConfirmNewPass] = useState<string>();
   const [changeCodeSent, setChangeCodeSent] = useState<boolean>(false);
+  const [code, setCode] = useState("t84");
+  const [type, setType] = useState('password');
 
   const passSave = (e: any) => {
     setNewPass(e.target.value);
   };
+
+  const handleToggle = () => {
+    if (type==='password'){
+      setCode('t85')
+      setType('text')
+    } else {
+      setCode('t84')
+      setType('password')
+    }
+  }
 
   const passConfirm = (e: any) => {
     setConfirmNewPass(e.target.value);
@@ -42,14 +55,16 @@ export function ChangePassword() {
       <div className={styles.passwordWrap}>
         <div className={styles.passwordLine}>
           <h4 className={styles.inputTitle}>{t("new_password")}:</h4>
-            <Input
+          <Input
               allowDigits
               allowSymbols
+              type={type}
               onChange={passSave}
+              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} onClick={handleToggle}/>}
               value={newPass}
               className="min-h-[40px] h-[52px]"
               placeholder={t("enter_new_password")}
-            />
+          />
         </div>
         <div className={styles.passwordLine}>
           <h4 className={styles.inputTitle}>{t("confirm_password")}:</h4>
@@ -57,6 +72,7 @@ export function ChangePassword() {
             allowDigits
             allowSymbols
             onChange={passConfirm}
+            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} onClick={handleToggle}/>}
             value={confirmNewPass}
             className="min-h-[40px] h-[52px]"
             placeholder={t("confirm_new_password")}

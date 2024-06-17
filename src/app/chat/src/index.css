@@ -1,18 +1,3 @@
-/* Todo Start: Remove When build */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    background: #000;
-}
-#chat {
-    width: 400px;
-    height: 600px;
-}
-/* Todo End: Remove When build */
-
 #chat * {
     user-select: none;
 }

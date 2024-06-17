@@ -6,6 +6,11 @@ interface IProps {
     onClick?: () => void;
     size?: number | string,
     color?: string,
+    /**
+     * @value 1 - old icons library
+     * @value 2 - app icons library
+     * @value 3 - auth icons library
+     * */
     lib?: 1 | 2 | 3;
     width?: number;
     height?: number;

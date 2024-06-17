@@ -11,7 +11,8 @@ import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
-import { IconApp } from "../../widgets/components/IconApp/index"
+import { IconApp } from "../../widgets/components/IconApp"
+import {AppType, getInitialAppType} from "../../utils/getMode";
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -48,6 +49,13 @@ const Auth = () => {
         runCMA();
     }, []);
 
+    const iconCodes: Record<AppType, string> = {
+        GEKKARD: "w2",
+        GEKKOIN: "w3",
+        GEKWALLET: "w4"
+    };
+
+    const logoCode = iconCodes[getInitialAppType()];
 
     return (
         // chatOpened ? <SupportChatUnauthorized setClose={setChatOpened}/> :
@@ -55,7 +63,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    <IconApp width={120} height={40} code='w2' color='none' authLib />
+                    <IconApp width={120} height={40} code={logoCode} color='none' lib={3} />
                 </div>
                 <div
                     onClick={() => {
@@ -115,7 +123,7 @@ const Auth = () => {
                         <summary onClick={() => setDetailsActive(!detailsActive)} >
                             <h4>
                                 <div style={{rotate: detailsActive ? '90deg' : '0deg'}} class={`detailsArr`} >
-                                    <IconApp code='w4' color='#000' size={10} authLib />
+                                    <IconApp code='w4' color='#000' size={10} lib={3} />
                                 </div>
                                 Don’t have an account?
                             </h4>

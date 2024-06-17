@@ -21,7 +21,7 @@ const Icon = ({img}) => {
 
     return (
         <>
-            <IconApp size={20} code='w3' color='none' authLib />
+            <IconApp size={20} code='w3' color='none' lib={3} />
         </>
     )
 }

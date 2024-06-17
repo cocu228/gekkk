@@ -15,6 +15,7 @@ import { IconApp } from "../../widgets/components/IconApp"
 import {AppType, getInitialAppType} from "../../utils/getMode";
 import GekkoinLogoIcon from "./icons/gekkoin-logo-icon";
 import GekwalletLogoIcon from "./icons/gekwallet-logo-icon";
+import {ComponentChildren} from "preact";
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -51,7 +52,7 @@ const Auth = () => {
         runCMA();
     }, []);
 
-    const iconCodes: Record<AppType, { title: string, icon: JSX.Element }> = {
+    const iconCodes: Record<AppType, { title: string, icon: ComponentChildren }> = {
         gekkard: {
             title: "Welcome to Gekkard online bank",
             icon: <IconApp width={120} height={40} code={"w2"} color='none' lib={3}/>

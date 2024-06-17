@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import useColorSet from '../../hooks/useColorSet'
 
 export type Props = {
     showHeader?: boolean
@@ -38,7 +37,6 @@ const ChatTitle = styled.div<{
 text-align:center;
 vertical-align:text-top;
 font-size:16px;
-line-height:auto;
 color:${({ color }) => color || '#000000'};
 position:absolute;
 width: 100%;
@@ -58,11 +56,6 @@ box-sizing: border-box;
 `
 
 export default function ConversationHeader({ loading, showHeader = true }: Props) {
-
-    const backgroundColor = useColorSet("--chatlist-header-background-color")
-    const textColor = useColorSet("--chatlist-header-text-color")
-    const dividerColor = useColorSet("--chatlist-header-divider-color")
-
     return (
         <>
             {
@@ -73,11 +66,11 @@ export default function ConversationHeader({ loading, showHeader = true }: Props
                         <HeaderPlaceholder />
                         :
                         <Container
-                            dividerColor={dividerColor}
-                            backgroundColor={backgroundColor}>
+                            dividerColor={"dividerColor"}
+                            backgroundColor={"backgroundColor"}>
 
                             <ChatTitle
-                                color={textColor}
+                                color={"textColor"}
                             >Messages</ChatTitle>
 
                         </Container>

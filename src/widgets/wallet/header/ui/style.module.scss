@@ -66,7 +66,7 @@
         font-weight: 700;
         line-height: normal;
         margin-left: 1px;
-        color: var(--Pale-blue, #3A5E66);
+        color: #285E69;
     }
 
     &Income{
@@ -75,11 +75,11 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        color: var(--gek-green);
+        // color: var(--gek-green);
 
         &EUR {
             font-family: "Azeret Mono";
-            color: var(--Pale-blue, #3A5E66);
+            // color: var(--Pale-blue, #3A5E66);
         }
     }
 
@@ -89,7 +89,6 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        color: #972235;
     }
 
     &Orders{

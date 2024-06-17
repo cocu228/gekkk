@@ -16,7 +16,6 @@ import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
-import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import styles from './styles.module.scss'
@@ -311,7 +310,6 @@ const WithdrawConfirmCrypto = memo(
                               allowDigits
                               type="text"
                               onInput={onInput}
-                              autoComplete="off"
                               onChange={inputChange}
                               placeholder={
                                 stageReq.status === 0

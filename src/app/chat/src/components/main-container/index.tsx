@@ -1,38 +1,20 @@
-import React, { } from 'react'
+import {PropsWithChildren} from 'react'
 import styled from 'styled-components'
-import "../../index.css"
-import useColorSet from '../../hooks/useColorSet'
 
 
-const Container = styled.div<{
-    backgroundColor?: string
-}>`
+const Container = styled.div`
+    width: 100%;
     height: 100%;
+    padding: 10px;
     position: relative;
     display: flex;
-    width: 100%;
     flex-direction: row;
-    ${({ backgroundColor }) => backgroundColor ? `background-color: ${backgroundColor};` : ""}
+    background-color: ${({ theme }) => theme.background};
 `
 
-
-export interface Props {
-    style?: React.CSSProperties | undefined
-    children?: React.ReactNode
-}
-
-
-export default function MainContainer({
-    children,
-    style
-}: Props) {
-
-const backgroundColor = useColorSet("--container-background-color")
-
+export default function MainContainer({ children}: PropsWithChildren) {
     return (
-        <Container id='chat-main-container' tabIndex={-1}
-            backgroundColor={backgroundColor}
-            style={style}>
+        <Container id='chat-main-container' tabIndex={-1}>
             {children}
         </Container>
     )

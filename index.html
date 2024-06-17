@@ -60,19 +60,26 @@
       <style>
             #chat {
                   display: none;
-            }
-
-            @media screen and (max-width: 768px) {
-                  #chat {
-                        top: 65px;
-                        width: 100% !important;
-                        height: calc(100% - 65px) !important;
-                  }
+                  width: 350px;
+                  height: 600px;
+                  position: fixed;
+                  bottom: 0;
+                  right: 0;
+                  box-shadow: 0 10px 20px var(--color-gray-200);
             }
 
             #chat.isOpen {
                   z-index: 100;
                   display: block;
+            }
+
+            @media screen and (max-width: 768px) {
+                  #chat {
+                        width: auto;
+                        height: auto;
+                        top: 0;
+                        left: 0;
+                  }
             }
       </style>
 
@@ -142,10 +149,10 @@
 
             </div>
       </div>
-      <div style="width: 400px; height: 600px; position: fixed; bottom: 0; right: 0" id="chat">
+      <div id="chat">
 
       </div>
       <script async type="module" src="/src/app/init.ts"></script>
-      
+
 </body>
 </html>

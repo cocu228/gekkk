@@ -27,7 +27,8 @@
     color: #1F3446;
     font-weight: 500;
     font-size: 16px;
-            
+    line-height: normal;        
+
     @include max-devices("md") {
         font-weight: 700;
         font-size: 12px;
@@ -37,9 +38,13 @@
 .InpBlock {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 7px;
 }
 
+.AdrWrap{
+    display: flex;
+    flex-direction: row !important;
+}
 .LawText {
     font-size: 12px;
     color: #b4c0cd;

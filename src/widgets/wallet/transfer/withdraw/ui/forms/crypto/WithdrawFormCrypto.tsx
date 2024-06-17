@@ -18,7 +18,6 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import style from './styles.module.scss'
 import InputCurrency from "@/shared/ui/input-currency/ui";
@@ -51,7 +50,7 @@ const WithdrawFormCrypto = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
-  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();    
+  const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();
 
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
@@ -124,6 +123,7 @@ const WithdrawFormCrypto = () => {
                   name={"amount"}
                   value={inputCurr.value.string}
                   currency={currency.$const}
+                  placeholder={t("exchange.enter_amount")}
                   onChange={setInputCurr}
                 />
               </InputCurrency.DisplayBalance>
@@ -133,29 +133,35 @@ const WithdrawFormCrypto = () => {
         {localErrorInfoBox && <div className='py-5'>
                 {localErrorInfoBox}    
             </div>}
-        <div className={style.InpBlock}>
-            <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
-            <Input
-            allowDigits
-            allowSymbols
-            value={inputs.address}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-            placeholder={t("enter_withdrawal_address")}
-            name={"address"}
-            suffix={<div onClick={qrCodeModal.showModal}>
-              <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34' />
-            </div>}
-          />
-        </div>   
-        <Modal
-          isModalOpen={qrCodeModal.isModalOpen}
-          onCancel={qrCodeModal.handleCancel}
-          title="&nbsp;"
-          noBorder
-        >
-          <QrcodeScanner
-            onSuccess={(value: string) => {
+          <div className={style.InpBlock}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
+              <div className='flex'>
+                  <Input
+                      allowDigits
+                      allowSymbols
+                      value={inputs.address}
+                      onChange={onInput}
+                      disabled={!networkTypeSelect}
+                      placeholder={t("enter_withdrawal_address")}
+                      name={"address"}
+                  />
+                  {md ?
+                        <div className='pl-2' onClick={qrCodeModal.showModal}>
+                            <IconApp className="cursor-pointer" size={30} code='t81'/>
+                        </div> :
+                        <div className='pl-2 pt-2.5' onClick={qrCodeModal.showModal}>
+                            <IconApp className="cursor-pointer" size={40} code='t81'/>
+                        </div>
+                  }
+                      </div>
+                      </div>
+                      <Modal
+                      isModalOpen={qrCodeModal.isModalOpen}
+                  onCancel={qrCodeModal.handleCancel}
+                  title="&nbsp;"
+              >
+                  <QrcodeScanner
+                      onSuccess={(value: string) => {
               setInputs(prev => ({
                 ...prev,
                 address: value
@@ -173,16 +179,13 @@ const WithdrawFormCrypto = () => {
               disabled={!networkTypeSelect}
               name={"recipient"}
               placeholder={t("enter_recepients_name")}
+              caption={!inputs.recipient && t("EW_law")}
             />
-
-          <span className={style.LawText}>
-            {!inputs.recipient && t("EW_law")}
-          </span>
         </div>   
 
         <div className={style.InpBlock}>
             <span className={`${styles.TitleColText} ml-[10px]`}>{t("desc_optional")}:</span>
-            <TextArea
+            <Input
               allowDigits
               allowSymbols
               placeholder={t('enter_description')}

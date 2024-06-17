@@ -5,7 +5,7 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/mask-account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { NavLink, useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -25,12 +25,13 @@ const HeaderMobile = ({ items, actions }) => {
     const settingsTab = params.get("sessionsSection");
     const currency = params.get("currency");
 
-
     const homePage = useMatch("/");
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
     const historyPage = useMatch("/history");
+    const walletPage = useMatch("/wallet");
     const isOnMainPages = !!homePage;
+
 
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
@@ -140,12 +141,22 @@ const HeaderMobile = ({ items, actions }) => {
                         </div>
                     )
                 ) : (
-                    (
+                    <div className="flex items-center justify-between w-full">
                         <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
                             <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
                             <span className={styles.HeaderTitle}>{headerTitle()}</span>
                         </div>
-                    )
+                        {
+                            walletPage?.pathname === '/wallet' && params.get('currency') === 'EUR' && (
+                                <Link to='/settings?sessionsSection=my-reports' >
+                                    <div className="flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold">
+                                        Reports
+                                        <IconApp code="t09" className="min-w-[9px]" size={9} color="#fff" />
+                                    </div>
+                                </Link>
+                            )
+                        }
+                    </div>
                 )
             }
             {!(exchangePage || privateRoomPage) ? null : (

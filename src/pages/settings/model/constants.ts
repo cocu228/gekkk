@@ -43,9 +43,9 @@ export const settingsList = [
       text: 'pricing',
       selectArea: 'pricing',
     },
-    {
-      iconCode: 't09',
-      text: 'my_reports',
-      selectArea: 'my-reports',
-    },
+    // {
+    //   iconCode: 't09',
+    //   text: 'my_reports',
+    //   selectArea: 'my-reports',
+    // },
 ]

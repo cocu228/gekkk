@@ -51,8 +51,16 @@
       background: var(--gek-mid-grey);
     }
 
-    &:not(:disabled):hover {
-      background: var(--gek-additional);
+    @media screen and (min-width: 768px) {
+      &:not(:disabled):hover {
+        background: var(--gek-additional);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      &:not(:disabled):active {
+        background: var(--gek-additional);
+      }
     }
 
     &.Skeleton {
@@ -69,12 +77,27 @@
         }
       }
 
-      &:not(:disabled):hover {
-        color: var(--gek-background);
 
-        svg {
-          fill: var(--gek-background);
-          stroke: var(--gek-background);
+
+      @media screen and (min-width: 768px) {
+        &:not(:disabled):hover {
+          color: var(--gek-background);
+  
+          svg {
+            fill: var(--gek-background);
+            stroke: var(--gek-background);
+          }
+        }
+      }
+  
+      @media screen and (max-width: 768px) {
+        &:not(:disabled):active {
+          color: var(--gek-background);
+  
+          svg {
+            fill: var(--gek-background);
+            stroke: var(--gek-background);
+          }
         }
       }
     }
@@ -87,8 +110,16 @@
       color: var(--gek-green);
       border: 2px solid var(--gek-green);
 
-      &:not(:disabled):hover {
-        background: var(--gek-green);
+      @media screen and (min-width: 768px) {
+        &:not(:disabled):hover {
+          background: var(--gek-green);
+        }
+      }
+  
+      @media screen and (max-width: 768px) {
+        &:not(:disabled):active {
+          background: var(--gek-green);
+        }
       }
     }
   }
@@ -101,9 +132,19 @@
       color: var(--gek-mid-grey);
       border: 1px solid var(--gek-mid-grey);
 
-      &:not(:disabled):hover {
-        background: var(--gek-additional);
-        border: 1px solid var(--gek-additional);
+
+      @media screen and (min-width: 768px) {
+        &:not(:disabled):hover {
+          background: var(--gek-additional);
+          border: 1px solid var(--gek-additional);
+        }
+      }
+  
+      @media screen and (max-width: 768px) {
+        &:not(:disabled):active {
+          background: var(--gek-additional);
+          border: 1px solid var(--gek-additional);
+        }
       }
     }
   }
@@ -111,12 +152,27 @@
   &.Blue {
     background: var(--gek-additional);
 
-    &:not(:disabled):hover {
-      background: var(--gek-green);
 
-      svg {
-        fill: var(--gek-background);
-        stroke: var(--gek-background);
+
+    @media screen and (min-width: 768px) {
+      &:not(:disabled):hover {
+        background: var(--gek-green);
+  
+        svg {
+          fill: var(--gek-background);
+          stroke: var(--gek-background);
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      &:not(:disabled):active {
+        background: var(--gek-green);
+  
+        svg {
+          fill: var(--gek-background);
+          stroke: var(--gek-background);
+        }
       }
     }
 
@@ -124,8 +180,17 @@
       color: var(--gek-additional);
       border: 1px solid var(--gek-additional);
 
-      &:not(:disabled):hover {
-        background: var(--gek-additional);
+
+      @media screen and (min-width: 768px) {
+        &:not(:disabled):hover {
+          background: var(--gek-additional);
+        }
+      }
+  
+      @media screen and (max-width: 768px) {
+        &:not(:disabled):active {
+          background: var(--gek-additional);
+        }
       }
     }
   }
@@ -137,8 +202,18 @@
       color: var(--gek-red);
       border: 2px solid var(--gek-red);
 
-      &:not(:disabled):hover {
-        background: var(--gek-red);
+      @media screen and (min-width: 768px) {
+        &:not(:disabled):hover {
+          background: var(--gek-red);
+        }
+  
+      }
+  
+      @media screen and (max-width: 768px) {
+        &:not(:disabled):active {
+          background: var(--gek-red);
+        }
+  
       }
     }
   }

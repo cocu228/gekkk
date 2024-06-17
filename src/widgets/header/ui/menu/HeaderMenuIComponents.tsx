@@ -121,7 +121,7 @@ export const EnableNotifications = () => {
                 {t("header_menu.enable_notifications")}
             </button>
             <Modal
-                noBorder
+                noHeaderBorder
                 title="&nbsp;"
                 closable={false}
                 isModalOpen={isModalOpen}

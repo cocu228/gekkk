@@ -69,7 +69,7 @@ const ApplyTransferCode = () => {
                 {!md ? <Input 
                     value={input} 
                     disabled={loading}
-                    wrapperClassName={"w-full"}
+                    className={"w-full"}
                     allowDigits
                     onChange={({target}) => setInput(target.value)}
                     placeholder={t("enter_top_up_code")} type={"text"}
@@ -80,7 +80,7 @@ const ApplyTransferCode = () => {
                             value={input}
                             disabled={loading}
                             onChange={(event) => {
-                                if(validateInput(event, true, false)){
+                                if(validateInput(event, true, false, false)){
                                     setInput(event.target.value)
                                 }
                             }}

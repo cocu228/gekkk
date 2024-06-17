@@ -4,27 +4,27 @@ import styles from './styles.module.scss'
 import { IconApp } from '../icons/icon-app';
 
 interface ModalProps {
-    isModalOpen: boolean;
-    onCancel: () => void;
     title: string;
-    children: ReactNode;
-    destroyOnClose?: boolean;
-    placeBottom?: boolean;
-    noBorder?: boolean;
-    closable?: boolean;
     zIndex?: boolean;
+    closable?: boolean;
+    children: ReactNode;
+    onCancel: () => void;
+    isModalOpen: boolean;
+    placeBottom?: boolean;
+    destroyOnClose?: boolean;
+    noHeaderBorder?: boolean;
 }
 
 export const Modal:FC<ModalProps> = ({
-    isModalOpen,
-    onCancel,
     title,
-    children,
-    destroyOnClose = true,
-    placeBottom,
-    noBorder,
     zIndex,
-    closable = true
+    children,
+    onCancel,
+    isModalOpen,
+    placeBottom,
+    noHeaderBorder,
+    closable = true,
+    destroyOnClose = true
 }) => {
     return (
         <Transition
@@ -39,7 +39,7 @@ export const Modal:FC<ModalProps> = ({
             show={isModalOpen}
         >
             <Dialog as="div" unmount={destroyOnClose} className={`relative ${zIndex ? 'z-[200]' : 'z-[150]'} focus:outline-none`} onClose={onCancel}>
-                <div className={`${styles.Modal} ${noBorder && styles.ModalNoBorder}`}>
+                <div className={`${styles.Modal} ${noHeaderBorder && styles.ModalNoBorder}`}>
                     <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
                     <TransitionChild
                         unmount={destroyOnClose}

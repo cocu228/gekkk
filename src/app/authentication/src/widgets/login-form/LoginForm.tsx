@@ -7,11 +7,23 @@ import {formatAsNumber, setCookieData} from "../../shared";
 import flags from 'react-phone-number-input/flags';
 import {SignIn, SignInUser} from "../../shared";
 import PasswordInput from '../components/passwordInput';
+import { IconApp } from '../components/IconApp';
 
 interface IParams {
     phone: string;
     onPasswordForget: () => void;
     onPhoneChange: (phone: string) => void;
+}
+
+const Icon = ({img}) => {
+
+    console.log(img)
+
+    return (
+        <>
+            <IconApp size={20} code='w3' color='none' authLib />
+        </>
+    )
 }
 
 export const LoginForm = ({
@@ -74,9 +86,8 @@ export const LoginForm = ({
                     </Button>
                 </>
                 : <>
-                    <PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={onPhoneChange} />
+                    <PhoneInput internationalIcon={({title}) => <Icon img={title} />} autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={onPhoneChange} />
                     <PasswordInput id='Password' skipValidation required minLength={6} placeholder={"Password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
-                    
                     <div className={styles.FormButtons} >
                         <Button disabled={!phone || !password || phone.length < 8 || password.length < 6} type="submit">Login</Button>
                         <Button text onClick={onPasswordForget}>Forgot password?</Button>

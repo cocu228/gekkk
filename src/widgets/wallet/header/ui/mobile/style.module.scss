@@ -2,6 +2,7 @@
 @import '../style.module.scss';
 
 .HeaderWalletMobile{
+    position: relative;
     width: 320px;
     display: grid;
     margin: 0.5rem 0;
@@ -10,8 +11,18 @@
     border-radius: 8px;
     aspect-ratio: 1.7486338;
     grid-template-rows: min-content 1fr auto;
-    padding: 15px 12px 10px 12px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 15px 12px 15px 12px;
+    box-shadow: 0px 3px 5px 3px rgba(0, 0, 0, 0.20);
+    
+}
+
+.HeaderWalletMobileWrap {
+    padding-top: 15px;
+    margin: -20px -20px 0 -20px;
+    width: calc(100% + 40px);
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
 }
 
 .WalletInfo{

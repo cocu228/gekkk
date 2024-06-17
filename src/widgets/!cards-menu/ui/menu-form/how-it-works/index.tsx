@@ -1,6 +1,8 @@
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "./styles.module.scss";
 import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 interface IParams {
     onBack: () => void;
@@ -8,6 +10,7 @@ interface IParams {
 
 const HowItWorks = ({onBack}: IParams) => {
     const { t } = useTranslation();
+    const {md} = useBreakpoints()
 
     return (
         <div className="flex items-center justify-center">
@@ -23,13 +26,18 @@ const HowItWorks = ({onBack}: IParams) => {
             <p className={styles.Text}>{t("to_temporarily_deactivate_daily_and_monthly_limits")}</p>
             
             <div className={styles.ButtonContainer}>
-              <Button
-                color="blue"
-                onClick={onBack}
-                className="w-full"
+              <Link
+                to={md ? '/card-menu' : '/wallet?currency=EUR&tab=bank_cards'}
+                className="w-full max-w-[120px]"
               >
-                {t("back")}
-              </Button>
+                <Button
+                  color="blue"
+                  onClick={onBack}
+                  className="w-full"
+                >
+                  {t("back")}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

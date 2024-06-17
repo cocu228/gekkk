@@ -16,11 +16,11 @@
 
 
 .Title{
-  display: inline-flex; 
-  margin-bottom: 0.25rem; 
+  display: inline-flex;
+  margin: 0 0 5px 8px;
   font-size: 0.875rem;
-  line-height: 1.25rem; 
-  font-weight: 500; 
+  line-height: 1.25rem;
+  font-weight: 500;
 
   @include max-devices(md){
     font-size: 12px;
@@ -30,7 +30,7 @@
 }
 
 .SelectToken{
-  
+
   width: 100%;
 
   :global(.ant-select-selector){

@@ -2,6 +2,7 @@
   "lang": "en",
   "languageName": "English",
   "locale": {
+    "copied": "Copied",
     "auth": {
       "login_to_your_account": "Log in to your account",
       "login": "Log in to your personal account is carried out through the",
@@ -18,6 +19,7 @@
       "invalid_password": "Check that the password is 8+ characters, contains at least one of each: number, upper case character, special character.",
       "invalid_phone": "Please enter your full number"
     },
+    "select_token_no_data": "tokens not found",
     "download": "Download",
     "next": "Next",
     "login": "Login",
@@ -1718,7 +1720,9 @@
     "failed": "Failed",
     "canceled": "Canceled",
     "finished": "Finished",
-    "select_type": "Select type"
+    "select_type": "Select type",
+    "select": "Select",
+    "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation"
 
   }
 }

@@ -21,12 +21,9 @@ import {
   CtxWalletNetworks,
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import TextArea from "@/shared/ui/input/text-area/TextArea";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormPhoneNumber = () => {
-  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -90,7 +87,7 @@ const WithdrawFormPhoneNumber = () => {
               onSelect={setInputCurr}
             >
               <InputCurrency
-                transfers
+                placeholder={t("exchange.enter_amount")}
                 onChange={setInputCurr}
                 value={inputCurr.value.string}
                 currency={currency.$const}
@@ -112,8 +109,6 @@ const WithdrawFormPhoneNumber = () => {
           <div className="row">
             <div className="col">
               <Input
-                tranfers={md}
-                bordered={!md}
                 allowDigits
                 allowSymbols
                 name={"phoneNumber"}
@@ -125,7 +120,6 @@ const WithdrawFormPhoneNumber = () => {
           </div>
         </div>
       </div>
-
       <div className="row mb-5 w-full">
         <div className="col">
           <div className="row mb-[3px]">
@@ -137,33 +131,14 @@ const WithdrawFormPhoneNumber = () => {
           </div>
           <div className="row">
             <div className="col flex items-center">
-              {md?
                 <Input
-                  tranfers
-                  bordered={false}
                   allowDigits
                   allowSymbols
                   value={inputs.comment}
                   name={"comment"}
                   onChange={onInputDefault}
                   placeholder={t("enter_description")}
-                  style={{
-                    minHeight: 100,
-                  }}
                 />
-              :
-                <TextArea
-                  allowDigits
-                  allowSymbols
-                  value={inputs.comment}
-                  name={"comment"}
-                  onChange={onInputDefault}
-                  placeholder={t("enter_description")}
-                  style={{
-                    minHeight: 100,
-                  }}
-                />
-              }
             </div>
           </div>
         </div>

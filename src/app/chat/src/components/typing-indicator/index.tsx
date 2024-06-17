@@ -19,7 +19,6 @@ const Container = styled.div`
 const Text = styled.div<{ themeColor: string }>`
 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 font-size:12px;
-line-height:auto;
 font-weight: 600;
 margin-left: 8px;
 

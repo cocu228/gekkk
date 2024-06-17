@@ -2,7 +2,8 @@ import styles from './style.module.css';
 import {memo, useState} from 'preact/compat';
 import {getCookieData, setCookieData} from '../../shared';
 import Button from '../components/button/Button';
-import CookieIcon from '../components/icons/CookieIcon';
+
+import { IconApp } from '../components/IconApp';
 
 export const CookiePolicy = memo(() => {
     const {CookieAccepted} = getCookieData<{CookieAccepted: boolean}>();
@@ -20,13 +21,13 @@ export const CookiePolicy = memo(() => {
     
     return !isShown ? null : <div className={styles.Body}>
         <div className={styles.Header}>
-            <CookieIcon height={50} width={50}/>
+            <IconApp size={50} code='w1' color='' authLib />
             <span>Cookie policy applies</span>
         </div>
 
         <div className={styles.Description} style={{ color: 'var(--new-dark-blue)'}}>
-            Our website uses cookies. The policy objective is to explain how Papaya (hereafter referred to as “we”) uses cookies and processes personal data.
-            
+            Our website uses cookies. The policy objective is to explain
+            how we uses cookies and processes personal data.
             <div>
                 Read more information <a className='typography-b2' href='https://gekkard.com/cookies-policy.html'>here</a>.
             </div>

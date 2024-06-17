@@ -2,6 +2,7 @@
   "lang": "de",
   "languageName": "Deutsch",
   "locale": {
+    "copied": "Kopiert",
     "auth": {
       "login_to_your_account": "Melden Sie sich in Ihrem Konto an",
       "login": "Die Anmeldung in Ihrem persönlichen Konto erfolgt über die",
@@ -18,6 +19,7 @@
       "invalid_password": "Es sind nur Zahlen erlaubt, Mindestlänge 6 Zeichen",
       "invalid_phone": "Bitte geben Sie Ihre vollständige Nummer ein"
     },
+    "select_token_no_data": "Token nicht gefunden",
     "download": "Herunterladen",
     "next": "Weiter",
     "login": "Anmelden",
@@ -1475,7 +1477,9 @@
     "canceled": "Abgebrochen",
     "finished": "Beendet",
     "select_type": "Typ auswählen",
-    "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen"
+    "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen",
+    "select": "Auswählen", 
+    "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können"
 
 
 

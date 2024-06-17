@@ -12,12 +12,12 @@ import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP } from "@/shared/lib";
 
-
 const WalletHeader = () => {
     const {t} = useTranslation();
     const [params] = useSearchParams();
     const currency = params.get('currency');
     const {account} = useContext(CtxRootData);
+
 
     const {
         name,
@@ -25,6 +25,7 @@ const WalletHeader = () => {
         balance,
         decimalPrec
     } = useContext(CtxWalletData);
+
 
 
     const isEURG: boolean = $const === 'EURG';
@@ -67,6 +68,7 @@ const WalletHeader = () => {
                         </span>
                     </div>
                 </div>
+                
                 <div className={styles.IconBalance}>
                     <div className={styles.WalletInfoMain}>
                         <div className={styles.WalletInfoMainText + " " + styles.WalletInfoMainTextFree}>

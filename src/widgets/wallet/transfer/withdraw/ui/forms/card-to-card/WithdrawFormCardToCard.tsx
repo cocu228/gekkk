@@ -23,11 +23,10 @@ import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entity
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from "react-i18next";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
-import { Select } from "@/shared/ui/SearchSelect/Select";
+import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
 
 const WithdrawFormCardToCard = () => {
@@ -40,7 +39,6 @@ const WithdrawFormCardToCard = () => {
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { md } = useBreakpoints();
 
   const [inputs, setInputs] = useState<{
     comment: string;
@@ -65,7 +63,7 @@ const WithdrawFormCardToCard = () => {
 
   const {
     min_withdraw = 0,
-    percent_fee = 0,
+    // percent_fee = 0,
     withdraw_fee = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
@@ -125,9 +123,10 @@ const WithdrawFormCardToCard = () => {
               >
                 <InputCurrency.DisplayBalance currency={currency}>
                   <InputCurrency
-                    className="p-[4px_17px]"
+                    className=""
                     transfers
                     onChange={setInputCurr}
+                    placeholder={t("exchange.enter_amount")}
                     value={inputCurr.value.string}
                     currency={currency.$const}
                   />
@@ -165,10 +164,7 @@ const WithdrawFormCardToCard = () => {
             {t("to_card")}:
           </span>
           <Input
-              wrapperClassName={style.CardToCardInput}
               placeholder={`-${"enter_description"}-`}
-              tranfers
-              bordered={false}
               allowDigits
               type={"text"}
               onInput={onCardNumberInput}
@@ -185,9 +181,6 @@ const WithdrawFormCardToCard = () => {
             {t("cardholder")}:
           </span>
           <Input
-              wrapperClassName={style.CardToCardInput}
-              tranfers
-              bordered={false}
               value={inputs.cardholderName}
               onChange={({ target }) => {
                 setInputs(() => ({
@@ -204,62 +197,60 @@ const WithdrawFormCardToCard = () => {
             {t("description")}:
           </span>
           <Input
-              tranfers={md}
-              bordered={!md}
               allowDigits
               allowSymbols
               value={inputs.comment}
               name={"comment"}
               onChange={onInputDefault}
               placeholder={`-${t("enter_description")}-`}
-              style={{
-                height: 56,
-              }}
             />
         </div>   
-        <div className={style.PayInfoWrap}>
-          <div className={styles.PayInfo}>
-            <div className={styles.PayInfoCol}>
-              <div className="row">
-                <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-              </div>
-              <div className="row">
-                <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-              </div>
-              <div className="row">
-                <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-              </div>
-            </div>
-            <div className={styles.PayInfoColValue}>
+        
+        <div className="mt-[20px]">
+          <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
+            <div className={`${styles.PayInfo} max-w-[210px] w-full`}>
               <div className={styles.PayInfoCol}>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexText}>
-                    {/* Total amount, that user pays */}
-                    {inputCurr.value.number + withdraw_fee}
-                  </span>
+                <div className="row">
+                  <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
                 </div>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexText}>
-                    {/* Amount, that recipient recieve */}
-                    {inputCurr.value.number}
-                  </span>
+                <div className="row">
+                  <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
                 </div>
-                <div className={styles.PayInfoValueFlex}>
-                  <span className={styles.PayInfoValueFlexTextFee}>
-                    {/* Fee amount */}
-                    {withdraw_fee}
-                  </span>
+                <div className="row">
+                  <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
                 </div>
               </div>
+              <div className={styles.PayInfoColValue}>
+                <div className={styles.PayInfoCol}>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexText}>
+                      {/* Total amount, that user pays */}
+                      {inputCurr.value.number + withdraw_fee}
+                    </span>
+                  </div>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexText}>
+                      {/* Amount, that recipient recieve */}
+                      {inputCurr.value.number}
+                    </span>
+                  </div>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexTextFee}>
+                      {/* Fee amount */}
+                      {withdraw_fee}
+                    </span>
+                  </div>
+                </div>
 
-              <div className={styles.PayInfoCol}>
-                <span className={styles.PayInfoValueFlexTextCurrency}>
-                  {currency.$const}
-                </span>
-                <span className={styles.PayInfoValueFlexTextCurrency}>EURG</span>
-                <span className={styles.PayInfoValueFlexTextFee}>
-                  {currency.$const}
-                </span>
+                <div className={styles.PayInfoCol}>
+                  <span className={styles.PayInfoValueFlexTextCurrency}>
+                    {currency.$const}
+                  </span>
+                  <span className={styles.PayInfoValueFlexTextCurrency}>EURG</span>
+                  <span className={styles.PayInfoValueFlexTextFee}>
+                    {currency.$const}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

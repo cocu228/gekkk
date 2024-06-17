@@ -1,9 +1,11 @@
-import {InnerContainer, Title} from "./style";
+import {FC} from "react";
+import {useTheme} from "styled-components";
 import useMedia from "../../hooks/useMedia";
 import {IconApp} from "../../shared/components/icon-app";
-import {useTheme} from "styled-components";
 
-export default function MessageHeader() {
+import {InnerContainer, Title} from "./style";
+
+const MessageHeaderContainer: FC = () => {
     const { isMobile } = useMedia()
     const theme = useTheme()
 
@@ -19,3 +21,5 @@ export default function MessageHeader() {
         </InnerContainer>
     );
 }
+
+export default MessageHeaderContainer

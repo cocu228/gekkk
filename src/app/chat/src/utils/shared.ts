@@ -1,28 +1,29 @@
 import {MD5} from "crypto-js";
+import {CookiesType} from "../types/CookiesType";
 
 export function generateUid() {
     // Generate a random Uint32 value as a string
     const uid = Math.floor(Math.random() * 0xffffffff).toString(16);
     // Calculate the MD5 hash of the UID using crypto-js
-    const hashUid = MD5(uid).toString();
-
-    return hashUid;
+    return MD5(uid).toString();
 }
 
-export const getCookieData = <T>(): T => {
+export const getCookieData = () => {
     const cookieValue = document.cookie;
     const cookiePairs = cookieValue.split(';');
-    const cookieData = {} as T;
+    const cookieData: CookiesType = {
+        accountId: "",
+        "chat-session-id": "",
+        "device-id-hash": ""
+    };
 
     for (let i = 0; i < cookiePairs.length; i++) {
         const pair = cookiePairs[i].trim();
         const separatorIndex = pair.indexOf('=');
-        const key = pair.substring(0, separatorIndex);
+        const key = pair.substring(0, separatorIndex) as keyof CookiesType;
         const value = pair.substring(separatorIndex + 1);
 
-        const decodedValue = decodeURIComponent(value);
-        //@ts-ignore
-        cookieData[key] = decodedValue as T[keyof T];
+        cookieData[key] = decodeURIComponent(value);
     }
 
     return cookieData;

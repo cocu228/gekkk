@@ -3,7 +3,7 @@ import UserType from "./UserType"
 export interface MediaType {
   type: "image" | "video" | "file" | "gif"
   url: string
-  size?: string
+  size?: number
   name?: string
 }
 

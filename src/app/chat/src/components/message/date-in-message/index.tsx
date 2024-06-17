@@ -1,50 +1,23 @@
-import styled from 'styled-components';
-import MessageType from '../../types/MessageType';
+import {FC} from "react";
+import {Container, DateContainer, DateText} from "./style";
+import MessageType from "../../../types/MessageType";
 
-interface IProps {
+interface IDateInMessageProps {
     messages: MessageType[]
     date: string | undefined,
     index: number
 }
 
-const Container = styled.div`
-    width: 100%;
-    padding-block: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-`
-
-const DateContainer = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-`
-
-const DateText = styled.div`
-    z-index:100;
-    font-size: 10px;
-    font-weight: 700;
-    color: ${({ theme }) => theme.midGray};
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-radius: 10px;
-    opacity: 0.8;
-`
-// Попап окошко, разделяющее сообщения по датам между разными днями (реализовано на основе группировки из виджета History)
-function DatePopupInMessages({messages, index, date}: IProps) {
-
+const DateInMessage: FC<IDateInMessageProps> = ({ messages, index, date }) => {
     const doesPrevDateTimeExist = messages[index - 1]?.createdAt !== undefined;
-    
-    function formatedDate(date: string | undefined):string{
+
+    const formatedDate = (date: string | undefined):string => {
         if(new Date()?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"}) === date){
-          return "Today"
+            return "Today"
         }else{
-          return (date !== undefined ? date : "Today")
+            return (date !== undefined ? date : "Today")
         }
-    
+
     }
 
     const currentMessage = messages[index]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"});
@@ -71,7 +44,6 @@ function DatePopupInMessages({messages, index, date}: IProps) {
             )
         )
     )
-    
 }
 
-export default DatePopupInMessages;
+export default DateInMessage;

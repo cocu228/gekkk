@@ -1,9 +1,9 @@
 import {PropsWithChildren, SetStateAction, Dispatch} from "react";
-import AuthProvider from "../../../providers/AuthProvider";
+import AuthProvider from "../../providers/AuthProvider";
 import {Layout, Container} from "./style";
-import StompSocketProvider from "../../../providers/StompSocketProvider";
-import ChatThemeProvider from "../../../providers/ChatThemeProvider";
-import {ChatMessage} from "../../../types/Shared";
+import StompSocketProvider from "../../providers/StompSocketProvider";
+import ChatThemeProvider from "../../providers/ChatThemeProvider";
+import {ChatMessage} from "../../types/Shared";
 
 interface IMainLayoutProps extends PropsWithChildren {
     setIsWebSocketReady: (value: boolean) => void;

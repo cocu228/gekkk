@@ -49,9 +49,6 @@ const WalletHeaderMobile = () => {
             setRates(rates);
         })();
     }, [account]);
-    if (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) {
-        return <></>
-    }
 
     const {setIsCopied} = useCopyStore()
 
@@ -60,7 +57,7 @@ const WalletHeaderMobile = () => {
         setIsCopied(true)
     }
 
-    return (
+    return (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) ? null : (
         <div className={styles.HeaderWalletMobileWrap}>
             <div className={styles.HeaderWalletMobile}>
                 

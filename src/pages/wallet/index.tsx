@@ -49,13 +49,6 @@ function Wallet() {
         $currency = currencies.get(currency) ? currencies.get(currency) : mockEUR;
     }
 
-    useEffect(() => {
-        if (currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")) {
-
-            navigate("404")
-        }
-    }, [currencies])
-
     const isOnAboutPage = tab === "about";
     const isOnProgramsPage = tab === "programs";
     const isOnNoFeeProgramPage = tab === "no_fee_program";
@@ -70,6 +63,13 @@ function Wallet() {
     const currencyForHistory = useMemo(() => [currency], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 
+    useEffect(() => {
+        if (currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")) {
+
+            navigate("404")
+        }
+    }, [currencies])
+    
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}

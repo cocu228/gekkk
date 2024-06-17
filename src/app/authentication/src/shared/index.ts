@@ -42,13 +42,18 @@ export async function SignIn(silent?: boolean) {
 
     if (!silent) abortController?.abort("new sign in");
 
+    console.log('1. Get login_options')
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
+    
+    console.log('2. Result login_options:')
+    console.log(res)
     opt = res.result;
 
     opt.challenge = Base64URL_to_Uint8Array(opt.challenge);
 
-    if (!silent)
+    if (!silent) {
+        console.log('3. Show modal')
         Swal.fire({
             title: 'Logging In...',
             text: 'Tap your security key to login.',
@@ -58,11 +63,14 @@ export async function SignIn(silent?: boolean) {
             focusConfirm: false,
             focusCancel: false
         });
-    else console.log("CMA login...")
+    } else {
+        console.log("4. (SILENT) CMA login...")
+    }
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
     try {
+        console.log(`5. Trying to get credentials from browser (SILENT: ${silent})`)
         assertedCredential = !silent ?
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({
@@ -84,6 +92,7 @@ export async function SignIn(silent?: boolean) {
         return false;
     }
 
+    console.log(`6. Handling received key`)
     // Move data into Arrays incase it is super long
     let authData = new Uint8Array(assertedCredential.response.authenticatorData);
     let clientDataJSON = new Uint8Array(assertedCredential.response.clientDataJSON);
@@ -106,6 +115,8 @@ export async function SignIn(silent?: boolean) {
             }
         }
     };
+
+    console.log(`7. Sending API login`)
     let resLogin = await apiLogin(data);
 
     if (resLogin.result === 'Success') { AccountIdSet(); return true; }

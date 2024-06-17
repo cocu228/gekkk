@@ -435,7 +435,7 @@
     "transfer_to_contact": "Überweisung an Kontakt",
     "templates": "Vorlagen",
     "history": "Verlauf",
-    "signHistory": "Anmelde und Signaturverlauf",
+    "sign_history": "Anmelde und Signaturverlauf",
     "withdraw": "Abheben",
     "funds_transfer": "Fondstransfer",
     "create_transfer": "Überweisung erstellen",

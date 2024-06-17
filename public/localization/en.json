@@ -536,7 +536,7 @@
     "transfer_to_contact": "Transfer to Contact",
     "templates": "Templates",
     "history": "History",
-    "signHistory": "Login and sign history",
+    "sign_history": "Login and sign history",
     "withdraw": "Transfer",
     "funds_transfer": "Funds Transfer",
     "create_transfer": "Create transfer",

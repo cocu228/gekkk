@@ -81,7 +81,7 @@ const HeaderMobile = ({ items, actions }) => {
             case 'user-keys':
                 return t('user_keys')      
             case 'history':
-                return t('signHistory')
+                return t('sign_history')
             case 'user-sessions':
                 return t('user_sessions')
             case 'pricing':

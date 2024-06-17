@@ -30,7 +30,7 @@ const areaMap = {
   "app-version": <AppVersion />,
   "change-password": <ChangePassword />,
   "user-keys": <UserKeys />,
-  "history": <LoginAndSignHistory />,
+  "sign-history": <LoginAndSignHistory />,
   "user-sessions": <UserSession />,
   "language": <LanguageSettings />,
 };

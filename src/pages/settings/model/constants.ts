@@ -30,8 +30,8 @@ export const settingsList = [
     },
     {
       iconCode: 't45',
-      text: 'history',
-      selectArea: 'history',
+      text: 'sign_history',
+      selectArea: 'sign-history',
     },
     {
       iconCode: 't43',

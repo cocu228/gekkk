@@ -21,6 +21,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
+import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -155,48 +156,14 @@ const UniversalTransferForm = () => {
         />
       </Modal>
       <div className='w-full flex justify-center'>
-        <div className={styles.PayInfo}>
-          <div className={styles.PayInfoCol}>
-            <div className="row">
-              <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-            </div>
-          </div>
-          <div className={styles.PayInfoColValue}>
-            <div className={styles.PayInfoCol}>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexText}>
-                  {inputCurr.value.number}
-                </span>
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexText}>
-                  {inputCurr.value.number}
-                </span>
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexTextFee}>-</span>
-              </div>
-            </div>
-
-            <div className={styles.PayInfoCol}>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-                {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-                {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextFee}>
-                {currency.$const}
-              </span>
-            </div>
-          </div>
-        </div>
+        <Commissions
+            youWillPay={inputCurr.value.number}
+            youWillGet={inputCurr.value.number}
+            fee={"-"}
+            youWillPayCoin={currency.$const}
+            youWillGetCoin={currency.$const}
+            feeCoin={currency.$const}
+        />
       </div>
       <div className={styles.ButtonContainerCenter}>
         <Button

@@ -20,6 +20,7 @@ import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
+import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
 
 
 
@@ -119,52 +120,15 @@ const WithdrawFormPapaya = () => {
                 </div>
             </div>
             <div className='w-full flex justify-center'>
-                <div className={styles.PayInfo}>
-                    <div className={styles.PayInfoCol}>
-                        <div className="row">
-                            <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                        </div>
-                        <div className="row">
-                        <span className={styles.PayInfoText}>
-                            {t("you_will_get")}:
-                        </span>
-                        </div>
-                        <div className="row">
-                            <span className={styles.PayInfoTextFee}>
-                                {t("fee")}:
-                            </span>
-                        </div>
-                    </div>
-                    <div className={styles.PayInfoColValue}>
-
-                        <div className={styles.PayInfoCol}>
-                            <div className={styles.PayInfoValueFlex}>
-                                {/* Amount in EURG paid */}
-                                <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
-                            </div>
-                            <div className={styles.PayInfoValueFlex}>
-                                {/* Amount in EUR received */}
-                                {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
-                            </div>
-                            <div className={styles.PayInfoValueFlex}>
-                                {/* Fee amount */}
-                                {loading ? t("loading")+"..." : <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
-                            </div>
-                        </div>
-                        
-                        <div className={styles.PayInfoCol}>
-                            <span className={styles.PayInfoValueFlexTextCurrency}>
-                                {currency.$const}
-                            </span>
-                            <span className={styles.PayInfoValueFlexTextCurrency}>
-                                EUR
-                            </span>
-                            <span className={styles.PayInfoValueFlexTextFee}>
-                                {currency.$const}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <Commissions
+                    isLoading={loading}
+                    youWillPay={inputCurr.value.number}
+                    youWillGet={inputCurr.value.number - withdraw_fee}
+                    fee={withdraw_fee}
+                    youWillPayCoin={currency.$const}
+                    youWillGetCoin={"EUR"}
+                    feeCoin={currency.$const}
+                />
             </div>
             <Modal
                 placeBottom={window.innerWidth<768}

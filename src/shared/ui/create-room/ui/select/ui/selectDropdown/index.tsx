@@ -66,7 +66,7 @@ const SelectDropdown: FC<ISelectDropdownProps> = ({
                 </div>
             ) : (
                 <div className={styles.SelectDropdownContainerNoData}>
-                    {t("select.token_no_data")}
+                    {t("select_token_no_data")}
                 </div>
             )}
         </div>

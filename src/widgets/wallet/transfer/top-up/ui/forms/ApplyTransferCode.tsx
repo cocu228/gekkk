@@ -93,11 +93,11 @@ const ApplyTransferCode = () => {
             </div>
             <div className={styles.CodeButtonWrapper}>
 
-                <Button 
+                <Button
+                    className={"w-full"}
                     disabled={input === "" || loading} 
                     onClick={showModal}
-                    size={md ? "md" : "lg"}
-                    className={styles.CodeButton}
+                    size={"md"}
                 >
                     {t("apply")}
                 </Button>

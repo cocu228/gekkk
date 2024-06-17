@@ -85,7 +85,7 @@ const Input = React.forwardRef(
                         )
                     }
                 </div>
-                {caption && showCaption ? <div className='display: flex'>
+                {caption && showCaption ? <div className='display: flex mt-[5px]'>
                     <text className={styles.Caption}>*{caption}</text>
                 </div> : ''}
             </>

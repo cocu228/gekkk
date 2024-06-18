@@ -65,8 +65,6 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
 
     }
 
-    console.log('mob', currency, inputCurr)
-
     return !md ? (loading ? <Loader/> : newCode ? <CodeTxInfo currency={currency.$const} inputCurr={inputCurr.value.number} onClose={onClose} code={newCode}/> :
             <>
                 <div className="row bg-gray-300 max-w-[450px] spx-14 py-4 mb-6">

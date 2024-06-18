@@ -83,7 +83,7 @@ const CreateTransferCode = () => {
           onCancel={handleCancel}
           title={t('your_transfer_code')}
         >
-          <CreateCode inputCurrMobile={inputCurr} />
+          <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
         </Modal>
       </div>
       <div className="row mb-2">
@@ -110,7 +110,7 @@ const CreateTransferCode = () => {
               <InputCurrency.PercentSelector
                 onSelect={setInputCurr}
                 header={
-                  <span className="text-[#1F3446] text-[12px] ml-[12px] font-semibold mb-[5px]">
+                  <span className="text-[#1F3446] text-[12px] ml-[7px] mb-[2px] font-semibold">
                     {t("amount")}:
                   </span>
                 }
@@ -131,7 +131,7 @@ const CreateTransferCode = () => {
         </div>
       </div>
       <div className="row mt-[10px] mb-16 md:mb-2">
-      <div className="flex flex-row gap-4 ml-[10px]">
+        <div className="flex flex-row gap-4 ml-[7px]">
             <Switch defaultCheked={checkbox} onChange={switchHandler} />
             <div className="flex items-center">
               <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
@@ -176,7 +176,7 @@ const CreateTransferCode = () => {
           </div>
       </div>
       <div className="flex w-full justify-center">
-          <div className="w-full max-w-[200px]">
+          <div className="w-full max-w-[278px]">
             <div className={styles.PayInfo}>
               <div className={styles.PayInfoCol}>
                 <div className="row">
@@ -262,7 +262,7 @@ const CreateTransferCode = () => {
       </div>
         </div>
       </div>
-      <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[10px]">
+      <div className="row bg-[#F7F7F0] md:m-[0_-10px_-5px_-10px] md:rounded-[0_0_10px_10px] m-[0_-20px] p-[12px_0]">
         <TransferTableCode inputCurr={inputCurr} isOwner />
       </div>
     </div>

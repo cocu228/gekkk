@@ -207,18 +207,16 @@ const WithdrawFormCardToCard = () => {
             />
         </div>   
         
-        <div className="mt-[20px]">
-          <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
-              <Commissions
-                  youWillPay={inputCurr.value.number + withdraw_fee}
-                  youWillGet={inputCurr.value.number}
-                  fee={withdraw_fee}
-                  youWillPayCoin={currency.$const}
-                  youWillGetCoin={"EURG"}
-                  feeCoin={currency.$const}
-              />
-          </div>
-        </div>
+      <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
+          <Commissions
+              youWillPay={inputCurr.value.number + withdraw_fee}
+              youWillGet={inputCurr.value.number}
+              fee={withdraw_fee}
+              youWillPayCoin={currency.$const}
+              youWillGetCoin={"EURG"}
+              feeCoin={currency.$const}
+          />
+      </div>
 
         <Modal
           title={t("confirm_transaction")}

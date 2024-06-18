@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {apiCodeTxInfo} from "@/shared/(orval)api/gek";
 import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
@@ -8,9 +8,9 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import type {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useTranslation } from "react-i18next";
-import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
 import style from "./style.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
@@ -54,48 +54,11 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
                     </div>
                 </div>
                 <div className="row w-full">
-                <div className={styles.PayInfo}>
-                    <div className={styles.PayInfoCol}>
-                        <div className="row flex justify-start">
-                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                        </div>
-                        <div className="row flex justify-start ml-[1px]">
-                        <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-                        </div>
-                        <div className="row flex justify-start pl-[2px]">
-                        <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-                        </div>
-                    </div>
-                    <div className={styles.PayInfoColValue}>
-                        <div className={styles.PayInfoCol}>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span className={styles.PayInfoValueFlexText}>
-                            {inputCurr}
-                            </span>
-                        </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span className={styles.PayInfoValueFlexText}>
-                            {inputCurr}
-                            </span>
-                        </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span className={styles.PayInfoValueFlexTextFee}>-</span>
-                        </div>
-                        </div>
-
-                        <div className={styles.PayInfoCol}>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            {currency}
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            {currency}
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextFee}>
-                            {currency}
-                        </span>
-                        </div>
-                    </div>
-                </div>
+                <Commissions
+                    youWillPay={inputCurr}
+                    youWillGet={inputCurr}
+                    fee={"-"}
+                />
                 <div className="col">
                     <div className="row ml-[6px] w-full flex">
                         <div className="col w-1/2">

@@ -21,7 +21,6 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Switch } from "@/shared/ui/Switch";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { CtxRootData } from "@/processes/RootContext";
-import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
 
 const CreateTransferCode = () => {
@@ -105,6 +104,7 @@ const CreateTransferCode = () => {
           <div className="wrapper w-full">
             <InputCurrency.Validator
               value={inputCurr.value.number}
+              description={t("create_special_code_currency", {currency: currency.$const})}
               onError={setInputCurrValid}
               validators={[validateBalance(currency, navigate, t)]}
             >
@@ -120,8 +120,8 @@ const CreateTransferCode = () => {
                 <InputCurrency.DisplayBalance currency={currency}>
                   <InputCurrency
                     transfers
-                    placeholder={t('enter_amount')}
                     value={inputCurr.value.string}
+                    placeholder={t("exchange.enter_amount")}
                     currency={currency.$const}
                     onChange={setInputCurr}
                   />
@@ -131,14 +131,7 @@ const CreateTransferCode = () => {
           </div>
         </div>
       </div>
-      <div className="row mb-4 mt-[10px]">
-        {!inputCurr.value.number && (
-          <span className="text-[10px] text-[var(--gek-orange)] ml-[10px] leading-[12.5px] block">
-            {t("create_special_code_currency", {currency: currency.$const})}
-          </span>
-        )}
-      </div>
-      <div className="row mb-16 md:mb-2">
+      <div className="row mt-[10px] mb-16 md:mb-2">
       <div className="flex flex-row gap-4 ml-[10px]">
             <Switch defaultCheked={checkbox} onChange={switchHandler} />
             <div className="flex items-center">

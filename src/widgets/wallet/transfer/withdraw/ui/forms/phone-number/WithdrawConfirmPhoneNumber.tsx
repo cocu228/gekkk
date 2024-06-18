@@ -16,6 +16,7 @@ import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/
 import BankReceipt from "@/widgets/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 interface IParams {
     amount: number;
@@ -207,59 +208,12 @@ const WithdrawConfirmPhoneNumber = ({
                         </div>
                     </>}
                 </div>
-
-                <div className={styles.ModalPayInfo}>
-                    <div className={styles.ModalPayInfoCol}>
-                        <div className="row">
-                            <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
-                        </div>
-                        <div className="row">
-                        <span className={styles.ModalPayInfoText}>
-                            {t("you_will_get")}:
-                        </span>
-                        </div>
-                        <div className="row">
-                            <span className={styles.ModalPayInfoTextFee}>
-                                {t("fee")}:
-                            </span>
-                        </div>
-                    </div>
-                    <div className={styles.ModalPayInfoColValue}>
-                        <div className={styles.ModalPayInfoCol}>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                <span className={styles.ModalPayInfoValueFlexText}>
-                                    {/* Total amount, that user pays */}
-                                    {totalCommission?.total ?? `${t("loading")}...`}
-                                </span>
-                            </div>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                <span className={styles.ModalPayInfoValueFlexText}>
-                                    {/* Amount, that recipient recieve */}
-                                    {amount}
-                                </span>
-                            </div>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                <span className={styles.ModalPayInfoValueFlexTextFee}>
-                                    {/* Fee amount */}
-                                    {totalCommission?.commission ?? `${t("loading")}...`}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className={styles.ModalPayInfoCol}>
-                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                {$const}
-                            </span>
-                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                {$const}
-                            </span>
-                            <span className={styles.ModalPayInfoValueFlexTextFee}>
-                                {$const}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
+                <Commissions
+                    isLoading={loading}
+                    youWillPay={totalCommission.total}
+                    youWillGet={amount}
+                    fee={totalCommission.commission}
+                />
                 <div className="row mt-4">
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>

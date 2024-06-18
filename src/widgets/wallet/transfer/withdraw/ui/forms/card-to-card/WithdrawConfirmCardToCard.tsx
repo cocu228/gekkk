@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import {Skeleton} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
@@ -17,6 +18,7 @@ import styles from "../styles.module.scss"
 import { maskFullCardNumber } from "@/shared/lib";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 
 interface IState {
@@ -212,63 +214,12 @@ const WithdrawConfirmCardToCard = ({
                         </div>
                     </>}
                 </div>
-                
-                <div className={styles.ModalPayInfo}>
-                    <div className={styles.ModalPayInfoCol}>
-                        <div className="row">
-                            <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
-                        </div>
-                        <div className="row">
-                        <span className={styles.ModalPayInfoText}>
-                            {t("you_will_get")}:
-                        </span>
-                        </div>
-                        <div className="row">
-                            <span className={styles.ModalPayInfoTextFee}>
-                                {t("fee")}:
-                            </span>
-                        </div>
-                    </div>
-                    <div className={styles.ModalPayInfoColValue}>
-
-                        <div className={styles.ModalPayInfoCol}>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                {/* Total amount, that user pays */}
-                                <span
-                                    className={styles.ModalPayInfoValueFlexText}>{amount + (totalCommission?.commission ? totalCommission?.commission : 0)}</span>
-                            </div>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                {/* Amount, that recipient recieve */}
-                                <span
-                                    className={styles.ModalPayInfoValueFlexText}>
-                                        {amount}
-                                </span>
-                            </div>
-                            <div className={styles.ModalPayInfoValueFlex}>
-                                {/* Fee amount */}
-                                <span
-                                    className={styles.ModalPayInfoValueFlexTextFee}>
-                                        {totalCommission?.commission ?? '-'}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div className={styles.ModalPayInfoCol}>
-                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                {$const}
-                            </span>
-                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                {$const}
-                            </span>
-                            <span className={styles.ModalPayInfoValueFlexTextFee}>
-                                {$const}
-                            </span>
-                        </div>
-                    </div>
-                    
-                </div>
-            
-
+                <Commissions
+                    isLoading={loading}
+                    youWillPay={new Decimal(amount).plus(totalCommission?.commission ?? 0).toString()}
+                    youWillGet={amount}
+                    fee={totalCommission?.commission ?? '-'}
+                />
             <Form onSubmit={onConfirm}>
                 <div className="row my-5">
                     <div className={styles.ButtonContainer}>

@@ -17,6 +17,7 @@ import styles from "../styles.module.scss";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
@@ -234,57 +235,13 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     </div>
                 </div>
             </div>
-            <div className={styles.ModalPayInfo}>
-                <div className={styles.ModalPayInfoCol}>
-                    <div className="row">
-                        <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
-                    </div>
-                    <div className="row">
-                    <span className={styles.ModalPayInfoText}>
-                        {t("you_will_get")}:
-                    </span>
-                    </div>
-                    <div className="row">
-                        <span className={styles.ModalPayInfoTextFee}>
-                            {t("fee")}:
-                        </span>
-                    </div>
-                </div>
-                <div className={styles.ModalPayInfoColValue}>
-
-                    <div className={styles.ModalPayInfoCol}>
-                        <div className={styles.ModalPayInfoValueFlex}>
-                            <span
-                                className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>
-                        </div>
-                        <div className={styles.ModalPayInfoValueFlex}>
-                            <span
-                                className={styles.ModalPayInfoValueFlexText}>
-                                    {amount}
-                            </span>
-                        </div>
-                        <div className={styles.ModalPayInfoValueFlex}>
-                            <span
-                                className={styles.ModalPayInfoValueFlexTextFee}>
-                                    {new Decimal(withdraw_fee).toString()}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div className={styles.ModalPayInfoCol}>
-                        <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                            {$const}
-                        </span>
-                        <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                            EURG
-                        </span>
-                        <span className={styles.ModalPayInfoValueFlexTextFee}>
-                            EUR
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
+            <Commissions
+                isLoading={loading}
+                youWillPay={new Decimal(amount).plus(withdraw_fee).toString()}
+                youWillGet={amount}
+                fee={new Decimal(withdraw_fee).toString()}
+                youWillGetCoin={"EURG"}
+            />
             <Form onSubmit={onConfirm}>
                 <div className="row mt-4 mb-4">
                     <div className={styles.ButtonContainer}>

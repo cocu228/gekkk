@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -28,7 +29,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -209,7 +210,7 @@ const WithdrawFormCardToCard = () => {
         
       <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
           <Commissions
-              youWillPay={inputCurr.value.number + withdraw_fee}
+              youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
               youWillGetCoin={"EURG"}

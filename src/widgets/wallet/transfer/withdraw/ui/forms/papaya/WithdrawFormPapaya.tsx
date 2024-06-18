@@ -20,7 +20,7 @@ import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 
 
@@ -123,7 +123,7 @@ const WithdrawFormPapaya = () => {
                 <Commissions
                     isLoading={loading}
                     youWillPay={inputCurr.value.number}
-                    youWillGet={inputCurr.value.number - withdraw_fee}
+                    youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
                     fee={withdraw_fee}
                     youWillGetCoin={"EUR"}
                 />

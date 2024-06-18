@@ -20,6 +20,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import axios from "axios";
 import useError from "@/shared/model/hooks/useError";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 interface IState {
   loading: boolean;
@@ -231,57 +232,12 @@ const WithdrawConfirmSepa = ({
       </div>
 
       <div className="w-full flex justify-center">
-        <div className={`${styles.ModalPayInfo} w-full max-w-[230px]`}>
-          <div className={`${styles.ModalPayInfoCol}`}>
-            <div className="row">
-              <span className={styles.ModalPayInfoText}>
-                {t("you_will_pay")}:
-              </span>
-            </div>
-            <div className="row">
-              <span className={styles.ModalPayInfoText}>
-                {t("you_will_get")}:
-              </span>
-            </div>
-            <div className="row">
-              <span className={styles.ModalPayInfoTextFee}>{t("fee")}:</span>
-            </div>
-          </div>
-          <div className={styles.ModalPayInfoColValue}>
-            <div className={styles.ModalPayInfoCol}>
-              <div className={styles.ModalPayInfoValueFlex}>
-                <span className={styles.ModalPayInfoValueFlexText}>
-                  {/* Total amount, that user pays */}
-                  {total?.total ?? `${t("loading")}`}
-                </span>
-              </div>
-              <div className={styles.ModalPayInfoValueFlex}>
-                <span className={`${styles.ModalPayInfoValueFlexText}`}>
-                  {/* Amount, that recipient recieve */}
-                  {amount}
-                </span>
-              </div>
-              <div className={styles.ModalPayInfoValueFlex}>
-                <span className={styles.ModalPayInfoValueFlexTextFee}>
-                  {/* Fee amount */}
-                  {total?.commission ?? `${t("loading")}`}
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.ModalPayInfoCol}>
-              <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                {$const}
-              </span>
-              <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                {$const}
-              </span>
-              <span className={styles.ModalPayInfoValueFlexTextFee}>
-                {$const}
-              </span>
-            </div>
-          </div>
-        </div>
+        <Commissions
+            isLoading={loading}
+            youWillPay={total.total}
+            youWillGet={amount}
+            fee={total.commission}
+        />
       </div>
 
       <div className="mt-2">{localErrorInfoBox}</div>

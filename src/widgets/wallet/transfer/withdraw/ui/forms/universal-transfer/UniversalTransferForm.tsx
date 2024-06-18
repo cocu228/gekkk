@@ -21,7 +21,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();

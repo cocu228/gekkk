@@ -106,7 +106,7 @@ const ApplyTransferCode = () => {
                            onCancel={handleCancel} isModalOpen={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
-                            <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} code={input} onBtnApply={onBtnApply}/> :
+                            <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} onClose={handleCancel} code={input} onBtnApply={onBtnApply}/> :
                             <>
                                 <div className="row mb-6">
                                     <div className="col">

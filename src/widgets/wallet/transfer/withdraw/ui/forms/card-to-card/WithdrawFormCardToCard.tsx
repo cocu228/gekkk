@@ -28,6 +28,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
+import Commissions from "../../../../components/commissions";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -206,55 +207,14 @@ const WithdrawFormCardToCard = () => {
             />
         </div>   
         
-        <div className="mt-[20px]">
-          <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
-            <div className={`${styles.PayInfo} max-w-[210px] w-full`}>
-              <div className={styles.PayInfoCol}>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-                </div>
-              </div>
-              <div className={styles.PayInfoColValue}>
-                <div className={styles.PayInfoCol}>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {/* Total amount, that user pays */}
-                      {inputCurr.value.number + withdraw_fee}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {/* Amount, that recipient recieve */}
-                      {inputCurr.value.number}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexTextFee}>
-                      {/* Fee amount */}
-                      {withdraw_fee}
-                    </span>
-                  </div>
-                </div>
-
-                <div className={styles.PayInfoCol}>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>
-                    {currency.$const}
-                  </span>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>EURG</span>
-                  <span className={styles.PayInfoValueFlexTextFee}>
-                    {currency.$const}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
+          <Commissions
+              youWillPay={inputCurr.value.number + withdraw_fee}
+              youWillGet={inputCurr.value.number}
+              fee={withdraw_fee}
+              youWillGetCoin={"EURG"}
+          />
+      </div>
 
         <Modal
           title={t("confirm_transaction")}

@@ -1,8 +1,6 @@
 @import "@styles/mixins";
 
 .Title{
-    margin-bottom: 2rem;
-
     &Col{
         padding-bottom: 15px;
 
@@ -29,8 +27,7 @@
 .EURCost{
     display: flex; 
     padding: 1rem;
-    margin-bottom: 1rem; 
-    flex-direction: column; 
+    flex-direction: column;
     gap: 0.25rem; 
     border-radius: 0.5rem; 
     background: #DADADA;
@@ -76,96 +73,6 @@
         }
     }
 }
-
-.PayInfo{
-    display: flex; 
-    margin-bottom: 1rem;
-    margin-top: 1.5rem; 
-    justify-content: space-between;
-    font-size: 14px;
-    line-height: 1.25rem; 
-    font-weight: 500;
-    max-width: 218px;
-    width: 100%;
-
-
-    @include max-devices("md") {
-        width: 100%;
-        gap: 0rem;
-        font-size: 12px;
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-top: 0.2rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        justify-content: space-between; 
-    }
-
-    &Col{
-        display: flex; 
-        flex-direction: column; 
-        width: max-content;
-
-        @include max-devices("md") {
-            gap: .25rem;
-        }
-
-        &Value{
-            display: flex; 
-            flex-direction: row; 
-            gap: 0.5rem; 
-            width: 100%;
-            justify-content: flex-end;
-        }
-    }
-
-    &Text{
-        color:#3A5E66;
-        text-wrap: nowrap;
-        white-space: nowrap;
-        &Fee{
-            color: #9D9D9D;
-        }
-    }
-
-    &ValueFlex{
-        display: flex; 
-        // width: 100%;
-        justify-content: flex-end;
-        align-items: center;
-        flex-shrink: 0;
-
-        &Text{
-            display: inline-block;
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: end;
-            text-wrap: nowrap;
-            overflow: hidden;
-            max-width: 80px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-
-            &Fee{
-                color: #9D9D9D;
-                text-align: start;
-                text-wrap: nowrap;
-
-                max-width: 20vw;
-            }
-        }
-        &TextCurrency{
-            width: 100%; 
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: start;
-            text-wrap: nowrap;
-        }
-    }
-}
-
-
 
 .ButtonContainer{
     width: 100%;

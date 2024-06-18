@@ -17,6 +17,7 @@ import styles from "../styles.module.scss"
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
+import Commissions from "../../../../components/commissions";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -120,7 +121,7 @@ const WithdrawFormSepa = () => {
                     </div>
                 </div>
             </div>
-            <div className="row md:mb-[7px] mb-[15px] w-full">
+            <div className="row w-full">
                 <div className="flex flex-col">
                     <span className={`${styles.TitleColText} ml-[7px] relative top-[3px]`}>{t("description")}:</span>
                     <div className="row">
@@ -141,50 +142,11 @@ const WithdrawFormSepa = () => {
             </div>
 
             <div className='flex justify-center w-full'>
-                <div className={`${styles.PayInfo} max-w-[210px] gap-[20px] w-full`}>
-                <div className={`${styles.PayInfoCol}`}>
-                    <div className="row">
-                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                    </div>
-                    <div className="row">
-                    <span className={styles.PayInfoText}>
-                        {t("you_will_get")}:
-                    </span>
-                    </div>
-                    <div className="row">
-                        <span className={styles.PayInfoTextFee}>
-                            {t("fee")}:
-                        </span>
-                    </div>
-                </div>
-                <div className={styles.PayInfoColValue}>
-
-                    <div className={styles.PayInfoCol}>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span
-                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
-                        </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>
-                        </div>
-                        <div className={styles.PayInfoValueFlex}>
-                            <span className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>
-                        </div>
-                    </div>
-                    
-                    <div className={styles.PayInfoCol}>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            {currency.$const}
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextCurrency}>
-                            {currency.$const}
-                        </span>
-                        <span className={styles.PayInfoValueFlexTextFee}>
-                            {currency.$const}
-                        </span>
-                    </div>
-                </div>
-            </div>
+                <Commissions
+                    youWillPay={inputCurr.value.number}
+                    youWillGet={inputCurr.value.number - withdraw_fee}
+                    fee={withdraw_fee}
+                />
             </div>
             
             <Modal

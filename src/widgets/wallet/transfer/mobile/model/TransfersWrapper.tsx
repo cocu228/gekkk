@@ -104,10 +104,10 @@ export default function TransfersWrapper({
           return (
             <div className="flex flex-col items-center justify-center">
               <div className="flex h-[54px] w-full items-center flex-row justify-start mb-[10px] rounded-[8px] bg-[white]">
-                <span className="ml-5 min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
+                <span className="ml-[20px] min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
                   {returnTitle(child?.props["data-tag"])}
                 </span>
-                <div className="flex w-full overflow-hidden mr-5 justify-center items-center">
+                <div className="flex w-full overflow-hidden mr-[10px] justify-center items-center">
                   {child}
                 </div>
               </div>

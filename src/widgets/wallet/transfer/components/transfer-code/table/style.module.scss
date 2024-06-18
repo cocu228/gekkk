@@ -2,8 +2,17 @@
 
 .Table {
   display: grid;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 10px;
+  }
 }
 
+.TableHeadBody {
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
 
 .TableHead {
   display: inherit;
@@ -113,7 +122,8 @@
   width: 100%;
   display: block;
 
-  @include max-devices(md) {
+
+  @media screen and (max-width: 768px) {
     font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -121,6 +131,12 @@
     font-weight: 600;
     width: 100%;
     color: #29354C;
+
+    &:nth-child(2) {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }
 
@@ -239,7 +255,7 @@
 .CopyIcon {
   flex-direction: column;
   min-width: 14px;
-  margin-right: 25px;
+  // margin-right: 25px;
 
   svg {
     margin: 0 !important;

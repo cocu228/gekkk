@@ -21,6 +21,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Switch } from "@/shared/ui/Switch";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { CtxRootData } from "@/processes/RootContext";
+import Commissions from "../../../../components/commissions";
 
 const CreateTransferCode = () => {
   const { t } = useTranslation();
@@ -83,7 +84,7 @@ const CreateTransferCode = () => {
           onCancel={handleCancel}
           title={t('your_transfer_code')}
         >
-          <CreateCode inputCurrMobile={inputCurr} />
+          <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
         </Modal>
       </div>
       <div className="row mb-2">
@@ -110,7 +111,7 @@ const CreateTransferCode = () => {
               <InputCurrency.PercentSelector
                 onSelect={setInputCurr}
                 header={
-                  <span className="text-[#1F3446] text-[12px] ml-[12px] font-semibold mb-[5px]">
+                  <span className="text-[#1F3446] text-[12px] ml-[7px] mb-[2px] font-semibold">
                     {t("amount")}:
                   </span>
                 }
@@ -131,7 +132,7 @@ const CreateTransferCode = () => {
         </div>
       </div>
       <div className="row mt-[10px] mb-16 md:mb-2">
-      <div className="flex flex-row gap-4 ml-[10px]">
+        <div className="flex flex-row gap-4 ml-[7px]">
             <Switch defaultCheked={checkbox} onChange={switchHandler} />
             <div className="flex items-center">
               <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
@@ -176,51 +177,13 @@ const CreateTransferCode = () => {
           </div>
       </div>
       <div className="flex w-full justify-center">
-          <div className="w-full max-w-[200px]">
-            <div className={styles.PayInfo}>
-              <div className={styles.PayInfoCol}>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-                </div>
-                <div className="row">
-                  <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-                </div>
-              </div>
-              <div className={styles.PayInfoColValue}>
-                <div className={styles.PayInfoCol}>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {inputCurr.value.number}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexText}>
-                      {inputCurr.value.number}
-                    </span>
-                  </div>
-                  <div className={styles.PayInfoValueFlex}>
-                    <span className={styles.PayInfoValueFlexTextFee}>-</span>
-                  </div>
-                </div>
-
-                <div className={styles.PayInfoCol}>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>
-                    {currency.$const}
-                  </span>
-                  <span className={styles.PayInfoValueFlexTextCurrency}>
-                    {currency.$const}
-                  </span>
-                  <span className={styles.PayInfoValueFlexTextFee}>
-                    {currency.$const}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <Commissions
+              isLoading={loading}
+              youWillPay={inputCurr.value.number}
+              youWillGet={inputCurr.value.number}
+              fee={"-"}
+          />
+      </div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           disabled={
@@ -262,7 +225,7 @@ const CreateTransferCode = () => {
       </div>
         </div>
       </div>
-      <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[10px]">
+      <div className="row bg-[#F7F7F0] md:m-[0_-10px_-5px_-10px] md:rounded-[0_0_10px_10px] m-[0_-20px] p-[12px_0]">
         <TransferTableCode inputCurr={inputCurr} isOwner />
       </div>
     </div>

@@ -22,6 +22,7 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import {Modal} from "@/shared/ui/modal/Modal";
+import Commissions from "../../../../components/commissions";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ const WithdrawFormPhoneNumber = () => {
   const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
-  const { min_withdraw = 0 } =
+  const { min_withdraw = 0, withdraw_fee } =
     getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const [inputs, setInputs] = useState<{
@@ -120,7 +121,7 @@ const WithdrawFormPhoneNumber = () => {
           </div>
         </div>
       </div>
-      <div className="row mb-5 w-full">
+      <div className="row w-full">
         <div className="col">
           <div className="row mb-[3px]">
             <div className="col">
@@ -142,6 +143,15 @@ const WithdrawFormPhoneNumber = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="row w-full flex justify-center">
+          <Commissions
+              youWillPay={inputCurr.value.number + withdraw_fee}
+              youWillGet={inputCurr.value.number}
+              fee={withdraw_fee}
+              youWillGetCoin={"EURG"}
+          />
       </div>
 
       <Modal

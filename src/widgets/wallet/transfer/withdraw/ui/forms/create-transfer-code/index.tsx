@@ -21,7 +21,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Switch } from "@/shared/ui/Switch";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { CtxRootData } from "@/processes/RootContext";
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 const CreateTransferCode = () => {
   const { t } = useTranslation();
@@ -182,9 +182,6 @@ const CreateTransferCode = () => {
               youWillPay={inputCurr.value.number}
               youWillGet={inputCurr.value.number}
               fee={"-"}
-              youWillPayCoin={currency.$const}
-              youWillGetCoin={currency.$const}
-              feeCoin={currency.$const}
           />
       </div>
       <div className={styles.ButtonContainerCenter}>

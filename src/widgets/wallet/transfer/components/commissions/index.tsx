@@ -1,15 +1,14 @@
-import {FC} from "react";
+import {FC, useContext} from "react";
 import {useTranslation} from "react-i18next";
 import styles from "./styles.module.css";
+import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 
 interface ICommissionsProps {
     isLoading?: boolean;
     youWillPay: string | number;
     youWillGet: string | number;
     fee: string | number;
-    youWillPayCoin: string;
-    youWillGetCoin: string;
-    feeCoin: string;
+    youWillGetCoin?: string;
 }
 
 const Commissions: FC<ICommissionsProps> = ({
@@ -17,11 +16,11 @@ const Commissions: FC<ICommissionsProps> = ({
     youWillPay,
     youWillGet,
     fee,
-    youWillPayCoin,
     youWillGetCoin,
-    feeCoin
 }) => {
     const {t} = useTranslation()
+
+    const { $const } = useContext(CtxWalletData);
 
     return (
         <div className={styles.Commissions}>
@@ -49,9 +48,9 @@ const Commissions: FC<ICommissionsProps> = ({
                     </div>
                 </div>
                 <div>
-                    <span>{youWillPayCoin}</span>
-                    <span>{youWillGetCoin}</span>
-                    <span>{feeCoin}</span>
+                    <span>{$const}</span>
+                    <span>{youWillGetCoin ?? $const}</span>
+                    <span>{$const}</span>
                 </div>
             </div>
         </div>

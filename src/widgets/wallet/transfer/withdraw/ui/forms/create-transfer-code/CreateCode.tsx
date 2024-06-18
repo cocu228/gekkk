@@ -119,7 +119,12 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
             </>
-    ) : (loading ? <div className="flex relative mt-10 min-h-[200px]"><Loader/></div> : code ? <CodeTxInfo onClose={onClose} currency={currency.$const} inputCurr={inputCurrMobile.value.number} code={code}/> :
+    ) : (loading ?
+            <div className="flex relative mt-10 min-h-[200px]">
+                <Loader/>
+            </div> :
+            code ?
+                <CodeTxInfo onClose={onClose} currency={currency.$const} inputCurr={inputCurrMobile.value.number} code={code}/> :
         <>
             {localErrorInfoBox && <div className="row min-h-[200px] mt-4">{localErrorInfoBox}</div>}
         </>

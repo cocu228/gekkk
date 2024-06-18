@@ -17,7 +17,7 @@ import styles from "../styles.module.scss"
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -146,9 +146,6 @@ const WithdrawFormSepa = () => {
                     youWillPay={inputCurr.value.number}
                     youWillGet={inputCurr.value.number - withdraw_fee}
                     fee={withdraw_fee}
-                    youWillPayCoin={currency.$const}
-                    youWillGetCoin={currency.$const}
-                    feeCoin={currency.$const}
                 />
             </div>
             

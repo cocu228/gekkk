@@ -22,7 +22,7 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import {Modal} from "@/shared/ui/modal/Modal";
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -150,9 +150,7 @@ const WithdrawFormPhoneNumber = () => {
               youWillPay={inputCurr.value.number + withdraw_fee}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
-              youWillPayCoin={currency.$const}
               youWillGetCoin={"EURG"}
-              feeCoin={currency.$const}
           />
       </div>
 

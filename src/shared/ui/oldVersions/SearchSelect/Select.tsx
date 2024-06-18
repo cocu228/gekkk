@@ -92,7 +92,7 @@ export const Select:FC<SelectProps> = ({
                     selected && inpValue.length === 0 ? (
                         <span className={`${style.SelectedTitle} ${inpValue.length >=1 && style.SelectedTitleDisabled}`}>{selected}</span>
                     ) : (
-                        <span className={style.SelectPlaceholder}>{placeholder}</span>
+                        <span className={style.SelectPlaceholder}>{placeholder.toLowerCase()}</span>
                     )
                 }
                 <input value={inpValue} onChange={(e) => {

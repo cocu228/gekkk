@@ -21,7 +21,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -160,9 +160,6 @@ const UniversalTransferForm = () => {
             youWillPay={inputCurr.value.number}
             youWillGet={inputCurr.value.number}
             fee={"-"}
-            youWillPayCoin={currency.$const}
-            youWillGetCoin={currency.$const}
-            feeCoin={currency.$const}
         />
       </div>
       <div className={styles.ButtonContainerCenter}>

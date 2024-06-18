@@ -64,13 +64,13 @@ const Validator: FC<IParams> = (({
             {children}
             <div className={"mt-[5px] ml-[5px] " + className}>
                 {description && showDescription===true && isNull(error) ?(
-                    <span className='text-[var(--gek-orange)] md:text-fs10 text-fs12'>
+                    <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>
                         *{description}
                     </span>
                     ) : (
                     <div className="flex gap-1 items-center">
                         {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t56" size={13}/></div>}
-                        <span className='text-[var(--gek-orange)] md:text-fs10 ? text-fs12'>{error}</span>
+                        <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>{error}</span>
                     </div>
                 )}
             </div>

@@ -32,7 +32,7 @@ import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { debounce } from "@/shared/lib";
 import useError from "@/shared/model/hooks/useError";
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -202,9 +202,6 @@ const WithdrawFormCrypto = () => {
                 youWillPay={inputCurr.value.number + withdraw_fee}
                 youWillGet={inputCurr.value.number}
                 fee={withdraw_fee}
-                youWillPayCoin={currency.$const}
-                youWillGetCoin={"EURG"}
-                feeCoin={currency.$const}
             />
         </div>
         <Modal

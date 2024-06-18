@@ -20,7 +20,7 @@ import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
-import Commissions from "@/widgets/wallet/transfer/withdraw/ui/components/commissions";
+import Commissions from "../../../../components/commissions";
 
 
 
@@ -125,9 +125,7 @@ const WithdrawFormPapaya = () => {
                     youWillPay={inputCurr.value.number}
                     youWillGet={inputCurr.value.number - withdraw_fee}
                     fee={withdraw_fee}
-                    youWillPayCoin={currency.$const}
                     youWillGetCoin={"EUR"}
-                    feeCoin={currency.$const}
                 />
             </div>
             <Modal

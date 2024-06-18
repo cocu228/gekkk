@@ -23,7 +23,8 @@ export function ChangePassword() {
   const [changeCodeSent, setChangeCodeSent] = useState<boolean>(false);
   const [code, setCode] = useState("t84");
   const [type, setType] = useState('password');
-
+  const [codeConfirmed, setCodeConfirm] = useState("t84");
+  const [typeConfirmed, setTypeConfirm] = useState('password');
   const passSave = (e: any) => {
     setNewPass(e.target.value);
   };
@@ -37,7 +38,15 @@ export function ChangePassword() {
       setType('password')
     }
   }
-
+  const handleToggleConfirmed = () => {
+    if (typeConfirmed==='password'){
+      setCodeConfirm('t85')
+      setTypeConfirm('text')
+    } else {
+      setCodeConfirm('t84')
+      setTypeConfirm('password')
+    }
+  }
   const passConfirm = (e: any) => {
     setConfirmNewPass(e.target.value);
   };
@@ -71,8 +80,9 @@ export function ChangePassword() {
           <Input
             allowDigits
             allowSymbols
+            type={typeConfirmed}
             onChange={passConfirm}
-            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} onClick={handleToggle}/>}
+            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} onClick={handleToggleConfirmed}/>}
             value={confirmNewPass}
             className="min-h-[40px] h-[52px]"
             placeholder={t("confirm_new_password")}

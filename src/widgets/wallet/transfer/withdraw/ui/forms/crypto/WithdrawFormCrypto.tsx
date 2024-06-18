@@ -32,7 +32,7 @@ import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { debounce } from "@/shared/lib";
 import useError from "@/shared/model/hooks/useError";
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -199,7 +199,7 @@ const WithdrawFormCrypto = () => {
         <div className='w-full flex justify-center'>
             <Commissions
                 isLoading={loading}
-                youWillPay={inputCurr.value.number + withdraw_fee}
+                youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
                 youWillGet={inputCurr.value.number}
                 fee={withdraw_fee}
             />

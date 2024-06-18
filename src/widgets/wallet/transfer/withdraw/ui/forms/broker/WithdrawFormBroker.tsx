@@ -4,7 +4,6 @@ import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
 import {debounce} from "@/shared/lib/helpers";
-import InputCurrency from '@/shared/ui/input-currency/ui';
 import {AccountRights} from '@/shared/config/mask-account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
@@ -20,7 +19,8 @@ import styles from "../styles.module.scss"
 import {Modal} from "@/shared/ui/modal/Modal";
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
 import useError from '@/shared/model/hooks/useError';
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import BrokerAmountContainer from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/ui/containers/broker-amount-container";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -70,7 +70,7 @@ const WithdrawFormBroker = () => {
                             className='text-blue-400 hover:cursor-pointer hover:underline'
                             onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                         >
-                            {t("freeze_GKE_tokens")}   
+                            {t("freeze_GKE_tokens")}
                         </span> {t("fee_is")} <b>0%</b>.
                     </span>}
                 </span>
@@ -79,28 +79,24 @@ const WithdrawFormBroker = () => {
 
         <div className="row mb-4">
             <div className="col">
-                <InputCurrency.Validator
+                <BrokerAmountContainer
+                    textClassname={'text-gray-600 font-medium ml-[10px] mb-[5px]'}
+                    placeholder={t("exchange.enter_amount")}
                     value={inputCurr.value.number}
-                    onError={setInputCurrValid}
+                    inputValue={inputCurr.value.string}
+                    currency={currency}
                     description={getWithdrawDesc(min_withdraw, currency.$const)}
                     validators={[
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-                        validateBalance(currency, navigate, t)]}>
-                    <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium ml-[10px] mb-[5px]'>{t("amount")}:</span>}
-                                                   currency={currency}>
-                        <InputCurrency.DisplayBalance currency={currency}>
-                            <InputCurrency
-                                placeholder={t("exchange.enter_amount")}
-                                value={inputCurr.value.string}
-                                currency={currency.$const}
-                                onChange={setInputCurr}
-                            />
-                        </InputCurrency.DisplayBalance>
-                    </InputCurrency.PercentSelector>
-                </InputCurrency.Validator>
+                        validateBalance(currency, navigate, t)
+                    ]}
+                    onError={setInputCurrValid}
+                    onSelect={setInputCurr}
+                    onChange={setInputCurr}
+                />
             </div>
         </div>
+
         {localErrorInfoBox &&
             <div className='py-5'>
                 {localErrorInfoBox}    
@@ -137,32 +133,25 @@ const WithdrawFormBroker = () => {
         <div className="wrapper">
             <div className={styles.Title}>
                 <div className={styles.TitleCol}>
-                    <InputCurrency.Validator
+                    <BrokerAmountContainer
+                        transfers
+                        placeholder={t('enter_amount')}
+                        textClassname={`${styles.TitleColText} ml-[10px]`}
                         value={inputCurr.value.number}
-                        onError={setInputCurrValid}
+                        inputValue={inputCurr.value.string}
+                        currency={currency}
                         description={getWithdrawDesc(min_withdraw, currency.$const)}
                         validators={[
                             validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-                            validateBalance(currency, navigate, t)]}>
-                        <InputCurrency.PercentSelector
-                            currency={currency}
-                            header={<span className={`${styles.TitleColText} ml-[10px]`}>{t("amount")}:</span>}
-                            onSelect={val => {
-                                const amount = new Decimal(val);
-                                setInputCurr(amount.mul(100).floor().div(100).toString())
-                            }}
-                        >
-                            <InputCurrency.DisplayBalance currency={currency}>
-                                <InputCurrency
-                                    transfers
-                                    placeholder={t('enter_amount')}
-                                    value={inputCurr.value.string}
-                                    currency={currency.$const}
-                                    onChange={setInputCurr}
-                                />
-                            </InputCurrency.DisplayBalance>
-                        </InputCurrency.PercentSelector>
-                    </InputCurrency.Validator>
+                            validateBalance(currency, navigate, t)
+                        ]}
+                        onError={setInputCurrValid}
+                        onSelect={val => {
+                            const amount = new Decimal(val);
+                            setInputCurr(amount.mul(100).floor().div(100).toString())
+                        }}
+                        onChange={setInputCurr}
+                    />
                 </div>
                 {localErrorInfoBox && <div className='py-5'>
                     {localErrorInfoBox}
@@ -192,7 +181,7 @@ const WithdrawFormBroker = () => {
                 <Commissions
                     isLoading={loading}
                     youWillPay={inputCurr.value.number}
-                    youWillGet={inputCurr.value.number - withdraw_fee}
+                    youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
                     fee={withdraw_fee}
                     youWillGetCoin={"EURG"}
                 />

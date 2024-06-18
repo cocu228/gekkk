@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import {useContext, useEffect, useState} from 'react';
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
@@ -17,7 +18,7 @@ import styles from "../styles.module.scss"
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
-import Commissions from "../../../../components/commissions";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -144,7 +145,7 @@ const WithdrawFormSepa = () => {
             <div className='flex justify-center w-full'>
                 <Commissions
                     youWillPay={inputCurr.value.number}
-                    youWillGet={inputCurr.value.number - withdraw_fee}
+                    youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
                     fee={withdraw_fee}
                 />
             </div>

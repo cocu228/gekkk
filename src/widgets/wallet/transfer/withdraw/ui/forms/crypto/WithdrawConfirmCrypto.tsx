@@ -29,6 +29,7 @@ import Form from "@/shared/ui/form/Form";
 import ReceiptData from "@/widgets/receipt/receiptData";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const initStageConfirm = {
   status: null,
@@ -236,52 +237,12 @@ const WithdrawConfirmCrypto = memo(
               ) : null
             }
           </div>
-          <div className={styles.ModalPayInfo}>
-            <div className={styles.ModalPayInfoCol}>
-                <div className="row">
-                    <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                <span className={styles.ModalPayInfoText}>
-                    {t("you_will_get")}:
-                </span>
-                </div>
-                <div className="row">
-                    <span className={styles.ModalPayInfoTextFee}>
-                        {t("fee")}:
-                    </span>
-                </div>
-            </div>
-            <div className={styles.ModalPayInfoColValue}>
-          
-                <div className={styles.ModalPayInfoCol}>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        {/* Total amount, that user pays */}
-                        {loading ? t("loading")+"..." : <span className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>}
-                    </div>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        {/* Amount, that recipient recieve */}
-                        <span className={styles.ModalPayInfoValueFlexText}>{amount}</span>
-                    </div>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        {/* Fee amount */}
-                        {loading ? t("loading")+"..." : <span className={styles.ModalPayInfoValueFlexTextFee}>{withdraw_fee}</span>}
-                    </div>
-                </div>
-                
-                <div className={styles.ModalPayInfoCol}>
-                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                        {$const}
-                    </span>
-                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                        {$const}
-                    </span>
-                    <span className={styles.ModalPayInfoValueFlexTextFee}>
-                        {$const}
-                    </span>
-                </div>
-            </div>
-          </div>
+            <Commissions
+                isLoading={loading}
+                youWillPay={new Decimal(amount).plus(withdraw_fee).toString()}
+                youWillGet={amount}
+                fee={withdraw_fee}
+            />
           <div className="w-full">
             <Form
             form={form}

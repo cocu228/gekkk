@@ -65,17 +65,7 @@ export async function SignIn(silent?: boolean) {
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
-    try {
-        navigator.credentials.get({ publicKey: opt })
-            .then((val) => {
-                console.log(`navigator.credentials.get({ publicKey: opt }) result:`)
-                console.log(val)
-            })
-            .catch((err) => {
-                console.log(`navigator.credentials.get({ publicKey: opt }) error:`)
-                console.log(err)
-            });
-        
+    try {        
         assertedCredential = !silent ?
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({

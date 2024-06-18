@@ -20,17 +20,10 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
 
 const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inputCurr?: IUseInputState }) => {
-    const {md, lg} = useBreakpoints() 
-
-    const [tableHeads, setTableHeads] = useState([
-        'code',
-        'amount',
-        'status',
-        'action'
-    ])
     const currency = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
+    const {md, lg} = useBreakpoints() 
 
     useEffect(() => {
         (async () => {
@@ -38,24 +31,14 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
         })()
     }, [currency.$const])
 
-    useEffect(() => {
-        if(md || lg) {
-            setTableHeads([
-                'code',
-                'status',
-                'action'
-            ])
-        }
-    }, [])
-
     const filteredListTxCode = listTxCode.filter(item => item.currency === currency.$const && item.isOwner === isOwner)
     const {t} = useTranslation();
 
     return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead}>
-            <GTable.Row>
-                {
+            <GTable.Row className={styles.TableHeadBody} >
+                {/* {
                     tableHeads.map((item, ind) => (
                         <GTable.Col key={ind} className={styles.CodeModalTitle}>
                             <div data-text={item.capitalize()}>
@@ -63,7 +46,27 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                             </div>
                         </GTable.Col>
                     ))
-                }
+                } */}
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Code'}>
+                        <span>{t('code')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Amount'}>
+                        <span>{t('amount')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Status'}>
+                        <span>{t('status')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Action'}>
+                        <span>{t('action')}</span>
+                    </div>
+                </GTable.Col>
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>

@@ -13,9 +13,7 @@ import {CookiePolicy} from '../../widgets/cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
 import { IconApp } from "../../widgets/components/IconApp"
 import {AppType, getInitialAppType} from "../../utils/getMode";
-import GekkoinLogoIcon from "./icons/gekkoin-logo-icon";
-import GekwalletLogoIcon from "./icons/gekwallet-logo-icon";
-import {JSX} from "preact";
+
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -52,18 +50,18 @@ const Auth = () => {
         runCMA();
     }, []);
 
-    const iconCodes: Record<AppType, { title: string, icon: JSX.Element }> = {
+    const iconCodes: Record<AppType, { title: string, icon: string }> = {
         gekkard: {
             title: "Welcome to Gekkard online bank",
-            icon: <IconApp width={120} height={40} code={"w2"} color='none' lib={3}/>
+            icon: 'w2'
         },
         gekkoin: {
             title: "Welcome to Gekkoin invest platform",
-            icon: <GekkoinLogoIcon />
+            icon: 'w9'
         },
         gekwallet: {
             title: "Welcome to Gekwallet",
-            icon: <GekwalletLogoIcon />
+            icon: 'w10'
         },
     };
 
@@ -75,7 +73,7 @@ const Auth = () => {
 
             <div className={styles.Header}>
                 <div className={styles.LogoContainer}>
-                    {modeInfo.icon}
+                    <IconApp width={120} height={40} code={modeInfo.icon} color='none' lib={3}/>
                 </div>
                 <div
                     onClick={() => {

@@ -1,10 +1,10 @@
+import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useContext, useEffect, useState } from "react";
-
-import useModal from "@/shared/model/hooks/useModal";
 import Button from "@/shared/ui/button/Button";
-import Input from "@/shared/ui/input/Input";
+import useModal from "@/shared/model/hooks/useModal";
+import { useContext, useEffect, useState } from "react";
+import UniversalTransferConfirm from "./UniversalTransferConfirm";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -12,11 +12,9 @@ import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entity
 import { validateBalance, validateMaximumAmount, validateMinimumAmount } from "@/shared/config/validators";
 import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import styles from "../styles.module.scss";
 import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-
-import UniversalTransferConfirm from "./UniversalTransferConfirm";
-import styles from "../styles.module.scss";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -64,7 +62,7 @@ const UniversalTransferForm = () => {
           >
             <InputCurrency.PercentSelector
               currency={currency}
-              header={<span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>{t("amount")}:</span>}
+              header={<span className={`${styles.TitleColText} m-[0_0_1.5px_7px]`}>{t("amount")}:</span>}
               onSelect={setInputCurr}
             >
               <InputCurrency.DisplayBalance currency={currency}>
@@ -80,42 +78,30 @@ const UniversalTransferForm = () => {
         </div>
       </div>
 
-      <div className='row mb-5 w-full'>
-        <div className='row mb-[3px]'>
-          <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>{t("contact")}:</span>
-        </div>
-        <div className='row flex w-full'>
-          <div className='col basis-[100%]'>
-            <Input
-              allowDigits
-              allowSymbols
-              name={"requisite"}
-              value={inputs.requisite}
-              onChange={onInputDefault}
-              placeholder={t("enter_phone_or_IBAN")}
-            />
-          </div>
-        </div>
+      <div className='row mb-5 w-full flex flex-col gap-[3px]'>
+        <span className={`${styles.TitleColText} m-[0_0_0px_7px]`}>{t("contact")}:</span>
+        <Input
+          className='h-[32px]'
+          allowDigits
+          allowSymbols
+          name={"requisite"}
+          value={inputs.requisite}
+          onChange={onInputDefault}
+          placeholder={t("enter_phone_or_IBAN")}
+        />
       </div>
 
-      <div className='row mb-5 w-full'>
-        <div className='row mb-[3px]'>
-          <div className='col'>
-            <span className={`${styles.TitleColText} ml-[12px]`}>{t("description")}:</span>
-          </div>
-        </div>
-        <div className='row w-full'>
-          <div className='col w-full'>
-            <Input
-              allowDigits
-              allowSymbols
-              name={"comment"}
-              value={inputs.comment}
-              onChange={onInputDefault}
-              placeholder={t("comment_optional")}
-            />
-          </div>
-        </div>
+      <div className='row mb-5 w-full flex flex-col gap-[3px]'>
+        <span className={`${styles.TitleColText} ml-[7px]`}>{t("description")}:</span>
+        <Input
+          className='h-[32px]'
+          allowDigits
+          allowSymbols
+          name={"comment"}
+          value={inputs.comment}
+          onChange={onInputDefault}
+          placeholder={t("desc_optional")}
+        />
       </div>
 
       <Modal

@@ -1,6 +1,3 @@
-import { useContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { useQuery } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
@@ -9,10 +6,10 @@ import GetDisplayedForm from "@/widgets/wallet/transfer/mobile/ui/get-displayed-
 import SelectCurrency from "@/widgets/wallet/transfer/mobile/ui/select-currency";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
-import ChooseNetworkMobile from "@/widgets/wallet/transfer/mobile/ui/choose-network-mobile";
-
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import HistoryWrapper from "./history-wrapper/HistoryWrapper";
-
+import ChooseNetworkMobile from "@/widgets/wallet/transfer/mobile/ui/choose-network-mobile";
 export default function Transfers() {
   const query = useQuery();
   const { t } = useTranslation();
@@ -104,6 +101,7 @@ export default function Transfers() {
                     data-tag={"choose_network"}
                   />
                 )}
+
                 {network && (
                   <div data-tag={"main"} className='bg-[white] w-full align-center p-[1.25rem_10px] pb-1 rounded-[8px]'>
                     <GetDisplayedForm network={network} curr={$currency} />

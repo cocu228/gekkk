@@ -1,10 +1,8 @@
-import { Decimal } from "decimal.js";
-import React, { FC, useContext, useEffect, useState } from "react";
-
+import Decimal from "decimal.js";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
-
 import { CtxInputCurrencyOptions } from "../../model/context";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import style from "../style.module.scss";
 
 interface IParams {
@@ -47,12 +45,12 @@ const PercentSelector: FC<IParams> = ({
 
   return (
     <CtxInputCurrencyOptions.Provider value={percent}>
-      <div className={`wrapper  ${className}`}>
+      <div className={`wrapper ${className}`}>
         <div className='row flex justify-between items-end'>
           {header}
 
           <div
-            className={`row flex gap-1 text-xs
+            className={`row mb-[3px] flex gap-1 text-xs
                         ${disabled || !currency || !currency.balance?.free_balance ? "pointer-events-none" : ""} ${
                           mobileSecHidden && style.PercentSelector
                         }

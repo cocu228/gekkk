@@ -81,7 +81,7 @@ const UniversalTransferForm = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
+                <span className={`${styles.TitleColText} m-[0_0_1.5px_7px]`}>
                   {t("amount")}:
                 </span>
               }
@@ -100,15 +100,12 @@ const UniversalTransferForm = () => {
         </div>
       </div>
 
-      <div className="row mb-5 w-full">
-        <div className="row mb-[3px]">
-          <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
-            {t('contact')}:
-          </span>
-        </div>
-        <div className="row flex w-full">
-          <div className="col basis-[100%]">
-            <Input
+      <div className="row mb-5 w-full flex flex-col gap-[3px]">
+        <span className={`${styles.TitleColText} m-[0_0_0px_7px]`}>
+          {t('contact')}:
+        </span>
+        <Input
+          className="h-[32px]"
               allowDigits
               allowSymbols
               name={"requisite"}
@@ -116,30 +113,21 @@ const UniversalTransferForm = () => {
               onChange={onInputDefault}
               placeholder={t("enter_phone_or_IBAN")}
             />
-          </div>
-        </div>
       </div>
 
-      <div className="row mb-5 w-full">
-        <div className="row mb-[3px]">
-          <div className="col">
-            <span className={`${styles.TitleColText} ml-[12px]`}>
-              {t("description")}:
-            </span>
-          </div>
-        </div>
-        <div className="row w-full">
-          <div className="col w-full">
-              <Input
-                allowDigits
-                allowSymbols
-                name={"comment"}
-                value={inputs.comment}
-                onChange={onInputDefault}
-                placeholder={t("comment_optional")}
-              />
-          </div>
-        </div>
+      <div className="row mb-5 w-full flex flex-col gap-[3px]">
+        <span className={`${styles.TitleColText} ml-[7px]`}>
+          {t("description")}:
+        </span>
+        <Input
+         className="h-[32px]"
+          allowDigits
+          allowSymbols
+          name={"comment"}
+          value={inputs.comment}
+          onChange={onInputDefault}
+          placeholder={t("desc_optional")}
+        />      
       </div>
       
       <Modal

@@ -10,10 +10,10 @@ document.body.setAttribute("data-app", import.meta.env.VITE_APP_TYPE);
 // WebApp.ready();
 
 if (accountId) {
-    import('./index')
-    import('@/app/chat/dist/chat.js')
+    import('./index');
+    import('@/app/chat/dist/chat.js');
 } else {
     //@ts-ignore
-    import('@VAR/app/authentication/{{mode-}}dist/authentication.js')
-    import('@/app/chat/dist/chat.js')
+    import('@VAR/app/authentication/{{mode-}}dist/authentication.js');
+    import('@/app/chat/dist/chat.js');
 }

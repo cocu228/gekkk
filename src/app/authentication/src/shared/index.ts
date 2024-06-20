@@ -42,18 +42,15 @@ export async function SignIn(silent?: boolean) {
 
     if (!silent) abortController?.abort("new sign in");
 
-    console.log('1. Get login_options')
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
     
-    console.log('2. Result login_options:')
     console.log(res)
     opt = res.result;
 
     opt.challenge = Base64URL_to_Uint8Array(opt.challenge);
 
     if (!silent) {
-        console.log('3. Show modal')
         Swal.fire({
             title: 'Logging In...',
             text: 'Tap your security key to login.',
@@ -64,13 +61,11 @@ export async function SignIn(silent?: boolean) {
             focusCancel: false
         });
     } else {
-        console.log("4. (SILENT) CMA login...")
     }
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
-    try {
-        console.log(`5. Trying to get credentials from browser (SILENT: ${silent})`)
+    try {        
         assertedCredential = !silent ?
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({
@@ -88,7 +83,7 @@ export async function SignIn(silent?: boolean) {
             text: "Could not get credentials in browser or OS.",
             footer: e
         });
-        else console.log(e);
+        else console.error(e);
         return false;
     }
 

@@ -24,7 +24,18 @@ export const LocalizationMenu = () => {
         key: 'de',
     }, {
         key: 'ru',
-    }];
+    }, {
+        key: 'CN',
+    },{
+        key: 'ES',
+    },{
+        key: 'TR',
+    },{
+        key: 'FR',
+    },{
+        key: 'IT',
+    }
+    ];
 
     return <>
         <Dropdown trigger={<IconFlag code={state} size={24} />}>

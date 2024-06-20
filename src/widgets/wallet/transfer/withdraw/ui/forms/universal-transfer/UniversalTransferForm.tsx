@@ -81,7 +81,7 @@ const UniversalTransferForm = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className={`${styles.TitleColText} m-[0_0_1.5px_7px]`}>
+                <span className={`${styles.TitleColText} md:m-[0_0_-2px_7px] m-[0_0_-3.5px_7px]`}>
                   {t("amount")}:
                 </span>
               }

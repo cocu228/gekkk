@@ -23,8 +23,6 @@ const Header = () => {
     const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
 
-    console.log(import.meta.env.MODE)
-
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},

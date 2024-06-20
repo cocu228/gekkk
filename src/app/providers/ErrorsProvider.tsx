@@ -92,19 +92,6 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     }));
                 });
             }
-            
-            // if (hunterErrorsApi.isConfirmationToken()) {
-            //     return new Promise((resolve, reject) => {
-            //         setState(prev => ({
-            //             ...prev,
-            //             actionConfirmResponse: response,
-            //             pending: {
-            //                 resolve: resolve,
-            //                 reject: reject
-            //             }
-            //         }));
-            //     })
-            // }
 
             return response;
         }, hunterErrorStatus.bind({

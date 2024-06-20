@@ -18,6 +18,7 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasToken } from "@/processes/uas-provider-context";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
@@ -25,6 +26,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {setContent} = useContext(CtxGlobalModalContext);
     const [loading, setLoading] = useState<boolean>(false);
     const { displayHistory } = useContext(CtxDisplayHistory);
+    const {uasToken} = useContext(UasToken)
 
     const {
         networkTypeSelect,
@@ -46,6 +48,8 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
+    console.log('uas', uasToken)
+
     const details = useRef({
         purpose: t("purchase_of", {token: "EURG"}),
         iban: token_hot_address,
@@ -64,12 +68,11 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const onConfirm = async () => {
         setLoading(true);
         
-        const {data} = await apiGetUas();
         const {phone} = await getAccountDetails();
         
         await apiPaymentSepa(details.current, false, {
             Authorization: phone,
-            Token: data.result.token
+            Token: uasToken
         }).then(async (response) => {
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
@@ -79,7 +82,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             await apiPaymentSepa(details.current, false, {
                 ...headers,
                 Authorization: phone,
-                Token: data.result.token
+                Token: uasToken
             }).then((response)=>{
                 if(md){                    
                     //@ts-ignore

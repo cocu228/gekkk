@@ -3,7 +3,7 @@ import InfoBox from "@/widgets/info-box";
 import {logout} from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {apiGetInfo} from "@/shared/(orval)api/gek";
+import {apiGetInfo, apiGetUas} from "@/shared/(orval)api/gek";
 import useModal from "@/shared/model/hooks/useModal";
 import {useLocation, useNavigate} from "react-router-dom";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
@@ -14,6 +14,7 @@ import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-pro
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
+import { UasToken } from "@/processes/uas-provider-context";
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
@@ -23,6 +24,13 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
+    const [uasToken, setUasToken] = useState(null)
+
+    const getUasToken = async () => {
+        const {data} = await apiGetUas();
+
+        setUasToken(data.result.token)
+    }
 
     const [state, setState] = useState<IStateErrorProvider>({
         errors: [],
@@ -126,7 +134,14 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     actionConfirmResponse: null
                 }))
             }}>
-                {children}
+                <UasToken.Provider
+                    value={{
+                        uasToken: uasToken,
+                        getUasToken: getUasToken
+                    }}
+                >
+                    {children}
+                </UasToken.Provider>
             </CtxNeedConfirm.Provider>
         </CtxOfflineMode.Provider>
 

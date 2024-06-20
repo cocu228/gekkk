@@ -73,7 +73,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
                 ref={applyInputRef}
                 value={input}
                 onChange={inputChage}
-                className="text-[10px] font-[400]"
+                className="text-[10px] border-none font-[400]"
               />
             </div>
             <div className="flex justify-center w-[40%]">

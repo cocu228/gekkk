@@ -57,86 +57,14 @@ const WithdrawFormBroker = () => {
         delayDisplay();
     }, [inputCurr.value.number]);
 
-    return !md ? (<div className="wrapper">
-        <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-            <div className="col text-xl font-bold">
-                <span>1 EUR = 1 EURG*</span>
-            </div>
-
-            <div className="col text-xs">
-                <span><b>*{t("note")}</b>:  {t("exchange_fee")} <b>1,5%</b>
-                    {account.rights[AccountRights.IsJuridical] ? null :
-                        <span className="font-normal"> {t("if_you")} <span
-                            className='text-blue-400 hover:cursor-pointer hover:underline'
-                            onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
-                        >
-                            {t("freeze_GKE_tokens")}
-                        </span> {t("fee_is")} <b>0%</b>.
-                    </span>}
-                </span>
-            </div>
-        </div>
-
-        <div className="row mb-4">
-            <div className="col">
-                <BrokerAmountContainer
-                    textClassname={'text-gray-600 font-medium ml-[8px]'}
-                    placeholder={t("exchange.enter_amount")}
-                    value={inputCurr.value.number}
-                    inputValue={inputCurr.value.string}
-                    currency={currency}
-                    description={getWithdrawDesc(min_withdraw, currency.$const)}
-                    validators={[
-                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-                        validateBalance(currency, navigate, t)
-                    ]}
-                    onError={setInputCurrValid}
-                    onSelect={setInputCurr}
-                    onChange={setInputCurr}
-                />
-            </div>
-        </div>
-
-        {localErrorInfoBox &&
-            <div className='py-5'>
-                {localErrorInfoBox}    
-            </div>
-        }
-        <div className='w-full flex justify-center'>
-            <Commissions
-                isLoading={loading}
-                youWillPay={inputCurr.value.number}
-                youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
-                fee={withdraw_fee}
-                youWillGetCoin={"EURG"}
-            />
-        </div>
-        <Modal
-            isModalOpen={isModalOpen}
-            onCancel={handleCancel}
-            title={t("withdraw_confirmation")}
-        >
-            <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
-        </Modal>
-        <div className="row w-full mt-4">
-            <div className="flex justify-center col">
-                <Button
-                    size='lg'
-                    disabled={!inputCurr.value.number || inputCurrValid.value || loading}
-                    onClick={showModal}
-                    className="w-full">
-                    {t("transfer")}
-                </Button>
-            </div>
-        </div>
-    </div>) : (
+    return (
         <div className="wrapper">
             <div className={styles.Title}>
                 <div className={styles.TitleCol}>
                     <BrokerAmountContainer
                         transfers
                         placeholder={t('enter_amount')}
-                        textClassname={`${styles.TitleColText} ml-[10px]`}
+                        textClassname={`${styles.TitleColText} ml-[7px]`}
                         value={inputCurr.value.number}
                         inputValue={inputCurr.value.string}
                         currency={currency}
@@ -177,7 +105,7 @@ const WithdrawFormBroker = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full flex justify-center'>
+            <div className='w-full mt-[5px] flex justify-center'>
                 <Commissions
                     isLoading={loading}
                     youWillPay={inputCurr.value.number}

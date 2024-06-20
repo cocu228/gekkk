@@ -76,13 +76,13 @@ const Withdraw = memo(() => {
                 {displayedForm}
                 
                 {(finalFeeEntity.type.percent || finalFeeEntity.type.number) && <div className="row mt-4">
-                    <div className="col">
-                        <div className='text-center'>
+                    <div className="col md:text-[12px] text-[14px]">
+                        <div className='text-center text-[#9D9D9D]'>
                             {t("fee_is_perc")} {finalFeeEntity.type.number ?
                             <>
-                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const}</span>
+                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const} </span>
                             </> :
-                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} %</b>
+                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} % </b>
                         } {t("per_transaction")}
                         </div>
                     </div>

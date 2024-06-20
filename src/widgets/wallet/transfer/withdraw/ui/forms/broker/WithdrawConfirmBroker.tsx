@@ -19,7 +19,6 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
-
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
     const {md} = useBreakpoints();
@@ -96,134 +95,15 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         })
     }
 
-    return !md ? <div>
-        {loading && <Loader className='justify-center'/>}
-        
-        <div className={loading ? 'collapse' : ''}>
-            <div className="row mb-5">
-                <div className="col">
-                    <div className="p-4 bg-gray-300">
-                        <div className="wrapper flex flex-col">
-                            <div className="row mb-1">
-                                <div className="col">
-                                    <span className="text-red-800">{t("please_note")}</span>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <span className="text-gray-400">
-                                        {t("use_withdraw_addr_supported")}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    return (
+        <>
+            <div className="mb-[30px] flex gap-[5px]">
+                <IconApp color="#8F123A" size={15} className="min-w-[15px]" code="t27" />
+                <span className={styles.ModalInfoText}>
+                    {t("check_your_information_carefully")}
+                </span>
             </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("network")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{label}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("beneficiary_name")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{account.name}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("account_number")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{account.number}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("purpose")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{t("purchase_of", {token: "EURG"})} {t("for_token", {token: "EUR"})}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("amount")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{amount} {$const}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("fee")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {new Decimal(withdraw_fee).toString()} EUR
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("you_will_get")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {new Decimal(amount).minus(withdraw_fee).toString()} EURG
-                </div>
-            </div>
-            
-            <Form onSubmit={onConfirm}>
-                <div className="row mt-4 mb-4">
-                    <div className="flex justify-center col">
-                        <Button size="lg"
-                                className="w-full"
-                                htmlType={"submit"}
-                        >{t("confirm")}</Button>
-                    </div>
-                </div>
-            </Form>
-        </div>
-    </div> : <>
-            <div className="row mb-5">
-                <div className="col">
-                    <div className="p-4">
-                        <div className={`wrapper ${styles.ModalInfo}`}>
-                            <div className={styles.ModalInfoIcon}>
-                                <div className="col">
-                                    <IconApp color="#8F123A" size={20} code="t27" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <span className={styles.ModalInfoText}>
-                                        {t("check_your_information_carefully")}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.ModalRows}>
+            <div className={`${styles.ModalRows} mb-[20px]`}>
                 <div className="row">
                     <div className="col">
                         <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
@@ -257,13 +137,8 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     </div>
                 </div>
             </Form>
-            {/*{is_operable === false && <>*/}
-            {/*    <div className="info-box-danger">*/}
-            {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
-            {/*            network for this transaction.</p>*/}
-            {/*    </div>*/}
-            {/*</>}*/}
         </>
+    )
 }
 
 export default WithdrawConfirmBroker;

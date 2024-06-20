@@ -16,7 +16,7 @@ import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
-import ReceiptData from "@/widgets/receipt/receiptData";
+import Receipt from "@/widgets/receipt/ui";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
@@ -47,7 +47,7 @@ const InfoContent = (props: TxInfoProps) => {
       })
     } else {
       modalContext.setContent({
-        content: <ReceiptData txId={props.id_transaction}/>,
+        content: <Receipt txId={props.id_transaction}/>,
         title: t("transaction_receipt")
       })
     }
@@ -262,22 +262,32 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && (
-              <div className={"flex gap-[20px] w-full justify-between mt-3"}>
-                <Button
-                    skeleton
-                    className='w-full'
-                    onClick={handleOnReceipt}
-                >
-                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
-                </Button>
-                <Button
-                    className='w-full'
-                    onClick={props.handleCancel}
-                >
-                  {t("close")}
-                </Button>
-              </div>
+          {!isNeedConfirm && props.tx_type === 4 ? (
+            <div className={"flex gap-[20px] w-full justify-between mt-3"}>
+              <Button
+                  skeleton
+                  className='w-full'
+                  onClick={handleOnReceipt}
+              >
+                <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
+              </Button>
+
+              <Button
+                  className='w-full'
+                  onClick={props.handleCancel}
+              >
+                {t("close")}
+              </Button>
+            </div>
+          ) : (
+            <div className={"flex w-full justify-center mt-3"}>
+              <Button
+                  className='w-full'
+                  onClick={props.handleCancel}
+              >
+                {t("close")}
+              </Button>
+            </div>
           )}
         </div>
       )}

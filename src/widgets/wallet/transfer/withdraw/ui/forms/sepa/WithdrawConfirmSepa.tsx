@@ -15,7 +15,7 @@ import styles from "../styles.module.scss";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import BankReceipt from "@/widgets/receipt/bank";
+import BankReceipt from "@/widgets/receipt/ui/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import axios from "axios";
@@ -151,10 +151,10 @@ const WithdrawConfirmSepa = ({
   };
 
   const getReceipt = async (referenceNumber: string) => {
-    setContent({
-        content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
-        title: 'Transaction receipt'
-    });
+    // setContent({
+    //     content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
+    //     title: 'Transaction receipt'
+    // });
   };
 
   return <>

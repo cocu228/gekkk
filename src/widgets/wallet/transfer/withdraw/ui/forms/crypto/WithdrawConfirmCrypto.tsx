@@ -26,7 +26,6 @@ import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
-import ReceiptData from "@/widgets/receipt/receiptData";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
@@ -165,13 +164,6 @@ const WithdrawConfirmCrypto = memo(
         });
 
       setLoading(false);
-    };
-
-    const getReceipt = (txId: string) => async () => {
-      setContent({
-          content: <ReceiptData txId={txId}/>,
-          title: 'Transaction receipt'
-      });
     };
 
     const inputChange = ({target}: any) => {

@@ -27,3 +27,9 @@ export function getMethodTitle(method: string): string {
 
     return titles[method];
 }
+
+const onlyNumbersRegex = new RegExp(/^[0-9]*$/)
+
+export function isGekTxId(val: string | number) {
+    return onlyNumbersRegex.test(val as string);
+}

@@ -13,7 +13,7 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/receipt/bank";
+import BankReceipt from "@/widgets/receipt/ui/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
@@ -130,10 +130,10 @@ const WithdrawConfirmPhoneNumber = ({
     }
 
     const getReceipt = async (referenceNumber: string) => {
-        setContent({
-            content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
-            title: 'Transaction receipt'
-        });
+        // setContent({
+        //     content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
+        //     title: 'Transaction receipt'
+        // });
     };
     
     return (

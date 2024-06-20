@@ -16,8 +16,7 @@
  * Типы кодов генерации: 
 0 = None, 1 = RoomKey, 2 = AgentLink, 3 = AgentPayLink, 4 = ClientInvestPayLink, 5 = ClientRegPayLink, 11 = InternalTx, 12 = InternalTxConfirm, 13 = InvoiceTx, 14 = InvoiceTxConfirm, 15 = DiscountPoints, 16 = DiscountPercent, 17 = RaffleCode
  */
-export type CodeTypeEnum = typeof CodeTypeEnum[keyof typeof CodeTypeEnum];
-
+export type CodeTypeEnum = (typeof CodeTypeEnum)[keyof typeof CodeTypeEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CodeTypeEnum = {
@@ -33,5 +32,5 @@ export const CodeTypeEnum = {
   NUMBER_14: 14,
   NUMBER_15: 15,
   NUMBER_16: 16,
-  NUMBER_17: 17,
+  NUMBER_17: 17
 } as const;

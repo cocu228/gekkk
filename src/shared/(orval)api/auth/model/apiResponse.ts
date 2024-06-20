@@ -11,7 +11,7 @@
                     
  * OpenAPI spec version: v1
  */
-import type { ErrorObject } from './errorObject';
+import type { ErrorObject } from "./errorObject";
 
 /**
  * Ответы-результаты запросов API в виде текста обозначающие вариант завершения процесса. 

@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1BankAccountsDealsParams = {
-accountId?: number[];
+  accountId?: number[];
 };

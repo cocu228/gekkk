@@ -1,53 +1,44 @@
-import Decimal from "decimal.js";
-import {AxiosResponse} from "axios";
-import {actionSuccessConstructor, getCookieData, uncoverArray} from "@/shared/lib/helpers";
-import {SignHeaders} from "@/shared/api";
-import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
-import { apiTokensNetworks } from "@/shared/(orval)api";
-import { helperApiTokenNetworks } from "../../model/helpers";
-import { TokensNetwork } from "@/shared/(orval)api/gek/model";
+import { Decimal } from "decimal.js";
+import { AxiosResponse } from "axios";
 
-export const isDisabledBtnWithdraw = (inputs) => {
-    return !inputs.address || !inputs.recipient;
-}
+import { apiTokensNetworks } from "@/shared/(orval)api";
+
+export const isDisabledBtnWithdraw = inputs => !inputs.address || !inputs.recipient;
 
 type TGetFinalFee = {
+  type: {
+    number: boolean | null;
+    percent: boolean | null;
+  };
+  value: {
+    number: number;
+    percent: number;
+  };
+};
+export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
+  const result = {
     type: {
-        number: boolean | null,
-        percent: boolean | null
+      number: false,
+      percent: false
     },
     value: {
-        number: number,
-        percent: number
+      number: 0,
+      percent: 0
     }
-}
-export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
+  };
 
-    let result = {
-        type: {
-            number: false,
-            percent: false
-        },
-        value: {
-            number: 0,
-            percent: 0
-        }
-    }
+  if (curFee === 0 && perFee === 0) return result;
 
+  const decCurFee = new Decimal(curFee);
+  const decPerFee = new Decimal(perFee);
 
-    if (curFee === 0 && perFee === 0) return result
+  result.type.percent = !decPerFee.isZero();
+  result.type.number = !decCurFee.isZero();
+  result.value.percent = decPerFee.toNumber();
+  result.value.number = decCurFee.toNumber();
 
-    const decCurFee = new Decimal(curFee)
-    const decPerFee = new Decimal(perFee)
-
-    result.type.percent = !decPerFee.isZero()
-    result.type.number = !decCurFee.isZero()
-    result.value.percent = decPerFee.toNumber()
-    result.value.number = decCurFee.toNumber()
-
-    return result
-
-}
+  return result;
+};
 
 // export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
 //
@@ -84,10 +75,10 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 // }
 
 export const reponseOfUpdatingTokensNetworks = async (amount: number, $const) => {
-    const response: AxiosResponse = await apiTokensNetworks({
-        top_up: false,
-        currency: $const,
-        wdr_amount: amount
-    });
-    return response.data
-}
+  const response: AxiosResponse = await apiTokensNetworks({
+    top_up: false,
+    currency: $const,
+    wdr_amount: amount
+  });
+  return response.data;
+};

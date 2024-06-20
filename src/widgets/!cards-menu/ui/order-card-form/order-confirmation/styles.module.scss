@@ -1,76 +1,76 @@
-@import '../styles.module.scss';
+@import "../styles.module.scss";
 
 .Container {
-    padding: 12px;
-    margin-top: 1rem;
-    background: #fff;
-    border-radius: 8px;
+  padding: 12px;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 8px;
 }
 
 .InfoList {
-    gap: 8px;
-    display: flex;
-    flex-direction: column;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .Row {
-    width: 100%;
-    display: flex;
-    min-height: 30px;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  min-height: 30px;
+  flex-direction: column;
 
-    &Title {
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 18px;
-        color: var(--gek-dark-blue);
+  &Title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--gek-dark-blue);
 
-        @media screen and (max-width: 768px) {
-            font-size: 12px;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
     }
+  }
 
-    &Value {
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 20px;
-        color: var(--gek-additional);
+  &Value {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--gek-additional);
 
-        @media screen and (max-width: 768px) {
-            font-size: 12px;
-            margin-bottom: 4px;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+      margin-bottom: 4px;
     }
+  }
 }
 
 .Fee {
-    &List {
-        gap: 6px;
-        width: 100%;
-        display: flex;
-        padding-top: 24px;
-        flex-direction: column;
+  &List {
+    gap: 6px;
+    width: 100%;
+    display: flex;
+    padding-top: 24px;
+    flex-direction: column;
 
-        @media screen and (max-width: 768px) {
-            padding-top: 8px;
-        }
+    @media screen and (max-width: 768px) {
+      padding-top: 8px;
     }
+  }
 
-    &Row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  &Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    &Title {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--gek-additional);
-    }
+  &Title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gek-additional);
+  }
 
-    &Value {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--gek-additional);
-    }
+  &Value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gek-additional);
+  }
 }

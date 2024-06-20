@@ -1,6 +1,6 @@
-import { Banners } from './components/Banners'
-import { MyReward } from './components/MyReward'
-import styles from './styles.module.scss'
+import { Banners } from "./components/Banners";
+import { MyReward } from "./components/MyReward";
+import styles from "./styles.module.scss";
 
 export function BannersAndMyReward() {
   return (
@@ -8,5 +8,5 @@ export function BannersAndMyReward() {
       <Banners />
       <MyReward />
     </div>
-  )
+  );
 }

@@ -16,14 +16,8 @@ export interface UasInfo {
   expires_in: number;
 }
 
-export const apiGetUas = ({
-  code,
-  phone,
-  sessid,
-  newtoken,
-  accountId
-}: IParams) =>
-  makeApiRequest<GateApiResponse<UasInfo>>('POST', '/gek/v1/bank/get_uas', null, {
+export const apiGetUas = ({ code, phone, sessid, newtoken, accountId }: IParams) =>
+  makeApiRequest<GateApiResponse<UasInfo>>("POST", "/gek/v1/bank/get_uas", null, {
     //@ts-ignore
     baseURL: import.meta.env.VITE_GATE_URL,
     params: {
@@ -32,10 +26,10 @@ export const apiGetUas = ({
       newtoken
     },
     headers: {
-        accountId,
-        Authorization: phone,
-        ApplicationId: "GEKKARD",
-        ProductId: "GEKKARD",
+      accountId,
+      Authorization: phone,
+      ApplicationId: "GEKKARD",
+      ProductId: "GEKKARD"
     },
     withCredentials: true
   });

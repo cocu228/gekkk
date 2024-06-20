@@ -13,5 +13,5 @@
  */
 
 export type GetGekV1BankUnmaskParams = {
-cardId?: string;
+  cardId?: string;
 };

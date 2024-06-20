@@ -1,41 +1,42 @@
-import {actionSuccessConstructor} from "@/shared/lib/helpers";
-import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
-import {AxiosResponse} from "axios";
-import {TokensNetwork} from "@/shared/(orval)api/gek/model";
+import { AxiosResponse } from "axios";
+
+import { actionSuccessConstructor } from "@/shared/lib/helpers";
+import { TNetworksForSelector } from "@/widgets/wallet/transfer/model/types";
+import { TokensNetwork } from "@/shared/(orval)api/gek/model";
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
-    const result = Array.isArray(response.data.result) &&
-        response.data.result
+  const result = Array.isArray(response.data.result) && response.data.result;
 
-    return actionSuccessConstructor.call(result, typeof Array.isArray(result))
-}
+  return actionSuccessConstructor.call(result, typeof Array.isArray(result));
+};
 
 export const helperApiListAddresses = function (response: AxiosResponse) {
+  const isEmpty = response.data.result.length === 0;
 
-    const isEmpty = response.data.result.length === 0
+  const result = isEmpty ? undefined : response.data.result[0]?.address;
 
-    const result = isEmpty ? undefined : response.data.result[0]?.address
-
-    return actionSuccessConstructor.call(result, typeof Array.isArray(response.data.result))
-}
-
+  return actionSuccessConstructor.call(result, typeof Array.isArray(response.data.result));
+};
 
 export const sortingNetworksForSelector = function (networks: Array<TokensNetwork>): TNetworksForSelector | [] {
-    return !networks ? [] : networks.map(it => ({
+  return !networks
+    ? []
+    : networks.map(it => ({
         value: it.network_type,
-        label: `${it.contract_name === 'Base' ? '' : `${it.contract_name} / `}
-        ${!it.network_name ? '' : `${it.network_name} / `} ${it.token_name} ${!it.token_symbol ? '' : `(${it.token_symbol})`}`
-    }));
-}
+        label: `${it.contract_name === "Base" ? "" : `${it.contract_name} / `}
+        ${!it.network_name ? "" : `${it.network_name} / `} ${it.token_name} ${
+          !it.token_symbol ? "" : `(${it.token_symbol})`
+        }`
+      }));
+};
 
 // export const getAddressForChose = function (addresses: Array<IResListAddresses>, network: IResTokenNetwork): undefined | IResListAddresses {
 //     return addresses.find(item => network.network_type.split(",").some(it => it === item.type_address))
 // }
 
 export const getChosenNetwork = function (networks: Array<TokensNetwork>, networkType: number): TokensNetwork {
-    return networks && networks?.find(it => it.network_type === networkType);
-}
-
+  return networks && networks?.find(it => it.network_type === networkType);
+};
 
 // Блокчейны
 // Bitcoin = 10,
@@ -81,6 +82,5 @@ export const getChosenNetwork = function (networks: Array<TokensNetwork>, networ
 // MoneroTest = 205,
 // EthereumSepolia = 206
 export function isCryptoNetwork(networkType: number): boolean {
-    return (networkType >= 10 && networkType < 23)
-        || (networkType >= 200 && networkType <= 223);
+  return (networkType >= 10 && networkType < 23) || (networkType >= 200 && networkType <= 223);
 }

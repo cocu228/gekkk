@@ -1,279 +1,275 @@
 @import "@styles/mixins";
 
-.Title{
-    &Col{
-        padding-bottom: 15px;
+.Title {
+  &Col {
+    padding-bottom: 15px;
 
-        &Text{
-            color: #1F3446;
-            font-weight: 500;
-            font-size: 16px;
-            
-            @include max-devices("md") {
-                font-weight: 700;
-                font-size: 12px;
-            }
+    &Text {
+      color: #1f3446;
+      font-weight: 500;
+      font-size: 16px;
 
-            &Margin{
-                font-weight: 700; 
-                color: #1F3446;
-                font-size: 12px;
-                margin-right: 2rem;
-            }
-        }
+      @include max-devices("md") {
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      &Margin {
+        font-weight: 700;
+        color: #1f3446;
+        font-size: 12px;
+        margin-right: 2rem;
+      }
     }
+  }
 }
 
-.EURCost{
-    display: flex; 
-    padding: 1rem;
-    flex-direction: column;
-    gap: 0.25rem; 
-    border-radius: 0.5rem; 
-    background: #DADADA;
+.EURCost {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-radius: 0.5rem;
+  background: #dadada;
+
+  @include max-devices("md") {
+    padding: 0.5rem;
+  }
+
+  &Value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3a5e66;
 
     @include max-devices("md") {
-        padding: .5rem;
+      font-size: 14px;
     }
+  }
 
-    &Value{
-        font-size: 20px;
-        font-weight: 700;
-        color: #3A5E66;
+  &Info {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #3a5e66;
 
-        @include max-devices("md") {
-            font-size: 14px;
+    &Text {
+      font-size: 12px;
+
+      @include max-devices("md") {
+        font-size: 10px;
+      }
+
+      &Uppercase {
+        text-transform: uppercase;
+      }
+
+      &Link {
+        color: #45ad77;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
         }
+      }
     }
-
-    &Info{
-        font-size: 0.75rem;
-        line-height: 1rem; 
-        color: #3A5E66;
-    
-        &Text{
-            font-size: 12px;
-
-            @include max-devices("md") {
-                font-size: 10px;
-            }
-
-            &Uppercase{
-                text-transform: uppercase;
-            }
-
-            &Link{
-                color: #45AD77;
-
-                &:hover{
-                    cursor: pointer;
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
+  }
 }
 
-.ButtonContainer{
+.ButtonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &Center {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    
-    &Center{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-.Button{
-    width: 100%; 
+    justify-content: center;
     margin-bottom: 10px;
-
-    &Two{
-        width: 130px;
-    }
-
-    &Label {
-        font-weight: 500;
-        font-size: 16px;
-        
-        @include max-devices("md") {
-            font-weight: 600;
-            font-size: 12px;
-        }
-    }
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-.BottomFeeInfo{
-    display: flex; 
-    justify-content: center; 
-    width: 100%; 
+.Button {
+  width: 100%;
+  margin-bottom: 10px;
 
-    &Text{
-        color: #9D9D9D;
-        font-size: 10px;
+  &Two {
+    width: 130px;
+  }
 
-        &Bold{
-            font-weight: bold;
-        }
-    }
-}
-
-.MainModalTitle{
-    display: block;
-    font-size: 18px;
-    color: #1F3446;
-    font-weight: 600;
+  &Label {
+    font-weight: 500;
+    font-size: 16px;
 
     @include max-devices("md") {
-        font-size: 16px;
+      font-weight: 600;
+      font-size: 12px;
     }
+  }
 }
 
-.ModalLine{
-    border: 0px;
-    height: 1px;
-    background: var(--gek-light-grey);
+.BottomFeeInfo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &Text {
+    color: #9d9d9d;
+    font-size: 10px;
+
+    &Bold {
+      font-weight: bold;
+    }
+  }
 }
 
-.ModalInfo{
+.MainModalTitle {
+  display: block;
+  font-size: 18px;
+  color: #1f3446;
+  font-weight: 600;
+
+  @include max-devices("md") {
+    font-size: 16px;
+  }
+}
+
+.ModalLine {
+  border: 0px;
+  height: 1px;
+  background: var(--gek-light-grey);
+}
+
+.ModalInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &Icon {
+    margin-right: 0.5rem;
+  }
+
+  &Text {
+    font-size: 14px;
+    color: var(--gek-dark-grey);
+    font-weight: 400;
+
+    @include max-devices("md") {
+      font-size: 12px;
+    }
+  }
+}
+
+.ModalRows {
+  margin-left: 1rem;
+  width: 100%;
+
+  &Title {
+    color: #9d9d9d;
+    font-size: 14px;
+
+    @include max-devices("md") {
+      font-size: 12px;
+    }
+  }
+
+  &Value {
+    display: inline-block;
+    color: var(--gek-additional);
+    font-weight: 600;
+    width: 100%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+
+    @include max-devices("md") {
+      font-size: 12px;
+    }
+  }
+}
+
+.ModalPayInfo {
+  display: flex;
+  margin-right: 2.5rem;
+  margin-top: 1.5rem;
+  gap: 1rem;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 80%;
+
+  @include max-devices("md") {
+    margin-right: 3rem;
+    margin-top: 1rem;
+  }
+
+  &Col {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: max-content;
+
+    @include max-devices("md") {
+      gap: 0.2rem;
+    }
+
+    &Value {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      width: max-content;
+    }
+  }
+
+  &Text {
+    overflow-wrap: normal;
+    color: #3a5e66;
+    text-wrap: nowrap;
+    word-break: keep-all;
+    white-space: nowrap;
+    &Fee {
+      overflow-wrap: normal;
+      white-space: nowrap;
+      text-wrap: nowrap;
+      word-break: keep-all;
+      color: #9d9d9d;
+    }
+  }
+
+  &ValueFlex {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 
-    &Icon{
-        margin-right: .5rem;
-    }
+    &Text {
+      overflow-wrap: normal;
+      width: 100%;
+      font-weight: 600;
+      color: #1f3446;
+      text-align: end;
+      max-width: 20vw;
+      text-wrap: nowrap;
+      word-break: keep-all;
+      white-space: nowrap;
 
-    &Text{
-        font-size: 14px;
-        color: var(--gek-dark-grey);
-        font-weight: 400;
-
-        @include max-devices("md") {
-            font-size: 12px;
-        }
-    }
-}
-
-.ModalRows{
-    margin-left: 1rem;
-    width: 100%;
-
-
-    &Title{
-        color: #9D9D9D;
-        font-size: 14px;
-
-        @include max-devices("md") {
-            font-size: 12px;
-        }
-    }
-
-    &Value{
-        display: inline-block;
-        color: var(--gek-additional);
-        font-weight: 600;
-        width: 100%;
-        overflow: hidden;
-        text-wrap: nowrap;
-        text-overflow: ellipsis;
-        font-size: 14px;
-
-        @include max-devices("md") {
-            font-size: 12px;
-        }
-    }
-}
-
-.ModalPayInfo{
-    display: flex;
-    margin-right: 2.5rem;
-    margin-top: 1.5rem;
-    gap: 1rem; 
-    justify-content: space-between; 
-    font-size: 0.875rem;
-    line-height: 1.25rem; 
-    font-weight: 500; 
-    width: 80%;
-    
-    @include max-devices("md") {
-        margin-right: 3rem;
-        margin-top: 1rem;
-    }
-
-    &Col{
-        display: flex; 
-        flex-direction: column; 
-        gap: 0.5rem; 
-        width: max-content;
-
-        @include max-devices("md") {
-            gap: .2rem;
-        }
-        
-        &Value{
-            display: flex; 
-            flex-direction: row; 
-            gap: 0.5rem; 
-            width: max-content;
-        }
-    }
-
-    &Text{
+      &Fee {
         overflow-wrap: normal;
-        color:#3A5E66;
+        color: #9d9d9d;
+        text-align: start;
         text-wrap: nowrap;
         word-break: keep-all;
         white-space: nowrap;
-        &Fee{
-            overflow-wrap: normal;
-            white-space: nowrap;
-            text-wrap: nowrap;
-            word-break: keep-all;    
-            color: #9D9D9D;
-        }
+        max-width: 20vw;
+      }
     }
-
-    &ValueFlex{
-        display: flex; 
-        justify-content: flex-end;
-        align-items: center; 
-
-        &Text{
-            overflow-wrap: normal;
-            width: 100%; 
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: end;
-            max-width: 20vw;
-            text-wrap: nowrap;
-            word-break: keep-all;
-            white-space: nowrap;
-
-
-            &Fee{
-                overflow-wrap: normal;
-                color: #9D9D9D;
-                text-align: start;
-                text-wrap: nowrap;
-                word-break: keep-all;
-                white-space: nowrap;
-                max-width: 20vw;
-            }
-        }
-        &TextCurrency{
-            width: 100%; 
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: start;
-            text-wrap: nowrap;
-        }
+    &TextCurrency {
+      width: 100%;
+      font-weight: 600;
+      color: #1f3446;
+      text-align: start;
+      text-wrap: nowrap;
     }
+  }
 }
-
-

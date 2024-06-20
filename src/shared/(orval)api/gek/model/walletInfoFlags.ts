@@ -16,8 +16,7 @@
  * Флаги разрешений/типов по клиенту: 
 0 = None, 1 = WithdrawBlock, 2 = TopUpBlock, 4 = ExchangeBlock, 8 = InnerTransferBlock, 16 = InvestBlock, 32 = LogInBlock, 64 = AllTokensNetworks, 256 = GkeBonusBlock, 272 = JuridicalBlock, 319 = BlockAll, 33554432 = IsJuridical, 67108864 = IsJuridicalGekkardPro, 1073741824 = Deleted
  */
-export type WalletInfoFlags = typeof WalletInfoFlags[keyof typeof WalletInfoFlags];
-
+export type WalletInfoFlags = (typeof WalletInfoFlags)[keyof typeof WalletInfoFlags];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const WalletInfoFlags = {
@@ -34,5 +33,5 @@ export const WalletInfoFlags = {
   NUMBER_319: 319,
   NUMBER_33554432: 33554432,
   NUMBER_67108864: 67108864,
-  NUMBER_1073741824: 1073741824,
+  NUMBER_1073741824: 1073741824
 } as const;

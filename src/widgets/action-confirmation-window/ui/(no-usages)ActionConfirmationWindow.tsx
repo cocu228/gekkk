@@ -32,7 +32,7 @@ const ActionConfirmationWindow = () => {
     code: null,
     token: null,
     config: null,
-    loading: false,
+    loading: false
   });
   const { t } = useTranslation();
   const { onInput } = useMask(MASK_CODE);
@@ -40,21 +40,13 @@ const ActionConfirmationWindow = () => {
   const phoneNumber = "79111111111"; //getCookieData<{phoneNumber: string}>();
   const { isModalOpen, handleCancel, showModal } = useModal();
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const {
-    pending,
-    setSuccess,
-    actionConfirmResponse: response,
-  } = useContext(CtxNeedConfirm);
+  const { pending, setSuccess, actionConfirmResponse: response } = useContext(CtxNeedConfirm);
 
   const onSingInUAS = async () => {
     const requestCodeResponse = await apiRequestCode(phoneNumber);
     const sessionIdUas = requestCodeResponse.data.sessid;
 
-    const { data } = await apiSignIn(
-      code.replace(/ /g, ""),
-      sessionIdUas,
-      phoneNumber
-    );
+    const { data } = await apiSignIn(code.replace(/ /g, ""), sessionIdUas, phoneNumber);
 
     if (!data.success) {
       return;
@@ -64,8 +56,8 @@ const ActionConfirmationWindow = () => {
       {
         key: "bankToken",
         value: data.token,
-        expiration: data.expires_in,
-      },
+        expiration: data.expires_in
+      }
     ]);
   };
 
@@ -77,7 +69,7 @@ const ActionConfirmationWindow = () => {
           loading: false,
           config: response.config,
           //type: response.config.headers['X-Confirmation-Type'],
-          token: response.data.errors[0].properties.confirmationToken,
+          token: response.data.errors[0].properties.confirmationToken
         });
 
         if (response.data?.errors[0]?.code === 449) {
@@ -91,9 +83,9 @@ const ActionConfirmationWindow = () => {
   }, [response]);
 
   const confirm = async (silentMode: boolean) => {
-    setState((prev) => ({
+    setState(prev => ({
       ...prev,
-      loading: true,
+      loading: true
     }));
 
     const signedRequest = async () => {
@@ -109,8 +101,8 @@ const ActionConfirmationWindow = () => {
           headers: {
             ...signHeaders,
             Token: bankToken,
-            Authorization: phoneNumber,
-          },
+            Authorization: phoneNumber
+          }
         });
 
         pending.resolve(response);
@@ -124,15 +116,15 @@ const ActionConfirmationWindow = () => {
     };
 
     const handleError = () => {
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         code: null,
-        loading: false,
+        loading: false
       }));
 
       localErrorHunter({
         code: 401,
-        message: t("invalid_confirmation_code"),
+        message: t("invalid_confirmation_code")
       });
     };
 
@@ -148,52 +140,45 @@ const ActionConfirmationWindow = () => {
     <Modal
       open={isModalOpen}
       closable={false}
-      title={<ModalTitle handleCancel={handleCancel} title={t("confirm_action")}/>}
+      title={<ModalTitle handleCancel={handleCancel} title={t("confirm_action")} />}
       padding
       onCancel={() => {
         handleCancel();
         localErrorClear();
       }}
     >
-      {loading && <Loader className="" />}
+      {loading && <Loader className='' />}
 
       <div className={loading ? "collapse" : ""}>
-        <div className="row -mt-5 mb-2">
-          <div className="col">
-            <span className="text-gray-600">
-              {t("to_confirm_enter_sms_code")}:
-            </span>
+        <div className='row -mt-5 mb-2'>
+          <div className='col'>
+            <span className='text-gray-600'>{t("to_confirm_enter_sms_code")}:</span>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className='mb-4'>
           <Input
             allowDigits
-            type="text"
+            type='text'
             value={code}
             maxLength={11}
             onInput={onInput}
-            autoComplete="off"
+            autoComplete='off'
             placeholder={t("enter_sms_code")}
             onChange={({ target }) => {
               localErrorClear();
-              setState((prev) => ({
+              setState(prev => ({
                 ...prev,
-                code: target.value,
+                code: target.value
               }));
             }}
           />
         </div>
 
-        <div className="mb-4">{localErrorInfoBox}</div>
+        <div className='mb-4'>{localErrorInfoBox}</div>
 
         <div>
-          <Button
-            size={"xl"}
-            disabled={!code}
-            onClick={() => confirm(false)}
-            className="w-full mt-4"
-          >
+          <Button size={"xl"} disabled={!code} onClick={() => confirm(false)} className='w-full mt-4'>
             {t("confirm")}
           </Button>
         </div>

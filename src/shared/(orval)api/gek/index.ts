@@ -90,466 +90,476 @@ import type {
   WalletAddressOutApiResponse,
   WalletAddressOutListApiResponse,
   WalletInfoListApiResponse
-} from './model'
-import postGekV1BankGetUasMutator from '../../lib/(orval)axios';
-import getGekV1BankClientDetailsMutator from '../../lib/(orval)axios';
-import getGekV1BankGetCardsMutator from '../../lib/(orval)axios';
-import getGekV1BankGetProgramsMutator from '../../lib/(orval)axios';
-import getGekV1BankUnmaskMutator from '../../lib/(orval)axios';
-import getGekV1BankDealsMutator from '../../lib/(orval)axios';
-import postGekV1BankSubmitDealMutator from '../../lib/(orval)axios';
-import postGekV1BankSetPinMutator from '../../lib/(orval)axios';
-import postGekV1BankSetLimitsMutator from '../../lib/(orval)axios';
-import postGekV1BankCreateCardMutator from '../../lib/(orval)axios';
-import postGekV1BankPersonalizeMutator from '../../lib/(orval)axios';
-import postGekV1BankActivateMutator from '../../lib/(orval)axios';
-import postGekV1BankGetPaymentCommissionMutator from '../../lib/(orval)axios';
-import getGekV1TokensNetworksMutator from '../../lib/(orval)axios';
-import postGekV1ApplyCodeMutator from '../../lib/(orval)axios';
-import postGekV1CancelCodeMutator from '../../lib/(orval)axios';
-import postGekV1CreateTxCodeMutator from '../../lib/(orval)axios';
-import getGekV1ListTxCodesMutator from '../../lib/(orval)axios';
-import getGekV1CodeTxInfoMutator from '../../lib/(orval)axios';
-import getGekV1AddressTxInfoMutator from '../../lib/(orval)axios';
-import getGekV1AssetsMutator from '../../lib/(orval)axios';
-import getGekV1InvestGetInvestmentsMutator from '../../lib/(orval)axios';
-import postGekV1InvestCreateInvestmentMutator from '../../lib/(orval)axios';
-import postGekV1InvestReturnInvestmentMutator from '../../lib/(orval)axios';
-import getGekV1MarketGetRatesMutator from '../../lib/(orval)axios';
-import getGekV1MarketGetTradeInfoMutator from '../../lib/(orval)axios';
-import getGekV1MarketGetOrdersMutator from '../../lib/(orval)axios';
-import postGekV1MarketCreateOrderMutator from '../../lib/(orval)axios';
-import postGekV1MarketCancelOrderMutator from '../../lib/(orval)axios';
-import getGekV1MarketListRoomsMutator from '../../lib/(orval)axios';
-import postGekV1MarketCreateRoomMutator from '../../lib/(orval)axios';
-import postGekV1MarketCloseRoomMutator from '../../lib/(orval)axios';
-import postPubV1AuthMutator from '../../lib/(orval)axios';
-import getGekV1ReferralGetReferralsMutator from '../../lib/(orval)axios';
-import getGekV1ReferralGetAgentCodeMutator from '../../lib/(orval)axios';
-import getGekV1ReferralGetReferralInvestmentsMutator from '../../lib/(orval)axios';
-import getGekV1WalletGetInfoMutator from '../../lib/(orval)axios';
-import getGekV1WalletGetBalanceMutator from '../../lib/(orval)axios';
-import getGekV1WalletCreateAddressMutator from '../../lib/(orval)axios';
-import getGekV1WalletListAddressesMutator from '../../lib/(orval)axios';
-import postGekV1WalletInternalTransferMutator from '../../lib/(orval)axios';
-import postGekV1WalletCreateWithdrawMutator from '../../lib/(orval)axios';
-import postGekV1WalletUpdateTxPartnerInfoMutator from '../../lib/(orval)axios';
-import getGekV1WalletGetHistoryTransactionsMutator from '../../lib/(orval)axios';
-
-
+} from "./model";
+import postGekV1BankGetUasMutator from "../../lib/(orval)axios";
+import getGekV1BankClientDetailsMutator from "../../lib/(orval)axios";
+import getGekV1BankGetCardsMutator from "../../lib/(orval)axios";
+import getGekV1BankGetProgramsMutator from "../../lib/(orval)axios";
+import getGekV1BankUnmaskMutator from "../../lib/(orval)axios";
+import getGekV1BankDealsMutator from "../../lib/(orval)axios";
+import postGekV1BankSubmitDealMutator from "../../lib/(orval)axios";
+import postGekV1BankSetPinMutator from "../../lib/(orval)axios";
+import postGekV1BankSetLimitsMutator from "../../lib/(orval)axios";
+import postGekV1BankCreateCardMutator from "../../lib/(orval)axios";
+import postGekV1BankPersonalizeMutator from "../../lib/(orval)axios";
+import postGekV1BankActivateMutator from "../../lib/(orval)axios";
+import postGekV1BankGetPaymentCommissionMutator from "../../lib/(orval)axios";
+import getGekV1TokensNetworksMutator from "../../lib/(orval)axios";
+import postGekV1ApplyCodeMutator from "../../lib/(orval)axios";
+import postGekV1CancelCodeMutator from "../../lib/(orval)axios";
+import postGekV1CreateTxCodeMutator from "../../lib/(orval)axios";
+import getGekV1ListTxCodesMutator from "../../lib/(orval)axios";
+import getGekV1CodeTxInfoMutator from "../../lib/(orval)axios";
+import getGekV1AddressTxInfoMutator from "../../lib/(orval)axios";
+import getGekV1AssetsMutator from "../../lib/(orval)axios";
+import getGekV1InvestGetInvestmentsMutator from "../../lib/(orval)axios";
+import postGekV1InvestCreateInvestmentMutator from "../../lib/(orval)axios";
+import postGekV1InvestReturnInvestmentMutator from "../../lib/(orval)axios";
+import getGekV1MarketGetRatesMutator from "../../lib/(orval)axios";
+import getGekV1MarketGetTradeInfoMutator from "../../lib/(orval)axios";
+import getGekV1MarketGetOrdersMutator from "../../lib/(orval)axios";
+import postGekV1MarketCreateOrderMutator from "../../lib/(orval)axios";
+import postGekV1MarketCancelOrderMutator from "../../lib/(orval)axios";
+import getGekV1MarketListRoomsMutator from "../../lib/(orval)axios";
+import postGekV1MarketCreateRoomMutator from "../../lib/(orval)axios";
+import postGekV1MarketCloseRoomMutator from "../../lib/(orval)axios";
+import postPubV1AuthMutator from "../../lib/(orval)axios";
+import getGekV1ReferralGetReferralsMutator from "../../lib/(orval)axios";
+import getGekV1ReferralGetAgentCodeMutator from "../../lib/(orval)axios";
+import getGekV1ReferralGetReferralInvestmentsMutator from "../../lib/(orval)axios";
+import getGekV1WalletGetInfoMutator from "../../lib/(orval)axios";
+import getGekV1WalletGetBalanceMutator from "../../lib/(orval)axios";
+import getGekV1WalletCreateAddressMutator from "../../lib/(orval)axios";
+import getGekV1WalletListAddressesMutator from "../../lib/(orval)axios";
+import postGekV1WalletInternalTransferMutator from "../../lib/(orval)axios";
+import postGekV1WalletCreateWithdrawMutator from "../../lib/(orval)axios";
+import postGekV1WalletUpdateTxPartnerInfoMutator from "../../lib/(orval)axios";
+import getGekV1WalletGetHistoryTransactionsMutator from "../../lib/(orval)axios";
 
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
-
-  /**
+/**
  * @summary Выдает токен доступа к банку из внутреннекго кэша, если нет токена то инициируется выдача нового с отправкой смс кода, 
 который будет выдан с повторным запросом с доп полями подтверждения.
  */
 export const apiGetUas = (
-    params?: PostGekV1BankGetUasParams,
- options?: SecondParameter<typeof postGekV1BankGetUasMutator>,) => {
-      return postGekV1BankGetUasMutator<UASTokenApiResponse>(
-      {url: `/gek/v1/bank/get_uas`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
-export const apiClientDetails = (
-    
- options?: SecondParameter<typeof getGekV1BankClientDetailsMutator>,) => {
-      return getGekV1BankClientDetailsMutator<ClientDetailsApiResponse>(
-      {url: `/gek/v1/bank/client_details`, method: 'GET'
-    },
-      options);
-    }
-  
+  params?: PostGekV1BankGetUasParams,
+  options?: SecondParameter<typeof postGekV1BankGetUasMutator>
+) => {
+  return postGekV1BankGetUasMutator<UASTokenApiResponse>(
+    { url: `/gek/v1/bank/get_uas`, method: "POST", params },
+    options
+  );
+};
+
+export const apiClientDetails = (options?: SecondParameter<typeof getGekV1BankClientDetailsMutator>) => {
+  return getGekV1BankClientDetailsMutator<ClientDetailsApiResponse>(
+    { url: `/gek/v1/bank/client_details`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Получить банковские карты клиента, привязанные к IBAN счету кошелька
  */
 export const apiGetCards = (
-    params?: GetGekV1BankGetCardsParams,
- options?: SecondParameter<typeof getGekV1BankGetCardsMutator>,) => {
-      return getGekV1BankGetCardsMutator<CardListApiResponse>(
-      {url: `/gek/v1/bank/get_cards`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1BankGetCardsParams,
+  options?: SecondParameter<typeof getGekV1BankGetCardsMutator>
+) => {
+  return getGekV1BankGetCardsMutator<CardListApiResponse>(
+    { url: `/gek/v1/bank/get_cards`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Получить программы клиента, привязанные к IBAN счету
  */
-export const apiGetPrograms = (
-    
- options?: SecondParameter<typeof getGekV1BankGetProgramsMutator>,) => {
-      return getGekV1BankGetProgramsMutator<ClientProgramIListApiResponse>(
-      {url: `/gek/v1/bank/get_programs`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiGetPrograms = (options?: SecondParameter<typeof getGekV1BankGetProgramsMutator>) => {
+  return getGekV1BankGetProgramsMutator<ClientProgramIListApiResponse>(
+    { url: `/gek/v1/bank/get_programs`, method: "GET" },
+    options
+  );
+};
+
 export const apiUnmask = (
-    params?: GetGekV1BankUnmaskParams,
- options?: SecondParameter<typeof getGekV1BankUnmaskMutator>,) => {
-      return getGekV1BankUnmaskMutator<CardSecretDTOApiResponse>(
-      {url: `/gek/v1/bank/unmask`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
-export const apiDeals = (
-    
- options?: SecondParameter<typeof getGekV1BankDealsMutator>,) => {
-      return getGekV1BankDealsMutator<AvailableDealArrayApiResponse>(
-      {url: `/gek/v1/bank/deals`, method: 'GET'
-    },
-      options);
-    }
-  
+  params?: GetGekV1BankUnmaskParams,
+  options?: SecondParameter<typeof getGekV1BankUnmaskMutator>
+) => {
+  return getGekV1BankUnmaskMutator<CardSecretDTOApiResponse>(
+    { url: `/gek/v1/bank/unmask`, method: "GET", params },
+    options
+  );
+};
+
+export const apiDeals = (options?: SecondParameter<typeof getGekV1BankDealsMutator>) => {
+  return getGekV1BankDealsMutator<AvailableDealArrayApiResponse>({ url: `/gek/v1/bank/deals`, method: "GET" }, options);
+};
+
 export const apiSubmitDeal = (
-    dealModel: DealModel,
-    params?: PostGekV1BankSubmitDealParams,
- options?: SecondParameter<typeof postGekV1BankSubmitDealMutator>,) => {
-      return postGekV1BankSubmitDealMutator<SubmitNewDealApiResponse>(
-      {url: `/gek/v1/bank/submit_deal`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  dealModel: DealModel,
+  params?: PostGekV1BankSubmitDealParams,
+  options?: SecondParameter<typeof postGekV1BankSubmitDealMutator>
+) => {
+  return postGekV1BankSubmitDealMutator<SubmitNewDealApiResponse>(
+    {
+      url: `/gek/v1/bank/submit_deal`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: dealModel,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 export const apiSetPin = (
-    changePinModel: ChangePinModel,
-    params?: PostGekV1BankSetPinParams,
- options?: SecondParameter<typeof postGekV1BankSetPinMutator>,) => {
-      return postGekV1BankSetPinMutator<ApiResponse>(
-      {url: `/gek/v1/bank/set_pin`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  changePinModel: ChangePinModel,
+  params?: PostGekV1BankSetPinParams,
+  options?: SecondParameter<typeof postGekV1BankSetPinMutator>
+) => {
+  return postGekV1BankSetPinMutator<ApiResponse>(
+    {
+      url: `/gek/v1/bank/set_pin`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: changePinModel,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 export const apiSetLimits = (
-    cardLimits: CardLimits,
-    params?: PostGekV1BankSetLimitsParams,
- options?: SecondParameter<typeof postGekV1BankSetLimitsMutator>,) => {
-      return postGekV1BankSetLimitsMutator<ApiResponse>(
-      {url: `/gek/v1/bank/set_limits`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  cardLimits: CardLimits,
+  params?: PostGekV1BankSetLimitsParams,
+  options?: SecondParameter<typeof postGekV1BankSetLimitsMutator>
+) => {
+  return postGekV1BankSetLimitsMutator<ApiResponse>(
+    {
+      url: `/gek/v1/bank/set_limits`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: cardLimits,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 export const apiCreateCard = (
-    cardRegistrationRequest: CardRegistrationRequest,
- options?: SecondParameter<typeof postGekV1BankCreateCardMutator>,) => {
-      return postGekV1BankCreateCardMutator<ObjectApiResponse>(
-      {url: `/gek/v1/bank/create_card`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  cardRegistrationRequest: CardRegistrationRequest,
+  options?: SecondParameter<typeof postGekV1BankCreateCardMutator>
+) => {
+  return postGekV1BankCreateCardMutator<ObjectApiResponse>(
+    {
+      url: `/gek/v1/bank/create_card`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: cardRegistrationRequest
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Выпуск физической карты для виртуальной
  */
 export const apiPersonalize = (
-    plasticCardForVirtualRequest: PlasticCardForVirtualRequest,
-    params?: PostGekV1BankPersonalizeParams,
- options?: SecondParameter<typeof postGekV1BankPersonalizeMutator>,) => {
-      return postGekV1BankPersonalizeMutator<CardCreationResultApiResponse>(
-      {url: `/gek/v1/bank/personalize`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  plasticCardForVirtualRequest: PlasticCardForVirtualRequest,
+  params?: PostGekV1BankPersonalizeParams,
+  options?: SecondParameter<typeof postGekV1BankPersonalizeMutator>
+) => {
+  return postGekV1BankPersonalizeMutator<CardCreationResultApiResponse>(
+    {
+      url: `/gek/v1/bank/personalize`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: plasticCardForVirtualRequest,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 export const apiActivate = (
-    params?: PostGekV1BankActivateParams,
- options?: SecondParameter<typeof postGekV1BankActivateMutator>,) => {
-      return postGekV1BankActivateMutator<ApiResponse>(
-      {url: `/gek/v1/bank/activate`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1BankActivateParams,
+  options?: SecondParameter<typeof postGekV1BankActivateMutator>
+) => {
+  return postGekV1BankActivateMutator<ApiResponse>({ url: `/gek/v1/bank/activate`, method: "POST", params }, options);
+};
+
 export const apiGetPaymentCommission = (
-    paymentDetails: PaymentDetails,
- options?: SecondParameter<typeof postGekV1BankGetPaymentCommissionMutator>,) => {
-      return postGekV1BankGetPaymentCommissionMutator<PaymentFeeApiResponse>(
-      {url: `/gek/v1/bank/get_payment_commission`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  paymentDetails: PaymentDetails,
+  options?: SecondParameter<typeof postGekV1BankGetPaymentCommissionMutator>
+) => {
+  return postGekV1BankGetPaymentCommissionMutator<PaymentFeeApiResponse>(
+    {
+      url: `/gek/v1/bank/get_payment_commission`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: paymentDetails
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Получение информации по транспортным сетям для криптовалют
  */
 export const apiTokensNetworks = (
-    params?: GetGekV1TokensNetworksParams,
- options?: SecondParameter<typeof getGekV1TokensNetworksMutator>,) => {
-      return getGekV1TokensNetworksMutator<TokensNetworkArrayApiResponse>(
-      {url: `/gek/v1/tokens_networks`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1TokensNetworksParams,
+  options?: SecondParameter<typeof getGekV1TokensNetworksMutator>
+) => {
+  return getGekV1TokensNetworksMutator<TokensNetworkArrayApiResponse>(
+    { url: `/gek/v1/tokens_networks`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Обрабатывает/применяет текстовый код
  */
 export const apiApplyCode = (
-    params?: PostGekV1ApplyCodeParams,
- options?: SecondParameter<typeof postGekV1ApplyCodeMutator>,) => {
-      return postGekV1ApplyCodeMutator<ApplyCodeOutApiResponse>(
-      {url: `/gek/v1/apply_code`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1ApplyCodeParams,
+  options?: SecondParameter<typeof postGekV1ApplyCodeMutator>
+) => {
+  return postGekV1ApplyCodeMutator<ApplyCodeOutApiResponse>(
+    { url: `/gek/v1/apply_code`, method: "POST", params },
+    options
+  );
+};
+
 /**
  * @summary Обрабатывает/отменяет код
  */
 export const apiCancelCode = (
-    params?: PostGekV1CancelCodeParams,
- options?: SecondParameter<typeof postGekV1CancelCodeMutator>,) => {
-      return postGekV1CancelCodeMutator<ApiResponse>(
-      {url: `/gek/v1/cancel_code`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1CancelCodeParams,
+  options?: SecondParameter<typeof postGekV1CancelCodeMutator>
+) => {
+  return postGekV1CancelCodeMutator<ApiResponse>({ url: `/gek/v1/cancel_code`, method: "POST", params }, options);
+};
+
 /**
  * @summary Создание кода для внутренних переводов средств
  */
 export const apiCreateTxCode = (
-    createTxCodeIn: CreateTxCodeIn,
- options?: SecondParameter<typeof postGekV1CreateTxCodeMutator>,) => {
-      return postGekV1CreateTxCodeMutator<TxCodesOutApiResponse>(
-      {url: `/gek/v1/create_tx_code`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  createTxCodeIn: CreateTxCodeIn,
+  options?: SecondParameter<typeof postGekV1CreateTxCodeMutator>
+) => {
+  return postGekV1CreateTxCodeMutator<TxCodesOutApiResponse>(
+    {
+      url: `/gek/v1/create_tx_code`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: createTxCodeIn
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Получение списка ожидающих транзакций с кодами
  */
 export const apiListTxCodes = (
-    params?: GetGekV1ListTxCodesParams,
- options?: SecondParameter<typeof getGekV1ListTxCodesMutator>,) => {
-      return getGekV1ListTxCodesMutator<TxCodesOutListApiResponse>(
-      {url: `/gek/v1/list_tx_codes`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1ListTxCodesParams,
+  options?: SecondParameter<typeof getGekV1ListTxCodesMutator>
+) => {
+  return getGekV1ListTxCodesMutator<TxCodesOutListApiResponse>(
+    { url: `/gek/v1/list_tx_codes`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Получение информации из передаваемого кода
  */
 export const apiCodeTxInfo = (
-    params?: GetGekV1CodeTxInfoParams,
- options?: SecondParameter<typeof getGekV1CodeTxInfoMutator>,) => {
-      return getGekV1CodeTxInfoMutator<TxCodesOutApiResponse>(
-      {url: `/gek/v1/code_tx_info`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1CodeTxInfoParams,
+  options?: SecondParameter<typeof getGekV1CodeTxInfoMutator>
+) => {
+  return getGekV1CodeTxInfoMutator<TxCodesOutApiResponse>(
+    { url: `/gek/v1/code_tx_info`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Получение информации об адресной транзакции по внутреннему идентификатору клиентской транзакции
  */
 export const apiAddressTxInfo = (
-    params?: GetGekV1AddressTxInfoParams,
- options?: SecondParameter<typeof getGekV1AddressTxInfoMutator>,) => {
-      return getGekV1AddressTxInfoMutator<AddressTxOutApiResponse>(
-      {url: `/gek/v1/address_tx_info`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1AddressTxInfoParams,
+  options?: SecondParameter<typeof getGekV1AddressTxInfoMutator>
+) => {
+  return getGekV1AddressTxInfoMutator<AddressTxOutApiResponse>(
+    { url: `/gek/v1/address_tx_info`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Получение информации по активам
  */
-export const apiAssets = (
-    params?: GetGekV1AssetsParams,
- options?: SecondParameter<typeof getGekV1AssetsMutator>,) => {
-      return getGekV1AssetsMutator<CurrencysOutListApiResponse>(
-      {url: `/gek/v1/assets`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+export const apiAssets = (params?: GetGekV1AssetsParams, options?: SecondParameter<typeof getGekV1AssetsMutator>) => {
+  return getGekV1AssetsMutator<CurrencysOutListApiResponse>({ url: `/gek/v1/assets`, method: "GET", params }, options);
+};
+
 /**
  * Загружает активные продукты, если не задано ни одной даты.
 Если хотябы одна дата задана - то выборка из истории инвест продуктов по дате открытия.
  * @summary Инвестиционные продукты клиента (депозиты)
  */
 export const apiGetInvestments = (
-    params?: GetGekV1InvestGetInvestmentsParams,
- options?: SecondParameter<typeof getGekV1InvestGetInvestmentsMutator>,) => {
-      return getGekV1InvestGetInvestmentsMutator<GetDepositOutListApiResponse>(
-      {url: `/gek/v1/invest/get_investments`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1InvestGetInvestmentsParams,
+  options?: SecondParameter<typeof getGekV1InvestGetInvestmentsMutator>
+) => {
+  return getGekV1InvestGetInvestmentsMutator<GetDepositOutListApiResponse>(
+    { url: `/gek/v1/invest/get_investments`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Открытие депозита
  */
 export const apiCreateInvestment = (
-    params?: PostGekV1InvestCreateInvestmentParams,
- options?: SecondParameter<typeof postGekV1InvestCreateInvestmentMutator>,) => {
-      return postGekV1InvestCreateInvestmentMutator<GetDepositOutApiResponse>(
-      {url: `/gek/v1/invest/create_investment`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1InvestCreateInvestmentParams,
+  options?: SecondParameter<typeof postGekV1InvestCreateInvestmentMutator>
+) => {
+  return postGekV1InvestCreateInvestmentMutator<GetDepositOutApiResponse>(
+    { url: `/gek/v1/invest/create_investment`, method: "POST", params },
+    options
+  );
+};
+
 /**
  * @summary Досрочное закрытие депозита
  */
 export const apiReturnInvestment = (
-    params?: PostGekV1InvestReturnInvestmentParams,
- options?: SecondParameter<typeof postGekV1InvestReturnInvestmentMutator>,) => {
-      return postGekV1InvestReturnInvestmentMutator<FastCloseDepositOutApiResponse>(
-      {url: `/gek/v1/invest/return_investment`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1InvestReturnInvestmentParams,
+  options?: SecondParameter<typeof postGekV1InvestReturnInvestmentMutator>
+) => {
+  return postGekV1InvestReturnInvestmentMutator<FastCloseDepositOutApiResponse>(
+    { url: `/gek/v1/invest/return_investment`, method: "POST", params },
+    options
+  );
+};
+
 /**
  * Курсы загружаются с внешних бирж и представляют собой среднее между предложением и спросом.
 Если нет прямого обмена, то высчитываются через кросс курсы через USDT или BTC.
  * @summary Курсы криптовалют, для пересчета криптовалют и стуктурных депозитов
  */
 export const apiGetRates = (
-    params: GetGekV1MarketGetRatesParams,
- options?: SecondParameter<typeof getGekV1MarketGetRatesMutator>,) => {
-      return getGekV1MarketGetRatesMutator<StringDecimalDictionaryApiResponse>(
-      {url: `/gek/v1/market/get_rates`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params: GetGekV1MarketGetRatesParams,
+  options?: SecondParameter<typeof getGekV1MarketGetRatesMutator>
+) => {
+  return getGekV1MarketGetRatesMutator<StringDecimalDictionaryApiResponse>(
+    { url: `/gek/v1/market/get_rates`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Информация о направлении торговли
  */
 export const apiGetTradeInfo = (
-    params?: GetGekV1MarketGetTradeInfoParams,
- options?: SecondParameter<typeof getGekV1MarketGetTradeInfoMutator>,) => {
-      return getGekV1MarketGetTradeInfoMutator<GetTradeInfoOutApiResponse>(
-      {url: `/gek/v1/market/get_trade_info`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1MarketGetTradeInfoParams,
+  options?: SecondParameter<typeof getGekV1MarketGetTradeInfoMutator>
+) => {
+  return getGekV1MarketGetTradeInfoMutator<GetTradeInfoOutApiResponse>(
+    { url: `/gek/v1/market/get_trade_info`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Список ордеров кошелька. Не более 100 за запрос
  */
 export const apiGetOrders = (
-    params?: GetGekV1MarketGetOrdersParams,
- options?: SecondParameter<typeof getGekV1MarketGetOrdersMutator>,) => {
-      return getGekV1MarketGetOrdersMutator<GetOrderListOutListApiResponse>(
-      {url: `/gek/v1/market/get_orders`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1MarketGetOrdersParams,
+  options?: SecondParameter<typeof getGekV1MarketGetOrdersMutator>
+) => {
+  return getGekV1MarketGetOrdersMutator<GetOrderListOutListApiResponse>(
+    { url: `/gek/v1/market/get_orders`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Создание нового ордера
  */
 export const apiCreateOrder = (
-    newOrderInfo: NewOrderInfo,
- options?: SecondParameter<typeof postGekV1MarketCreateOrderMutator>,) => {
-      return postGekV1MarketCreateOrderMutator<GetOrderListOutApiResponse>(
-      {url: `/gek/v1/market/create_order`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  newOrderInfo: NewOrderInfo,
+  options?: SecondParameter<typeof postGekV1MarketCreateOrderMutator>
+) => {
+  return postGekV1MarketCreateOrderMutator<GetOrderListOutApiResponse>(
+    {
+      url: `/gek/v1/market/create_order`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: newOrderInfo
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Отмена ордера
  */
 export const apiCancelOrder = (
-    params?: PostGekV1MarketCancelOrderParams,
- options?: SecondParameter<typeof postGekV1MarketCancelOrderMutator>,) => {
-      return postGekV1MarketCancelOrderMutator<ApiResponse>(
-      {url: `/gek/v1/market/cancel_order`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1MarketCancelOrderParams,
+  options?: SecondParameter<typeof postGekV1MarketCancelOrderMutator>
+) => {
+  return postGekV1MarketCancelOrderMutator<ApiResponse>(
+    { url: `/gek/v1/market/cancel_order`, method: "POST", params },
+    options
+  );
+};
+
 /**
  * @summary Список приватных комнат обмена, доступных клиенту
  */
-export const apiListRooms = (
-    
- options?: SecondParameter<typeof getGekV1MarketListRoomsMutator>,) => {
-      return getGekV1MarketListRoomsMutator<RoomInfoListApiResponse>(
-      {url: `/gek/v1/market/list_rooms`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiListRooms = (options?: SecondParameter<typeof getGekV1MarketListRoomsMutator>) => {
+  return getGekV1MarketListRoomsMutator<RoomInfoListApiResponse>(
+    { url: `/gek/v1/market/list_rooms`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Создание персональной комнаты обмена. Присоединение к комнате через общую функцию применения кода apply_code.
  */
 export const apiCreateRoom = (
-    newRoomInfo: NewRoomInfo,
- options?: SecondParameter<typeof postGekV1MarketCreateRoomMutator>,) => {
-      return postGekV1MarketCreateRoomMutator<RoomInfoApiResponse>(
-      {url: `/gek/v1/market/create_room`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  newRoomInfo: NewRoomInfo,
+  options?: SecondParameter<typeof postGekV1MarketCreateRoomMutator>
+) => {
+  return postGekV1MarketCreateRoomMutator<RoomInfoApiResponse>(
+    {
+      url: `/gek/v1/market/create_room`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: newRoomInfo
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Закрывает комнату обмена. 
 Если пользователь участник - выходит из комнаты, 
 если владелец - удаляет комнату и отменяет все ордеры всех клиентов созданные в данной комнате
  */
 export const apiCloseRoom = (
-    params?: PostGekV1MarketCloseRoomParams,
- options?: SecondParameter<typeof postGekV1MarketCloseRoomMutator>,) => {
-      return postGekV1MarketCloseRoomMutator<ApiResponse>(
-      {url: `/gek/v1/market/close_room`, method: 'POST',
-        params
-    },
-      options);
-    }
-  
+  params?: PostGekV1MarketCloseRoomParams,
+  options?: SecondParameter<typeof postGekV1MarketCloseRoomMutator>
+) => {
+  return postGekV1MarketCloseRoomMutator<ApiResponse>(
+    { url: `/gek/v1/market/close_room`, method: "POST", params },
+    options
+  );
+};
+
 /**
  * Если ключ не задан, он генерируется и возвращается.
 Если ключ задан в запросе, то возвращаются данные и удаляются из хранилища.
@@ -557,121 +567,125 @@ export const apiCloseRoom = (
  * @summary Передача данных сессии между связанными приложениями, чтобы избежать повторной аутентификации.
  */
 export const apiPubV1Auth = (
-    sessionDataDTO: SessionDataDTO,
-    params?: PostPubV1AuthParams,
- options?: SecondParameter<typeof postPubV1AuthMutator>,) => {
-      return postPubV1AuthMutator<ObjectApiResponse | void>(
-      {url: `/pub/v1/auth`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  sessionDataDTO: SessionDataDTO,
+  params?: PostPubV1AuthParams,
+  options?: SecondParameter<typeof postPubV1AuthMutator>
+) => {
+  return postPubV1AuthMutator<ObjectApiResponse | void>(
+    {
+      url: `/pub/v1/auth`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: sessionDataDTO,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * Error codes:
 (1) - Client not found - The client_id in the header is not found in the database.
  * @summary Партнерская программа / рефералы
  */
-export const apiGetReferrals = (
-    
- options?: SecondParameter<typeof getGekV1ReferralGetReferralsMutator>,) => {
-      return getGekV1ReferralGetReferralsMutator<ReferralOutApiResponse>(
-      {url: `/gek/v1/referral/get_referrals`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiGetReferrals = (options?: SecondParameter<typeof getGekV1ReferralGetReferralsMutator>) => {
+  return getGekV1ReferralGetReferralsMutator<ReferralOutApiResponse>(
+    { url: `/gek/v1/referral/get_referrals`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Партнерская программа / агентский код
  */
-export const apiGetAgentCode = (
-    
- options?: SecondParameter<typeof getGekV1ReferralGetAgentCodeMutator>,) => {
-      return getGekV1ReferralGetAgentCodeMutator<StringApiResponse>(
-      {url: `/gek/v1/referral/get_agent_code`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiGetAgentCode = (options?: SecondParameter<typeof getGekV1ReferralGetAgentCodeMutator>) => {
+  return getGekV1ReferralGetAgentCodeMutator<StringApiResponse>(
+    { url: `/gek/v1/referral/get_agent_code`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Партнерская программа / информация(выплаты) по реферальным инвестициям
  */
 export const apiGetReferralInvestments = (
-    
- options?: SecondParameter<typeof getGekV1ReferralGetReferralInvestmentsMutator>,) => {
-      return getGekV1ReferralGetReferralInvestmentsMutator<ReferralOutApiResponse>(
-      {url: `/gek/v1/referral/get_referral_investments`, method: 'GET'
-    },
-      options);
-    }
-  
+  options?: SecondParameter<typeof getGekV1ReferralGetReferralInvestmentsMutator>
+) => {
+  return getGekV1ReferralGetReferralInvestmentsMutator<ReferralOutApiResponse>(
+    { url: `/gek/v1/referral/get_referral_investments`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Информация о кошельке клиента.
  */
 export const apiGetInfo = (
-    params?: GetGekV1WalletGetInfoParams,
- options?: SecondParameter<typeof getGekV1WalletGetInfoMutator>,) => {
-      return getGekV1WalletGetInfoMutator<WalletInfoListApiResponse>(
-      {url: `/gek/v1/wallet/get_info`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1WalletGetInfoParams,
+  options?: SecondParameter<typeof getGekV1WalletGetInfoMutator>
+) => {
+  return getGekV1WalletGetInfoMutator<WalletInfoListApiResponse>(
+    { url: `/gek/v1/wallet/get_info`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Балансы кошелька
  */
 export const apiGetBalance = (
-    params?: GetGekV1WalletGetBalanceParams,
- options?: SecondParameter<typeof getGekV1WalletGetBalanceMutator>,) => {
-      return getGekV1WalletGetBalanceMutator<GetBalanceOutListApiResponse>(
-      {url: `/gek/v1/wallet/get_balance`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1WalletGetBalanceParams,
+  options?: SecondParameter<typeof getGekV1WalletGetBalanceMutator>
+) => {
+  return getGekV1WalletGetBalanceMutator<GetBalanceOutListApiResponse>(
+    { url: `/gek/v1/wallet/get_balance`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Создание адреса кошелька
  */
 export const apiCreateAddress = (
-    params?: GetGekV1WalletCreateAddressParams,
- options?: SecondParameter<typeof getGekV1WalletCreateAddressMutator>,) => {
-      return getGekV1WalletCreateAddressMutator<WalletAddressOutApiResponse>(
-      {url: `/gek/v1/wallet/create_address`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1WalletCreateAddressParams,
+  options?: SecondParameter<typeof getGekV1WalletCreateAddressMutator>
+) => {
+  return getGekV1WalletCreateAddressMutator<WalletAddressOutApiResponse>(
+    { url: `/gek/v1/wallet/create_address`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Список адресов кошелька для сети ввода-вывода
  */
 export const apiListAddresses = (
-    params?: GetGekV1WalletListAddressesParams,
- options?: SecondParameter<typeof getGekV1WalletListAddressesMutator>,) => {
-      return getGekV1WalletListAddressesMutator<WalletAddressOutListApiResponse>(
-      {url: `/gek/v1/wallet/list_addresses`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetGekV1WalletListAddressesParams,
+  options?: SecondParameter<typeof getGekV1WalletListAddressesMutator>
+) => {
+  return getGekV1WalletListAddressesMutator<WalletAddressOutListApiResponse>(
+    { url: `/gek/v1/wallet/list_addresses`, method: "GET", params },
+    options
+  );
+};
+
 export const apiInternalTransfer = (
-    createTransferIn: CreateTransferIn,
-    params?: PostGekV1WalletInternalTransferParams,
- options?: SecondParameter<typeof postGekV1WalletInternalTransferMutator>,) => {
-      return postGekV1WalletInternalTransferMutator<CreateWithdrawOutApiResponse>(
-      {url: `/gek/v1/wallet/internal_transfer`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  createTransferIn: CreateTransferIn,
+  params?: PostGekV1WalletInternalTransferParams,
+  options?: SecondParameter<typeof postGekV1WalletInternalTransferMutator>
+) => {
+  return postGekV1WalletInternalTransferMutator<CreateWithdrawOutApiResponse>(
+    {
+      url: `/gek/v1/wallet/internal_transfer`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: createTransferIn,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Создание заявки на вывод средств с кошелька клиента.
 Если целевой адрес найден среди внутренних адресов и задано разрешение, то преобразуется во внутренний перевод (комиссии могут отличаться).
@@ -682,87 +696,95 @@ txId - идентификатор транзакции, который нужн�
 confirmationCode - код подтверждения от пользователя.
  */
 export const apiCreateWithdraw = (
-    createWithdrawIn: CreateWithdrawIn,
-    params?: PostGekV1WalletCreateWithdrawParams,
- options?: SecondParameter<typeof postGekV1WalletCreateWithdrawMutator>,) => {
-      return postGekV1WalletCreateWithdrawMutator<CreateWithdrawOutApiResponse>(
-      {url: `/gek/v1/wallet/create_withdraw`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  createWithdrawIn: CreateWithdrawIn,
+  params?: PostGekV1WalletCreateWithdrawParams,
+  options?: SecondParameter<typeof postGekV1WalletCreateWithdrawMutator>
+) => {
+  return postGekV1WalletCreateWithdrawMutator<CreateWithdrawOutApiResponse>(
+    {
+      url: `/gek/v1/wallet/create_withdraw`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: createWithdrawIn,
-        params
+      params
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary Обновляет данные об отправителе для транзакции
  */
 export const apiUpdateTxPartnerInfo = (
-    updateTxPartnerInfoIn: UpdateTxPartnerInfoIn,
- options?: SecondParameter<typeof postGekV1WalletUpdateTxPartnerInfoMutator>,) => {
-      return postGekV1WalletUpdateTxPartnerInfoMutator<ApiResponse>(
-      {url: `/gek/v1/wallet/update_tx_partner_info`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  updateTxPartnerInfoIn: UpdateTxPartnerInfoIn,
+  options?: SecondParameter<typeof postGekV1WalletUpdateTxPartnerInfoMutator>
+) => {
+  return postGekV1WalletUpdateTxPartnerInfoMutator<ApiResponse>(
+    {
+      url: `/gek/v1/wallet/update_tx_partner_info`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: updateTxPartnerInfoIn
     },
-      options);
-    }
-  
+    options
+  );
+};
+
 /**
  * @summary История транзакций кошелька в заданном временном промежутке или условиях фильтрации. Не более 100 за запрос.
 Для схемы с ленивой загрузкой отправлять from_tx_id из последней партии транзакции
  */
 export const apiGetHistoryTransactions = (
-    params?: GetGekV1WalletGetHistoryTransactionsParams,
- options?: SecondParameter<typeof getGekV1WalletGetHistoryTransactionsMutator>,) => {
-      return getGekV1WalletGetHistoryTransactionsMutator<GetHistoryTrasactionOutListApiResponse>(
-      {url: `/gek/v1/wallet/get_history_transactions`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
-export type ApiGetUasResult = NonNullable<Awaited<ReturnType<typeof apiGetUas>>>
-export type ApiClientDetailsResult = NonNullable<Awaited<ReturnType<typeof apiClientDetails>>>
-export type ApiGetCardsResult = NonNullable<Awaited<ReturnType<typeof apiGetCards>>>
-export type ApiGetProgramsResult = NonNullable<Awaited<ReturnType<typeof apiGetPrograms>>>
-export type ApiUnmaskResult = NonNullable<Awaited<ReturnType<typeof apiUnmask>>>
-export type ApiDealsResult = NonNullable<Awaited<ReturnType<typeof apiDeals>>>
-export type ApiSubmitDealResult = NonNullable<Awaited<ReturnType<typeof apiSubmitDeal>>>
-export type ApiSetPinResult = NonNullable<Awaited<ReturnType<typeof apiSetPin>>>
-export type ApiSetLimitsResult = NonNullable<Awaited<ReturnType<typeof apiSetLimits>>>
-export type ApiCreateCardResult = NonNullable<Awaited<ReturnType<typeof apiCreateCard>>>
-export type ApiPersonalizeResult = NonNullable<Awaited<ReturnType<typeof apiPersonalize>>>
-export type ApiActivateResult = NonNullable<Awaited<ReturnType<typeof apiActivate>>>
-export type ApiGetPaymentCommissionResult = NonNullable<Awaited<ReturnType<typeof apiGetPaymentCommission>>>
-export type ApiTokensNetworksResult = NonNullable<Awaited<ReturnType<typeof apiTokensNetworks>>>
-export type ApiApplyCodeResult = NonNullable<Awaited<ReturnType<typeof apiApplyCode>>>
-export type ApiCancelCodeResult = NonNullable<Awaited<ReturnType<typeof apiCancelCode>>>
-export type ApiCreateTxCodeResult = NonNullable<Awaited<ReturnType<typeof apiCreateTxCode>>>
-export type ApiListTxCodesResult = NonNullable<Awaited<ReturnType<typeof apiListTxCodes>>>
-export type ApiCodeTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiCodeTxInfo>>>
-export type ApiAddressTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiAddressTxInfo>>>
-export type ApiAssetsResult = NonNullable<Awaited<ReturnType<typeof apiAssets>>>
-export type ApiGetInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetInvestments>>>
-export type ApiCreateInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiCreateInvestment>>>
-export type ApiReturnInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiReturnInvestment>>>
-export type ApiGetRatesResult = NonNullable<Awaited<ReturnType<typeof apiGetRates>>>
-export type ApiGetTradeInfoResult = NonNullable<Awaited<ReturnType<typeof apiGetTradeInfo>>>
-export type ApiGetOrdersResult = NonNullable<Awaited<ReturnType<typeof apiGetOrders>>>
-export type ApiCreateOrderResult = NonNullable<Awaited<ReturnType<typeof apiCreateOrder>>>
-export type ApiCancelOrderResult = NonNullable<Awaited<ReturnType<typeof apiCancelOrder>>>
-export type ApiListRoomsResult = NonNullable<Awaited<ReturnType<typeof apiListRooms>>>
-export type ApiCreateRoomResult = NonNullable<Awaited<ReturnType<typeof apiCreateRoom>>>
-export type ApiCloseRoomResult = NonNullable<Awaited<ReturnType<typeof apiCloseRoom>>>
-export type ApiPubV1AuthResult = NonNullable<Awaited<ReturnType<typeof apiPubV1Auth>>>
-export type ApiGetReferralsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferrals>>>
-export type ApiGetAgentCodeResult = NonNullable<Awaited<ReturnType<typeof apiGetAgentCode>>>
-export type ApiGetReferralInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferralInvestments>>>
-export type ApiGetInfoResult = NonNullable<Awaited<ReturnType<typeof apiGetInfo>>>
-export type ApiGetBalanceResult = NonNullable<Awaited<ReturnType<typeof apiGetBalance>>>
-export type ApiCreateAddressResult = NonNullable<Awaited<ReturnType<typeof apiCreateAddress>>>
-export type ApiListAddressesResult = NonNullable<Awaited<ReturnType<typeof apiListAddresses>>>
-export type ApiInternalTransferResult = NonNullable<Awaited<ReturnType<typeof apiInternalTransfer>>>
-export type ApiCreateWithdrawResult = NonNullable<Awaited<ReturnType<typeof apiCreateWithdraw>>>
-export type ApiUpdateTxPartnerInfoResult = NonNullable<Awaited<ReturnType<typeof apiUpdateTxPartnerInfo>>>
-export type ApiGetHistoryTransactionsResult = NonNullable<Awaited<ReturnType<typeof apiGetHistoryTransactions>>>
+  params?: GetGekV1WalletGetHistoryTransactionsParams,
+  options?: SecondParameter<typeof getGekV1WalletGetHistoryTransactionsMutator>
+) => {
+  return getGekV1WalletGetHistoryTransactionsMutator<GetHistoryTrasactionOutListApiResponse>(
+    { url: `/gek/v1/wallet/get_history_transactions`, method: "GET", params },
+    options
+  );
+};
+
+export type ApiGetUasResult = NonNullable<Awaited<ReturnType<typeof apiGetUas>>>;
+export type ApiClientDetailsResult = NonNullable<Awaited<ReturnType<typeof apiClientDetails>>>;
+export type ApiGetCardsResult = NonNullable<Awaited<ReturnType<typeof apiGetCards>>>;
+export type ApiGetProgramsResult = NonNullable<Awaited<ReturnType<typeof apiGetPrograms>>>;
+export type ApiUnmaskResult = NonNullable<Awaited<ReturnType<typeof apiUnmask>>>;
+export type ApiDealsResult = NonNullable<Awaited<ReturnType<typeof apiDeals>>>;
+export type ApiSubmitDealResult = NonNullable<Awaited<ReturnType<typeof apiSubmitDeal>>>;
+export type ApiSetPinResult = NonNullable<Awaited<ReturnType<typeof apiSetPin>>>;
+export type ApiSetLimitsResult = NonNullable<Awaited<ReturnType<typeof apiSetLimits>>>;
+export type ApiCreateCardResult = NonNullable<Awaited<ReturnType<typeof apiCreateCard>>>;
+export type ApiPersonalizeResult = NonNullable<Awaited<ReturnType<typeof apiPersonalize>>>;
+export type ApiActivateResult = NonNullable<Awaited<ReturnType<typeof apiActivate>>>;
+export type ApiGetPaymentCommissionResult = NonNullable<Awaited<ReturnType<typeof apiGetPaymentCommission>>>;
+export type ApiTokensNetworksResult = NonNullable<Awaited<ReturnType<typeof apiTokensNetworks>>>;
+export type ApiApplyCodeResult = NonNullable<Awaited<ReturnType<typeof apiApplyCode>>>;
+export type ApiCancelCodeResult = NonNullable<Awaited<ReturnType<typeof apiCancelCode>>>;
+export type ApiCreateTxCodeResult = NonNullable<Awaited<ReturnType<typeof apiCreateTxCode>>>;
+export type ApiListTxCodesResult = NonNullable<Awaited<ReturnType<typeof apiListTxCodes>>>;
+export type ApiCodeTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiCodeTxInfo>>>;
+export type ApiAddressTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiAddressTxInfo>>>;
+export type ApiAssetsResult = NonNullable<Awaited<ReturnType<typeof apiAssets>>>;
+export type ApiGetInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetInvestments>>>;
+export type ApiCreateInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiCreateInvestment>>>;
+export type ApiReturnInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiReturnInvestment>>>;
+export type ApiGetRatesResult = NonNullable<Awaited<ReturnType<typeof apiGetRates>>>;
+export type ApiGetTradeInfoResult = NonNullable<Awaited<ReturnType<typeof apiGetTradeInfo>>>;
+export type ApiGetOrdersResult = NonNullable<Awaited<ReturnType<typeof apiGetOrders>>>;
+export type ApiCreateOrderResult = NonNullable<Awaited<ReturnType<typeof apiCreateOrder>>>;
+export type ApiCancelOrderResult = NonNullable<Awaited<ReturnType<typeof apiCancelOrder>>>;
+export type ApiListRoomsResult = NonNullable<Awaited<ReturnType<typeof apiListRooms>>>;
+export type ApiCreateRoomResult = NonNullable<Awaited<ReturnType<typeof apiCreateRoom>>>;
+export type ApiCloseRoomResult = NonNullable<Awaited<ReturnType<typeof apiCloseRoom>>>;
+export type ApiPubV1AuthResult = NonNullable<Awaited<ReturnType<typeof apiPubV1Auth>>>;
+export type ApiGetReferralsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferrals>>>;
+export type ApiGetAgentCodeResult = NonNullable<Awaited<ReturnType<typeof apiGetAgentCode>>>;
+export type ApiGetReferralInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferralInvestments>>>;
+export type ApiGetInfoResult = NonNullable<Awaited<ReturnType<typeof apiGetInfo>>>;
+export type ApiGetBalanceResult = NonNullable<Awaited<ReturnType<typeof apiGetBalance>>>;
+export type ApiCreateAddressResult = NonNullable<Awaited<ReturnType<typeof apiCreateAddress>>>;
+export type ApiListAddressesResult = NonNullable<Awaited<ReturnType<typeof apiListAddresses>>>;
+export type ApiInternalTransferResult = NonNullable<Awaited<ReturnType<typeof apiInternalTransfer>>>;
+export type ApiCreateWithdrawResult = NonNullable<Awaited<ReturnType<typeof apiCreateWithdraw>>>;
+export type ApiUpdateTxPartnerInfoResult = NonNullable<Awaited<ReturnType<typeof apiUpdateTxPartnerInfo>>>;
+export type ApiGetHistoryTransactionsResult = NonNullable<Awaited<ReturnType<typeof apiGetHistoryTransactions>>>;

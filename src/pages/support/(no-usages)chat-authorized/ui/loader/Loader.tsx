@@ -1,13 +1,12 @@
-﻿import styles from "./style.module.scss"
+﻿import styles from "./style.module.scss";
 
 interface IParams {
-    className?: string;
-    style?: React.CSSProperties,
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-const Loader = ({className = "", style}: IParams) => {
-    return <div className={`${className} ${styles.Loader}`} style={style}>
-    </div>
-}
+const Loader = ({ className = "", style }: IParams) => (
+  <div className={`${className} ${styles.Loader}`} style={style} />
+);
 
 export default Loader;

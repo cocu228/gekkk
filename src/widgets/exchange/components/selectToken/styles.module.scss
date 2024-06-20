@@ -39,8 +39,6 @@
       font-size: 16px;
       bottom: 3px;
     }
-
-
   }
 
   @media screen and (max-width: 320px) {
@@ -71,7 +69,6 @@
     bottom: 0;
 
     @media screen and (max-width: 768px) {
-      
     }
   }
 }
@@ -136,7 +133,7 @@
   @media screen and (max-width: 440px) {
     width: 45%;
   }
-  
+
   @media screen and (max-width: 370px) {
     width: 50%;
   }
@@ -177,7 +174,6 @@
 
     display: none;
   }
-
 }
 
 .ActiveArrow {
@@ -276,7 +272,7 @@
 .SelectedToken {
   display: flex;
   flex-direction: row;
-  align-items:flex-start;
+  align-items: flex-start;
   align-items: center;
   gap: 5px;
   color: var(--gek-additional);
@@ -298,8 +294,6 @@
   }
 
   @media screen and (max-width: 360px) {
-
-
     img {
       width: 15px;
       height: 15px;
@@ -329,7 +323,6 @@
   //   margin-left: 30px;
   // }
 }
-
 
 .SelectValidatorText {
   div > span > span > span {

@@ -13,5 +13,5 @@
  */
 
 export type GetGekV1AddressTxInfoParams = {
-tx_id?: number;
+  tx_id?: number;
 };

@@ -7,7 +7,7 @@
     padding-right: 0.375rem;
     justify-content: flex-end;
   }
-  
+
   .MessageContainer {
     display: flex;
     flex-direction: column;
@@ -22,19 +22,18 @@
     position: relative;
     display: inline-block;
     padding: 0.9375rem 79px 0.875rem 1rem;
-    font-size: .8125rem;
-    letter-spacing: -.1px;
+    font-size: 0.8125rem;
+    letter-spacing: -0.1px;
     text-align: left;
     color: black;
     border-radius: 1.25rem;
     background-color: white;
 
     &.outgoing {
-        padding: 0.75rem 4.875rem 0.8125rem 1rem;
-        color: white;
-        background-color: #00AEEF;
-      }
-
+      padding: 0.75rem 4.875rem 0.8125rem 1rem;
+      color: white;
+      background-color: #00aeef;
+    }
 
     &After {
       content: "";
@@ -57,24 +56,24 @@
     &Name {
       font-weight: 600;
       margin-bottom: 0.375rem;
-      letter-spacing: .8px;
+      letter-spacing: 0.8px;
     }
 
     &Time {
       position: absolute;
       bottom: 0.375rem;
       right: 1rem;
-      opacity: .5;
-      font-size: .75rem;
+      opacity: 0.5;
+      font-size: 0.75rem;
       font-weight: 400;
       font-style: italic;
-      line-height: .875rem;
-      letter-spacing: -.3px;
+      line-height: 0.875rem;
+      letter-spacing: -0.3px;
 
       &.outgoing {
-          bottom: 0.3125rem;
-          right: 1.9375rem;
-        }
+        bottom: 0.3125rem;
+        right: 1.9375rem;
+      }
     }
 
     &Status {
@@ -88,12 +87,10 @@
       opacity: 0.5;
 
       &.read {
-          opacity: 1;
-        }
+        opacity: 1;
+      }
     }
-
   }
-
 
   .SendButton {
     display: flex;

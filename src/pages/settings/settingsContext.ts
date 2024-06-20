@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from "react";
 
 export const settingsContext = createContext({
-  closeArea: () => {},
-})
+  closeArea: () => {}
+});
 export function useSettingsContext() {
-  return useContext(settingsContext)
+  return useContext(settingsContext);
 }

@@ -1,88 +1,88 @@
 .a {
-    :global(#html5-qrcode-scanner__scan_region) {
-        display: flex;
-        justify-content: center;
+  :global(#html5-qrcode-scanner__scan_region) {
+    display: flex;
+    justify-content: center;
+  }
+
+  :global(#html5-qrcode-button-camera-permission),
+  :global(#html5-qrcode-button-camera-start),
+  :global(#html5-qrcode-anchor-scan-type-change),
+  :global(#html5-qrcode-button-camera-stop) {
+    display: block;
+    margin: 10px auto;
+    max-width: 70%;
+    height: auto;
+    font-weight: 400;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 15px;
+    transition: all ease-out 0.2s;
+    max-height: 43px;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
     }
 
-    :global(#html5-qrcode-button-camera-permission), 
-    :global(#html5-qrcode-button-camera-start), 
-    :global(#html5-qrcode-anchor-scan-type-change), 
-    :global(#html5-qrcode-button-camera-stop) {
-        display: block;
-        margin: 10px auto;
-        max-width: 70%;
-        height: auto;
-        font-weight: 400;
-        outline: none;
-        border-radius: 8px;
-        padding: 8px 15px;
-        transition: all ease-out 0.2s;
-        max-height: 43px;
-        font-size: 14px;
-        
-        &:focus {
-          outline: none;
-        }
-    
-        &:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
-        }
-    
-        &:active {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
-        }
-        
-        &:disabled {
-          box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-          color: #9D9D9D;
-          background: #E7E7E7;
-        }
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
     }
 
-    :global(#html5-qrcode-button-camera-permission), 
-    :global(#html5-qrcode-button-camera-start) {
-        background: var(--gek-green);
-        border: none;
-        color:#FFFFFF;
-        box-shadow: none;
-        
-        &:active {
-          background: var(--gek-dark-blue);
-          color: white;
-        }
+    &:active {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
     }
 
-    :global(#html5-qrcode-anchor-scan-type-change) {
-        color: var(--color-gray-400);
-        border: 1px solid var(--color-gray-400);
-        background: none;
-        box-shadow: none;
-        
-        &:hover {
-          color: #ffffff;
-          background: var(--gek-green);
-          border-color: var(--gek-green);
-        }
-    
-        &:active {
-          background: var(--gek-dark-blue);
-          color: white;
-        }
+    &:disabled {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      color: #9d9d9d;
+      background: #e7e7e7;
+    }
+  }
+
+  :global(#html5-qrcode-button-camera-permission),
+  :global(#html5-qrcode-button-camera-start) {
+    background: var(--gek-green);
+    border: none;
+    color: #ffffff;
+    box-shadow: none;
+
+    &:active {
+      background: var(--gek-dark-blue);
+      color: white;
+    }
+  }
+
+  :global(#html5-qrcode-anchor-scan-type-change) {
+    color: var(--color-gray-400);
+    border: 1px solid var(--color-gray-400);
+    background: none;
+    box-shadow: none;
+
+    &:hover {
+      color: #ffffff;
+      background: var(--gek-green);
+      border-color: var(--gek-green);
     }
 
-    :global(#html5-qrcode-button-camera-stop) {
-        color: white;
-        background: var(--gek-red);
-        box-shadow: none;
-        border: 1px solid var(--color-gray-400);
-        
-        &:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
-        }
-    
-        &:active {
-          background: var(--gek-dark-blue);
-          color: white;
-        }
+    &:active {
+      background: var(--gek-dark-blue);
+      color: white;
     }
+  }
+
+  :global(#html5-qrcode-button-camera-stop) {
+    color: white;
+    background: var(--gek-red);
+    box-shadow: none;
+    border: 1px solid var(--color-gray-400);
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    &:active {
+      background: var(--gek-dark-blue);
+      color: white;
+    }
+  }
 }

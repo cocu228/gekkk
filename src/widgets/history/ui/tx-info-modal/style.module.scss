@@ -5,7 +5,7 @@
 }
 
 .BorderLine {
-  color: #3A5E66;
+  color: #3a5e66;
   height: 1px;
   border-width: 0;
   margin-bottom: 10px;
@@ -29,7 +29,9 @@
   }
 }
 
-.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+.InfoItemValue,
+.InfoItemAddress,
+.InfoItemHash {
   color: var(--gek-dark-blue);
   font-family: "Inter";
   font-weight: 400;
@@ -45,11 +47,13 @@
   }
 }
 
-.InfoItemValue, .InfoItemAddress {
+.InfoItemValue,
+.InfoItemAddress {
   user-select: text;
 }
 
-.InfoItemAddress, .InfoItemHash {
+.InfoItemAddress,
+.InfoItemHash {
   display: block;
   max-width: 250px;
   word-break: break-all;

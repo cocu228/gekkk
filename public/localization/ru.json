@@ -416,12 +416,11 @@
       "buy": "Купить",
       "search_currency": "Найти валюту"
     },
-    "gekkard_pro":{
+    "gekkard_pro": {
       "title": "Gekkard PRO",
       "join_gekkard_pro": "Присоединиться к Gekkard PRO",
       "i_accept": "Я согласен с",
       "text": "Продолжая, вы подтверждаете, что вы принимаете условия и положения и соглашаетесь работать с Компанией в качестве независимого подрядчика на условиях, установленных в соответствующем документе."
-
     },
     "confirm": "Подтвердить",
     "apply": "Применить",
@@ -1457,12 +1456,12 @@
     "card_type": "Тип карты",
     "linked_phone_number": "Привязанный номер телефона",
     "enter_cardholder_name": "Введите имя владельца карты",
-    "virtual": "Виртуальная", 
+    "virtual": "Виртуальная",
     "plastic": "Пластиковая",
-    "enter_house_name_or_number_if_available": "Введите название дома или номер, если доступно", 
-    "flat": "Квартира", 
+    "enter_house_name_or_number_if_available": "Введите название дома или номер, если доступно",
+    "flat": "Квартира",
     "enter_flat_name_or_number_if_available": "Введите название квартиры или номер, если доступно",
-    "enter_beneficiary_name": "Введите имя получателя", 
+    "enter_beneficiary_name": "Введите имя получателя",
     "enter_account_number_or_IBAN": "Введите номер счета / IBAN",
     "recipient_name": "Имя получателя",
     "transfer": "Перевод",
@@ -1470,7 +1469,7 @@
     "phone_number_or_IBAN": "номер телефона или IBAN",
     "crypto_wallet": "Криптокошелек",
     "write_email_to_support": "Написать письмо в службу поддержки",
-    "how_can_we_help":  "Как мы можем помочь?",
+    "how_can_we_help": "Как мы можем помочь?",
     "contact_crypto": "Связаться с поддержкой криптовалют",
     "chat_us": "Напишите нам",
     "response_time_up_to": "Время ответа до {{hours}} часов",
@@ -1484,18 +1483,18 @@
     "order_type": "Тип ордера",
     "payment_cards": "Платежные карты",
     "card_info": "Информация о карте",
-    "send_to_card": "Отправить на карту:", 
-    "card_number": "НОМЕР КАРТЫ", 
-    "expiration_date": "Дата истечения срока действия", 
-    "card_cvc": "CVC-код", 
-    "card_owner": "Владелец", 
+    "send_to_card": "Отправить на карту:",
+    "card_number": "НОМЕР КАРТЫ",
+    "expiration_date": "Дата истечения срока действия",
+    "card_cvc": "CVC-код",
+    "card_owner": "Владелец",
     "card_pin": "Пин-код",
-    "card_design": "Дизайн карты", 
-    "delivery_type": "Тип доставки", 
-    "account_owner": "Владелец счета", 
-    "card_issuance": "Выпуск карты", 
-    "card_delivery": "Доставка карты", 
-    "total_fees": "Общие сборы", 
+    "card_design": "Дизайн карты",
+    "delivery_type": "Тип доставки",
+    "account_owner": "Владелец счета",
+    "card_issuance": "Выпуск карты",
+    "card_delivery": "Доставка карты",
+    "total_fees": "Общие сборы",
     "expected_delivery_time": "Ожидаемое время доставки",
     "order_card": "Заказать карту",
     "update": "Обновить",
@@ -1504,8 +1503,8 @@
     "gekkard_redirect": "Перенаправление Gekkard",
     "actions": "Действия",
     "clean": "Очистить",
-    "created": "Создано", 
-    "failed": "Завершено", 
+    "created": "Создано",
+    "failed": "Завершено",
     "canceled": "Отменено",
     "finished": "Завершено",
     "select_type": "Выберите тип",
@@ -1513,16 +1512,6 @@
     "select": "Выбрать",
     "create_special_code_currency": "Создайте специальный код, с помощью которого вы можете переводить или получать средства в {{currency}} между пользователями Gekkoin с вашим подтверждением или без него",
     "not_found": "Не найдено",
-    "flat_optional": "Квартира (необязательно)" 
-
-
-
-
-
-
-
-
-
-
+    "flat_optional": "Квартира (необязательно)"
   }
 }

@@ -16,8 +16,7 @@
  * Флаги разрешений по доступным активам: 
 0 = None, 1 = StructInvestAvalible, 2 = ExchangeAvalible, 4 = FiatCurrency, 8 = AccountAvalible
  */
-export type CurrencyFlagsEnum = typeof CurrencyFlagsEnum[keyof typeof CurrencyFlagsEnum];
-
+export type CurrencyFlagsEnum = (typeof CurrencyFlagsEnum)[keyof typeof CurrencyFlagsEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CurrencyFlagsEnum = {
@@ -25,5 +24,5 @@ export const CurrencyFlagsEnum = {
   NUMBER_1: 1,
   NUMBER_2: 2,
   NUMBER_4: 4,
-  NUMBER_8: 8,
+  NUMBER_8: 8
 } as const;

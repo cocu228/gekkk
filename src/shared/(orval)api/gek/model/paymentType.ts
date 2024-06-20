@@ -16,22 +16,21 @@
  * : 
 0 = NONE, 1 = TO_CONTACT, 2 = TO_ACCOUNT, 3 = TO_CARD, 4 = TO_SWIFT, 5 = CRYPTO_DEPO, 6 = CRYPTO_REPO, 7 = CRYPTO_AK, 8 = CRYPTO_DIGINORD, 9 = TO_CCLOUD, 10 = CONVERSION, 11 = INTERNAL, 12 = INCOME
  */
-export type PaymentType = typeof PaymentType[keyof typeof PaymentType];
-
+export type PaymentType = (typeof PaymentType)[keyof typeof PaymentType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PaymentType = {
-  NONE: 'NONE',
-  TO_CONTACT: 'TO_CONTACT',
-  TO_ACCOUNT: 'TO_ACCOUNT',
-  TO_CARD: 'TO_CARD',
-  TO_SWIFT: 'TO_SWIFT',
-  CRYPTO_DEPO: 'CRYPTO_DEPO',
-  CRYPTO_REPO: 'CRYPTO_REPO',
-  CRYPTO_AK: 'CRYPTO_AK',
-  CRYPTO_DIGINORD: 'CRYPTO_DIGINORD',
-  TO_CCLOUD: 'TO_CCLOUD',
-  CONVERSION: 'CONVERSION',
-  INTERNAL: 'INTERNAL',
-  INCOME: 'INCOME',
+  NONE: "NONE",
+  TO_CONTACT: "TO_CONTACT",
+  TO_ACCOUNT: "TO_ACCOUNT",
+  TO_CARD: "TO_CARD",
+  TO_SWIFT: "TO_SWIFT",
+  CRYPTO_DEPO: "CRYPTO_DEPO",
+  CRYPTO_REPO: "CRYPTO_REPO",
+  CRYPTO_AK: "CRYPTO_AK",
+  CRYPTO_DIGINORD: "CRYPTO_DIGINORD",
+  TO_CCLOUD: "TO_CCLOUD",
+  CONVERSION: "CONVERSION",
+  INTERNAL: "INTERNAL",
+  INCOME: "INCOME"
 } as const;

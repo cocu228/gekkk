@@ -16,8 +16,7 @@
  * Типы сетевых(внешних) транзакций: 
 0 = None, 1 = tx_inner, 2 = tx_in, 3 = tx_warning, 4 = tx_out, 5 = tx_in_system, 6 = tx_bank_in, 8 = tx_bank_out, 9 = tx_contract_transport, 10 = tx_only_info
  */
-export type AdrTxTypeEnum = typeof AdrTxTypeEnum[keyof typeof AdrTxTypeEnum];
-
+export type AdrTxTypeEnum = (typeof AdrTxTypeEnum)[keyof typeof AdrTxTypeEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdrTxTypeEnum = {
@@ -30,5 +29,5 @@ export const AdrTxTypeEnum = {
   NUMBER_6: 6,
   NUMBER_8: 8,
   NUMBER_9: 9,
-  NUMBER_10: 10,
+  NUMBER_10: 10
 } as const;

@@ -3,18 +3,16 @@
     width: 1em;
     height: 1em;
     fill: inherit;
-    transition: all .5s;
+    transition: all 0.5s;
   }
 
   &Up {
     color: var(--color-green);
     fill: var(--color-green);
-
   }
 
   &Down {
     color: var(--color-red);
     fill: var(--color-red);
-
   }
 }

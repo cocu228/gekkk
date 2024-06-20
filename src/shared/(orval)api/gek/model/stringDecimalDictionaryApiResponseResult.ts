@@ -16,4 +16,4 @@
  * Объект-результат: null, если ошибка
  * @nullable
  */
-export type StringDecimalDictionaryApiResponseResult = {[key: string]: number | null} | null;
+export type StringDecimalDictionaryApiResponseResult = { [key: string]: number | null } | null;

@@ -1,22 +1,19 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export type Props = {
-    children: any
-}
+  children: any;
+};
 
 const Container = styled.div`
-    /* max-width: 384px; */
-    padding-top: 16px;
-    padding-bottom: 16px;
-    width: 35%;
-    height: 100%;
-    position: relative;
-    box-sizing: border-box;
-
-`
+  /* max-width: 384px; */
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 35%;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+`;
 
 export default function Sidebar({ children }: Props) {
-    return (
-        <Container>{children}</Container>
-    )
+  return <Container>{children}</Container>;
 }

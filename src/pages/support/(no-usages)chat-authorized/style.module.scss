@@ -1,19 +1,19 @@
 .SupportChatComponent {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .SupportChatComponent::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .ChatWrapper {
-    background-color: var(--color-bgPrimary);
-    box-shadow: var(--card-shadow-blured);
-    border: 2px solid var(--new-F4F4F4);
+  background-color: var(--color-bgPrimary);
+  box-shadow: var(--card-shadow-blured);
+  border: 2px solid var(--new-F4F4F4);
 }
 
 ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }

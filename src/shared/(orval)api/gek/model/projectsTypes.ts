@@ -16,8 +16,7 @@
  * Проекты(подпроекты) на платформе GekCore: 
 0 = None, 1 = Gekkard, 2 = BLACK_CAT_CARD, 3 = Gekkoin, 4 = GekWallet
  */
-export type ProjectsTypes = typeof ProjectsTypes[keyof typeof ProjectsTypes];
-
+export type ProjectsTypes = (typeof ProjectsTypes)[keyof typeof ProjectsTypes];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProjectsTypes = {
@@ -25,5 +24,5 @@ export const ProjectsTypes = {
   NUMBER_1: 1,
   NUMBER_2: 2,
   NUMBER_3: 3,
-  NUMBER_4: 4,
+  NUMBER_4: 4
 } as const;

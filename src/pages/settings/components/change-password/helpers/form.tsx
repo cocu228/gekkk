@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Form = ({ action, children, className, onSubmit }: Props) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     const formElement = e.target as HTMLFormElement;
@@ -17,9 +17,7 @@ const Form = ({ action, children, className, onSubmit }: Props) => {
     formElement.classList.add(style.submitted);
 
     // focusing the first invalid field
-    const firstInvalidField = formElement.querySelector(
-      ":invalid"
-    ) as HTMLInputElement;
+    const firstInvalidField = formElement.querySelector(":invalid");
 
     firstInvalidField?.focus();
 
@@ -36,7 +34,7 @@ const Form = ({ action, children, className, onSubmit }: Props) => {
       onSubmit={handleSubmit}
       noValidate
       autoComplete={"off"}
-      className={style.form + " " + className}
+      className={`${style.form} ${className}`}
     >
       {children}
     </form>

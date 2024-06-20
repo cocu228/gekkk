@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { ErrorObject } from './errorObject';
-import type { UserLoginLog } from './userLoginLog';
+import type { ErrorObject } from "./errorObject";
+import type { UserLoginLog } from "./userLoginLog";
 
 /**
  * Объект-ответ на запрос к API, содержит в себе данные или детали ошибки

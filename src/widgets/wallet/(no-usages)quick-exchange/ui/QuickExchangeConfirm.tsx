@@ -16,25 +16,13 @@ import { useForm } from "antd/es/form/Form";
 import { useTranslation } from "react-i18next";
 
 const QuickExchangeConfirm = memo(
-  ({
-    get,
-    pay,
-    rate,
-    currency,
-    handleCancel,
-  }: IOperationInfo & { handleCancel: () => void }) => {
+  ({ get, pay, rate, currency, handleCancel }: IOperationInfo & { handleCancel: () => void }) => {
     //const setContent = useContext(CtxGlobalModalContext);
     const [form] = useForm();
     const { onInput } = useMask(MASK_CODE);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
-    const [
-      localErrorHunter,
-      ,
-      localErrorInfoBox,
-      localErrorClear,
-      localIndicatorError,
-    ] = useError();
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
     const onConfirm = () => {
       //setContent(<CtnTrxInfo />);
       handleCancel();
@@ -50,33 +38,33 @@ const QuickExchangeConfirm = memo(
 
     return (
       <>
-        <div className="row mb-2">
-          <div className="col">
-            <span className="text-gray-400">{t("you_will_pay")}</span>
+        <div className='row mb-2'>
+          <div className='col'>
+            <span className='text-gray-400'>{t("you_will_pay")}</span>
           </div>
         </div>
-        <div className="row mb-4">
-          <div className="col">
+        <div className='row mb-4'>
+          <div className='col'>
             <span>{pay}</span>
           </div>
         </div>
-        <div className="row mb-2">
-          <div className="col">
-            <span className="text-gray-400">{t("you_will_get")}</span>
+        <div className='row mb-2'>
+          <div className='col'>
+            <span className='text-gray-400'>{t("you_will_get")}</span>
           </div>
         </div>
-        <div className="row mb-4">
-          <div className="col">
+        <div className='row mb-4'>
+          <div className='col'>
             <span>~ {get}</span>
           </div>
         </div>
-        <div className="row mb-2">
-          <div className="col">
-            <span className="text-gray-400">Exchange rate</span>
+        <div className='row mb-2'>
+          <div className='col'>
+            <span className='text-gray-400'>Exchange rate</span>
           </div>
         </div>
-        <div className="row mb-10">
-          <div className="col">
+        <div className='row mb-10'>
+          <div className='col'>
             <span>
               1 {currency} ≈ {rate} EUR
             </span>
@@ -84,40 +72,28 @@ const QuickExchangeConfirm = memo(
         </div>
         <Form form={form} onFinish={onConfirm}>
           <span>{t("transfer_confirm")}</span>
-          <FormItem
-            name="code"
-            label="Code"
-            preserve
-            rules={[{ required: true, ...codeMessage }]}
-          >
+          <FormItem name='code' label='Code' preserve rules={[{ required: true, ...codeMessage }]}>
             <Input
-              type="text"
+              type='text'
               allowDigits
               onInput={onInput}
               placeholder={t("enter_sms_code")}
               onChange={setInp}
-              autoComplete="off"
+              autoComplete='off'
             />
           </FormItem>
           <Timer onAction={onReSendCode} />
-          <div className="row mt-4 mb-5">
-            <div className="col relative">
+          <div className='row mt-4 mb-5'>
+            <div className='col relative'>
               {loading ? (
                 <Loader className={"relative w-[24px] h-[24px]"} />
               ) : (
-                <Button
-                  htmlType={"submit"}
-                  disabled={input === ""}
-                  className="w-full"
-                  size={"xl"}
-                >
+                <Button htmlType={"submit"} disabled={input === ""} className='w-full' size={"xl"}>
                   {t("confirm")}
                 </Button>
               )}
             </div>
-            <div className="col flex justify-center mt-4">
-              {localErrorInfoBox}
-            </div>
+            <div className='col flex justify-center mt-4'>{localErrorInfoBox}</div>
           </div>
         </Form>
       </>

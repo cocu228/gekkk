@@ -16,11 +16,10 @@
  * : 
 0 = LOCKED, 1 = ACTIVE
  */
-export type CardStatus = typeof CardStatus[keyof typeof CardStatus];
-
+export type CardStatus = (typeof CardStatus)[keyof typeof CardStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CardStatus = {
-  LOCKED: 'LOCKED',
-  ACTIVE: 'ACTIVE',
+  LOCKED: "LOCKED",
+  ACTIVE: "ACTIVE"
 } as const;

@@ -12,11 +12,10 @@
  * OpenAPI spec version: v1
  */
 
-export type AuthenticatorAttachment = typeof AuthenticatorAttachment[keyof typeof AuthenticatorAttachment];
-
+export type AuthenticatorAttachment = (typeof AuthenticatorAttachment)[keyof typeof AuthenticatorAttachment];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AuthenticatorAttachment = {
-  platform: 'platform',
-  'cross-platform': 'cross-platform',
+  platform: "platform",
+  "cross-platform": "cross-platform"
 } as const;

@@ -5,8 +5,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   background: var(--gek-dark-blue);
 }
 
@@ -22,7 +22,7 @@
 }
 
 .Number {
-  color: #B9B9B5;
+  color: #b9b9b5;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
@@ -40,7 +40,7 @@
   background-size: cover;
   margin: 12px 15px;
   -webkit-filter: brightness(0) invert(1);
-          filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .NavBtn:global(.active) {
@@ -49,7 +49,7 @@
 
 .AccountIcon {
   -webkit-filter: brightness(0) invert(1);
-          filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .ArrowBtn {
@@ -59,15 +59,15 @@
   background-repeat: no-repeat;
   background-size: auto;
   -webkit-filter: brightness(0) invert(1);
-          filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .HeaderTitle {
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  color: #F5F5F5;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #f5f5f5;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -83,13 +83,13 @@
   text-align: left;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   gap: 4px;
 }
 
 .RoomsMenuItemTokens {
-  color: #3A5E66;
+  color: #3a5e66;
   font-weight: bold;
   font-size: 12px;
 }
@@ -100,8 +100,8 @@
 }
 
 .RoomsMenuItemIcon {
-  color: #285E69;
+  color: #285e69;
   font-weight: 600;
-  fill: #285E69;
+  fill: #285e69;
 }
 /*# sourceMappingURL=style.module.css.map */

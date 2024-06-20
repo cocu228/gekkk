@@ -16,8 +16,7 @@
  * Флаги действий-состояний сетевых(адресных) транзакций: 
 0 = None, 1 = Draft, 2 = AmlConfirm, 4 = SendedToModule, 8 = SendedToNetwork, 16 = NetworkIn, 32 = NetworkConfirmed, 64 = HasInnerTransaction, 2048 = Cancelation, 8192 = Finished
  */
-export type AdrTxStateEnum = typeof AdrTxStateEnum[keyof typeof AdrTxStateEnum];
-
+export type AdrTxStateEnum = (typeof AdrTxStateEnum)[keyof typeof AdrTxStateEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdrTxStateEnum = {
@@ -30,5 +29,5 @@ export const AdrTxStateEnum = {
   NUMBER_32: 32,
   NUMBER_64: 64,
   NUMBER_2048: 2048,
-  NUMBER_8192: 8192,
+  NUMBER_8192: 8192
 } as const;

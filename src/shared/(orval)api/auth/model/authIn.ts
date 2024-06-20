@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticatorAssertionRawResponse } from './authenticatorAssertionRawResponse';
-import type { AuthenticatorAttestationRawResponse } from './authenticatorAttestationRawResponse';
+import type { AuthenticatorAssertionRawResponse } from "./authenticatorAssertionRawResponse";
+import type { AuthenticatorAttestationRawResponse } from "./authenticatorAttestationRawResponse";
 
 export interface AuthIn {
   /** challenge id from login_options api */

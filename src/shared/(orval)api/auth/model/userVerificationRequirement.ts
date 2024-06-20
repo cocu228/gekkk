@@ -12,12 +12,12 @@
  * OpenAPI spec version: v1
  */
 
-export type UserVerificationRequirement = typeof UserVerificationRequirement[keyof typeof UserVerificationRequirement];
-
+export type UserVerificationRequirement =
+  (typeof UserVerificationRequirement)[keyof typeof UserVerificationRequirement];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserVerificationRequirement = {
-  required: 'required',
-  preferred: 'preferred',
-  discouraged: 'discouraged',
+  required: "required",
+  preferred: "preferred",
+  discouraged: "discouraged"
 } as const;

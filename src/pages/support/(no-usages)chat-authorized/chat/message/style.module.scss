@@ -28,7 +28,6 @@
     width: 100%;
     margin: 0 3rem 0 0;
 
-
     &.Outgoing {
       align-items: flex-end;
       margin: 0 0 0 3rem;
@@ -39,7 +38,7 @@
     position: relative;
     display: inline-block;
     padding: 0.95rem;
-    font-size: .85rem;
+    font-size: 0.85rem;
     text-align: left;
     color: black;
     border-radius: var(--border-radius);
@@ -49,7 +48,6 @@
 
     &.Outgoing {
       background-color: var(--new-light-blue);
-
     }
   }
 

@@ -1,13 +1,15 @@
-import style from './style.module.scss' 
-import Loader from "@/shared/ui/loader";
-import Input from "@/shared/ui/input/Input";
-import { TxInfoProps } from '../../model/types';
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
 import { useEffect, useRef, useState } from "react";
+
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
+import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import { apiUpdateTxPartnerInfo } from "@/shared/(orval)api/gek";
+
+import { TxInfoProps } from "../../model/types";
+import style from "./style.module.scss";
 
 interface InputRef {
   focus: () => void;
@@ -30,7 +32,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
 
     const response = await apiUpdateTxPartnerInfo({
       partner_info: input,
-      timetick: +props.id_transaction,
+      timetick: +props.id_transaction
     });
 
     actionResSuccess(response)
@@ -45,7 +47,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
     setLoading(false);
   };
 
-  const applyInputRef = useRef<InputRef|null>(null);
+  const applyInputRef = useRef<InputRef | null>(null);
 
   useEffect(() => {
     !loading && applyInputRef.current && applyInputRef.current.focus();
@@ -56,34 +58,29 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
   };
 
   return (
-    <div className="row relative font-medium">
+    <div className='row relative font-medium'>
       {loading ? (
         <Loader />
       ) : partnerInfo === null ? (
-        <div className="col">
-          <div className="row mb-2">
+        <div className='col'>
+          <div className='row mb-2'>
             <div>
               <span className={style.InfoItemTitle}>{t("sender_name")}</span>
             </div>
           </div>
-          <div className="row w-full flex justify-center gap-5 h-[43px] mb-5">
-            <div className="col flex items-center border-[2px] rounded-[8px] border-[#2BAB72] border-solid w-3/5">
+          <div className='row w-full flex justify-center gap-5 h-[43px] mb-5'>
+            <div className='col flex items-center border-[2px] rounded-[8px] border-[#2BAB72] border-solid w-3/5'>
               <Input
                 placeholder={t("enter_sender_name")}
                 ref={applyInputRef}
                 value={input}
                 onChange={inputChage}
-                className="text-[10px] font-[400]"
+                className='text-[10px] font-[400]'
               />
             </div>
-            <div className="flex justify-center w-[40%]">
-              <Button
-                size={"lg"}
-                onClick={() => setPartnerInfo(input)}
-                disabled={input === ""}
-                className="w-full"
-              >
-                <span className="font-bold">{t("apply")}</span>
+            <div className='flex justify-center w-[40%]'>
+              <Button size={"lg"} onClick={() => setPartnerInfo(input)} disabled={input === ""} className='w-full'>
+                <span className='font-bold'>{t("apply")}</span>
               </Button>
             </div>
           </div>
@@ -91,26 +88,20 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
       ) : localErrorInfoBox ? (
         localErrorInfoBox
       ) : (
-        <div className="col">
+        <div className='col'>
           <div className={style.InfoItem}>
             <div>
               <span className={style.InfoItemTitle}>{t("sender_name")}</span>
             </div>
             <div>
-              <span className={style.InfoItemValue}>
-                {input}
-              </span>
+              <span className={style.InfoItemValue}>{input}</span>
             </div>
           </div>
-          
-          <div className="row flex gap-3">
-            <div className="col w-full">
-              <Button
-                size="lg"
-                onClick={confirmPartnerInfo}
-                className="w-full m-auto"
-              >
-                <span className="font-bold">{t("confirm")}</span>
+
+          <div className='row flex gap-3'>
+            <div className='col w-full'>
+              <Button size='lg' onClick={confirmPartnerInfo} className='w-full m-auto'>
+                <span className='font-bold'>{t("confirm")}</span>
               </Button>
             </div>
           </div>

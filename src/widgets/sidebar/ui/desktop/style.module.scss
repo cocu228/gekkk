@@ -34,7 +34,6 @@
   border-radius: 0 5px 5px 0;
 }
 
-
 .AssetInfo3 {
   background-color: var(--gek-background);
   display: block;
@@ -45,11 +44,10 @@
     bottom: 70px;
     z-index: 40;
     left: 50%;
-    transform:translateX(-50%)
+    transform: translateX(-50%);
   }
-
 }
-.AddBottomAssetButtonMargin{
+.AddBottomAssetButtonMargin {
   bottom: 90px;
 }
 
@@ -65,7 +63,6 @@
   @include max-devices(md) {
     border-radius: 50%;
   }
-
 
   &:hover {
     background-color: var(--gek-additional);
@@ -101,7 +98,7 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .Name {
@@ -109,7 +106,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  transition: .2s;
+  transition: 0.2s;
   @include max-devices(md) {
     color: var(--gek-additional);
     font-family: Archivo;
@@ -163,13 +160,12 @@
   margin-right: 6px;
 
   path {
-    transition: .2s;
+    transition: 0.2s;
     fill: var(--color-gray-400);
   }
 }
 
 :global(a.active) {
-
   .ItemWrapper > .Item {
     box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
 
@@ -249,11 +245,9 @@
   }
 }
 
-
 .Item,
 .ItemExchange,
 .ItemEuro {
-
   @include max-devices(md) {
     max-width: 90%;
     background-color: white;
@@ -272,17 +266,17 @@
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: .2s;
+  transition: 0.2s;
 
   .Icon {
     pointer-events: none;
     filter: saturate(10%) invert(0%);
     opacity: 0.3;
-    transition: .2s;
+    transition: 0.2s;
   }
 
   .NavName {
-    transition: .2s;
+    transition: 0.2s;
   }
 
   &:hover {
@@ -310,7 +304,6 @@
   }
 }
 
-
 :global(a.disabled) {
   .Item,
   .ItemExchange,
@@ -327,7 +320,6 @@
 
 .ItemEuro {
   height: 70px;
-
 }
 
 .ItemWrapper {
@@ -338,7 +330,6 @@
     align-items: center;
     background-color: rgb(247, 247, 240);
   }
-
 }
 
 .ArrowMobileSidebar {

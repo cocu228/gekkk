@@ -1,4 +1,4 @@
 export type TNetworksForSelector = Array<{
-    label: string,
-    value: number
-}>
+  label: string;
+  value: number;
+}>;

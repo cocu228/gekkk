@@ -16,8 +16,7 @@
  * : 
 0 = None, 1 = fixed_08, 2 = interest_on_balance_03, 3 = cashback_token_freeze, 4 = discount_token_freeze, 5 = better_rates_iob_token_freeze, 6 = interest_on_balance_03_gke, 10 = safe_strategy_16_4, 11 = safe_strategy_17_3, 12 = safe_strategy_18_2, 20 = balanced_strategy_20_0, 21 = balanced_strategy_23_3, 22 = balanced_strategy_25_5, 30 = dynamic_strategy_30_10, 31 = dynamic_strategy_40_20, 32 = dynamic_strategy_50_30, 101 = fixed_08_gke, 110 = safe_strategy_16_4_gke, 111 = safe_strategy_17_3_gke, 112 = safe_strategy_18_2_gke, 120 = balanced_strategy_20_0_gke, 121 = balanced_strategy_23_3_gke, 122 = balanced_strategy_25_5_gke, 130 = dynamic_strategy_30_10_gke, 131 = dynamic_strategy_40_20_gke, 132 = dynamic_strategy_50_30_gke
  */
-export type InvestmentsTypeEnum = typeof InvestmentsTypeEnum[keyof typeof InvestmentsTypeEnum];
-
+export type InvestmentsTypeEnum = (typeof InvestmentsTypeEnum)[keyof typeof InvestmentsTypeEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const InvestmentsTypeEnum = {
@@ -46,5 +45,5 @@ export const InvestmentsTypeEnum = {
   NUMBER_122: 122,
   NUMBER_130: 130,
   NUMBER_131: 131,
-  NUMBER_132: 132,
+  NUMBER_132: 132
 } as const;

@@ -406,7 +406,7 @@
       "buy": "Kaufen",
       "search_currency": "Währung suchen"
     },
-    "gekkard_pro":{
+    "gekkard_pro": {
       "title": "Gekkard PRO",
       "join_gekkard_pro": "Gekkard PRO beitreten",
       "i_accept": "Ich akzeptiere",
@@ -1420,17 +1420,17 @@
     "here_it_is_possible_to_indicate_the_amount_of_expenses": "Hier können Sie den Betrag der Ausgaben innerhalb eines Monats ab dem Zeitpunkt der Festlegung des Limits angeben, z.B. 10.000 EUR. Bei einer solchen Festlegung ist es nicht möglich, Transaktionen (Bargeldabhebungen und Einkäufe) über 10.000 EUR pro Monat durchzuführen. Wenn das festgelegte Tageslimit höher ist als das festgelegte Monatslimit, wird der Wert des Monatslimits automatisch auf den Wert des Tageslimits erhöht. Im Feld „Verfügbar“ können Sie den Betrag sehen, der vor Erreichen des Limits verfügbar ist. Wenn bei einer Bargeldabhebung oder einem Kauf ein Betrag einbehalten wird, wird der verfügbare Wert auch um diesen Betrag reduziert. Wenn das Monatslimit erreicht ist, können Sie den Kauf nicht bezahlen oder Bargeld von der Karte abheben.",
     "temporarily_disable_limits": "Limits vorübergehend deaktivieren",
     "to_temporarily_deactivate_daily_and_monthly_limits": "Um die täglichen und monatlichen Limits vorübergehend zu deaktivieren, müssen Sie den Schalter „Limits vorübergehend deaktivieren“ auf die Position EIN stellen. Sie können die Limits nur deaktivieren, bis die erste Bargeldabhebung oder Kauftransaktion erfolgt oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Timeout-Zähler angezeigt.",
-    "day_limit": "Tageslimit", 
+    "day_limit": "Tageslimit",
     "month_limit": "Monatslimit",
     "card_type": "Kartentyp",
     "linked_phone_number": "Verknüpfte Telefonnummer",
     "enter_cardholder_name": "Geben Sie den Namen des Karteninhabers ein",
-    "virtual": "Virtuell", 
+    "virtual": "Virtuell",
     "plastic": "Plastik",
-    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar", 
-    "flat": "Wohnung", 
+    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar",
+    "flat": "Wohnung",
     "enter_flat_name_or_number_if_available": "Geben Sie den Namen oder die Nummer der Wohnung ein, falls verfügbar",
-    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein", 
+    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein",
     "enter_account_number_or_IBAN": "Geben Sie die Kontonummer / IBAN ein",
     "recipient_name": "Name des Empfängers",
     "transfer": "Überweisung",
@@ -1438,7 +1438,7 @@
     "phone_number_or_IBAN": "Telefonnummer oder IBAN",
     "crypto_wallet": "Kryptowallet",
     "write_email_to_support": "E-Mail an den Support schreiben",
-    "how_can_we_help":  "Wie können wir helfen?", 
+    "how_can_we_help": "Wie können wir helfen?",
     "contact_crypto": "Kontaktieren Sie den Kryptowährungs-Support",
     "chat_us": "Schreibe uns",
     "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden",
@@ -1452,18 +1452,18 @@
     "order_type": "Bestellart",
     "payment_cards": "Zahlungskarten",
     "card_info": "Karteninformationen",
-    "send_to_card": "Auf Karte senden:", 
-    "card_number": "KARTENNUMMER", 
-    "expiration_date": "Ablaufdatum", 
-    "card_cvc": "CVC-Code", 
-    "card_owner": "Inhaber", 
+    "send_to_card": "Auf Karte senden:",
+    "card_number": "KARTENNUMMER",
+    "expiration_date": "Ablaufdatum",
+    "card_cvc": "CVC-Code",
+    "card_owner": "Inhaber",
     "card_pin": "PIN-Code",
-    "card_design": "Kartendesign", 
-    "delivery_type": "Lieferart", 
-    "account_owner": "Kontoinhaber", 
-    "card_issuance": "Kartenausstellung", 
-    "card_delivery": "Kartenlieferung", 
-    "total_fees": "Gesamtgebühren", 
+    "card_design": "Kartendesign",
+    "delivery_type": "Lieferart",
+    "account_owner": "Kontoinhaber",
+    "card_issuance": "Kartenausstellung",
+    "card_delivery": "Kartenlieferung",
+    "total_fees": "Gesamtgebühren",
     "expected_delivery_time": "Voraussichtliche Lieferzeit",
     "order_card": "Karte bestellen",
     "update": "Aktualisieren",
@@ -1472,28 +1472,15 @@
     "gekkard_redirect": "Gekkard Weiterleitung",
     "actions": "Aktionen",
     "clean": "Löschen",
-    "created": "Erstellt", 
-    "failed": "Fehlgeschlagen", 
+    "created": "Erstellt",
+    "failed": "Fehlgeschlagen",
     "canceled": "Abgebrochen",
     "finished": "Beendet",
     "select_type": "Typ auswählen",
     "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen",
-    "select": "Auswählen", 
+    "select": "Auswählen",
     "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können",
     "not_found": "Nicht gefunden",
     "flat_optional": "Wohnung (optional)"
-
-
-
-
-
-
-
-
-    
-
-
-
-
   }
 }

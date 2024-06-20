@@ -1,18 +1,16 @@
-﻿import styles from './style.module.scss';
-import {timestampToDateFormat} from '@/features/chat/model/helpers';
+﻿import styles from "./style.module.scss";
+import { timestampToDateFormat } from "@/features/chat/model/helpers";
 
 interface IParams {
-    createdAt: number;
+  createdAt: number;
 }
 
-const ChatDate = ({createdAt}: IParams) => {
+const ChatDate = ({ createdAt }: IParams) => {
   return (
     <div className={styles.ChatDateContainer}>
-      <span className={styles.ChatDateContent}>
-        {timestampToDateFormat(createdAt)}
-        </span>
-    </div >
-  )
-}
+      <span className={styles.ChatDateContent}>{timestampToDateFormat(createdAt)}</span>
+    </div>
+  );
+};
 
 export default ChatDate;

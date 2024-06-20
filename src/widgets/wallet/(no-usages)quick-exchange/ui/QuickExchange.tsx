@@ -4,7 +4,7 @@
 // // import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 // import {CtxCurrencies} from "@/processes/CurrenciesContext";
 // import Button from "@/shared/ui/button/Button";
-// import Decimal from "decimal.js";
+// import { Decimal } from "decimal.js";
 // import {getCurrentRate} from "@/widgets/wallet/quick-exchange/model/helpers";
 // import Modal from "@/shared/ui/modal/Modal";
 // import useModal from "@/shared/model/hooks/useModal";
@@ -25,9 +25,9 @@
 //     const {ratesEUR, currencies} = useContext(CtxCurrencies);
 //     const {isModalOpen, showModal, handleCancel} = useModal();
 //     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-    
+
 //     if (isNull(ratesEUR) || currencies.get("EUR").balance.free_balance === null) return <Loader/>
-    
+
 //     const [state, setState] = useState({
 //         typeOperation: "EURToCrypto",
 //         currency: {
@@ -35,7 +35,7 @@
 //             Crypto: currencies.get("BTC")
 //         }
 //     });
-    
+
 //     const commissionCoefficient = 10;
 
 //     const currentRate = useMemo(() =>

@@ -1,15 +1,15 @@
-import {useNavigate} from "react-router-dom";
-import {getCookieData, logout} from "@/shared/lib/helpers";
-import {createContext, FC, PropsWithChildren, useContext, useMemo, useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { createContext, FC, PropsWithChildren, useContext, useMemo, useState } from "react";
+
+import { getCookieData, logout } from "@/shared/lib/helpers";
 
 const AuthContext = createContext({});
 
 interface IValue {
-    access: boolean;
-    login: (phone?: string, token?: string, tokenHeaderName?: string, refreshToken?: string) => void;
-    logout: () => Promise<void>;
+  access: boolean;
+  login: (phone?: string, token?: string, tokenHeaderName?: string, refreshToken?: string) => void;
+  logout: () => Promise<void>;
 }
-
 
 // function inactivityTime() {
 //
@@ -29,78 +29,73 @@ interface IValue {
 //
 // };
 
-export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
+export const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
+  const { device_guid } = getCookieData<{ device_guid: string }>();
+  const [access, setAccess] = useState(!!device_guid);
 
-    const {device_guid} = getCookieData<{ device_guid: string }>();
-    const [access, setAccess] = useState(!!device_guid)
+  // console.log(!!device_guid)
 
-    // console.log(!!device_guid)
+  // useEffect(() => {
+  //     onAuthStateChanged(auth, async (user) => {
+  //         if (user) {
+  //             console.log(user)
+  //         } else {
+  //             const idToken = await user.getIdToken(/* forceRefresh */ true);
+  //             console.log("idToken")
+  //             console.log(idToken)
+  //         }
+  //     });
+  //
+  //     inactivityTime.call({logout});
+  // }, []);
 
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, async (user) => {
-    //         if (user) {
-    //             console.log(user)
-    //         } else {
-    //             const idToken = await user.getIdToken(/* forceRefresh */ true);
-    //             console.log("idToken")
-    //             console.log(idToken)
-    //         }
-    //     });
+  const navigate = useNavigate();
+
+  const login = () => {
+    setAccess(true);
+    // setCookieData([
+    //     {
+    //         key: "phone",
+    //         value: formatAsNumber(phone),
+    //         expiration: 3600000
+    //     }, {
+    //         key: "token",
+    //         value: token,
+    //         expiration: 3600000
+    //     },
+    //     {
+    //         key: "tokenHeaderName",
+    //         value: tokenHeaderName,
+    //         expiration: 3600000
+    //     }, {
+    //         key: "refreshToken",
+    //         value: refreshToken,
+    //         expiration: 3600000
+    //     }])
+
+    // TEMP: OLD API
+    // $axios.defaults.headers[tokenHeaderName] = token;
+    // $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
     //
-    //     inactivityTime.call({logout});
-    // }, []);
+    // // NEW API
+    // $new_axios.defaults.headers[tokenHeaderName] = token;
+    // $new_axios.defaults.headers['Authorization'] = formatAsNumber(phone);
 
-    const navigate = useNavigate();
+    const pathUrl = window.location.pathname + window.location.search.replace("authMethod=UAS", "");
 
-    const login = () => {
-        setAccess(true)
-        // setCookieData([
-        //     {
-        //         key: "phone",
-        //         value: formatAsNumber(phone),
-        //         expiration: 3600000
-        //     }, {
-        //         key: "token",
-        //         value: token,
-        //         expiration: 3600000
-        //     },
-        //     {
-        //         key: "tokenHeaderName",
-        //         value: tokenHeaderName,
-        //         expiration: 3600000
-        //     }, {
-        //         key: "refreshToken",
-        //         value: refreshToken,
-        //         expiration: 3600000
-        //     }])
+    navigate(!["/", "/?"].includes(pathUrl) ? pathUrl : "/wallet?currency=EUR");
+  };
 
-        // TEMP: OLD API
-        // $axios.defaults.headers[tokenHeaderName] = token;
-        // $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
-        //
-        // // NEW API
-        // $new_axios.defaults.headers[tokenHeaderName] = token;
-        // $new_axios.defaults.headers['Authorization'] = formatAsNumber(phone);
+  const value = useMemo<IValue>(
+    () => ({
+      access: access,
+      login,
+      logout
+    }),
+    [access]
+  );
 
-        const pathUrl = window.location.pathname
-            + window.location.search.replace('authMethod=UAS', '');
-
-        navigate(!['/', '/?'].includes(pathUrl) ? pathUrl : '/wallet?currency=EUR');
-    };
-    
-
-    const value = useMemo<IValue>(
-        () => ({
-            access: access,
-            login,
-            logout
-        }),
-        [access]
-    );
-
-    return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
+  return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
 };
 
-export const useAuth = () => {
-    return useContext<Partial<IValue>>(AuthContext);
-};
+export const useAuth = () => useContext<Partial<IValue>>(AuthContext);

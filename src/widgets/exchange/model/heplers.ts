@@ -1,13 +1,12 @@
-import {OrdersTab, TabKey} from "./types";
+import { OrdersTab, TabKey } from "./types";
 
 export const ordersTabs: Array<OrdersTab> = [
-    
-    {
-        Key: TabKey.OPENED,
-        Title: "opened",
-    },
-    {
-        Key: TabKey.CLOSED,
-        Title: "closed",
-    }
+  {
+    Key: TabKey.OPENED,
+    Title: "opened"
+  },
+  {
+    Key: TabKey.CLOSED,
+    Title: "closed"
+  }
 ];

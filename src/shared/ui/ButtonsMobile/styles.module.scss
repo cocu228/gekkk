@@ -1,36 +1,34 @@
 .MobileButton {
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--gek-dark-blue);
-    stroke: var(--gek-dark-blue);
-    font-size: 12px;
-    font-weight: 800;
-    text-wrap: nowrap;
-    word-break: keep-all;
-    cursor: pointer;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--gek-dark-blue);
+  stroke: var(--gek-dark-blue);
+  font-size: 12px;
+  font-weight: 800;
+  text-wrap: nowrap;
+  word-break: keep-all;
+  cursor: pointer;
 }
-
 
 ////set_btn
 
-
 .itemBody {
-    display: flex;
-    gap: 7px;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  width: 100%;
 }
 
 .itemTitle {
-    font-size: 14px;
-    font-family: Inter;
-    font-weight: 500;
-    color: var(--gek-dark-blue);
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  color: var(--gek-dark-blue);
 
-    &Selected {
-        color: #fff;
-    }
+  &Selected {
+    color: #fff;
+  }
 }

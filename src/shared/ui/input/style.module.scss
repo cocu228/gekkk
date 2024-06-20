@@ -3,25 +3,25 @@
 .Input {
   display: flex;
   width: 100%;
-  border: 1px solid #DCDCD9;
+  border: 1px solid #dcdcd9;
   color: var(--gek-dark-blue);
   border-radius: 6px;
   outline: none;
   box-sizing: border-box;
 }
 
-.PrefixWrap{
+.PrefixWrap {
   display: flex;
   flex-direction: row;
   width: 100%;
   padding: 0 12px;
 }
 
-.Caption{
+.Caption {
   font-size: 12px;
   color: var(--gek-orange);
   margin-left: 5px;
-  @include max-devices(md){
+  @include max-devices(md) {
     font-size: 10px;
   }
 }
@@ -34,33 +34,33 @@
   overflow: hidden;
 }
 
-.InputMobileWrapper{
+.InputMobileWrapper {
   height: 32px;
   box-sizing: border-box;
 }
 
-.InputDesktopWrapper{
+.InputDesktopWrapper {
   height: 64px;
   box-sizing: border-box;
 }
 
-.InputMobile{
+.InputMobile {
   overflow: hidden;
   width: calc(100%);
   background: none;
   display: inline-block;
   text-overflow: ellipsis;
   font-weight: 400;
-  color:#3A5E66 ;
+  color: #3a5e66;
   outline: none;
   font-size: 12px;
-  &::placeholder{
+  &::placeholder {
     font-size: 10px;
-    color: #DCDCD9;
+    color: #dcdcd9;
   }
 }
 
-.InputDesktop{
+.InputDesktop {
   display: inline-block;
   overflow: hidden;
   outline: none;
@@ -69,9 +69,9 @@
   padding-top: 20px;
   padding-bottom: 20px;
   font-weight: 400;
-  color:#3A5E66 ;
+  color: #3a5e66;
   width: calc(100%);
-    &::placeholder{
-      color: #DCDCD9;
-    }
+  &::placeholder {
+    color: #dcdcd9;
+  }
 }

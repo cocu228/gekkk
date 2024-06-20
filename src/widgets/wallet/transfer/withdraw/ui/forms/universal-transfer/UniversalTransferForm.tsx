@@ -1,27 +1,22 @@
-import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
-import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
-import UniversalTransferConfirm from "./UniversalTransferConfirm";
+
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {
-  validateBalance,
-  validateMaximumAmount,
-  validateMinimumAmount,
-} from "@/shared/config/validators";
-import {
-  CtxWalletData,
-  CtxWalletNetworks,
-} from "@/widgets/wallet/transfer/model/context";
+import { validateBalance, validateMaximumAmount, validateMinimumAmount } from "@/shared/config/validators";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import styles from "../styles.module.scss";
-import {Modal} from "@/shared/ui/modal/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+
+import UniversalTransferConfirm from "./UniversalTransferConfirm";
+import styles from "../styles.module.scss";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -38,11 +33,10 @@ const UniversalTransferForm = () => {
     requisite: string;
   }>({
     comment: "",
-    requisite: null,
+    requisite: null
   });
 
-  const { min_withdraw = 0, max_withdraw = 0 } =
-    getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, max_withdraw = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   useEffect(() => {
     const { requisite } = inputs;
@@ -51,40 +45,26 @@ const UniversalTransferForm = () => {
   }, [inputs, inputCurr.value]);
 
   const onInputDefault = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
+    setInputs(prev => ({ ...prev, [target.name]: target.value }));
   };
 
   return (
-    <div className="wrapper">
-      <div className="row mb-5 w-full">
-        <div className="col">
+    <div className='wrapper'>
+      <div className='row mb-5 w-full'>
+        <div className='col'>
           <InputCurrency.Validator
             value={inputCurr.value.number}
             description={getWithdrawDesc(min_withdraw, currency.$const)}
             onError={setInputCurrValid}
             validators={[
               validateBalance(currency, navigate, t),
-              validateMinimumAmount(
-                min_withdraw,
-                inputCurr.value.number,
-                currency.$const,
-                t
-              ),
-              validateMaximumAmount(
-                max_withdraw,
-                inputCurr.value.number,
-                currency.$const,
-                t
-              ),
+              validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+              validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t)
             ]}
           >
             <InputCurrency.PercentSelector
               currency={currency}
-              header={
-                <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
-                  {t("amount")}:
-                </span>
-              }
+              header={<span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>{t("amount")}:</span>}
               onSelect={setInputCurr}
             >
               <InputCurrency.DisplayBalance currency={currency}>
@@ -100,14 +80,12 @@ const UniversalTransferForm = () => {
         </div>
       </div>
 
-      <div className="row mb-5 w-full">
-        <div className="row mb-[3px]">
-          <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
-            {t('contact')}:
-          </span>
+      <div className='row mb-5 w-full'>
+        <div className='row mb-[3px]'>
+          <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>{t("contact")}:</span>
         </div>
-        <div className="row flex w-full">
-          <div className="col basis-[100%]">
+        <div className='row flex w-full'>
+          <div className='col basis-[100%]'>
             <Input
               allowDigits
               allowSymbols
@@ -120,60 +98,45 @@ const UniversalTransferForm = () => {
         </div>
       </div>
 
-      <div className="row mb-5 w-full">
-        <div className="row mb-[3px]">
-          <div className="col">
-            <span className={`${styles.TitleColText} ml-[12px]`}>
-              {t("description")}:
-            </span>
+      <div className='row mb-5 w-full'>
+        <div className='row mb-[3px]'>
+          <div className='col'>
+            <span className={`${styles.TitleColText} ml-[12px]`}>{t("description")}:</span>
           </div>
         </div>
-        <div className="row w-full">
-          <div className="col w-full">
-              <Input
-                allowDigits
-                allowSymbols
-                name={"comment"}
-                value={inputs.comment}
-                onChange={onInputDefault}
-                placeholder={t("comment_optional")}
-              />
+        <div className='row w-full'>
+          <div className='col w-full'>
+            <Input
+              allowDigits
+              allowSymbols
+              name={"comment"}
+              value={inputs.comment}
+              onChange={onInputDefault}
+              placeholder={t("comment_optional")}
+            />
           </div>
         </div>
       </div>
-      
+
       <Modal
-        placeBottom={window.innerWidth<768}
+        placeBottom={window.innerWidth < 768}
         destroyOnClose
         isModalOpen={isModalOpen}
         onCancel={handleCancel}
         title={t("confirm_transaction")}
       >
-        <UniversalTransferConfirm
-          {...inputs}
-          handleCancel={handleCancel}
-          amount={inputCurr.value.number}
-        />
+        <UniversalTransferConfirm {...inputs} handleCancel={handleCancel} amount={inputCurr.value.number} />
       </Modal>
       <div className='w-full flex justify-center'>
-        <Commissions
-            youWillPay={inputCurr.value.number}
-            youWillGet={inputCurr.value.number}
-            fee={"-"}
-        />
+        <Commissions youWillPay={inputCurr.value.number} youWillGet={inputCurr.value.number} fee={"-"} />
       </div>
       <div className={styles.ButtonContainerCenter}>
-        <Button
-          size="lg"
-          className={styles.Button}
-          onClick={showModal}
-          disabled={!isValid || inputCurrValid.value}
-        >
+        <Button size='lg' className={styles.Button} onClick={showModal} disabled={!isValid || inputCurrValid.value}>
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>
-        <span className="block font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
-          {t('fee_is')}
-          <span className="uppercase font-bold"> 0 eurg </span>
+        <span className='block font-normal text-[#B9B9B5] text-[10px] font-[Inter]'>
+          {t("fee_is")}
+          <span className='uppercase font-bold'> 0 eurg </span>
           {t("per_transaction")}
         </span>
       </div>

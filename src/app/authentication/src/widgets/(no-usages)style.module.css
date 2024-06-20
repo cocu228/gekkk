@@ -12,12 +12,12 @@ form .FormButtons {
   justify-content: space-between;
 }
 
-.rulesList {  
+.rulesList {
   flex: 1;
   margin-right: 0px;
   display: flex;
   flex-direction: row;
-  position: relative;  
+  position: relative;
 
   .rulesListH {
     position: absolute;
@@ -28,34 +28,30 @@ form .FormButtons {
     transform: rotate(90deg);
     color: var(--gek-mid-grey);
   }
-  .deviceKey
-  {
+  .deviceKey {
     flex: 1;
     display: flex;
     flex-direction: row-reverse;
     align-items: flex-end;
     font-size: 12px;
-    label
-    {
+    label {
       width: auto;
       text-wrap: nowrap;
       margin-left: 4px;
       padding-bottom: 3px;
-      &:hover
-      {
+      &:hover {
         text-decoration: underline;
         color: var(--gek-dark-blue);
       }
     }
-    input{
+    input {
       width: auto;
       height: 14px;
-    };
+    }
   }
 }
-.passWrapper
-{
+.passWrapper {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   flex: 1;
 }

@@ -5,9 +5,8 @@ export interface Deal {
   name: string;
   accrualPeriod: string;
   conditions: Array<string>;
-  className: CSSModuleClasses[string],
-  mobileModalColor: CSSModuleClasses[string],
-  iconPath: string,
-  isActive: boolean,
+  className: CSSModuleClasses[string];
+  mobileModalColor: CSSModuleClasses[string];
+  iconPath: string;
+  isActive: boolean;
 }
-

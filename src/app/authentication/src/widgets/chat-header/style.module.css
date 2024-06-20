@@ -1,15 +1,15 @@
 :root {
-  --gek-text-primary: #29354C;
-  --gek-dark-blue: #29354C;
-  --gek-additional: #285E69;
-  --gek-green: #2BAB72;
-  --gek-red:#8F123A;
-  --gek-orange:#F8A73E;
-  --gek-background: #F7F7F0;
-  --gek-light-grey:#DCDCD9;
-  --gek-mid-grey:#B9B9B5;
-  --gek-dark-grey: #7B797C;
-  --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+  --gek-text-primary: #29354c;
+  --gek-dark-blue: #29354c;
+  --gek-additional: #285e69;
+  --gek-green: #2bab72;
+  --gek-red: #8f123a;
+  --gek-orange: #f8a73e;
+  --gek-background: #f7f7f0;
+  --gek-light-grey: #dcdcd9;
+  --gek-mid-grey: #b9b9b5;
+  --gek-dark-grey: #7b797c;
+  --gek-green-gradient: linear-gradient(45deg, #00aeef 0%, #72bf44 100%);
 }
 
 .Header {
@@ -19,11 +19,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   top: 0;
   height: 60px;
   background: var(--new-brand-dark-blue);
@@ -37,27 +37,27 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   height: 40px;
   -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
   margin-left: 2%;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 1700px) {
   .ContainerLogo {
     -ms-flex-preferred-size: var(--sidebar-width-xxxl);
-        flex-basis: var(--sidebar-width-xxxl);
+    flex-basis: var(--sidebar-width-xxxl);
   }
 }
 
 @media only screen and (max-width: 1600px) {
   .ContainerLogo {
     -ms-flex-preferred-size: var(--sidebar-width-xxl);
-        flex-basis: var(--sidebar-width-xxl);
+    flex-basis: var(--sidebar-width-xxl);
   }
 }
 

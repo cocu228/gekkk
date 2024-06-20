@@ -1,7 +1,7 @@
 .InlineProperty {
   border: 1px dashed var(--color-gray-400);
   -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
+  flex-basis: 100%;
   height: 2px;
   margin-bottom: 4px;
 }

@@ -1,14 +1,12 @@
 ## Command Line Interface
 
-
 Vite treats index.html as source code and part of the module graph. It resolves `<script type="module" src="...">` that references your JavaScript source code. Even inline `<script type="module">`
 
 1 `npm run dev` - start dev server, aliases: `vite dev`, `vite serve`
 
-2 `npm run build` - build for production 
+2 `npm run build` - build for production
 
 3 `npm run preview` - locally preview production build
-
 
 _package.json_
 
@@ -30,9 +28,8 @@ _package.json_
 ## Архитектура ([Feature-Sliced Design](https://feature-sliced.design/ru/docs/get-started/overview))
 
 Структура папок и файлов именуется в `kebab-case`, кроме `.jsx` (`PascalCase`);
+
 #### Для статики используется `publicPath: "public"`. При указании абсолютного пути папка не учитывается _(прим. **`<img src="/img/icon/ApeCoin.svg">`**)_
-
-
 
 ```
 └── src/
@@ -41,13 +38,12 @@ _package.json_
     ├── processes/                  #
     ├── pages/                  #
     ├── widgets/                #
-    ├── features/               #               
+    ├── features/               #
     └── shared                  #
 ```
+
 ![Image alt](etc/img.png)
 ![Image alt](etc/img_1.png)
-
-
 
 ## Style Guide:
 
@@ -87,10 +83,9 @@ _package.json_
 
 Multi-storage который предусматривает опционально middleware:
 
-    - persist; 
+    - persist;
     - devtools;
     - immer;
-
 
 ## Операции с числами ([Decimal.js](https://github.com/MikeMcl/decimal.js/))
 
@@ -101,7 +96,8 @@ Multi-storage который предусматривает опциональн
 date-fns предоставляет наиболее полный, но простой и последовательный набор инструментов для управления датами JavaScript в браузере и Node.js.
 
 ## Развертывание на production
-В связи с загрузки скриптов в /scr/app/init.ts по условию активной сессии и условиями кэширования, при обновлении production возможны запросы к старым версиям скриптов, 
-которых уже нет на сервере — это выливается в ошибки загрузки и зависания. Чтобы предотвратить такие проблемы для пользователей, мы можем перед выкладыванием на прод забирать 
-уже собранные файлы скриптов с web.gekkard.com и класть их в код, чтобы они были доступны на сервере. С учетом частоты обновлений и хранения в кэше index.html в течении месяца, 
+
+В связи с загрузки скриптов в /scr/app/init.ts по условию активной сессии и условиями кэширования, при обновлении production возможны запросы к старым версиям скриптов,
+которых уже нет на сервере — это выливается в ошибки загрузки и зависания. Чтобы предотвратить такие проблемы для пользователей, мы можем перед выкладыванием на прод забирать
+уже собранные файлы скриптов с web.gekkard.com и класть их в код, чтобы они были доступны на сервере. С учетом частоты обновлений и хранения в кэше index.html в течении месяца,
 достаточно хранить 1-2 предыдущие версии.

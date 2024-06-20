@@ -16,12 +16,11 @@
  * : 
 0 = DAILY, 1 = MONTHLY, 2 = ONE_TRANSACTION
  */
-export type Period = typeof Period[keyof typeof Period];
-
+export type Period = (typeof Period)[keyof typeof Period];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Period = {
-  DAILY: 'DAILY',
-  MONTHLY: 'MONTHLY',
-  ONE_TRANSACTION: 'ONE_TRANSACTION',
+  DAILY: "DAILY",
+  MONTHLY: "MONTHLY",
+  ONE_TRANSACTION: "ONE_TRANSACTION"
 } as const;

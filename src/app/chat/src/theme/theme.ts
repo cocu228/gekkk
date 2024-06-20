@@ -1,26 +1,26 @@
-import {ThemeProps} from "./types";
-import {createGlobalStyle, withTheme} from "styled-components";
+import { ThemeProps } from "./types";
+import { createGlobalStyle, withTheme } from "styled-components";
 
 export const darkTheme: ThemeProps = {
-    background: 'var(--dark-background)',
-    lightBlue: 'var(--dark-light-blue)',
-    darkBlue: 'var(--dark-dark-blue)',
-    lightGray: 'var(--dark-light-gray)',
-    midGray: 'var(--dark-mid-gray)',
-    darkGray: 'var(--dark-dark-gray)',
-    white: 'var(--dark-white)',
-    black: 'var(--dark-black)'
+  background: "var(--dark-background)",
+  lightBlue: "var(--dark-light-blue)",
+  darkBlue: "var(--dark-dark-blue)",
+  lightGray: "var(--dark-light-gray)",
+  midGray: "var(--dark-mid-gray)",
+  darkGray: "var(--dark-dark-gray)",
+  white: "var(--dark-white)",
+  black: "var(--dark-black)"
 };
 
 export const lightTheme: ThemeProps = {
-    background: 'var(--light-background)',
-    lightBlue: 'var(--light-light-blue)',
-    darkBlue: 'var(--light-dark-blue)',
-    lightGray: 'var(--light-light-gray)',
-    midGray: 'var(--light-mid-gray)',
-    darkGray: 'var(--light-dark-gray)',
-    white: 'var(--light-white)',
-    black: 'var(--light-black)'
+  background: "var(--light-background)",
+  lightBlue: "var(--light-light-blue)",
+  darkBlue: "var(--light-dark-blue)",
+  lightGray: "var(--light-light-gray)",
+  midGray: "var(--light-mid-gray)",
+  darkGray: "var(--light-dark-gray)",
+  white: "var(--light-white)",
+  black: "var(--light-black)"
 };
 
 export const GlobalStyle = withTheme(createGlobalStyle`

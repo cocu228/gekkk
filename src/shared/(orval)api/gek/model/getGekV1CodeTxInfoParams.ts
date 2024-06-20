@@ -13,8 +13,8 @@
  */
 
 export type GetGekV1CodeTxInfoParams = {
-/**
- * Код
- */
-code?: string;
+  /**
+   * Код
+   */
+  code?: string;
 };

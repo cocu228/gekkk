@@ -1,5 +1,5 @@
 .BankCard {
-  /* width: 100%; */  
+  /* width: 100%; */
   /* aspect-ratio: 33/21; */
   width: 225px;
   height: 143px;
@@ -7,7 +7,7 @@
   user-select: none;
   border-radius: 10px;
   /* transition: all .2s; */
-  
+
   background-size: auto 100%;
   background-repeat: no-repeat;
   /* background: url(/img/payment-card/payment-card-background.jpg); */
@@ -15,12 +15,22 @@
   background-size: contain;
   cursor: pointer;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   text-align: center;
 }
 
 .Text {
-  background: linear-gradient(to bottom, #909090 0%, #909090 14.28%, #fffffff0 28.56%, #fffffff0 42.84%, #909090 57.12%, #909090 71.4%, #fffffff0 85.68%, #fffffff0 100%);
+  background: linear-gradient(
+    to bottom,
+    #909090 0%,
+    #909090 14.28%,
+    #fffffff0 28.56%,
+    #fffffff0 42.84%,
+    #909090 57.12%,
+    #909090 71.4%,
+    #fffffff0 85.68%,
+    #fffffff0 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -28,13 +38,13 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  letter-spacing: 0.12rem;  
+  letter-spacing: 0.12rem;
 }
 .CardStatus {
   flex: 1 0;
   padding-top: 5%;
   font-weight: bold;
-  color: var(--gek-red);  
+  color: var(--gek-red);
 
   &.White {
     font-size: 14px;
@@ -42,10 +52,9 @@
   }
 }
 .CardNumber {
-  font-size: 90%; 
-  word-spacing: 0.3rem;  
+  font-size: 90%;
+  word-spacing: 0.3rem;
   margin-bottom: 5%;
-
 }
 .CardData {
   font-size: 60%;

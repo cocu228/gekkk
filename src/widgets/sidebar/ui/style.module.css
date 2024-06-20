@@ -1,167 +1,167 @@
 .CardInfo {
-    padding: 10px 20px 0px 20px;
-    display: flex;
-    justify-content: center;
+  padding: 10px 20px 0px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .CurTypeTxt,
 .TotalBal {
-    font-size: 0.75rem;
-    font-weight: 400;
-    text-transform: lowercase;
-    padding: 6px 20px 0px 10px;
-    color: var(--gek-mid-grey);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  padding: 6px 20px 0px 10px;
+  color: var(--gek-mid-grey);
 }
 
 .TotalBal {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .CurLink {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .CurBox {
-    display: flex;
-    border-radius: 8px;
-    background-color: white;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2px 0px;
+  display: flex;
+  border-radius: 8px;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 0px;
+  overflow: hidden;
+  user-select: none;
+  font-size: small;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  color: var(--gek-dark-blue);
+
+  div {
     overflow: hidden;
-    user-select: none;
-    font-size: small;
-    cursor: pointer;
-    width: 100%;
-    max-width: 500px;
-    color: var(--gek-dark-blue);
+  }
 
-    div {
-        overflow: hidden;
-    }
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-    span {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+  &:hover {
+    /* font-weight: bold; */
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
+  }
 
-    &:hover {
-        /* font-weight: bold; */
-        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
-    }
+  &:hover .ArrowMobile {
+    fill: var(--gek-green);
+  }
 
-    &:hover .ArrowMobile {
-        fill: var(--gek-green);
-    }
+  &:hover .ActiveChoice {
+    background-color: var(--gek-mid-grey);
+  }
 
-    &:hover .ActiveChoice {
-        background-color: var(--gek-mid-grey);
-    }
-
-    &:hover .CurIcon {
-        filter: saturate(100%) invert(0%);
-    }
+  &:hover .CurIcon {
+    filter: saturate(100%) invert(0%);
+  }
 }
 
 .ArrowMobile {
-    margin-right: 8px;
-    fill: var(--gek-additional);
+  margin-right: 8px;
+  fill: var(--gek-additional);
 }
 
 .CurBox2 {
-    margin: 4px 0px;
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: space-around;
-    align-self: stretch;
+  margin: 4px 0px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  align-self: stretch;
 }
 
 .CurBox3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ActiveChoice {
-    align-self: stretch;
-    background-color: white;
-    width: 5px;
+  align-self: stretch;
+  background-color: white;
+  width: 5px;
 }
 
 .CurIcon {
-    margin: 8px 16px 8px 12px;
-    transition: .2s;
+  margin: 8px 16px 8px 12px;
+  transition: 0.2s;
 
-    @media (min-width:700px) {
-        filter: saturate(0%) invert(0%);
-    }
+  @media (min-width: 700px) {
+    filter: saturate(0%) invert(0%);
+  }
 }
 
 .IconLoader {
-    margin: 0px 4px;
-    position: relative;
+  margin: 0px 4px;
+  position: relative;
 }
 
 .EuroEqv,
 .TotalBalSum {
-    text-align: right;
-    font-family: monospace;
-    font-size: 0.75rem;
-    color: var(--gek-mid-grey);
+  text-align: right;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--gek-mid-grey);
 
-    &::after {
-        content: ' €';
-    }
+  &::after {
+    content: " €";
+  }
 
-    &::before {
-        content: '~';
-    }
+  &::before {
+    content: "~";
+  }
 }
 
 .EuroEqv {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .Income {
-    color: var(--gek-green);
+  color: var(--gek-green);
 }
 
 .CurName {
-    color: var(--gek-mid-grey);
+  color: var(--gek-mid-grey);
 }
 
 .Sum {
-    font-size: 0.85rem;
-    font-weight: bold;
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 :global(a.active) {
-    .ActiveChoice {
-        background-color: var(--gek-additional);
-    }
+  .ActiveChoice {
+    background-color: var(--gek-additional);
+  }
 
-    .ArrowMobile {
-        fill: var(--gek-dark-blue);
-    }
+  .ArrowMobile {
+    fill: var(--gek-dark-blue);
+  }
 
-    .CurName {
-        /* font-weight: bold; */
-        color: var(--gek-additional);
-    }
+  .CurName {
+    /* font-weight: bold; */
+    color: var(--gek-additional);
+  }
 
-    .Sum {
-        /* font-weight: bold;   */
-        color: var(--gek-dark-blue);
-    }
+  .Sum {
+    /* font-weight: bold;   */
+    color: var(--gek-dark-blue);
+  }
 
-    .CurIcon {
-        filter: saturate(100%) invert(0%);
-    }
-    /* .CurBox
+  .CurIcon {
+    filter: saturate(100%) invert(0%);
+  }
+  /* .CurBox
     {
         border: 1px var(--gek-mid-grey) solid;
     } */

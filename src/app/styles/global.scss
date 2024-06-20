@@ -15,14 +15,16 @@
   }
 }
 
-#root, html, body {
+#root,
+html,
+body {
   overflow-x: hidden;
 }
 
 .ptr {
   height: calc(100vh - 55px) !important; // 55px - размер header
   overscroll-behavior-y: none;
-  &__children{
+  &__children {
     overflow: auto !important;
     overscroll-behavior-y: none;
     display: flex;
@@ -38,7 +40,7 @@
       height: 50%;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #29354C;
+      background-color: #29354c;
       width: 5px;
       border-radius: 10px;
       position: relative;
@@ -49,9 +51,9 @@
       width: 5px;
       border-radius: 10px;
     }
-  
+
     *::-ms-scrollbar-thumb {
-      background: #29354C;
+      background: #29354c;
       border-radius: 10px;
     }
   }
@@ -80,7 +82,7 @@
       transform: rotate(0);
       transform-origin: center;
     }
-  
+
     100% {
       transform-origin: center;
       transform: rotate(360deg);
@@ -130,7 +132,7 @@
     font-size: 12px;
     font-weight: normal;
     border-radius: 8px;
-    background: white; 
+    background: white;
     text-align: justify;
     border-radius: 8px;
     padding: 5px;
@@ -169,7 +171,7 @@ input {
   background-color: #fff;
 
   &:active {
-    outline: none !important
+    outline: none !important;
   }
 }
 
@@ -214,7 +216,6 @@ input {
     font-size: 12px;
     text-align: justify;
     padding: 5px, 10px, 5px, 10px;
-
   }
 }
 .info-box-in-wallet {
@@ -277,14 +278,14 @@ input {
   }
 }
 
-
 .react-datepicker__header {
   background: #fff !important;
   border-bottom: none !important;
   padding: 0 !important;
 }
 
-.react-datepicker__day-name, .react-datepicker__day {
+.react-datepicker__day-name,
+.react-datepicker__day {
   font-family: Inter !important;
   font-size: 13.5px;
   color: rgba(0, 0, 0, 0.88) !important;
@@ -305,7 +306,10 @@ input {
 .react-datepicker {
   width: 100% !important;
   border-radius: 8px !important;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
   border: none !important;
 }
 
@@ -359,7 +363,6 @@ input {
 }
 
 .datepickerBorder {
-
 }
 
 .react-datepicker__input-container {
@@ -369,7 +372,7 @@ input {
 
   input {
     font-size: 12px;
-    color:#29354C;
+    color: #29354c;
     font-weight: 600;
     border-radius: 5px;
     height: 100%;
@@ -405,7 +408,8 @@ input {
   }
 }
 
-.datepicker-from, .datepicker-to {
+.datepicker-from,
+.datepicker-to {
   @media screen and (max-width: 370px) {
     min-width: 70px !important;
     width: 100%;

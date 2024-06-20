@@ -1,4 +1,4 @@
-import {$axios} from "@/shared/lib/(orval)axios";
+import { $axios } from "@/shared/lib/(orval)axios";
 
 export interface DealSuccessStatusResp {
   dealsResponse: [
@@ -26,15 +26,17 @@ export const apiConfirmationDeals = (
   accountId: string,
   turn: string,
   headers: {
-    'X-Confirmation-Code': string;
-    'X-Confirmation-Token': string;
+    "X-Confirmation-Code": string;
+    "X-Confirmation-Token": string;
   } = null
-) => {
-  
-  return $axios.post<DealSuccessStatusResp | DealErrorStatusResp>(`/api/v1/accounts/deals`, {
-    accountIds: [accountId],
-    turn
-  }, {
-    headers
-  });
-} 
+) =>
+  $axios.post<DealSuccessStatusResp | DealErrorStatusResp>(
+    `/api/v1/accounts/deals`,
+    {
+      accountIds: [accountId],
+      turn
+    },
+    {
+      headers
+    }
+  );

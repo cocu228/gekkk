@@ -1,18 +1,22 @@
-import {$axios} from "@/shared/lib/(orval)axios";
+import { $axios } from "@/shared/lib/(orval)axios";
 
 export interface IAppRegistration {
-    appUuid: string;
-    secretePassword: string;
-    salt: string;
+  appUuid: string;
+  secretePassword: string;
+  salt: string;
 }
 
 export const apiRegisterApp = (appPublicKey: string) =>
-    $axios.post<IAppRegistration>('/api/v1/register_app', {
-        publicKey: appPublicKey
-    }, {
-        baseURL: import.meta.env.VITE_BANK_API_URL,
-        headers: {
-            Productid: 'GEKKARD',
-            Applicationid: 'GEKKARD',
-        }
-    });
+  $axios.post<IAppRegistration>(
+    "/api/v1/register_app",
+    {
+      publicKey: appPublicKey
+    },
+    {
+      baseURL: import.meta.env.VITE_BANK_API_URL,
+      headers: {
+        Productid: "GEKKARD",
+        Applicationid: "GEKKARD"
+      }
+    }
+  );

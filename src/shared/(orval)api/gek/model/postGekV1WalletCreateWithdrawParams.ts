@@ -13,6 +13,6 @@
  */
 
 export type PostGekV1WalletCreateWithdrawParams = {
-confirmationTimetick?: string;
-confirmationCode?: string;
+  confirmationTimetick?: string;
+  confirmationCode?: string;
 };

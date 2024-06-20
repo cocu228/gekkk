@@ -1,77 +1,77 @@
 @import "@styles/mixins";
 
 .BottomMenuMobile {
-    height: 50px;
-    width: 100%;
-    border-top: 1px solid rgba(58, 94, 102, 0.50);
-    background: #fff;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 100%;
-    justify-items: center;
-    align-items: center;
-    overflow: hidden;
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid rgba(58, 94, 102, 0.5);
+  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 100%;
+  justify-items: center;
+  align-items: center;
+  overflow: hidden;
 
-    &.Gekwallet {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  &.Gekwallet {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    &Buttons {
-        height: 100%;
-        color: #9D9D9D;
-        stroke: #9D9D9D;
-        padding: 7px 10px;
-        transition: ease-in-out .2s;
-    
-        &Active {
-            color: var(--gek-dark-blue);
-            stroke: var(--gek-dark-blue);
-        }
+  &Buttons {
+    height: 100%;
+    color: #9d9d9d;
+    stroke: #9d9d9d;
+    padding: 7px 10px;
+    transition: ease-in-out 0.2s;
+
+    &Active {
+      color: var(--gek-dark-blue);
+      stroke: var(--gek-dark-blue);
     }
+  }
 }
 
 .BottomMobile {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: auto;
-    width: 100%;
-    z-index: 41;
-    overscroll-behavior-y: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  z-index: 41;
+  overscroll-behavior-y: none;
 }
 
-.AddBottomMenuPadding{
-    padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
-    padding-top: 25px;
+.AddBottomMenuPadding {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
+  padding-top: 25px;
 }
 
 .AssetInfo3 {
-    background-color: var(--gek-background);
-    display: block;
-    text-align: right;
+  background-color: var(--gek-background);
+  display: block;
+  text-align: right;
 
-    @include max-devices(md) {
-      background-color: transparent;
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom) + 70px);
-      z-index: 40;
-      left: 50%;
-      transform:translateX(-50%)
-    }
+  @include max-devices(md) {
+    background-color: transparent;
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom) + 70px);
+    z-index: 40;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .NewAsset {
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--gek-additional);
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gek-additional);
 
-    &Icon {
-        width: 18px;
-        height: 18px;
-    }
+  &Icon {
+    width: 18px;
+    height: 18px;
+  }
 }

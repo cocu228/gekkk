@@ -1,5 +1,5 @@
-﻿import {apiPostMessage} from "./post-message";
-import {makeApiRequest} from "../config/(cs)axios";
+﻿import { apiPostMessage } from "./post-message";
+import { makeApiRequest } from "../config/(cs)axios";
 
 export interface IResFileSuccess {
   id: number;
@@ -12,18 +12,15 @@ export interface IResFileSuccess {
   thumbLink: string;
 }
 
-export const apiPostFile = async (
-  file: File,
-  sessionId: number
-)  => {
+export const apiPostFile = async (file: File, sessionId: number) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
-  const uploadResponse = await makeApiRequest<IResFileSuccess>('POST', '/api/v1/files', formData);
+  const uploadResponse = await makeApiRequest<IResFileSuccess>("POST", "/api/v1/files", formData);
 
-  if (uploadResponse.status === 'success') {
-    return apiPostMessage('file', sessionId, undefined, [uploadResponse.data.id])
+  if (uploadResponse.status === "success") {
+    return apiPostMessage(sessionId, "file", undefined, [uploadResponse.data.id]);
   } else {
-    return { status: 'error', errorMessage: 'Request failed.' };
+    return { status: "error", errorMessage: "Request failed." };
   }
-}
+};

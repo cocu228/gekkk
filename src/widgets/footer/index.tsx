@@ -1,10 +1,7 @@
-import styles from "./style.module.scss"
-
-const Footer = ({textAlight}: { textAlight: string }) => {
-
-    return <>
-        <footer className="py-4">
-            {/* <div className="row mb-2 px-4">
+const Footer = ({ textAlight }: { textAlight: string }) => (
+  <>
+    <footer className='py-4'>
+      {/* <div className="row mb-2 px-4">
                 <span className={`${textAlight} text-gray-500 font-semibold text-sm w-full block`}>© Gekkard. v.{import.meta.env.VITE_APP_VERSION}</span>
             </div>
             <div className="wrapper px-4">
@@ -13,9 +10,8 @@ const Footer = ({textAlight}: { textAlight: string }) => {
                     by AtlantEX OU (licensed partner
                     for crypto wallet and exchange)</p>
             </div> */}
-        </footer>
-    </>
+    </footer>
+  </>
+);
 
-}
-
-export default Footer
+export default Footer;

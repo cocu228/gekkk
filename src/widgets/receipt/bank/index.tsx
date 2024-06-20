@@ -1,13 +1,15 @@
 import { FC, useContext, useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
+
 import { apiGetBankReceipt, IReceiptData } from "@/shared/api/bank/get-bank-receipt";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { getMethodTitle, getStatusTitle } from "./model/helpers";
 import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
-import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
+import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
+
+import { getMethodTitle, getStatusTitle } from "./model/helpers";
+import styles from "./styles.module.scss";
 
 interface BankReceiptProps {
   referenceNumber: string;
@@ -19,19 +21,17 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
   const [loading, setLoading] = useState<boolean>(true);
   const [state, setState] = useState<IReceiptData>(null);
   const { handleCancel } = useContext(CtxGlobalModalContext);
-  const { getAccountDetails } = storeAccountDetails((state) => state);
+  const { getAccountDetails } = storeAccountDetails(state => state);
 
   useEffect(() => {
     (async () => {
       const { phone } = await getAccountDetails();
 
-      const result = await apiGetBankReceipt(
-        referenceNumber,
-        {
-          headers: {
-            Authorization: phone,
-            Token: uasToken,
-          },
+      const result = await apiGetBankReceipt(referenceNumber, {
+        headers: {
+          Authorization: phone,
+          Token: uasToken
+        }
       });
 
       if (result.data) {
@@ -43,20 +43,19 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
 
   return (
     <div className={styles.Wrapper}>
-      {loading && <Loader/>}
-      
-      <div className={styles.Block + (!loading ? '' : ' collapse')}>
+      {loading && <Loader />}
+
+      <div className={styles.Block + (!loading ? "" : " collapse")}>
         <div className={styles.Header}>
           <div className={styles.HeaderLogo}>
-            <img src="/img/icon/GekkardLogoReceipt.svg" alt="AlertIcon"/>
+            <img src='/img/icon/GekkardLogoReceipt.svg' alt='AlertIcon' />
           </div>
 
           <div className={styles.HeaderTitle}>Payment Receipt</div>
           <div className={styles.HeaderId}>{state?.id}</div>
-          <div className={styles.HeaderDate}>{!state?.executedAt
-            ? null
-            : formatDateTime(new Date(state.executedAt))
-          }</div>
+          <div className={styles.HeaderDate}>
+            {!state?.executedAt ? null : formatDateTime(new Date(state.executedAt))}
+          </div>
         </div>
 
         {/* Sender information */}
@@ -154,7 +153,9 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {!state?.amount ? null : (
             <div className={styles.InformationBlockItem}>
               <span className={styles.InformationBlockItemTitle}>{t("amount")}</span>
-              <span className={styles.InformationBlockItemValue}>{Math.abs(+state.amount)} {state.currency?.code ?? null}</span>
+              <span className={styles.InformationBlockItemValue}>
+                {Math.abs(+state.amount)} {state.currency?.code ?? null}
+              </span>
             </div>
           )}
 
@@ -162,10 +163,12 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {!state?.fee ? null : (
             <div className={styles.InformationBlockItem}>
               <span className={styles.InformationBlockItemTitle}>{t("fee")}</span>
-              <span className={styles.InformationBlockItemValue}>{state.fee} {state.currency?.code ?? null}</span>
+              <span className={styles.InformationBlockItemValue}>
+                {state.fee} {state.currency?.code ?? null}
+              </span>
             </div>
           )}
-          
+
           {/* Description */}
           {!state?.description ? null : (
             <div className={styles.InformationBlockItem}>
@@ -192,13 +195,8 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
 
       {handleCancel === null ? null : (
         <div className={styles.ButtonContainer}>
-          <Button
-            size='lg'
-            color="blue"
-            className='w-full'
-            onClick={handleCancel}
-          >
-              {t("close")}
+          <Button size='lg' color='blue' className='w-full' onClick={handleCancel}>
+            {t("close")}
           </Button>
         </div>
       )}

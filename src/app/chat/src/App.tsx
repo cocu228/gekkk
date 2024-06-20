@@ -6,28 +6,22 @@ import MessageFooterContainer from "./containers/message-footer-container";
 import useGetMessages from "./hooks/useGetMessages";
 
 function App() {
-    const {
-        messages,
-        lazyLoading,
-        setWsReady,
-        setMessages,
-        setLazyLoading
-    } = useGetMessages()
+  const { messages, lazyLoading, setWsReady, setMessages, setLazyLoading } = useGetMessages();
 
-    return (
-        <MainLayout setMessages={setMessages} setIsWebSocketReady={setWsReady}>
-            <MessageHeaderContainer />
-            <BodyLayout>
-                <MessageBodyContainer
-                    currentUserId="client"
-                    messages={messages}
-                    lazyLoading={lazyLoading}
-                    setLazyLoading={setLazyLoading}
-                />
-                <MessageFooterContainer />
-            </BodyLayout>
-        </MainLayout>
-    )
+  return (
+    <MainLayout setMessages={setMessages} setIsWebSocketReady={setWsReady}>
+      <MessageHeaderContainer />
+      <BodyLayout>
+        <MessageBodyContainer
+          currentUserId='client'
+          messages={messages}
+          lazyLoading={lazyLoading}
+          setLazyLoading={setLazyLoading}
+        />
+        <MessageFooterContainer />
+      </BodyLayout>
+    </MainLayout>
+  );
 }
 
 export default App;

@@ -1,4 +1,4 @@
-﻿import {makeApiRequest} from "../config/(cs)axios";
+﻿import { makeApiRequest } from "../config/(cs)axios";
 
 export interface IResSessionId {
   id: number;
@@ -12,11 +12,11 @@ export interface IResSessionId {
 
 export const apiInitSessionId = () => {
   const payload = {
-    appId: 'GEKKARD',
-    productId: 'GEKKARD',
-    appVersion: '1',
-    locale: 'en'
+    appId: "GEKKARD",
+    productId: "GEKKARD",
+    appVersion: "1",
+    locale: "en"
   };
 
-  return makeApiRequest<IResSessionId>('POST','/api/v1/users/session', payload);
-}
+  return makeApiRequest<IResSessionId>("POST", "/api/v1/users/session", payload);
+};

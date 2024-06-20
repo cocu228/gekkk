@@ -16,12 +16,11 @@
  * : 
 0 = NORMAL, 1 = URGENT, 2 = EXPRESS
  */
-export type Priority = typeof Priority[keyof typeof Priority];
-
+export type Priority = (typeof Priority)[keyof typeof Priority];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Priority = {
-  NORMAL: 'NORMAL',
-  URGENT: 'URGENT',
-  EXPRESS: 'EXPRESS',
+  NORMAL: "NORMAL",
+  URGENT: "URGENT",
+  EXPRESS: "EXPRESS"
 } as const;

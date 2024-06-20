@@ -1,28 +1,28 @@
-﻿import {generateUid} from "../helpers";
-import {useEffect, useState} from "react";
+﻿import { useEffect, useState } from "react";
 
-export function useDeviceIdHash() {
+import { generateUid } from "../helpers";
+
+function useDeviceIdHash() {
   const [value, setValue] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const jsonValue = sessionStorage.getItem('DEVICE_ID_HASH')
-      if (jsonValue != null) return JSON.parse(jsonValue)
+    if (typeof window !== "undefined") {
+      const jsonValue = sessionStorage.getItem("DEVICE_ID_HASH");
+      if (jsonValue != null) return JSON.parse(jsonValue);
     }
-    return generateUid()
-  })
+    return generateUid();
+  });
 
   useEffect(() => {
-
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('DEVICE_ID_HASH', JSON.stringify(value));
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("DEVICE_ID_HASH", JSON.stringify(value));
     }
 
     // sessionStorage.setItem('DEVICE_ID_HASH', JSON.stringify(value))
     // return () => {
     //   sessionStorage.removeItem('DEVICE_ID_HASH')
     // };
-  }, [value])
+  }, [value]);
 
-  return [value, setValue]
+  return [value, setValue];
 }
 
 export default useDeviceIdHash;

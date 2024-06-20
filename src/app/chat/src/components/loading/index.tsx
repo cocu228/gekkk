@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import './index.css';
+import styled from "styled-components";
+import "./index.css";
 
 type Props = {
   themeColor?: string;
@@ -24,16 +24,14 @@ const InternalDiv = styled.div<{ themeColor?: string }>`
   border: 6px solid #fff;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: ${({ themeColor }) => themeColor} transparent transparent
-    transparent;
+  border-color: ${({ themeColor }) => themeColor} transparent transparent transparent;
   box-sizing: border-box;
 `;
 
 export default function Loading({ themeColor }: Props) {
-
   return (
     <Container>
-      <div className="lds-ring">
+      <div className='lds-ring'>
         <InternalDiv themeColor={themeColor} />
         <InternalDiv themeColor={themeColor} />
         <InternalDiv themeColor={themeColor} />

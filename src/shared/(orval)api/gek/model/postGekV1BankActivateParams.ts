@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1BankActivateParams = {
-cardId?: string;
+  cardId?: string;
 };

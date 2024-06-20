@@ -23,187 +23,145 @@ import type {
   UserKeyListApiResponse,
   UserLoginLogListApiResponse,
   UserSessionListApiResponse
-} from './model'
-import getAuthV1LoginOptionsMutator from '../../lib/(orval)axios';
-import postAuthV1LoginMutator from '../../lib/(orval)axios';
-import getAuthV1LoginLogMutator from '../../lib/(orval)axios';
-import getAuthV1LogoutMutator from '../../lib/(orval)axios';
-import getAuthV1CloseSessionsMutator from '../../lib/(orval)axios';
-import getAuthV1RegisterOptionsMutator from '../../lib/(orval)axios';
-import postAuthV1RegisterKeyMutator from '../../lib/(orval)axios';
-import getAuthV1RemoveKeyMutator from '../../lib/(orval)axios';
-import getAuthV1UserKeysMutator from '../../lib/(orval)axios';
-import getAuthV1SessionsMutator from '../../lib/(orval)axios';
-import getAuthV1ResetPasswordMutator from '../../lib/(orval)axios';
-import getNotifyV1SubscribeMutator from '../../lib/(orval)axios';
-
-
+} from "./model";
+import getAuthV1LoginOptionsMutator from "../../lib/(orval)axios";
+import postAuthV1LoginMutator from "../../lib/(orval)axios";
+import getAuthV1LoginLogMutator from "../../lib/(orval)axios";
+import getAuthV1LogoutMutator from "../../lib/(orval)axios";
+import getAuthV1CloseSessionsMutator from "../../lib/(orval)axios";
+import getAuthV1RegisterOptionsMutator from "../../lib/(orval)axios";
+import postAuthV1RegisterKeyMutator from "../../lib/(orval)axios";
+import getAuthV1RemoveKeyMutator from "../../lib/(orval)axios";
+import getAuthV1UserKeysMutator from "../../lib/(orval)axios";
+import getAuthV1SessionsMutator from "../../lib/(orval)axios";
+import getAuthV1ResetPasswordMutator from "../../lib/(orval)axios";
+import getNotifyV1SubscribeMutator from "../../lib/(orval)axios";
 
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
-
-  /**
+/**
  * @summary Генерация случайного challenge и создание опций аутентификации FIDO2
  */
-export const apiLoginOptions = (
-    
- options?: SecondParameter<typeof getAuthV1LoginOptionsMutator>,) => {
-      return getAuthV1LoginOptionsMutator<AuthOptionsApiResponse>(
-      {url: `/auth/v1/login_options`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiLoginOptions = (options?: SecondParameter<typeof getAuthV1LoginOptionsMutator>) => {
+  return getAuthV1LoginOptionsMutator<AuthOptionsApiResponse>(
+    { url: `/auth/v1/login_options`, method: "GET" },
+    options
+  );
+};
+
 /**
  * @summary Аутентификация пользователя, создание сеанса
  */
-export const apiLogin = (
-    authIn: AuthIn,
- options?: SecondParameter<typeof postAuthV1LoginMutator>,) => {
-      return postAuthV1LoginMutator<ApiResponse>(
-      {url: `/auth/v1/login`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: authIn
-    },
-      options);
-    }
-  
+export const apiLogin = (authIn: AuthIn, options?: SecondParameter<typeof postAuthV1LoginMutator>) => {
+  return postAuthV1LoginMutator<ApiResponse>(
+    { url: `/auth/v1/login`, method: "POST", headers: { "Content-Type": "application/json" }, data: authIn },
+    options
+  );
+};
+
 /**
  * @summary 100 последних операций входа пользователя
  */
-export const apiLoginLog = (
-    
- options?: SecondParameter<typeof getAuthV1LoginLogMutator>,) => {
-      return getAuthV1LoginLogMutator<UserLoginLogListApiResponse>(
-      {url: `/auth/v1/login_log`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiLoginLog = (options?: SecondParameter<typeof getAuthV1LoginLogMutator>) => {
+  return getAuthV1LoginLogMutator<UserLoginLogListApiResponse>({ url: `/auth/v1/login_log`, method: "GET" }, options);
+};
+
 /**
  * @summary Завершение текущего сеанса пользователя
  */
-export const apiLogout = (
-    
- options?: SecondParameter<typeof getAuthV1LogoutMutator>,) => {
-      return getAuthV1LogoutMutator<ApiResponse>(
-      {url: `/auth/v1/logout`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiLogout = (options?: SecondParameter<typeof getAuthV1LogoutMutator>) => {
+  return getAuthV1LogoutMutator<ApiResponse>({ url: `/auth/v1/logout`, method: "GET" }, options);
+};
+
 /**
  * @summary Завершение сеанса пользователя или всех, кроме текущего, если не задан id
  */
 export const apiCloseSessions = (
-    params?: GetAuthV1CloseSessionsParams,
- options?: SecondParameter<typeof getAuthV1CloseSessionsMutator>,) => {
-      return getAuthV1CloseSessionsMutator<ApiResponse>(
-      {url: `/auth/v1/close_sessions`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetAuthV1CloseSessionsParams,
+  options?: SecondParameter<typeof getAuthV1CloseSessionsMutator>
+) => {
+  return getAuthV1CloseSessionsMutator<ApiResponse>({ url: `/auth/v1/close_sessions`, method: "GET", params }, options);
+};
+
 /**
  * @summary Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения. Для неаутентифирофанного вызова необходим параметр code — email код, отправленный на предыдущем шаге.
  */
 export const apiRegisterOptions = (
-    params?: GetAuthV1RegisterOptionsParams,
- options?: SecondParameter<typeof getAuthV1RegisterOptionsMutator>,) => {
-      return getAuthV1RegisterOptionsMutator<AuthOptionsApiResponse>(
-      {url: `/auth/v1/register_options`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetAuthV1RegisterOptionsParams,
+  options?: SecondParameter<typeof getAuthV1RegisterOptionsMutator>
+) => {
+  return getAuthV1RegisterOptionsMutator<AuthOptionsApiResponse>(
+    { url: `/auth/v1/register_options`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Регистрация нового ключа устройства или пароля
  */
-export const apiRegisterKey = (
-    authIn: AuthIn,
- options?: SecondParameter<typeof postAuthV1RegisterKeyMutator>,) => {
-      return postAuthV1RegisterKeyMutator<ApiResponse>(
-      {url: `/auth/v1/register_key`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: authIn
-    },
-      options);
-    }
-  
+export const apiRegisterKey = (authIn: AuthIn, options?: SecondParameter<typeof postAuthV1RegisterKeyMutator>) => {
+  return postAuthV1RegisterKeyMutator<ApiResponse>(
+    { url: `/auth/v1/register_key`, method: "POST", headers: { "Content-Type": "application/json" }, data: authIn },
+    options
+  );
+};
+
 /**
  * @summary Удаление зарегистрированного ключа устройства
  */
 export const apiRemoveKey = (
-    params?: GetAuthV1RemoveKeyParams,
- options?: SecondParameter<typeof getAuthV1RemoveKeyMutator>,) => {
-      return getAuthV1RemoveKeyMutator<ApiResponse>(
-      {url: `/auth/v1/remove_key`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetAuthV1RemoveKeyParams,
+  options?: SecondParameter<typeof getAuthV1RemoveKeyMutator>
+) => {
+  return getAuthV1RemoveKeyMutator<ApiResponse>({ url: `/auth/v1/remove_key`, method: "GET", params }, options);
+};
+
 /**
  * @summary Список зарегистрированных ключей входа
  */
-export const apiUserKeys = (
-    
- options?: SecondParameter<typeof getAuthV1UserKeysMutator>,) => {
-      return getAuthV1UserKeysMutator<UserKeyListApiResponse>(
-      {url: `/auth/v1/user_keys`, method: 'GET'
-    },
-      options);
-    }
-  
+export const apiUserKeys = (options?: SecondParameter<typeof getAuthV1UserKeysMutator>) => {
+  return getAuthV1UserKeysMutator<UserKeyListApiResponse>({ url: `/auth/v1/user_keys`, method: "GET" }, options);
+};
+
 /**
  * @summary Список активных сеансов
  */
 export const apiSessions = (
-    params?: GetAuthV1SessionsParams,
- options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
-      return getAuthV1SessionsMutator<UserSessionListApiResponse>(
-      {url: `/auth/v1/sessions`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetAuthV1SessionsParams,
+  options?: SecondParameter<typeof getAuthV1SessionsMutator>
+) => {
+  return getAuthV1SessionsMutator<UserSessionListApiResponse>(
+    { url: `/auth/v1/sessions`, method: "GET", params },
+    options
+  );
+};
+
 /**
  * @summary Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту
  */
 export const apiResetPassword = (
-    params?: GetAuthV1ResetPasswordParams,
- options?: SecondParameter<typeof getAuthV1ResetPasswordMutator>,) => {
-      return getAuthV1ResetPasswordMutator<ApiResponse>(
-      {url: `/auth/v1/reset_password`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+  params?: GetAuthV1ResetPasswordParams,
+  options?: SecondParameter<typeof getAuthV1ResetPasswordMutator>
+) => {
+  return getAuthV1ResetPasswordMutator<ApiResponse>({ url: `/auth/v1/reset_password`, method: "GET", params }, options);
+};
+
 /**
  * @summary Подписка на локальные уведомления - ожидающий http запрос
  */
-export const apiNotifySubscribe = (
-    
- options?: SecondParameter<typeof getNotifyV1SubscribeMutator>,) => {
-      return getNotifyV1SubscribeMutator<ApiResponse>(
-      {url: `/notify/v1/Subscribe`, method: 'GET'
-    },
-      options);
-    }
-  
-export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
-export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
-export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
-export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
-export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
-export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
-export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
-export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
-export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
-export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
-export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>
-export type ApiNotifySubscribeResult = NonNullable<Awaited<ReturnType<typeof apiNotifySubscribe>>>
+export const apiNotifySubscribe = (options?: SecondParameter<typeof getNotifyV1SubscribeMutator>) => {
+  return getNotifyV1SubscribeMutator<ApiResponse>({ url: `/notify/v1/Subscribe`, method: "GET" }, options);
+};
+
+export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>;
+export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>;
+export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>;
+export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>;
+export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>;
+export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>;
+export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>;
+export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>;
+export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>;
+export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>;
+export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>;
+export type ApiNotifySubscribeResult = NonNullable<Awaited<ReturnType<typeof apiNotifySubscribe>>>;

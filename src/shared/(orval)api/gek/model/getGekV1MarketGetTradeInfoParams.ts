@@ -13,20 +13,20 @@
  */
 
 export type GetGekV1MarketGetTradeInfoParams = {
-/**
- * Название валюты источника
- */
-currency_from?: string;
-/**
- * Название валюты назначения
- */
-currency_to?: string;
-/**
- * ID Комнаты
- */
-room_key?: number;
-/**
- * Ограничение длины массивов asks/bids
- */
-results_limit?: number;
+  /**
+   * Название валюты источника
+   */
+  currency_from?: string;
+  /**
+   * Название валюты назначения
+   */
+  currency_to?: string;
+  /**
+   * ID Комнаты
+   */
+  room_key?: number;
+  /**
+   * Ограничение длины массивов asks/bids
+   */
+  results_limit?: number;
 };

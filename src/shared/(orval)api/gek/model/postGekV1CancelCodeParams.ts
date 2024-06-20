@@ -13,8 +13,8 @@
  */
 
 export type PostGekV1CancelCodeParams = {
-/**
- * код
- */
-code?: string;
+  /**
+   * код
+   */
+  code?: string;
 };

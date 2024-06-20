@@ -1,15 +1,15 @@
 :root {
-  --gek-text-primary: #29354C;
-  --gek-dark-blue: #29354C;
-  --gek-additional: #285E69;
-  --gek-green: #2BAB72;
-  --gek-red:#8F123A;
-  --gek-orange:#F8A73E;
-  --gek-background: #F7F7F0;
-  --gek-light-grey:#DCDCD9;
-  --gek-mid-grey:#B9B9B5;
-  --gek-dark-grey: #7B797C;
-  --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+  --gek-text-primary: #29354c;
+  --gek-dark-blue: #29354c;
+  --gek-additional: #285e69;
+  --gek-green: #2bab72;
+  --gek-red: #8f123a;
+  --gek-orange: #f8a73e;
+  --gek-background: #f7f7f0;
+  --gek-light-grey: #dcdcd9;
+  --gek-mid-grey: #b9b9b5;
+  --gek-dark-grey: #7b797c;
+  --gek-green-gradient: linear-gradient(45deg, #00aeef 0%, #72bf44 100%);
 }
 
 .MainContainer {
@@ -28,22 +28,22 @@
   display: flex;
   gap: 1.5rem;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 992px) {
   .Container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
   }
 }
 
@@ -67,7 +67,7 @@
 
 .RightContent {
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 @media only screen and (max-width: 992px) {

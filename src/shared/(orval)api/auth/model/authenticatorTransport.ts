@@ -12,13 +12,12 @@
  * OpenAPI spec version: v1
  */
 
-export type AuthenticatorTransport = typeof AuthenticatorTransport[keyof typeof AuthenticatorTransport];
-
+export type AuthenticatorTransport = (typeof AuthenticatorTransport)[keyof typeof AuthenticatorTransport];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AuthenticatorTransport = {
-  usb: 'usb',
-  nfc: 'nfc',
-  ble: 'ble',
-  internal: 'internal',
+  usb: "usb",
+  nfc: "nfc",
+  ble: "ble",
+  internal: "internal"
 } as const;

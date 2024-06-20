@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1BankSetLimitsParams = {
-cardId?: string;
+  cardId?: string;
 };

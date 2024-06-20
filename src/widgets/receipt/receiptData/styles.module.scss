@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
 
-  @include max-devices('md'){
+  @include max-devices("md") {
     position: relative;
     gap: 20px;
     padding: 20px;
@@ -27,7 +27,7 @@
   box-sizing: border-box;
   border: 1px solid var(--gek-light-grey);
 
-  @include max-devices('md'){
+  @include max-devices("md") {
     width: 100%;
   }
 }
@@ -56,7 +56,7 @@
     font-weight: 600;
     color: var(--gek-additional);
 
-    @include max-devices('md'){
+    @include max-devices("md") {
       font-size: 10px;
     }
   }
@@ -65,7 +65,7 @@
     font-size: 14px;
     font-weight: 700;
 
-    @include max-devices('md'){
+    @include max-devices("md") {
       font-size: 12px;
     }
   }
@@ -74,7 +74,7 @@
     font-size: 12px;
     font-weight: 600;
 
-    @include max-devices('md'){
+    @include max-devices("md") {
       font-size: 10px;
     }
   }
@@ -106,7 +106,7 @@
     }
 
     &Value {
-      color: var(--text-primary)
+      color: var(--text-primary);
     }
   }
 

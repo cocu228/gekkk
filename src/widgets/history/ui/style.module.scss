@@ -19,7 +19,7 @@
   margin: 5px 0 4px 10px;
 }
 
-.NoTransactions{
+.NoTransactions {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,9 +32,7 @@
   border-radius: 8px;
   margin-top: 10px;
 
-  @include max-devices(md){
+  @include max-devices(md) {
     font-size: 12px;
   }
-
-
 }

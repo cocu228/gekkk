@@ -3,30 +3,30 @@
   width: 100%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr .75fr .75fr;
-      grid-template-columns: 1fr .75fr .75fr;
+  -ms-grid-columns: 1fr 0.75fr 0.75fr;
+  grid-template-columns: 1fr 0.75fr 0.75fr;
 }
 
 .Left {
-  color: #3A5E66;
+  color: #3a5e66;
 }
 
 .Center {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #1F3446;
+  color: #1f3446;
   font-weight: 600;
   -webkit-box-pack: right;
-      -ms-flex-pack: right;
-          justify-content: right;
+  -ms-flex-pack: right;
+  justify-content: right;
 }
 
 .Right {
   font-weight: 600;
-  color: #1F3446;
+  color: #1f3446;
   -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
 }
 /*# sourceMappingURL=style.module.css.map */

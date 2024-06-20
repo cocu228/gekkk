@@ -13,8 +13,8 @@
  */
 
 export type GetGekV1WalletGetBalanceParams = {
-/**
- * Если задано, то фильтр по валюте
- */
-currency?: string;
+  /**
+   * Если задано, то фильтр по валюте
+   */
+  currency?: string;
 };

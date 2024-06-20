@@ -3,15 +3,15 @@
 .CopyForm {
   height: 60px;
   background: var(--color-bgSecondary);
-  border: 1px solid #DCDCD9;
+  border: 1px solid #dcdcd9;
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
 
-  @include max-devices(md){
+  @include max-devices(md) {
     justify-content: center;
     height: 51px;
-    border-color: #DCDCD9;
+    border-color: #dcdcd9;
     border-radius: 8px;
   }
 
@@ -24,12 +24,12 @@
     outline: none;
     min-width: 0;
     text-overflow: ellipsis;
-    color: #7B797C;
+    color: #7b797c;
     font-family: "Inter";
     font-weight: 700;
     font-size: 12px;
 
-    @include max-devices(md){
+    @include max-devices(md) {
       padding-right: 0px;
       font-size: 12px;
       font-weight: bold;
@@ -44,7 +44,7 @@
     background: none;
     border: none;
 
-    @include max-devices(md){
+    @include max-devices(md) {
       border: 0px;
       padding-left: 0px;
     }

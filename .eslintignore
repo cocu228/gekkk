@@ -1,0 +1,16 @@
+# Ignore artifacts:
+dist
+src/app/authentication
+src/app/chat
+src/shared/(orval)api
+public
+vite.config.ts
+tailwind.config.cjs
+tsconfig.json
+package.json
+package-lock.json
+.eslintprod.cjs
+.eslintrc.cjs
+.eslintrules.cjs
+orval.config.ts
+increment-version.js

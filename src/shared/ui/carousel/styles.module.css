@@ -1,45 +1,44 @@
 .Container {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    flex-direction: row;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
 
-    -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .NavButton {
-    padding: 0.5rem;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 
-    &:active {
-        svg {
-            fill: var(--gek-dark-grey);
-            stroke: var(--gek-dark-grey);
-        }
+  &:active {
+    svg {
+      fill: var(--gek-dark-grey);
+      stroke: var(--gek-dark-grey);
     }
+  }
 
-    &:hover {
-        svg {
-            fill: var(--gek-mid-grey);
-            stroke: var(--gek-mid-grey);
-        }
-    }    
+  &:hover {
+    svg {
+      fill: var(--gek-mid-grey);
+      stroke: var(--gek-mid-grey);
+    }
+  }
 }
 
 .BackIcon {
-    rotate: 180deg;
+  rotate: 180deg;
 }
 
 .Text {
-    margin-top: 0.125rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-align: center;
-    color: var(--gek-mid-grey);
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--gek-mid-grey);
 
-    @media(max-width: 768px)
-    {
-      font-size: 0.75rem;
-    }
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
 }

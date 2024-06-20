@@ -1,25 +1,27 @@
-import styles from "./style.module.scss";
-import { scrollToTop } from "@/shared/lib/helpers";
-import { CtxRootData } from "@/processes/RootContext";
-import { storyToggleSidebar } from "../../model/story";
-import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useEffect, useRef } from "react";
+
+import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
+import { CtxRootData } from "@/processes/RootContext";
+import { scrollToTop } from "@/shared/lib/helpers";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
-import BalanceBar from "../BalanceBar";
 import PendingTransactions from "@/widgets/pending-transactions";
 import { IS_GEKKARD_APP } from "@/shared/lib";
+
+import { storyToggleSidebar } from "../../model/story";
+import BalanceBar from "../BalanceBar";
+import styles from "./style.module.scss";
 
 const SidebarMobile = () => {
   const { account } = useContext(CtxRootData);
   const refreshCont = useRef<HTMLDivElement>();
   const { sm, md } = useContext(BreakpointsContext);
   const { currencies } = useContext(CtxCurrencies);
-  const { getActiveCards } = storeActiveCards((state) => state);
-  const { getRoomsList } = storeListExchangeRooms((state) => state);
-  const toggleSidebar = useRef(storyToggleSidebar((state) => state.toggle));
+  const { getActiveCards } = storeActiveCards(state => state);
+  const { getRoomsList } = storeListExchangeRooms(state => state);
+  const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
   const NavLinkEvent = useCallback(() => {
     scrollToTop();
@@ -46,11 +48,11 @@ const SidebarMobile = () => {
   }
 
   return (
-    <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
-      <UnconfirmedTransactions/>
-      {IS_GEKKARD_APP() && <PendingTransactions/>}
+    <div id='sidebar' className={`${styles.Sidebar} flex flex-col`}>
+      <UnconfirmedTransactions />
+      {IS_GEKKARD_APP() && <PendingTransactions />}
 
-      <div className="flex flex-col" ref={refreshCont} >
+      <div className='flex flex-col' ref={refreshCont}>
         <BalanceBar NavLinkEvent={NavLinkEvent} />
       </div>
     </div>

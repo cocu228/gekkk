@@ -10,7 +10,7 @@
   border-radius: 8px;
 
   @media screen and (min-width: 768px) {
-    border: 1px solid #F7F7F0;
+    border: 1px solid #f7f7f0;
   }
 
   &Info {
@@ -19,9 +19,9 @@
     @include max-devices("md") {
       font-size: 0.375rem;
 
-      &:hover{
-          border: 1px var(--gek-light-grey) solid;
-      } 
+      &:hover {
+        border: 1px var(--gek-light-grey) solid;
+      }
     }
   }
 }
@@ -34,53 +34,49 @@
   height: 25px !important;
 }
 
-.CustomDateContainer{
-  display: flex;  
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  background-color: #ffffff; 
+.CustomDateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
 
   &Enter {
-    width: 100%; 
-    font-weight: 600; 
-    text-align: center; 
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
     color: var(--gek-dark-blue);
 
-
-    @include max-devices(md) { 
+    @include max-devices(md) {
       font-size: 12px;
     }
   }
 
   &Secondary {
-    display: flex; 
-    flex-direction: column; 
-    flex-grow: 0; 
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
     max-width: 400px;
     gap: 10px;
-
   }
 
   &Pickers {
-    display: flex; 
-    flex-direction: row; 
-    justify-content: space-evenly; 
-    align-items: center; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
     gap: 5px;
-
   }
 
   &Picker {
-    margin-top: 0.5rem; 
-    width: 100%; 
+    margin-top: 0.5rem;
+    width: 100%;
     height: 40px !important;
     border-radius: 5px;
-    font-weight: 600 !important; 
+    font-weight: 600 !important;
     color: var(--gek-dark-blue) !important;
-
 
     @include max-devices(md) {
       font-size: 12px !important;
@@ -88,42 +84,38 @@
   }
 
   &Buttons {
-    display: flex; 
-    flex-direction: row; 
-    justify-content: space-evenly; 
-    width: 100%; 
-
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
   }
 
-  &Button{
+  &Button {
     min-width: 120px;
   }
 }
 
 .NoOpen {
-  display: flex; 
-  margin-top: 0.75rem; 
-  justify-content: center; 
-  align-items: center; 
-  width: 100%; 
-  font-weight: 600; 
-  text-align: center; 
+  display: flex;
+  margin-top: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
   font-size: 12px;
   color: var(--gek-additional);
   margin-bottom: 10px;
   height: 35px;
   background: #fff;
   border-radius: 8px;
-
-
 }
 
-.SeeMore{
-  display: flex; 
-  flex-direction: row; 
-  align-items: center; 
+.SeeMore {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: var(--gek-mid-grey);
-
 
   @include max-devices(md) {
     font-size: 10px;
@@ -132,31 +124,31 @@
 
 .Switch {
   position: relative;
-  display: flex; 
-  column-gap: 1rem; 
-  justify-content: center; 
-  width: 100%; 
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+  width: 100%;
 
   padding-bottom: 10px;
 
-  &Text{
-    align-content: space-around; 
-    font-weight: 600; 
+  &Text {
+    align-content: space-around;
+    font-weight: 600;
     font-size: 12px;
   }
 }
 
 .SwitchWrap {
-  background: #2BAB72;
+  background: #2bab72;
 
   div {
-      background: #285E69;
+    background: #285e69;
   }
 }
 
 .DatepickerWrap {
   border-radius: 5px;
-  border: 0.5px solid #DCDCD9;
+  border: 0.5px solid #dcdcd9;
 }
 
 .CustomDateContainerSecondary {

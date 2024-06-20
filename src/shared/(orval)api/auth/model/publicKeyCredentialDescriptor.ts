@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticatorTransport } from './authenticatorTransport';
-import type { PublicKeyCredentialType } from './publicKeyCredentialType';
+import type { AuthenticatorTransport } from "./authenticatorTransport";
+import type { PublicKeyCredentialType } from "./publicKeyCredentialType";
 
 export interface PublicKeyCredentialDescriptor {
   /** @nullable */

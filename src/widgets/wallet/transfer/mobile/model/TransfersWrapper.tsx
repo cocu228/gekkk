@@ -1,19 +1,14 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { CtxWalletNetworks } from "../../model/context";
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { getRoundingValue } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
-import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+
+import { CtxWalletNetworks } from "../../model/context";
 
 type IProps = {
   children: JSX.Element[] | [JSX.Element];
@@ -32,29 +27,30 @@ export default function TransfersWrapper({
   network,
   setNetwork,
   loading,
-  setLoading,
+  setLoading
 }: IProps) {
-  const { networkTypeSelect, networksForSelector, setNetworkType, loading: networkLoading } =
-    useContext(CtxWalletNetworks);
+  const {
+    networkTypeSelect,
+    networksForSelector,
+    setNetworkType,
+    loading: networkLoading
+  } = useContext(CtxWalletNetworks);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState<string>("");
   const { currencies } = useContext(CtxCurrencies);
 
+  const currenciesList =
+    currencies && !![...currencies].find(el => el[0] === "EUR")[1].balance
+      ? [...currencies]
+          .sort((x, y) => (x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0))
+          ?.map(el => ({
+            $const: el[0],
+            currency: el[1]
+          }))
+      : [];
 
-  const currenciesList = currencies && !![...currencies].find(el=> el[0]=== "EUR")[1].balance ?
-        [...currencies]
-          .sort((x, y) => {
-            return x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0;
-          })
-          ?.map((el) => {
-            return {
-              $const: el[0],
-              currency: el[1],
-            };
-          }) : []
-  
   function returnTitle(tag) {
     if (tag === "select_currency") {
       return `${t("currency")}:`;
@@ -68,13 +64,7 @@ export default function TransfersWrapper({
       return t("select_the_currency");
     } else if (tag === "select_currency" && curr) {
       return "";
-    } else if (
-      tag === "choose_network" &&
-      !network &&
-      !!networksForSelector?.length &&
-      !loading &&
-      !networkLoading
-    ) {
+    } else if (tag === "choose_network" && !network && !!networksForSelector?.length && !loading && !networkLoading) {
       return t("select_transfer_type");
     } else if (tag === "choose_network" && network) {
       return "";
@@ -82,8 +72,7 @@ export default function TransfersWrapper({
   }
   function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
     return (
-      (currency.$const?.toLowerCase().includes(searchValue) ||
-        currency.name?.toLowerCase().includes(searchValue)) &&
+      (currency.$const?.toLowerCase().includes(searchValue) || currency.name?.toLowerCase().includes(searchValue)) &&
       currency.balance?.free_balance
     );
   }
@@ -92,85 +81,83 @@ export default function TransfersWrapper({
     setSearchValue(e.target.value.trim().toLowerCase());
   };
 
-  useEffect(()=>{
-    setNetworkType(network)
-
-  }, [networkTypeSelect])
+  useEffect(() => {
+    setNetworkType(network);
+  }, [networkTypeSelect]);
 
   return (
     <>
       {children.map((child): JSX.Element => {
         if (child?.props["data-tag"] !== "main" && child) {
           return (
-            <div className="flex flex-col items-center justify-center">
-              <div className="flex h-[54px] w-full items-center flex-row justify-start mb-[10px] rounded-[8px] bg-[white]">
-                <span className="ml-[20px] min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
+            <div className='flex flex-col items-center justify-center'>
+              <div className='flex h-[54px] w-full items-center flex-row justify-start mb-[10px] rounded-[8px] bg-[white]'>
+                <span className='ml-[20px] min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start'>
                   {returnTitle(child?.props["data-tag"])}
                 </span>
-                <div className="flex w-full overflow-hidden mr-[10px] justify-center items-center">
-                  {child}
-                </div>
+                <div className='flex w-full overflow-hidden mr-[10px] justify-center items-center'>{child}</div>
               </div>
               {returnText(child?.props["data-tag"]) && (
-                <span className="w-full flex flex-col self-start text-[12px] text-[#1F3446] font-bold items-start mb-5">
+                <span className='w-full flex flex-col self-start text-[12px] text-[#1F3446] font-bold items-start mb-5'>
                   {returnText(child?.props["data-tag"])}
                 </span>
               )}
               {!curr && (
-                <div className="min-h-[200px]  gap-5 w-full">
-                  <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
-                    <IconApp size={20} code="t12" color="#000" />
+                <div className='min-h-[200px]  gap-5 w-full'>
+                  <div className='bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg'>
+                    <IconApp size={20} code='t12' color='#000' />
                     <input
                       className={`w-full text-[10px] border-[none] bg-inherit outline-none`}
-                      type="text"
+                      type='text'
                       ref={inputRef}
-                      data-testid="SearchName"
+                      data-testid='SearchName'
                       placeholder={t("crypto_assets.search_currency")}
                       onChange={setValueSearch}
                     />
                   </div>
-                  {currenciesList.length > 0 ? currenciesList
-                    ?.filter((curr) =>
-                      searchTokenFilter(curr.currency, searchValue)
-                    )
-                    ?.map((currency) => (
-                      <div
-                        className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
-                        onClick={() => {
-                          setCurr(currency.$const);
-                          setLoading(true);
-                          navigate(`/transfers?currency=${currency.$const}`);
-                        }}
-                      >
-                        <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
-                          <IconCoin height={40} code={currency.$const} />
-                          <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
-                            {currency.$const === "EUR" ? currency.$const : <div className="flex h-full flex-col justify-around">
-                              <span>
-                                {currency.$const}
-                              </span>
-                              <span className="font-[400] whitespace-nowrap text-[#676767]">
-                                {currency.currency.name}
-                              </span>
-                            </div>}
-                          </span>
+                  {currenciesList.length > 0 ? (
+                    currenciesList
+                      ?.filter(curr => searchTokenFilter(curr.currency, searchValue))
+                      ?.map(currency => (
+                        <div
+                          className='w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer'
+                          onClick={() => {
+                            setCurr(currency.$const);
+                            setLoading(true);
+                            navigate(`/transfers?currency=${currency.$const}`);
+                          }}
+                        >
+                          <div className='ml-2 flex flex-row p-2 gap-5 justify-center items-center '>
+                            <IconCoin height={40} code={currency.$const} />
+                            <span className='text-[12px] h-full flex items-center text-[#1F3446] font-bold'>
+                              {currency.$const === "EUR" ? (
+                                currency.$const
+                              ) : (
+                                <div className='flex h-full flex-col justify-around'>
+                                  <span>{currency.$const}</span>
+                                  <span className='font-[400] whitespace-nowrap text-[#676767]'>
+                                    {currency.currency.name}
+                                  </span>
+                                </div>
+                              )}
+                            </span>
+                          </div>
+                          <div className='mr-2 flex flex-col justify-evenly p-2 min-w-[150px]'>
+                            <span className='self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular'>
+                              {t("free_balance")}:
+                            </span>
+                            <span className='self-end text-[12px] text-[#1F3446] font-regular'>
+                              {getRoundingValue(currency.currency.balance?.free_balance, currency.currency.roundPrec)}{" "}
+                              {currency.$const}
+                            </span>
+                          </div>
                         </div>
-                        <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                          <span className="self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular">
-                            {t("free_balance")}:
-                          </span>
-                          <span className="self-end text-[12px] text-[#1F3446] font-regular">
-                            {getRoundingValue(
-                              currency.currency.balance?.free_balance,
-                              currency.currency.roundPrec
-                            )}{" "}
-                            {currency.$const}
-                          </span>
-                        </div>
-                      </div>
-                    )) : <div className="min-h-[200px] flex justify-center w-full relative">
+                      ))
+                  ) : (
+                    <div className='min-h-[200px] flex justify-center w-full relative'>
                       <Loader />
-                    </div>}
+                    </div>
+                  )}
                 </div>
               )}
               {!!(
@@ -181,35 +168,29 @@ export default function TransfersWrapper({
                 !loading &&
                 !networkLoading
               ) ? (
-                <div className="min-h-[200px] gap-5 w-full">
-                  {networksForSelector?.map((network) => (
+                <div className='min-h-[200px] gap-5 w-full'>
+                  {networksForSelector?.map(network => (
                     <div
-                      className="w-full flex justify-between items-center min-h-[60px] mt-2 pl-5 bg-[white] rounded-lg cursor-pointer"
+                      className='w-full flex justify-between items-center min-h-[60px] mt-2 pl-5 bg-[white] rounded-lg cursor-pointer'
                       onClick={() => {
                         setNetworkType(network.value);
                         setNetwork(network.value);
-                        navigate(
-                          `/transfers?currency=${curr}&type=${network.value}`
-                        );
+                        navigate(`/transfers?currency=${curr}&type=${network.value}`);
                       }}
                     >
-                      <span className="text-[12px] text-[#1F3446] font-bold">
-                        {network.label}
-                      </span>
+                      <span className='text-[12px] text-[#1F3446] font-bold'>{network.label}</span>
                     </div>
                   ))}
                 </div>
-              ) : (loading || networkLoading) &&
-                !network &&
-                child?.props["data-tag"] === "choose_network" ? (
-                <div className="min-h-[200px] flex justify-center w-full relative">
+              ) : (loading || networkLoading) && !network && child?.props["data-tag"] === "choose_network" ? (
+                <div className='min-h-[200px] flex justify-center w-full relative'>
                   <Loader />
                 </div>
               ) : null}
             </div>
           );
         } else {
-          return <div className="flex justify-center w-full">{child}</div>;
+          return <div className='flex justify-center w-full'>{child}</div>;
         }
       })}
     </>

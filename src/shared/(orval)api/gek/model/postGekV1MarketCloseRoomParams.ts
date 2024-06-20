@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1MarketCloseRoomParams = {
-roomId?: number;
+  roomId?: number;
 };

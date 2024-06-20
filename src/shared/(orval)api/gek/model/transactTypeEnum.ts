@@ -16,8 +16,7 @@
  * Типы внутренних транзакций: 
 0 = None, 1 = InnerTransfer, 2 = ExchnageToBroker, 3 = Income, 4 = Outcome, 5 = FromBank, 6 = ToBank, 7 = CreateInvest, 8 = CloseInvest, 9 = EarlyCloseInvest, 10 = PaymentInvest, 11 = InternalTx, 12 = InternalTxConfirm, 13 = InvoiceTx, 14 = InvoiceTxConfirm, 15 = OrderReturnBalance, 16 = OrderCreate, 17 = AgentPayment, 18 = RewardPayment, 20 = ExchnageFromBroker
  */
-export type TransactTypeEnum = typeof TransactTypeEnum[keyof typeof TransactTypeEnum];
-
+export type TransactTypeEnum = (typeof TransactTypeEnum)[keyof typeof TransactTypeEnum];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TransactTypeEnum = {
@@ -40,5 +39,5 @@ export const TransactTypeEnum = {
   NUMBER_16: 16,
   NUMBER_17: 17,
   NUMBER_18: 18,
-  NUMBER_20: 20,
+  NUMBER_20: 20
 } as const;

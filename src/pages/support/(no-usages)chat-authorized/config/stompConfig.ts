@@ -1,4 +1,4 @@
-﻿import {ChatConfig} from '../model/types';
+﻿import { ChatConfig } from "../model/types";
 
 export const stompConfig = (deviceIdHash: string, chatConfig: ChatConfig) => {
   const brokerURL = import.meta.env.VITE_SUPPORT_WS_URL;
@@ -8,7 +8,7 @@ export const stompConfig = (deviceIdHash: string, chatConfig: ChatConfig) => {
     brokerURL: brokerURL,
     connectHeaders: {
       login: login,
-      passcode: chatConfig.token,
-    },
-  }
+      passcode: chatConfig.token
+    }
+  };
 };

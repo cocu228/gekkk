@@ -1,4 +1,4 @@
-﻿@import 'src/app/styles/typography';
+﻿@import "src/app/styles/typography";
 
 .InputArea {
   display: flex;
@@ -41,7 +41,7 @@
       border: none;
       cursor: pointer;
       font-size: 1.9rem;
-      top: 0.30rem;
+      top: 0.3rem;
       color: var(--new-pale-blue);
     }
 
@@ -62,8 +62,5 @@
         background-color: var(--new-pale-green);
       }
     }
-
   }
-
-
 }

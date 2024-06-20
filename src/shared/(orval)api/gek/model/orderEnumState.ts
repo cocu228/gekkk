@@ -16,8 +16,7 @@
  * : 
 0 = None, 1 = Created, 20 = ChangePriceTo, 127 = ExternalExecute, 198 = Completed, 199 = Canceled, 200 = Finished, 210 = RequestInfo, 211 = PartialUnlock, 255 = Failed
  */
-export type OrderEnumState = typeof OrderEnumState[keyof typeof OrderEnumState];
-
+export type OrderEnumState = (typeof OrderEnumState)[keyof typeof OrderEnumState];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const OrderEnumState = {
@@ -30,5 +29,5 @@ export const OrderEnumState = {
   NUMBER_200: 200,
   NUMBER_210: 210,
   NUMBER_211: 211,
-  NUMBER_255: 255,
+  NUMBER_255: 255
 } as const;

@@ -13,8 +13,8 @@
  */
 
 export type GetGekV1WalletListAddressesParams = {
-/**
- * Идентификатор сети ввода-вывода
- */
-token_network?: number;
+  /**
+   * Идентификатор сети ввода-вывода
+   */
+  token_network?: number;
 };

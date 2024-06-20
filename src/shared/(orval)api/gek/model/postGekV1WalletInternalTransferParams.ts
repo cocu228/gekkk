@@ -13,6 +13,6 @@
  */
 
 export type PostGekV1WalletInternalTransferParams = {
-confirmationTimetick?: string;
-confirmationCode?: string;
+  confirmationTimetick?: string;
+  confirmationCode?: string;
 };

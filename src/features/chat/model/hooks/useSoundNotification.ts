@@ -1,32 +1,31 @@
-﻿import {useState, useEffect} from 'react';
+﻿import { useState, useEffect } from "react";
 
 export function useSoundNotification(soundPath: string) {
-  const [notificationPermission, setNotificationPermission] = useState('Notification' in window
-    ? Notification?.permission
-    : "denied"
+  const [notificationPermission, setNotificationPermission] = useState(
+    "Notification" in window ? Notification?.permission : "denied"
   );
   const notificationSound = new Audio(soundPath);
 
   useEffect(() => {
-    if ('Notification' in window) {
-      Notification?.requestPermission().then((permission) => {
+    if ("Notification" in window) {
+      Notification?.requestPermission().then(permission => {
         setNotificationPermission(permission);
       });
     }
   }, []);
 
-  const showNotificationWithSound = (title: string, options: NotificationOptions) => {
-    if ('Notification' in window && Notification?.permission === 'granted') {
-      new Notification(title, options);
-      playNotificationSound(notificationSound);
+  const playNotificationSound = (audioElement: HTMLAudioElement) => {
+    if (audioElement && audioElement.paused) {
+      audioElement.play().catch(error => {
+        console.error("Audio play error:", error);
+      });
     }
   };
 
-  const playNotificationSound = (audioElement: HTMLAudioElement) => {
-    if (audioElement && audioElement.paused) {
-      audioElement.play().catch((error) => {
-        console.error("Audio play error:", error);
-      });
+  const showNotificationWithSound = (title: string, options: NotificationOptions) => {
+    if ("Notification" in window && Notification?.permission === "granted") {
+      new Notification(title, options);
+      playNotificationSound(notificationSound);
     }
   };
 

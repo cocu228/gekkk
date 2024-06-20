@@ -13,5 +13,5 @@
  */
 
 export type GetAuthV1CloseSessionsParams = {
-id?: number;
+  id?: number;
 };

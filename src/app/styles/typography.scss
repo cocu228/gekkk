@@ -1,9 +1,9 @@
-@import '@fontsource/archivo';
-@import '@fontsource/archivo/700';
-@import '@fontsource/archivo/600';
-@import '@fontsource/inter';
-@import '@fontsource/inter/500';
-@import '@fontsource/inter/600';
+@import "@fontsource/archivo";
+@import "@fontsource/archivo/700";
+@import "@fontsource/archivo/600";
+@import "@fontsource/inter";
+@import "@fontsource/inter/500";
+@import "@fontsource/inter/600";
 
 .typography-h1 {
   font-family: Archivo;
@@ -33,7 +33,6 @@
   line-height: 20px;
 }
 
-
 .typography-b2 {
   font-family: Inter;
   font-size: 12px;
@@ -49,7 +48,6 @@
   font-weight: 500;
   line-height: 22px;
 }
-
 
 .typography-b3 {
   font-family: Inter;
@@ -71,7 +69,6 @@
   font-weight: 700;
   line-height: 15px;
 }
-
 
 .typography-ui-button-badge {
   font-family: Archivo;

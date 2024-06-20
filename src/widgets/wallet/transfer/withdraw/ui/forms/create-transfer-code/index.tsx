@@ -111,7 +111,7 @@ const CreateTransferCode = () => {
               <InputCurrency.PercentSelector
                 onSelect={setInputCurr}
                 header={
-                  <span className="text-[#1F3446] text-[12px] ml-[7px] mb-[2px] font-semibold">
+                  <span className="text-[#1F3446] text-[12px] ml-[7px] md:mb-[-0.5px] mb-[2px] leading-[10px] font-semibold">
                     {t("amount")}:
                   </span>
                 }

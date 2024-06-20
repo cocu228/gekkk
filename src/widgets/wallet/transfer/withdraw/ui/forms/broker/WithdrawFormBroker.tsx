@@ -80,7 +80,7 @@ const WithdrawFormBroker = () => {
         <div className="row mb-4">
             <div className="col">
                 <BrokerAmountContainer
-                    textClassname={'text-gray-600 font-medium ml-[10px] mb-[5px]'}
+                    textClassname={'text-gray-600 font-medium ml-[8px]'}
                     placeholder={t("exchange.enter_amount")}
                     value={inputCurr.value.number}
                     inputValue={inputCurr.value.string}

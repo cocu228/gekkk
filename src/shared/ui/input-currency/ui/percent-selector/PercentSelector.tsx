@@ -48,7 +48,7 @@ const PercentSelector: FC<IParams> = ({
             <div className="row flex justify-between items-end">
                 {header}
 
-                <div className={`row mb-[3px] flex gap-1 text-xs
+                <div className={`row flex gap-1 text-xs
                         ${disabled || !currency || !currency.balance?.free_balance
                             ? 'pointer-events-none'
                             : ''

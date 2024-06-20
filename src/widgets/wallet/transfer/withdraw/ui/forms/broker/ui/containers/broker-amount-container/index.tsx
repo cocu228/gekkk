@@ -33,7 +33,7 @@ const BrokerAmountContainer: FC<IBrokerAmountContainerProps> = ({
 }) => {
     const {t} = useTranslation();
 
-    const header = <span className={textClassname}>{t("amount")}:</span>
+    const header = <span className={`${textClassname} leading-[10px]`}>{t("amount")}:</span>
 
     return (
         <InputCurrency.Validator value={value} description={description} validators={validators} onError={onError}>

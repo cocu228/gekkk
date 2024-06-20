@@ -70,12 +70,15 @@ const WithdrawFormSepa = () => {
                                     onSelect={setInputCurr}
                                     header={<span className={`${styles.TitleColText} ml-[7px]`}>{t("amount")}:</span>}
                                 >
-                                <InputCurrency
-                                    transfers={md}
-                                    onChange={setInputCurr}
-                                    value={inputCurr.value.string}
-                                    placeholder={t("exchange.enter_amount")}
-                                    currency={currency.$const}/>
+                                  <InputCurrency.DisplayBalance currency={currency}>
+                                    <InputCurrency
+                                        transfers={md}
+                                        onChange={setInputCurr}
+                                        value={inputCurr.value.string}
+                                        placeholder={t("exchange.enter_amount")}
+                                        currency={currency.$const}
+                                    />
+                                  </InputCurrency.DisplayBalance>
                                 </InputCurrency.PercentSelector>
                             </InputCurrency.Validator>
                         </div>

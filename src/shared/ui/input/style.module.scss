@@ -18,11 +18,11 @@
 }
 
 .Caption{
-  font-size: 12px;
+  font-size: 14px;
   color: var(--gek-orange);
   margin-left: 5px;
   @include max-devices(md){
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 

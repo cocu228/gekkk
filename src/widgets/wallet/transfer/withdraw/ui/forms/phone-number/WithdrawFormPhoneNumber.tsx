@@ -38,6 +38,8 @@ const WithdrawFormPhoneNumber = () => {
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
+    phoneNumber: null,
+    purpose: null,
     amount: {
       sum: {
         currency: {
@@ -61,14 +63,6 @@ const WithdrawFormPhoneNumber = () => {
     }, 2500),
     []);
 
-  const [inputs, setInputs] = useState<{
-    comment: string;
-    phoneNumber: string;
-  }>({
-    comment: "",
-    phoneNumber: null,
-  });
-
   useEffect(() => {
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
       setLoading(true);
@@ -80,7 +74,7 @@ const WithdrawFormPhoneNumber = () => {
   useEffect(() => {
     setIsValid(() =>
       Object.keys(details).every((i) => {
-        if (!inputs[i]) return false;
+        if (!details[i]) return false;
         if (i === "phoneNumber") return details[i].length > 7;
 
         return details[i].length > 0;
@@ -176,7 +170,7 @@ const WithdrawFormPhoneNumber = () => {
       <div className="row w-full flex justify-center">
           <Commissions
               isLoading={loading}
-              youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
+              youWillPay={inputCurr.value.number + withdraw_fee}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
               youWillGetCoin={"EURG"}

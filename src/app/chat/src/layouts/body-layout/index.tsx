@@ -1,12 +1,12 @@
 import {PropsWithChildren} from "react";
-import {Container, Layout} from "./style";
+import style from './style.module.scss'
 
 export default function BodyLayout({children}: PropsWithChildren) {
     return (
-        <Layout>
-            <Container>
+        <div className={style.Layout} >
+            <div className={style.Container} >
                 {children}
-            </Container>
-        </Layout>
+            </div>
+        </div>
     )
 }

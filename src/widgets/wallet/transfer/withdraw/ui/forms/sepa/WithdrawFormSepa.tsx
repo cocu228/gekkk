@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import {useContext, useEffect, useState} from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
@@ -19,6 +19,11 @@ import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { debounce } from "@/shared/lib";
+import { reponseOfUpdatingTokensNetworks } from "@/widgets/wallet/transfer/withdraw/model/helper";
+import { PaymentDetails } from "@/shared/(orval)api/gek/model";
+import useError from "@/shared/model/hooks/useError";
+import { CtxRootData } from "@/processes/RootContext";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -26,11 +31,15 @@ const WithdrawFormSepa = () => {
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
     const {initialLanguage} = getInitialProps();
+    const { account } = useContext(CtxRootData);
     const {inputCurr, setInputCurr} = useInputState();
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks, setBankRefresh} = useContext(CtxWalletNetworks);
     const {min_withdraw = 0, withdraw_fee = 0} = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+    const [localErrorHunter, , , localErrorClear] = useError();
+
+    const [loading, setLoading] = useState<boolean>(false);
     const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
 
     const [inputs, setInputs] = useState({
@@ -38,6 +47,40 @@ const WithdrawFormSepa = () => {
         accountNumber: null,
         transferDescription: null
     });
+
+    const details = useRef<PaymentDetails & { transferDetails: string | null }>({
+        purpose: ' ',
+        iban: null,
+        account: account.account_id,
+        beneficiaryName: null,
+        transferDetails: null,
+        amount: {
+            sum: {
+                currency: {
+                    code: currency.$const,
+                },
+                value: 0,
+            },
+        },
+    });
+
+    const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+    const delayRes = useCallback(debounce((details: PaymentDetails) => { //TODO 1012 refactoring
+        setBankRefresh(details)
+        reponseOfUpdatingTokensNetworks(details.amount.sum.value, currency.$const).then(res => {
+            res?.error
+              ? localErrorHunter(res.error)
+              : localErrorClear()
+        })
+    }, 2500), []);
+
+    useEffect(() => {
+        const det = {...details.current}
+        delete det.transferDetails
+        setLoading(true);
+        delayRes(det);
+        delayDisplay();
+    }, [inputCurr.value.number]);
 
     useEffect(()=>{
         setTransferDescriptionsTranslated(
@@ -49,9 +92,24 @@ const WithdrawFormSepa = () => {
             })
         );
     },[initialLanguage]);
+
+    useEffect(() => {
+        if (inputCurr.value.number) {
+            details.current.amount.sum.value = inputCurr.value.number;
+        }
+    }, [inputCurr.value.number]);
     
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
+        if (target.name === "transferDescription") {
+            details.current[target.name] = transferDescriptions.find(
+              (d) => d.value === target.value
+            )?.label
+        }
+        if (["beneficiaryName", "accountNumber"].includes(target.name)) {
+            details.current[target.name] = target.value
+        }
+
     }
 
     return (
@@ -144,6 +202,7 @@ const WithdrawFormSepa = () => {
 
             <div className='flex justify-center w-full'>
                 <Commissions
+                    isLoading={loading}
                     youWillPay={inputCurr.value.number}
                     youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
                     fee={withdraw_fee}
@@ -158,6 +217,7 @@ const WithdrawFormSepa = () => {
             >
                 <WithdrawConfirmSepa
                     {...inputs}
+                    details={details}
                     handleCancel={handleCancel}
                     amount={inputCurr.value.number}
                 />

@@ -2,7 +2,6 @@ import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
 import { apiPaymentSepa, IResCommission, IResErrors, IResResult } from "@/shared/api";
 import { useContext, useEffect, useRef, useState } from "react";
-import { transferDescriptions } from "../../../model/transfer-descriptions";
 import {
   CtxWalletData,
   CtxWalletNetworks,
@@ -29,6 +28,7 @@ interface IState {
 
 const WithdrawConfirmSepa = ({
   amount,
+  details,
   accountNumber,
   beneficiaryName,
   transferDescription,
@@ -49,24 +49,6 @@ const WithdrawConfirmSepa = ({
   const [{ total, loading }, setState] = useState<IState>({
     loading: true,
     total: undefined,
-  });
-
-  const details = useRef({
-    purpose: ' ',
-    iban: accountNumber,
-    account: account.account_id,
-    beneficiaryName: beneficiaryName,
-    transferDetails: transferDescriptions.find(
-      (d) => d.value === transferDescription
-    )?.label,
-    amount: {
-      sum: {
-        currency: {
-          code: $const,
-        },
-        value: amount,
-      },
-    },
   });
 
   useEffect(() => {

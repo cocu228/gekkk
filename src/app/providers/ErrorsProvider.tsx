@@ -28,7 +28,6 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
 
     const getUasToken = async () => {
         const {data} = await apiGetUas();
-
         setUasToken(data.result.token)
     }
 
@@ -126,23 +125,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             }
         </div>}
         <CtxOfflineMode.Provider value={{offline}}>
-            <CtxNeedConfirm.Provider value={{
-                pending: state.pending,
-                actionConfirmResponse: state.actionConfirmResponse,
-                setSuccess: () => setState(prev => ({
-                    ...prev,
-                    actionConfirmResponse: null
-                }))
-            }}>
-                <UasToken.Provider
-                    value={{
-                        uasToken: uasToken,
-                        getUasToken: getUasToken
-                    }}
-                >
-                    {children}
-                </UasToken.Provider>
-            </CtxNeedConfirm.Provider>
+            {children}
         </CtxOfflineMode.Provider>
 
         <Modal

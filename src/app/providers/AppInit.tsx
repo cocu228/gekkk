@@ -3,6 +3,7 @@
 // import {AuthProvider} from "./AuthRouter";
 import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
+import { UasProvider } from "./Uas";
 // import useModal from "@/shared/model/hooks/useModal";
 // import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
 // import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
@@ -14,10 +15,13 @@ const AppInit = () => {
     // const {isModalOpen, showModal, handleCancel} = useModal();
 
     return <ErrorsProvider offline={offlineMode}>
-        {/* {token ? <ChatButton onClick={isModalOpen ? handleCancel : showModal} /> : null}
-        {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}  */}
+    {/* {token ? <ChatButton onClick={isModalOpen ? handleCancel : showModal} /> : null}
+    {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}  */}
+
+    <UasProvider>
         <RootLayout/>
-    </ErrorsProvider>;
+    </UasProvider>
+</ErrorsProvider>;
 
 }
 

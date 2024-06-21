@@ -1,59 +1,59 @@
-import styled from 'styled-components'
+import style from './styles.module.scss'
 
 export type Props = {
     showHeader?: boolean
     loading?: boolean
 }
 
-const Container = styled.div<{
-    backgroundColor?: string,
-    dividerColor?: string
+// const Container = styled.div<{
+//     backgroundColor?: string,
+//     dividerColor?: string
 
-}>`
-height:56px;
-padding:0px;
-background-color:${({ backgroundColor }) => backgroundColor || '#ffffff'};
+// }>`
+// height:56px;
+// padding:0px;
+// background-color:${({ backgroundColor }) => backgroundColor || '#ffffff'};
 
-${({ dividerColor }) => dividerColor ?
-        `border-bottom: 1px solid ${dividerColor};`
-        :
-        'box-shadow:0px 1px 0px rgba(0, 0, 0, 0.07999999821186066);'
+// ${({ dividerColor }) => dividerColor ?
+//         `border-bottom: 1px solid ${dividerColor};`
+//         :
+//         'box-shadow:0px 1px 0px rgba(0, 0, 0, 0.07999999821186066);'
 
-    }
+//     }
 
-position:absolute;
-top: 0px;
-left: 0px;
-right: 0px;
-z-index: 2;
-display: flex;
-align-items: center;
+// position:absolute;
+// top: 0px;
+// left: 0px;
+// right: 0px;
+// z-index: 2;
+// display: flex;
+// align-items: center;
 
-`
+// `
 
-const ChatTitle = styled.div<{
-    color?: string
-}>`
-text-align:center;
-vertical-align:text-top;
-font-size:16px;
-color:${({ color }) => color || '#000000'};
-position:absolute;
-width: 100%;
-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-user-select: none;
+// const ChatTitle = styled.div<{
+//     color?: string
+// }>`
+// text-align:center;
+// vertical-align:text-top;
+// font-size:16px;
+// color:${({ color }) => color || '#000000'};
+// position:absolute;
+// width: 100%;
+// font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+// user-select: none;
 
-`
-const HeaderPlaceholder = styled.div`
-   background-color: transparent;
-     height: 56px;
-      position: absolute;
-      top: 0px;
-left: 0px;
-right: 0px;
-z-index: 1;
-box-sizing: border-box;
-`
+// `
+// const HeaderPlaceholder = styled.div`
+//    background-color: transparent;
+//      height: 56px;
+//       position: absolute;
+//       top: 0px;
+// left: 0px;
+// right: 0px;
+// z-index: 1;
+// box-sizing: border-box;
+// `
 
 export default function ConversationHeader({ loading, showHeader = true }: Props) {
     return (
@@ -63,17 +63,16 @@ export default function ConversationHeader({ loading, showHeader = true }: Props
                     <div />
                     :
                     (!showHeader ?
-                        <HeaderPlaceholder />
+                        <div className={style.HeaderPlaceholder}></div>
                         :
-                        <Container
-                            dividerColor={"dividerColor"}
-                            backgroundColor={"backgroundColor"}>
+                        <div
+                            className={`${style.Container}`}>
 
-                            <ChatTitle
-                                color={"textColor"}
-                            >Messages</ChatTitle>
+                            <div
+                                className={`${style.ChatTitle}`}
+                            >Messages</div>
 
-                        </Container>
+                        </div>
                     )
             }
         </>

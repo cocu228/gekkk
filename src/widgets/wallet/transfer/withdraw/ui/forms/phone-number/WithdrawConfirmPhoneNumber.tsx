@@ -1,7 +1,6 @@
 import Loader from "@/shared/ui/loader";
 import styles from "../styles.module.scss";
 import {useTranslation} from "react-i18next";
-import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
@@ -17,6 +16,14 @@ import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisp
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
+
+interface IParams {
+    amount: number;
+    comment: string;
+    phoneNumber: string;
+    handleCancel: () => void;
+}
 
 interface IState {
     loading: boolean;
@@ -49,10 +56,11 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
         loading: true,
         totalCommission: undefined
     });
+
+    const {uasToken} = useContext(UasConfirmCtx)
     const {t} = useTranslation();
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxGlobalModalContext);
-    const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -62,14 +70,12 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
     useEffect(() => {
         localErrorClear();
         (async () => {
-            const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
 
-            setUasToken(data.result.token);
             
             apiPaymentContact(details, true, {
                 Authorization: phone,
-                Token: data.result.token
+                Token: uasToken
             })
             .then(({data}) => {
                 if ((data as IResErrors).errors) {
@@ -212,10 +218,10 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
                     </>}
                 </div>
                 <Commissions
-                  isLoading={loading}
-                  youWillPay={totalCommission?.total || 0}
-                  youWillGet={amount}
-                  fee={totalCommission?.commission || 0}
+                    isLoading={loading}
+                    youWillPay={totalCommission?.total || 0}
+                    youWillGet={amount}
+                    fee={totalCommission?.commission || 0}
                 />
                 <div className="mt-2">{localErrorInfoBox}</div>
                 <div className="row mt-4">

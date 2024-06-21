@@ -33,10 +33,11 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
 import { debounce } from "@/shared/lib";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
-  
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const cards = storeActiveCards((state) => state.activeCards);
 
   const {account} = useContext(CtxRootData);
@@ -128,6 +129,21 @@ const WithdrawFormCardToCard = () => {
     id: item.cardId,
     name: formatCardNumber(item.displayPan)
   }));
+
+  const handleConfirm = async () => {
+    if(!uasToken) {
+        getUasToken()
+    } else {
+        showModal() 
+    }
+}
+
+  useEffect(() => {
+    if(uasToken) {
+        showModal()
+    }
+}, [uasToken])
+
 
   return (
     !cards ? (
@@ -257,7 +273,7 @@ const WithdrawFormCardToCard = () => {
             <Button
               size="lg"
               className="w-full"
-              onClick={showModal}
+              onClick={handleConfirm}
               disabled={
                 !!localErrorInfoBox ||
                 loading ||

@@ -18,7 +18,7 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import { UasToken } from "@/processes/uas-provider-context";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
@@ -26,7 +26,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {setContent} = useContext(CtxGlobalModalContext);
     const [loading, setLoading] = useState<boolean>(false);
     const { displayHistory } = useContext(CtxDisplayHistory);
-    const {uasToken} = useContext(UasToken)
+    const {uasToken} = useContext(UasConfirmCtx)
 
     const {
         networkTypeSelect,

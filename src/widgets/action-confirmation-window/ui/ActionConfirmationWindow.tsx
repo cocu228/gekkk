@@ -10,7 +10,7 @@ import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import { useContext, useEffect, useState } from "react";
-import { CtxNeedConfirm } from "@/processes/errors-provider-context";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IState {
@@ -35,7 +35,7 @@ const ActionConfirmationWindow = () => {
     pending,
     setSuccess,
     actionConfirmResponse: response,
-  } = useContext(CtxNeedConfirm);
+  } = useContext(UasConfirmCtx);
 
   useEffect(() => {
     (async () => {

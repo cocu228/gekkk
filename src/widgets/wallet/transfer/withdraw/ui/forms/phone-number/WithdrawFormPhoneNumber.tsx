@@ -21,6 +21,7 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import {debounce, formatAsNumber} from "@/shared/lib";
 import {CtxRootData} from "@/processes/RootContext";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -35,6 +36,7 @@ const WithdrawFormPhoneNumber = () => {
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, localErrorInfoBox, setBankRefresh } = useContext(CtxWalletNetworks);
   const { min_withdraw = 0, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
@@ -81,6 +83,20 @@ const WithdrawFormPhoneNumber = () => {
       })
     );
   }, [details, inputCurr.value]);
+
+  const handleConfirm = async () => {
+    if(!uasToken) {
+        getUasToken()
+    } else {
+        showModal() 
+    }
+}
+
+  useEffect(() => {
+    if(uasToken) {
+        showModal()
+    }
+}, [uasToken])
 
   return (
     <div className="wrapper">
@@ -193,7 +209,7 @@ const WithdrawFormPhoneNumber = () => {
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
-          onClick={showModal}
+          onClick={handleConfirm}
           className={styles.Button}
           disabled={
             !!localErrorInfoBox ||

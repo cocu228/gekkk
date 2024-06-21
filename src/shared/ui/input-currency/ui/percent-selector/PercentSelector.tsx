@@ -1,14 +1,16 @@
-import Decimal from "decimal.js";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { Decimal } from "decimal.js";
+
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import { CtxInputCurrencyOptions } from "../../model/context";
-import React, { FC, useContext, useEffect, useState } from "react";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+
+import { CtxInputCurrencyOptions } from "../../model/context";
 import style from "../style.module.scss";
 
 interface IParams {
   disabled?: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   header?: string | JSX.Element;
   currency: ICtxCurrency | null;
   onSelect?: (value: string) => void;

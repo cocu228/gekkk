@@ -7,12 +7,12 @@ interface DropdownProps {
   position?: string;
   isOpen?: boolean;
   onOpen?: (value: boolean) => void | undefined;
-  trigger: React.ReactNode;
+  trigger: ReactNode;
   children: ReactNode;
   customBodyClassName?: string;
 }
 
-export const Dropdown: FC<DropdownProps> = ({ trigger, children, isOpen, position, customBodyClassName }) => {
+export const Dropdown: FC<DropdownProps> = ({ trigger, children, position, customBodyClassName }) => {
   const [opened, setOpened] = useState(false);
   const bodyRef = useRef(null);
 

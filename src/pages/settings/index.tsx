@@ -51,7 +51,6 @@ export function Settings() {
     (selectedArea: SelectArea | null) => {
       if (!selectedArea) return;
       if (!areaMap[selectedArea]) {
-        ``;
         searchParams.delete("sessionsSection");
         setSearchParams(searchParams, { replace: true });
       } else {
@@ -95,9 +94,9 @@ export function Settings() {
                 {t("general_information")}
               </h2>
               <div className={`${styles.itemsList} ${md && styles.itemsListGap}`}>
-                {(IS_GEKKARD_APP() ? settingsList.slice(0, 3) : settingsList.slice(0, 2)).map((item, ind) => (
+                {(IS_GEKKARD_APP() ? settingsList.slice(0, 3) : settingsList.slice(0, 2)).map(item => (
                   <SettingsButton
-                    key={ind}
+                    key={item.iconCode}
                     icon={<IconApp code={item.iconCode} size={23} color='#285E69' />}
                     text={t(item.text)}
                     isLang={item.selectArea === "language"}
@@ -118,9 +117,9 @@ export function Settings() {
                 {md ? t("access_management") : t("account_and_app_settings")}
               </h2>
               <div className={`${styles.btnsWrap} ${md && styles.btnsWrapGap}`}>
-                {settingsList.slice(3, 7).map((item, ind) => (
+                {settingsList.slice(3, 7).map(item => (
                   <SettingsButton
-                    key={ind}
+                    key={item.iconCode}
                     icon={<IconApp code={item.iconCode} size={23} color='#285E69' />}
                     text={t(item.text)}
                     onClick={() => {
@@ -142,9 +141,9 @@ export function Settings() {
                   {md ? t("documents_and_legal_notices") : t("documents")}
                 </h2>
                 <div className={`${styles.itemsList} ${md && styles.itemsListGap}`}>
-                  {settingsList.slice(7, settingsList.length).map((item, ind) => (
+                  {settingsList.slice(7, settingsList.length).map(item => (
                     <SettingsButton
-                      key={ind}
+                      key={item.iconCode}
                       icon={<IconApp code={item.iconCode} size={23} color='#285E69' />}
                       text={t(item.text)}
                       onClick={() => {

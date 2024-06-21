@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface Props {
-  title: React.ReactNode;
-  subtitle: React.ReactNode;
-  rightContent: React.ReactNode;
+  title: ReactNode;
+  subtitle: ReactNode;
+  rightContent: ReactNode;
 }
 
 function PageHead({ title, subtitle, rightContent }: Partial<Props>) {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 
 import GTCol from "@/shared/ui/grid-table/table-column/GTCol";
 import GTRow from "@/shared/ui/grid-table/table-row/GTRow";
@@ -8,10 +8,10 @@ import GTHead from "@/shared/ui/grid-table/table-head/GTHead";
 import scss from "./style.module.scss";
 
 interface IParams {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   mobileScaleText?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 const GTable: FC<IParams> & {

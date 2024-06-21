@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ICtxCurrency } from "@/processes/CurrenciesContext";
@@ -7,7 +7,7 @@ import styles from "../style.module.scss";
 
 interface IParams {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   currency: ICtxCurrency;
 }
 

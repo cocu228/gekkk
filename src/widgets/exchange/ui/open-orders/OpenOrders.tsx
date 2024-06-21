@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-
 import { useContext, useEffect, useState } from "react";
+
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import useModal from "@/shared/model/hooks/useModal";
 import { CtxRootData } from "@/processes/RootContext";
@@ -46,14 +46,6 @@ function OpenOrders({ refreshKey }: IParams) {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    (async () => {
-      await requestOrders();
-    })();
-  }, [activeTab, account, roomInfo?.timetick, refreshKey]);
 
   const currencyPrecision = (value: number, currency: string) =>
     Number(value.toFixed(currencies.get(currency)?.ordersPrec));
@@ -123,6 +115,14 @@ function OpenOrders({ refreshKey }: IParams) {
     cancelOrderModal.handleCancel();
     setOrdersList(ordersList.filter(o => o.id !== selectedOrder.id));
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    (async () => {
+      await requestOrders();
+    })();
+  }, [activeTab, account, roomInfo?.timetick, refreshKey]);
 
   useEffect(() => {
     setStartDate(new Date());

@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 import { Decimal } from "decimal.js";
 
 import ETokensConst from "@/shared/config/coins/constants";
@@ -54,7 +54,7 @@ export interface ICtxCurrencies {
   totalAmount: Decimal | null;
 }
 
-export const CtxCurrencies = React.createContext<ICtxCurrencies>({
+export const CtxCurrencies = createContext<ICtxCurrencies>({
   currencies: null,
   totalAmount: null
 });

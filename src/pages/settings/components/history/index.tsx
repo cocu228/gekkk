@@ -15,7 +15,7 @@ export function LoginAndSignHistory() {
   return (
     <div className={styles.historyWrap}>
       {loginLogList.map((login, index) => (
-        <Fragment key={index}>
+        <Fragment key={login.key_id}>
           {index === 0 || getDate(login.utc_time) !== getDate(loginLogList[index - 1].utc_time) ? (
             <div className={styles.DataMobile}>{getDate(login.utc_time)}</div>
           ) : null}

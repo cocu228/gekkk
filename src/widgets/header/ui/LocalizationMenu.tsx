@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getInitialProps, useTranslation } from "react-i18next";
+
 import { Dropdown } from "@/shared/ui/!dropdown";
 import { IconFlag } from "@/shared/ui/icons/icon-flag";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";

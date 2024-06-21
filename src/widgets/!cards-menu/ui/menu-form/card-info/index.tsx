@@ -20,6 +20,7 @@ const CardInfo = ({ cardId, onBack }: IParams) => {
   const [cardInfo, setCardInfo] = useState<CardSecretDTO>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {

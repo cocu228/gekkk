@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, useEffect, memo, useContext } from "react";
+import { useState, ReactNode, useEffect, memo, useContext, Children, isValidElement, cloneElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
@@ -12,8 +12,8 @@ interface IResult {
 
 function filterChildrenByAttribute(children: ReactNode, attValue: string, buttons = []): IResult {
   return {
-    content: React.Children.map(children, child => {
-      if (React.isValidElement(child)) {
+    content: Children.map(children, child => {
+      if (isValidElement(child)) {
         const childDataTab = child.props["data-tag"] as string | undefined;
 
         if (childDataTab !== undefined) {
@@ -24,8 +24,9 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
           return null;
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         return child.props.hasOwnProperty("children")
-          ? React.cloneElement(child, {
+          ? cloneElement(child, {
               ...child.props,
               children: filterChildrenByAttribute(child.props.children, attValue, buttons).content
             })
@@ -40,7 +41,7 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
 
 interface IParams {
   initValue: string;
-  children: React.ReactNode;
+  children: ReactNode;
   callInitValue?: any;
 }
 
@@ -61,11 +62,8 @@ const TabsGroupPrimary = memo(({ children, initValue, callInitValue }: IParams) 
           <div className='flex justify-center flex-wrap'>
             {buttons.map((item, i) => (
               <button
-                key={`tabs-primary-button${i}`}
-                className={`
-                                ${styles.TabBtn}
-                                ${isActiveClass(item.tag === state)}
-                            `}
+                key={`tabs-primary-button${item.tag}`}
+                className={`${styles.TabBtn} ${isActiveClass(item.tag === state)}`}
                 onClick={() => {
                   setState(item.tag);
                   if (walletContext) {

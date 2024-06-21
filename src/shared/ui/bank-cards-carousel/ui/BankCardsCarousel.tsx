@@ -39,9 +39,8 @@ const BankCardsCarousel = ({ cards, refreshKey, onSelect = () => {}, onItemClick
       }}
     >
       {cards?.map(card => (
-        <div onClick={onItemClick}>
+        <div key={card.cardId} onClick={onItemClick}>
           <BankCard
-            key={card.cardId}
             status={card.cardStatus}
             holderName={card.cardholder}
             cardNumber={formatCardNumber(card.displayPan)}

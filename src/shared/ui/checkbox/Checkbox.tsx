@@ -1,10 +1,10 @@
-import React from "react";
+import { ReactElement } from "react";
 
 import styles from "./style.module.scss";
 
 interface Props {
   onChange: (v) => void;
-  children: React.ReactElement;
+  children: ReactElement;
   className: string;
   name: string;
   defaultChecked: boolean;

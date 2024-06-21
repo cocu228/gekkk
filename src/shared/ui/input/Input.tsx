@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useState } from "react";
+import { ChangeEvent, FormEvent, forwardRef, MutableRefObject, ReactNode, useState } from "react";
 
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
@@ -6,24 +6,24 @@ import styles from "./style.module.scss";
 import { validateInput } from "./model/helpers";
 
 type IParams = {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   allowDigits?: boolean;
   allowSymbols?: boolean;
   discardSymbols?: boolean;
   className?: string;
-  suffix?: React.ReactNode;
+  suffix?: ReactNode;
   caption?: string;
   size?: "md" | "sm";
   value?: string;
   name?: string;
   placeholder?: string;
-  prefix?: React.ReactNode;
+  prefix?: ReactNode;
   disabled?: boolean;
   type?: string;
-  onInput?: (event: React.FormEvent) => void;
+  onInput?: (event: FormEvent) => void;
 };
 
-const Input = React.forwardRef(
+const Input = forwardRef(
   (
     {
       onChange,
@@ -50,7 +50,7 @@ const Input = React.forwardRef(
 
     const [showCaption, setShowCaption] = useState(true);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       if (validateInput(event, allowDigits, allowSymbols, discardSymbols)) {
         onChange(event);
         setShowCaption(event.target.value.length === 0);

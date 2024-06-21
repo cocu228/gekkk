@@ -11,7 +11,7 @@ interface Props extends FormItemProps {
 const { Item } = Form;
 
 const FormItem = memo<PropsWithChildren<Props>>(
-  ({ hiddenLabel = true, noMargin = true, className = "", ...props }): JSX.Element | null => (
+  ({ hiddenLabel = true, className = "", ...props }): JSX.Element | null => (
     <Item
       className={`${className} ${hiddenLabel ? styles.FormItemHideLabel : ""} ${
         hiddenLabel ? styles.FormItemNoMargin : ""

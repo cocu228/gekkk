@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 
-import { ISelectCard, ISelectTxTypes } from "../model/types";
-import { useContext, useEffect, useRef, useState } from "react";
 import { getRoundingValue } from "@/shared/lib/helpers";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { CtxRootData } from "@/processes/RootContext";
@@ -13,8 +12,9 @@ import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
-import { dateFormat, options } from "../model/constants";
 
+import { ISelectCard, ISelectTxTypes } from "../model/types";
+import { options } from "../model/constants";
 import styles from "./style.module.scss";
 import History from "../../history/ui/History";
 import { formatCardNumber } from "../../dashboard/model/helpers";
@@ -118,7 +118,7 @@ function CustomHistory() {
           }))
       : [];
 
-  const setValueSearch = (e: any) => {
+  const setValueSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value.trim().toLowerCase());
   };
 
@@ -222,8 +222,9 @@ function CustomHistory() {
               {currenciesList.length > 0 ? (
                 currenciesList
                   ?.filter(curr => searchTokenFilter(curr.currency, searchValue))
-                  ?.map((currency, index) => (
+                  ?.map(currency => (
                     <div
+                      key={currency.$const}
                       className='w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer'
                       onClick={() => {
                         setCurr(currency.$const);
@@ -267,8 +268,9 @@ function CustomHistory() {
           {selector === "type" && (
             <div className={styles.TypeList}>
               <span className={styles.CurrencyListTitle}>{t("select_type")}</span>
-              {translatedOptions.map((item, ind) => (
+              {translatedOptions.map(item => (
                 <div
+                  key={item.label}
                   className='w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer'
                   onClick={() => {
                     setType(item);
@@ -290,8 +292,9 @@ function CustomHistory() {
               ) : cardsOptions.length <= 0 ? (
                 <span className={styles.NoCardsTitle}>{t("no_active_cards")}</span>
               ) : (
-                cardsOptions.map((item, ind) => (
+                cardsOptions.map(item => (
                   <div
+                    key={item.label}
                     className='w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer'
                     onClick={() => {
                       setSelectedCard(item);

@@ -1,3 +1,5 @@
+import constants from "@/shared/config/coins/constants";
+
 export enum RateState {
   UP = 0,
   DOWN = 1
@@ -5,7 +7,7 @@ export enum RateState {
 
 export interface IExchangeField {
   amount: string | null;
-  currency: string | null;
+  currency: constants | string | null;
 }
 
 export interface IExchangePrice {

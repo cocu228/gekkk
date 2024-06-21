@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { parseISO, getUnixTime } from "date-fns";
 import { useTranslation } from "react-i18next";
 
@@ -24,7 +24,7 @@ export function UserSession() {
     <>
       <div className={styles.sessionWrap}>
         {sessions.map((session, index) => (
-          <>
+          <Fragment key={session.id}>
             {index === 0 || getDate(session.utc_create) !== getDate(sessions[index - 1].utc_create) ? (
               <div className={styles.DataMobile}>{getDate(session.utc_create)}</div>
             ) : null}
@@ -52,7 +52,7 @@ export function UserSession() {
                 <span className='capitalize'>{isCurrent(index) ? t("current") : t("close")}</span>
               </Button>
             </div>
-          </>
+          </Fragment>
         ))}
         {sessions?.length > 1 && (
           <div className='m-5 min-h-[45px]'>

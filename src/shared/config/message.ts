@@ -1,9 +1,9 @@
 import { ConfigProviderProps } from "antd/es/config-provider";
 import { Rule } from "antd/es/form";
 
-type validateMessages = Required<Required<ConfigProviderProps>["form"]>["validateMessages"];
+type ValidateMessages = Required<Required<ConfigProviderProps>["form"]>["validateMessages"];
 
-export const validateMessages: validateMessages = {
+export const validateMessages: ValidateMessages = {
   required: 'Please fill in the field "${label}"',
   whitespace: "The field does not support spaces",
 

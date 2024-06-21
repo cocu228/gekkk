@@ -1,8 +1,8 @@
-import React from "react";
+import { ChangeEvent } from "react";
 
 import styles from "./styles.module.scss";
 
-type RadioChangeEvent = React.ChangeEvent<{ value: string }>;
+type RadioChangeEvent = ChangeEvent<{ value: string }>;
 
 interface RadioButtonProps {
   checked?: boolean;

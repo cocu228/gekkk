@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Decimal } from "decimal.js";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +12,7 @@ interface IParams {
   className?: string;
   description?: string;
   availableNullable?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
   validators: Array<IValidatorCreator>;
   onError?: (value: boolean) => void;
 }
@@ -24,7 +24,7 @@ const Validator: FC<IParams> = ({
   className,
   description,
   validators = [],
-  onError = (value: boolean) => {}
+  onError = (_: boolean) => {}
 }: IParams) => {
   const { t } = useTranslation();
   const firstEffect = useRef(true);

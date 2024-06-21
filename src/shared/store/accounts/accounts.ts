@@ -17,6 +17,20 @@ export interface IStoreAccounts {
   getAccounts: (refresh?: boolean) => Promise<void>;
 }
 
+const getAccountWithRights = (account: WalletInfo): IWalletInfo => {
+  const accountRights = getFlagsFromMask(account.flags, maskAccountRights);
+
+  return {
+    name: account.name,
+    phone: account.phone,
+    rights: accountRights,
+    number: account.account,
+    current: account.current,
+    account_id: account.account_id,
+    date_update: account.date_update
+  };
+};
+
 export const storeAccounts = create<IStoreAccounts>()(
   devtools(set => ({
     accounts: null,
@@ -36,17 +50,3 @@ export const storeAccounts = create<IStoreAccounts>()(
     }
   }))
 );
-
-const getAccountWithRights = (account: WalletInfo): IWalletInfo => {
-  const accountRights = getFlagsFromMask(account.flags, maskAccountRights);
-
-  return {
-    name: account.name,
-    phone: account.phone,
-    rights: accountRights,
-    number: account.account,
-    current: account.current,
-    account_id: account.account_id,
-    date_update: account.date_update
-  };
-};

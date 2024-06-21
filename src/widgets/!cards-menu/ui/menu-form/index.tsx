@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -14,7 +14,6 @@ import { Switch } from "@/shared/ui/Switch";
 import HowItWorks from "./how-it-works";
 import ConfirmationModal from "./confirmation-modal";
 import CardInfo from "./card-info";
-
 import { ICardStorage } from "../../model/types";
 import styles from "./styles.module.scss";
 import MenuItem from "./item";
@@ -34,7 +33,7 @@ const MenuForm = ({ cardsStorage, onSelectCard, setCardsStorage, setIsNewCardOpe
   const [selectedCard, setSelectedCard] = useState<ICardData | null>(null);
   const { setContent: setGlobalModal, handleCancel: onGlobalCancel } = useContext(CtxGlobalModalContext);
 
-  const onClick = ({ currentTarget }) => {
+  const onClick = ({ currentTarget }: MouseEvent<HTMLDivElement>) => {
     const item = currentTarget.getAttribute("data-item");
 
     setSelectedItem(item);
@@ -98,9 +97,9 @@ const MenuForm = ({ cardsStorage, onSelectCard, setCardsStorage, setIsNewCardOpe
 
       {selectedCard?.limits
         .sort(l => (l.period === "MONTHLY" ? -1 : 1))
-        .map((limit, index) => (
+        .map(limit => (
           <MenuItem
-            key={index}
+            key={limit.type}
             onClick={onClick}
             dataItem={`${limit.period.toLowerCase()}Limit`}
             progress={(limit.usedLimit / limit.currentLimit) * 100}

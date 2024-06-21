@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 
 import History from "@/widgets/history/ui/History";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
+import constants from "@/shared/config/coins/constants";
 
 import styles from "./styles.module.css";
 import { CtxDisplayHistory } from "./model/CtxDisplayHistory";
@@ -27,7 +28,7 @@ const HistoryWrapper = ({ children }: IParams) => {
       {visible && (
         <>
           <span className={styles.Header}>{t("last_transactions")}</span>
-          <History key={"LastTxsHistory"} currenciesFilter={[$const]} includeFiat={$const === "EUR"} />
+          <History key={"LastTxsHistory"} currenciesFilter={[$const]} includeFiat={$const === constants.EUR} />
         </>
       )}
     </CtxDisplayHistory.Provider>

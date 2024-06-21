@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import getUnixTime from "date-fns/getUnixTime";
-import parseISO from "date-fns/parseISO";
+import { getUnixTime, parseISO } from "date-fns";
 
 import { apiUserKeys } from "@/shared/(orval)api/auth";
 import { UserKey } from "@/shared/(orval)api/auth/model";
@@ -30,7 +29,7 @@ export const useUserKeys = (keyChanged: boolean) => {
         console.log(newArr);
 
         setKeys(newArr);
-      } catch (err: unknown) {
+      } catch (_: unknown) {
         setKeys([]);
       }
     })();

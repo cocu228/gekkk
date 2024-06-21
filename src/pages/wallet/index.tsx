@@ -15,7 +15,7 @@ import CardsMenu from "@/widgets/!cards-menu/ui";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { getTokenDescriptions } from "@/shared/config/coins/descriptions";
+import { useGetTokenDescriptions } from "@/shared/config/coins/descriptions";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 // import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
@@ -39,7 +39,7 @@ function Wallet() {
   const { account } = useContext(CtxRootData);
   const { currencies } = useContext(CtxCurrencies);
   const { xl, md } = useContext(BreakpointsContext);
-  const descriptions = getTokenDescriptions(navigate, account);
+  const descriptions = useGetTokenDescriptions(navigate, account);
 
   const gekkardMode = IS_GEKKARD_APP();
 

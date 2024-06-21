@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { apiCreateOrder } from "@/shared/(orval)api/gek";
-import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import RoomProperties from "./room-properties/RoomProperties";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import PriceField from "@/widgets/exchange/ui/price-field/PriceField";
 import OpenOrders from "@/widgets/exchange/ui/open-orders/OpenOrders";
@@ -13,8 +11,8 @@ import DepthOfMarket from "@/widgets/exchange/ui/depth-of-market/DepthOfMarket";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import ParticipantsNumber from "@/shared/ui/participants-number/ParticipantsNumber";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import { useTranslation } from "react-i18next";
-import { apiCloseRoom } from "@/shared/(orval)api/gek";
+import InviteLink from "@/shared/ui/invite-link/InviteLink";
+import { apiCreateOrder, apiCloseRoom } from "@/shared/(orval)api/gek";
 import PageHead from "@/shared/ui/page-head/PageHead";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useModal from "@/shared/model/hooks/useModal";
@@ -29,6 +27,7 @@ import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/Perc
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
 
+import RoomProperties from "./room-properties/RoomProperties";
 import { CtxExchangeData } from "../model/context";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import styles from "./style.module.scss";
@@ -36,8 +35,6 @@ import InlineData from "./inline-data/InlineData";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
-
-  if (!currencies) return null;
 
   const { t } = useTranslation();
 
@@ -81,6 +78,8 @@ function Exchange() {
       setHistoryFilter([to.currency ? to.currency : null, from.currency ? from.currency : null]);
     }
   }, [from.currency, to.currency]);
+
+  if (!currencies) return null;
 
   const getHeadTitle = () => {
     switch (roomType) {

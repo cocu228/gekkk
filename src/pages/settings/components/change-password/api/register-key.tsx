@@ -92,7 +92,9 @@ async function registerCredentialWithServer(formData: any, changeKeyList: any, s
   });
 
   const data = await response.json();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   changeKeyList(n => !n);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   setSmsSent(false);
 
   return data.result;

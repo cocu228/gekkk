@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { FormEventHandler, memo, MouseEventHandler, ReactNode } from "react";
 
 import { HelperClassName } from "@/shared/lib/helper-class-name";
 
@@ -14,9 +14,9 @@ interface Props {
   size: "sm" | "md" | "lg";
   text: string | undefined;
   className: string | undefined;
-  onClick: React.MouseEventHandler;
-  onSubmit: React.FormEventHandler;
-  children: React.ReactNode | undefined;
+  onClick: MouseEventHandler;
+  onSubmit: FormEventHandler;
+  children: ReactNode | undefined;
   htmlType: "button" | "submit" | "reset";
 }
 
@@ -31,23 +31,22 @@ const Button = memo<Partial<Props>>(
     skeleton = false,
     htmlType = "button",
     ...props
-  }): JSX.Element | null => (
-    <button
-      {...props}
-      type={htmlType}
-      data-size={size}
-      className={hClassName
-        .while(!!className)
-        .do(className)
-        .while(color !== null)
-        .do(color?.charAt(0).toUpperCase() + color?.slice(1))
-        .while(skeleton)
-        .do("Skeleton")
-        .scss(custom ? "" : "Button")}
-    >
-      {text ? text : children}
-    </button>
-  )
+  }): JSX.Element | null => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const cl = hClassName
+      .while(!!className)
+      .do(className)
+      .while(color !== null)
+      .do(color?.charAt(0).toUpperCase() + color?.slice(1))
+      .while(skeleton)
+      .do("Skeleton")
+      .scss(custom ? "" : "Button");
+    return (
+      <button {...props} type={htmlType} data-size={size} className={cl}>
+        {text ? text : children}
+      </button>
+    );
+  }
 );
 
 export default Button;

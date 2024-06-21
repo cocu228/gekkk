@@ -118,6 +118,10 @@ module.exports = {
   "@typescript-eslint/restrict-template-expressions": 0,
   "@typescript-eslint/explicit-function-return-type": 0,
   "@typescript-eslint/no-shadow": 0,
+  "@typescript-eslint/no-unused-expressions": 0,
+  "@typescript-eslint/no-use-before-define": ["error", {
+    "functions": false,
+  }],
 
   // prettier
   "prettier/prettier": 1

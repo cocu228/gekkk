@@ -1,5 +1,4 @@
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 import { IconApp } from "../../icons/icon-app";
@@ -17,7 +16,6 @@ interface SelectProps {
 }
 
 export const Select: FC<SelectProps> = ({ placeholder, options, onChange, typeChange, value, mobile, listHeight }) => {
-  const { t } = useTranslation();
   const [active, setActive] = useState(false);
 
   const optionHandler = (feeLabel: string, id: any) => {
@@ -64,9 +62,9 @@ export const Select: FC<SelectProps> = ({ placeholder, options, onChange, typeCh
       <div className={styles.SelectListWrap} style={{ height: listHeight && `${listHeight}px` }}>
         <div className={styles.SelectList}>
           {options &&
-            options.map((item, ind) => (
+            options.map(item => (
               <div
-                key={ind}
+                key={item.label}
                 onClick={() => optionHandler(item.label, item.value)}
                 className={`${styles.SelectOption} ${value === item.label && styles.SelectedOption}`}
               >

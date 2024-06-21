@@ -13,6 +13,9 @@ export interface IStoreInvestments {
   addInvestment: (investment: GetDepositOut) => Promise<void>;
 }
 
+const getTotalAmount = (investments: GetDepositOut[]): string =>
+  investments.reduce((sum, invest) => sum.add(invest.cur_amount), new Decimal(0)).toString();
+
 export const storeInvestments = create<IStoreInvestments>()(
   devtools(set => ({
     investments: null,
@@ -68,6 +71,3 @@ export const storeInvestments = create<IStoreInvestments>()(
     }
   }))
 );
-
-const getTotalAmount = (investments: GetDepositOut[]): string =>
-  investments.reduce((sum, invest) => sum.add(invest.cur_amount), new Decimal(0)).toString();

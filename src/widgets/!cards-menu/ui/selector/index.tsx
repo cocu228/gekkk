@@ -78,6 +78,7 @@ const ExtendedSelect = ({
 
           <div className={styles.OptionsContainer}>
             {options
+              // eslint-disable-next-line @typescript-eslint/no-base-to-string
               .filter(option => option.label.toString().toLowerCase().includes(searchValue.toLowerCase().trim()))
               .map(option => (
                 <div

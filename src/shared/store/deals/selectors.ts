@@ -3,10 +3,6 @@ import styles from "@/widgets/wallet/programs/cashback/EUR/ui/style.module.scss"
 
 import { storeDeals } from "./deals";
 
-export const dealsSelector = () => storeDeals(state => state.deals.map(deal => getConvertedDeal(deal)));
-
-const getConvertedDeal = (deal: ActiveBonusProgram): Deal => DealText[deal];
-
 const DealText: { [key: string]: any } = {
   [ActiveBonusProgram.CASHBACK || ActiveBonusProgram.CASHBACK2]: {
     id: ActiveBonusProgram.CASHBACK,
@@ -60,3 +56,7 @@ const DealText: { [key: string]: any } = {
     isActive: false
   }
 };
+
+const getConvertedDeal = (deal: ActiveBonusProgram): Deal => DealText[deal];
+
+export const dealsSelector = () => storeDeals(state => state.deals.map(deal => getConvertedDeal(deal)));

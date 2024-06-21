@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "./checklist.module.css";
-
 // Importing the validation rules
 import { UPPERCASE_REGEX, NUMBER_REGEX, LENGTH_REGEX, SPECIAL_CHARS_REGEX } from "./validationRules";
 
@@ -35,7 +34,11 @@ const CheckList = (props: Props) => {
     <div className={styles.wrapper}>
       {rules.map(rule => {
         const cn = props.value && props.value.match(rule.pattern) ? styles.passed : "";
-        return <p className={cn}>{t(rule.t)}</p>;
+        return (
+          <p key={rule.t} className={cn}>
+            {t(rule.t)}
+          </p>
+        );
       })}
     </div>
   );

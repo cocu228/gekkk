@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 
 import { Timer } from "@/widgets/(no-usages)auth/model/helpers";
 
-function isPromise(obj: unknown) {
-  return obj instanceof Promise;
-}
+// function isPromise(obj: unknown) {
+//   return obj instanceof Promise;
+// }
 
 type TProps = { onAction: () => void | Promise<unknown> };
 export default memo(({ onAction }: TProps) => {

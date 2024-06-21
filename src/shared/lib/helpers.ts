@@ -1,11 +1,12 @@
+import { useMemo } from "react";
 import { Decimal } from "decimal.js";
-
-import { apiLogout } from "../(orval)api";
-
 import { useLocation } from "react-router-dom";
-import React from "react";
 import { getGkePercent } from "@/shared/config/deposits/helpers";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
+import { InvestmentsTypeEnum } from "@/shared/(orval)api/gek/model";
+import constants from "@/shared/config/coins/constants";
+
+import { apiLogout } from "../(orval)api";
 
 export function randomId(value = 12): string {
   let text = "";
@@ -23,7 +24,7 @@ export function getRandomNumberWithLength(length = 3) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function throttle(callee, timeout) {
+export function throttle(callee: (...args: any[]) => void, timeout: number) {
   let timer = null;
 
   return function perform(...args) {
@@ -46,7 +47,8 @@ export function evenOrOdd(number) {
   return number % 2 === 0;
 }
 
-export const getCryptoIconName = ($const, extension = "svg") => `${$const.toLowerCase().capitalize()}Icon.${extension}`;
+export const getCryptoIconName = ($const: constants, extension = "svg") =>
+  `${$const.toLowerCase().capitalize()}Icon.${extension}`;
 
 export const getRoundingValue = (balance: Decimal | number | string, roundingValue: number) => {
   const result = typeof balance === "number" || typeof balance === "string" ? new Decimal(balance) : balance;
@@ -68,19 +70,19 @@ export function getSecondaryTabsAsRecord(tabs: Array<{ Key: string; Title: strin
 export const actionSuccessConstructor = function (value: boolean) {
   if (value) {
     return {
-      success: val => {
+      success: (val: (arg0: any) => void) => {
         val(this);
         return {
-          reject: val => null
+          reject: () => null
         };
       }
     };
   } else {
     return {
-      success: val => {
+      success: () => {
         console.warn("Response error");
         return {
-          reject: val => val(this)
+          reject: (val: (arg0: any) => any) => val(this)
         };
       }
     };
@@ -90,20 +92,21 @@ export const actionSuccessConstructor = function (value: boolean) {
 export const actionResSuccess = function (response) {
   if (response?.data?.result !== undefined && response.data.result !== null) {
     return {
-      success: val => {
+      success: (val: (arg0: any) => void) => {
         val(this?.success);
 
         return {
-          reject: val => val({ message: null, code: null, id: null })
+          reject: (val: (arg0: { message: any; code: any; id: any }) => any) =>
+            val({ message: null, code: null, id: null })
         };
       }
     };
   } else {
     return {
-      success: val => {
+      success: () => {
         console.warn("Response error");
         return {
-          reject: val => val(response.data.error)
+          reject: (val: (arg0: any) => any) => val(response.data.error)
         };
       }
     };
@@ -247,19 +250,24 @@ export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
   parent.scrollLeft = parent.scrollLeft + scrollPosition;
 }
 
-export function pullStart(e, setStartPoint) {
+export function pullStart(e, setStartPoint: (val: number) => void) {
   const { screenY } = e.targetTouches[0];
   setStartPoint(screenY);
 }
 
-export function pull(e, setPullChange, startPoint) {
+export function pull(e, setPullChange: (val: number) => void, startPoint: number) {
   const touch = e.targetTouches[0];
   const { screenY } = touch;
   const pullLength = startPoint < screenY ? Math.abs(screenY - startPoint) : 0;
   setPullChange(pullLength);
 }
 
-export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
+export function endPull(
+  setStartPoint: (val: number) => void,
+  setPullChange: (val: number) => void,
+  pullChange: number,
+  initLoading: () => void
+) {
   setStartPoint(0);
   setPullChange(0);
   if (pullChange > 220) {
@@ -288,8 +296,6 @@ export function getFixedDepositTitle(isGke: boolean) {
   return `Fixed rate (${isGke ? "1,6" : "0,8"}% per month)`;
 }
 
-import { InvestmentsTypeEnum } from "@/shared/(orval)api/gek/model";
-
 export function getStructedDepositTitle(depType: InvestmentsTypeEnum, isGke: boolean) {
   const { name, percentageTypes } = StructedDepositStrategies.find(s => {
     const typeId = isGke ? depType - 100 : depType;
@@ -310,5 +316,5 @@ export const getCurrencyRounding = (value: number) =>
 export function useQuery() {
   const { search } = useLocation();
 
-  return React.useMemo(() => new URLSearchParams(search), [search]);
+  return useMemo(() => new URLSearchParams(search), [search]);
 }

@@ -51,6 +51,19 @@ const ActionConfirmationWindow = () => {
     })();
   }, [response]);
 
+  const handleError = () => {
+    setState(prev => ({
+      ...prev,
+      code: null,
+      loading: false
+    }));
+
+    localErrorHunter({
+      code: 401,
+      message: t("invalid_confirmation_code")
+    });
+  };
+
   const onConfirm = async () => {
     setState(prev => ({
       ...prev,
@@ -70,22 +83,9 @@ const ActionConfirmationWindow = () => {
 
       handleCancel();
       setSuccess();
-    } catch (error) {
+    } catch (_) {
       handleError();
     }
-  };
-
-  const handleError = () => {
-    setState(prev => ({
-      ...prev,
-      code: null,
-      loading: false
-    }));
-
-    localErrorHunter({
-      code: 401,
-      message: t("invalid_confirmation_code")
-    });
   };
 
   return (

@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import { useState, MouseEvent } from "react";
 
 import { isActiveClass } from "@/shared/lib/helpers";
 
 import styles from "./style.module.scss";
 import { IconApp } from "../icons/icon-app";
 
-const RefreshButton = ({
-  calloutFunc
-}: {
-  calloutFunc: (e?: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-}) => {
+const RefreshButton = ({ calloutFunc }: { calloutFunc: (e?: MouseEvent<HTMLSpanElement>) => void }) => {
   const [active, setActive] = useState<boolean>(false);
 
-  const onClick = async (e?: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+  const onClick = async (e?: MouseEvent<HTMLSpanElement>) => {
     setActive(true);
     calloutFunc(e);
     setTimeout(() => setActive(false), 3000);

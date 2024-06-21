@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { IWalletInfo } from "@/shared/store/accounts/accounts";
 
@@ -9,4 +9,4 @@ export interface ICtxRootData {
   setAccount: (number: string) => void;
 }
 
-export const CtxRootData = React.createContext<ICtxRootData>(null);
+export const CtxRootData = createContext<ICtxRootData>(null);

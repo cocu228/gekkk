@@ -6,7 +6,7 @@ interface CopyContext {
   setIsCopied: (value: boolean) => void;
 }
 
-export const useCopyStore = create<CopyContext>()(
+const useCopyStore = create<CopyContext>()(
   devtools(set => ({
     isCopied: false,
     setIsCopied: value => set({ isCopied: value })

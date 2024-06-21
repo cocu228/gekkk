@@ -49,8 +49,8 @@ export function PersonalInformation() {
           <Loader className='relative' />
         ) : (
           <>
-            {infoList.map((item, ind) => (
-              <div key={ind} className={styles.perItem}>
+            {infoList.map(item => (
+              <div key={item} className={styles.perItem}>
                 <h4 className={styles.perItemTitle}>{t(item)}:</h4>
                 <h4 className={styles.perItemSubtitle}>{userInfoKeys[item]}</h4>
                 <hr />

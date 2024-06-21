@@ -29,7 +29,7 @@ function ClipboardField({ value }: Props) {
           setIsCopied(false);
         }, 1000);
       })
-      .catch(err => {});
+      .catch(() => {});
   };
 
   return (

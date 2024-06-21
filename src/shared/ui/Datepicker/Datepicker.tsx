@@ -1,9 +1,8 @@
-import style from "./styles.module.scss";
-
 import { Dispatch, FC, SetStateAction } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import style from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 
 interface DatepickerProps {
@@ -42,8 +41,8 @@ export const Datepicker: FC<DatepickerProps> = ({ setDate, isTo, date, border })
       // customInput={<ExampleCustomInput value={startDate.getFullYear()} onClick={null} />}
       renderCustomHeader={({
         date,
-        changeYear,
-        changeMonth,
+        // changeYear,
+        // changeMonth,
         decreaseMonth,
         increaseMonth,
         increaseYear,

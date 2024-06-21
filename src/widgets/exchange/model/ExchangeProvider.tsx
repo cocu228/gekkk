@@ -14,7 +14,7 @@ interface IProps {
   children: ReactNode;
 }
 
-const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) => {
+const ExchangeProvider = ({ children, from, to, roomInfo }: IProps) => {
   const { currencies } = useContext(CtxCurrencies);
 
   const initialState: ICtxExchangeData = {

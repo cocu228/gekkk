@@ -20,7 +20,7 @@ type IParams = {
   investment: GetDepositOut & { isGke: boolean };
 };
 
-const ClosingDepositModal = ({ open, isFixed, onCancel, investment, strategyData, ...props }: IParams) => {
+const ClosingDepositModal = ({ open, isFixed, onCancel, investment, strategyData }: IParams) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const removeInvestment = storeInvestments(state => state.removeInvestment);

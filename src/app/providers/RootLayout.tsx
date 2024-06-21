@@ -63,7 +63,8 @@ export default memo(function () {
       try {
         const { data } = await apiGetInfo({ refresh: false });
         setAccounts(data.result);
-      } catch (AxiosError) {
+      } catch (err) {
+        console.error(err);
         // logout();
       }
     })();

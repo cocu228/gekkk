@@ -1,10 +1,10 @@
-import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
-import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
-import UniversalTransferConfirm from "./UniversalTransferConfirm";
+
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -12,9 +12,11 @@ import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entity
 import { validateBalance, validateMaximumAmount, validateMinimumAmount } from "@/shared/config/validators";
 import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import styles from "../styles.module.scss";
 import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+
+import UniversalTransferConfirm from "./UniversalTransferConfirm";
+import styles from "../styles.module.scss";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();

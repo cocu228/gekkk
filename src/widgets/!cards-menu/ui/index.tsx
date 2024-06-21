@@ -26,6 +26,7 @@ const CardsMenu = () => {
   });
 
   useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {

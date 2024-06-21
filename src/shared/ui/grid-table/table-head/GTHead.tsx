@@ -1,15 +1,15 @@
-import React, { FC } from "react";
+import { Children, FC, ReactNode } from "react";
 
 interface IParams {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const GTHead: FC<IParams> = ({ children, className = "" }) => (
   <div
     className={`grid text-center ${className}`}
     style={{
-      gridTemplateColumns: `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
+      gridTemplateColumns: `repeat(${Children.toArray(children).length}, minmax(0, 1fr))`
     }}
   >
     {children}

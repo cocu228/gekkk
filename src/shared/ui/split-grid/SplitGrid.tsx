@@ -1,10 +1,10 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import styles from "./styles.module.scss";
 
 interface Props {
-  leftColumn?: React.ReactNode;
-  rightColumn?: React.ReactNode;
+  leftColumn?: ReactNode;
+  rightColumn?: ReactNode;
 }
 
 function SplitGrid({ leftColumn, rightColumn }: Props) {

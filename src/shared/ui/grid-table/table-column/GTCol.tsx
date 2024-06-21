@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface IParams {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   hidden?: boolean;
 }
 

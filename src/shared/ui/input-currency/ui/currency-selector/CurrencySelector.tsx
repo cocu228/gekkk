@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
@@ -12,7 +12,7 @@ interface IParams {
   disabled?: boolean;
   className?: string;
   balanceFilter?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
   excludedCurrencies?: Array<string>;
   allowedFlags?: null | Array<CurrencyFlags>;
   onSelect?: (value: string) => void;

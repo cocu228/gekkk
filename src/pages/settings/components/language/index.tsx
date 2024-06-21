@@ -51,8 +51,8 @@ export function LanguageSettings() {
 
   return (
     <div className={styles.LanguageWrap}>
-      {languages.map((item, ind) => (
-        <div key={ind} className={styles.LanguageItem} onClick={() => i18n.changeLanguage(item.code)}>
+      {languages.map(item => (
+        <div key={item.code} className={styles.LanguageItem} onClick={() => i18n.changeLanguage(item.code)}>
           <IconFlag code={item.code} size={28} />
           <div>
             <h4 className={styles.LanguageTitle}>{item.title}</h4>

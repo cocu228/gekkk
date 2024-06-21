@@ -1,14 +1,16 @@
+import { FormEvent, ReactNode } from "react";
+
 import style from "./form.module.css";
 
 interface Props {
   action?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   onSubmit: (data: FormData) => void;
 }
 
 const Form = ({ action, children, className, onSubmit }: Props) => {
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const formElement = e.target as HTMLFormElement;
@@ -17,7 +19,7 @@ const Form = ({ action, children, className, onSubmit }: Props) => {
     formElement.classList.add(style.submitted);
 
     // focusing the first invalid field
-    const firstInvalidField = formElement.querySelector(":invalid");
+    const firstInvalidField = formElement.querySelector<HTMLElement>(":invalid");
 
     firstInvalidField?.focus();
 

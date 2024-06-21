@@ -1,5 +1,4 @@
-import getUnixTime from "date-fns/getUnixTime";
-import parseISO from "date-fns/parseISO";
+import { getUnixTime, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 
 import { UserLoginLog } from "@/shared/(orval)api/auth/model";

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
@@ -39,7 +39,7 @@ const InputField: FC<IParams> & {
           className={styles.Input}
           value={value}
           placeholder={!currency ? "" : placeholder && `-${placeholder?.toLowerCase()}-`}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
             const value: string = event.target.value;
             onChange(value);
           }}

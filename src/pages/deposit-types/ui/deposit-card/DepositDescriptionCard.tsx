@@ -18,8 +18,8 @@ interface IParams {
     | 32; // Dynamic
 }
 
-const DepositDescriptionCard = ({ depositType }: IParams) => {
-  const { xl, md } = useContext(BreakpointsContext);
+const DepositDescriptionCard = (_: IParams) => {
+  const { md } = useContext(BreakpointsContext);
   const [isIncreased, setIsIncreased] = useState<boolean>(false);
   const increasingProgramDescription = `The structured deposit placed in EURG will be
         charged double yield, and if there is a loss, it will be expressed as a twofold

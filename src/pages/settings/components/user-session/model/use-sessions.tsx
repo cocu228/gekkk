@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import getUnixTime from "date-fns/getUnixTime";
-import parseISO from "date-fns/parseISO";
+import { getUnixTime, parseISO } from "date-fns";
 
 import { apiCloseSessions, apiSessions } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model";
@@ -16,20 +15,20 @@ export const useSession = () => {
         const sortedSeesionsArr: UserSession[] = [...response?.data?.result];
         sortedSeesionsArr.sort((a, b) => getUnixTime(parseISO(b.utc_create)) - getUnixTime(parseISO(a.utc_create)));
         setSessionsList(sortedSeesionsArr);
-      } catch (err: unknown) {
+      } catch (_: unknown) {
         setSessionsList([]);
       }
     })();
   }, [sessionClosed]);
 
   const closeAllSessions = () => {
-    apiCloseSessions().then(res => {
+    apiCloseSessions().then(() => {
       setSessionClosed(n => !n);
     });
   };
 
   const closeSession = ({ id }: UserSession) => {
-    apiCloseSessions({ id: id }).then(res => {
+    apiCloseSessions({ id: id }).then(() => {
       setSessionClosed(n => !n);
     });
   };

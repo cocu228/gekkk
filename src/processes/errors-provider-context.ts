@@ -1,8 +1,8 @@
-import React from "react";
+import { createContext } from "react";
 
 import { TResponseErrorProvider } from "@/processes/errors-provider-types";
 
-export const CtxNeedConfirm = React.createContext<{
+export const CtxNeedConfirm = createContext<{
   setSuccess: () => void;
   actionConfirmResponse: TResponseErrorProvider | null;
   pending?: {
@@ -11,6 +11,6 @@ export const CtxNeedConfirm = React.createContext<{
   };
 }>(null);
 
-export const CtxOfflineMode = React.createContext<{
+export const CtxOfflineMode = createContext<{
   offline: boolean;
 }>({ offline: false });

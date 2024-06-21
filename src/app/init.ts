@@ -11,9 +11,12 @@ document.body.setAttribute("data-app", import.meta.env.VITE_APP_TYPE);
 
 if (accountId) {
   import("./index");
+  // eslint-disable-next-line import/extensions
   import("@/app/chat/dist/chat.js");
 } else {
   //@ts-ignore
+  // eslint-disable-next-line import/extensions
   import("@VAR/app/authentication/{{mode-}}dist/authentication.js");
+  // eslint-disable-next-line import/extensions
   import("@/app/chat/dist/chat.js");
 }

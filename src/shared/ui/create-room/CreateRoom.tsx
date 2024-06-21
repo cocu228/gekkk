@@ -12,6 +12,7 @@ import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Select from "@/shared/ui/create-room/ui/select";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import constants from "@/shared/config/coins/constants";
 
 import { IconApp } from "../icons/icon-app";
 import styles from "./styles.module.scss";
@@ -52,7 +53,7 @@ function CreateRoom({
     return true;
   };
 
-  const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter));
+  const [tokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter));
 
   const handleOnCancel = () => {
     onFromCurrencyChange("");
@@ -66,8 +67,8 @@ function CreateRoom({
       : onToCurrencyChange(currency ? currency.$const : "");
   };
 
-  const getValue = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
-  const getFilterValue = (notEqualValue: string) => tokensList.filter(({ $const }) => $const !== notEqualValue);
+  const getValue = (equalValue: constants | null) => tokensList.find(t => t.$const === equalValue) || null;
+  const getFilterValue = (notEqualValue: constants) => tokensList.filter(({ $const }) => $const !== notEqualValue);
 
   return (
     <>

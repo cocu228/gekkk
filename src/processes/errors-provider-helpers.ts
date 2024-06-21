@@ -1,9 +1,19 @@
+import { NavigateFunction } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
+
 import { isNull, randomId, uncoverArray } from "@/shared/lib/helpers";
 import { IStateErrorProvider, TResponseErrorProvider } from "@/processes/errors-provider-types";
 
 export const skipList = [10001, 10006, 10007, 10016, 10024, 10039, 10047, 10064, 10035, 10054, 10065];
 
-export function hunterErrorStatus(error) {
+export function hunterErrorStatus(
+  this: {
+    logout: () => Promise<void>;
+    navigate: NavigateFunction;
+    setState: Dispatch<SetStateAction<IStateErrorProvider>>;
+  },
+  error
+) {
   // TODO: Возникают null/undefined-ошибки при попытке выполнения интерсептора axios,
   // требуется доработать на стадии улучшений/доработок. Данная строчка скрывает эти
   // ошибки от отображения в ЛК, требуется найти и устранить причину их возникновения

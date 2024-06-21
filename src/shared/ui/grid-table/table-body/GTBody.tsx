@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 
 import Loader from "../../loader";
 import styles from "./style.module.scss";
 
 interface IParams {
   className: string;
-  children: React.ReactNode;
+  children: ReactNode;
   loading: boolean;
-  style: React.CSSProperties;
+  style: CSSProperties;
 }
 
 const GTBody: FC<Partial<IParams>> = ({ children, className, loading, style }) => (

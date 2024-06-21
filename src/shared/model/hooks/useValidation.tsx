@@ -7,7 +7,7 @@ function useValidator() {
 
   const passwordValidator = useCallback<RuleRender>(
     () => ({
-      validator(rule, value = "") {
+      validator(_, value = "") {
         return new Promise((resolve, reject) => {
           const test = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value);
           if (!test && value.length < 8) {
@@ -23,7 +23,7 @@ function useValidator() {
 
   const phoneValidator = useCallback<RuleRender>(
     () => ({
-      validator(rule, value = "") {
+      validator(_, value = "") {
         return new Promise((resolve, reject) => {
           const isV = value.length > 5;
           // const isRusPhone = new RegExp(/^((\+7|7|8)+([0-9]){10})$/gi).test(value.replace(/\D+/g, ''));

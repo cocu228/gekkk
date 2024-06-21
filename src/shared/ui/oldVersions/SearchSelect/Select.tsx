@@ -12,7 +12,7 @@ interface SelectProps {
   allowedFlags?: Array<CurrencyFlags>;
   disabledCurrencies?: Array<string>;
   onSelect: (value: string) => void;
-  list: any[];
+  list: { id: string; name: string }[];
   placeholderText?: string;
   isToken?: boolean;
   tokenId?: string;
@@ -26,7 +26,7 @@ export const Select: FC<SelectProps> = ({ disabledCurrencies, placeholderText, l
   const [placeholder, setPlaceholder] = useState(placeholderText);
   const { t } = useTranslation();
 
-  const bodyRef = useRef(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
 
   const useOutsideAlerter = (ref: MutableRefObject<HTMLElement | null>) => {
     useEffect(() => {
@@ -103,11 +103,12 @@ export const Select: FC<SelectProps> = ({ disabledCurrencies, placeholderText, l
       <div className={style.SelectList}>
         {filteredList.map(item => (
           <SelectItem
+            key={item.id}
             setVisibility={setActive}
             isToken={isToken}
             selectTitle={setSelected}
             onSelect={onSelect}
-            disabled={disabledCurrencies?.includes(item.id)}
+            disabled={disabledCurrencies?.includes(`${item.id}`)}
             item={item}
           />
         ))}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { t } from "i18next";
-import getUnixTime from "date-fns/getUnixTime";
-import parseISO from "date-fns/parseISO";
+import { getUnixTime, parseISO } from "date-fns";
 
 import Loader from "@/shared/ui/loader";
 import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
@@ -37,8 +36,8 @@ export function UserKeys() {
     id: ""
   });
 
-  function onRemoveKey(id) {
-    apiRemoveKey({ key_id: id }).then(res => {
+  function onRemoveKey(id: number) {
+    apiRemoveKey({ key_id: id }).then(() => {
       setKeyDeleted(n => !n);
     });
   }
@@ -90,7 +89,7 @@ export function UserKeys() {
 
       <div className={style.keysWrap}>
         {keysList.map((key, index) => (
-          <div className={style.keysItem}>
+          <div key={key.id} className={style.keysItem}>
             <div className='w-4/5 overflow-hidden'>
               {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
               <p className={style.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>

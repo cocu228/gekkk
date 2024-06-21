@@ -1,12 +1,10 @@
 import { Dispatch, FC, SetStateAction } from "react";
 
-import { ICtxCurrency } from "@/processes/CurrenciesContext";
-
 import style from "./styles.module.scss";
 import { IconCoin } from "../../icons/icon-coin";
 
 interface SelectItemProps {
-  item: ICtxCurrency;
+  item: { id: string; name: string };
   disabled?: boolean;
   onSelect: Dispatch<any>;
   selectTitle: Dispatch<any>;

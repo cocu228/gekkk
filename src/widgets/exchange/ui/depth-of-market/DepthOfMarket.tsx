@@ -11,7 +11,6 @@ import { apiGetRates, apiGetTradeInfo } from "@/shared/(orval)api/gek";
 import { GetTradeInfoOut } from "@/shared/(orval)api/gek/model";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
-import { CtxExchangeData } from "../../model/context";
 import styles from "./style.module.scss";
 
 interface IParams {
@@ -37,7 +36,6 @@ function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams
   };
 
   const { currencies } = useContext(CtxCurrencies);
-  const { onPriceCurrenciesSwap } = useContext(CtxExchangeData);
   const [{ rate, price, loading, tradeInfo }, setState] = useState<DepthOfMarketState>(initialState);
 
   useEffect(() => {
@@ -130,7 +128,11 @@ function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams
   }
 
   // Generates depth of market rows
-  const getDepthItems = (array: Array<number[]> = [], align: "top" | "bottom" = "top", color: "red" | "green") => {
+  const getDepthItems = (
+    array: Array<number[]> = [],
+    align: "top" | "bottom" = "top",
+    color: "red" | "green" = "red"
+  ) => {
     const rows = Array<JSX.Element>();
     let maxAmount: number;
     const arrLen: number = array.length - 1;

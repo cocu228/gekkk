@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import { Children, FC, ReactNode } from "react";
 
 interface IParams {
   cols: number;
   className: string;
-  children: React.ReactNode;
+  children: ReactNode;
   customTemplateColumns?: string;
   onClick: () => void;
 }
@@ -11,7 +11,7 @@ interface IParams {
 const GTRow: FC<Partial<IParams>> = ({ onClick, children, className, cols = null, customTemplateColumns }) => {
   const standartColumnsTemplate = cols
     ? `repeat(${cols}, minmax(0, 1fr))`
-    : `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`;
+    : `repeat(${Children.toArray(children).length}, minmax(0, 1fr))`;
 
   return (
     <div

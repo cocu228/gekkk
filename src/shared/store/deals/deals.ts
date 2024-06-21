@@ -27,7 +27,9 @@ export const storeDeals = create<IStoreDeals>()(
 
       // console.log('Organisations BCC', dataOrganizations)
 
-      // const activeProgramsBCC = dataOrganizations[0].accounts.filter((account) => account.accountType === 'PHYSICAL' && account.status !== 'DEBIT_BLOCKED')[0].activeBonusPrograms;
+      // const activeProgramsBCC =
+      // dataOrganizations[0].accounts.filter((account) =>
+      // account.accountType === 'PHYSICAL' && account.status !== 'DEBIT_BLOCKED')[0].activeBonusPrograms;
 
       const { data: userActivePrograms } = await apiGetPrograms();
       const convertedPrograms: ActiveBonusProgram[] = userActivePrograms.result.map(

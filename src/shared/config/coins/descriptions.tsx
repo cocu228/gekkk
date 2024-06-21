@@ -8,7 +8,7 @@ import { IS_GEKKARD_APP } from "@/shared/lib";
 
 import ETokensConst from "./constants";
 
-export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
+export function useGetTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
   const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
   const { t } = useTranslation();
 

@@ -28,6 +28,7 @@ export default () => {
         });
         getRoomsList();
 
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         navigate(`/private-room?roomId=${data.result}`);
       })();
     }

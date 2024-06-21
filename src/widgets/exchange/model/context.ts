@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 
@@ -21,4 +21,4 @@ export interface ICtxExchangeData {
   onFromCurrencyChange?: (value: string) => void;
 }
 
-export const CtxExchangeData = React.createContext<ICtxExchangeData>(null);
+export const CtxExchangeData = createContext<ICtxExchangeData>(null);

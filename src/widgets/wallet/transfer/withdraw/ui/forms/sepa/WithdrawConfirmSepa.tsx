@@ -1,7 +1,13 @@
 import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
-import { apiPaymentSepa, IResCommission, IResErrors, IResResult } from "@/shared/api";
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  apiPaymentSepa,
+  IPaymentDetails,
+  IResCommission,
+  IResErrors,
+  IResResult
+} from "@/shared/api";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import {
   CtxWalletData,
   CtxWalletNetworks,
@@ -11,66 +17,93 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss";
-import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
+import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import BankReceipt from "@/widgets/receipt/ui/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import axios from "axios";
 import useError from "@/shared/model/hooks/useError";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { PaymentDetails } from "@/shared/(orval)api/gek/model";
+import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 
 interface IState {
   loading: boolean;
   total: IResCommission;
 }
 
-const WithdrawConfirmSepa = ({
-  amount,
+interface IWithdrawConfirmSepaProps {
+  details: PaymentDetails;
+  handleCancel: () => void;
+}
+
+const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
   details,
-  accountNumber,
-  beneficiaryName,
-  transferDescription,
   handleCancel,
 }) => {
+  const {
+    iban,
+    purpose,
+    beneficiaryName,
+    amount: {
+      sum: {
+        value: amount
+      }
+    }
+  } = details;
+
   const { t } = useTranslation();
-  const { account } = useContext(CtxRootData);
-  const { $const } = useContext(CtxWalletData);
-  const {setRefresh} = useContext(CtxRootData);
+  const { setRefresh } = useContext(CtxRootData);
   const [uasToken, setUasToken] = useState<string>(null);
   const { setContent } = useContext(CtxGlobalModalContext);
   const { displayHistory } = useContext(CtxDisplayHistory);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const { getAccountDetails } = storeAccountDetails((state) => state);
-  const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
-  const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
+  const { networkTypeSelect, networksForSelector } =
+    useContext(CtxWalletNetworks);
+  const { label } = networksForSelector.find(
+    (it) => it.value === networkTypeSelect,
+  );
 
   const [{ total, loading }, setState] = useState<IState>({
     loading: true,
     total: undefined,
   });
 
+  const getTransformDetails = (): IPaymentDetails => {
+    const { purpose, ...others } = details
+    return {
+      ...others,
+      transferDetails: transferDescriptions.find((d) => d.value === purpose)?.label
+    } as IPaymentDetails
+  }
+
   useEffect(() => {
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {
       const { data } = await apiGetUas(null, {
-        cancelToken: cancelTokenSource.token
+        cancelToken: cancelTokenSource.token,
       });
       const { phone } = await getAccountDetails();
 
       setUasToken(data.result.token);
 
-      apiPaymentSepa(details.current, true, {
-        Authorization: phone,
-        Token: data.result.token
-      }, cancelTokenSource.token)
+      apiPaymentSepa(
+        getTransformDetails(),
+        true,
+        {
+          Authorization: phone,
+          Token: data.result.token,
+        },
+        cancelTokenSource.token,
+      )
         .then(({ data }) => {
           if ((data as IResErrors).errors) {
             localErrorHunter({
               code: 0,
-              message: "Something went wrong..."
+              message: "Something went wrong...",
             });
           }
 
@@ -78,7 +111,7 @@ const WithdrawConfirmSepa = ({
             ...prev,
             loading: false,
             total: data as IResCommission,
-          }))
+          }));
         })
         .catch((err) => {
           if (err.code === "ERR_CANCELED") {
@@ -98,9 +131,9 @@ const WithdrawConfirmSepa = ({
       loading: true,
     }));
 
-    const {phone} = await getAccountDetails();
+    const { phone } = await getAccountDetails();
 
-    await apiPaymentSepa(details.current, false, {
+    await apiPaymentSepa(getTransformDetails(), false, {
       Authorization: phone,
       Token: uasToken,
     }).then(async (response) => {
@@ -108,7 +141,7 @@ const WithdrawConfirmSepa = ({
       const confToken = response.data.errors[0].properties.confirmationToken;
       const headers = await signHeadersGeneration(phone, confToken);
 
-      await apiPaymentSepa(details.current, false, {
+      await apiPaymentSepa(getTransformDetails(), false, {
         ...headers,
         Authorization: phone,
         Token: uasToken,
@@ -120,9 +153,11 @@ const WithdrawConfirmSepa = ({
           setContent({
             content: (
               <ModalTrxStatusSuccess
-                onReceipt={() => getReceipt((data as IResResult).referenceNumber)}
+                onReceipt={() =>
+                  getReceipt((data as IResResult).referenceNumber)
+                }
               />
-            )
+            ),
           });
         })
         .catch(() => {
@@ -139,7 +174,8 @@ const WithdrawConfirmSepa = ({
     // });
   };
 
-  return <>
+  return (
+    <>
       <div className="row mb-5 md:mb-0">
         <div className="col">
           <div className={`wrapper ${styles.ModalInfo}`}>
@@ -181,11 +217,10 @@ const WithdrawConfirmSepa = ({
           <div className="col text-[#3A5E66] font-semibold ">
             <span
               className={
-                styles.ModalRowsValue +
-                " break-keep text-nowrap text-ellipsis"
+                styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"
               }
             >
-              {accountNumber}
+              {iban}
             </span>
           </div>
         </div>
@@ -206,19 +241,17 @@ const WithdrawConfirmSepa = ({
         </div>
         <div className="row mb-2">
           <div className="col text-[#3A5E66] font-semibold">
-            <span className={styles.ModalRowsValue}>
-              {transferDescription}
-            </span>
+            <span className={styles.ModalRowsValue}>{purpose}</span>
           </div>
         </div>
       </div>
 
       <div className="w-full flex justify-center">
         <Commissions
-            isLoading={loading}
-            youWillPay={total.total}
-            youWillGet={amount}
-            fee={total.commission}
+          isLoading={loading}
+          youWillPay={total.total}
+          youWillGet={amount}
+          fee={total.commission}
         />
       </div>
 
@@ -249,7 +282,8 @@ const WithdrawConfirmSepa = ({
           </div>
         </div>
       </div>
-  </>
+    </>
+  );
 };
 
 export default WithdrawConfirmSepa;

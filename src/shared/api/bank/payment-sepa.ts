@@ -1,7 +1,7 @@
 import {$axios} from "@/shared/lib/(orval)axios";
 import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 
-interface IPaymentDetails {
+export interface IPaymentDetails {
     iban: string;
     account: string;
     purpose: string;

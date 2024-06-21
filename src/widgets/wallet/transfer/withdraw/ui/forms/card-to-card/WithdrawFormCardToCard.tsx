@@ -61,18 +61,6 @@ const WithdrawFormCardToCard = () => {
     }
   })
 
-  const [inputs, setInputs] = useState<{
-    comment: string;
-    cardNumber: string;
-    selectedCard: string;
-    cardholderName: string;
-  }>({
-    comment: "",
-    cardNumber: null,
-    selectedCard: null,
-    cardholderName: null,
-  });
-
   const [loading, setLoading] = useState<boolean>(false);
   const { inputCurr, setInputCurr } = useInputState();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();

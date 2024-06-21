@@ -1,41 +1,46 @@
 import Loader from "@/shared/ui/loader";
 import styles from "../styles.module.scss";
-import {formatAsNumber} from "@/shared/lib";
 import {useTranslation} from "react-i18next";
 import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
-import {useContext, useEffect, useRef, useState} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/receipt/ui/bank";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import {IconApp} from "@/shared/ui/icons/icon-app";
+import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-
-interface IParams {
-    amount: number;
-    comment: string;
-    phoneNumber: string;
-    handleCancel: () => void;
-}
+import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 
 interface IState {
     loading: boolean;
     totalCommission: IResCommission;
 }
 
-const WithdrawConfirmPhoneNumber = ({
-    amount,
-    comment,
-    phoneNumber,
+interface IWithdrawConfirmPhoneNumberProps {
+    details: PaymentDetails;
+    handleCancel: () => void;
+}
+
+const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
+    details,
     handleCancel
-}: IParams) => {
+}) => {
+    const {
+        phoneNumber,
+        purpose,
+        amount: {
+            sum: {
+                value: amount
+            }
+        }
+    } = details
+
     const [{
         loading,
         totalCommission
@@ -44,8 +49,6 @@ const WithdrawConfirmPhoneNumber = ({
         totalCommission: undefined
     });
     const {t} = useTranslation();
-    const {account} = useContext(CtxRootData);
-    const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxGlobalModalContext);
     const [uasToken, setUasToken] = useState<string>(null);
@@ -54,22 +57,6 @@ const WithdrawConfirmPhoneNumber = ({
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
-    const details = useRef({
-        account: account.account_id,
-        beneficiaryName: null,
-        cardNumber: null,
-        phoneNumber: formatAsNumber(phoneNumber),
-        purpose: comment,
-        amount: {
-            sum: {
-                value: amount,
-                currency: {
-                    code: $const
-                }
-            }
-        }
-    });
-
     useEffect(() => {
         (async () => {
             const {data} = await apiGetUas();
@@ -77,7 +64,7 @@ const WithdrawConfirmPhoneNumber = ({
 
             setUasToken(data.result.token);
             
-            apiPaymentContact(details.current, true, {
+            apiPaymentContact(details, true, {
                 Authorization: phone,
                 Token: data.result.token
             })
@@ -101,7 +88,7 @@ const WithdrawConfirmPhoneNumber = ({
         
         const {phone} = await getAccountDetails();
         
-        await apiPaymentContact(details.current, false, {
+        await apiPaymentContact(details, false, {
             Authorization: phone,
             Token: uasToken
         }).then(async (response) => {
@@ -110,7 +97,7 @@ const WithdrawConfirmPhoneNumber = ({
             
             const headers = await signHeadersGeneration(phone, confToken);
             
-            await apiPaymentContact(details.current, false, {
+            await apiPaymentContact(details, false, {
                 ...headers,
                 Authorization: phone,
                 Token: uasToken
@@ -191,7 +178,7 @@ const WithdrawConfirmPhoneNumber = ({
                             </span>
                         </div>
                     </div>
-                    {!comment ? null : <>
+                    {!purpose ? null : <>
                         <div className="row mb-2 md:mb-1">
                             <div className="col">
                                 <span className={styles.ModalRowsTitle}>
@@ -202,7 +189,7 @@ const WithdrawConfirmPhoneNumber = ({
                         <div className="row mb-4 md:mb-2">
                             <div className="col">
                                 <span className={styles.ModalRowsValue}>
-                                    {comment}
+                                    {purpose}
                                 </span>
                             </div>
                         </div>

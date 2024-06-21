@@ -1,5 +1,4 @@
 import Decimal from "decimal.js";
-import {Skeleton} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
@@ -8,18 +7,18 @@ import { FC, useContext, useEffect, useRef, useState } from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { apiGetUas } from "@/shared/(orval)api";
-import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
-import { useTranslation } from "react-i18next";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import {apiGetUas} from "@/shared/(orval)api";
+import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import {useTranslation} from "react-i18next";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
-import { maskFullCardNumber } from "@/shared/lib";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import {maskFullCardNumber} from "@/shared/lib";
+import {IconApp} from "@/shared/ui/icons/icon-app";
+import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import { PaymentDetails } from "@/shared/(orval)api/gek/model";
+import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 
 
 interface IState {
@@ -47,10 +46,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
           }
     } = details
 
-    const [{
-        loading,
-        totalCommission,
-    }, setState] = useState<IState>({
+    const [{loading, totalCommission}, setState] = useState<IState>({
         loading: false,
         totalCommission: undefined
     });

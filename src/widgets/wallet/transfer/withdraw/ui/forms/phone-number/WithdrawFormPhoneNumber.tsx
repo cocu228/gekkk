@@ -7,36 +7,59 @@ import Button from "@/shared/ui/button/Button";
 import { MASK_PHONE } from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
-import { useContext, useEffect, useState } from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {
-  validateBalance,
-  validateMinimumAmount,
-} from "@/shared/config/validators";
-import {
-  CtxWalletData,
-  CtxWalletNetworks,
-} from "@/widgets/wallet/transfer/model/context";
-import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import { validateBalance, validateMinimumAmount, } from "@/shared/config/validators";
+import { CtxWalletData, CtxWalletNetworks, } from "@/widgets/wallet/transfer/model/context";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import {PaymentDetails} from "@/shared/(orval)api/gek/model";
+import {debounce, formatAsNumber} from "@/shared/lib";
+import {CtxRootData} from "@/processes/RootContext";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
+  const {account} = useContext(CtxRootData);
   const { inputCurr, setInputCurr } = useInputState();
+  const [loading, setLoading] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
-  const { min_withdraw = 0, withdraw_fee } =
-    getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { networkTypeSelect, tokenNetworks, setBankRefresh } = useContext(CtxWalletNetworks);
+  const { min_withdraw = 0, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+
+  const [details, setDetails] = useState<PaymentDetails>({
+    account: account.account_id,
+    amount: {
+      sum: {
+        currency: {
+          code: currency.$const
+        }
+      }
+    }
+  })
+
+  const onInput = ({ target }) => {
+    setDetails((prev) => ({
+      ...prev,
+      [target.name]: target.name === "phoneNumber" ? formatAsNumber(target.value) : target.value
+    }));
+  };
+
+  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
+  const delayRes = useCallback(
+    debounce((details: PaymentDetails) => {
+      setBankRefresh(details);
+    }, 2500),
+    []);
 
   const [inputs, setInputs] = useState<{
     comment: string;
@@ -47,19 +70,23 @@ const WithdrawFormPhoneNumber = () => {
   });
 
   useEffect(() => {
-    setIsValid(() =>
-      Object.keys(inputs).every((i) => {
-        if (!inputs[i]) return false;
-        if (i === "phoneNumber") return inputs[i].length > 7;
+    if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
+      setLoading(true);
+      delayRes(details);
+      delayDisplay();
+    }
+  }, [inputCurr.value.number, details]);
 
-        return inputs[i].length > 0;
+  useEffect(() => {
+    setIsValid(() =>
+      Object.keys(details).every((i) => {
+        if (!inputs[i]) return false;
+        if (i === "phoneNumber") return details[i].length > 7;
+
+        return details[i].length > 0;
       })
     );
-  }, [inputs, inputCurr.value]);
-
-  const onInputDefault = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
-  };
+  }, [details, inputCurr.value]);
 
   return (
     <div className="wrapper">
@@ -115,7 +142,7 @@ const WithdrawFormPhoneNumber = () => {
                 allowSymbols
                 name={"phoneNumber"}
                 placeholder={t("auth.enter_phone_number")}
-                onChange={onInputDefault}
+                onChange={onInput}
                 onInput={onPhoneNumberInput}
               />
             </div>
@@ -136,9 +163,9 @@ const WithdrawFormPhoneNumber = () => {
                 <Input
                   allowDigits
                   allowSymbols
-                  value={inputs.comment}
-                  name={"comment"}
-                  onChange={onInputDefault}
+                  name={"purpose"}
+                  value={details.purpose}
+                  onChange={onInput}
                   placeholder={t("enter_description")}
                 />
             </div>
@@ -148,6 +175,7 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className="row w-full flex justify-center">
           <Commissions
+              isLoading={loading}
               youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
@@ -160,11 +188,10 @@ const WithdrawFormPhoneNumber = () => {
         destroyOnClose
         isModalOpen={isModalOpen}
         onCancel={handleCancel}
-                title={t("confirm_transaction")}
+        title={t("confirm_transaction")}
       >
         <WithdrawConfirmPhoneNumber
-          {...inputs}
-          amount={inputCurr.value.number}
+          details={details}
           handleCancel={handleCancel}
         />
       </Modal>

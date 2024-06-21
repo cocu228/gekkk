@@ -30,10 +30,11 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
-  
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const cards = storeActiveCards((state) => state.activeCards);
 
   
@@ -92,6 +93,21 @@ const WithdrawFormCardToCard = () => {
     id: item.cardId,
     name: formatCardNumber(item.displayPan)
   }));
+
+  const handleConfirm = async () => {
+    if(!uasToken) {
+        getUasToken()
+    } else {
+        showModal() 
+    }
+}
+
+  useEffect(() => {
+    if(uasToken) {
+        showModal()
+    }
+}, [uasToken])
+
 
   return (
     !cards ? (
@@ -234,7 +250,7 @@ const WithdrawFormCardToCard = () => {
             <Button
               size="lg"
               className="w-full"
-              onClick={showModal}
+              onClick={handleConfirm}
               disabled={!isValidated || inputCurrValid.value}
             >
               {t("transfer")}

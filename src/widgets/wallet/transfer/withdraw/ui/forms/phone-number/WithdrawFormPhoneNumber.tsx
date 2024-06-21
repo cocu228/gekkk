@@ -24,6 +24,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ const WithdrawFormPhoneNumber = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
   const { min_withdraw = 0, withdraw_fee } =
     getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
@@ -60,6 +62,20 @@ const WithdrawFormPhoneNumber = () => {
   const onInputDefault = ({ target }) => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
+
+  const handleConfirm = async () => {
+    if(!uasToken) {
+        getUasToken()
+    } else {
+        showModal() 
+    }
+}
+
+  useEffect(() => {
+    if(uasToken) {
+        showModal()
+    }
+}, [uasToken])
 
   return (
     <div className="wrapper">
@@ -172,7 +188,7 @@ const WithdrawFormPhoneNumber = () => {
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
-          onClick={showModal}
+          onClick={handleConfirm}
           className={styles.Button}
           disabled={!isValid || inputCurrValid.value}
         >

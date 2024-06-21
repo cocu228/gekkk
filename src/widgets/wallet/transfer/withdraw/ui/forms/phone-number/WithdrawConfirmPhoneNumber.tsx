@@ -2,7 +2,6 @@ import Loader from "@/shared/ui/loader";
 import styles from "../styles.module.scss";
 import {formatAsNumber} from "@/shared/lib";
 import {useTranslation} from "react-i18next";
-import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
@@ -17,6 +16,7 @@ import BankReceipt from "@/widgets/receipt/ui/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 interface IParams {
     amount: number;
@@ -44,11 +44,11 @@ const WithdrawConfirmPhoneNumber = ({
         totalCommission: undefined
     });
     const {t} = useTranslation();
+    const {uasToken} = useContext(UasConfirmCtx)
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxGlobalModalContext);
-    const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -72,14 +72,12 @@ const WithdrawConfirmPhoneNumber = ({
 
     useEffect(() => {
         (async () => {
-            const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
 
-            setUasToken(data.result.token);
             
             apiPaymentContact(details.current, true, {
                 Authorization: phone,
-                Token: data.result.token
+                Token: uasToken
             })
             .then(({data}) => setState(prev => ({
                 ...prev,
@@ -210,9 +208,9 @@ const WithdrawConfirmPhoneNumber = ({
                 </div>
                 <Commissions
                     isLoading={loading}
-                    youWillPay={totalCommission.total}
+                    youWillPay={totalCommission?.total}
                     youWillGet={amount}
-                    fee={totalCommission.commission}
+                    fee={totalCommission?.commission}
                 />
                 <div className="row mt-4">
                     <div className="col relative">

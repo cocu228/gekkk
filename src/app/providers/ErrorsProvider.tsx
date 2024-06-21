@@ -9,16 +9,15 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
-import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
+import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-provider-types";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
-import { UasToken } from "@/processes/uas-provider-context";
+import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 
 // todo: refactor this
-const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
-    offline,
+const ErrorsProvider: FC<PropsWithChildren & {  }> = function ({
     children
 }): JSX.Element | null {
     const navigate = useNavigate();
@@ -28,6 +27,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
 
     const getUasToken = async () => {
         const {data} = await apiGetUas();
+
         setUasToken(data.result.token)
     }
 
@@ -124,9 +124,21 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                 <Item key={"ErrorMessage" + i} id={item.id} message={item.message} type={item.type} onClick={onClose}/>)
             }
         </div>}
-        <CtxOfflineMode.Provider value={{offline}}>
-            {children}
-        </CtxOfflineMode.Provider>
+            <UasConfirmCtx.Provider
+                value={{
+                    pending: state.pending,
+                    actionConfirmResponse: state.actionConfirmResponse,
+                    setSuccess: () => setState(prev => ({
+                        ...prev,
+                        actionConfirmResponse: null
+                    })),
+                    uasToken: uasToken,
+                    getUasToken: getUasToken
+                }}
+            >
+                {children}
+                <ActionConfirmationWindow />
+            </UasConfirmCtx.Provider>
 
         <Modal
             isModalOpen={isModalOpen}

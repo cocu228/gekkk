@@ -19,6 +19,7 @@ import { maskFullCardNumber } from "@/shared/lib";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 
 interface IState {
@@ -46,13 +47,12 @@ const WithdrawConfirmCardToCard = ({
     const {md} = useBreakpoints()
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
-
+    const {uasToken} = useContext(UasConfirmCtx)
     const [isErr, setErr] = useState<boolean>(false)
     const [isSuccess, setSuccess] = useState<boolean>(false)
     const { setRefresh } = useContext(CtxRootData)
@@ -120,14 +120,12 @@ const WithdrawConfirmCardToCard = ({
 
     useEffect(() => {
         (async () => {
-            const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
             
-            setUasToken(data.result.token);
 
             apiPaymentContact(details.current, true, {
                 Authorization: phone,
-                Token: data.result.token
+                Token: uasToken
             }).then(({data}) => setState(prev => ({
                 ...prev,
                 totalCommission: data as IResCommission

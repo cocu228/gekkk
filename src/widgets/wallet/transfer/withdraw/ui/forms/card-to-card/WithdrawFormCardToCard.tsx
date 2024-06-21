@@ -4,7 +4,7 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { MASK_BANK_CARD_NUMBER } from "@/shared/config/mask";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { formatCardNumber } from "@/widgets/dashboard/model/helpers";
@@ -30,17 +30,36 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from "@/shared/ui/oldVersions/SearchSelect/Select";
 import style from './styles.module.scss'
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { PaymentDetails } from "@/shared/(orval)api/gek/model";
+import { CtxRootData } from "@/processes/RootContext";
+import { debounce } from "@/shared/lib";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
   
   const cards = storeActiveCards((state) => state.activeCards);
 
-  
+  const {account} = useContext(CtxRootData);
+  const {$const} = useContext(CtxWalletData);
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [details, setDetails] = useState<PaymentDetails>({
+    account: account.account_id,
+    beneficiaryName: null,
+    cardNumber: null,
+    fromCardId: null,
+    purpose: null,
+    amount: {
+      sum: {
+        currency: {
+          code: $const
+        }
+      }
+    }
+  })
 
   const [inputs, setInputs] = useState<{
     comment: string;
@@ -54,14 +73,26 @@ const WithdrawFormCardToCard = () => {
     cardholderName: null,
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
   const { inputCurr, setInputCurr } = useInputState();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
 
-  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
+  const { networkTypeSelect, tokenNetworks, setBankRefresh } = useContext(CtxWalletNetworks);
 
-  const onInputDefault = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
+  const onInput = ({ target }) => {
+    setDetails((prev) => ({ ...prev, [target.name]: target.value }));
   };
+
+  const handleOnFromCardId = (val: string) => {
+    setDetails(prev => ({ ...prev, fromCardId: val }))
+  }
+
+  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
+  const delayRes = useCallback(
+    debounce((details: PaymentDetails) => {
+      setBankRefresh(details);
+    }, 2500),
+    []);
 
   const {
     min_withdraw = 0,
@@ -70,23 +101,35 @@ const WithdrawFormCardToCard = () => {
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const isValidated = () =>
-    Object.keys(inputs).every((i) => {
-      if (!inputs[i]) return false;
-      if (i === "cardNumber") return inputs[i].length === 19;
+    Object.keys(details).every((i) => {
+      if (!details[i]) return false;
+      if (i === "cardNumber") return details[i].length === 19;
 
-      return inputs[i].length > 0;
+      return details[i].length > 0;
     });
 
   useEffect(() => {
-    setInputs(() => ({
-      ...inputs,
-      selectedCard: cards?.find((c) =>
-        ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus)
-      )
+    if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
+      setLoading(true);
+      delayRes(details);
+      delayDisplay();
+    }
+  }, [inputCurr.value.number, details]);
+
+  useEffect(() => {
+    setDetails(() => ({
+      ...details,
+      selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
         ? cards[0].cardId
         : null,
     }));
   }, [cards]);
+
+  useEffect(() => {
+    if (inputCurr.value.number) {
+      setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
+    }
+  }, [inputCurr.value.number]);
 
   const transformedList = cards.map(item => ({
     id: item.cardId,
@@ -147,12 +190,7 @@ const WithdrawFormCardToCard = () => {
                   <Select
                       list={transformedList}
                       placeholderText={t("select_card")}
-                      onSelect={(val) => {
-                        setInputs(() => ({
-                          ...inputs,
-                          selectedCard: val,
-                        }));
-                      }}
+                      onSelect={handleOnFromCardId}
                     />
                 </div>
               </div>
@@ -166,32 +204,23 @@ const WithdrawFormCardToCard = () => {
             {t("to_card")}:
           </span>
           <Input
-              placeholder={t("enter_description")}
-              allowDigits
-              type={"text"}
-              onInput={onCardNumberInput}
-              onChange={({ target }) => {
-                setInputs(() => ({
-                  ...inputs,
-                  cardNumber: target.value.replaceAll(" ", ""),
-                }));
-              }}
-            />
+            name={"cardNumber"}
+            placeholder={t("enter_description")}
+            allowDigits
+            type={"text"}
+            onInput={onCardNumberInput}
+            onChange={onInput}
+          />
         </div>
         <div className="row mb-[10px] w-full">
           <span className={style.InputTitle}>
             {t("cardholder")}:
           </span>
           <Input
-              value={inputs.cardholderName}
-              onChange={({ target }) => {
-                setInputs(() => ({
-                  ...inputs,
-                  cardholderName: target.value.toUpperCase(),
-                }));
-              }}
+              name={"beneficiaryName"}
+              value={details.beneficiaryName}
               placeholder={t("enter_cardholder_name")}
-              name={"cardholderName"}
+              onChange={onInput}
             />
         </div>
         <div className="row w-full">
@@ -199,21 +228,22 @@ const WithdrawFormCardToCard = () => {
             {t("description")}:
           </span>
           <Input
+              name={"purpose"}
               allowDigits
               allowSymbols
-              value={inputs.comment}
-              name={"comment"}
-              onChange={onInputDefault}
+              value={details.purpose}
+              onChange={onInput}
               placeholder={t("enter_description")}
             />
         </div>   
         
       <div className={`${style.PayInfoWrap} flex w-full justify-center`}>
           <Commissions
-              youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
-              youWillGet={inputCurr.value.number}
-              fee={withdraw_fee}
-              youWillGetCoin={"EURG"}
+            isLoading={loading}
+            youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
+            youWillGet={inputCurr.value.number}
+            fee={withdraw_fee}
+            youWillGetCoin={"EURG"}
           />
       </div>
 
@@ -223,8 +253,7 @@ const WithdrawFormCardToCard = () => {
           isModalOpen={isModalOpen}
         >
           <WithdrawConfirmCardToCard
-            {...inputs}
-            amount={inputCurr.value.number}
+            details={details}
             handleCancel={handleCancel}
           />
         </Modal>

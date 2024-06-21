@@ -4,7 +4,7 @@ import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
-import {useContext, useEffect, useRef, useState} from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
@@ -19,6 +19,7 @@ import { maskFullCardNumber } from "@/shared/lib";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 
 
 interface IState {
@@ -26,14 +27,26 @@ interface IState {
     totalCommission: IResCommission;
 }
 
-const WithdrawConfirmCardToCard = ({
-    amount,
-    comment,
-    cardNumber,
-    selectedCard,
-    cardholderName,
+interface IWithdrawConfirmCardToCardProps {
+    details: PaymentDetails;
+    handleCancel: () => void;
+}
+
+const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
+    details,
     handleCancel
 }) => {
+    const {
+        cardNumber,
+        beneficiaryName,
+        purpose,
+          amount: {
+                sum: {
+                    value: amount
+                }
+          }
+    } = details
+
     const [{
         loading,
         totalCommission,
@@ -44,8 +57,6 @@ const WithdrawConfirmCardToCard = ({
 
     const {t} = useTranslation()
     const {md} = useBreakpoints()
-    const {account} = useContext(CtxRootData);
-    const {$const} = useContext(CtxWalletData);
     const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const cards = storeActiveCards(state => state.activeCards);
@@ -53,25 +64,9 @@ const WithdrawConfirmCardToCard = ({
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
-    const [isErr, setErr] = useState<boolean>(false)
-    const [isSuccess, setSuccess] = useState<boolean>(false)
+    const [, setErr] = useState<boolean>(false)
+    const [, setSuccess] = useState<boolean>(false)
     const { setRefresh } = useContext(CtxRootData)
-
-    const details = useRef({
-        account: account.account_id,
-        beneficiaryName: cardholderName,
-        cardNumber: cardNumber,
-        fromCardId: selectedCard,
-        purpose: comment,
-        amount: {
-            sum: {
-                value: amount,
-                currency: {
-                    code: $const
-                }
-            }
-        }
-    });
 
     const onConfirm = async () => {
         setState(prev => ({
@@ -81,7 +76,7 @@ const WithdrawConfirmCardToCard = ({
         
         const {phone} = await getAccountDetails();
         
-        await apiPaymentContact(details.current, false, {
+        await apiPaymentContact(details, false, {
             Authorization: phone,
             Token: uasToken
         }).then(async (response) => {
@@ -90,7 +85,7 @@ const WithdrawConfirmCardToCard = ({
             
             const headers = await signHeadersGeneration(phone, confToken);
             
-            await apiPaymentContact(details.current, false, {
+            await apiPaymentContact(details, false, {
                 ...headers,
                 Authorization: phone,
                 Token: uasToken
@@ -125,7 +120,7 @@ const WithdrawConfirmCardToCard = ({
             
             setUasToken(data.result.token);
 
-            apiPaymentContact(details.current, true, {
+            apiPaymentContact(details, true, {
                 Authorization: phone,
                 Token: data.result.token
             }).then(({data}) => setState(prev => ({
@@ -188,20 +183,20 @@ const WithdrawConfirmCardToCard = ({
                     </div>
                     <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold ">
-                            <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{maskFullCardNumber(cardNumber)}</span>
+                            <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{maskFullCardNumber(details?.cardNumber)}</span>
                         </div>
                     </div> </>}
-                    {cardholderName && <> <div className="row">
+                    {beneficiaryName && <> <div className="row">
                         <div className="col">
                             <span className={styles.ModalRowsTitle}>{t("cardholder")}</span>
                         </div>
                     </div>
                     <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold">
-                            <span className={styles.ModalRowsValue}>{cardholderName}</span>
+                            <span className={styles.ModalRowsValue}>{beneficiaryName}</span>
                         </div>
                     </div> </>}
-                    {comment && <>
+                    {purpose && <>
                         <div className="row">
                             <div className="col">
                                 <span className={styles.ModalRowsTitle}>{t('description')}</span>
@@ -209,7 +204,7 @@ const WithdrawConfirmCardToCard = ({
                         </div>
                         <div className="row mb-2">
                             <div className="col text-[#3A5E66] font-semibold">
-                                <span className={styles.ModalRowsValue}>{comment}</span>
+                                <span className={styles.ModalRowsValue}>{purpose}</span>
                             </div>
                         </div>
                     </>}

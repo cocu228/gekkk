@@ -15,7 +15,7 @@ import Transfers from '@/pages/transfers';
 import { GekkardPro } from '@/pages/gekkard-pro';
 import { IS_GEKKARD_APP } from '@/shared/lib';
 import ReceiptPage from "@/pages/receipt-page";
-import CardsMenu from '@/widgets/!cards-menu/ui';
+import CardsMenu from '@/widgets/cards-menu/ui';
 
 const router = createBrowserRouter([
     {

@@ -28,7 +28,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
   const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
 
   return (
-    <div className='flex flex-col relative pb-20 justify-center'>
+    <div className='flex flex-col relative pb-[60px] justify-center'>
       <div 
         className={` ${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
         onClick={showModal}
@@ -61,29 +61,29 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
               {t("cashback_programs.bonus_description")}
             </div> 
         </div>
-        <div className={styles.CashbackCardButtonContainer + " " + styles.CashbackCardButtonContainerMobile}>
-          {(toNoFeeProgram || toCashbackProgram) && 
-            <Button
-              color='blue'
-              className={`${styles.CashbackCardButton}`}
-              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
-              onClick={toNoFeeProgram
-                ? () => navigate('/wallet?currency=GKE&tab=no_fee_program')
-                : () => navigate('/wallet?currency=GKE&tab=cashback_program')
-              } 
-            >
-              <div className='flex flex-row'>
-                {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
-              </div>
-            </Button>
-          }
-        </div>
+        
         
       </div>
 
           
-          <div className='flex flex-col justify-between -mx-4 -mb-4'>
-            
+          <div className='flex flex-col relative justify-between -mx-4 -mb-4'>
+            <div className={ styles.CashbackCardButtonContainerMobile}>
+              {(toNoFeeProgram || toCashbackProgram) && 
+                <Button
+                  color='blue'
+                  className={`${styles.CashbackCardButton}`}
+                  disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
+                  onClick={toNoFeeProgram
+                    ? () => navigate('/wallet?currency=GKE&tab=no_fee_program')
+                    : () => navigate('/wallet?currency=GKE&tab=cashback_program')
+                  } 
+                >
+                  <div className='flex flex-row'>
+                    {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
+                  </div>
+                </Button>
+              }
+            </div>
             <div className={styles.CashbackDescription +" " + styles.CashbackDescriptionMobile}>
               <div className={styles.CashbackDescriptionTitle +" " + styles.CashbackDescriptionTitleMobile}>
                 {t("cashback_programs.conditions")}

@@ -38,6 +38,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `wallet`:
                 if(tab === "top_up") {return t("top_up_wallet")}
                 if(tab === "about") {return `${t("about")} ${currency}`}
+                if(tab === "programs") {return `${t("programs")} ${currency}`}
                 return t("wallet").capitalize();
             case `partnership-program`:
                 return t("partnership_program.title").capitalize();

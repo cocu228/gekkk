@@ -42,6 +42,85 @@ background-color: ${({ themeColor, hoverColor }) => hoverColor || themeColor};
 }
 `;
 
+const Name = styled.div<{
+  unread?: boolean,
+  titleTextColor?: string
+}>`
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  text-align: left;
+  vertical-align: text-top;
+  font-size: 14px;
+  line-height: auto;
+  position: relative;
+  z-index: 1;
+  color: ${({ titleTextColor }) => titleTextColor || '#000000'};
+
+  ${({ unread }) =>
+    unread
+      ? `
+font-weight: 700;
+`
+      : ''}
+`;
+
+const Timestamp = styled.div<{
+  color?: string,
+  unread?: boolean
+}>`
+text-align:right;
+vertical-align:text-top;
+font-size:12px;
+margin-left: 6px;
+margin-top:2px;
+margin-right:2px;
+align-self:flex-start;
+font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+${({ unread, color }) =>
+    unread
+      ? `
+color: ${color || 'black'} ;
+font-weight: 600;
+` : `
+color: ${color || 'rgb(75 85 99)'};
+`}
+`
+
+const MessageComponent = styled.div<{
+  unread?: boolean;
+  width: number;
+  media?: boolean;
+  color?: string
+}>`
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  text-align: left;
+  vertical-align: text-top;
+  font-size: 12px;
+  align-self: flex-start;
+  position: relative;
+  color: ${({ color }) => color || '#7a7a7a'};
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  max-width: ${({ width }) => width}px;
+  display: flex;
+  margin-top: 4px;
+
+  ${({ unread, color }) =>
+    unread
+      ? `
+color: ${color || 'black'} ;
+font-weight: 600;
+` : ''}
+
+`;
+
 export default function Conversation({
   title,
   lastMessage,
@@ -212,28 +291,24 @@ export default function Conversation({
           <div
             className={style.NameContainer}
           >
-            <div
-              className={`
-                ${style.Name}
-                ${unread && style.NameUnred}
-              `}
-            >{title}</div>
+            <Name
+              titleTextColor={"titleTextColor"}
+              unread={unread}>{title}</Name>
 
-            <div
-              className={`
-                ${style.Timestamp}
-                ${unread && style.TimestampUnread}
-              `}
-              >{dateSent}</div>
+            <Timestamp
+              unread={unread}
+              color={"contentTextColor"}>{dateSent}</Timestamp>
           </div>
-
-          <div
-            className={`
-              ${style.MessageComponent}
-              ${unread && style.MessageComponentUnread}
-            `}
-            style={{maxWidth: `${containerWidth - 96}px`}}
+          
+          <MessageComponent
+            color={"contentTextColor"}
+            width={containerWidth - 96}
+            unread={unread}
           >
+            {lastMessage?.user.id === currentUserId
+              ? 'You'
+              : lastMessage?.user.name}
+            :{'  '}
             {lastMessage?.user.id === currentUserId
               ? 'You'
               : lastMessage?.user.name}
@@ -253,7 +328,7 @@ export default function Conversation({
               <div
                 dangerouslySetInnerHTML={{ __html: lastMessage?.text || "" }}></div>
             )}
-          </div>
+          </MessageComponent>
         </div>
       </div>
     </div>

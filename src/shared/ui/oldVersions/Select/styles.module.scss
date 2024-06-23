@@ -142,16 +142,20 @@
 }
 
 .SelectTitle {
-    font-family: "Inter";
     font-weight: 400;
-    font-size: 12px;
 
     @media screen and (max-width: 768px) {
-        font-size: 9.3px !important;
+        font-size: 12px;
         color: #285E69;
     }
 }
 
 .Placeholder {
+    font-size: 16px;
     color: #DCDCD9;
+    text-transform: lowercase;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
 }

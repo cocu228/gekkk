@@ -48,7 +48,6 @@
   @include max-devices("md") {
       padding-top: 0;
       font-size: 1rem;
-
   }
 }
 
@@ -60,6 +59,7 @@
   border: 1px solid var(--color-secondary);
   border-radius: 8px;
   ::placeholder{
+    font-size: 16px;
     font-weight: normal;
     color: #DCDCD9;
   }
@@ -68,8 +68,7 @@
     padding-right: 8px;
     margin-top: 5px;
     ::placeholder{
-      font-size: 10px;
-      // padding-left: 10px;
+      font-size: 12px;
     }
   }
 

@@ -34,7 +34,7 @@ const CashbackCard = memo<Props>(({
   const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
 
   return (
-    <div className='flex mb-10 justify-center relative'>
+    <div className='flex pb-[60px] justify-center relative'>
       <div className={` ${styles.CashbackCard} ${className} ${isActive && styles.CashbackCardActive}`}>
         <div className='flex'>
           <div className={styles.CashbackCardName}>
@@ -64,7 +64,7 @@ const CashbackCard = memo<Props>(({
             </div> 
         </div>
 
-        <div className={styles.CashbackCardButtonContainer + " " + styles.CashbackCardButtonContainerMobile}>
+        <div className={styles.CashbackCardButtonContainer}>
           {(toNoFeeProgram || toCashbackProgram) && 
             <Button
               color='blue'

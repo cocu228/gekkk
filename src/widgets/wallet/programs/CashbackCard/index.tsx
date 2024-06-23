@@ -1,15 +1,35 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Loader from '@/shared/ui/loader';
-import CashbackCard from './CashbackCard';
-import { dealsData } from '../model/deals-data';
+import CashbackCard from './ui/CashbackCard';
+import { dealsData } from './model/deals-data';
 import { useSearchParams } from 'react-router-dom';
-import CashbackCardMobile from './CashbackCardMobile';
+import CashbackCardMobile from './ui/CashbackCardMobile';
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import { getWindowSize } from './model/helpers';
 
 function Programs() {
     const [params] = useSearchParams();
     const currency = params.get("currency");
     const {sm, md, lg, xl, xxl, xxxl} = useContext(BreakpointsContext);
+    const [windowSize, setWindowSize] = useState(getWindowSize());
+
+    //Если не использовать эту переменную,
+    //то карточки при некоторых размерах ломаются.
+    const needMobile = windowSize.innerWidth < 620 
+        || (!lg && windowSize.innerWidth < 1050) 
+        || (!xxl && windowSize.innerWidth < 1900)
+
+    useEffect(() => {
+        function handleWindowResize() {
+        setWindowSize(getWindowSize());
+        }
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+        window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     return (
         <div className='grid grid-cols-1 justify-center rlative'>
@@ -26,7 +46,7 @@ function Programs() {
                         mobileModalColor
                     } = cashback;
 
-                    return !(sm || (!md && lg) || (!xl && xxxl))
+                    return !(sm || (!md && lg) || (!xl && xxxl) || needMobile)
                     ? (
                         <CashbackCard
                             key={id}

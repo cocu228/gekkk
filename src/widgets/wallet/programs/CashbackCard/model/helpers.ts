@@ -26,3 +26,7 @@ export const DealTurn = {
     end: 'FINISH_10'
   },
 };
+export function getWindowSize() {
+  const {innerWidth, innerHeight} = window;
+  return {innerWidth, innerHeight};
+}

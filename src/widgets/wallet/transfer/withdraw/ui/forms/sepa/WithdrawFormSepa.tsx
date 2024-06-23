@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";

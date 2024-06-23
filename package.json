@@ -44,7 +44,6 @@
     "dayjs": "1.11.11",
     "decimal.js": "10.4.3",
     "elliptic": "^6.5.5",
-    "firebase": "^10.12.2",
     "html2canvas": "1.4.1",
     "html5-qrcode": "^2.3.8",
     "i18next": "^23.11.5",

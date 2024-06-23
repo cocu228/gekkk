@@ -9,12 +9,11 @@ import {AccountRights} from "@/shared/config/mask-account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import CardsMenu from "@/widgets/!cards-menu/ui";
+import CardsMenu from "@/widgets/cards-menu/ui";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
-import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 // import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {mockEUR} from "@/processes/PWA/mock-EUR";
@@ -25,9 +24,10 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
-import Programs from "@/widgets/wallet/programs/cashback/EUR/ui";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 import {IS_GEKKARD_APP} from "@/shared/lib/";
+import Programs from "@/widgets/wallet/programs/CashbackCard";
+import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -80,7 +80,7 @@ function Wallet() {
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid"
                              style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
-                            <div className="substrate z-10 w-inherit relative min-h-[200px]">
+                            <div className="substrate z-10 w-inherit relative min-h-[600px]">
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>

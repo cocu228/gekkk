@@ -1,11 +1,15 @@
+@import "@styles/mixins";
+
 .InputTitle {
+    line-height: normal;
     color: #1F3446;
-    font-size: 12px;
-    margin-left: 10px;
-    font-weight: 600;
-    font-family: Inter;
-    margin-bottom: 4px;
-    display: block;
+    font-weight: 500;
+    font-size: 16px;
+
+    @include max-devices("md") {
+        font-weight: 700;
+        font-size: 12px;
+    }
 }
 
 .PayInfoWrap {

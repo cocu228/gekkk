@@ -33,7 +33,13 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
 }) => {
   const {t} = useTranslation();
 
-  const header = <span className={textClassname}>{t("amount")}:</span>
+  const header = (
+    <span
+      className={textClassname ? textClassname : "font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]"}
+    >
+      {t("amount")}:
+    </span>
+  )
 
   return (
     <InputCurrency.Validator value={value} description={description} validators={validators} onError={onError}>

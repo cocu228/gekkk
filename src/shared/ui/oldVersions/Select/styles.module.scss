@@ -152,7 +152,7 @@
 
 .Placeholder {
     font-size: 14px;
-    color: #DCDCD9;
+    color: var(--gek-mid-grey);
     text-transform: lowercase;
 
     @media screen and (max-width: 768px) {

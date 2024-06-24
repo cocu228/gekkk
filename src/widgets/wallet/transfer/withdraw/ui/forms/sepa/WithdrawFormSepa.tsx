@@ -124,7 +124,6 @@ const WithdrawFormSepa = () => {
           description={getWithdrawDesc(min_withdraw, currency.$const)}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
-          textClassname={`${styles.TitleColText} ml-[7px]`}
           inputValue={inputCurr.value.string}
           validators={[
             validateBalance(currency, navigate, t),
@@ -139,9 +138,9 @@ const WithdrawFormSepa = () => {
 
       {/* IBAN Start */}
       <div className="w-full md:mb-[10px] mb-[15px]">
-        <div className="mb-[3px]">
-          <span className={`${styles.TitleColText} ml-[7px]`}>IBAN:</span>
-        </div>
+        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          IBAN:
+        </span>
         <Input
           name={"iban"}
           onChange={onInput}
@@ -153,12 +152,10 @@ const WithdrawFormSepa = () => {
       {/* IBAN End */}
 
       {/*  Recipient Start */}
-      <div className="w-full md:mb-[5px] mb-[10px]">
-        <div className="mb-[3px]">
-          <span className={`${styles.TitleColText} ml-[7px]`}>
-            {t("recipient")}:
-          </span>
-        </div>
+      <div className="w-full md:mb-[5px] mb-[10px] gap-[3px]">
+        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          {t("recipient")}:
+        </span>
         <Input
           onChange={onInput}
           name={"beneficiaryName"}
@@ -170,12 +167,10 @@ const WithdrawFormSepa = () => {
       {/* Recipient End */}
 
       {/* Description Start */}
-      <div className="w-full md:mb-[10px] mb-[15px]">
-        <div className="mb-[3px]">
-          <span className={`${styles.TitleColText} ml-[7px]`}>
-            {t("description")}:
-          </span>
-        </div>
+      <div className="w-full md:mb-[10px] mb-[15px] gap-[3px]">
+        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          {t("description")}:
+        </span>
         <Select
           value={details.purpose || ""}
           listHeight={170}
@@ -217,11 +212,11 @@ const WithdrawFormSepa = () => {
       {/* Transaction Information Start */}
       <div className={"w-full md:flex hidden justify-center"}>
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t("fee_is_prec")}{" "}
+            {t("fee_is_prec")}&nbsp;
             <span className={"font-bold"}>
               {withdraw_fee} EURG
-            </span>{" "}
-            {t("per_transaction")}
+            </span>
+            &nbsp;{t("per_transaction")}
           </span>
       </div>
       {/* Transaction Information End */}

@@ -76,7 +76,6 @@ const WithdrawFormBroker = () => {
                 <AmountInput
                     transfers
                     placeholder={t('enter_amount')}
-                    textClassname={`${styles.TitleColText} ml-[7px]`}
                     value={inputCurr.value.number}
                     inputValue={inputCurr.value.string}
                     currency={currency}
@@ -152,9 +151,9 @@ const WithdrawFormBroker = () => {
             {/* Transaction Information Start */}
             <div className="w-full md:flex hidden justify-center">
                 <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-                    {t("fee_is_prec")}
+                    {t("fee_is_prec")}&nbsp;
                     <span className={"font-bold"}>{percent_fee}%</span>
-                    {t("per_transaction")}
+                    &nbsp;{t("per_transaction")}
                 </span>
             </div>
             {/* Transaction Information End */}

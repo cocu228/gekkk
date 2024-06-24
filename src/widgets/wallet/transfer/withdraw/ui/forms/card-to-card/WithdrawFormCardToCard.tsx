@@ -159,7 +159,7 @@ const WithdrawFormCardToCard = () => {
 
         {/* From Card Start */}
         <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("from_card")}:
           </span>
           <div className="w-full relative md:h-[32px] cursor-pointer flex flex-row">
@@ -181,7 +181,7 @@ const WithdrawFormCardToCard = () => {
 
         {/* To Card Start */}
         <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("to_card")}:
           </span>
           <Input
@@ -197,7 +197,7 @@ const WithdrawFormCardToCard = () => {
 
         {/* Cardholder Start */}
         <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("cardholder")}:
           </span>
           <Input
@@ -211,7 +211,7 @@ const WithdrawFormCardToCard = () => {
 
         {/* Description Start */}
         <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("description")}:
           </span>
           <Input
@@ -263,7 +263,7 @@ const WithdrawFormCardToCard = () => {
         <div className={"w-full md:flex hidden justify-center"}>
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}&nbsp;
-            <span className={"font-bold"}>
+            <span className={"font-semibold"}>
               {withdraw_fee} {currency.$const}{" "}
             </span>{" "}
             &nbsp;{t("after_n_transactions_per_m", { times: 5, period: t("month") })}

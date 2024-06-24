@@ -69,7 +69,7 @@ const Validator: FC<IParams> = (({
                     </span>
                     ) : (
                     <div className="flex gap-1 items-center">
-                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t56" size={13}/></div>}
+                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t27" size={13}/></div>}
                         <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>{error}</span>
                     </div>
                 )}

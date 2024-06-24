@@ -117,7 +117,7 @@ const WithdrawFormPhoneNumber = () => {
 
       {/* To Card Start */}
       <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("phone_number")}:
           </span>
         <Input
@@ -133,7 +133,7 @@ const WithdrawFormPhoneNumber = () => {
 
       {/* Description Start */}
       <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
-        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>
         <Input

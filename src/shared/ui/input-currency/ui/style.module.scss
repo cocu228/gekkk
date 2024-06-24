@@ -83,13 +83,13 @@
     margin-top: -18px;
     line-height: 1rem;
     position: absolute;
-    font-size: 0.75rem;
+    font-size: 14px;
     white-space: nowrap;
     pointer-events: none;
-    color: var(--color-secondary);
+    color: var(--gek-mid-grey);
 
     @include max-devices("md") {
-      font-size: 0.65rem;
+      font-size: 12px;
     }
   }
 

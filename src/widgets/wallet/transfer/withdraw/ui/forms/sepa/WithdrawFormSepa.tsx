@@ -138,7 +138,7 @@ const WithdrawFormSepa = () => {
 
       {/* IBAN Start */}
       <div className="w-full md:mb-[10px] mb-[15px]">
-        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           IBAN:
         </span>
         <Input
@@ -153,7 +153,7 @@ const WithdrawFormSepa = () => {
 
       {/*  Recipient Start */}
       <div className="w-full md:mb-[5px] mb-[10px] gap-[3px]">
-        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("recipient")}:
         </span>
         <Input
@@ -168,7 +168,7 @@ const WithdrawFormSepa = () => {
 
       {/* Description Start */}
       <div className="w-full md:mb-[10px] mb-[15px] gap-[3px]">
-        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>
         <Select
@@ -213,7 +213,7 @@ const WithdrawFormSepa = () => {
       <div className={"w-full md:flex hidden justify-center"}>
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}&nbsp;
-            <span className={"font-bold"}>
+            <span className={"font-semibold"}>
               {withdraw_fee} EURG
             </span>
             &nbsp;{t("per_transaction")}
@@ -225,8 +225,8 @@ const WithdrawFormSepa = () => {
       <Modal
         destroyOnClose
         isModalOpen={isModalOpen}
-        onCancel={handleCancel}
         title={t("confirm_transaction")}
+        onCancel={handleCancel}
       >
         <WithdrawConfirmSepa
           details={details}

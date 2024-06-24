@@ -25,6 +25,7 @@ import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 interface IState {
   loading: boolean;
@@ -168,114 +169,60 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
     // });
   };
 
+  const sepaInfo: { label: string, value: string }[] = [
+    {
+      label: t("type_transaction"),
+      value: label
+    },
+    {
+      label: "IBAN",
+      value: iban
+    },
+    {
+      label: t("recipient"),
+      value: beneficiaryName
+    },
+    {
+      label: t("description"),
+      value: purpose
+    },
+  ]
+
   return (
     <>
-      <div className="row mb-5 md:mb-0">
-        <div className="col">
-          <div className={`wrapper ${styles.ModalInfo}`}>
-            <div className={styles.ModalInfoIcon}>
-              <div className="col">
-                <IconApp color="#8F123A" size={15} code="t27" />
-              </div>
+      <div className="flex items-start gap-[5px] mb-[30px]">
+        <IconApp color="#8F123A" size={15} className={"min-w-[15px] mt-[2px]"} code="t27" />
+        <span className="text-[var(--gek-dark-grey)] md:text-fs12 text-fs14">
+          {t("check_your_information_carefully")}
+        </span>
+      </div>
+
+      <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+        <div className="flex flex-col gap-[10px]">
+          {sepaInfo.map(({ label, value }) => (
+            <div key={value}>
+              <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+              <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
             </div>
-            <div className="row">
-              <div className="col">
-                <span className={styles.ModalInfoText}>
-                  {t("check_your_information_carefully")}
-                </span>
-              </div>
-            </div>
-          </div>
+          ))}
+        </div>
+        <div className="w-full">
+          <Commissions
+            isLoading={loading}
+            youWillPay={total?.total || 0}
+            youWillGet={amount}
+            fee={total?.commission || 0}
+          />
         </div>
       </div>
 
-      <div className={`${styles.ModalRows} p-[0_20px] mt-[15px]`}>
-        <div className="row mb-1">
-          <div className="col">
-            <span className={styles.ModalRowsTitle}>
-              {t("type_transaction")}
-            </span>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col text-[#3A5E66] font-semibold">
-            <span className={styles.ModalRowsValue}>{label}</span>
-          </div>
-        </div>
-        <div className="row mb-1">
-          <div className="col">
-            <span className={styles.ModalRowsTitle}>IBAN</span>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col text-[#3A5E66] font-semibold ">
-            <span
-              className={
-                styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"
-              }
-            >
-              {iban}
-            </span>
-          </div>
-        </div>
-        <div className="row mb-1">
-          <div className="col">
-            <span className={styles.ModalRowsTitle}>{t("recipient")}</span>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col text-[#3A5E66] font-semibold">
-            <span className={styles.ModalRowsValue}>{beneficiaryName}</span>
-          </div>
-        </div>
-        <div className="row mb-1">
-          <div className="col">
-            <span className={styles.ModalRowsTitle}>{t("description")}</span>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col text-[#3A5E66] font-semibold">
-            <span className={styles.ModalRowsValue}>{purpose}</span>
-          </div>
-        </div>
-      </div>
+      {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
 
-      <div className="w-full flex justify-center">
-        <Commissions
-          isLoading={loading}
-          youWillPay={total?.total || 0}
-          youWillGet={amount}
-          fee={total?.commission || 0}
-        />
-      </div>
-
-      <div className="mt-2">{localErrorInfoBox}</div>
-
-      <div className="row mt-4">
-        <div className="col relative">
-          <div className={styles.ButtonContainer + " px-4"}>
-            <Button
-              size="lg"
-              onClick={onConfirm}
-              className={styles.ButtonTwo}
-              disabled={!!localErrorInfoBox || !total || loading}
-            >
-              {t("confirm")}
-            </Button>
-
-            <Button
-              skeleton
-              size="lg"
-              className={styles.ButtonTwo}
-              onClick={() => {
-                handleCancel();
-              }}
-            >
-              {t("cancel")}
-            </Button>
-          </div>
-        </div>
-      </div>
+      <ConfirmButtons
+        isConfirmDisabled={!!localErrorInfoBox || !total || loading}
+        onConfirm={onConfirm}
+        onCancel={handleCancel}
+      />
     </>
   );
 };

@@ -160,7 +160,7 @@ const WithdrawFormBroker = () => {
             <div className="w-full md:flex hidden justify-center">
                 <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
                     {t("fee_is_prec")}&nbsp;
-                    <span className={"font-bold"}>{percent_fee}%</span>
+                    <span className={"font-semibold"}>{percent_fee}%</span>
                     &nbsp;{t("per_transaction")}
                 </span>
             </div>

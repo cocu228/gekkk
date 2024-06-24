@@ -6,7 +6,7 @@ import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {FC, useContext, useEffect, useState} from "react";
-import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
+import { apiPaymentContact, IResCommission, IResErrors, IResResult } from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
@@ -16,6 +16,7 @@ import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
+import useError from "@/shared/model/hooks/useError";
 
 interface IState {
     loading: boolean;
@@ -56,8 +57,10 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
 
     useEffect(() => {
+        localErrorClear();
         (async () => {
             const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
@@ -68,14 +71,24 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
                 Authorization: phone,
                 Token: data.result.token
             })
-            .then(({data}) => setState(prev => ({
-                ...prev,
-                loading: false,
-                totalCommission: data as IResCommission
-            })))
+            .then(({data}) => {
+                if ((data as IResErrors).errors) {
+                    localErrorHunter({
+                        code: 0,
+                        message: "Something went wrong...",
+                    });
+                }
+                setState(prev => ({
+                    ...prev,
+                    loading: false,
+                    totalCommission: data as IResCommission
+                }));
+            })
             .catch(() => {
-                handleCancel();
-                setContent({content: <ModalTrxStatusError/>});
+                localErrorHunter({
+                    code: 0,
+                    message: "Something went wrong...",
+                });
             });
         })();
     }, []);
@@ -112,7 +125,10 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
                       />
                     )
                 });
-            });
+            }).catch(() => {
+                handleCancel();
+                setContent({ content: <ModalTrxStatusError /> });
+            });;
         });
     }
 
@@ -127,7 +143,7 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
         <div className="-md:px-4">
             {loading && <Loader className='justify-center'/>}
 
-            <div className={loading ? 'collapse' : ''}>
+            <div className={loading ? "collapse" : ""}>
                 <div className="row mb-5 md:mb-0">
                     <div className="col">
                         <div className="p-4">
@@ -196,26 +212,27 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
                     </>}
                 </div>
                 <Commissions
-                    isLoading={loading}
-                    youWillPay={totalCommission.total}
-                    youWillGet={amount}
-                    fee={totalCommission.commission}
+                  isLoading={loading}
+                  youWillPay={totalCommission?.total || 0}
+                  youWillGet={amount}
+                  fee={totalCommission?.commission || 0}
                 />
+                <div className="mt-2">{localErrorInfoBox}</div>
                 <div className="row mt-4">
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
                             <Button
-                                onClick={onConfirm}
-                                disabled={!totalCommission}
-                                className={styles.ButtonTwo}
+                              onClick={onConfirm}
+                              disabled={!!localErrorInfoBox || !totalCommission}
+                              className={styles.ButtonTwo}
                             >{t("confirm")}</Button>
 
                             <Button
-                                skeleton
-                                className={styles.ButtonTwo}
-                                onClick={()=>{
-                                    handleCancel();
-                                }}
+                              skeleton
+                              className={styles.ButtonTwo}
+                              onClick={() => {
+                                  handleCancel();
+                              }}
                             >{t("cancel")}</Button>
                         </div>
                     </div>

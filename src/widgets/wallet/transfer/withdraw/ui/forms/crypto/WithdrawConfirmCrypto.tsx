@@ -231,7 +231,7 @@ const WithdrawConfirmCrypto = memo(
           </div>
             <Commissions
                 isLoading={loading}
-                youWillPay={new Decimal(amount).plus(withdraw_fee).toString()}
+                youWillPay={amount + withdraw_fee}
                 youWillGet={amount}
                 fee={withdraw_fee}
             />
@@ -249,10 +249,7 @@ const WithdrawConfirmCrypto = memo(
                   <>
                     <div className="w-full gap-5 flex flex-col justify-between">
                       {(stageReq.status === 0 || stageReq.status === 1) && (
-                        <>
-                          <span className="text-gray-400">
-                            {t("transfer_confirmation")}
-                          </span>
+                        <div>
                           <FormItem
                             name="code"
                             label="Code"
@@ -261,21 +258,34 @@ const WithdrawConfirmCrypto = memo(
                           >
                             <Input
                               allowDigits
+                              size={"sm"}
                               type="text"
+                              className={styles.Input}
                               onInput={onInput}
                               onChange={inputChange}
                               placeholder={
                                 stageReq.status === 0
                                   ? t("enter_sms_code")
                                   : stageReq.status === 1
-                                  ? t("enter_code")
-                                  : t("enter_pin_code")
+                                    ? t("enter_code")
+                                    : t("enter_pin_code")
                               }
                             />
                           </FormItem>
                           <Timer onAction={onReSendCode} />
-                        </>
+                        </div>
                       )}
+                      <div className="col flex justify-center">
+                        {localErrorInfoBox
+                          ? localErrorInfoBox
+                          : stageReq.autoInnerTransfer && (
+                          <InfoBox>
+                            The address is within our system. The transfer will be
+                            made via the internal network, and not through the
+                            blockchain. Are you sure you want to continue?
+                          </InfoBox>
+                        )}
+                      </div>
                       <div className={styles.ButtonContainer + " w-full"}>
                         <Button
                           htmlType={"submit"}
@@ -283,8 +293,8 @@ const WithdrawConfirmCrypto = memo(
                             onConfirm();
                           }}
                           disabled={
-                            input === "" &&
-                            (stageReq.status === 0 || stageReq.status === 1)
+                            !!localErrorInfoBox ||
+                            (input === "" && (stageReq.status === 0 || stageReq.status === 1))
                           }
                           className={styles.ButtonTwo}
                         >
@@ -308,19 +318,8 @@ const WithdrawConfirmCrypto = memo(
                   </>
                 )}
               </div>
-              <div className="col flex justify-center mt-4">
-                {localErrorInfoBox
-                  ? localErrorInfoBox
-                  : stageReq.autoInnerTransfer && (
-                      <InfoBox>
-                        The address is within our system. The transfer will be
-                        made via the internal network, and not through the
-                        blockchain. Are you sure you want to continue?
-                      </InfoBox>
-                    )}
-              </div>
             </div>
-          </Form>
+            </Form>
           </div>
         </div>
       </>

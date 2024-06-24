@@ -1,10 +1,9 @@
-import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
-import { FC, useContext, useEffect, useRef, useState } from "react";
-import {apiPaymentContact, IResCommission} from "@/shared/api";
+import { FC, useContext, useEffect, useState } from "react";
+import { apiPaymentContact, IResCommission, IResErrors } from "@/shared/api";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
@@ -19,6 +18,7 @@ import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
+import useError from "@/shared/model/hooks/useError";
 
 
 interface IState {
@@ -63,6 +63,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
     const [, setErr] = useState<boolean>(false)
     const [, setSuccess] = useState<boolean>(false)
     const { setRefresh } = useContext(CtxRootData)
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
 
     const onConfirm = async () => {
         setState(prev => ({
@@ -110,6 +111,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
     }
 
     useEffect(() => {
+        localErrorClear();
         (async () => {
             const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
@@ -119,18 +121,31 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
             apiPaymentContact(details, true, {
                 Authorization: phone,
                 Token: data.result.token
-            }).then(({data}) => setState(prev => ({
-                ...prev,
-                totalCommission: data as IResCommission
-            })));
+            }).then(({data}) => {
+                if ((data as IResErrors).errors) {
+                    localErrorHunter({
+                        code: 0,
+                        message: "Something went wrong...",
+                    });
+                }
+                setState(prev => ({
+                    ...prev,
+                    totalCommission: data as IResCommission
+                }));
+            }).catch(() => {
+                  localErrorHunter({
+                      code: 0,
+                      message: "Something went wrong...",
+                  });
+              });
         })();
     }, []);
 
     return (
         <div>
         {loading && <Loader className='justify-center'/>}
-        
-        <div className={loading ? 'collapse' : ''}>
+
+            <div className={loading ? "collapse" : ""}>
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-[1rem_1rem_10px_0]">
@@ -206,29 +221,30 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
                     </>}
                 </div>
                 <Commissions
-                    isLoading={loading}
-                    youWillPay={new Decimal(amount).plus(totalCommission?.commission ?? 0).toString()}
-                    youWillGet={amount}
-                    fee={totalCommission?.commission ?? '-'}
+                  isLoading={loading}
+                  youWillPay={amount + (totalCommission?.commission ?? 0)}
+                  youWillGet={amount}
+                  fee={totalCommission?.commission ?? "-"}
                 />
-            <Form onSubmit={onConfirm}>
-                <div className="row my-5">
-                    <div className={styles.ButtonContainer}>
-                        <Button 
-                                htmlType={"submit"}
-                                className={styles.ButtonTwo}
-                                disabled={!totalCommission}
-                        >{t("confirm")}</Button>
-                        <Button
-                            skeleton
-                            onClick={handleCancel}
-                            className={styles.ButtonTwo}
-                        >{t("cancel")}</Button>
+                <div className="mt-2">{localErrorInfoBox}</div>
+                <Form onSubmit={onConfirm}>
+                    <div className="row my-5">
+                        <div className={styles.ButtonContainer}>
+                            <Button
+                              htmlType={"submit"}
+                              className={styles.ButtonTwo}
+                              disabled={!!localErrorInfoBox || !totalCommission}
+                            >{t("confirm")}</Button>
+                            <Button
+                              skeleton
+                              onClick={handleCancel}
+                              className={styles.ButtonTwo}
+                            >{t("cancel")}</Button>
+                        </div>
                     </div>
-                </div>
-            </Form>
+                </Form>
+            </div>
         </div>
-    </div>
     )
 }
 

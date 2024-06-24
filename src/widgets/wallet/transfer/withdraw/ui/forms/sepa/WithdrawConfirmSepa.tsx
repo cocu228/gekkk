@@ -7,18 +7,14 @@ import {
   IResErrors,
   IResResult
 } from "@/shared/api";
-import { FC, useContext, useEffect, useRef, useState } from "react";
-import {
-  CtxWalletData,
-  CtxWalletNetworks,
-} from "@/widgets/wallet/transfer/model/context";
+import { FC, useContext, useEffect, useState } from "react";
+import { CtxWalletNetworks, } from "@/widgets/wallet/transfer/model/context";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss";
 import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
@@ -27,6 +23,7 @@ import useError from "@/shared/model/hooks/useError";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
+import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 
 interface IState {
   loading: boolean;
@@ -58,13 +55,10 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
   const [uasToken, setUasToken] = useState<string>(null);
   const { setContent } = useContext(CtxGlobalModalContext);
   const { displayHistory } = useContext(CtxDisplayHistory);
-  const [localErrorHunter, , localErrorInfoBox] = useError();
+  const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   const { getAccountDetails } = storeAccountDetails((state) => state);
-  const { networkTypeSelect, networksForSelector } =
-    useContext(CtxWalletNetworks);
-  const { label } = networksForSelector.find(
-    (it) => it.value === networkTypeSelect,
-  );
+  const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
+  const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
 
   const [{ total, loading }, setState] = useState<IState>({
     loading: true,
@@ -80,6 +74,7 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
   }
 
   useEffect(() => {
+    localErrorClear();
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {
@@ -117,8 +112,10 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
           if (err.code === "ERR_CANCELED") {
             return;
           }
-          handleCancel();
-          setContent({ content: <ModalTrxStatusError /> });
+          localErrorHunter({
+            code: 0,
+            message: "Something went wrong...",
+          });
         });
     })();
 
@@ -249,9 +246,9 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
       <div className="w-full flex justify-center">
         <Commissions
           isLoading={loading}
-          youWillPay={total.total}
+          youWillPay={total?.total || 0}
           youWillGet={amount}
-          fee={total.commission}
+          fee={total?.commission || 0}
         />
       </div>
 
@@ -264,7 +261,7 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
               size="lg"
               onClick={onConfirm}
               className={styles.ButtonTwo}
-              disabled={!total || loading}
+              disabled={!!localErrorInfoBox || !total || loading}
             >
               {t("confirm")}
             </Button>

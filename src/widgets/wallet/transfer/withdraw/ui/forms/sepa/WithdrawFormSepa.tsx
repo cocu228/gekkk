@@ -36,6 +36,7 @@ const WithdrawFormSepa = () => {
   const {
     networkTypeSelect,
     tokenNetworks,
+    localErrorInfoBox,
     setBankRefresh
   } = useContext(CtxWalletNetworks);
   const {
@@ -226,13 +227,15 @@ const WithdrawFormSepa = () => {
           handleCancel={handleCancel}
         />
       </Modal>
-
+      <div className="my-2">{localErrorInfoBox}</div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
           onClick={showModal}
           className={styles.Button}
           disabled={
+            !!localErrorInfoBox ||
+            loading ||
             !Object.values(details).every((v) => v !== null && v !== "") ||
             inputCurrValid.value
           }

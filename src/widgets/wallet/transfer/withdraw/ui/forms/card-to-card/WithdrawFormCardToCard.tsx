@@ -65,7 +65,12 @@ const WithdrawFormCardToCard = () => {
   const { inputCurr, setInputCurr } = useInputState();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
 
-  const { networkTypeSelect, tokenNetworks, setBankRefresh } = useContext(CtxWalletNetworks);
+  const {
+    networkTypeSelect,
+    tokenNetworks,
+    localErrorInfoBox,
+    setBankRefresh
+  } = useContext(CtxWalletNetworks);
 
   const onInput = ({ target }) => {
     setDetails((prev) => ({ ...prev, [target.name]: target.value }));
@@ -247,12 +252,18 @@ const WithdrawFormCardToCard = () => {
         </Modal>
 
         <div className="row w-full mb-[10px]">
+          <div className="my-2">{localErrorInfoBox}</div>
           <div className={styles.ButtonContainerCenter}>
             <Button
               size="lg"
               className="w-full"
               onClick={showModal}
-              disabled={!isValidated || inputCurrValid.value}
+              disabled={
+                !!localErrorInfoBox ||
+                loading ||
+                !isValidated ||
+                inputCurrValid.value
+              }
             >
               {t("transfer")}
             </Button>

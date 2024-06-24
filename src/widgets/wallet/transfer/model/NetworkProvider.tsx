@@ -1,4 +1,9 @@
-import {CtxWalletNetworks, ICtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {
+    CtxWalletNetworks,
+    ICtxWalletNetworks,
+    CtxWalletData,
+    WalletNetworksStateType
+} from "@/widgets/wallet/transfer/model/context";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import { apiGetPaymentCommission, apiTokensNetworks } from "@/shared/(orval)api/gek";
 import {
@@ -10,7 +15,8 @@ import {
 import {apiListAddresses} from "@/shared/(orval)api/gek";
 import {AxiosResponse} from "axios";
 import {randomId} from "@/shared/lib/helpers";
-import { PaymentDetails, TokensNetwork } from "@/shared/(orval)api/gek/model";
+import { PaymentDetails, PaymentFeeApiResponse, TokensNetwork } from "@/shared/(orval)api/gek/model";
+import useError from "@/shared/model/hooks/useError";
 
 interface IProps {
     children: React.ReactNode
@@ -19,6 +25,8 @@ interface IProps {
 const NetworkProvider = ({children, ...props}: IProps) => {
     const {$const} = useContext(CtxWalletData);
     const isTopUp = props["data-tag"] === "top_up";
+
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     
     const initState = {
         networksForSelector: null,
@@ -29,8 +37,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         refreshKey: null
     }
     
-    const [state, setState] =
-        useState<Omit<ICtxWalletNetworks, "setRefresh" | "setLoading" | "setNetworkType" | "setBankRefresh">>(initState);
+    const [state, setState] = useState<WalletNetworksStateType>(initState);
     
     const setNetworkId = async (networkTypeSelect: ICtxWalletNetworks["networkTypeSelect"]) => {
         let firstAddress = null;
@@ -71,13 +78,17 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     }
 
     const setBankRefresh = async (paymentDetails: PaymentDetails) => {
-        const response: AxiosResponse = await apiGetPaymentCommission(paymentDetails);
-
-        helperApiTokenNetworks(response)
-          .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
-              ...prev,
-              tokenNetworks: networksDefault
-          })));
+        localErrorClear();
+        const response: AxiosResponse<PaymentFeeApiResponse> = await apiGetPaymentCommission(paymentDetails);
+        if (response.data.error) {
+            localErrorHunter(response.data.error)
+        } else {
+            helperApiTokenNetworks(response)
+              .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
+                  ...prev,
+                  tokenNetworks: networksDefault
+              })));
+        }
     }
     
     const updateQuiteNetworksDefault = async (amount: number) => {
@@ -86,12 +97,15 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             currency: $const,
             wdr_amount: amount
         });
-        
-        helperApiTokenNetworks(response)
-            .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
-                ...prev,
-                tokenNetworks: networksDefault
-            })));
+        if (response.data.error) {
+            localErrorHunter(response.data.error)
+        } else {
+            helperApiTokenNetworks(response)
+              .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
+                  ...prev,
+                  tokenNetworks: networksDefault
+              })));
+        }
     }
     
     const clearState = (changedCurrency) => setState(prevState => ({
@@ -135,8 +149,20 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         })();
     }, [$const, state.refreshKey]);
 
-    return <CtxWalletNetworks.Provider
-        value={({...state, setNetworkType: setNetworkId, setLoading, setRefresh, setBankRefresh})}>{children}</CtxWalletNetworks.Provider>
+    return (
+      <CtxWalletNetworks.Provider
+          value={({
+              ...state,
+              setNetworkType: setNetworkId,
+              setLoading,
+              setRefresh,
+              setBankRefresh,
+              localErrorInfoBox
+          })}
+        >
+          {children}
+      </CtxWalletNetworks.Provider>
+    )
 
 }
 

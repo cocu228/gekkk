@@ -33,7 +33,7 @@ const WithdrawFormPhoneNumber = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks, setBankRefresh } = useContext(CtxWalletNetworks);
+  const { networkTypeSelect, tokenNetworks, localErrorInfoBox, setBankRefresh } = useContext(CtxWalletNetworks);
   const { min_withdraw = 0, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const [details, setDetails] = useState<PaymentDetails>({
@@ -97,7 +97,7 @@ const WithdrawFormPhoneNumber = () => {
                 inputCurr.value.number,
                 currency.$const,
                 t
-              ),
+              )
             ]}
           >
             <InputCurrency.PercentSelector
@@ -154,27 +154,27 @@ const WithdrawFormPhoneNumber = () => {
           </div>
           <div className="row">
             <div className="col flex items-center">
-                <Input
-                  allowDigits
-                  allowSymbols
-                  name={"purpose"}
-                  value={details.purpose}
-                  onChange={onInput}
-                  placeholder={t("enter_description")}
-                />
+              <Input
+                allowDigits
+                allowSymbols
+                name={"purpose"}
+                value={details.purpose}
+                onChange={onInput}
+                placeholder={t("enter_description")}
+              />
             </div>
           </div>
         </div>
       </div>
 
       <div className="row w-full flex justify-center">
-          <Commissions
-              isLoading={loading}
-              youWillPay={inputCurr.value.number + withdraw_fee}
-              youWillGet={inputCurr.value.number}
-              fee={withdraw_fee}
-              youWillGetCoin={"EURG"}
-          />
+        <Commissions
+          isLoading={loading}
+          youWillPay={inputCurr.value.number + withdraw_fee}
+          youWillGet={inputCurr.value.number}
+          fee={withdraw_fee}
+          youWillGetCoin={"EURG"}
+        />
       </div>
 
       <Modal
@@ -189,13 +189,18 @@ const WithdrawFormPhoneNumber = () => {
           handleCancel={handleCancel}
         />
       </Modal>
-
+      <div className="my-2">{localErrorInfoBox}</div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
           onClick={showModal}
           className={styles.Button}
-          disabled={!isValid || inputCurrValid.value}
+          disabled={
+            !!localErrorInfoBox ||
+            loading ||
+            !isValid ||
+            inputCurrValid.value
+          }
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>

@@ -133,11 +133,13 @@ const WithdrawFormCardToCard = () => {
   const handleConfirm = async () => {
     if(!uasToken) {
         await getUasToken()
-        showModal() 
+        showModal()
     } else {
         showModal() 
     }
-  }
+}
+
+
 
   return (
     !cards ? (

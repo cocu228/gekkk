@@ -64,8 +64,8 @@ const WithdrawFormBroker = () => {
         if(!uasToken) {
             setLoading(true)
             await getUasToken()
-            showModal() 
             setLoading(false)
+            showModal()
         } else {
             setLoading(false)
             showModal() 

@@ -110,7 +110,7 @@ const WithdrawFormSepa = () => {
     } else {
         showModal() 
     }
-  }
+}
 
   return (
     <div className="wrapper">

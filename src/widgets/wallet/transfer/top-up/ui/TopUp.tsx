@@ -8,7 +8,6 @@ import {
     getChosenNetwork, isCryptoNetwork,
 } from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import ApplyTransferCode from "./forms/ApplyTransferCode";
 import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';
@@ -25,7 +24,6 @@ const TopUp = memo(() => {
     const currency = params.get("currency");
     const type = params.get("type");
     const navigate = useNavigate();
-    const {offline} = useContext(CtxOfflineMode);
     const {loading = true, networkTypeSelect, tokenNetworks, networksForSelector, setNetworkType} = useContext(CtxWalletNetworks);
     const {
         is_operable = null,
@@ -34,7 +32,9 @@ const TopUp = memo(() => {
     
     const [network, setNetwork] = useState<number>(type ? +type : null)
 
-    if (offline) return <div>You are offline, please check your internet connection.</div>
+    const offlineMode = !navigator.onLine;
+
+    if (offlineMode) return <div>You are offline, please check your internet connection.</div>
 
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {

@@ -19,6 +19,7 @@ import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisp
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 
 interface IState {
@@ -53,8 +54,8 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
 
     const {t} = useTranslation()
     const {md} = useBreakpoints()
-    const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
+    const {uasToken} = useContext(UasConfirmCtx)
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -113,31 +114,16 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
     useEffect(() => {
         localErrorClear();
         (async () => {
-            const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
             
-            setUasToken(data.result.token);
 
             apiPaymentContact(details, true, {
                 Authorization: phone,
-                Token: data.result.token
-            }).then(({data}) => {
-                if ((data as IResErrors).errors) {
-                    localErrorHunter({
-                        code: 0,
-                        message: "Something went wrong...",
-                    });
-                }
-                setState(prev => ({
-                    ...prev,
-                    totalCommission: data as IResCommission
-                }));
-            }).catch(() => {
-                  localErrorHunter({
-                      code: 0,
-                      message: "Something went wrong...",
-                  });
-              });
+                Token: uasToken
+            }).then(({data}) => setState(prev => ({
+                ...prev,
+                totalCommission: data as IResCommission
+            })));
         })();
     }, []);
 

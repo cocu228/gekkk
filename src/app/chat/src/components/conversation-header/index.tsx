@@ -1,3 +1,4 @@
+import style from './styles.module.scss'
 import styled from 'styled-components'
 
 export type Props = {
@@ -42,17 +43,6 @@ position:absolute;
 width: 100%;
 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 user-select: none;
-
-`
-const HeaderPlaceholder = styled.div`
-   background-color: transparent;
-     height: 56px;
-      position: absolute;
-      top: 0px;
-left: 0px;
-right: 0px;
-z-index: 1;
-box-sizing: border-box;
 `
 
 export default function ConversationHeader({ loading, showHeader = true }: Props) {
@@ -63,7 +53,7 @@ export default function ConversationHeader({ loading, showHeader = true }: Props
                     <div />
                     :
                     (!showHeader ?
-                        <HeaderPlaceholder />
+                        <div className={style.HeaderPlaceholder}></div>
                         :
                         <Container
                             dividerColor={"dividerColor"}

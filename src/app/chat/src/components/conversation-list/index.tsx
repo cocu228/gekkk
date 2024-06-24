@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
 import Loading from '../loading';
 import ConversationType from '../../types/ConversationType';
 import Conversation from '../conversation';
+import style from './styles.module.scss'
+import styled from 'styled-components';
 
 export interface Props {
   onConversationClick?: (index: number) => void;
@@ -43,33 +44,6 @@ scrollbar-width: none; /* Firefox */
   }
 `;
 
-const Container = styled.div`
-  height: 100%;
-  position: relative;
-  max-height: 100vh;
-  overflow: hidden;
-`;
-
-// const SearchElement = styled.input`
-// width:100%;
-// height:40px;
-// padding:0px;
-// position:relative;
-// background-color:#e5e7eb;
-// border-radius:20px;
-// border:1px solid #ecebeb;
-// font-size:14px;
-// font-family:SF Pro Text;
-// padding-left: 16px;
-// text-align:left;
-// vertical-align:text-top;
-// margin-right: 56px;
-// &:focus{
-//     outline: none;
-
-// }
-//  `
-
 const NoChatsTextContainer = styled.div<{
   color?: string
 }>`
@@ -83,17 +57,6 @@ const NoChatsTextContainer = styled.div<{
   align-items: center;
   height: 100px;
 `;
-
-
-const LoadingContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-position: relative;
-`
 
 export default function ConversationList({
   conversations,
@@ -109,7 +72,7 @@ export default function ConversationList({
   const scrollContainerRef = useRef<any>();
 
   return (
-    <Container>
+    <div className={style.Container}>
       <ScrollContainer
         backgroundColor={"backgroundColor"}
         loading={loading}
@@ -126,11 +89,11 @@ export default function ConversationList({
         ref={scrollContainerRef}
       >
         {loading ?
-          <LoadingContainer>
+          <div className={style.LoadingContainer} >
             {customLoaderComponent ?
               customLoaderComponent :
               <Loading themeColor={"themeColor"} />}
-          </LoadingContainer> : (
+          </div> : (
             <>
               {conversations && conversations.length <= 0 && (
                 customEmptyConversationsComponent ?
@@ -159,6 +122,6 @@ export default function ConversationList({
             </>
           )}
       </ScrollContainer>
-    </Container>
+    </div>
   );
 }

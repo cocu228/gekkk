@@ -21,6 +21,8 @@ import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
 import useError from '@/shared/model/hooks/useError';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import BrokerAmountContainer from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/ui/containers/broker-amount-container";
+import { apiGetUas } from '@/shared/(orval)api';
+import { UasConfirmCtx } from '@/processes/errors-provider-context';
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -34,6 +36,7 @@ const WithdrawFormBroker = () => {
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();
+    const {uasToken, getUasToken} = useContext(UasConfirmCtx)
 
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
     const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
@@ -56,6 +59,18 @@ const WithdrawFormBroker = () => {
         delayRes(inputCurr.value.number);
         delayDisplay();
     }, [inputCurr.value.number]);
+
+    const handleConfirm = async () => {
+        if(!uasToken) {
+            setLoading(true)
+            await getUasToken()
+            setLoading(false)
+            showModal()
+        } else {
+            setLoading(false)
+            showModal() 
+        }
+    }
 
     return (
         <div className="wrapper">
@@ -132,7 +147,7 @@ const WithdrawFormBroker = () => {
                     <Button
                         size="lg"
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}
-                        onClick={showModal}
+                        onClick={handleConfirm}
                         className="w-full"
                     >
                         {t("transfer")}

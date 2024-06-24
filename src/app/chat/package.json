@@ -23,6 +23,7 @@
     "preact": "^10.20.1",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",
+    "sass": "^1.77.6",
     "styled-components": "^5.3.11",
     "sweetalert2": "^11.10.5",
     "uuid": "^9.0.1"

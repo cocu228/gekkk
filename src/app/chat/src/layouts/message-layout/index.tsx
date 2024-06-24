@@ -1,7 +1,7 @@
 import {forwardRef, PropsWithChildren} from "react";
-import {Container, Image, ImageContainer, InnerContainer} from "./style";
 import LoaderIco from "../../assets/logo-loading.svg";
 import MessageListBackground from "../../components/message-list-background";
+import style from './style.module.scss'
 
 interface IMessageLayoutProps extends PropsWithChildren {
     loading: boolean
@@ -14,21 +14,22 @@ const MessageLayout = forwardRef<HTMLDivElement | null, IMessageLayoutProps>(({
     ref
 ) => {
     return (
-        <Container ref={ref}>
+        <div className={style.Container} ref={ref}>
             {loading &&
-                <ImageContainer>
-                    <Image
+                <div className={style.ImageContainer} >
+                    <img
+                        className={style.Image}
                         height={30}
                         src={LoaderIco}
                         alt={LoaderIco}
                     />
-                </ImageContainer>
+                </div>
             }
             <MessageListBackground roundedCorners={false}/>
-            <InnerContainer>
+            <div className={style.InnerContainer} >
                 {children}
-            </InnerContainer>
-        </Container>
+            </div>
+        </div>
     )
 })
 

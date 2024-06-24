@@ -1,16 +1,14 @@
-import { forwardRef } from "react";
-import { TFunction } from "i18next";
 import styles from "./styles.module.scss";
 import { IReceiptData } from "@/shared/api/bank/get-bank-receipt";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
 import { getMethodTitle, getStatusTitle } from "../../model/helpers";
 import { useTranslation } from "react-i18next";
 
-interface IBankReceipt {
-  data: IReceiptData;
-}
+export type IBankReceipt = IReceiptData & {
+  senderName?: string;
+};
 
-const BankReceipt = ({data}: IBankReceipt) => {
+const BankReceipt = (data: IBankReceipt) => {
   const { t } = useTranslation();
 
   return (

@@ -2,8 +2,8 @@ import { FC, useContext, useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import Loader from "@/shared/ui/loader";
 import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import { AddressTxOut } from "@/shared/(orval)api/gek/model";
-import { apiGetBankReceipt, IReceiptData } from "@/shared/api/bank/get-bank-receipt";
+import { AddressTxOut, GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
+import { apiGetBankReceipt } from "@/shared/api/bank/get-bank-receipt";
 import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
@@ -11,22 +11,26 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { formatForFile } from "@/shared/lib/date-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import BankReceipt from "./bank";
+import BankReceipt, { IBankReceipt } from "./bank";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { apiAddressTxInfo, apiGetUas } from "@/shared/(orval)api";
-import GekReceipt from "./gek";
-import { isGekTxId } from "../model/helpers";
+import { apiGetUas } from "@/shared/(orval)api";
+import GekReceipt, { IGekRecepit } from "./gek";
 
-interface BankReceiptProps {
-  txId: string | number;
+interface ReceiptProps {
+  /**Bank transaction number */
+  txId?: string;
+
+  /**Crypto transaction info */
+  txInfo?: GetHistoryTrasactionOut & {
+    addressTxInfo?: AddressTxOut | null;
+  };
+  
   onCancel?: () => void;
 }
 
-type IState = AddressTxOut | IReceiptData & {
-  senderName?: string;
-}
+type IState = IBankReceipt | IGekRecepit;
 
-const Receipt: FC<BankReceiptProps> = ({ txId, onCancel }) => {
+const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   const { t } = useTranslation();
   const { md } = useBreakpoints();
   const [state, setState] = useState<IState>(null);
@@ -72,7 +76,7 @@ const Receipt: FC<BankReceiptProps> = ({ txId, onCancel }) => {
     const {data} = await apiGetUas();
     const {phone} = await getAccountDetails();
 
-    const response = await apiGetBankReceipt(txId as string, {
+    const response = await apiGetBankReceipt(txId, {
       headers: {
         Authorization: phone,
         Token: data.result.token,
@@ -86,23 +90,11 @@ const Receipt: FC<BankReceiptProps> = ({ txId, onCancel }) => {
     }
   }
 
-  const getGekReceipt = async () => {
-    const response = await apiAddressTxInfo({
-      tx_id: +txId
-    });
-
-    if (response.data) {
-      setState({
-        ...response.data.result
-      });
-    }
-  }
-
   useEffect(() => {
     (async () => {
-      await (isGekTxId(txId)
-        ? getGekReceipt()
-        : getBankReceipt());
+      if (!!txId) {
+        await getBankReceipt();
+      }
 
       setLoading(false);
     })();
@@ -111,9 +103,9 @@ const Receipt: FC<BankReceiptProps> = ({ txId, onCancel }) => {
   return loading ? <Loader className="relative my-20"/> : (
     <div className={styles.Wrapper}>
       <div className={styles.Block} ref={componentRef}>
-        {isGekTxId(txId)
-          ? <GekReceipt data={state as AddressTxOut} txId={txId as number}/>
-          : <BankReceipt data={state as IReceiptData}/>
+        {!!txId
+          ? <BankReceipt {...state as IBankReceipt}/>
+          : <GekReceipt {...txInfo}/>
         }
       </div>
 

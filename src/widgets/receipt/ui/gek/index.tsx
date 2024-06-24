@@ -1,27 +1,14 @@
-import { isNumber } from "@/shared/lib";
 import styles from "../styles.module.scss";
 import { useTranslation } from "react-i18next";
-import { AddressTxOut } from "@/shared/(orval)api/gek/model";
+import { AddressTxOut, GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
+import { isNumbersOnly } from "@/shared/lib";
 
-interface IGekReceipt {
-    txId: number;
-    data: AddressTxOut;
-}
-/*
-0 = None,
-1 = tx_inner,
-2 = tx_in,
-3 = tx_warning,
-4 = tx_out,
-5 = tx_in_system,
-6 = tx_bank_in,
-8 = tx_bank_out,
-9 = tx_contract_transport,
-10 = tx_only_info
-*/
+export type IGekRecepit = GetHistoryTrasactionOut & {
+    addressTxInfo?: AddressTxOut | null;
+};
 
-const GekReceipt = ({txId, data}: IGekReceipt) => {
+const GekReceipt = (data: IGekRecepit) => {
     const { t } = useTranslation();
     
     return <>
@@ -31,10 +18,10 @@ const GekReceipt = ({txId, data}: IGekReceipt) => {
             </div>
 
             <div className={styles.HeaderTitle}>Payment Receipt</div>
-            <div className={styles.HeaderId}>{txId}</div>
-            <div className={styles.HeaderDate}>{!data?.created
+            <div className={styles.HeaderId}>{data.id_transaction}</div>
+            <div className={styles.HeaderDate}>{!data?.datetime
                 ? null
-                : formatDateTime(new Date(data.created))
+                : formatDateTime(new Date(data.datetime))
             }</div>
         </div>
 
@@ -42,12 +29,12 @@ const GekReceipt = ({txId, data}: IGekReceipt) => {
 
         <div className={styles.InformationBlock}>
             {/* Transaction type */}
-            {/* {!data?.txType ? null : (
+            {!data?.tx_type_text ? null : (
                 <div className={styles.InformationBlockItem}>
                     <span className={styles.InformationBlockItemTitle}>Transaction type</span>
-                    <span className={styles.InformationBlockItemValue}>{data.txType}</span>
+                    <span className={styles.InformationBlockItemValue}>{data.tx_type_text}</span>
                 </div>
-            )} */}
+            )}
 
             {/* Currency */}
             {!data?.currency ? null : (
@@ -74,54 +61,60 @@ const GekReceipt = ({txId, data}: IGekReceipt) => {
             )}
 
             {/* Sender name */}
-            {/* {!data?.senderName ? null : (
+            {!data?.partner_info ? null : (
                 <div className={styles.InformationBlockItem}>
                     <span className={styles.InformationBlockItemTitle}>Sender name</span>
-                    <span className={styles.InformationBlockItemValue}>{data.senderName}</span>
-                </div>
-            )} */}
-
-            {/* Address from */}
-            {!data?.addressFrom ? null : (
-                <div className={styles.InformationBlockItem}>
-                    <span className={styles.InformationBlockItemTitle}>Address from</span>
-                    <span className={styles.InformationBlockItemValue}>{data.addressFrom}</span>
+                    <span className={styles.InformationBlockItemValue}>{data.partner_info}</span>
                 </div>
             )}
 
-            {/* Address to */}
-            {!data?.addressTo ? null : (
-                <div className={styles.InformationBlockItem}>
-                    <span className={styles.InformationBlockItemTitle}>Address to</span>
-                    <span className={styles.InformationBlockItemValue}>{data.addressTo}</span>
-                </div>
-            )}
+            {!data?.addressTxInfo ? null : <>
+                {/* Address from */}
+                {!data.addressTxInfo?.addressFrom ? null : (
+                    <div className={styles.InformationBlockItem}>
+                        <span className={styles.InformationBlockItemTitle}>Address from</span>
+                        <span className={styles.InformationBlockItemValue}>{data.addressTxInfo.addressFrom}</span>
+                    </div>
+                )}
 
-            {/* Token network */}
-            {!data?.tokenNetwork ? null : (
-                <div className={styles.InformationBlockItem}>
-                    <span className={styles.InformationBlockItemTitle}>Token network</span>
-                    <span className={styles.InformationBlockItemValue}>{data.tokenNetwork}</span>
-                </div>
-            )}
+                {/* Address to */}
+                {!data.addressTxInfo?.addressTo ? null : (
+                    <div className={styles.InformationBlockItem}>
+                        <span className={styles.InformationBlockItemTitle}>Address to</span>
+                        <span className={styles.InformationBlockItemValue}>{data.addressTxInfo.addressTo}</span>
+                    </div>
+                )}
 
-            {/* Tx hash */}
-            {!data?.txHash ? null : (
-                <div className={styles.InformationBlockItem}>
-                    <span className={styles.InformationBlockItemTitle}>Transaction
-                        {isNumber(+data.txHash)
-                            ? " number"
-                            : " hash"
-                        }
-                    </span>
+                {/* Token network */}
+                {!data.addressTxInfo?.tokenNetwork ? null : (
+                    <div className={styles.InformationBlockItem}>
+                        <span className={styles.InformationBlockItemTitle}>Token network</span>
+                        <span className={styles.InformationBlockItemValue}>{data.addressTxInfo.tokenNetwork}</span>
+                    </div>
+                )}
 
-                    <span className={styles.InformationBlockItemValue}>{data.txHash}</span>
-                </div>
-            )}
+                {/* Tx hash */}
+                {!data.addressTxInfo?.txHash ? null : (
+                    <div className={styles.InformationBlockItem}>
+                        <span className={styles.InformationBlockItemTitle}>
+                            Transaction {isNumbersOnly(data.addressTxInfo.txHash)
+                                ? "number"
+                                : "hash"}
+                        </span>
+                        <span className={styles.InformationBlockItemValue}>{data.addressTxInfo.txHash}</span>
+                    </div>
+                )}
+            </>}
         </div>
 
-        <span className={styles.InformationBlockTitle}/>
+        {!data?.status_text ? null : (
+            <div className={styles.Footer}>
+                <div className={styles.Status}>
+                    <span>{!data?.status_text ? null : data.status_text}</span>
+                </div>
+            </div>
+        )}
     </>
 }
 
-export default GekReceipt
+export default GekReceipt;

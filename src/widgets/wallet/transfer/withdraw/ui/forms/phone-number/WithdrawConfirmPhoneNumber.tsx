@@ -1,22 +1,21 @@
 import Loader from "@/shared/ui/loader";
-import styles from "../styles.module.scss";
 import {useTranslation} from "react-i18next";
-import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {FC, useContext, useEffect, useState} from "react";
-import { apiPaymentContact, IResCommission, IResErrors, IResResult } from "@/shared/api";
+import {apiPaymentContact, IResCommission, IResErrors, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
-import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import {UasConfirmCtx} from "@/processes/errors-provider-context";
+import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 interface IParams {
     amount: number;
@@ -143,107 +142,47 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
         //     title: 'Transaction receipt'
         // });
     };
+
+    const phoneNumberInfo: { label: string, value: string }[] = [
+        { label: t("network"), value: label },
+        { label: t("recepient_phone_number"), value: phoneNumber },
+        ...(purpose ? [{ label: t("comment"), value: purpose }] : [])
+    ]
     
     return (
-        <div className="-md:px-4">
-            {loading && <Loader className='justify-center'/>}
+      <>
+          {loading && <Loader className='justify-center' />}
+          <div className={loading ? "collapse" : ""}>
+              <ConfirmNotice text={t("check_your_information_carefully")} />
 
-            <div className={loading ? "collapse" : ""}>
-                <div className="row mb-5 md:mb-0">
-                    <div className="col">
-                        <div className="p-4">
-                            <div className={`wrapper ${styles.ModalInfo}`}>
-                                <div className={styles.ModalInfoIcon}>
-                                    <div className="col">
-                                        <IconApp color="#8F123A" size={22} code="t27" />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <span className={styles.ModalInfoText}>
-                                            {t("check_your_information_carefully")}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+              <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                  <div className="flex flex-col gap-[10px]">
+                      {phoneNumberInfo.map(({ label, value }) => (
+                        <div key={value}>
+                            <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
                         </div>
-                    </div>
-                </div>
+                      ))}
+                  </div>
+                  <div className="w-full">
+                      <Commissions
+                        isLoading={loading}
+                        youWillPay={totalCommission?.total || 0}
+                        youWillGet={amount}
+                        fee={totalCommission?.commission || 0}
+                      />
+                  </div>
+              </div>
 
-                <div className={styles.ModalRows}>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>
-                                {t("network")}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>
-                                {label}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>
-                                {t("recepient_phone_number")}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>
-                                {phoneNumber}
-                            </span>
-                        </div>
-                    </div>
-                    {!purpose ? null : <>
-                        <div className="row mb-2 md:mb-1">
-                            <div className="col">
-                                <span className={styles.ModalRowsTitle}>
-                                    {t("comment")}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="row mb-4 md:mb-2">
-                            <div className="col">
-                                <span className={styles.ModalRowsValue}>
-                                    {purpose}
-                                </span>
-                            </div>
-                        </div>
-                    </>}
-                </div>
-                <Commissions
-                    isLoading={loading}
-                    youWillPay={totalCommission?.total || 0}
-                    youWillGet={amount}
-                    fee={totalCommission?.commission || 0}
-                />
-                <div className="mt-2">{localErrorInfoBox}</div>
-                <div className="row mt-4">
-                    <div className="col relative">
-                        <div className={styles.ButtonContainer + " px-4"}>
-                            <Button
-                              onClick={onConfirm}
-                              disabled={!!localErrorInfoBox || !totalCommission}
-                              className={styles.ButtonTwo}
-                            >{t("confirm")}</Button>
+              {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
 
-                            <Button
-                              skeleton
-                              className={styles.ButtonTwo}
-                              onClick={() => {
-                                  handleCancel();
-                              }}
-                            >{t("cancel")}</Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              <ConfirmButtons
+                isConfirmDisabled={!!localErrorInfoBox || !totalCommission || loading}
+                onConfirm={onConfirm}
+                onCancel={handleCancel}
+              />
+          </div>
+      </>
     )
 }
 

@@ -145,37 +145,39 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
     ]
 
     return (
-      <div>
+      <>
           {loading && <Loader className='justify-center' />}
-          <ConfirmNotice text={t("check_your_information_carefully")} />
+          <div className={loading ? "collapse" : ""}>
+              <ConfirmNotice text={t("check_your_information_carefully")} />
 
-          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
-              <div className="flex flex-col gap-[10px]">
-                  {cardToCardInfo.map(({ label, value }) => (
-                    <div key={value}>
-                        <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
-                    </div>
-                  ))}
+              <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                  <div className="flex flex-col gap-[10px]">
+                      {cardToCardInfo.map(({ label, value }) => (
+                        <div key={value}>
+                            <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+                        </div>
+                      ))}
+                  </div>
+                  <div className="w-full">
+                      <Commissions
+                        isLoading={loading}
+                        youWillPay={amount + (totalCommission?.commission ?? 0)}
+                        youWillGet={amount}
+                        fee={totalCommission?.commission ?? "-"}
+                      />
+                  </div>
               </div>
-              <div className="w-full">
-                  <Commissions
-                    isLoading={loading}
-                    youWillPay={amount + (totalCommission?.commission ?? 0)}
-                    youWillGet={amount}
-                    fee={totalCommission?.commission ?? "-"}
-                  />
-              </div>
+
+              {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
+
+              <ConfirmButtons
+                isConfirmDisabled={!!localErrorInfoBox || !totalCommission || loading}
+                onConfirm={onConfirm}
+                onCancel={handleCancel}
+              />
           </div>
-
-          {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
-
-          <ConfirmButtons
-            isConfirmDisabled={!!localErrorInfoBox || !totalCommission || loading}
-            onConfirm={onConfirm}
-            onCancel={handleCancel}
-          />
-      </div>
+      </>
     )
 }
 

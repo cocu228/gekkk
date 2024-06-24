@@ -38,7 +38,8 @@ const WithdrawFormSepa = () => {
     networkTypeSelect,
     tokenNetworks,
     localErrorInfoBox,
-    setBankRefresh
+    setBankRefresh,
+    localErrorClear
   } = useContext(CtxWalletNetworks);
   const {
     min_withdraw = 0,
@@ -110,6 +111,10 @@ const WithdrawFormSepa = () => {
         showModal() 
     }
   };
+
+  useEffect(() => () => {
+    localErrorClear();
+  }, [])
 
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;

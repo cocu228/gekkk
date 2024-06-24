@@ -23,6 +23,7 @@ import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/Mo
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import Loader from "@/shared/ui/loader";
 
 interface IState {
   loading: boolean;
@@ -49,14 +50,14 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
     }
   } = details;
 
-  const { t } = useTranslation();
-  const { setRefresh } = useContext(CtxRootData);
-  const { setContent } = useContext(CtxGlobalModalContext);
-  const { displayHistory } = useContext(CtxDisplayHistory);
+  const {t} = useTranslation();
+  const {setRefresh} = useContext(CtxRootData);
+  const {setContent} = useContext(CtxGlobalModalContext);
+  const {displayHistory} = useContext(CtxDisplayHistory);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const { getAccountDetails } = storeAccountDetails((state) => state);
-  const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
-  const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
+  const {getAccountDetails} = storeAccountDetails((state) => state);
+  const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+  const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
   const {uasToken} = useContext(UasConfirmCtx)
 
 
@@ -187,34 +188,37 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
 
   return (
     <>
-      <ConfirmNotice text={t("check_your_information_carefully")} />
+      {loading && <Loader className='justify-center' />}
+      <div className={loading ? "collapse" : ""}>
+        <ConfirmNotice text={t("check_your_information_carefully")} />
 
-      <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
-        <div className="flex flex-col gap-[10px]">
-          {sepaInfo.map(({ label, value }) => (
-            <div key={value}>
-              <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-              <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
-            </div>
-          ))}
+        <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+          <div className="flex flex-col gap-[10px]">
+            {sepaInfo.map(({ label, value }) => (
+              <div key={value}>
+                <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="w-full">
+            <Commissions
+              isLoading={loading}
+              youWillPay={total?.total || 0}
+              youWillGet={amount}
+              fee={total?.commission || 0}
+            />
+          </div>
         </div>
-        <div className="w-full">
-          <Commissions
-            isLoading={loading}
-            youWillPay={total?.total || 0}
-            youWillGet={amount}
-            fee={total?.commission || 0}
-          />
-        </div>
+
+        {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
+
+        <ConfirmButtons
+          isConfirmDisabled={!!localErrorInfoBox || !total || loading}
+          onConfirm={onConfirm}
+          onCancel={handleCancel}
+        />
       </div>
-
-      {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
-
-      <ConfirmButtons
-        isConfirmDisabled={!!localErrorInfoBox || !total || loading}
-        onConfirm={onConfirm}
-        onCancel={handleCancel}
-      />
     </>
   );
 };

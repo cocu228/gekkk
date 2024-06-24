@@ -63,7 +63,8 @@ const WithdrawFormCardToCard = () => {
     networkTypeSelect,
     tokenNetworks,
     localErrorInfoBox,
-    setBankRefresh
+    setBankRefresh,
+    localErrorClear,
   } = useContext(CtxWalletNetworks);
 
   const onInput = ({ target }) => {
@@ -117,6 +118,10 @@ const WithdrawFormCardToCard = () => {
       setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
     }
   }, [inputCurr.value.number]);
+
+  useEffect(() => () => {
+    localErrorClear();
+  }, [])
 
   const transformedList = cards.map(item => ({
     id: item.cardId,
@@ -275,7 +280,7 @@ const WithdrawFormCardToCard = () => {
         <Modal
           title={t("confirm_transaction")}
           onCancel={handleCancel}
-          isModalOpen={!isModalOpen}
+          isModalOpen={isModalOpen}
         >
           <WithdrawConfirmCardToCard
             details={details}

@@ -14,6 +14,7 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Loader from "@/shared/ui/loader";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
@@ -95,30 +96,33 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
 
     return (
       <>
-          <ConfirmNotice text={t("check_your_information_carefully")} />
+          {loading && <Loader className='justify-center' />}
+              <div className={loading ? "collapse" : ""}>
+              <ConfirmNotice text={t("check_your_information_carefully")} />
 
-          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
-              <div className="flex flex-col gap-[10px]">
-                <div>
-                    <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t("type_transaction")}</p>
-                    <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{label}</p>
-                </div>
+              <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                  <div className="flex flex-col gap-[10px]">
+                    <div>
+                        <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t("type_transaction")}</p>
+                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{label}</p>
+                    </div>
+                  </div>
+                  <div className="w-full">
+                      <Commissions
+                        isLoading={loading}
+                        youWillPay={amount + withdraw_fee}
+                        youWillGet={amount}
+                        fee={withdraw_fee}
+                        youWillGetCoin={"EURG"}
+                      />
+                  </div>
               </div>
-              <div className="w-full">
-                  <Commissions
-                    isLoading={loading}
-                    youWillPay={amount + withdraw_fee}
-                    youWillGet={amount}
-                    fee={withdraw_fee}
-                    youWillGetCoin={"EURG"}
-                  />
-              </div>
+
+              <ConfirmButtons
+                onConfirm={onConfirm}
+                onCancel={handleCancel}
+              />
           </div>
-
-          <ConfirmButtons
-            onConfirm={onConfirm}
-            onCancel={handleCancel}
-          />
       </>
     )
 }

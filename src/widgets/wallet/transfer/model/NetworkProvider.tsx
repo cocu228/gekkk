@@ -41,7 +41,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     
     const setNetworkId = async (networkTypeSelect: ICtxWalletNetworks["networkTypeSelect"]) => {
         let firstAddress = null;
-        const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect).id;
+        const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect)?.id || 0;
         
         if (isTopUp && networkId !== 0) {
             setLoading(true)
@@ -157,7 +157,8 @@ const NetworkProvider = ({children, ...props}: IProps) => {
               setLoading,
               setRefresh,
               setBankRefresh,
-              localErrorInfoBox
+              localErrorInfoBox,
+              localErrorClear
           })}
         >
           {children}

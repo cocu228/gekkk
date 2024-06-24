@@ -32,7 +32,7 @@ const WithdrawFormBroker = () => {
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear] = useError();
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const {uasToken, getUasToken} = useContext(UasConfirmCtx)
 
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);

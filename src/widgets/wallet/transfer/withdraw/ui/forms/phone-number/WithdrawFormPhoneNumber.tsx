@@ -35,7 +35,13 @@ const WithdrawFormPhoneNumber = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks, localErrorInfoBox, setBankRefresh } = useContext(CtxWalletNetworks);
+  const {
+    networkTypeSelect,
+    tokenNetworks,
+    localErrorInfoBox,
+    localErrorClear,
+    setBankRefresh
+  } = useContext(CtxWalletNetworks);
   const { min_withdraw = 0, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const [details, setDetails] = useState<PaymentDetails>({
@@ -58,7 +64,7 @@ const WithdrawFormPhoneNumber = () => {
     }));
   };
 
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
+  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
   const delayRes = useCallback(
     debounce((details: PaymentDetails) => {
       setBankRefresh(details);
@@ -83,6 +89,10 @@ const WithdrawFormPhoneNumber = () => {
       })
     );
   }, [details, inputCurr.value]);
+
+  useEffect(() => () => {
+    localErrorClear();
+  }, [])
 
   const handleConfirm = async () => {
     if(!uasToken) {
@@ -183,7 +193,6 @@ const WithdrawFormPhoneNumber = () => {
 
       {/* Confirm Start */}
       <Modal
-        placeBottom={window.innerWidth < 768}
         destroyOnClose
         isModalOpen={isModalOpen}
         onCancel={handleCancel}

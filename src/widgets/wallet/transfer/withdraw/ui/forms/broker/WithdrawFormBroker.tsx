@@ -63,19 +63,14 @@ const WithdrawFormBroker = () => {
     const handleConfirm = async () => {
         if(!uasToken) {
             setLoading(true)
-            getUasToken()
+            await getUasToken()
+            setLoading(false)
+            showModal()
         } else {
             setLoading(false)
             showModal() 
         }
     }
-
-    useEffect(() => {
-        if(uasToken) {
-            showModal()
-            setLoading(false)
-        }
-    }, [uasToken])
 
     return (
         <div className="wrapper">

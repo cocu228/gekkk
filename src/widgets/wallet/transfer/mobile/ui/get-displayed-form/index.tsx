@@ -13,6 +13,7 @@ import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
+import CrossProjectForm from '../../../withdraw/ui/forms/cross-project/CrossProjectForm';
 
 type Props = {
     curr:ICtxCurrency;
@@ -59,6 +60,10 @@ function GetDisplayedForm({curr, network}: Props) {
                 return <UniversalTransferForm/>;
             case 231:
                 return <CreateTransferCode/>;
+            case 232:
+            case 233:
+            case 234:
+                return <CrossProjectForm/>;
             default:
                     return <div className='min-h-[50px] mb-3 flex justify-center items-center'>
                         <span className='text-[14px]'>{t("no_actions_for_network")}</span>

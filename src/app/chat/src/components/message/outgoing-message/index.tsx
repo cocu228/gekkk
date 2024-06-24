@@ -5,8 +5,7 @@ import TextContent from '../text-content'
 import Timestamp from '../timestamp'
 import {IconApp} from "../../../shared/components/icon-app";
 import {IOutgoingMessageProps} from "../messageTypes";
-
-import {MessageContent, MessagesContainer, UserAvatarContainer} from "../style";
+import style from '../styles.module.scss'
 
 const OutgoingMessage: FC<IOutgoingMessageProps> = ({
     text,
@@ -18,24 +17,26 @@ const OutgoingMessage: FC<IOutgoingMessageProps> = ({
     const theme = useTheme();
 
     return (
-        <MessagesContainer
+        <div
             data-testid="outgoing-message"
             data-date={created_at?.toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"})}
-            className='fade-animation'
+            className={`fade-animation ${style.MessagesContainer}`}
         >
-            <UserAvatarContainer/>
-            <MessageContent incoming>
+            <div className={style.UserAvatarContainer}></div>
+            <div className={`${style.MessageContent} ${style.MessageContentIncoming}`} >
                     {media ?
                         <MediaContent last={last} single={single} messageType='outgoing' {...media}/>
                         :
                         <TextContent>{text}</TextContent>
                     }
                     <Timestamp date={created_at} />
-            </MessageContent>
-            <UserAvatarContainer>
+            </div>
+            <div
+                className={style.UserAvatarContainer}
+            >
                 <IconApp code={"t82"} size={25} color={theme.lightBlue}/>
-            </UserAvatarContainer>
-        </MessagesContainer>
+            </div>
+        </div>
     )
 }
 

@@ -1,22 +1,11 @@
-import styled from 'styled-components'
+import style from './styles.module.scss'
 
 export type Props = {
     children: any
 }
 
-const Container = styled.div`
-    /* max-width: 384px; */
-    padding-top: 16px;
-    padding-bottom: 16px;
-    width: 35%;
-    height: 100%;
-    position: relative;
-    box-sizing: border-box;
-
-`
-
 export default function Sidebar({ children }: Props) {
     return (
-        <Container>{children}</Container>
+        <div className={style.Container}>{children}</div>
     )
 }

@@ -255,8 +255,8 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className="mt-3 md:mt-2 flex flex-col gap-[5px]">
-                  <div className={`${styles.FieldPreTitle} ml-[10px]`}>
+                <div className="mt-3 md:mt-2 flex flex-col gap-[0]">
+                  <div className={`${styles.FieldPreTitle} mb-[-2px] ml-[10px]`}>
                     {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />

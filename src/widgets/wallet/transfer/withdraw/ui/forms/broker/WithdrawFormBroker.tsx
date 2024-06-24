@@ -72,7 +72,6 @@ const WithdrawFormBroker = () => {
 
     useEffect(() => {
         if(uasToken) {
-
             showModal()
             setLoading(false)
         }

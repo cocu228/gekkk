@@ -19,10 +19,12 @@ import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
     const {md} = useBreakpoints()
+    const {uasToken, getUasToken} = useContext(UasConfirmCtx)
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
     const {initialLanguage} = getInitialProps();
@@ -53,6 +55,20 @@ const WithdrawFormSepa = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
     }
+
+    const handleConfirm = async () => {
+        if(!uasToken) {
+            getUasToken()
+        } else {
+            showModal() 
+        }
+    }
+
+    useEffect(() => {
+        if(uasToken) {
+            showModal()
+        }
+    }, [uasToken])
 
     return (
         <div className="wrapper">
@@ -169,7 +185,7 @@ const WithdrawFormSepa = () => {
             <div className={styles.ButtonContainerCenter}>
                 <Button
                     size="lg"
-                    onClick={showModal}
+                    onClick={handleConfirm}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
                 >

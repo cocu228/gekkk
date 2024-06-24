@@ -26,7 +26,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {setContent} = useContext(CtxGlobalModalContext);
     const [loading, setLoading] = useState<boolean>(false);
     const { displayHistory } = useContext(CtxDisplayHistory);
-    const {uasToken} = useContext(UasConfirmCtx)
+    const { uasToken } = useContext(UasConfirmCtx)
 
     const {
         networkTypeSelect,

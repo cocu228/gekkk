@@ -21,6 +21,7 @@ import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDi
 import axios from "axios";
 import useError from "@/shared/model/hooks/useError";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 interface IState {
   loading: boolean;
@@ -38,9 +39,10 @@ const WithdrawConfirmSepa = ({
   const { account } = useContext(CtxRootData);
   const { $const } = useContext(CtxWalletData);
   const {setRefresh} = useContext(CtxRootData);
-  const [uasToken, setUasToken] = useState<string>(null);
+  // const [uasToken, setUasToken] = useState<string>(null);
   const { setContent } = useContext(CtxGlobalModalContext);
   const { displayHistory } = useContext(CtxDisplayHistory);
+  const {uasToken} = useContext(UasConfirmCtx)
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
@@ -73,16 +75,11 @@ const WithdrawConfirmSepa = ({
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {
-      const { data } = await apiGetUas(null, {
-        cancelToken: cancelTokenSource.token
-      });
       const { phone } = await getAccountDetails();
-
-      setUasToken(data.result.token);
 
       apiPaymentSepa(details.current, true, {
         Authorization: phone,
-        Token: data.result.token
+        Token: uasToken
       }, cancelTokenSource.token)
         .then(({ data }) => {
           if ((data as IResErrors).errors) {
@@ -234,9 +231,9 @@ const WithdrawConfirmSepa = ({
       <div className="w-full flex justify-center">
         <Commissions
             isLoading={loading}
-            youWillPay={total.total}
+            youWillPay={total?.total}
             youWillGet={amount}
-            fee={total.commission}
+            fee={total?.commission}
         />
       </div>
 

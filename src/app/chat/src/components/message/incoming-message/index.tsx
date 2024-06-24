@@ -5,8 +5,6 @@ import TextContent from '../text-content'
 import Timestamp from '../timestamp'
 import {IconApp} from "../../../shared/components/icon-app";
 import {IIncomingMessageProps} from "../messageTypes";
-
-import {MessageContent, UserAvatar, UserAvatarContainer} from "../style";
 import style from '../styles.module.scss'
 
 const IncomingMessage: FC<IIncomingMessageProps> = ({
@@ -35,22 +33,22 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
 
     return (
         <div data-testid="incoming-message" className={`fade-animation ${style.MessagesContainer}`} data-date={date}>
-            <UserAvatarContainer>
+            <div className={style.UserAvatarContainer}>
                 {avatar ?
-                    <UserAvatar src={avatar} onError={handleOnError}/>
+                    <img src={avatar} className={style.UserAvatar} onError={handleOnError}/>
                     :
                     <IconApp code={"t24"} size={25} color={theme.lightBlue}/>
                 }
-            </UserAvatarContainer>
-            <MessageContent>
+            </div>
+            <div className={style.MessageContent}>
                     {media ?
                         <MediaContent last={last} single={single} messageType='incoming'{...media} />
                         :
                         <TextContent>{text}</TextContent>
                     }
                     <Timestamp date={created_at}/>
-            </MessageContent>
-            <UserAvatarContainer/>
+            </div>
+            <div className={style.UserAvatarContainer}></div>
         </div>
     )
 }

@@ -7,13 +7,45 @@
     align-items: flex-end;
 }
 
-// export const MessageContent = styled.div<{ incoming?: boolean }>`
-//     flex: 1 1 auto;
-//     padding: 5px 10px;
-//     border: 1px solid ${({ theme }) => theme.lightGray};
-//     border-radius: ${({ incoming }) => incoming ? "8px 8px 0 8px" : "8px 8px 8px 0"};
-// `
-
 .MessageContent {
+    flex: 1 1 auto;
+    padding: 5px 10px;
+    border: 1px solid #DCDCD9;
+    border-radius: 8px 8px 8px 0;
+}
+
+.MessageContentIncoming {
+    border-radius: 8px 8px 0 8px;
+}
+
+.UserAvatarContainer {
+    width: 25px;
+    min-width: 25px;
+    height: 25px;
+}
+
+.UserAvatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border-width: 2px;
+    border-color: rgb(255 255 255);
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+}
+
+.TextContent {
+    width: 100%;
+    word-wrap: break-word;
+    text-align:left;
+    vertical-align:text-top;
+    font-size: 12px;
+    align-self:flex-start;
+    color: #285E69;
+    position: relative;
     
+    a {
+        color: #285E69;
+    }
 }

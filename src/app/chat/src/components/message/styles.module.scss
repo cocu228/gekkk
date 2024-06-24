@@ -1,0 +1,19 @@
+.MessagesContainer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 5px;
+    margin-block: 5px;
+    align-items: flex-end;
+}
+
+// export const MessageContent = styled.div<{ incoming?: boolean }>`
+//     flex: 1 1 auto;
+//     padding: 5px 10px;
+//     border: 1px solid ${({ theme }) => theme.lightGray};
+//     border-radius: ${({ incoming }) => incoming ? "8px 8px 0 8px" : "8px 8px 8px 0"};
+// `
+
+.MessageContent {
+    
+}

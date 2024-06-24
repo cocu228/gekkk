@@ -1,19 +1,10 @@
 import styled from 'styled-components';
 import './index.css';
+import style from './styles.module.scss'
 
 type Props = {
   themeColor?: string;
 };
-
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  position: relative;
-`;
 
 const InternalDiv = styled.div<{ themeColor?: string }>`
   box-sizing: border-box;
@@ -32,13 +23,13 @@ const InternalDiv = styled.div<{ themeColor?: string }>`
 export default function Loading({ themeColor }: Props) {
 
   return (
-    <Container>
-      <div className="lds-ring">
+    <div className={style.Container} >
+      <div className={style.ldsRing}>
         <InternalDiv themeColor={themeColor} />
         <InternalDiv themeColor={themeColor} />
         <InternalDiv themeColor={themeColor} />
         <InternalDiv themeColor={themeColor} />
       </div>
-    </Container>
+    </div>
   );
 }

@@ -6,7 +6,8 @@ import Timestamp from '../timestamp'
 import {IconApp} from "../../../shared/components/icon-app";
 import {IIncomingMessageProps} from "../messageTypes";
 
-import {MessageContent, MessagesContainer, UserAvatar, UserAvatarContainer} from "../style";
+import {MessageContent, UserAvatar, UserAvatarContainer} from "../style";
+import style from '../styles.module.scss'
 
 const IncomingMessage: FC<IIncomingMessageProps> = ({
     text,
@@ -33,7 +34,7 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
     const date = created_at?.toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"})
 
     return (
-        <MessagesContainer data-testid="incoming-message" className='fade-animation' data-date={date}>
+        <div data-testid="incoming-message" className={`fade-animation ${style.MessagesContainer}`} data-date={date}>
             <UserAvatarContainer>
                 {avatar ?
                     <UserAvatar src={avatar} onError={handleOnError}/>
@@ -50,7 +51,7 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
                     <Timestamp date={created_at}/>
             </MessageContent>
             <UserAvatarContainer/>
-        </MessagesContainer>
+        </div>
     )
 }
 

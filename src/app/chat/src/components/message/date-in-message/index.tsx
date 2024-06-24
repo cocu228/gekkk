@@ -1,6 +1,6 @@
 import {FC} from "react";
-import {Container, DateContainer, DateText} from "./style";
 import MessageType from "../../../types/MessageType";
+import style from './styles.module.scss'
 
 interface IDateInMessageProps {
     messages: MessageType[]
@@ -25,22 +25,22 @@ const DateInMessage: FC<IDateInMessageProps> = ({ messages, index, date }) => {
 
     return(
         !doesPrevDateTimeExist ? (
-            <Container data-popupInMessages={true}>
-                <DateContainer>
-                    <DateText>
+            <div className={style.Container} data-popupInMessages={true}>
+                <div className={style.DateContainer}>
+                    <div className={style.DateText} >
                         {formatedDate(date)}
-                    </DateText>
-                </DateContainer>
-            </Container>
+                    </div>
+                </div>
+            </div>
         ) : (
             currentMessage !== lastMessage && (
-                <Container data-popupInMessages={true}>
-                    <DateContainer>
-                        <DateText>
+                <div className={style.Container} data-popupInMessages={true}>
+                    <div className={style.DateContainer}>
+                        <div className={style.DateText} >
                             {formatedDate(date)}
-                        </DateText>
-                    </DateContainer>
-                </Container>
+                        </div>
+                    </div>
+                </div>
             )
         )
     )

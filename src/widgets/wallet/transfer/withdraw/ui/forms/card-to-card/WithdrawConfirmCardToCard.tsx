@@ -54,8 +54,8 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
 
     const {t} = useTranslation()
     const {md} = useBreakpoints()
-    const {uasToken} = useContext(UasConfirmCtx)
     const { displayHistory } = useContext(CtxDisplayHistory);
+    const {uasToken} = useContext(UasConfirmCtx)
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);

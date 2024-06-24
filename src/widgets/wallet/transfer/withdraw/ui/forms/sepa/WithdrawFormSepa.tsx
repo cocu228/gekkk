@@ -33,8 +33,8 @@ const WithdrawFormSepa = () => {
   const {account} = useContext(CtxRootData);
   const {inputCurr, setInputCurr} = useInputState();
   const {isModalOpen, showModal, handleCancel} = useModal();
-  const {inputCurrValid, setInputCurrValid} = useInputValidateState();
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
+  const {inputCurrValid, setInputCurrValid} = useInputValidateState();
   const {
     networkTypeSelect,
     tokenNetworks,

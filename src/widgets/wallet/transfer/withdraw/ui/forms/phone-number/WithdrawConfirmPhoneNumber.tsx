@@ -57,7 +57,6 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
         totalCommission: undefined
     });
 
-    const {uasToken} = useContext(UasConfirmCtx)
     const {t} = useTranslation();
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxGlobalModalContext);
@@ -66,12 +65,12 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
+    const {uasToken} = useContext(UasConfirmCtx)
 
     useEffect(() => {
         localErrorClear();
         (async () => {
             const {phone} = await getAccountDetails();
-
             
             apiPaymentContact(details, true, {
                 Authorization: phone,

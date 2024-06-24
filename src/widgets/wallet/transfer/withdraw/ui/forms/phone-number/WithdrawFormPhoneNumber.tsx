@@ -24,6 +24,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormPhoneNumber = () => {
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -36,7 +37,6 @@ const WithdrawFormPhoneNumber = () => {
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const { networkTypeSelect, tokenNetworks, localErrorInfoBox, setBankRefresh } = useContext(CtxWalletNetworks);
   const { min_withdraw = 0, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,

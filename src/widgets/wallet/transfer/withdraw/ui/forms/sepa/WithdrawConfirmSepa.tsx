@@ -82,10 +82,15 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
     (async () => {
       const { phone } = await getAccountDetails();
 
-      apiPaymentSepa(getTransformDetails(), true, {
-        Authorization: phone,
-        Token: uasToken
-      }, cancelTokenSource.token)
+      apiPaymentSepa(
+        getTransformDetails(),
+        true,
+        {
+          Authorization: phone,
+          Token: uasToken
+        },
+        cancelTokenSource.token,
+      )
         .then(({ data }) => {
           if ((data as IResErrors).errors) {
             localErrorHunter({

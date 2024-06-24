@@ -19,6 +19,8 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
@@ -99,48 +101,32 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     }
 
     return (
-        <>
-            <div className="mb-[30px] flex gap-[5px]">
-                <IconApp color="#8F123A" size={15} className="min-w-[15px]" code="t27" />
-                <span className={styles.ModalInfoText}>
-                    {t("check_your_information_carefully")}
-                </span>
-            </div>
-            <div className={`${styles.ModalRows} mb-[20px]`}>
-                <div className="row">
-                    <div className="col">
-                        <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
-                    </div>
+      <>
+          <ConfirmNotice text={t("check_your_information_carefully")} />
+
+          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+              <div className="flex flex-col gap-[10px]">
+                <div>
+                    <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t("type_transaction")}</p>
+                    <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{label}</p>
                 </div>
-                <div className="row mb-4">
-                    <div className="col">
-                        <span className={styles.ModalRowsValue}>{label}</span>
-                    </div>
-                </div>
-            </div>
-            <Commissions
-                isLoading={loading}
-                youWillPay={new Decimal(amount).plus(withdraw_fee).toString()}
-                youWillGet={amount}
-                fee={new Decimal(withdraw_fee).toString()}
-                youWillGetCoin={"EURG"}
-            />
-            <Form onSubmit={onConfirm}>
-                <div className="row mt-4 mb-4">
-                    <div className={styles.ButtonContainer}>
-                        <Button
-                                className={styles.ButtonTwo}
-                                htmlType={"submit"}
-                        >{t("confirm")}</Button>
-                        <Button
-                                skeleton
-                                className={styles.ButtonTwo}
-                                onClick={handleCancel}
-                        >{t("cancel")}</Button>
-                    </div>
-                </div>
-            </Form>
-        </>
+              </div>
+              <div className="w-full">
+                  <Commissions
+                    isLoading={loading}
+                    youWillPay={amount + withdraw_fee}
+                    youWillGet={amount}
+                    fee={withdraw_fee}
+                    youWillGetCoin={"EURG"}
+                  />
+              </div>
+          </div>
+
+          <ConfirmButtons
+            onConfirm={onConfirm}
+            onCancel={handleCancel}
+          />
+      </>
     )
 }
 

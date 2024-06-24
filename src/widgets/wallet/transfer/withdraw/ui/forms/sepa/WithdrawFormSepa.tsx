@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import { useCallback, useContext, useEffect, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
@@ -192,7 +191,7 @@ const WithdrawFormSepa = () => {
         <Commissions
           isLoading={loading}
           youWillPay={inputCurr.value.number}
-          youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
+          youWillGet={inputCurr.value.number - withdraw_fee}
           fee={withdraw_fee}
         />
       </div>
@@ -215,7 +214,7 @@ const WithdrawFormSepa = () => {
       </div>
       {/* Transfer Button End */}
 
-      {/* Information Start */}
+      {/* Transaction Information Start */}
       <div className={"w-full md:flex hidden justify-center"}>
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}{" "}
@@ -225,7 +224,7 @@ const WithdrawFormSepa = () => {
             {t("per_transaction")}
           </span>
       </div>
-      {/* Information End */}
+      {/* Transaction Information End */}
 
       {/* Confirm Start */}
       <Modal

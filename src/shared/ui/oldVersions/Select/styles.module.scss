@@ -141,6 +141,7 @@
 }
 
 .SelectTitle {
+    font-size: 14px;
     font-weight: 400;
 
     @media screen and (max-width: 768px) {
@@ -150,7 +151,7 @@
 }
 
 .Placeholder {
-    font-size: 16px;
+    font-size: 14px;
     color: #DCDCD9;
     text-transform: lowercase;
 

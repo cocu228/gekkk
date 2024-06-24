@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -163,7 +162,7 @@ const WithdrawFormCardToCard = () => {
           <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("from_card")}:
           </span>
-          <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
+          <div className="w-full relative md:h-[32px] cursor-pointer flex flex-row">
             <div className="w-full">
               <div className="basis-full">
                 <Select
@@ -230,7 +229,7 @@ const WithdrawFormCardToCard = () => {
         <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
             <Commissions
               isLoading={loading}
-              youWillPay={new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()}
+              youWillPay={inputCurr.value.number + withdraw_fee}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
               youWillGetCoin={"EURG"}

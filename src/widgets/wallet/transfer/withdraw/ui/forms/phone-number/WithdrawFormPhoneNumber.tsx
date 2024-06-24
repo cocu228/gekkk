@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import styles from "../styles.module.scss";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +21,7 @@ import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import {debounce, formatAsNumber} from "@/shared/lib";
 import {CtxRootData} from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 const WithdrawFormPhoneNumber = () => {
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
@@ -95,90 +95,60 @@ const WithdrawFormPhoneNumber = () => {
 
   return (
     <div className="wrapper">
-      <div className="row mb-5 w-full">
-        <div className="col">
-          <InputCurrency.Validator
-            value={inputCurr.value.number}
-            description={getWithdrawDesc(min_withdraw, currency.$const)}
-            onError={setInputCurrValid}
-            validators={[
-              validateBalance(currency, navigate, t),
-              validateMinimumAmount(
-                min_withdraw,
-                inputCurr.value.number,
-                currency.$const,
-                t
-              )
-            ]}
-          >
-            <InputCurrency.PercentSelector
-              currency={currency}
-              header={
-                <span className={`${styles.TitleColText} ml-[10px]`}>
-                  {t("amount")}:
-                </span>
-              }
-              onSelect={setInputCurr}
-            >
-              <InputCurrency
-                placeholder={t("exchange.enter_amount")}
-                onChange={setInputCurr}
-                value={inputCurr.value.string}
-                currency={currency.$const}
-              />
-            </InputCurrency.PercentSelector>
-          </InputCurrency.Validator>
-        </div>
+      {/* Amount Start */}
+      <div className="w-full md:mb-[10px] mb-[15px]">
+        <AmountInput
+          transfers
+          value={inputCurr.value.number}
+          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          placeholder={t("exchange.enter_amount")}
+          inputValue={inputCurr.value.string}
+          currency={currency}
+          validators={[
+            validateBalance(currency, navigate, t),
+            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)
+          ]}
+          onError={setInputCurrValid}
+          onSelect={setInputCurr}
+          onChange={setInputCurr}
+        />
       </div>
+      {/* Amount End */}
 
-      <div className="row mb-5 w-full">
-        <div className="col">
-          <div className="row mb-[3px]">
-            <div className="col">
-              <span className={`${styles.TitleColText} ml-[10px]`}>
-                {t("phone_number")}:
-              </span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Input
-                allowDigits
-                allowSymbols
-                name={"phoneNumber"}
-                placeholder={t("auth.enter_phone_number")}
-                onChange={onInput}
-                onInput={onPhoneNumberInput}
-              />
-            </div>
-          </div>
-        </div>
+      {/* To Card Start */}
+      <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+          <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+            {t("phone_number")}:
+          </span>
+        <Input
+          allowDigits
+          allowSymbols
+          name={"phoneNumber"}
+          placeholder={t("auth.enter_phone_number")}
+          onChange={onInput}
+          onInput={onPhoneNumberInput}
+        />
       </div>
-      <div className="row w-full">
-        <div className="col">
-          <div className="row mb-[3px]">
-            <div className="col">
-              <span className={`${styles.TitleColText} ml-[10px]`}>
-                {t("description")}:
-              </span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col flex items-center">
-              <Input
-                allowDigits
-                allowSymbols
-                name={"purpose"}
-                value={details.purpose}
-                onChange={onInput}
-                placeholder={t("enter_description")}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* To Card End */}
 
-      <div className="row w-full flex justify-center">
+      {/* Description Start */}
+      <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+        <span className="font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          {t("description")}:
+        </span>
+        <Input
+          allowDigits
+          allowSymbols
+          name={"purpose"}
+          value={details.purpose}
+          onChange={onInput}
+          placeholder={t("enter_description")}
+        />
+      </div>
+      {/* Description End */}
+
+      {/* Commissions Start */}
+      <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
         <Commissions
           isLoading={loading}
           youWillPay={inputCurr.value.number + withdraw_fee}
@@ -187,21 +157,14 @@ const WithdrawFormPhoneNumber = () => {
           youWillGetCoin={"EURG"}
         />
       </div>
+      {/* Commissions End */}
 
-      <Modal
-        placeBottom={window.innerWidth < 768}
-        destroyOnClose
-        isModalOpen={isModalOpen}
-        onCancel={handleCancel}
-        title={t("confirm_transaction")}
-      >
-        <WithdrawConfirmPhoneNumber
-          details={details}
-          handleCancel={handleCancel}
-        />
-      </Modal>
-      <div className="my-2">{localErrorInfoBox}</div>
-      <div className={styles.ButtonContainerCenter}>
+      {/* Transfer Error Start */}
+      {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+      {/* Transfer Error Start */}
+
+      {/* Transfer Button Start */}
+      <div className="w-full flex justify-center">
         <Button
           size="lg"
           onClick={handleConfirm}
@@ -216,6 +179,22 @@ const WithdrawFormPhoneNumber = () => {
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>
       </div>
+      {/* Transfer Button End */}
+
+      {/* Confirm Start */}
+      <Modal
+        placeBottom={window.innerWidth < 768}
+        destroyOnClose
+        isModalOpen={isModalOpen}
+        onCancel={handleCancel}
+        title={t("confirm_transaction")}
+      >
+        <WithdrawConfirmPhoneNumber
+          details={details}
+          handleCancel={handleCancel}
+        />
+      </Modal>
+      {/* Confirm End */}
     </div>
   );
 };

@@ -108,15 +108,23 @@ const WithdrawFormBroker = () => {
                     </div>
 
                     <div className={styles.EURCostInfo}>
-                        <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("exchange_fee")} <b className={styles.EURCostInfoTextUppercase}>1,5%</b>
-                            {account.rights[AccountRights.IsJuridical] ? null :
-                                <span> {t("if_you")} <span
-                                    className={styles.EURCostInfoTextLink}
-                                    onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
-                                >
+                        <span className={styles.EURCostInfoText}>
+                            <b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:&nbsp;
+                            {t("exchange_fee")}&nbsp;
+                            <b className={styles.EURCostInfoTextUppercase}>1,5%</b>&nbsp;
+                            {account.rights[AccountRights.IsJuridical] ? null :(
+                                <span>
+                                    {t("if_you")}&nbsp;
+                                    <span
+                                        className={styles.EURCostInfoTextLink}
+                                        onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
+                                    >
                                     {t("freeze_GKE_tokens")}
-                                </span> {t("fee_is")} <b>0%</b>.
-                            </span>}
+                                    </span>&nbsp;
+                                    {t("fee_is")}&nbsp;
+                                    <b>0%</b>.
+                                </span>
+                            )}
                         </span>
                     </div>
                 </div>

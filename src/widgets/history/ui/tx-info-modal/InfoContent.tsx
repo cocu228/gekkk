@@ -11,7 +11,7 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, isNull, isNumbersOnly} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
@@ -33,23 +33,37 @@ const InfoContent = (props: TxInfoProps) => {
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
-    props.handleCancel()
+    props.handleCancel();
+    const isBankTx = !isNumbersOnly(props.id_transaction);
+
     if (md) {
       const searchParams = new URLSearchParams(location.search)
       const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      
       const params = createSearchParams({
-        txId: props.id_transaction,
-        ...search
-      })
+        ...search,
+        ...(isBankTx ? {txId: props.id_transaction} : {})
+      });
+
+      if (!isBankTx) {
+        localStorage.setItem("receiptInfo", JSON.stringify({
+          ...props,
+          addressTxInfo: state
+        }));
+      }
+
       navigate({
         pathname: "/receipt",
         search: params.toString()
-      })
+      });
     } else {
       modalContext.setContent({
-        content: <Receipt txId={props.id_transaction}/>,
-        title: t("transaction_receipt")
-      })
+        title: t("transaction_receipt"),
+        content: (isBankTx
+          ? <Receipt txInfo={{...props, addressTxInfo: state}}/>
+          : <Receipt txId={props.id_transaction}/>
+        )
+      });
     }
   }
 
@@ -262,7 +276,7 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && props.tx_type === 4 ? (
+          {!isNeedConfirm && (
             <div className={"flex gap-[20px] w-full justify-between mt-3"}>
               <Button
                   skeleton
@@ -272,15 +286,6 @@ const InfoContent = (props: TxInfoProps) => {
                 <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
               </Button>
 
-              <Button
-                  className='w-full'
-                  onClick={props.handleCancel}
-              >
-                {t("close")}
-              </Button>
-            </div>
-          ) : (
-            <div className={"flex w-full justify-center mt-3"}>
               <Button
                   className='w-full'
                   onClick={props.handleCancel}

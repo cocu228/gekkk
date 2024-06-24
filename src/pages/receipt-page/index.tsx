@@ -1,16 +1,24 @@
-import {FC} from "react";
+import {FC, useState} from "react";
 import Receipt from "@/widgets/receipt/ui";
 import {createSearchParams, useLocation, useNavigate} from "react-router-dom";
+import { AddressTxOut, GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 
 const ReceiptPage: FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [state] = useState<GetHistoryTrasactionOut & {
+        addressTxInfo?: AddressTxOut | null;
+    }>(JSON.parse(localStorage.getItem("receiptInfo")));
     const params = new URLSearchParams(location.search);
 
     const txId = params.get("txId");
     const currency = params.get("currency");
 
     const handleOnCancel = () => {
+        if (!!state) {
+            localStorage.removeItem("receiptInfo");
+        }
+
         if (currency) {
             const search = createSearchParams({
                 currency
@@ -27,7 +35,10 @@ const ReceiptPage: FC = () => {
 
     return (
         <div className={"wrapper"}>
-            <Receipt txId={txId} onCancel={handleOnCancel} />
+            {!!txId
+                ? <Receipt txId={txId} onCancel={handleOnCancel} />
+                : <Receipt txInfo={state} onCancel={handleOnCancel} />
+            }
         </div>
     )
 }

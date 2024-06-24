@@ -332,3 +332,9 @@ export function useQuery() {
 
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
+
+const onlyNumbersRegex = new RegExp(/^[0-9]*$/)
+
+export function isNumbersOnly(val: string | number) {
+    return onlyNumbersRegex.test(val as string);
+}

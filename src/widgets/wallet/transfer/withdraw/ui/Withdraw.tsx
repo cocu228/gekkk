@@ -15,6 +15,7 @@ import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumbe
 import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
 import CreateTransferCode from "./forms/create-transfer-code";
 import {getInitialProps, useTranslation} from 'react-i18next';
+import CrossProjectForm from './forms/cross-project/CrossProjectForm';
 
 const Withdraw = memo(() => {
     const {t} = useTranslation()
@@ -57,6 +58,10 @@ const Withdraw = memo(() => {
                 return <UniversalTransferForm/>; // To Gekkard user by contact (Crypto)
             case 231:
                 return <CreateTransferCode/>; // Code (Crypto)
+            case 232:
+            case 233:
+            case 234:
+                return <CrossProjectForm/>; // Cross-project transfer (Crypto)
             default:
                 return <div>
                     {t("no_actions_for_network")}

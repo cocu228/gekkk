@@ -30,7 +30,10 @@
     "phone_code": "Code de téléphone",
     "payment_information": "Informations de paiement",
     "back_to_login_page": "← Retour à la page de connexion",
-    "can_use_code": "Vous pouvez utiliser le code pendant : {{amount}} secondes",
+    "use_code": {
+      "can_use_code": "Vous pouvez utiliser le code pendant ",
+      "amount": ": {{amount}} secondes"
+    },
     "resend_one-time_code": "Renvoyer à nouveau le code à usage unique",
     "unconfirmed_transactions": "Vous avez des transactions non confirmées. Veuillez saisir ici le nom de l'expéditeur.",
     "here": "ici",

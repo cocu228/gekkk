@@ -30,7 +30,10 @@
     "phone_code": "Phone code",
     "payment_information": "Payment Information",
     "back_to_login_page": "← Back to login page",
-    "can_use_code": "You can use the code for: {{amount}} seconds",
+    "use_code": {
+      "can_use_code": "You can use the code for",
+      "amount": ": {{amount}} seconds"
+    },
     "resend_one-time_code": "Resend one-time code again",
     "unconfirmed_transactions": "You have unconfirmed transactions. Please enter the sender's name here.",
     "here": "here",

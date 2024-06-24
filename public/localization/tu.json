@@ -30,7 +30,10 @@
     "phone_code": "Telefon kodu",
     "payment_information": "ödeme bilgileri",
     "back_to_login_page": "← Giriş sayfasına geri dön",
-    "can_use_code": "Kodu şu süre boyunca kullanabilirsiniz: {{amount}} saniye",
+    "use_code": {
+      "can_use_code": "Kodu şu süre boyunca kullanabilirsiniz",
+      "amount": ": {{amount}} saniye"
+    },
     "resend_one-time_code": "Tek kullanımlık kodu tekrar gönder",
     "unconfirmed_transactions": "Onaylanmamış işlemleriniz var. Lütfen gönderenin adını buraya girin.",
     "here": "Burada",

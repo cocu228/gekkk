@@ -30,7 +30,10 @@
     "phone_code": "电话区号",
     "payment_information": "支付信息",
     "back_to_login_page": "← 返回登录页面",
-    "can_use_code": "您可以使用代码：{{amount}}秒",
+    "use_code": {
+      "can_use_code": "您可以使用代码",
+      "amount": "：{{amount}}秒"
+    },
     "resend_one-time_code": "重新发送一次性代码",
     "unconfirmed_transactions": "您有未确认的交易。请在此输入发件人的姓名。",
     "here": "这里",

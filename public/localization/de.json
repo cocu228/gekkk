@@ -29,7 +29,10 @@
     "one-time code": "Einmalcode",
     "phone_code": "Telefoncode",
     "back_to_login_page": "← Zurück zur Anmeldeseite",
-    "can_use_code": "Sie können den Code für: {{amount}} Sekunden verwenden",
+    "use_code": {
+      "can_use_code": "Sie können den Code für",
+      "amount": ": {{amount}} Sekunden verwenden"
+    },
     "resend_one-time_code": "Einmalcode erneut senden",
     "unconfirmed_transactions": "Sie haben unbestätigte Transaktionen. Bitte geben Sie den Namen des Absenders ein",
     "here": "hier",

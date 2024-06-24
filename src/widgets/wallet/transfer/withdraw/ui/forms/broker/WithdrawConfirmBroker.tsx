@@ -67,7 +67,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
 
     const onConfirm = async () => {
         setLoading(true);
-        
+    
         const {phone} = await getAccountDetails();
         
         await apiPaymentSepa(details.current, false, {

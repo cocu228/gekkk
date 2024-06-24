@@ -1,4 +1,3 @@
-import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
 import {
   apiPaymentSepa,
@@ -7,24 +6,21 @@ import {
   IResErrors,
   IResResult
 } from "@/shared/api";
-import { FC, useContext, useEffect, useState } from "react";
-import { CtxWalletNetworks, } from "@/widgets/wallet/transfer/model/context";
-import { apiGetUas } from "@/shared/(orval)api";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
-import { useTranslation } from "react-i18next";
-import styles from "../styles.module.scss";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
+import {FC, useContext, useEffect, useState} from "react";
+import {CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import {useTranslation} from "react-i18next";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import axios from "axios";
 import useError from "@/shared/model/hooks/useError";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import { PaymentDetails } from "@/shared/(orval)api/gek/model";
-import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
+import {PaymentDetails} from "@/shared/(orval)api/gek/model";
+import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
-import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 

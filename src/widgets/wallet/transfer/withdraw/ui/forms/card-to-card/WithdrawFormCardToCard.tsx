@@ -275,7 +275,7 @@ const WithdrawFormCardToCard = () => {
         <Modal
           title={t("confirm_transaction")}
           onCancel={handleCancel}
-          isModalOpen={isModalOpen}
+          isModalOpen={!isModalOpen}
         >
           <WithdrawConfirmCardToCard
             details={details}

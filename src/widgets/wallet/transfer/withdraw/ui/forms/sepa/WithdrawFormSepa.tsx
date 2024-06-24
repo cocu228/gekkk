@@ -7,7 +7,6 @@ import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
@@ -23,6 +22,7 @@ import { debounce } from "@/shared/lib";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 const WithdrawFormSepa = () => {
   const {t} = useTranslation();
@@ -110,115 +110,85 @@ const WithdrawFormSepa = () => {
     } else {
         showModal() 
     }
-}
+  };
+
+  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
+  const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
 
   return (
     <div className="wrapper">
-      <div className="row md:mb-[10px] mb-[15px] w-full">
-        <div className="col">
-          <div className="row">
-            <div className="col">
-              <InputCurrency.Validator
-                value={inputCurr.value.number}
-                description={getWithdrawDesc(min_withdraw, currency.$const)}
-                onError={setInputCurrValid}
-                validators={[
-                  validateBalance(currency, navigate, t),
-                  validateMinimumAmount(
-                    min_withdraw,
-                    inputCurr.value.number,
-                    currency.$const,
-                    t,
-                  ),
-                ]}
-              >
-                <InputCurrency.PercentSelector
-                  currency={currency}
-                  onSelect={setInputCurr}
-                  header={
-                    <span className={`${styles.TitleColText} ml-[7px]`}>
-                      {t("amount")}:
-                    </span>
-                  }
-                >
-                  <InputCurrency
-                    transfers={md}
-                    onChange={setInputCurr}
-                    value={inputCurr.value.string}
-                    placeholder={t("exchange.enter_amount")}
-                    currency={currency.$const}
-                  />
-                </InputCurrency.PercentSelector>
-              </InputCurrency.Validator>
-            </div>
-          </div>
-        </div>
+      {/* Amount Start */}
+      <div className="w-full md:mb-[5px] mb-[10px]">
+        <AmountInput
+          transfers={md}
+          value={inputCurr.value.number}
+          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          currency={currency}
+          placeholder={t("exchange.enter_amount")}
+          textClassname={`${styles.TitleColText} ml-[7px]`}
+          inputValue={inputCurr.value.string}
+          validators={[
+            validateBalance(currency, navigate, t),
+            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)
+          ]}
+          onError={setInputCurrValid}
+          onSelect={setInputCurr}
+          onChange={setInputCurr}
+        />
       </div>
+      {/* Amount End */}
 
-      <div className="row md:mb-[8px] mb-[15px] w-full">
-        <div className="col">
-          <div className="row mb-[3px]">
-            <div className="col">
-              <span className={`${styles.TitleColText} ml-[7px]`}>
-                {t("recipient")}:
-              </span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Input
-                onChange={onInput}
-                name={"beneficiaryName"}
-                value={details.beneficiaryName}
-                placeholder={t("enter_recipient_name")}
-                caption={!details.beneficiaryName && t("EW_law")}
-              />
-            </div>
-          </div>
+      {/* IBAN Start */}
+      <div className="w-full md:mb-[10px] mb-[15px]">
+        <div className="mb-[3px]">
+          <span className={`${styles.TitleColText} ml-[7px]`}>IBAN:</span>
         </div>
+        <Input
+          name={"iban"}
+          onChange={onInput}
+          value={details.iban}
+          allowDigits
+          placeholder={t("enter_account_number_or_IBAN")}
+        />
       </div>
-      <div className="row md:mb-[10px] mb-[15px] w-full">
-        <div className="col">
-          <div className="row mb-[3px]">
-            <div className="col">
-              <span className={`${styles.TitleColText} ml-[7px]`}>IBAN:</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Input
-                name={"iban"}
-                onChange={onInput}
-                value={details.iban}
-                allowDigits
-                placeholder={t("enter_account_number_or_IBAN")}
-              />
-            </div>
-          </div>
+      {/* IBAN End */}
+
+      {/*  Recipient Start */}
+      <div className="w-full md:mb-[5px] mb-[10px]">
+        <div className="mb-[3px]">
+          <span className={`${styles.TitleColText} ml-[7px]`}>
+            {t("recipient")}:
+          </span>
         </div>
+        <Input
+          onChange={onInput}
+          name={"beneficiaryName"}
+          value={details.beneficiaryName}
+          placeholder={t("enter_recipient_name")}
+          caption={!details.beneficiaryName && t("EW_law")}
+        />
       </div>
-      <div className="row w-full">
-        <div className="flex flex-col">
-          <span
-            className={`${styles.TitleColText} ml-[7px] relative top-[3px]`}
-          >
+      {/* Recipient End */}
+
+      {/* Description Start */}
+      <div className="w-full md:mb-[10px] mb-[15px]">
+        <div className="mb-[3px]">
+          <span className={`${styles.TitleColText} ml-[7px]`}>
             {t("description")}:
           </span>
-          <div className="row">
-            <div className="col">
-              <Select
-                value={details.purpose || ""}
-                listHeight={170}
-                options={transferDescriptionsTranslated}
-                placeholder={`-${t("enter_description")}-`}
-                onChange={handleOnPurpose}
-              />
-            </div>
-          </div>
         </div>
+        <Select
+          value={details.purpose || ""}
+          listHeight={170}
+          options={transferDescriptionsTranslated}
+          placeholder={`-${t("enter_description")}-`}
+          onChange={handleOnPurpose}
+        />
       </div>
+      {/* Description End */}
 
-      <div className="flex justify-center w-full">
+      {/* Commissions Start */}
+      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
         <Commissions
           isLoading={loading}
           youWillPay={inputCurr.value.number}
@@ -226,7 +196,38 @@ const WithdrawFormSepa = () => {
           fee={withdraw_fee}
         />
       </div>
+      {/* Commissions End */}
 
+      {/* Transfer Error Start */}
+      {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+      {/* Transfer Error Start */}
+
+      {/* Transfer Button Start */}
+      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+        <Button
+          size="lg"
+          onClick={handleConfirm}
+          className={"w-full md:text-fs14 text-fs16"}
+          disabled={isTransferDisabled}
+        >
+          <span className={styles.ButtonLabel}>{t("transfer")}</span>
+        </Button>
+      </div>
+      {/* Transfer Button End */}
+
+      {/* Information Start */}
+      <div className={"w-full md:flex hidden justify-center"}>
+          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
+            {t("fee_is_prec")}{" "}
+            <span className={"font-bold"}>
+              {withdraw_fee} EURG
+            </span>{" "}
+            {t("per_transaction")}
+          </span>
+      </div>
+      {/* Information End */}
+
+      {/* Confirm Start */}
       <Modal
         destroyOnClose
         isModalOpen={isModalOpen}
@@ -238,31 +239,7 @@ const WithdrawFormSepa = () => {
           handleCancel={handleCancel}
         />
       </Modal>
-      <div className="my-2">{localErrorInfoBox}</div>
-      <div className={styles.ButtonContainerCenter}>
-        <Button
-          size="lg"
-          onClick={handleConfirm}
-          className={styles.Button}
-          disabled={
-            !!localErrorInfoBox ||
-            loading ||
-            !Object.values(details).every((v) => v !== null && v !== "") ||
-            inputCurrValid.value
-          }
-        >
-          <span className={styles.ButtonLabel}>{t("transfer")}</span>
-        </Button>
-        <div className={styles.BottomFeeInfo}>
-          <span className={styles.BottomFeeInfoText}>
-            {t("fee_is_prec")}{" "}
-            <span className={styles.BottomFeeInfoTextBold}>
-              {withdraw_fee} EURG
-            </span>{" "}
-            {t("per_transaction")}
-          </span>
-        </div>
-      </div>
+      {/* Confirm End */}
     </div>
   );
 };

@@ -38,13 +38,13 @@ const Commissions: FC<ICommissionsProps> = ({
             <div className={styles.RightSide}>
                 <div className="flex flex-col justify-between">
                     <div>
-                        {isLoading ? t("loading") + "..." : <span>{youWillPay}</span>}
+                        {isLoading ? t("loading") + "..." : <span>{youWillPay || 0}</span>}
                     </div>
                     <div>
-                        {isLoading ? t("loading") + "..." : <span>{youWillGet}</span>}
+                        {isLoading ? t("loading") + "..." : <span>{youWillGet || 0}</span>}
                     </div>
                     <div>
-                        {isLoading ? t("loading") + "..." : <span>{fee}</span>}
+                        {isLoading ? t("loading") + "..." : <span>{fee || 0}</span>}
                     </div>
                 </div>
                 <div className="flex flex-col justify-between">

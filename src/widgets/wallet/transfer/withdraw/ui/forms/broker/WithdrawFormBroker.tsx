@@ -20,9 +20,8 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
 import useError from '@/shared/model/hooks/useError';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import BrokerAmountContainer from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/ui/containers/broker-amount-container";
-import { apiGetUas } from '@/shared/(orval)api';
 import { UasConfirmCtx } from '@/processes/errors-provider-context';
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -76,7 +75,7 @@ const WithdrawFormBroker = () => {
         <div className="wrapper">
             <div className={styles.Title}>
                 <div className={styles.TitleCol}>
-                    <BrokerAmountContainer
+                    <AmountInput
                         transfers
                         placeholder={t('enter_amount')}
                         textClassname={`${styles.TitleColText} ml-[7px]`}

@@ -22,6 +22,7 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { debounce } from "@/shared/lib";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 const WithdrawFormSepa = () => {
   const {t} = useTranslation();
@@ -33,6 +34,7 @@ const WithdrawFormSepa = () => {
   const {inputCurr, setInputCurr} = useInputState();
   const {isModalOpen, showModal, handleCancel} = useModal();
   const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const {
     networkTypeSelect,
     tokenNetworks,
@@ -100,6 +102,15 @@ const WithdrawFormSepa = () => {
       setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
     }
   }, [inputCurr.value.number]);
+
+  const handleConfirm = async () => {
+    if(!uasToken) {
+        await getUasToken()
+        showModal()
+    } else {
+        showModal() 
+    }
+  }
 
   return (
     <div className="wrapper">
@@ -231,7 +242,7 @@ const WithdrawFormSepa = () => {
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
-          onClick={showModal}
+          onClick={handleConfirm}
           className={styles.Button}
           disabled={
             !!localErrorInfoBox ||

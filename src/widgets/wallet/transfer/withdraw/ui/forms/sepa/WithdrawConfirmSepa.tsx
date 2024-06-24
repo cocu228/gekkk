@@ -24,6 +24,7 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 
 interface IState {
   loading: boolean;
@@ -52,13 +53,14 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
 
   const { t } = useTranslation();
   const { setRefresh } = useContext(CtxRootData);
-  const [uasToken, setUasToken] = useState<string>(null);
   const { setContent } = useContext(CtxGlobalModalContext);
   const { displayHistory } = useContext(CtxDisplayHistory);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
   const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
+  const {uasToken} = useContext(UasConfirmCtx)
+
 
   const [{ total, loading }, setState] = useState<IState>({
     loading: true,
@@ -78,22 +80,12 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {
-      const { data } = await apiGetUas(null, {
-        cancelToken: cancelTokenSource.token,
-      });
       const { phone } = await getAccountDetails();
 
-      setUasToken(data.result.token);
-
-      apiPaymentSepa(
-        getTransformDetails(),
-        true,
-        {
-          Authorization: phone,
-          Token: data.result.token,
-        },
-        cancelTokenSource.token,
-      )
+      apiPaymentSepa(getTransformDetails(), true, {
+        Authorization: phone,
+        Token: uasToken
+      }, cancelTokenSource.token)
         .then(({ data }) => {
           if ((data as IResErrors).errors) {
             localErrorHunter({

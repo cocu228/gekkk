@@ -86,17 +86,12 @@ const WithdrawFormPhoneNumber = () => {
 
   const handleConfirm = async () => {
     if(!uasToken) {
-        getUasToken()
+        await getUasToken()
+        showModal() 
     } else {
         showModal() 
     }
 }
-
-  useEffect(() => {
-    if(uasToken) {
-        showModal()
-    }
-}, [uasToken])
 
   return (
     <div className="wrapper">

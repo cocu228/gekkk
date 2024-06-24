@@ -56,7 +56,7 @@ const UniversalTransferForm = () => {
 
   return (
     <div className="wrapper">
-      <div className="row mb-5 w-full">
+      <div className="row mb-[10px] w-full">
         <div className="col">
           <InputCurrency.Validator
             value={inputCurr.value.number}
@@ -100,7 +100,7 @@ const UniversalTransferForm = () => {
         </div>
       </div>
 
-      <div className="row mb-5 w-full flex flex-col gap-[3px]">
+      <div className="row mb-[10px] w-full flex flex-col gap-[3px]">
         <span className={`${styles.TitleColText} m-[0_0_0px_7px]`}>
           {t('contact')}:
         </span>
@@ -115,7 +115,7 @@ const UniversalTransferForm = () => {
             />
       </div>
 
-      <div className="row mb-5 w-full flex flex-col gap-[3px]">
+      <div className="row w-full flex flex-col gap-[3px]">
         <span className={`${styles.TitleColText} ml-[7px]`}>
           {t("description")}:
         </span>

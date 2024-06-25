@@ -24,7 +24,7 @@ export const IconApp: FC<IProps> = ({code, size, width, height, lib = 2, color, 
     return (
         <svg width={widthIco} onClick={onClick} className={`${className && className}`} fill={color} stroke={color}
              height={heightIco}>
-            <use href={`/img/gek_icons_lib${lib}.svg?#${code}`}></use>
+            <use href={`/img/gek_icons_lib${lib}.svg?v4#${code}`}></use>
         </svg>
     )
 }

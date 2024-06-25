@@ -139,7 +139,7 @@ const TopUp = memo(() => {
             {!md && displayedForm}
 
             {md && <div className="mt-5">
-                {!network && networksForSelector.length > 0 && <span className={styles.TextSelectTitle}>
+                {!network && networksForSelector?.length > 0 && <span className={styles.TextSelectTitle}>
                     {t("select_top_up_type")}
                 </span>}
                 {!network && networksForSelector?.map((network) => (

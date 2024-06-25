@@ -32,10 +32,12 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
             currency?
                 <div className='flex pl-[10px] w-full h-full justify-start items-center'>
                     <div className='flex justify-start items-center w-full'>
-                        <div className='min-w-[50px] flex justify-start'>
+                        <div className='min-w-[25px] flex justify-start'>
                             <IconCoin height={20} className={`max-h-[36px]`} code={currency}/>
                         </div>
-                        <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
+                        <span className='text-[12px] text-[#3A5E66] text-nowrap overflow-hidden overflow-ellipsis'>
+                            {currencies?.get(currency)?.name}
+                        </span>
                     </div>
                 </div>
             :

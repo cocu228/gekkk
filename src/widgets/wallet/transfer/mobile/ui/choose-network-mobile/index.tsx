@@ -27,7 +27,7 @@ const ChooseNetworkMobile = ({network, setNetwork, loading}) => {
     return (
         <div className='w-full relative h-[32px] flex flex-row'>
             <div 
-                className="row w-full relative cursor-pointer border-r-[0px] pl-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]"
+                className="row w-full relative cursor-pointer border-r-[0px] px-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]"
                 onClick={()=>{
                     setNetwork(null);
                     displayHistory(false);

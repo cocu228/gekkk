@@ -1,5 +1,4 @@
 import React, {FC, useEffect} from 'react'
-import {useTheme} from "styled-components";
 import MediaContent from '../media-content'
 import TextContent from '../text-content'
 import Timestamp from '../timestamp'
@@ -15,7 +14,6 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
     single,
     created_at,
 }) => {
-    const theme = useTheme();
 
     const [avatar, setAvatar] = React.useState<string | null>(null)
 
@@ -37,7 +35,7 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
                 {avatar ?
                     <img src={avatar} className={style.UserAvatar} onError={handleOnError}/>
                     :
-                    <IconApp code={"t24"} size={25} color={theme.lightBlue}/>
+                    <IconApp code={"t24"} size={25} color={'#285E69'}/>
                 }
             </div>
             <div className={style.MessageContent}>

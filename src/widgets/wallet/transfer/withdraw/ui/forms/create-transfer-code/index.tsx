@@ -5,7 +5,6 @@ import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from "react-i18next";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import InputCurrency from "@/shared/ui/input-currency/ui";
 import { useNavigate } from "react-router-dom";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useContext, useState } from "react";
@@ -16,12 +15,13 @@ import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
-import styles from "../styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Switch } from "@/shared/ui/Switch";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import ConfirmInfo from "@/widgets/wallet/transfer/withdraw/ui/forms/create-transfer-code/ui/confirm-info";
 
 const CreateTransferCode = () => {
   const { t } = useTranslation();
@@ -70,6 +70,10 @@ const CreateTransferCode = () => {
     setCheckbox(!checkbox);
   };
 
+  const handleOnToggleConfirmInfo = (isOpen: boolean) => () => {
+    setIsHelpClicked(isOpen)
+  }
+
   return !md ? (
     <>
       <div>
@@ -96,115 +100,81 @@ const CreateTransferCode = () => {
     </div>
     </>
   ) : (
-    <div>
-      <div className={styles.MobWrap}>
-        <div className={styles.MobWrapBlock}>
-        <div className="row">
-        <div className="col">
-          <div className="wrapper w-full">
-            <InputCurrency.Validator
-              value={inputCurr.value.number}
-              description={t("create_special_code_currency", {currency: currency.$const})}
-              onError={setInputCurrValid}
-              validators={[validateBalance(currency, navigate, t)]}
-            >
-              <InputCurrency.PercentSelector
-                onSelect={setInputCurr}
-                header={
-                  <span className="text-[#1F3446] text-[12px] ml-[7px] md:mb-[-0.5px] mb-[2px] leading-[10px] font-semibold">
-                    {t("amount")}:
-                  </span>
-                }
-                currency={currency}
-              >
-                <InputCurrency.DisplayBalance currency={currency}>
-                  <InputCurrency
-                    transfers
-                    value={inputCurr.value.string}
-                    placeholder={t("exchange.enter_amount")}
-                    currency={currency.$const}
-                    onChange={setInputCurr}
-                  />
-                </InputCurrency.DisplayBalance>
-              </InputCurrency.PercentSelector>
-            </InputCurrency.Validator>
-          </div>
-        </div>
-      </div>
-      <div className="row mt-[10px] mb-16 md:mb-2">
-        <div className="flex flex-row gap-4 ml-[7px]">
-            <Switch defaultCheked={checkbox} onChange={switchHandler} />
-            <div className="flex items-center">
-              <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
-              <div
-                onClick={() => {
-                  setIsHelpClicked(true);
-                }}
-                className="inline-block relative align-middle w-[14px] ml-1 cursor-help"
-              >
-                <IconApp code="t27" color="#2BAB72" size={14} />
-              </div>
-              <Modal
-                isModalOpen={isHelpClicked}
-                onCancel={() => setIsHelpClicked(false)}
-                title={t("use_confirmation")}
-              >
-                <div className="flex flex-row mt-4 items-center">
-                  <IconApp
-                    code="t27"
-                    className="mr-2"
-                    color="#2BAB72"
-                    size={14}
-                  />
-                  <div className="flex items-center">
-                    <span>{t("when_using_confirmation_mobile")}</span>
-                  </div>
-                </div>
-                <div className={styles.ButtonContainerCenter}>
-                  <Button
-                    size="lg"
-                    color="blue"
-                    className="w-full mt-5"
-                    onClick={() => {
-                      setIsHelpClicked(false);
-                    }}
-                  >
-                    {t("close")}
-                  </Button>
-                </div>
-              </Modal>
-            </div>
-          </div>
-      </div>
-      <div className="flex w-full justify-center mt-1 mb-2">
-          <Commissions
-              isLoading={loading}
-              youWillPay={inputCurr.value.number}
-              youWillGet={inputCurr.value.number}
-              fee={"-"}
+    <>
+      <div className="wrapper pb-[5px]">
+        {/* Amount Start */}
+        <div className="w-full md:mb-[15px] mb-[20px]">
+          <AmountInput
+            transfers
+            placeholder={t("exchange.enter_amount")}
+            value={inputCurr.value.number}
+            inputValue={inputCurr.value.string}
+            currency={currency}
+            description={t("create_special_code_currency", { currency: currency.$const })}
+            validators={[validateBalance(currency, navigate, t)]}
+            onError={setInputCurrValid}
+            onSelect={setInputCurr}
+            onChange={setInputCurr}
           />
-      </div>
-      <div className={styles.ButtonContainerCenter}>
-        <Button
-          disabled={
-            !inputCurr.value.number ||
-            !validateBalance(currency, navigate, t)(inputCurr.value.number)
-              .validated
-          }
-          onClick={() => {
-            onCreateCode();
-            showModal();
-          }}
-          size="lg"
-          className="w-full"
-        >
-          {t("create_transfer_code")}
-        </Button>
-        <span className="block mt-[9px] mb-[10px] font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
-          {t('fee_is')}
-          <span className="uppercase font-bold"> 0 eurg </span>
-          {t("per_transaction")}
-        </span>
+        </div>
+        {/* Amount End */}
+
+        {/* Switch Confirm Start */}
+        <div className="flex items-center gap-[10px] ml-[10px] mb-[20px]">
+          <Switch defaultCheked={checkbox} onChange={switchHandler} />
+          <span className="text-[#1F3446] md:text-fs12 text-fs14">{t("use_confirmation")}</span>
+          <IconApp code="t27" color="#2BAB72" size={14} className={"cursor-help"} onClick={handleOnToggleConfirmInfo(true)} />
+          {/* Switch Confirm Modal Start */}
+          <ConfirmInfo
+            isOpen={isHelpClicked}
+            onCancel={handleOnToggleConfirmInfo(false)}
+          />
+          {/* Switch Confirm Modal End */}
+        </div>
+        {/* Switch Confirm End */}
+
+        {/* Commissions Start */}
+        <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
+          <Commissions
+            isLoading={loading}
+            youWillPay={inputCurr.value.number}
+            youWillGet={inputCurr.value.number}
+            fee={"-"}
+          />
+        </div>
+        {/* Commissions End */}
+
+        {/* Transfer Button Start */}
+        <div className="w-full flex justify-center md:mb-[15px] mb-[20px]">
+          <Button
+            disabled={
+              !inputCurr.value.number ||
+              !validateBalance(currency, navigate, t)(inputCurr.value.number)
+                .validated
+            }
+            onClick={() => {
+              onCreateCode();
+              showModal();
+            }}
+            size="lg"
+            className="w-full"
+          >
+            {t("create_transfer_code")}
+          </Button>
+        </div>
+        {/* Transfer Button End */}
+
+        {/* Transaction Information Start */}
+        <div className="w-full md:flex hidden justify-center">
+          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
+            {t('fee_is')}&nbsp;
+            <span className="font-semibold">0 eurg</span>&nbsp;
+            {t("per_transaction")}
+          </span>
+        </div>
+        {/* Transaction Information End */}
+
+        {/* Confirm Start */}
         <Modal
           onCancel={() => {
             handleCancel();
@@ -222,13 +192,13 @@ const CreateTransferCode = () => {
             code={newCode}
           />
         </Modal>
+        {/* Confirm End */}
       </div>
-        </div>
-      </div>
+
       <div className="row bg-[#F7F7F0] md:m-[0_-10px_-5px_-10px] md:rounded-[0_0_10px_10px] m-[0_-20px] p-[12px_0]">
         <TransferTableCode inputCurr={inputCurr} isOwner />
       </div>
-    </div>
+    </>
   );
 };
 

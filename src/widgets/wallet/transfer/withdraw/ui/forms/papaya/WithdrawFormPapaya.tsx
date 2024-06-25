@@ -4,7 +4,6 @@ import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
 import {debounce} from "@/shared/lib/helpers";
-import InputCurrency from '@/shared/ui/input-currency/ui';
 import {AccountRights} from '@/shared/config/mask-account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
@@ -19,8 +18,9 @@ import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import useError from '@/shared/model/hooks/useError';
-import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
+import {reponseOfUpdatingTokensNetworks} from '../../../model/helper';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 
 
@@ -64,109 +64,115 @@ const WithdrawFormPapaya = () => {
 
     return (
         <div className="wrapper">
-            <div className="row mb-4">
-                <div className="col">
-                    <InputCurrency.Validator
-                        value={inputCurr.value.number}
-                        onError={setInputCurrValid}
-                        description={getWithdrawDesc(min_withdraw, currency.$const)}
-                        validators={[
-                            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-                            validateBalance(currency, navigate, t)]}>
-                        <InputCurrency.PercentSelector
-                            currency={currency}
-                            header={<span className={`${styles.TitleColText} m-[0_0_0px_12px]`}>{t("amount")}:</span>}
-                            onSelect={val => {
-                                const amount = new Decimal(val);
-                                setInputCurr(amount.mul(100).floor().div(100).toString())
-                            }}
-                        >
-                            <InputCurrency.DisplayBalance currency={currency}>
-                                <InputCurrency
-                                    placeholder={t("exchange.enter_amount")}
-                                    value={inputCurr.value.string}
-                                    currency={currency.$const}
-                                    onChange={setInputCurr}
-                                />
-                            </InputCurrency.DisplayBalance>
-                        </InputCurrency.PercentSelector>
-                    </InputCurrency.Validator>
-                </div>
+            {/* Amount Start */}
+            <div className="w-full md:mb-[15px] mb-[20px]">
+                <AmountInput
+                  placeholder={t("exchange.enter_amount")}
+                  value={inputCurr.value.number}
+                  inputValue={inputCurr.value.string}
+                  currency={currency}
+                  description={getWithdrawDesc(min_withdraw, currency.$const)}
+                  validators={[
+                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                      validateBalance(currency, navigate, t)
+                  ]}
+                  onError={setInputCurrValid}
+                  onSelect={val => {
+                      const amount = new Decimal(val);
+                      setInputCurr(amount.mul(100).floor().div(100).toString())
+                  }}
+                  onChange={setInputCurr}
+                />
             </div>
-            {localErrorInfoBox && <div className='py-5'>
-                {localErrorInfoBox}    
-            </div>}
-            <div className={styles.EURCost}>
-                <div className="col">
-                    <span className={styles.EURCostValue}>
-                        1 EUR = 1 EURG*
-                    </span>
-                </div>
+            {/* Amount End */}
 
-                <div className={styles.EURCostInfo}>
-                    <span className={styles.EURCostInfoText}>
-                        <b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>: {" "}
-                        {t("withdraw_fee", {to: "Papaya IBAN"})}{" "}
-                        <b className={styles.EURCostInfoTextUppercase}>1,5%</b>
-                        {account.rights[AccountRights.IsJuridical] ? null :
-                            <span> {t("if_you")} <span
-                                className={styles.EURCostInfoTextLink}
-                                onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
-                            >
-                                {t("freeze_GKE_tokens")}   
-                            </span> {t("fee_is")} <b>0%</b>.
-                        </span>}
-                    </span>
+            {/* Transfer Error Start */}
+            {localErrorInfoBox ? <div className="w-full md:mb-[15px] mb-[20px]">{localErrorInfoBox}</div> : null}
+            {/* Transfer Error Start */}
+
+            {/* Information Start */}
+            <div className="w-full md:mb-[10px] mb-[15px]">
+                <div className={styles.EURCost}>
+                    <div className="col">
+                        <span className={styles.EURCostValue}>
+                            1 EUR = 1 EURG*
+                        </span>
+                    </div>
+    
+                    <div className={styles.EURCostInfo}>
+                        <span className={styles.EURCostInfoText}>
+                            <b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>: {" "}
+                            {t("withdraw_fee", {to: "Papaya IBAN"})}{" "}
+                            <b className={styles.EURCostInfoTextUppercase}>1,5%</b>
+                            {account.rights[AccountRights.IsJuridical] ? null :
+                                <span> {t("if_you")} <span
+                                    className={styles.EURCostInfoTextLink}
+                                    onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
+                                >
+                                    {t("freeze_GKE_tokens")}   
+                                </span> {t("fee_is")} <b>0%</b>.
+                            </span>}
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div className='w-full flex justify-center'>
+            {/* Information End */}
+
+            {/* Commissions Start */}
+            <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
                 <Commissions
-                    isLoading={loading}
-                    youWillPay={inputCurr.value.number}
-                    youWillGet={new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}
-                    fee={withdraw_fee}
-                    youWillGetCoin={"EUR"}
+                  isLoading={loading}
+                  youWillPay={inputCurr.value.number}
+                  youWillGet={inputCurr.value.number - withdraw_fee}
+                  fee={withdraw_fee}
+                  youWillGetCoin={"EUR"}
                 />
             </div>
-            <Modal
-                placeBottom={window.innerWidth<768}
-                isModalOpen={isModalOpen}
-                onCancel={handleCancel}
-                title={t("confirm_transaction")}
-            >
-                <WithdrawConfirmCrypto
-                    description={""}
-                    address={account.number}
-                    recipient={account.name}
-                    handleCancel={handleCancel}
-                    amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
-                />
-            </Modal>
+            {/* Commissions End */}
 
-            <div className={styles.Button}>
-                <div className={styles.ButtonContainerCenter}>
-                    <Button
-                        size="lg"
-                        className={'w-full'}
-                        onClick={showModal}
-                        disabled={!inputCurr.value.number || inputCurrValid.value || loading}
-                    >
-                        {t("transfer")}
-                    </Button>
-                </div>
+            {/* Transfer Button Start */}
+            <div className="w-full flex justify-center md:mb-[15px] mb-[20px]">
+                <Button
+                  size="lg"
+                  className={'w-full'}
+                  onClick={showModal}
+                  disabled={!inputCurr.value.number || inputCurrValid.value || loading}
+                >
+                    {t("transfer")}
+                </Button>
             </div>
+            {/* Transfer Button End */}
 
+            {/* Transaction Information Start */}
             {md && (percent_fee > 0 || withdraw_fee > 0) && (
-                <div className={styles.BottomFeeInfo + ' my-2'}>
-                    <span className={styles.BottomFeeInfoText}>
-                        {t("fee_is_prec")} <span className={styles.BottomFeeInfoTextBold}>
-                            {withdraw_fee === 0
-                                ? `${percent_fee}%`
-                                : withdraw_fee
-                            }</span> {t("per_transaction")}
+                <div className="w-full md:flex hidden justify-center">
+                    <span className="text-[var(--gek-mid-grey)] md:text-fs12 text-fs14">
+                        {t("fee_is_prec")}&nbsp;
+                        <span className={"font-semibold"}>
+                            {withdraw_fee === 0 ? `${percent_fee}%` : withdraw_fee}
+                        </span>&nbsp;
+                        {t("per_transaction")}
                     </span>
                 </div>
             )}
+            {/* Transaction Information End */}
+
+            {/* Confirm Start */}
+            <Modal
+              placeBottom={window.innerWidth<768}
+              isModalOpen={isModalOpen}
+              onCancel={handleCancel}
+              title={t("confirm_transaction")}
+            >
+                <WithdrawConfirmCrypto
+                  description={""}
+                  address={account.number}
+                  recipient={account.name}
+                  handleCancel={handleCancel}
+                  amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
+                />
+            </Modal>
+            {/* Confirm End */}
         </div>
     );
 }

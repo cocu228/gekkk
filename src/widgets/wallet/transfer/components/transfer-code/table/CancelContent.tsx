@@ -8,9 +8,10 @@ import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
-import style from './style.module.scss'
 import { modalDateArray } from "./TransferTableCode";
 import { Modal } from "@/shared/ui/modal/Modal";
+import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     const {t} = useTranslation();
@@ -39,35 +40,40 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
         'amount': `${amount} ${currency}`,
     }
 
-    return <>
-    <Button size="sm" className="w-full" color="red" skeleton onClick={showModal}><span className='text-[12px]'>{t("cancel")}</span></Button>
-    <Modal
-        title={t("cancel_code")} isModalOpen={isModalOpen} onCancel={handleCancel}>
-            {loading ? <Loader/> : <div>
-            <div className="row w-full py-4 mb-6">
-                <p className="text-[13px] sm:text-[12px]">{t("code_will_be_deleted")}</p>
-            </div>
-            <div className="w-full flex-col mb-6 flex justify-center">
-            <div className={style.ModalDateList}>
-                {
-                    modalDateArray.map((item, ind) => (
-                        <div key={ind} className={style.ModalDateListItem}>
-                            <span className={style.ModalDateListItemTitleCancel} >{t(item.titleKey)}</span>
-                            <span className={style.ModalDateListItemValueCancel}>{modalKeys[item.key]}</span>
-                        </div>
-                    ))
-                }
-            </div>
-            </div>
-            
-            <div className="flex flex-row gap-5">
-                <Button className="w-full" size="lg" onClick={onBtnCancel}>{t("confirm")}
-                </Button>
-                <Button skeleton color='blue' className="w-full" size="lg" onClick={handleCancel}>{t("cancel")}
-                </Button>
-            </div>
-        </div>}
-    </Modal></>
+    return (
+      <>
+        <Button size="sm" className="w-full" color="red" skeleton onClick={showModal}><span className='text-[12px]'>{t("cancel")}</span></Button>
+        <Modal placeBottom={md} title={t("cancel_code")} isModalOpen={isModalOpen} onCancel={handleCancel}>
+            {loading ? (
+              <div className="relative min-h-[150px]">
+                <Loader/>
+              </div>
+            ) : (
+                 <div>
+                     <ConfirmNotice text={t("code_will_be_deleted")} />
+                     <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                         <div className="flex flex-col gap-[10px]">
+                             {
+                                 modalDateArray.map((item) => (
+                                   <div key={item.key}>
+                                       <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t(item.titleKey)}</p>
+                                       <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">
+                                           {modalKeys[item.key]}
+                                       </p>
+                                   </div>
+                                 ))
+                             }
+                         </div>
+                     </div>
+                     <ConfirmButtons
+                        onConfirm={onBtnCancel}
+                        onCancel={handleCancel}
+                     />
+                </div>
+            )}
+        </Modal>
+    </>
+    )
 }
 
 export default CancelContent;

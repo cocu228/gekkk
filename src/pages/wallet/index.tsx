@@ -69,6 +69,8 @@ function Wallet() {
             navigate("404")
         }
     }, [currencies])
+
+    const isShownTabs = !(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnAboutPage)
     
     return (
         <div className="flex flex-col h-full w-full">
@@ -78,8 +80,7 @@ function Wallet() {
                 {md ? <WalletHeaderMobile/> : <WalletHeader/>}
                 {!md ?
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
-                        <div className="grid"
-                             style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
+                        <div className="grid" style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
                             <div className="substrate z-10 w-inherit relative min-h-[600px]">
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
@@ -92,13 +93,15 @@ function Wallet() {
                                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }
-                                {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <CardsMenu
-                                        data-tag={"bank_cards"}
-                                        data-name={t("bank_cards")}
-                                    />
-                                    {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
-                                </>}
+                                {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && (
+                                    <>
+                                        <CardsMenu
+                                            data-tag={"bank_cards"}
+                                            data-name={t("bank_cards")}
+                                        />
+                                        {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
+                                    </>
+                                )}
 
                                 {IS_GEKKARD_APP() && tab === "cashback_program" &&
                                     <GkeCashbackProgram/>
@@ -108,22 +111,32 @@ function Wallet() {
                                 }
 
                                 {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
-                                    <About data-tag={"about"} data-name={t("about")}
-                                           description={descriptions[$currency.$const]}/>
+                                    <About
+                                        data-tag={"about"}
+                                        data-name={t("about")}
+                                        description={descriptions[$currency.$const]}
+                                    />
                                 )}
 
-                                {xl && <History currenciesFilter={currencyForHistory} data-tag={"history"}
-                                                data-name={t("history")}/>}
+                                {xl && (
+                                  <History
+                                    data-tag={"history"}
+                                    data-name={t("history")}
+                                    currenciesFilter={currencyForHistory}
+                                  />
+                                )}
                             </div>
 
-                            {!xl && <div className="substrate z-0 -ml-4 h-full">
+                            {!xl && (
+                              <div className="substrate z-0 -ml-4 h-full">
                                 <History currenciesFilter={currencyForHistory}/>
-                            </div>}
+                              </div>
+                            )}
                         </div>
                     </TabsGroupPrimary>
                     :
                     <>
-                        {!(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) &&
+                        {isShownTabs &&
                             <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
                                 <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
                                 <TransfersButton isActive to={`/transfers?currency=${currency}`}/>

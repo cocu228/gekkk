@@ -58,7 +58,7 @@ const WalletHeaderMobile = () => {
     }
 
     return (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) ? null : (
-        <div className={styles.HeaderWalletMobileWrap}>
+        <div className={`${styles.HeaderWalletMobileWrap} ${isOnAboutPage ? "" : "bg-white"}`}>
             <div className={styles.HeaderWalletMobile}>
                 
                 <div className={styles.WalletInfoHeader}>

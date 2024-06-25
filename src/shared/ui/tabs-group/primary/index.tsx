@@ -55,6 +55,13 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
     const [state, setState] = useState(initValue);
     const {content, buttons} = filterChildrenByAttribute(children, state);
 
+    const handleOnChangeTags = (tag: string) => () => {
+        setState(tag)
+        if (walletContext) {
+            navigate(`/wallet?currency=${walletContext.$const}&tab=${tag}`)
+        }
+    }
+
     useEffect(() => {
         setState(initValue);
     }, [callInitValue]);
@@ -63,20 +70,15 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
         <div className='flex justify-center'>
             <div className={styles.TabsWrapper}>
                 <div className='flex justify-center flex-wrap'>
-                    {buttons.map((item, i) => <button
-                        key={"tabs-primary-button" + i}
-                        className={`
-                                ${styles.TabBtn}
-                                ${isActiveClass(item.tag === state)}
-                            `}
-                        onClick={() => {
-                            setState(item.tag)
-                            if (walletContext) {
-                                navigate(`/wallet?currency=${walletContext.$const}&tab=${item.tag}`)
-                            }
-                        }}>
-                        {item.name}
-                    </button>)}
+                    {buttons.map((item) => (
+                        <button
+                            key={"tabs-primary-button" + item.tag}
+                            className={`${styles.TabBtn} ${isActiveClass(item.tag === state)}`}
+                            onClick={handleOnChangeTags(item.tag)}
+                        >
+                            {item.name}
+                        </button>
+                    ))}
                 </div>
             </div>
         </div>

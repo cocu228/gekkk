@@ -1148,37 +1148,48 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         //     </p>
         // </div>,
 
-        [ETokensConst.EURG]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'> 
-            <p className='mb-3'>
-                {t("EUR_is_utility_token")} <a
-                className='font-semibold underline hover:cursor-pointer'
-                href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >{t("gekkard_app")}</a>.
-            </p>
+        [ETokensConst.EURG]: (
+          <div>
+              <div className="mb-[10px]">
+                  <p className="mb-3">
+                      {t("EUR_is_utility_token")}&nbsp;
+                      <a
+                        target="_blank"
+                        href={`${gekkardUrl ?? "https://dev.gekkard.com"}/app-release.apk`}
+                        className="font-bold underline hover:cursor-pointer"
+                        rel="noopener noreferrer"
+                      >
+                          {t("gekkard_app")}
+                      </a>.
+                  </p>
 
-            <p className='mb-3'>{t("for_more_information")} <a
-                className='underline font-semibold hover:cursor-pointer'
-                href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
-                target="_blank"
-                rel="noopener noreferrer"
-            >{t("white_paper")}</a>.
-            </p>
+                  <p>
+                      {t("for_more_information")}&nbsp;
+                      <a
+                        target="_blank"
+                        href="https://gekkoin.com/source/Gekkoin_EURG_WP.pdf"
+                        className="underline font-bold hover:cursor-pointer"
+                        rel="noopener noreferrer"
+                      >
+                          {t("white_paper")}
+                      </a>.
+                  </p>
+              </div>
 
-            {IS_GEKKARD_APP() && 
+
+              {IS_GEKKARD_APP() &&
                 <>
                     <div className="row  flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                        <div className='text-[14px]'>
+                        <div className="text-[14px]">
                             {t("exchange_rate_fixed")}: <span className="font-[700]">1 EUR = 1 EURG*</span>
                         </div>
                         <div className="col text-xs">
                             {account && <span>{t("exchange_fee")} 1,5%.
                                 {account.rights[AccountRights.IsJuridical] ? null : <>
                                     {t("if_you")} <a
-                                    className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
-                                    onClick={() => {
-                                        navigate('/wallet?currency=GKE&tab=no_fee_program');
+                                  className="underline hover:text-blue-400 hover:cursor-pointer font-semibold"
+                                  onClick={() => {
+                                      navigate("/wallet?currency=GKE&tab=no_fee_program");
                                         scrollToTop();
                                     }}
                                 >
@@ -1229,7 +1240,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </p>
             </div>
 
-        </div>,
+        </div>
+        ),
 
         [ETokensConst.EVER]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>

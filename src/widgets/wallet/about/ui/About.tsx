@@ -18,8 +18,8 @@ const About = ({description}: IParams) => {
 
     return (
         <div className=" bg-white rounded-md px-6 py-3 mt-3"> 
-            <div className="flex mt-1 mb-3 items-center">
-                {/* <div className="mr-4">
+            {/*<div className="flex mt-1 mb-3 items-center">
+                 <div className="mr-4">
                     <img
                         className='h-[50px] w-[50px]'
                         src={`/img/tokens/${$const.toLowerCase().capitalize()}Icon.svg`}
@@ -32,14 +32,14 @@ const About = ({description}: IParams) => {
                         }}
                         alt={$const}
                     />
-                </div> */}
+                </div>
 
                 <h1 className="font-bold text-base text-gray-600">
                     {name}
                 </h1>
-            </div>
+            </div>*/}
 
-            <div className='text-gray-500 text-sm font-medium md:text-justify md:text-[10px] md:font-[400]'>
+            <div className='text-[var(--gek-dark-grey)] md:text-fs12 text-fs14'>
                 {description}
             </div>
 

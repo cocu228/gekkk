@@ -1,7 +1,6 @@
 import {useCallback, useContext, useState, memo, useRef, useEffect} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
-import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
 import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
@@ -17,18 +16,18 @@ import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import { IconApp } from "@/shared/ui/icons/icon-app";
 import styles from './styles.module.scss'
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
 import Timer from "@/shared/model/hooks/useTimer";
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 const initStageConfirm = {
   status: null,
@@ -170,157 +169,91 @@ const WithdrawConfirmCrypto = memo(
       setInput(target.value);
     };
 
+    const cryptoInfo: { label: string; value: string }[] = [
+      ...(label ? [{ label: t("type_transaction"), value: label }] : []),
+      ...(address ? [{ label: t("address"), value: address }] : []),
+      ...(recipient ? [{ label: t("recipient_name"), value: recipient }] : []),
+      ...(amount && $const ? [{ label: t("amount"), value: `${amount} ${$const}` }] : []),
+      ...(withdraw_fee && $const ? [{ label: t("fee"), value: `${withdraw_fee} ${$const}` }] : []),
+      ...(description ? [{ label: t("description"), value: description }] : []),
+    ]
+
     return (
       <>
-        <div className="flex justify-center flex-col items-start self-center w-full">
-          <div className={styles.MobileWarnBlock}>
-            <IconApp color="#8F123A" size={50} code="t27" />
-            <span className={styles.ModalInfoText}>
-              {t("use_withdraw_addr_supported")}
-            </span>
-          </div>
-          <div className="flex flex-col gap-[10px]">
-            {
-              label ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('type_transaction')}</span>
-                  <span className={styles.ConfirmItemValue}>{label}</span>
+        {loading && <Loader className='justify-center' />}
+        <div className={loading ? "collapse" : ""}>
+          <ConfirmNotice text={t("use_withdraw_addr_supported")} />
+
+          <div className="flex flex-col px-[10px] gap-[25px] mb-[25px]">
+            <div className="flex flex-col gap-[10px]">
+              {cryptoInfo.map(({ label, value }) => (
+                <div key={value}>
+                  <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                  <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
                 </div>
-              ) : null
-            }
-            {
-              address ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('address')}</span>
-                  <span className={styles.ConfirmItemValue}>{address}</span>
-                </div>
-              ) : null
-            }
-            {
-              recipient ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('recipient_name')}</span>
-                  <span className={styles.ConfirmItemValue}>{recipient}</span>
-                </div>
-              ) : null
-            }
-            {
-              amount && $const ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('amount')}</span>
-                  <span className={styles.ConfirmItemValue}>{amount} {$const}</span>
-                </div>
-              ) : null
-            }
-            {
-              withdraw_fee && $const ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('fee')}</span>
-                  <span className={styles.ConfirmItemValue}>{new Decimal(withdraw_fee).toString()} {$const}</span>
-                </div>
-              ) : null
-            }
-            {
-              description ? (
-                <div className={styles.ConfirmItem}>
-                  <span className={styles.ConfirmItemTitle}>{t('description')}</span>
-                  <span className={styles.ConfirmItemValue}>{description}</span>
-                </div>
-              ) : null
-            }
-          </div>
-            <Commissions
+              ))}
+            </div>
+            <div className="w-full">
+              <Commissions
                 isLoading={loading}
                 youWillPay={amount + withdraw_fee}
                 youWillGet={amount}
                 fee={withdraw_fee}
-            />
-          <div className="w-full">
-            <Form
+              />
+            </div>
+          </div>
+
+          <div className="col flex justify-center mb-[10px]">
+            {localErrorInfoBox
+              ? localErrorInfoBox
+              : stageReq.autoInnerTransfer && (
+              <InfoBox>
+                The address is within our system. The transfer will be
+                made via the internal network, and not through the
+                blockchain. Are you sure you want to continue?
+              </InfoBox>
+            )}
+          </div>
+
+          <Form
             form={form}
             wrapperClassName="w-full"
             onSubmit={() => onConfirm()}
           >
-            <div className="w-full row mt-4">
-              <div className="w-full flex flex-row gap-[5px] relative">
-                {loading ? (
-                  <Loader className={"relative w-[24px] h-[24px]"} />
-                ) : (
-                  <>
-                    <div className="w-full gap-5 flex flex-col justify-between">
-                      {(stageReq.status === 0 || stageReq.status === 1) && (
-                        <div>
-                          <FormItem
-                            name="code"
-                            label="Code"
-                            preserve
-                            rules={[{ required: true, ...codeMessage }]}
-                          >
-                            <Input
-                              allowDigits
-                              size={"sm"}
-                              type="text"
-                              className={styles.Input}
-                              onInput={onInput}
-                              onChange={inputChange}
-                              placeholder={
-                                stageReq.status === 0
-                                  ? t("enter_sms_code")
-                                  : stageReq.status === 1
-                                    ? t("enter_code")
-                                    : t("enter_pin_code")
-                              }
-                            />
-                          </FormItem>
-                          <Timer onAction={onReSendCode} />
-                        </div>
-                      )}
-                      <div className="col flex justify-center">
-                        {localErrorInfoBox
-                          ? localErrorInfoBox
-                          : stageReq.autoInnerTransfer && (
-                          <InfoBox>
-                            The address is within our system. The transfer will be
-                            made via the internal network, and not through the
-                            blockchain. Are you sure you want to continue?
-                          </InfoBox>
-                        )}
-                      </div>
-                      <div className={styles.ButtonContainer + " w-full"}>
-                        <Button
-                          htmlType={"submit"}
-                          onClick={() => {
-                            onConfirm();
-                          }}
-                          disabled={
-                            !!localErrorInfoBox ||
-                            (input === "" && (stageReq.status === 0 || stageReq.status === 1))
-                          }
-                          className={styles.ButtonTwo}
-                        >
-                          {t(
-                            stageReq.status === 2
-                              ? "sign_transfer"
-                              : "confirm"
-                          )}
-                        </Button>
-                        <Button
-                          skeleton
-                          onClick={() => {
-                            handleCancel();
-                          }}
-                          className={styles.ButtonTwo}
-                        >
-                          {t("cancel")}
-                        </Button>
-                      </div>
-                    </div>
-                  </>
-                )}
+            {(stageReq.status === 0 || stageReq.status === 1) && (
+              <div className="mb-[15px]">
+                <FormItem
+                  name="code"
+                  label="Code"
+                  preserve
+                  rules={[{ required: true, ...codeMessage }]}
+                >
+                  <Input
+                    allowDigits
+                    size={"sm"}
+                    type="text"
+                    className={styles.Input}
+                    onInput={onInput}
+                    onChange={inputChange}
+                    placeholder={
+                      stageReq.status === 0
+                        ? t("enter_sms_code")
+                        : stageReq.status === 1
+                          ? t("enter_code")
+                          : t("enter_pin_code")
+                    }
+                  />
+                </FormItem>
+                <Timer onAction={onReSendCode} />
               </div>
-            </div>
-            </Form>
-          </div>
+            )}
+            <ConfirmButtons
+              isConfirmDisabled={!!localErrorInfoBox || (input === "" && (stageReq.status === 0 || stageReq.status === 1))}
+              confirmTitle={t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
+              confirmType={"submit"}
+              onCancel={handleCancel}
+            />
+          </Form>
         </div>
       </>
     );

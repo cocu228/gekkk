@@ -45,7 +45,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
         <Button size="sm" className="w-full" color="red" skeleton onClick={showModal}><span className='text-[12px]'>{t("cancel")}</span></Button>
         <Modal placeBottom={md} title={t("cancel_code")} isModalOpen={isModalOpen} onCancel={handleCancel}>
             {loading ? (
-              <div className="relative min-h-[150px]">
+              <div className="relative min-h-[200px]">
                 <Loader/>
               </div>
             ) : (

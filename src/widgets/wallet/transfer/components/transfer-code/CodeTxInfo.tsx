@@ -33,7 +33,7 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
     }, []);
 
     const loader = (
-      <div className={"min-h-[150px] relative"}><Loader className="justify-center" /></div>
+      <div className={"min-h-[200px] relative"}><Loader className="justify-center" /></div>
     )
 
     return (
@@ -88,22 +88,18 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
                     )}
                 </div>
             )}
-            {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? loader : (
-              <>
-                {onBtnApply && (
-                    <div className="row">
-                        <div className="flex justify-center col">
-                            <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
-                                    size="md"
-                                    className={"w-full"}>
-                                {t("confirm")}
-                            </Button>
-                        </div>
+            {onBtnApply && (
+                <div className="row">
+                    <div className="flex justify-center col">
+                        <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
+                                size="md"
+                                className={"w-full"}>
+                            {t("confirm")}
+                        </Button>
                     </div>
-                )}
-                {applyTxCodeInfoBox && <div className={"row mt-4"}>{applyTxCodeInfoBox}</div>}
-                </>
+                </div>
             )}
+            {applyTxCodeInfoBox && <div className={"row mt-4"}>{applyTxCodeInfoBox}</div>}
         </>
     )
 }

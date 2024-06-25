@@ -9,6 +9,7 @@ interface IBrokerAmountContainerProps {
   inputValue: string;
   currency: ICtxCurrency
   validators:  IValidatorCreator[];
+  name?: string;
   transfers?: boolean;
   description?: string;
   textClassname?: string;
@@ -24,6 +25,7 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
   inputValue,
   currency,
   description,
+  name,
   validators,
   textClassname,
   placeholder,
@@ -47,6 +49,7 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
         <InputCurrency.DisplayBalance currency={currency}>
           <InputCurrency
             transfers={transfers}
+            name={name}
             placeholder={placeholder}
             value={inputValue}
             currency={currency.$const}

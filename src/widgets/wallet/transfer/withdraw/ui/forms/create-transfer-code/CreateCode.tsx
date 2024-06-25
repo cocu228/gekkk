@@ -34,17 +34,17 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
     const {setRefresh} = useContext(CtxRootData);
 
     const {md} = useBreakpoints()
-    
+
     const isInputEmptyOrNull = inputCurr.value.number === 0;
     const isInputMoreThanBalance = inputCurr.value.number > currency.balance?.free_balance;
-    
+
     const getListTxCode = storeListTxCode(state => state.getListTxCode);
-    
+
     const [localErrorHunter, , localErrorInfoBox] = useError();
-    
+
     const onCreateCode = async () => {
         setLoading(true)
-        
+
         const response = await apiCreateTxCode({
             typeTx: checkbox ? 12 : 11,
             timeLimit: false,
@@ -52,7 +52,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
             amount: inputCurr.value.number,
             clientNonce: getRandomInt32()
         });
-        
+
         actionResSuccess(response).success(async () => {
             setNewCode(response.data.result.code)
             await getListTxCode()
@@ -120,7 +120,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
             </>
     ) : (loading ?
-            <div className="flex relative mt-10 min-h-[200px]">
+            <div className="relative min-h-[200px]">
                 <Loader/>
             </div> :
             code ?

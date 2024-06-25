@@ -1,9 +1,6 @@
-import dayjs from "dayjs";
-import { format } from "date-fns";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
 import Input from "@/shared/ui/input/Input";
-import type { DatePickerProps } from "antd";
 import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
 import History from "../../history/ui/History";
@@ -11,7 +8,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { getRoundingValue } from "@/shared/lib/helpers";
-import { dateFormat, options } from "../model/constants";
+import { options } from "../model/constants";
 import { ISelectCard, ISelectTxTypes } from "../model/types";
 import { useContext, useEffect, useRef, useState } from "react";
 import { formatCardNumber } from "../../dashboard/model/helpers";
@@ -19,7 +16,7 @@ import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
-import { formatForApi } from "@/shared/lib/date-helper";
+import { getFirstDayOfPreviousMonth } from "../model/helpers";
 
 // TODO: clean up
 function CustomHistory() {
@@ -31,7 +28,7 @@ function CustomHistory() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
   
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(getFirstDayOfPreviousMonth())
   const [endDate, setEndDate] = useState(new Date())
 
   const {
@@ -67,7 +64,7 @@ function CustomHistory() {
   });
 
   const handleReset = () => {
-    setStartDate(new Date())
+    setStartDate(getFirstDayOfPreviousMonth())
     setEndDate(new Date())
     setFiat(false);
     setCurr('');
@@ -76,6 +73,7 @@ function CustomHistory() {
   };
 
   const applyHandler = () => {
+    setSelector(null);
     setHistoryData({
       assets: [curr],
       types: type?.value,
@@ -246,15 +244,15 @@ function CustomHistory() {
           {selector === 'currency' && (
             <div className="w-full mt-[15px]">
               <span className={styles.CurrencyListTitle}>{t("select_currency")}</span>
-              <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
+              <div className="bg-[white] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                 <IconApp size={20} code="t12" color="#000" />
                 <Input
-                  className={`w-full text-[10px] border-[none]`}
+                  size="sm"
                   type="text"
                   ref={inputRef}
                   data-testid="SearchName"
-                  placeholder={t("crypto_assets.search_currency")}
                   onChange={setValueSearch}
+                  placeholder={t("crypto_assets.search_currency")}
                 />
               </div>
               {currenciesList.length > 0 ? (

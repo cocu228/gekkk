@@ -101,9 +101,9 @@ const CreateTransferCode = () => {
     </>
   ) : (
     <>
-      <div className="wrapper pb-[5px]">
+      <div className="wrapper pb-[5px] flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
-        <div className="w-full md:mb-[15px] mb-[20px]">
+        <div className="w-full">
           <AmountInput
             transfers
             placeholder={t("exchange.enter_amount")}
@@ -120,7 +120,7 @@ const CreateTransferCode = () => {
         {/* Amount End */}
 
         {/* Switch Confirm Start */}
-        <div className="flex items-center gap-[10px] ml-[10px] mb-[20px]">
+        <div className="flex items-center gap-[10px] ml-[10px]">
           <Switch defaultCheked={checkbox} onChange={switchHandler} />
           <span className="text-[#1F3446] md:text-fs12 text-fs14">{t("use_confirmation")}</span>
           <IconApp code="t27" color="#2BAB72" size={14} className={"cursor-help"} onClick={handleOnToggleConfirmInfo(true)} />
@@ -134,7 +134,7 @@ const CreateTransferCode = () => {
         {/* Switch Confirm End */}
 
         {/* Commissions Start */}
-        <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
+        <div className='w-full flex justify-center'>
           <Commissions
             isLoading={loading}
             youWillPay={inputCurr.value.number}
@@ -145,7 +145,7 @@ const CreateTransferCode = () => {
         {/* Commissions End */}
 
         {/* Transfer Button Start */}
-        <div className="w-full flex justify-center md:mb-[15px] mb-[20px]">
+        <div className="w-full flex justify-center">
           <Button
             disabled={
               !inputCurr.value.number ||
@@ -157,7 +157,7 @@ const CreateTransferCode = () => {
               showModal();
             }}
             size="lg"
-            className="w-full"
+            className="w-full md:text-fs14 text-fs16"
           >
             {t("create_transfer_code")}
           </Button>
@@ -168,7 +168,7 @@ const CreateTransferCode = () => {
         <div className="w-full md:flex hidden justify-center">
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t('fee_is')}&nbsp;
-            <span className="font-semibold">0 eurg</span>&nbsp;
+            <span className="font-semibold">0 EURG</span>&nbsp;
             {t("per_transaction")}
           </span>
         </div>

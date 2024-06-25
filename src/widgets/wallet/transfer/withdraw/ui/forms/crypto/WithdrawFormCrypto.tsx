@@ -77,9 +77,9 @@ const WithdrawFormCrypto = () => {
   }, [inputCurr.value.number]);
 
   return (
-    <div className="wrapper">
+    <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
-      <div className="w-full md:mb-[10px] mb-[15px]">
+      <div className="w-full">
         <AmountInput
           name="amount"
           value={new Decimal(inputCurr.value.number).plus(withdraw_fee).toNumber()}
@@ -100,11 +100,11 @@ const WithdrawFormCrypto = () => {
       {/* Amount End */}
 
       {/* Transfer Error Start */}
-      {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+      {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
       {/* Transfer Error Start */}
 
       {/* Address Start */}
-      <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("address")}:
         </span>
@@ -138,7 +138,7 @@ const WithdrawFormCrypto = () => {
       {/* Address End */}
 
       {/* Recipient Start */}
-      <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("recipient")}:
         </span>
@@ -154,7 +154,7 @@ const WithdrawFormCrypto = () => {
       {/* Recipient End */}
 
       {/* Desc Optional Start */}
-      <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("desc_optional")}:
         </span>
@@ -171,7 +171,7 @@ const WithdrawFormCrypto = () => {
       {/* Desc Optional End */}
 
       {/* Commissions Start */}
-      <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
+      <div className='w-full flex justify-center'>
         <Commissions
           isLoading={loading}
           youWillPay={inputCurr.value.number + withdraw_fee}
@@ -182,11 +182,11 @@ const WithdrawFormCrypto = () => {
       {/* Commissions End */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+      <div className="w-full flex justify-center">
         <Button
           size="lg"
           onClick={showModal}
-          className={'w-full'}
+          className="w-full md:text-fs14 text-fs16"
           disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value || loading}
         >
           {t("transfer")}

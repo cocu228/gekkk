@@ -1,5 +1,4 @@
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
@@ -9,11 +8,11 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import {useTranslation} from "react-i18next";
-import styles from "../styles.module.scss"
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 const initStageConfirm = {
     txId: null,
@@ -131,88 +130,37 @@ const CrossProjectConfirm = ({
 
         setLoading(false);
     }
-    
-    return (loading ? <Loader className='relative my-20'/> : (
-        <div className="-md:px-4">
-            <div className="row mb-5 md:mb-0">
-                <div className="col">
-                    <div className="p-4">
-                        <div className={`wrapper ${styles.ModalInfo}`}>
-                            <div className={styles.ModalInfoIcon + " self-start"}>
-                                <div className="col">
-                                    <IconApp color="#8F123A" size={15} code="t27" />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <span className={styles.ModalInfoText}>
-                                        {t("check_your_information_carefully")}
-                                    </span>
-                                </div>
-                            </div>
+
+    const projectConfirmInfo: { label: string, value: string }[] = [
+        { label: t("type_transaction"), value: label },
+        { label: "Amount", value: `${amount} ${$const}` },
+        ...(comment ? [{ label: t("description"), value: comment }] : [])
+    ]
+
+    return loading ?
+      <Loader className='relative my-20'/> : (
+          <div>
+              <ConfirmNotice text={t("check_your_information_carefully")} />
+
+              <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                  <div className="flex flex-col gap-[10px]">
+                      {projectConfirmInfo.map(({ label, value }) => (
+                        <div key={value}>
+                            <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.ModalRows}>
-                <div className="row mb-2 md:mb-1">
-                    <div className="col">
-                        <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
-                    </div>
-                </div>
-                <div className="row mb-4 md:mb-2">
-                    <div className="col text-[#3A5E66] font-semibold">
-                        <span className={styles.ModalRowsValue}>{label}</span>
-                    </div>
-                </div>
-                <div className="row mb-2 md:mb-1">
-                    <div className="col">
-                        <span className={styles.ModalRowsTitle}>Amount</span>
-                    </div>
-                </div>
-                <div className="row mb-4 md:mb-2">
-                    <div className="col">
-                        <span className={styles.ModalRowsValue}>{amount} {$const}</span>
-                    </div>
-                </div>
-                {comment && <>
-                    <div className="row mb-2 md:mb-1">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>{t("description")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4 md:mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsValue}>{comment}</span>
-                        </div>
-                    </div>
-                </>}
-            </div>
-            <div className="row mt-4">
-                <div className="col relative">
-                    <div className={styles.ButtonContainer + " px-4"}>
-                        <Button htmlType={"submit"}
-                            onClick={onConfirm}
-                            className={styles.ButtonTwo}
-                        >
-                            {t("confirm")}
-                        </Button>
-                        <Button
-                            skeleton
-                            className={styles.ButtonTwo}
-                            onClick={handleCancel}
-                        >
-                            {t("cancel")}
-                        </Button>
-                    </div>
-                </div>
-                
-                <div className="col flex justify-center mt-4">
-                    {localErrorInfoBox}
-                </div>
-            </div>
-        </div>
-    ));
+                      ))}
+                  </div>
+              </div>
+
+              {localErrorInfoBox ? <div className="w-full mb-[30px]">{localErrorInfoBox}</div> : null}
+
+              <ConfirmButtons
+                onConfirm={onConfirm}
+                onCancel={handleCancel}
+              />
+          </div>
+        )
 }
 
 export default CrossProjectConfirm;

@@ -63,9 +63,9 @@ const WithdrawFormPapaya = () => {
     }, [inputCurr.value.number]);
 
     return (
-        <div className="wrapper">
+        <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
             {/* Amount Start */}
-            <div className="w-full md:mb-[15px] mb-[20px]">
+            <div className="w-full">
                 <AmountInput
                   placeholder={t("exchange.enter_amount")}
                   value={inputCurr.value.number}
@@ -87,11 +87,11 @@ const WithdrawFormPapaya = () => {
             {/* Amount End */}
 
             {/* Transfer Error Start */}
-            {localErrorInfoBox ? <div className="w-full md:mb-[15px] mb-[20px]">{localErrorInfoBox}</div> : null}
+            {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
             {/* Transfer Error Start */}
 
             {/* Information Start */}
-            <div className="w-full md:mb-[10px] mb-[15px]">
+            <div className="w-full">
                 <div className={styles.EURCost}>
                     <div className="col">
                         <span className={styles.EURCostValue}>
@@ -119,7 +119,7 @@ const WithdrawFormPapaya = () => {
             {/* Information End */}
 
             {/* Commissions Start */}
-            <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
+            <div className='w-full flex justify-center'>
                 <Commissions
                   isLoading={loading}
                   youWillPay={inputCurr.value.number}
@@ -131,10 +131,10 @@ const WithdrawFormPapaya = () => {
             {/* Commissions End */}
 
             {/* Transfer Button Start */}
-            <div className="w-full flex justify-center md:mb-[15px] mb-[20px]">
+            <div className="w-full flex justify-center">
                 <Button
                   size="lg"
-                  className={'w-full'}
+                  className="w-full md:text-fs14 text-fs16"
                   onClick={showModal}
                   disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                 >

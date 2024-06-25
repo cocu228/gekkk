@@ -16,7 +16,6 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
-import styles from "../styles.module.scss";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {Modal} from "@/shared/ui/modal/Modal";
 import {Select} from "@/shared/ui/oldVersions/SearchSelect/Select";
@@ -141,9 +140,9 @@ const WithdrawFormCardToCard = () => {
     !cards ? (
       <Loader className={"relative"} />
     ) : (
-      <div className="wrapper">
+      <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
-        <div className="w-full md:mb-[10px] mb-[15px]">
+        <div className="w-full">
           <AmountInput
             transfers
             value={inputCurr.value.number}
@@ -163,7 +162,7 @@ const WithdrawFormCardToCard = () => {
         {/* Amount End */}
 
         {/* From Card Start */}
-        <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+        <div className="w-full flex flex-col gap-[3px]">
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("from_card")}:
           </span>
@@ -185,7 +184,7 @@ const WithdrawFormCardToCard = () => {
         {/* From Card End */}
 
         {/* To Card Start */}
-        <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+        <div className="w-full flex flex-col gap-[3px]">
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("to_card")}:
           </span>
@@ -201,7 +200,7 @@ const WithdrawFormCardToCard = () => {
         {/* To Card End */}
 
         {/* Cardholder Start */}
-        <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+        <div className="w-full flex flex-col gap-[3px]">
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("cardholder")}:
           </span>
@@ -215,7 +214,7 @@ const WithdrawFormCardToCard = () => {
         {/* Cardholder End */}
 
         {/* Description Start */}
-        <div className="w-full flex flex-col gap-[3px] md:mb-[10px] mb-[15px]">
+        <div className="w-full flex flex-col gap-[3px]">
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("description")}:
           </span>
@@ -231,7 +230,7 @@ const WithdrawFormCardToCard = () => {
         {/* Description End */}
 
         {/* Commissions Start */}
-        <div className='w-full flex justify-center md:mb-[15px] mb-[20px]'>
+        <div className='w-full flex justify-center'>
             <Commissions
               isLoading={loading}
               youWillPay={inputCurr.value.number + withdraw_fee}
@@ -243,15 +242,15 @@ const WithdrawFormCardToCard = () => {
         {/* Commissions End */}
 
         {/* Transfer Error Start */}
-        {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+        {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
         {/* Transfer Error Start */}
 
         {/* Transfer Button Start */}
-        <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+        <div className="w-full flex justify-center">
           <Button
             size="lg"
             onClick={handleConfirm}
-            className={"w-full md:text-fs14 text-fs16"}
+            className="w-full md:text-fs14 text-fs16"
             disabled={
               !!localErrorInfoBox ||
               loading ||
@@ -259,7 +258,7 @@ const WithdrawFormCardToCard = () => {
               inputCurrValid.value
             }
           >
-            <span className={styles.ButtonLabel}>{t("transfer")}</span>
+            {t("transfer")}
           </Button>
         </div>
         {/* Transfer Button End */}
@@ -268,10 +267,8 @@ const WithdrawFormCardToCard = () => {
         <div className={"w-full md:flex hidden justify-center"}>
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>
-              {withdraw_fee} {currency.$const}{" "}
-            </span>{" "}
-            &nbsp;{t("after_n_transactions_per_m", { times: 5, period: t("month") })}
+            <span className={"font-semibold"}>{withdraw_fee} {currency.$const}</span>&nbsp;
+            {t("after_n_transactions_per_m", { times: 5, period: t("month") })}
           </span>
         </div>
         {/* Transaction Information End */}

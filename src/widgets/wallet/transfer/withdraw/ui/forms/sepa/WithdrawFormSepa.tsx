@@ -12,7 +12,6 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
-import styles from "../styles.module.scss"
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
@@ -120,9 +119,9 @@ const WithdrawFormSepa = () => {
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
 
   return (
-    <div className="wrapper">
+    <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
-      <div className="w-full md:mb-[5px] mb-[10px]">
+      <div className="w-full">
         <AmountInput
           transfers={md}
           value={inputCurr.value.number}
@@ -142,7 +141,7 @@ const WithdrawFormSepa = () => {
       {/* Amount End */}
 
       {/* IBAN Start */}
-      <div className="w-full md:mb-[10px] mb-[15px]">
+      <div className="w-full">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           IBAN:
         </span>
@@ -157,7 +156,7 @@ const WithdrawFormSepa = () => {
       {/* IBAN End */}
 
       {/*  Recipient Start */}
-      <div className="w-full md:mb-[5px] mb-[10px] gap-[3px]">
+      <div className="w-full gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("recipient")}:
         </span>
@@ -172,7 +171,7 @@ const WithdrawFormSepa = () => {
       {/* Recipient End */}
 
       {/* Description Start */}
-      <div className="w-full md:mb-[10px] mb-[15px] gap-[3px]">
+      <div className="w-full gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>
@@ -187,7 +186,7 @@ const WithdrawFormSepa = () => {
       {/* Description End */}
 
       {/* Commissions Start */}
-      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+      <div className="w-full flex justify-center">
         <Commissions
           isLoading={loading}
           youWillPay={inputCurr.value.number}
@@ -198,18 +197,18 @@ const WithdrawFormSepa = () => {
       {/* Commissions End */}
 
       {/* Transfer Error Start */}
-      {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+      {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+      <div className="w-full flex justify-center">
         <Button
           size="lg"
           onClick={handleConfirm}
-          className={"w-full md:text-fs14 text-fs16"}
+          className="w-full md:text-fs14 text-fs16"
           disabled={isTransferDisabled}
         >
-          <span className={styles.ButtonLabel}>{t("transfer")}</span>
+          {t("transfer")}
         </Button>
       </div>
       {/* Transfer Button End */}

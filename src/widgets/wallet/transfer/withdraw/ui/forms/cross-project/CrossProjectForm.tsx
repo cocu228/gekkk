@@ -7,14 +7,13 @@ import {useContext, useEffect, useState} from "react";
 import CrossProjectConfirm from "./CrossProjectConfirm";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import styles from "../styles.module.scss";
 import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
+import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 const CrossProjectForm = () => {
   const { t } = useTranslation();
@@ -47,66 +46,78 @@ const CrossProjectForm = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="row mb-5 w-full">
-        <div className="col">
-          <InputCurrency.Validator
-            value={inputCurr.value.number}
-            description={getWithdrawDesc(min_withdraw, currency.$const)}
-            onError={setInputCurrValid}
-            validators={[
-              validateBalance(currency, navigate, t),
-              validateMinimumAmount(
-                min_withdraw,
-                inputCurr.value.number,
-                currency.$const,
-                t
-              ),
-              validateMaximumAmount(
-                max_withdraw,
-                inputCurr.value.number,
-                currency.$const,
-                t
-              ),
-            ]}
-          >
-            <InputCurrency.PercentSelector
-              currency={currency}
-              header={
-                <span className={`${styles.TitleColText} md:m-[0_0_-2px_7px] m-[0_0_-3.5px_7px]`}>
-                  {t("amount")}:
-                </span>
-              }
-              onSelect={setInputCurr}
-            >
-              <InputCurrency.DisplayBalance currency={currency}>
-                <InputCurrency
-                  placeholder={t("exchange.enter_amount")}
-                  onChange={setInputCurr}
-                  value={inputCurr.value.string}
-                  currency={currency.$const}
-                />
-              </InputCurrency.DisplayBalance>
-            </InputCurrency.PercentSelector>
-          </InputCurrency.Validator>
-        </div>
+    <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
+      {/* Amount Start */}
+      <div className="w-full">
+        <AmountInput
+          value={inputCurr.value.number}
+          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          currency={currency}
+          placeholder={t("exchange.enter_amount")}
+          inputValue={inputCurr.value.string}
+          validators={[
+            validateBalance(currency, navigate, t),
+            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+            validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t)
+          ]}
+          onError={setInputCurrValid}
+          onSelect={setInputCurr}
+          onChange={setInputCurr}
+        />
       </div>
+      {/* Amount End */}
 
-      <div className="row mb-5 w-full flex flex-col gap-[3px]">
-        <span className={`${styles.TitleColText} ml-[7px]`}>
-          {t("desc_optional")}:
+      {/* Desc Optional Start */}
+      <div className="w-full">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+          {t('desc_optional')}:
         </span>
         <Input
-         className="h-[32px]"
+          className="h-[32px]"
           allowDigits
           allowSymbols
           name={"comment"}
           value={inputs.comment}
           onChange={onInputDefault}
           placeholder={t("description")}
-        />      
+        />
       </div>
-      
+      {/* Contact End */}
+
+      {/* Commissions Start */}
+      <div className="w-full flex justify-center">
+        <Commissions
+          youWillPay={inputCurr.value.number}
+          youWillGet={inputCurr.value.number}
+          fee={"-"}
+        />
+      </div>
+      {/* Commissions End */}
+
+      {/* Transfer Button Start */}
+      <div className="w-full flex justify-center">
+        <Button
+          size="lg"
+          className="w-full md:text-fs14 text-fs16"
+          onClick={showModal}
+          disabled={!isValid || inputCurrValid.value}
+        >
+          {t("transfer")}
+        </Button>
+      </div>
+      {/* Transfer Button End */}
+
+      {/* Transaction Information Start */}
+      <div className={"w-full md:flex hidden justify-center"}>
+          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
+            {t('fee_is')}&nbsp;
+            <span className="uppercase font-bold">0 EURG</span>&nbsp;
+            {t("per_transaction")}
+          </span>
+      </div>
+      {/* Transaction Information End */}
+
+      {/* Confirm Start */}
       <Modal
         placeBottom={window.innerWidth<768}
         destroyOnClose
@@ -121,28 +132,7 @@ const CrossProjectForm = () => {
           amount={inputCurr.value.number}
         />
       </Modal>
-      <div className='w-full flex justify-center'>
-        <Commissions
-            youWillPay={inputCurr.value.number}
-            youWillGet={inputCurr.value.number}
-            fee={"-"}
-        />
-      </div>
-      <div className={styles.ButtonContainerCenter}>
-        <Button
-          size="lg"
-          className={styles.Button}
-          onClick={showModal}
-          disabled={!isValid || inputCurrValid.value}
-        >
-          <span className={styles.ButtonLabel}>{t("transfer")}</span>
-        </Button>
-        <span className="block font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
-          {t('fee_is')}
-          <span className="uppercase font-bold"> 0 eurg </span>
-          {t("per_transaction")}
-        </span>
-      </div>
+      {/* Confirm End */}
     </div>
   );
 };

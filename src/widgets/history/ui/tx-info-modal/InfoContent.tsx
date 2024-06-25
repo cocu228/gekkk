@@ -276,7 +276,7 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && (
+          {!isNeedConfirm && props.status === 128 ? (
             <div className={"flex gap-[20px] w-full justify-between mt-3"}>
               <Button
                   skeleton
@@ -286,6 +286,15 @@ const InfoContent = (props: TxInfoProps) => {
                 <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
               </Button>
 
+              <Button
+                  className='w-full'
+                  onClick={props.handleCancel}
+              >
+                {t("close")}
+              </Button>
+            </div>
+          ) : (
+            <div className={"flex gap-[20px] w-full justify-center mt-3"}>
               <Button
                   className='w-full'
                   onClick={props.handleCancel}

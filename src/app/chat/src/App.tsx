@@ -14,6 +14,7 @@ function App() {
         setLazyLoading
     } = useGetMessages()
 
+
     return (
         <MainLayout setMessages={setMessages} setIsWebSocketReady={setWsReady}>
             <MessageHeaderContainer />

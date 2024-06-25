@@ -1,0 +1,59 @@
+.Container {
+    width: 100%;
+    padding: 10px;
+    border-top: 2px solid #F7F7F0;
+    background-color: #FFFFFF;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+
+.IconsContainer {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+        cursor: pointer;
+    }
+}
+
+.InputContainer {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #DCDCD9;
+    border-radius: 8px;
+    padding: 10px 31px;
+
+    &::placeholder {
+        color: #B9B9B5;
+    }
+}
+
+.AttachmentContainer {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+        cursor: pointer;
+        transform: rotate(45deg);
+    }
+}
+
+.Input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 12px;
+}

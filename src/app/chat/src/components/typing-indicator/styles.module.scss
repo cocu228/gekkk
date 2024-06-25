@@ -1,0 +1,45 @@
+.Container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* this is to compensate for the width of the other message dp and its margin left */
+    margin-left: 42px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.Text {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size:12px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.Dot1 {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    // background-color: ${({ themeColor }) => themeColor};
+    animation: loadingAnimationMove 0.7s ease-in-out infinite;
+    margin-right: 4px;
+    animation-delay: 0ms;    
+}
+
+.LoadingAnimation {
+    display: flex;
+    align-items: center;
+}
+
+
+@keyframes loadingAnimationMove {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  

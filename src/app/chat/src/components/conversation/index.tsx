@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import MessageType from '../../types/MessageType';
 import placeholderProfilePNG from './profile.png';
 import { calculateTimeAgo } from '../../utils/date-utils';
@@ -18,108 +17,6 @@ export type Props = {
   currentUserId?: string;
 };
 
-
-const Background = styled.div<{
-  themeColor: string
-  selected?: boolean
-  hoverColor?: string
-  backgroundColor?: string
-  selectedBackgroundColor?: string
-}>`
-position: absolute;
-width: 100%;
-height: 100%;
-background-color: ${({ themeColor, selected, backgroundColor, selectedBackgroundColor }) =>
-    selected ? (selectedBackgroundColor || themeColor) : (backgroundColor || '#ffffff')};
-opacity: 0.2;
-z-index: 1;
-transition: all 0.3s ease-in-out;
-
-&:hover{
-${({ selected }) => (!selected ? 'opacity: 0.09;' : '')} 
-background-color: ${({ themeColor, hoverColor }) => hoverColor || themeColor};
-
-}
-`;
-
-const Name = styled.div<{
-  unread?: boolean,
-  titleTextColor?: string
-}>`
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  text-align: left;
-  vertical-align: text-top;
-  font-size: 14px;
-  line-height: auto;
-  position: relative;
-  z-index: 1;
-  color: ${({ titleTextColor }) => titleTextColor || '#000000'};
-
-  ${({ unread }) =>
-    unread
-      ? `
-font-weight: 700;
-`
-      : ''}
-`;
-
-const Timestamp = styled.div<{
-  color?: string,
-  unread?: boolean
-}>`
-text-align:right;
-vertical-align:text-top;
-font-size:12px;
-margin-left: 6px;
-margin-top:2px;
-margin-right:2px;
-align-self:flex-start;
-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-${({ unread, color }) =>
-    unread
-      ? `
-color: ${color || 'black'} ;
-font-weight: 600;
-` : `
-color: ${color || 'rgb(75 85 99)'};
-`}
-`
-
-const MessageComponent = styled.div<{
-  unread?: boolean;
-  width: number;
-  media?: boolean;
-  color?: string
-}>`
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  text-align: left;
-  vertical-align: text-top;
-  font-size: 12px;
-  align-self: flex-start;
-  position: relative;
-  color: ${({ color }) => color || '#7a7a7a'};
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
-  max-width: ${({ width }) => width}px;
-  display: flex;
-  margin-top: 4px;
-
-  ${({ unread, color }) =>
-    unread
-      ? `
-color: ${color || 'black'} ;
-font-weight: 600;
-` : ''}
-
-`;
 
 export default function Conversation({
   title,
@@ -261,11 +158,6 @@ export default function Conversation({
 
   return (
     <div ref={containerRef} onClick={onClick} className={`${style.Container} fade-animation`}>
-      <Background selected={selected}
-        hoverColor={"hoverColor"}
-        selectedBackgroundColor={"selectedBackgroundColor"}
-        backgroundColor={"backgroundColor"}
-        themeColor={"themeColor"} />
 
       <div
         className={`${style.Background}
@@ -291,19 +183,15 @@ export default function Conversation({
           <div
             className={style.NameContainer}
           >
-            <Name
-              titleTextColor={"titleTextColor"}
-              unread={unread}>{title}</Name>
+            <div
+              className={`${style.Name} ${unread && style.NameUnread}`}>{title}</div>
 
-            <Timestamp
-              unread={unread}
-              color={"contentTextColor"}>{dateSent}</Timestamp>
+            <div
+              className={`${style.Timestamp} ${unread && style.TimestampUnread}`}>{dateSent}</div>
           </div>
           
-          <MessageComponent
-            color={"contentTextColor"}
-            width={containerWidth - 96}
-            unread={unread}
+          <div
+            className={`${style.MessageComponent} ${unread && style.MessageComponentUnread} max-w-[${containerWidth - 96}px]`}
           >
             {lastMessage?.user.id === currentUserId
               ? 'You'
@@ -328,7 +216,7 @@ export default function Conversation({
               <div
                 dangerouslySetInnerHTML={{ __html: lastMessage?.text || "" }}></div>
             )}
-          </MessageComponent>
+          </div>
         </div>
       </div>
     </div>

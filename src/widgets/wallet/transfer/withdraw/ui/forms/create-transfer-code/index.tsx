@@ -176,7 +176,7 @@ const CreateTransferCode = () => {
             </div>
           </div>
       </div>
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center mt-1 mb-2">
           <Commissions
               isLoading={loading}
               youWillPay={inputCurr.value.number}

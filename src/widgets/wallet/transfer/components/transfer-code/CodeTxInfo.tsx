@@ -53,12 +53,14 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
                         />
                     </div>
                 </div>
-                <div className="row w-full">
-                <Commissions
-                    youWillPay={inputCurr}
-                    youWillGet={inputCurr}
-                    fee={"-"}
-                />
+            <div className="row w-full">
+                <div className="flex justify-center mt-4 mb-2">
+                    <Commissions
+                        youWillPay={inputCurr}
+                        youWillGet={inputCurr}
+                        fee={"-"}
+                    />
+                </div>
                 <div className="col">
                     <div className="row ml-[6px] w-full flex">
                         <div className="col w-1/2">

@@ -24,7 +24,7 @@ export const sortingNetworksForSelector = function (networks: Array<TokensNetwor
     return !networks ? [] : networks.map(it => ({
         value: it.network_type,
         label: `${it.contract_name === 'Base' ? '' : `${it.contract_name} / `}
-        ${!it.network_name ? '' : `${it.network_name} / `} ${it.token_name} ${!it.token_symbol ? '' : `(${it.token_symbol})`}`
+        ${!it.network_name || it.contract_name === 'Base' ? '' : `${it.network_name} / `} ${it.token_name} ${!it.token_symbol ? '' : `(${it.token_symbol})`}`
     }));
 }
 

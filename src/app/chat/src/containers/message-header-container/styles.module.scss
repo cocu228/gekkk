@@ -1,0 +1,51 @@
+.InnerContainer {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #F7F7F0;
+
+
+    & > svg {
+        cursor: pointer;
+        transform: rotate(180deg);
+    }
+
+    @media screen and (max-width: 768px) {
+        border-bottom: none;
+        justify-content: flex-start;
+        border-radius: 0;
+        background-color: #1F3446;
+    }
+}
+
+.Title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #285E69;
+
+    @media screen and (max-width: 768px) {
+        color: #fff;
+    }
+}
+
+.IconMob {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
+}
+
+
+.IconDesk {
+    display: block;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}

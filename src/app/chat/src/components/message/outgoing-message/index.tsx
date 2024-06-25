@@ -1,5 +1,4 @@
 import {FC} from "react";
-import {useTheme} from "styled-components";
 import MediaContent from '../media-content'
 import TextContent from '../text-content'
 import Timestamp from '../timestamp'
@@ -14,7 +13,6 @@ const OutgoingMessage: FC<IOutgoingMessageProps> = ({
     single,
     created_at,
 }) => {
-    const theme = useTheme();
 
     return (
         <div
@@ -34,7 +32,7 @@ const OutgoingMessage: FC<IOutgoingMessageProps> = ({
             <div
                 className={style.UserAvatarContainer}
             >
-                <IconApp code={"t82"} size={25} color={theme.lightBlue}/>
+                <IconApp code={"t82"} size={25} color={'#285E69'}/>
             </div>
         </div>
     )

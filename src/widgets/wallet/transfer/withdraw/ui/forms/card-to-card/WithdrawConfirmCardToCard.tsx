@@ -15,8 +15,8 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
 
 
 interface IState {
@@ -148,7 +148,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
       <>
           {loading && <Loader className='justify-center' />}
           <div className={loading ? "collapse" : ""}>
-              <ConfirmNotice text={t("check_your_information_carefully")} />
+              <Notice text={t("check_your_information_carefully")} />
 
               <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
                   <div className="flex flex-col gap-[10px]">

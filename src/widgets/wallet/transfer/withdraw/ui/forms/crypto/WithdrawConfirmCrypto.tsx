@@ -26,8 +26,8 @@ import Form from "@/shared/ui/form/Form";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
 
 const initStageConfirm = {
   status: null,
@@ -182,7 +182,7 @@ const WithdrawConfirmCrypto = memo(
       <>
         {loading && <Loader className='justify-center' />}
         <div className={loading ? "collapse" : ""}>
-          <ConfirmNotice text={t("use_withdraw_addr_supported")} />
+          <Notice text={t("use_withdraw_addr_supported")} />
 
           <div className="flex flex-col px-[10px] gap-[25px] mb-[25px]">
             <div className="flex flex-col gap-[10px]">

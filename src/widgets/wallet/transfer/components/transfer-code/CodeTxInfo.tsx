@@ -9,7 +9,7 @@ import type {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useTranslation } from "react-i18next";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
+import Notice from "@/shared/ui/notice";
 
 const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
@@ -40,7 +40,7 @@ const CodeTxInfo = ({code, currency=null, onBtnApply = null, applyTxCodeInfoBox=
       <>
           {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? loader : (
                 <div>
-                    <ConfirmNotice text={t("this_code_can_be_used")} />
+                    <Notice text={t("this_code_can_be_used")} />
                     {onBtnApply === null && (
                       <div className="flex flex-col items-center gap-[20px]">
                           <div className="w-[max-content] border-1 border-[#A5B7C5] border-solid p-[10px] rounded-md">

@@ -10,8 +10,8 @@ import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { useTranslation } from "react-i18next";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
 
 const initStageConfirm = {
     txId: null,
@@ -135,7 +135,7 @@ const UniversalTransferConfirm = ({
       loading ?
         <Loader className='relative my-20'/> : (
           <div>
-              <ConfirmNotice text={t("check_your_information_carefully")} />
+              <Notice text={t("check_your_information_carefully")} />
 
               <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
                   <div className="flex flex-col gap-[10px]">

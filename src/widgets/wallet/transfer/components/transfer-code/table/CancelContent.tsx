@@ -10,8 +10,8 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import { modalDateArray } from "./TransferTableCode";
 import { Modal } from "@/shared/ui/modal/Modal";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     const {t} = useTranslation();
@@ -50,7 +50,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
               </div>
             ) : (
                  <div>
-                     <ConfirmNotice text={t("code_will_be_deleted")} />
+                     <Notice text={t("code_will_be_deleted")} />
                      <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
                          <div className="flex flex-col gap-[10px]">
                              {

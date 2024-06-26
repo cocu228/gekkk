@@ -22,8 +22,8 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
-import ConfirmNotice from "@/widgets/wallet/transfer/components/confirm-notice";
 import Loader from "@/shared/ui/loader";
+import Notice from "@/shared/ui/notice";
 
 interface IState {
   loading: boolean;
@@ -190,7 +190,7 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
     <>
       {loading && <Loader className='justify-center' />}
       <div className={loading ? "collapse" : ""}>
-        <ConfirmNotice text={t("check_your_information_carefully")} />
+        <Notice text={t("check_your_information_carefully")} />
 
         <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
           <div className="flex flex-col gap-[10px]">

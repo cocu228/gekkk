@@ -139,6 +139,7 @@ function Wallet() {
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History
+                                className="mb-[40px]"
                                 data-tag={"history"}
                                 data-name={t("history")}
                                 currenciesFilter={currencyForHistory}

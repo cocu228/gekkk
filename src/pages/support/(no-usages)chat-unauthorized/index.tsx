@@ -2,7 +2,6 @@ import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
 import Loader from '../(no-usages)chat-authorized/ui/loader/Loader';
 import {Fragment, useContext, useEffect, useRef, useState} from 'react';
-import {FormInstance, message} from 'antd';
 import StompInit from '../(no-usages)chat-authorized/stomp-init/StompInit';
 import {apiPostFile} from '../(no-usages)chat-authorized/api/post-file';
 import {ApiResponse} from '../(no-usages)chat-authorized/config/(cs)axios';
@@ -54,15 +53,19 @@ const SupportChatUnauthorized = () => {
     }, [messages]);
 
 
-    const handleSendMessage = async (values: MessageFormValues, form: FormInstance<any>) => {
-        if (!values.message || !sessionId) {
-            message.error('Type your message before submit')
-            return
-        }
+    const handleSendMessage = async (
+        values: MessageFormValues, 
+        form: any
+            // FormInstance<any>
+    ) => {
+        // if (!values.message || !sessionId) {
+        //     message.error('Type your message before submit')
+        //     return
+        // }
 
         await apiPostMessage('raw', sessionId, values.message)
             .then(res => {
-                form.resetFields();
+                // form.resetFields();
             })
     };
 
@@ -73,14 +76,14 @@ const SupportChatUnauthorized = () => {
 
         const response = await apiPostFile(file, sessionId)
 
-        if (response.status === 'success') {
-            message.success('File uploaded successfully');
-            onSuccess('ok');
-        } else {
-            const errorResponse = response as ApiResponse<undefined, 'error'>;
-            message.error(errorResponse.errorMessage || 'File upload failed');
-            onError('error');
-        }
+        // if (response.status === 'success') {
+        //     message.success('File uploaded successfully');
+        //     onSuccess('ok');
+        // } else {
+        //     const errorResponse = response as ApiResponse<undefined, 'error'>;
+        //     message.error(errorResponse.errorMessage || 'File upload failed');
+        //     onError('error');
+        // }
     };
 
     return (

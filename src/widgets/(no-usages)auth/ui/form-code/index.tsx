@@ -5,7 +5,7 @@ import Button from "@/shared/ui/button/Button";
 import { MASK_CODE } from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
 import { useAuth } from "@/app/providers/AuthRouter";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
+// import FormItem from "@/shared/ui/form/form-item/FormItem";
 import { storyDisplayAuth } from "@/widgets/(no-usages)auth/model/story";
 import { formatAsNumber } from "@/shared/lib/formatting-helper";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -27,7 +27,7 @@ import {
   helperApiSignIn,
   helperApiVerifyPassword,
 } from "@/widgets/(no-usages)auth/model/helpers";
-import { useForm } from "antd/es/form/Form";
+// import { useForm } from "antd/es/form/Form";
 import { useTranslation } from "react-i18next";
 import styles from "./form-code.module.scss";
 
@@ -38,7 +38,7 @@ declare module "firebase/auth" {
 }
 
 const FormCode = memo(() => {
-  const [form] = useForm();
+  // const [form] = useForm();
   const { login } = useAuth();
   const { t } = useTranslation();
   const inputRef = useRef(null);
@@ -138,8 +138,11 @@ const FormCode = memo(() => {
 
   // return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
   return (
-    <Form form={form} autoComplete="off">
-      <FormItem name="code" label="Code" preserve>
+    <Form 
+      // form={form} 
+      autoComplete="off"
+    >
+      {/* <FormItem name="code" label="Code" preserve> */}
         <div>
           <div
             className="typography-b3"
@@ -158,7 +161,7 @@ const FormCode = memo(() => {
             onChange={({ target }) => onChange(target.value)}
           />
         </div>
-      </FormItem>
+      {/* </FormItem> */}
 
       <div>
         <div className="col">

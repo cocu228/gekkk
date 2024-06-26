@@ -2,7 +2,7 @@ import { useCallback, useState, memo, useContext } from "react";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import Form from "@/shared/ui/form/Form";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
+// import FormItem from "@/shared/ui/form/form-item/FormItem";
 import { codeMessage } from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
 import { MASK_CODE } from "@/shared/config/mask";
@@ -10,7 +10,7 @@ import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import Timer from "@/shared/model/hooks/useTimer";
 import { IOperationInfo } from "@/widgets/wallet/quick-exchange/model/types";
-import { useForm } from "antd/es/form/Form";
+// import { useForm } from "antd/es/form/Form";
 // import {CtxGlobalModalContext} from "@/app/providers/GlobalCtxModalProvider";
 // import { CtnTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ const QuickExchangeConfirm = memo(
     handleCancel,
   }: IOperationInfo & { handleCancel: () => void }) => {
     //const setContent = useContext(CtxGlobalModalContext);
-    const [form] = useForm();
+    // const [form] = useForm();
     const { onInput } = useMask(MASK_CODE);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -82,14 +82,17 @@ const QuickExchangeConfirm = memo(
             </span>
           </div>
         </div>
-        <Form form={form} onFinish={onConfirm}>
+        <Form 
+          // form={form} 
+          onFinish={onConfirm}
+        >
           <span>{t("transfer_confirm")}</span>
-          <FormItem
+          {/* <FormItem
             name="code"
             label="Code"
             preserve
             rules={[{ required: true, ...codeMessage }]}
-          >
+          > */}
             <Input
               type="text"
               allowDigits
@@ -98,7 +101,7 @@ const QuickExchangeConfirm = memo(
               onChange={setInp}
               autoComplete="off"
             />
-          </FormItem>
+          {/* </FormItem> */}
           <Timer onAction={onReSendCode} />
           <div className="row mt-4 mb-5">
             <div className="col relative">

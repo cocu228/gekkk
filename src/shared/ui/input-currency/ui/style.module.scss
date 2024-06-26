@@ -69,7 +69,7 @@
   @include max-devices("md") {
     height: 56px;
     padding-right: 8px;
-    margin-top: 5px;
+    margin-top: 2px;
     ::placeholder{
       color: var(--gek-mid-grey);
       font-size: 12px;

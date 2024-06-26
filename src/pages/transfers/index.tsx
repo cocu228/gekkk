@@ -102,10 +102,7 @@ export default function Transfers() {
                 }
                 
                 {network && 
-                  <div
-                      data-tag={"main"}
-                      className='w-full align-center'
-                  >
+                  <div data-tag={"main"} className='w-full align-center'>
                       <GetDisplayedForm network={network} curr={$currency}/>
                   </div>
                 }

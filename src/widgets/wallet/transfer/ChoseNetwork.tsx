@@ -43,7 +43,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                         withdraw ? <span className="ml-[10px]">{t("select_withdraw_network") + ":"}</span> : <span className="ml-[10px]">{t("select_network") + ":"}</span>
                 }
 
-            <div className="col w-full overflow-hidden">
+            <div className="col w-full md:overflow-hidden overflow-visible">
                 {Array.isArray(networksForSelector) &&
                     networksForSelector.length === 0 ?
                         md ? <div className={styles.NoOptions}>

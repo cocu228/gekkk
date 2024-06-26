@@ -101,7 +101,7 @@ const CreateTransferCode = () => {
     </>
   ) : (
     <>
-      <div className="wrapper pb-[5px] flex flex-col md:gap-[10px] gap-[15px]">
+      <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
         <div className="w-full">
           <AmountInput
@@ -198,8 +198,7 @@ const CreateTransferCode = () => {
         </Modal>
         {/* Confirm End */}
       </div>
-
-      <div className="row bg-[#F7F7F0] md:m-[0_-10px_-5px_-10px] md:rounded-[0_0_10px_10px] m-[0_-20px] p-[12px_0]">
+      <div className="row bg-[#F7F7F0] md:rounded-[0_0_10px_10px] p-[12px_0]">
         <TransferTableCode inputCurr={inputCurr} isOwner />
       </div>
     </>

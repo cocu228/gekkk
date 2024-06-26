@@ -2,6 +2,7 @@
   "lang": "tr",
   "languageName": "Turkish",
   "locale": {
+    "unknown_problem": "Bilinmeyen Sorun",
     "copied": "Kopyalandı",
     "auth": {
       "login_to_your_account": "Hesabınıza giriş yapın",

@@ -162,15 +162,8 @@ const WithdrawFormBroker = () => {
             {/* Transaction Information End */}
 
             {/* Confirm Start */}
-            <Modal
-              isModalOpen={isModalOpen}
-              onCancel={handleCancel}
-              title={t("confirm_transaction")}
-            >
-                <WithdrawConfirmBroker
-                  handleCancel={()=>{handleCancel()}}
-                  amount={inputCurr.value.number}
-                />
+            <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleCancel}>
+                <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel} />
             </Modal>
             {/* Confirm End */}
         </div>

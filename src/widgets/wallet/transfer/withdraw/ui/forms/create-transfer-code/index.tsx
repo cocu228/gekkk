@@ -74,32 +74,49 @@ const CreateTransferCode = () => {
     setIsHelpClicked(isOpen)
   }
 
-  return !md ? (
-    <>
-      <div>
-      <TransferCodeDescription />
+  const handleOnCancelModal = () => {
+    handleCancel();
+    setNewCode("");
+  }
 
-      <div className="row mb-5">
-        <Button onClick={showModal} size="lg" className="w-full">
-          {t("create_transfer_code")}
-        </Button>
-        <Modal
-          isModalOpen={isModalOpen}
-          onCancel={handleCancel}
-          title={t('your_transfer_code')}
-        >
-          <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
-        </Modal>
-      </div>
-      <div className="row mb-2">
-        <h3 className="text-lg font-bold">{t("unredeemed_codes_info")}</h3>
-      </div>
-      <div className="row">
-        <TransferTableCode isOwner />
-      </div>
-    </div>
-    </>
-  ) : (
+  const handleOnTransfer = () => {
+    void onCreateCode();
+    showModal();
+  }
+
+  const validated = validateBalance(currency, navigate, t)(inputCurr.value.number).validated;
+  const isTransferDisabled = !inputCurr.value.number || !validated;
+
+  if (!md) {
+    return (
+      <>
+        <div>
+          <TransferCodeDescription />
+
+          <div className="row mb-5">
+            <Button onClick={showModal} size="lg" className="w-full">
+              {t("create_transfer_code")}
+            </Button>
+            <Modal
+              isModalOpen={isModalOpen}
+              onCancel={handleCancel}
+              title={t('your_transfer_code')}
+            >
+              <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
+            </Modal>
+          </div>
+          <div className="row mb-2">
+            <h3 className="text-lg font-bold">{t("unredeemed_codes_info")}</h3>
+          </div>
+          <div className="row">
+            <TransferTableCode isOwner />
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  return (
     <>
       <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
@@ -151,17 +168,10 @@ const CreateTransferCode = () => {
         {/* Transfer Button Start */}
         <div className="w-full flex justify-center">
           <Button
-            disabled={
-              !inputCurr.value.number ||
-              !validateBalance(currency, navigate, t)(inputCurr.value.number)
-                .validated
-            }
-            onClick={() => {
-              onCreateCode();
-              showModal();
-            }}
             size="lg"
             className="w-full md:text-fs14 text-fs16"
+            disabled={isTransferDisabled}
+            onClick={handleOnTransfer}
           >
             {t("create_transfer_code")}
           </Button>
@@ -179,21 +189,11 @@ const CreateTransferCode = () => {
         {/* Transaction Information End */}
 
         {/* Confirm Start */}
-        <Modal
-          onCancel={() => {
-            handleCancel();
-            setNewCode("");
-          }}
-          title={t("confirm_transaction")}
-          isModalOpen={isModalOpen}
-        >
+        <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleOnCancelModal}>
           <CreateCode
-            onClose={() => {
-              handleCancel();
-              setNewCode("");
-            }}
-            inputCurrMobile={inputCurr}
             code={newCode}
+            inputCurrMobile={inputCurr}
+            onClose={handleOnCancelModal}
           />
         </Modal>
         {/* Confirm End */}

@@ -2,6 +2,7 @@
   "lang": "sp",
   "languageName": "Spanish",
   "locale": {
+    "unknown_problem": "Problema desconocido",
     "copied": "Copiado",
     "auth": {
       "login_to_your_account": "Ingrese a su cuenta",

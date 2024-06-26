@@ -2,6 +2,7 @@
   "lang": "de",
   "languageName": "Deutsch",
   "locale": {
+    "unknown_problem": "Unbekanntes Problem",
     "copied": "Kopiert",
     "auth": {
       "login_to_your_account": "Melden Sie sich in Ihrem Konto an",

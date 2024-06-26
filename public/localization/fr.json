@@ -2,6 +2,7 @@
   "lang": "fr",
   "languageName": "French",
   "locale": {
+    "unknown_problem": "Problème inconnu",
     "copied": "Copié",
     "auth": {
       "login_to_your_account": "Connectez-vous à votre compte",

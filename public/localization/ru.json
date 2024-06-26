@@ -2,6 +2,7 @@
   "lang": "ru",
   "languageName": "Русский",
   "locale": {
+    "unknown_problem": "Неизвестная проблема",
     "copied": "Скопировано",
     "auth": {
       "login_to_your_account": "Войти в свой аккаунт",

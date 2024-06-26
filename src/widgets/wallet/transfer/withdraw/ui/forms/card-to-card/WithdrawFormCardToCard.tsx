@@ -115,11 +115,6 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number]);
 
-  const transformedList = cards.map(item => ({
-    id: item.cardId,
-    name: formatCardNumber(item.displayPan)
-  }));
-
   const handleConfirm = async () => {
     if(!uasToken) {
         await getUasToken()
@@ -128,9 +123,12 @@ const WithdrawFormCardToCard = () => {
         showModal() 
     }
   }
-
-  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
+  const transformedList = cards.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
+  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
+  const youWillPay = inputCurr.value.number + withdraw_fee;
+  const youWillGet = inputCurr.value.number;
+  const fee = withdraw_fee;
 
   return (
     !cards ? (
@@ -229,9 +227,9 @@ const WithdrawFormCardToCard = () => {
         <div className='w-full flex justify-center'>
             <Commissions
               isLoading={loading}
-              youWillPay={inputCurr.value.number + withdraw_fee}
-              youWillGet={inputCurr.value.number}
-              fee={withdraw_fee}
+              youWillPay={youWillPay}
+              youWillGet={youWillGet}
+              fee={fee}
             />
         </div>
         {/* Commissions End */}
@@ -264,12 +262,11 @@ const WithdrawFormCardToCard = () => {
         {/* Transaction Information End */}
 
         {/* Confirm Start */}
-        <Modal
-          title={t("confirm_transaction")}
-          onCancel={handleCancel}
-          isModalOpen={isModalOpen}
-        >
+        <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleCancel}>
           <WithdrawConfirmCardToCard
+            youWillPay={youWillPay}
+            youWillGet={youWillGet}
+            fee={fee}
             details={details}
             handleCancel={handleCancel}
           />

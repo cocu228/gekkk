@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import styles from "./styles.module.scss";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 
-interface ICommissionsProps {
+export interface ICommissionsProps {
     isLoading?: boolean;
     youWillPay: string | number;
     youWillGet: string | number;

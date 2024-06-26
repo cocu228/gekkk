@@ -1,5 +1,5 @@
 import Loader from "@/shared/ui/loader";
-import {useContext, useEffect, useRef, useState} from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, uncoverResponse} from "@/shared/lib/helpers";
@@ -20,7 +20,14 @@ const initStageConfirm = {
     recipient: null
 }
 
-const UniversalTransferConfirm = ({
+interface IUniversalTransferConfirmProps {
+    amount: number;
+    comment: string;
+    requisite: string;
+    handleCancel: () => void;
+}
+
+const UniversalTransferConfirm: FC<IUniversalTransferConfirmProps> = ({
     amount,
     comment,
     requisite,

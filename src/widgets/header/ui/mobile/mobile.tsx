@@ -148,7 +148,7 @@ const HeaderMobile = ({ items, actions }) => {
                             <span className={styles.HeaderTitle}>{headerTitle()}</span>
                         </div>
                         {
-                            walletPage?.pathname === '/wallet' && params.get('currency') === 'EUR' && (
+                            walletPage?.pathname === '/wallet' && params.get('currency') === 'EUR' && tab !== "programs" && (
                                 <Link to='/settings?sessionsSection=my-reports' >
                                     <div className="flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold">
                                         Reports

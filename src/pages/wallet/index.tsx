@@ -80,7 +80,7 @@ function Wallet() {
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid"
                              style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
-                            <div className="substrate z-10 w-inherit relative min-h-[600px]">
+                            <div className="shadow-[0_3px_4px_#00000040] bg-[#fff] p-[40px] rounded-[10px] mb-[4px] w-inherit relative min-h-[600px]">
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
@@ -116,7 +116,7 @@ function Wallet() {
                                                 data-name={t("history")}/>}
                             </div>
 
-                            {!xl && <div className="substrate z-0 -ml-4 h-full">
+                            {!xl && <div className="z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]">
                                 <History currenciesFilter={currencyForHistory}/>
                             </div>}
                         </div>
@@ -139,6 +139,7 @@ function Wallet() {
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History
+                                className="mb-[40px]"
                                 data-tag={"history"}
                                 data-name={t("history")}
                                 currenciesFilter={currencyForHistory}

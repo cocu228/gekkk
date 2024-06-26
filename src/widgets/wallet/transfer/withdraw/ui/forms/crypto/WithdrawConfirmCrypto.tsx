@@ -2,14 +2,12 @@ import { useCallback, useContext, useState, memo, useEffect, FC } from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
-import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_CODE} from "@/shared/config/mask";
 import useError from "@/shared/model/hooks/useError";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {useForm} from "antd/es/form/Form";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
@@ -17,7 +15,6 @@ import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import styles from './styles.module.scss'
-import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
 import Timer from "@/shared/model/hooks/useTimer";
 import Loader from "@/shared/ui/loader";
@@ -51,7 +48,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
 }) => {
   // Hooks
   const {t} = useTranslation();
-  const [form] = useForm();
   const { onInput } = useMask(MASK_CODE);
   const [localErrorHunter,,localErrorInfoBox] = useError();
   const [input, setInput] = useState("");
@@ -148,7 +144,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
           }));
         } else {
           localErrorHunter(err);
-          form.resetFields();
+          setInput("");
         }
       });
 
@@ -213,18 +209,11 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
         </div>
 
         <Form
-          form={form}
           wrapperClassName="w-full"
           onSubmit={() => onConfirm()}
         >
           {(stageReq.status === 0 || stageReq.status === 1) && (
             <div className="mb-[15px]">
-              <FormItem
-                name="code"
-                label="Code"
-                preserve
-                rules={[{ required: true, ...codeMessage }]}
-              >
                 <Input
                   allowDigits
                   size={"sm"}
@@ -240,7 +229,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
                         : t("enter_pin_code")
                   }
                 />
-              </FormItem>
               <Timer onAction={onReSendCode} />
             </div>
           )}

@@ -34,6 +34,8 @@ const TopUp = memo(() => {
 
     const offlineMode = !navigator.onLine;
 
+    console.log(networksForSelector)
+
     if (offlineMode) return <div>You are offline, please check your internet connection.</div>
 
     const getDisplayForm = (networkType: number): JSX.Element => {
@@ -138,7 +140,7 @@ const TopUp = memo(() => {
             
             {!md && displayedForm}
 
-            {md && <div className="mt-5">
+            {md && <div className={`mt-5 h-[440px]`}>
                 {!network && networksForSelector?.length > 0 && <span className={styles.TextSelectTitle}>
                     {t("select_top_up_type")}
                 </span>}

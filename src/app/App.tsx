@@ -7,6 +7,8 @@ import BreakpointsProvider from "@/app/providers/BreakpointsProvider";
 function App() {
     Decimal.set({toExpNeg: -18});
 
+    console.log(window.navigator)
+
     return (
         <BreakpointsProvider>
             <AppRouter/>

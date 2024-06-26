@@ -1,8 +1,7 @@
-﻿import {Switch} from "antd";
-import {Switch as SwitchUi} from "@/shared/ui/Switch/index";
-import Tooltip from "@/shared/ui/tooltip/Tooltip";
+﻿import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import React, {useContext, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import { Switch } from "@/shared/ui/Switch";
 
 interface IParams {
 	depositType?: 1     // Fixed
@@ -29,7 +28,7 @@ const DepositDescriptionCard = ({depositType}: IParams) => {
 					
 					<div className='flex gap-2'>
 						<Switch
-							defaultChecked={isIncreased}
+							defaultCheked={isIncreased}
 							onChange={setIsIncreased}
 						/>
 						isIncreased: {`${isIncreased}`}

@@ -187,10 +187,10 @@ const History = memo(function ({
               ) : (
                 <span
                   onClick={requestMoreHistory}
-                  className="text-gray-400 cursor-pointer inline-flex items-center"
+                  className="text-[#7B797C] font-semibold md:text-[10px] text-[12px] cursor-pointer inline-flex items-center"
                 >
                   {t("see_more")}
-                  <IconApp size={10} code="t08" className="rotate-90 ml-2" color="#B4C0CD" />
+                  <IconApp size={10} code="t08" className="rotate-90 ml-2" color="#7B797C" />
                 </span>
               )}
             </div>

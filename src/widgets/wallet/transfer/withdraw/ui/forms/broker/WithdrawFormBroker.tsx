@@ -16,8 +16,6 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import {Modal} from "@/shared/ui/modal/Modal";
-import { reponseOfUpdatingTokensNetworks } from '../../../model/helper';
-import useError from '@/shared/model/hooks/useError';
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { UasConfirmCtx } from '@/processes/errors-provider-context';
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
@@ -30,20 +28,18 @@ const WithdrawFormBroker = () => {
     const [loading, setLoading] = useState(false);
     const {inputCurr, setInputCurr} = useInputState();
     const {isModalOpen, showModal, handleCancel} = UseModal();
+    const {uasToken, getUasToken} = useContext(UasConfirmCtx);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-    const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
-    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-    const {uasToken, getUasToken} = useContext(UasConfirmCtx)
+    const {
+        setRefresh,
+        tokenNetworks,
+        localErrorClear,
+        localErrorInfoBox,
+        networkTypeSelect
+    } = useContext(CtxWalletNetworks);
 
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-    const delayRes = useCallback(debounce((amount) => { //TODO 1012 refactoring
-        setRefresh(true, amount)
-        reponseOfUpdatingTokensNetworks(amount, currency.$const).then(res => {
-            res?.error              
-                ? localErrorHunter(res.error)
-                : localErrorClear()
-        })     
-    }, 2000), []);
+    const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
 
     const {
         percent_fee = 0,
@@ -89,14 +85,16 @@ const WithdrawFormBroker = () => {
                         const amount = new Decimal(val);
                         setInputCurr(amount.mul(100).floor().div(100).toString())
                     }}
-                    onChange={setInputCurr}
+                    onChange={(val) => {
+                        if (!!localErrorInfoBox) {
+                            localErrorClear();
+                        }
+
+                        setInputCurr(val);
+                    }}
                 />
             </div>
             {/* Amount End */}
-
-            {/* Transfer Error Start */}
-            {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
-            {/* Transfer Error Start */}
 
             {/* Information Start */}
             <div className="w-full">
@@ -142,6 +140,8 @@ const WithdrawFormBroker = () => {
                 />
             </div>
             {/* Commissions End */}
+
+            {localErrorInfoBox}
 
             {/* Transfer Button Start */}
             <div className="w-full flex justify-center">

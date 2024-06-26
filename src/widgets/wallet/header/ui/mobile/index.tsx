@@ -97,7 +97,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("block") : t("income")).capitalize()}:
                         </span>
                         <span>
-                            <div data-testid="wallet_lock_in_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#45AD77]" data-testid="wallet_lock_in_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_in_balance) ?? '-'}`
                                 : `+${toLocaleCryptoRounding(balance?.lock_in_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>
@@ -110,7 +110,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("planned") : t("outcome")).capitalize()}:
                         </span>
                         <span>
-                            <div  data-testid="wallet_lock_out_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#972235]" data-testid="wallet_lock_out_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_out_balance) ?? '-'}`
                                 : `-${toLocaleCryptoRounding(balance?.lock_out_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>

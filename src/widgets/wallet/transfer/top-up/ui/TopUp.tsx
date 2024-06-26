@@ -18,6 +18,7 @@ import TransferTableCode from '../../components/transfer-code/table/TransferTabl
 
 const TopUp = memo(() => {
     const {t} = useTranslation()
+    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>(false);
     const {initialLanguage} = getInitialProps()
     const {md} = useBreakpoints()
     const [params] = useSearchParams();
@@ -35,6 +36,10 @@ const TopUp = memo(() => {
     const offlineMode = !navigator.onLine;
 
     if (offlineMode) return <div>You are offline, please check your internet connection.</div>
+
+    useEffect(()=>{
+        setNeedBottomPadding(window.matchMedia('(display-mode: standalone)').matches);
+    }, []);
 
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
@@ -138,7 +143,7 @@ const TopUp = memo(() => {
             
             {!md && displayedForm}
 
-            {md && <div className="mt-5">
+            {md && <div className={`mt-5 ${needBottomPadding && "pb-[40px]"}`}>
                 {!network && networksForSelector?.length > 0 && <span className={styles.TextSelectTitle}>
                     {t("select_top_up_type")}
                 </span>}

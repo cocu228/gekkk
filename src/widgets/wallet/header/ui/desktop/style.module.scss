@@ -23,7 +23,7 @@
 }
 
 .IconInfo{
-    margin-right: 10px;
+    margin-right: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,16 +39,20 @@
 }
 
 .IconRate{
-    margin-left: 5px;
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-self: center;
     text-wrap: nowrap;
+
+    @media screen and (max-width: 950px) {
+        display: none;
+    }
 }
 
 .RateText{
-    color: #9D9D9D;
+    color: #B9B9B5;
     font-family: Inter;
     font-size: 12px;
     font-style: normal;
@@ -57,7 +61,7 @@
 }
 
 .RatePercentText{
-    color: #1F3446;
+    color: #29354C;
     font-family: Inter;
     font-size: 16px;
     font-style: normal;
@@ -65,3 +69,8 @@
     line-height: normal;
 }
 
+.LockOrders {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}

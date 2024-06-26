@@ -22,7 +22,7 @@ const WalletHeaderMobile = () => {
         decimalPrec
     } = useContext(CtxWalletData);
     const {getAccountDetails} = storeAccountDetails(state => state);
-
+    const {setIsCopied} = useCopyStore()
     const [params] = useSearchParams();
     const currency = params.get('currency');
     const {account} = useContext(CtxRootData);
@@ -50,7 +50,7 @@ const WalletHeaderMobile = () => {
         })();
     }, [account]);
 
-    const {setIsCopied} = useCopyStore()
+
 
     const ibanCopy = () => {
         navigator.clipboard.writeText(IBAN)

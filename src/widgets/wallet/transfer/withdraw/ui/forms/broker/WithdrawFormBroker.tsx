@@ -48,6 +48,7 @@ const WithdrawFormBroker = () => {
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
     useEffect(() => {
+        localErrorClear();
         setLoading(true);
         delayRes(inputCurr.value.number);
         delayDisplay();
@@ -85,13 +86,7 @@ const WithdrawFormBroker = () => {
                         const amount = new Decimal(val);
                         setInputCurr(amount.mul(100).floor().div(100).toString())
                     }}
-                    onChange={(val) => {
-                        if (!!localErrorInfoBox) {
-                            localErrorClear();
-                        }
-
-                        setInputCurr(val);
-                    }}
+                    onChange={setInputCurr}
                 />
             </div>
             {/* Amount End */}

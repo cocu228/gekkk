@@ -4,7 +4,6 @@ import { Modal } from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import {isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
@@ -63,18 +62,17 @@ const WithdrawFormCrypto = () => {
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
-    if (!!localErrorInfoBox) {
-      localErrorClear();
-    }
-
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
   useEffect(() => {
-    setLoading(true);
-    delayRes(inputCurr.value.number);
-    delayDisplay();
-  }, [inputCurr.value.number]);
+    localErrorClear();
+    if (inputs.address && inputs.recipient && inputCurr.value.number) {
+      setLoading(true);
+      delayRes(inputCurr.value.number);
+      delayDisplay();
+    }
+  }, [inputs.address, inputs.recipient, inputCurr.value.number]);
 
   return (
     <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
@@ -94,13 +92,7 @@ const WithdrawFormCrypto = () => {
           ]}
           onError={setInputCurrValid}
           onSelect={setInputCurr}
-          onChange={(val) => {
-            if (!!localErrorInfoBox) {
-              localErrorClear();
-            }
-
-            setInputCurr(val);
-          }}
+          onChange={setInputCurr}
         />
       </div>
       {/* Amount End */}
@@ -183,13 +175,17 @@ const WithdrawFormCrypto = () => {
       </div>
       {/* Commissions End */}
 
+      {/* Transfer Error Start */}
+      {localErrorInfoBox}
+      {/* Transfer Error Start */}
+
       {/* Transfer Button Start */}
       <div className="w-full flex justify-center">
         <Button
           size="lg"
           onClick={showModal}
           className="w-full md:text-fs14 text-fs16"
-          disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value || loading}
+          disabled={!inputs.address || !inputs.recipient || inputCurrValid.value || loading}
         >
           {t("transfer")}
         </Button>

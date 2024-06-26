@@ -144,6 +144,10 @@ const CreateTransferCode = () => {
         </div>
         {/* Commissions End */}
 
+        {/* Transfer Error Start */}
+        {localErrorInfoBox}
+        {/* Transfer Error Start */}
+
         {/* Transfer Button Start */}
         <div className="w-full flex justify-center">
           <Button

@@ -20,7 +20,6 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
-
 const WithdrawFormPapaya = () => {
     const {t} = useTranslation();
     const {md} = useBreakpoints();
@@ -49,6 +48,7 @@ const WithdrawFormPapaya = () => {
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
     useEffect(() => {
+        localErrorClear();
         setLoading(true);
         delayRes(inputCurr.value.number);
         delayDisplay();
@@ -73,13 +73,7 @@ const WithdrawFormPapaya = () => {
                       const amount = new Decimal(val);
                       setInputCurr(amount.mul(100).floor().div(100).toString())
                   }}
-                  onChange={(val) => {
-                    if (!!localErrorInfoBox) {
-                        localErrorClear();
-                    }
-
-                    setInputCurr(val);
-                  }}
+                  onChange={setInputCurr}
                 />
             </div>
             {/* Amount End */}
@@ -124,7 +118,9 @@ const WithdrawFormPapaya = () => {
             </div>
             {/* Commissions End */}
 
+            {/* Transfer Error Start */}
             {localErrorInfoBox}
+            {/* Transfer Error Start */}
 
             {/* Transfer Button Start */}
             <div className="w-full flex justify-center">

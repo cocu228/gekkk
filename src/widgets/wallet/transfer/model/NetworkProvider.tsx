@@ -40,6 +40,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     const [state, setState] = useState<WalletNetworksStateType>(initState);
     
     const setNetworkId = async (networkTypeSelect: ICtxWalletNetworks["networkTypeSelect"]) => {
+        localErrorClear();
         let firstAddress = null;
         const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect)?.id || 0;
         
@@ -78,7 +79,6 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     }
 
     const setBankRefresh = async (paymentDetails: PaymentDetails) => {
-        localErrorClear();
         const response: AxiosResponse<PaymentFeeApiResponse> = await apiGetPaymentCommission(paymentDetails);
         if (response.data.error) {
             localErrorHunter(response.data.error)

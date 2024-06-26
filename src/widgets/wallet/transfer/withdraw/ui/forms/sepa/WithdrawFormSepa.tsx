@@ -71,13 +71,10 @@ const WithdrawFormSepa = () => {
   }
 
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
-  const delayRes = useCallback(
-    debounce((details: PaymentDetails) => {
-      setBankRefresh(details);
-      }, 2500),
-    []);
+  const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
   useEffect(() => {
+    localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
@@ -110,10 +107,6 @@ const WithdrawFormSepa = () => {
         showModal() 
     }
   };
-
-  useEffect(() => () => {
-    localErrorClear();
-  }, [])
 
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
@@ -197,7 +190,7 @@ const WithdrawFormSepa = () => {
       {/* Commissions End */}
 
       {/* Transfer Error Start */}
-      {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
+      {localErrorInfoBox}
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
@@ -218,7 +211,7 @@ const WithdrawFormSepa = () => {
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}&nbsp;
             <span className={"font-semibold"}>
-              {withdraw_fee} EURG
+              {withdraw_fee} EUR
             </span>
             &nbsp;{t("per_transaction")}
           </span>

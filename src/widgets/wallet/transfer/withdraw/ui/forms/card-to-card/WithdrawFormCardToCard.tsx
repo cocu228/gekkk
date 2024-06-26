@@ -75,11 +75,7 @@ const WithdrawFormCardToCard = () => {
   }
 
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
-  const delayRes = useCallback(
-    debounce((details: PaymentDetails) => {
-      setBankRefresh(details);
-    }, 2500),
-    []);
+  const delayRes = useCallback(debounce(setBankRefresh, 2500),[]);
 
   const {
     min_withdraw = 0,
@@ -96,6 +92,7 @@ const WithdrawFormCardToCard = () => {
     });
 
   useEffect(() => {
+    localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
@@ -118,10 +115,6 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number]);
 
-  useEffect(() => () => {
-    localErrorClear();
-  }, [])
-
   const transformedList = cards.map(item => ({
     id: item.cardId,
     name: formatCardNumber(item.displayPan)
@@ -135,6 +128,9 @@ const WithdrawFormCardToCard = () => {
         showModal() 
     }
   }
+
+  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
+  const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
 
   return (
     !cards ? (
@@ -236,13 +232,12 @@ const WithdrawFormCardToCard = () => {
               youWillPay={inputCurr.value.number + withdraw_fee}
               youWillGet={inputCurr.value.number}
               fee={withdraw_fee}
-              youWillGetCoin={"EURG"}
             />
         </div>
         {/* Commissions End */}
 
         {/* Transfer Error Start */}
-        {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
+        {localErrorInfoBox}
         {/* Transfer Error Start */}
 
         {/* Transfer Button Start */}
@@ -251,12 +246,7 @@ const WithdrawFormCardToCard = () => {
             size="lg"
             onClick={handleConfirm}
             className="w-full md:text-fs14 text-fs16"
-            disabled={
-              !!localErrorInfoBox ||
-              loading ||
-              !isValidated ||
-              inputCurrValid.value
-            }
+            disabled={isTransferDisabled}
           >
             {t("transfer")}
           </Button>

@@ -63,13 +63,10 @@ const WithdrawFormPhoneNumber = () => {
   };
 
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-  const delayRes = useCallback(
-    debounce((details: PaymentDetails) => {
-      setBankRefresh(details);
-    }, 2500),
-    []);
+  const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
   useEffect(() => {
+    localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
@@ -88,10 +85,6 @@ const WithdrawFormPhoneNumber = () => {
     );
   }, [details, inputCurr.value]);
 
-  useEffect(() => () => {
-    localErrorClear();
-  }, [])
-
   const handleConfirm = async () => {
     if(!uasToken) {
         await getUasToken()
@@ -100,6 +93,9 @@ const WithdrawFormPhoneNumber = () => {
         showModal() 
     }
   }
+
+  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
+  const isTransferDisabled = !!localErrorInfoBox || loading || !isValid || inputCurrValid.value || !isFieldsFill;
 
   return (
     <div className="wrapper flex flex-col md:gap-[10px] gap-[15px]">
@@ -162,13 +158,12 @@ const WithdrawFormPhoneNumber = () => {
           youWillPay={inputCurr.value.number + withdraw_fee}
           youWillGet={inputCurr.value.number}
           fee={withdraw_fee}
-          youWillGetCoin={"EURG"}
         />
       </div>
       {/* Commissions End */}
 
       {/* Transfer Error Start */}
-      {localErrorInfoBox ? <div className="w-full">{localErrorInfoBox}</div> : null}
+      {localErrorInfoBox}
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
@@ -177,12 +172,7 @@ const WithdrawFormPhoneNumber = () => {
           size="lg"
           onClick={handleConfirm}
           className="w-full md:text-fs14 text-fs16"
-          disabled={
-            !!localErrorInfoBox ||
-            loading ||
-            !isValid ||
-            inputCurrValid.value
-          }
+          disabled={isTransferDisabled}
         >
           {t("transfer")}
         </Button>
@@ -194,7 +184,7 @@ const WithdrawFormPhoneNumber = () => {
           <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
             {t("fee_is_prec")}&nbsp;
             <span className={"font-semibold"}>
-              {withdraw_fee} EURG
+              {withdraw_fee} EUR
             </span>
             &nbsp;{t("per_transaction")}
           </span>

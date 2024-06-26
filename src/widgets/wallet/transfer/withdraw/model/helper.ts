@@ -1,9 +1,5 @@
 import Decimal from "decimal.js";
 
-export const isDisabledBtnWithdraw = (inputs) => {
-    return !inputs.address || !inputs.recipient;
-}
-
 type TGetFinalFee = {
     type: {
         number: boolean | null,

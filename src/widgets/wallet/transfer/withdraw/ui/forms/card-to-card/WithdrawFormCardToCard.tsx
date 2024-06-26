@@ -187,6 +187,7 @@ const WithdrawFormCardToCard = () => {
           <Input
             name={"cardNumber"}
             placeholder={t("enter_description")}
+            value={details.cardNumber}
             allowDigits
             type={"text"}
             onInput={onCardNumberInput}

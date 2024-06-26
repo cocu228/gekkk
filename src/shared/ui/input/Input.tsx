@@ -7,7 +7,7 @@ type IParams = {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
     allowDigits?: boolean,
     allowSymbols?: boolean,
-    discardSymbols?:boolean,
+    discardLetters?:boolean,
     className?: string,
     suffix?: React.ReactNode,
     caption?: string,
@@ -27,7 +27,7 @@ const Input = React.forwardRef(
             onChange,
             allowDigits,
             allowSymbols,
-            discardSymbols,
+            discardLetters,
             className,
             suffix,
             prefix,
@@ -49,7 +49,7 @@ const Input = React.forwardRef(
         const [showCaption, setShowCaption] = useState(true);
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            if (validateInput(event, allowDigits, allowSymbols, discardSymbols)) {
+            if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
                 onChange(event);
                 setShowCaption(event.target.value.length === 0);
             }
@@ -72,7 +72,7 @@ const Input = React.forwardRef(
                             ref={ref}
                             disabled={disabled}
                             name={name}
-                            value={value}
+                            value={value ?? ''}
                             placeholder={`-${placeholder.toLowerCase()}-`}
                             onChange={handleChange}
                         />

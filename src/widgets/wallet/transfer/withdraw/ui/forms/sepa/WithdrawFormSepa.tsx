@@ -110,6 +110,9 @@ const WithdrawFormSepa = () => {
 
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
+  const youWillPay = inputCurr.value.number;
+  const youWillGet = inputCurr.value.number - withdraw_fee;
+  const fee = withdraw_fee;
 
   return (
     <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
@@ -182,9 +185,9 @@ const WithdrawFormSepa = () => {
       <div className="w-full flex justify-center">
         <Commissions
           isLoading={loading}
-          youWillPay={inputCurr.value.number}
-          youWillGet={inputCurr.value.number - withdraw_fee}
-          fee={withdraw_fee}
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
         />
       </div>
       {/* Commissions End */}
@@ -219,13 +222,11 @@ const WithdrawFormSepa = () => {
       {/* Transaction Information End */}
 
       {/* Confirm Start */}
-      <Modal
-        destroyOnClose
-        isModalOpen={isModalOpen}
-        title={t("confirm_transaction")}
-        onCancel={handleCancel}
-      >
+      <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleCancel}>
         <WithdrawConfirmSepa
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
           details={details}
           handleCancel={handleCancel}
         />

@@ -161,7 +161,7 @@ const WithdrawFormPapaya = () => {
                   address={account.number}
                   recipient={account.name}
                   handleCancel={handleCancel}
-                  amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
+                  amount={inputCurr.value.number - withdraw_fee}
                 />
             </Modal>
             {/* Confirm End */}

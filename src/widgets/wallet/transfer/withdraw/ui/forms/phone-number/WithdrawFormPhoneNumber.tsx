@@ -96,6 +96,9 @@ const WithdrawFormPhoneNumber = () => {
 
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isValid || inputCurrValid.value || !isFieldsFill;
+  const youWillPay = inputCurr.value.number + withdraw_fee;
+  const youWillGet = inputCurr.value.number;
+  const fee = withdraw_fee;
 
   return (
     <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
@@ -156,9 +159,9 @@ const WithdrawFormPhoneNumber = () => {
       <div className='w-full flex justify-center'>
         <Commissions
           isLoading={loading}
-          youWillPay={inputCurr.value.number + withdraw_fee}
-          youWillGet={inputCurr.value.number}
-          fee={withdraw_fee}
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
         />
       </div>
       {/* Commissions End */}
@@ -193,13 +196,11 @@ const WithdrawFormPhoneNumber = () => {
       {/* Transaction Information End */}
 
       {/* Confirm Start */}
-      <Modal
-        destroyOnClose
-        isModalOpen={isModalOpen}
-        onCancel={handleCancel}
-        title={t("confirm_transaction")}
-      >
+      <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleCancel}>
         <WithdrawConfirmPhoneNumber
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
           details={details}
           handleCancel={handleCancel}
         />

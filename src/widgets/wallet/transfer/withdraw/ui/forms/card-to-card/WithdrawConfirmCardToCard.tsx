@@ -11,11 +11,14 @@ import {maskFullCardNumber} from "@/shared/lib";
 import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions, { ICommissionsProps } from "@/widgets/wallet/transfer/components/commissions";
 import {PaymentDetails} from "@/shared/(orval)api/gek/model";
-import useError from "@/shared/model/hooks/useError";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
+import ModalTrxStatusSuccess from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusSuccess";
+import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
+import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
 
 interface IWithdrawConfirmCardToCardProps extends ICommissionsProps {
     details: PaymentDetails;
@@ -29,10 +32,10 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
 }) => {
     // Hooks
     const {t} = useTranslation()
-    const [localErrorHunter, , localErrorInfoBox] = useError();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // Context
+    const {setContent} = useContext(CtxGlobalModalContext);
     const {setRefresh} = useContext(CtxRootData)
     const {displayHistory} = useContext(CtxDisplayHistory);
     const {uasToken} = useContext(UasConfirmCtx)
@@ -53,15 +56,15 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
             const confToken = response.data.errors[0].properties.confirmationToken;
             const inSideHeaders = await signHeadersGeneration(phone, confToken);
             const res = await apiPaymentContact(details, false, { ...inSideHeaders, ...headers });
-            //@ts-ignore
-            if(res.data.status === "ok"){
+            if (resValidation(res)) {
                 setRefresh();
                 displayHistory();
-            }else{
-                localErrorHunter({ code: 0, message: t("unknown_problem") });
+                setContent({ content: <ModalTrxStatusSuccess/> });
+            } else {
+                setContent({ content: <ModalTrxStatusError /> });
             }
         } catch (_) {
-            localErrorHunter({ code: 0, message: t("unknown_problem") });
+            setContent({ content: <ModalTrxStatusError /> });
         }
         handleCancel()
         setIsLoading(false)
@@ -97,13 +100,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
               </div>
           </div>
 
-          {localErrorInfoBox}
-
-          <ConfirmButtons
-            isConfirmDisabled={!!localErrorInfoBox}
-            onConfirm={onConfirm}
-            onCancel={handleCancel}
-          />
+          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
       </ConfirmLoading>
     )
 }

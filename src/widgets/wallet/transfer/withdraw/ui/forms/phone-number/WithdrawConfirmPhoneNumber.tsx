@@ -15,6 +15,7 @@ import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
 
 interface IWithdrawConfirmPhoneNumberProps extends ICommissionsProps {
     details: PaymentDetails;
@@ -51,15 +52,18 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
             const confToken = response.data.errors[0].properties.confirmationToken;
             const inSideHeaders = await signHeadersGeneration(phone, confToken);
 
-            await apiPaymentContact(details, false, { ...headers, ...inSideHeaders })
-            handleCancel();
-            setRefresh();
-            displayHistory();
-            setContent({ content: <ModalTrxStatusSuccess /> });
+            const res = await apiPaymentContact(details, false, { ...headers, ...inSideHeaders })
+            if (resValidation(res)) {
+                setRefresh();
+                displayHistory();
+                setContent({ content: <ModalTrxStatusSuccess/> });
+            } else {
+                setContent({ content: <ModalTrxStatusError /> });
+            }
         } catch (_) {
-            handleCancel();
             setContent({ content: <ModalTrxStatusError /> });
         }
+        handleCancel();
         setIsLoading(false)
     }
 

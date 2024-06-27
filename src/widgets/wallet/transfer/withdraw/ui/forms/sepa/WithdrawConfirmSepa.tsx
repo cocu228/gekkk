@@ -1,5 +1,5 @@
 import {CtxRootData} from "@/processes/RootContext";
-import {apiPaymentSepa, IPaymentDetails} from "@/shared/api";
+import { apiPaymentSepa, IPaymentDetails, IResErrors } from "@/shared/api";
 import { FC, useContext, useState } from "react";
 import {CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
@@ -16,6 +16,7 @@ import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
 
 interface IWithdrawConfirmSepaProps extends ICommissionsProps {
   details: PaymentDetails;
@@ -61,11 +62,12 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
       const inSideHeaders = await signHeadersGeneration(phone, confToken);
       const transformedDetails = getTransformDetails();
       const res = await apiPaymentSepa(transformedDetails, false, { ...headers, ...inSideHeaders })
-      console.log({ res });
-      if (res.data) {
+      if (resValidation(res)) {
         setRefresh();
         displayHistory();
-        setContent({ content: <ModalTrxStatusSuccess /> });
+        setContent({ content: <ModalTrxStatusSuccess/> });
+      } else {
+        setContent({ content: <ModalTrxStatusError /> });
       }
     } catch (_) {
       setContent({ content: <ModalTrxStatusError /> });

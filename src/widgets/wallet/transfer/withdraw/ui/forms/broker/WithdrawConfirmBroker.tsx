@@ -15,6 +15,7 @@ import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons
 import Notice from "@/shared/ui/notice";
 import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
 
 interface IWithdrawConfirmBrokerProps {
     amount: number;
@@ -68,10 +69,14 @@ const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handle
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
             const inSideHeaders = await signHeadersGeneration(phone, confToken);
-            await apiPaymentSepa(details, false, { ...headers, ...inSideHeaders })
-            setRefresh();
-            displayHistory();
-            setContent({ content: <ModalTrxStatusSuccess/> });
+            const res = await apiPaymentSepa(details, false, { ...headers, ...inSideHeaders })
+            if (resValidation(res)) {
+                setRefresh();
+                displayHistory();
+                setContent({ content: <ModalTrxStatusSuccess/> });
+            } else {
+                setContent({ content: <ModalTrxStatusError /> });
+            }
         } catch (_) {
             setContent({ content: <ModalTrxStatusError /> });
         }

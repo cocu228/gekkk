@@ -2,8 +2,6 @@ import { useCallback, useContext, useState, memo, useEffect, FC } from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_CODE} from "@/shared/config/mask";
 import useError from "@/shared/model/hooks/useError";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
@@ -48,7 +46,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
 }) => {
   // Hooks
   const {t} = useTranslation();
-  const { onInput } = useMask(MASK_CODE);
   const [localErrorHunter,,localErrorInfoBox] = useError();
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -219,7 +216,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
                   size={"sm"}
                   type="text"
                   className={styles.Input}
-                  onInput={onInput}
                   onChange={inputChange}
                   placeholder={
                     stageReq.status === 0

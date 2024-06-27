@@ -245,7 +245,7 @@ const WithdrawFormCardToCard = () => {
             size="lg"
             onClick={handleConfirm}
             className="w-full md:text-fs14 text-fs16"
-            disabled={isTransferDisabled}
+            // disabled={isTransferDisabled}
           >
             {t("transfer")}
           </Button>

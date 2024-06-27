@@ -83,9 +83,9 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
           <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
               <div className="flex flex-col gap-[10px]">
                   {phoneNumberInfo.map(({ label, value }) => (
-                    <div key={value}>
+                    <div key={value} className="flex flex-col gap-[1.5px]" >
                         <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14 break-words">{value}</p>
                     </div>
                   ))}
               </div>

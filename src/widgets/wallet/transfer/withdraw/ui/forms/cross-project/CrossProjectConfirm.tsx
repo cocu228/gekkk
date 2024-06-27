@@ -154,7 +154,7 @@ const CrossProjectConfirm = ({
                       {projectConfirmInfo.map(({ label, value }) => (
                         <div key={value}>
                             <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14 break-words">{value}</p>
                         </div>
                       ))}
                   </div>
@@ -174,7 +174,6 @@ const CrossProjectConfirm = ({
                 onConfirm={onConfirm}
                 onCancel={handleCancel}
               />
-          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />  
       </ConfirmLoading>
     )
 }

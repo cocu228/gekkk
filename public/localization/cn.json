@@ -2,7 +2,6 @@
   "lang": "cn",
   "languageName": "Chinese",
   "locale": {
-    "unknown_problem": "未知问题",
     "copied": "已复制",
     "auth": {
       "login_to_your_account": "登录到您的帐户",

@@ -16,34 +16,36 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 
 const CrossProjectForm = () => {
+  // Context
+  const currency = useContext(CtxWalletData);
+  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
+
+  // Hooks
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const currency = useContext(CtxWalletData);
   const { inputCurr, setInputCurr } = useInputState();
   const [isValid, setIsValid] = useState<boolean>(false);
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
-
-  const [inputs, setInputs] = useState<{
-    comment: string;
-  }>({
+  const [inputs, setInputs] = useState<{ comment: string; }>({
     comment: "",
   });
 
+  // Handlers
   const {
     network_type,
     min_withdraw = 0,
     max_withdraw = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
-  useEffect(() => {
-    setIsValid(inputCurr.value.string?.length > 0);
-  }, [inputs, inputCurr.value]);
-
   const onInputDefault = ({ target }) => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
+
+  // Effects
+  useEffect(() => {
+    setIsValid(inputCurr.value.string?.length > 0);
+  }, [inputs, inputCurr.value]);
 
   return (
     <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
@@ -106,16 +108,6 @@ const CrossProjectForm = () => {
         </Button>
       </div>
       {/* Transfer Button End */}
-
-      {/* Transaction Information Start */}
-      <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t('fee_is')}&nbsp;
-            <span className="uppercase font-bold">0 EURG</span>&nbsp;
-            {t("per_transaction")}
-          </span>
-      </div>
-      {/* Transaction Information End */}
 
       {/* Confirm Start */}
       <Modal

@@ -8,7 +8,7 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import { CtxFeeNetworks, CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
@@ -21,33 +21,26 @@ import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
 const WithdrawFormSepa = () => {
+  // Context
+  const currency = useContext(CtxWalletData);
+  const {account} = useContext(CtxRootData);
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
+  const { networkTypeSelect, tokenNetworks, } = useContext(CtxWalletNetworks);
+  const { localErrorInfoBox, localErrorClear, setBankRefresh } = useContext(CtxFeeNetworks);
+
+  // Hooks
   const {t} = useTranslation();
   const {md} = useBreakpoints();
   const navigate = useNavigate();
-  const currency = useContext(CtxWalletData);
   const {initialLanguage} = getInitialProps();
-  const {account} = useContext(CtxRootData);
   const {inputCurr, setInputCurr} = useInputState();
   const {isModalOpen, showModal, handleCancel} = useModal();
-  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-  const {
-    networkTypeSelect,
-    tokenNetworks,
-    localErrorInfoBox,
-    setBankRefresh,
-    localErrorClear
-  } = useContext(CtxWalletNetworks);
-  const {
-    min_withdraw = 0,
-    withdraw_fee = 0
-  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
   const [loading, setLoading] = useState<boolean>(false);
   const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
-
   const [details, setDetails] = useState<PaymentDetails>({
     purpose: null,
     iban: null,
@@ -62,6 +55,14 @@ const WithdrawFormSepa = () => {
     },
   })
 
+  // Handlers
+  const {
+    min_withdraw = 0,
+    withdraw_fee = 0,
+    percent_fee = 0,
+    token_symbol
+  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+
   const onInput = ({ target }) => {
     setDetails((prev) => ({ ...prev, [target.name]: target.value }))
   };
@@ -73,6 +74,16 @@ const WithdrawFormSepa = () => {
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
   const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
+  const handleConfirm = async () => {
+    if(!uasToken) {
+      await getUasToken()
+      showModal()
+    } else {
+      showModal()
+    }
+  };
+
+  // Effects
   useEffect(() => {
     localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
@@ -99,15 +110,7 @@ const WithdrawFormSepa = () => {
     }
   }, [inputCurr.value.number]);
 
-  const handleConfirm = async () => {
-    if(!uasToken) {
-        await getUasToken()
-        showModal()
-    } else {
-        showModal() 
-    }
-  };
-
+  // Helpers
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
   const youWillPay = inputCurr.value.number;
@@ -210,15 +213,15 @@ const WithdrawFormSepa = () => {
       {/* Transfer Button End */}
 
       {/* Transaction Information Start */}
-      <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
+      <FeeInformation percent={percent_fee} withdraw={withdraw_fee} coin={token_symbol}>
+        {({ fee }) => (
+          <>
             {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>
-              {withdraw_fee} EUR
-            </span>
-            &nbsp;{t("per_transaction")}
-          </span>
-      </div>
+            <span className={"font-semibold"}>{fee}</span>&nbsp;
+            {t("per_transaction")}
+          </>
+        )}
+      </FeeInformation>
       {/* Transaction Information End */}
 
       {/* Confirm Start */}

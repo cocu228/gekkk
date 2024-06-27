@@ -24,24 +24,27 @@ import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import ConfirmInfo from "@/widgets/wallet/transfer/withdraw/ui/forms/create-transfer-code/ui/confirm-info";
 
 const CreateTransferCode = () => {
+  // Hooks
   const { t } = useTranslation();
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { md } = useBreakpoints();
-
   const navigate = useNavigate();
   const { inputCurr, setInputCurr } = useInputState();
   const { setInputCurrValid } = useInputValidateState();
-  const currency = useContext(CtxWalletData);
+  const [localErrorHunter, , localErrorInfoBox] = useError();
   const [loading, setLoading] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
   const [newCode, setNewCode] = useState("");
-  const { setRefresh } = useContext(CtxRootData);
-
-  const getListTxCode = storeListTxCode((state) => state.getListTxCode);
-  const [localErrorHunter, , localErrorInfoBox] = useError();
-
   const [isHelpClicked, setIsHelpClicked] = useState<boolean>(false);
 
+  // Context
+  const currency = useContext(CtxWalletData);
+  const { setRefresh } = useContext(CtxRootData);
+
+  // Store
+  const getListTxCode = storeListTxCode((state) => state.getListTxCode);
+
+  // Handlers
   const onCreateCode = async () => {
     setLoading(true);
 
@@ -84,6 +87,7 @@ const CreateTransferCode = () => {
     showModal();
   }
 
+  // Helpers
   const validated = validateBalance(currency, navigate, t)(inputCurr.value.number).validated;
   const isTransferDisabled = !inputCurr.value.number || !validated;
 
@@ -177,16 +181,6 @@ const CreateTransferCode = () => {
           </Button>
         </div>
         {/* Transfer Button End */}
-
-        {/* Transaction Information Start */}
-        <div className="w-full md:flex hidden justify-center">
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t('fee_is')}&nbsp;
-            <span className="font-semibold">0 EURG</span>&nbsp;
-            {t("per_transaction")}
-          </span>
-        </div>
-        {/* Transaction Information End */}
 
         {/* Confirm Start */}
         <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleOnCancelModal}>

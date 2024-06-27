@@ -42,3 +42,18 @@ export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>(
     setRefresh: function (quite: boolean, amount: number) {},
     setBankRefresh: function (paymentDetails: PaymentDetails) {}
 });
+
+export const CtxFeeNetworks = React.createContext<null | ICtxWalletNetworks>({
+    tokenNetworks: null,
+    networksForSelector: null,
+    networkTypeSelect: null,
+    addressesForQR: null,
+    loading: true,
+    refreshKey: null,
+    localErrorInfoBox: null,
+    localErrorClear: () => {},
+    setLoading: function (loading: boolean) {},
+    setNetworkType: function (networkId: number) {},
+    setRefresh: function (quite: boolean, amount: number) {},
+    setBankRefresh: function (paymentDetails: PaymentDetails) {}
+});

@@ -28,7 +28,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     
-    const initState = {
+    const initState: WalletNetworksStateType = {
         networksForSelector: null,
         tokenNetworks: null,
         networkTypeSelect: null,

@@ -28,6 +28,7 @@ import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 import {IS_GEKKARD_APP} from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
+import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -86,7 +87,9 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
-                                    <Withdraw/>
+                                    <FeeProvider data-tag={"withdraw"} data-name={t("withdraw")}>
+                                        <Withdraw/>
+                                    </FeeProvider>
                                 </NetworkProvider>
 
                                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&

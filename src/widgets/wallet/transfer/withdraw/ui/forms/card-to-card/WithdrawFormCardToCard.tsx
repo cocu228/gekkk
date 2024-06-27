@@ -7,7 +7,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import { CtxFeeNetworks, CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawConfirmCardToCard";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
@@ -26,19 +26,25 @@ import {CtxRootData} from "@/processes/RootContext";
 import {debounce} from "@/shared/lib";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
 const WithdrawFormCardToCard = () => {
+  // Context
+  const {account} = useContext(CtxRootData);
   const currency = useContext(CtxWalletData);
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
-  const cards = storeActiveCards((state) => state.activeCards);
-
-  const {account} = useContext(CtxRootData);
   const {$const} = useContext(CtxWalletData);
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
+  const {tokenNetworks, networkTypeSelect} = useContext(CtxWalletNetworks);
+  const {setBankRefresh, localErrorClear, localErrorInfoBox} = useContext(CtxFeeNetworks);
+
+  // Hooks
   const navigate = useNavigate();
   const { t } = useTranslation();
-
+  const { isModalOpen, showModal, handleCancel } = useModal();
+  const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
+  const { inputCurr, setInputCurr } = useInputState();
+  const { inputCurrValid, setInputCurrValid } = useInputValidateState();
+  const [loading, setLoading] = useState<boolean>(false);
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
     beneficiaryName: null,
@@ -54,17 +60,15 @@ const WithdrawFormCardToCard = () => {
     }
   })
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const { inputCurr, setInputCurr } = useInputState();
-  const { inputCurrValid, setInputCurrValid } = useInputValidateState();
+  // Store
+  const cards = storeActiveCards((state) => state.activeCards);
 
+  // Handlers
   const {
-    networkTypeSelect,
-    tokenNetworks,
-    localErrorInfoBox,
-    setBankRefresh,
-    localErrorClear,
-  } = useContext(CtxWalletNetworks);
+    min_withdraw = 0,
+    percent_fee = 0,
+    withdraw_fee = 0,
+  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
     setDetails((prev) => ({ ...prev, [target.name]: target.value }));
@@ -77,12 +81,6 @@ const WithdrawFormCardToCard = () => {
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
   const delayRes = useCallback(debounce(setBankRefresh, 2500),[]);
 
-  const {
-    min_withdraw = 0,
-    // percent_fee = 0,
-    withdraw_fee = 0,
-  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
   const isValidated = () =>
     Object.keys(details).every((i) => {
       if (!details[i]) return false;
@@ -91,6 +89,16 @@ const WithdrawFormCardToCard = () => {
       return details[i].length > 0;
     });
 
+  const handleConfirm = async () => {
+    if(!uasToken) {
+      await getUasToken()
+      showModal()
+    } else {
+      showModal()
+    }
+  }
+
+  // Effects
   useEffect(() => {
     localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
@@ -115,15 +123,8 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number]);
 
-  const handleConfirm = async () => {
-    if(!uasToken) {
-        await getUasToken()
-        showModal()
-    } else {
-        showModal() 
-    }
-  }
-  const transformedList = cards.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
+  // Helpers
+  const transformedList = cards?.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
   const youWillPay = inputCurr.value.number + withdraw_fee;
@@ -253,13 +254,15 @@ const WithdrawFormCardToCard = () => {
         {/* Transfer Button End */}
 
         {/* Transaction Information Start */}
-        <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>{withdraw_fee} {currency.$const}</span>&nbsp;
-            {t("after_n_transactions_per_m", { times: 5, period: t("month") })}
-          </span>
-        </div>
+        <FeeInformation percent={percent_fee} withdraw={withdraw_fee} coin={currency.$const}>
+          {({ fee }) => (
+            <>
+              {t("fee_is_prec")}&nbsp;
+              <span className={"font-semibold"}>{fee}</span>&nbsp;
+              {t("after_n_transactions_per_m", { times: 5, period: t("month") })}
+            </>
+          )}
+        </FeeInformation>
         {/* Transaction Information End */}
 
         {/* Confirm Start */}

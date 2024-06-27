@@ -23,6 +23,7 @@ import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
   status: null,
@@ -197,7 +198,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
           {localErrorInfoBox
             ? localErrorInfoBox
             : stageReq.autoInnerTransfer && (
-            <InfoBox>
+            <InfoBox icon={<IconApp size={30} code="t8" color="#ttt" />} >
               The address is within our system. The transfer will be
               made via the internal network, and not through the
               blockchain. Are you sure you want to continue?

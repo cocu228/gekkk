@@ -115,7 +115,7 @@ const WithdrawFormSepa = () => {
   const fee = withdraw_fee;
 
   return (
-    <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
       <div className="w-full">
         <AmountInput
@@ -137,7 +137,7 @@ const WithdrawFormSepa = () => {
       {/* Amount End */}
 
       {/* IBAN Start */}
-      <div className="w-full">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           IBAN:
         </span>
@@ -152,7 +152,7 @@ const WithdrawFormSepa = () => {
       {/* IBAN End */}
 
       {/*  Recipient Start */}
-      <div className="w-full gap-[3px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("recipient")}:
         </span>
@@ -167,7 +167,7 @@ const WithdrawFormSepa = () => {
       {/* Recipient End */}
 
       {/* Description Start */}
-      <div className="w-full gap-[3px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>

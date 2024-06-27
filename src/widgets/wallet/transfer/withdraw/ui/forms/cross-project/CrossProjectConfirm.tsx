@@ -13,6 +13,7 @@ import {storeAccountDetails} from "@/shared/store/account-details/accountDetails
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import Commissions from "@/widgets/wallet/transfer/components/commissions";
 
 const initStageConfirm = {
     txId: null,
@@ -148,20 +149,32 @@ const CrossProjectConfirm = ({
       <ConfirmLoading isLoading={isLoading}>
           <Notice text={t("check_your_information_carefully")} />
 
-          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
-              <div className="flex flex-col gap-[10px]">
-                  {projectConfirmInfo.map(({ label, value }) => (
-                    <div key={value}>
-                        <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
-                    </div>
-                  ))}
+              <div className="flex flex-col gap-[25px] mb-[30px]">
+                  <div className="flex flex-col gap-[10px]">
+                      {projectConfirmInfo.map(({ label, value }) => (
+                        <div key={value}>
+                            <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                            <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+                        </div>
+                      ))}
+                  </div>
               </div>
-          </div>
 
-          {localErrorInfoBox}
+              {localErrorInfoBox}
 
-          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
+              <div className="w-full mb-[20px]">
+                <Commissions
+                    youWillPay={amount}
+                    youWillGet={amount}
+                    fee={"-"}
+                />
+             </div>
+
+              <ConfirmButtons
+                onConfirm={onConfirm}
+                onCancel={handleCancel}
+              />
+          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />  
       </ConfirmLoading>
     )
 }

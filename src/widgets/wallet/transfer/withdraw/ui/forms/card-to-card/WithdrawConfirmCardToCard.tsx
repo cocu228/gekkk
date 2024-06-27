@@ -98,7 +98,7 @@ const WithdrawConfirmCardToCard: FC<IWithdrawConfirmCardToCardProps> = ({
               <div className="w-full">
                   <Commissions {...commissionsProps} />
               </div>
-          </div>
+          </div>1
 
           <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
       </ConfirmLoading>

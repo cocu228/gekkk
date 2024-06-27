@@ -2,8 +2,6 @@ import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
-import { MASK_PHONE } from "@/shared/config/mask";
-import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {useCallback, useContext, useEffect, useState} from "react";
 import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
@@ -31,7 +29,6 @@ const WithdrawFormPhoneNumber = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
   const { isModalOpen, showModal, handleCancel } = useModal();
-  const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const {
     networkTypeSelect,
@@ -134,7 +131,6 @@ const WithdrawFormPhoneNumber = () => {
           placeholder={t("auth.enter_phone_number")}
           onChange={onInput}
           value={details.phoneNumber}
-          onInput={onPhoneNumberInput}
         />
       </div>
       {/* To Card End */}

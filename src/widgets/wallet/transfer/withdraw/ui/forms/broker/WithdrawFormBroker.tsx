@@ -76,7 +76,7 @@ const WithdrawFormBroker = () => {
                     value={inputCurr.value.number}
                     inputValue={inputCurr.value.string}
                     currency={currency}
-                    description={getWithdrawDesc(min_withdraw, currency.$const)}
+                    description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
                     validators={[
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)

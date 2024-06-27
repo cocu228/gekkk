@@ -81,7 +81,7 @@ const WithdrawFormCrypto = () => {
         <AmountInput
           name="amount"
           value={new Decimal(inputCurr.value.number).plus(withdraw_fee).toNumber()}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
           currency={currency}

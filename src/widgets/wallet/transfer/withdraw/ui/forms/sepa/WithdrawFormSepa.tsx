@@ -121,7 +121,7 @@ const WithdrawFormSepa = () => {
         <AmountInput
           transfers={md}
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}

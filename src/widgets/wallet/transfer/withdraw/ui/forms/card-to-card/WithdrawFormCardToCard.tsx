@@ -30,8 +30,6 @@ import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
-  // const cards2 = storeActiveCards((state) => state.activeCards);
-  // const cards = []
   const {account} = useContext(CtxRootData);
   const {$const} = useContext(CtxWalletData);
   const { isModalOpen, showModal, handleCancel } = useModal();
@@ -40,6 +38,7 @@ const WithdrawFormCardToCard = () => {
   const { t } = useTranslation();
   const getCards = storeActiveCards((state) => state.getActiveCards);
   const cards = storeActiveCards((state) => state.activeCards);
+  const [ans, setAns] = useState<any>()
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
@@ -79,6 +78,25 @@ const WithdrawFormCardToCard = () => {
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
   const delayRes = useCallback(debounce(setBankRefresh, 2500),[]);
 
+
+  useEffect(() => {
+    // if(cards) {
+      
+    // }
+    console.log('asdasd')
+    
+  }, [cards]);
+
+  useEffect(()=>{
+    console.log(cards)
+    if(!cards) {
+      (async () => {
+        const res = await getCards();
+        setAns(res)
+      })();
+    }
+  }, [])  
+
   const {
     min_withdraw = 0,
     // percent_fee = 0,
@@ -93,16 +111,6 @@ const WithdrawFormCardToCard = () => {
       return details[i].length > 0;
     });
 
-    useEffect(()=>{
-      console.log(cards)
-      if(!cards) {
-        (async () => {
-          await getCards();
-        })();
-      }
-    }, [])  
-
-
   useEffect(() => {
     localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
@@ -113,16 +121,6 @@ const WithdrawFormCardToCard = () => {
   }, [inputCurr.value.number, details]);
 
 
-  useEffect(() => {
-    if(cards) {
-      setDetails(() => ({
-        ...details,
-        selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
-          ? cards[0].cardId
-          : null,
-      }));
-    }
-  }, [cards]);
 
   useEffect(() => {
     if (inputCurr.value.number) {
@@ -138,6 +136,7 @@ const WithdrawFormCardToCard = () => {
         showModal() 
     }
   }
+
   const transformedList = cards?.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
@@ -155,7 +154,7 @@ const WithdrawFormCardToCard = () => {
           <AmountInput
             transfers
             value={inputCurr.value.number}
-            description={getWithdrawDesc(min_withdraw, currency.$const)}
+            description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
             placeholder={t("exchange.enter_amount")}
             inputValue={inputCurr.value.string}
             currency={currency}
@@ -260,7 +259,7 @@ const WithdrawFormCardToCard = () => {
             size="lg"
             onClick={handleConfirm}
             className="w-full md:text-fs14 text-fs16"
-            disabled={isTransferDisabled}
+            // disabled={isTransferDisabled}
           >
             {t("transfer")}
           </Button>

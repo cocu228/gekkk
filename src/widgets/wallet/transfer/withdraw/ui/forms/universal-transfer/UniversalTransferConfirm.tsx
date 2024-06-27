@@ -135,7 +135,7 @@ const UniversalTransferConfirm: FC<IUniversalTransferConfirmProps> = ({
     const universalTransferInfo: { label: string, value: string }[] = [
         { label: t("type_transaction"), value: label },
         { label: "Amount", value: `${amount} ${$const}` },
-        { label: "Requisite", value: requisite },
+        { label: t('recipient'), value: requisite },
         { label: t("recipient_name"), value: stage.recipient ?? '-' },
         ...(comment ? [{ label: t("description"), value: comment }] : [])
     ]

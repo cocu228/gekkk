@@ -130,6 +130,7 @@ const WithdrawFormPhoneNumber = () => {
           name={"phoneNumber"}
           placeholder={t("auth.enter_phone_number")}
           onChange={onInput}
+          value={details.phoneNumber}
           onInput={onPhoneNumberInput}
         />
       </div>

@@ -150,6 +150,8 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
   };
 
   const inputChange = ({target}: any) => {
+    console.log(target.value);
+
     setInput(target.value);
   };
 
@@ -216,6 +218,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
                   allowDigits
                   size={"sm"}
                   type="text"
+                  value={input}
                   className={styles.Input}
                   onChange={inputChange}
                   placeholder={

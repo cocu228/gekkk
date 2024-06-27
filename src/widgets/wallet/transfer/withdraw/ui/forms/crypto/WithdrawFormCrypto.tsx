@@ -75,13 +75,13 @@ const WithdrawFormCrypto = () => {
   }, [inputs.address, inputs.recipient, inputCurr.value.number]);
 
   return (
-    <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
       <div className="w-full">
         <AmountInput
           name="amount"
           value={new Decimal(inputCurr.value.number).plus(withdraw_fee).toNumber()}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
           currency={currency}
@@ -113,7 +113,7 @@ const WithdrawFormCrypto = () => {
             name={"address"}
           />
           <div className="pl-2 -md:pt-2.5" onClick={qrCodeModal.showModal}>
-            <IconApp className="cursor-pointer" color="var(--gek-green)" size={md ? 30 : 40} code="t81" />
+            <IconApp className="cursor-pointer" color="#285E69" size={md ? 30 : 40} code="t81" />
           </div>
         </div>
         <QRCodeModal

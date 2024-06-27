@@ -45,6 +45,7 @@ const WithdrawFormCardToCard = () => {
   const { inputCurr, setInputCurr } = useInputState();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const [loading, setLoading] = useState<boolean>(false);
+  const [ans, setAns] = useState<any>()
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
     beneficiaryName: null,
@@ -62,6 +63,7 @@ const WithdrawFormCardToCard = () => {
 
   // Store
   const cards = storeActiveCards((state) => state.activeCards);
+  const getCards = storeActiveCards((state) => state.getActiveCards);
 
   // Handlers
   const {
@@ -108,14 +110,34 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number, details]);
 
+  // Todo: This on enter
   useEffect(() => {
-    setDetails(() => ({
-      ...details,
-      selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
-        ? cards[0].cardId
-        : null,
-    }));
+    // if(cards) {
+
+    // }
+    console.log('asdasd')
+
   }, [cards]);
+
+  useEffect(()=>{
+    console.log(cards)
+    if(!cards) {
+      (async () => {
+        const res = await getCards();
+        setAns(res)
+      })();
+    }
+  }, [])
+
+  // Todo: This on Leave
+  // useEffect(() => {
+  //   setDetails(() => ({
+  //     ...details,
+  //     selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
+  //       ? cards[0].cardId
+  //       : null,
+  //   }));
+  // }, [cards]);
 
   useEffect(() => {
     if (inputCurr.value.number) {
@@ -126,7 +148,8 @@ const WithdrawFormCardToCard = () => {
   // Helpers
   const transformedList = cards?.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
-  const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
+  // Todo
+  // const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
   const youWillPay = inputCurr.value.number + withdraw_fee;
   const youWillGet = inputCurr.value.number;
   const fee = withdraw_fee;
@@ -135,13 +158,13 @@ const WithdrawFormCardToCard = () => {
     !cards ? (
       <Loader className={"relative"} />
     ) : (
-      <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+      <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
         <div className="w-full">
           <AmountInput
             transfers
             value={inputCurr.value.number}
-            description={getWithdrawDesc(min_withdraw, currency.$const)}
+            description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
             placeholder={t("exchange.enter_amount")}
             inputValue={inputCurr.value.string}
             currency={currency}
@@ -246,7 +269,7 @@ const WithdrawFormCardToCard = () => {
             size="lg"
             onClick={handleConfirm}
             className="w-full md:text-fs14 text-fs16"
-            disabled={isTransferDisabled}
+            // disabled={isTransferDisabled}
           >
             {t("transfer")}
           </Button>

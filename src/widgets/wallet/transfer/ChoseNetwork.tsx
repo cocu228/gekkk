@@ -40,7 +40,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                         </span>
                     </div>
                     :
-                        withdraw ? <span className="ml-[10px]">{t("select_withdraw_network") + ":"}</span> : <span className="ml-[10px]">{t("select_network") + ":"}</span>
+                        withdraw ? <span className="ml-[10px] mb-[5px] block">{t("select_withdraw_network") + ":"}</span> : <span className="ml-[10px] mb-[5px] block">{t("select_network") + ":"}</span>
                 }
 
             <div className="col w-full md:overflow-hidden overflow-visible">

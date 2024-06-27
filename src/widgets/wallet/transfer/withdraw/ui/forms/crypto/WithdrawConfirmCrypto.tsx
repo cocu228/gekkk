@@ -2,8 +2,6 @@ import { useCallback, useContext, useState, memo, useEffect, FC } from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_CODE} from "@/shared/config/mask";
 import useError from "@/shared/model/hooks/useError";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
@@ -25,6 +23,7 @@ import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
   status: null,
@@ -48,7 +47,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
 }) => {
   // Hooks
   const {t} = useTranslation();
-  const { onInput } = useMask(MASK_CODE);
   const [localErrorHunter,,localErrorInfoBox] = useError();
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -182,7 +180,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
             {cryptoInfo.map(({ label, value }) => (
               <div key={value}>
                 <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
-                <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{value}</p>
+                <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14 break-words">{value}</p>
               </div>
             ))}
           </div>
@@ -200,7 +198,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
           {localErrorInfoBox
             ? localErrorInfoBox
             : stageReq.autoInnerTransfer && (
-            <InfoBox>
+            <InfoBox icon={<IconApp size={30} code="t8" color="#ttt" />} >
               The address is within our system. The transfer will be
               made via the internal network, and not through the
               blockchain. Are you sure you want to continue?
@@ -218,8 +216,8 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
                   allowDigits
                   size={"sm"}
                   type="text"
+                  value={input}
                   className={styles.Input}
-                  onInput={onInput}
                   onChange={inputChange}
                   placeholder={
                     stageReq.status === 0

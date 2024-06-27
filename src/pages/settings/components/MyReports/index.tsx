@@ -9,6 +9,8 @@ import {apiGetUas} from '@/shared/(orval)api';
 import useError from '@/shared/model/hooks/useError';
 import {StatementsByIBAN, apiGetStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
+import Button from '@/shared/ui/button/Button';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 export function MyReports() {
     const [
@@ -18,9 +20,14 @@ export function MyReports() {
         localIndicatorError
     ] = useError();
     const {t} = useTranslation();
+    const navigate = useNavigate()
     const [uasToken, setUasToken] = useState<string>(null);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const [statements, setStatements] = useState<{[key: string]: StatementsByIBAN[]}>(null);
+
+    const onClick = () => {
+        navigate(-2)
+    }
 
     useEffect(() => {
         const cancelTokenSource = axios.CancelToken.source();
@@ -53,24 +60,32 @@ export function MyReports() {
 
         return () => cancelTokenSource.cancel();
     }, []);
-
-    return <div className={styles.reportsWrap}>
-        {statements === null ? (
-            <AreaWrapper title={t("my_reports")}>
-                <p className={styles.reportsWarnText}>
-                    <Loader className='relative'/>
-                </p>
-            </AreaWrapper>
-        ) : (localIndicatorError ? (
-            <AreaWrapper title={t("my_reports")}>
-                <p className={styles.reportsWarnText}>
-                    {localErrorInfoBox}
-                </p>
-            </AreaWrapper>
-        ) : (
-            <AreaWrapper title={t("my_reports")} nonClose={true} >
-                <Table statements={statements} uasToken={uasToken}/>
-            </AreaWrapper>
-        ))}  
-    </div>
+    
+    return statements === null ? (
+        <div className='w-full'>
+            <Loader className='relative'/>
+        </div>
+    ) : 
+        <div className={styles.reportsWrap}>
+            {localIndicatorError ? (
+                <AreaWrapper title={t("my_reports")}>
+                    <p className={styles.reportsWarnText}>
+                        {localErrorInfoBox}
+                    </p>
+                </AreaWrapper>
+            ) : (
+                <div className='flex flex-col'>
+                    <Table statements={statements} uasToken={uasToken}/>
+                    <div className='w-full flex justify-center'>
+                        <Button
+                            className='mt-[5px] w-full'
+                            color='blue'
+                            onClick={onClick}
+                        >
+                            {t("back")}
+                        </Button>
+                    </div>
+                </div>        
+            )}  
+        </div>
 }

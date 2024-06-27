@@ -53,29 +53,29 @@ const WithdrawFormPapaya = () => {
       delayDisplay();
   }, [inputCurr.value.number]);
 
-  return (
-    <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
-        {/* Amount Start */}
-        <div className="w-full">
-            <AmountInput
-              placeholder={t("exchange.enter_amount")}
-              value={inputCurr.value.number}
-              inputValue={inputCurr.value.string}
-              currency={currency}
-              description={getWithdrawDesc(min_withdraw, currency.$const)}
-              validators={[
-                  validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-                  validateBalance(currency, navigate, t)
-              ]}
-              onError={setInputCurrValid}
-              onSelect={val => {
-                  const amount = new Decimal(val);
-                  setInputCurr(amount.mul(100).floor().div(100).toString())
-              }}
-              onChange={setInputCurr}
-            />
-        </div>
-        {/* Amount End */}
+    return (
+        <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+            {/* Amount Start */}
+            <div className="w-full">
+                <AmountInput
+                  placeholder={t("exchange.enter_amount")}
+                  value={inputCurr.value.number}
+                  inputValue={inputCurr.value.string}
+                  currency={currency}
+                  description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
+                  validators={[
+                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                      validateBalance(currency, navigate, t)
+                  ]}
+                  onError={setInputCurrValid}
+                  onSelect={val => {
+                      const amount = new Decimal(val);
+                      setInputCurr(amount.mul(100).floor().div(100).toString())
+                  }}
+                  onChange={setInputCurr}
+                />
+            </div>
+            {/* Amount End */}
 
         {/* Information Start */}
         <div className="w-full">

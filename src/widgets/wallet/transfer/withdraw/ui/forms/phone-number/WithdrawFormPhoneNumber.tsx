@@ -2,8 +2,6 @@ import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
-import { MASK_PHONE } from "@/shared/config/mask";
-import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {useCallback, useContext, useEffect, useState} from "react";
 import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
@@ -35,7 +33,6 @@ const WithdrawFormPhoneNumber = () => {
   const navigate = useNavigate();
   const { inputCurr, setInputCurr } = useInputState();
   const { isModalOpen, showModal, handleCancel } = useModal();
-  const { onInput: onPhoneNumberInput } = useMask(MASK_PHONE);
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const [loading, setLoading] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -107,13 +104,13 @@ const WithdrawFormPhoneNumber = () => {
   const fee = withdraw_fee;
 
   return (
-    <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
       <div className="w-full">
         <AmountInput
           transfers
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
           currency={currency}
@@ -140,7 +137,6 @@ const WithdrawFormPhoneNumber = () => {
           placeholder={t("auth.enter_phone_number")}
           onChange={onInput}
           value={details.phoneNumber}
-          onInput={onPhoneNumberInput}
         />
       </div>
       {/* To Card End */}
@@ -182,7 +178,7 @@ const WithdrawFormPhoneNumber = () => {
           size="lg"
           onClick={handleConfirm}
           className="w-full md:text-fs14 text-fs16"
-          disabled={isTransferDisabled}
+          // disabled={isTransferDisabled}
         >
           {t("transfer")}
         </Button>

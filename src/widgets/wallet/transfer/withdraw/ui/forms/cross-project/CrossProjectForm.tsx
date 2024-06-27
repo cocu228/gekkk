@@ -48,12 +48,12 @@ const CrossProjectForm = () => {
   }, [inputs, inputCurr.value]);
 
   return (
-    <div className="bg-[white] rounded-[8px] p-[20px_10px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
       <div className="w-full">
         <AmountInput
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
@@ -71,7 +71,7 @@ const CrossProjectForm = () => {
 
       {/* Desc Optional Start */}
       <div className="w-full">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
+        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px] mb-[3px] block">
           {t('desc_optional')}:
         </span>
         <Input
@@ -111,7 +111,6 @@ const CrossProjectForm = () => {
 
       {/* Confirm Start */}
       <Modal
-        placeBottom={window.innerWidth<768}
         destroyOnClose
         isModalOpen={isModalOpen}
         onCancel={handleCancel}

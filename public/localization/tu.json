@@ -1621,6 +1621,8 @@
     "finished": "Bitmiş",
     "select_type": "Tür seçin",
     "select": "Seçme",
-    "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun"
+    "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun",
+    "my_fiat_reports": "Fiat raporlarım",
+    "reports": "Raporlar"
   }
 }

@@ -1621,6 +1621,8 @@
     "finished": "Finito",
     "select_type": "Seleziona il tipo",
     "select": "Selezionare",
-    "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma"
+    "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma",
+    "my_fiat_reports": "I miei report in fiat",
+    "reports": "Rapporti"
   }
 }

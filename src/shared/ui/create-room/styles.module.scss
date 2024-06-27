@@ -30,43 +30,7 @@
 }
 
 .SelectToken{
-
   width: 100%;
-
-  :global(.ant-select-selector){
-
-    @include max-devices(md){
-      border-radius: 6px !important ;
-      border-color: var(--gek-light-grey) !important;
-    }
-  }
-
-
-}
-
-.PurchaseLimit{
-
-  &:global(.ant-input){
-
-    height: 50px;
-    border-radius: 6px;
-    border-color: var(--gek-light-grey);
-    font-size: 14px !important;
-    font-weight: 600 !important;
-  }
-}
-
-
-.LimitInputWrap {
-  :global(.ant-input) {
-    border-color: #CED4DA !important;
-    box-shadow: none !important;
-
-    &:active, &:focus {
-      border-color: #CED4DA !important;
-      box-shadow: none !important;
-    }
-  }
 }
 
 .Input {

@@ -2,19 +2,4 @@
   padding: 0;
 }
 
-.login-modal .ant-modal-body {
-  padding: 0;
-}
-
-.login-modal .ant-modal-body > * {
-  padding: 24px 27px;
-}
-
-.login-modal .ant-modal-content {
-  padding: 0;
-}
-
-.login-modal .ant-modal-close {
-  display: none;
-}
 /*# sourceMappingURL=form-authorization.css.map */

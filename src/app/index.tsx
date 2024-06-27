@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client'
 
 import App from './App'
 import './styles/index.scss'
-import {ConfigProvider} from 'antd'
 import "../processes/i18n.config";
 
 declare global {
@@ -33,13 +32,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
     // <ThemeCustomization>
-        <ConfigProvider theme={{
-            token: {
-                fontFamily: 'inherit'
-            },
-        }}>
-            <App/>
-        </ConfigProvider>
+    <App/>
     // </ThemeCustomization>
     // </React.StrictMode>
 )

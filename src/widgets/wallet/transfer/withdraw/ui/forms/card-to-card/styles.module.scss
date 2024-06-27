@@ -46,18 +46,3 @@
         height: 32px;
     }
 }
-
-.AmountInputWrap {
-    :global(.ant-input) {
-        &::placeholder {
-            font-weight: normal;
-            color: #B9B9B5 !important;
-            font-size: 12px;
-            padding-right: 5px;
-      
-            @media screen and (max-width: 768px) {
-              font-size: 10px !important;
-            }
-        }
-    }
-}

@@ -150,8 +150,6 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
   };
 
   const inputChange = ({target}: any) => {
-    console.log(target.value);
-
     setInput(target.value);
   };
 

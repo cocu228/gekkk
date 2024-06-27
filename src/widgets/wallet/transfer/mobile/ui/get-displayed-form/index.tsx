@@ -71,19 +71,6 @@ function GetDisplayedForm({curr, network}: Props) {
         }
     }
 
-    const [cardsLoaded, setCardsLoaded] = useState<boolean>(false)
-    const getCards = storeActiveCards((state) => state.getActiveCards);
-
-
-    useEffect(()=>{
-
-        (async () => {
-            await getCards();
-            setCardsLoaded(true)
-        })();
-        
-    }, [])
-
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(network ? network : networkTypeSelect))
@@ -93,7 +80,7 @@ function GetDisplayedForm({curr, network}: Props) {
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
     
     return (
-        loading || !cardsLoaded ?
+        loading ?
         <div className='w-full h-[200px] relative mb-5'>
                     <Loader/>
                 </div>

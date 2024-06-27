@@ -30,14 +30,16 @@ import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
-  const cards = storeActiveCards((state) => state.activeCards);
-
+  // const cards2 = storeActiveCards((state) => state.activeCards);
+  // const cards = []
   const {account} = useContext(CtxRootData);
   const {$const} = useContext(CtxWalletData);
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const getCards = storeActiveCards((state) => state.getActiveCards);
+  const cards = storeActiveCards((state) => state.activeCards);
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
@@ -91,6 +93,16 @@ const WithdrawFormCardToCard = () => {
       return details[i].length > 0;
     });
 
+    useEffect(()=>{
+      console.log(cards)
+      if(!cards) {
+        (async () => {
+          await getCards();
+        })();
+      }
+    }, [])  
+
+
   useEffect(() => {
     localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
@@ -100,13 +112,16 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number, details]);
 
+
   useEffect(() => {
-    setDetails(() => ({
-      ...details,
-      selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
-        ? cards[0].cardId
-        : null,
-    }));
+    if(cards) {
+      setDetails(() => ({
+        ...details,
+        selectedCard: cards?.find((c) => ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus))
+          ? cards[0].cardId
+          : null,
+      }));
+    }
   }, [cards]);
 
   useEffect(() => {
@@ -123,7 +138,7 @@ const WithdrawFormCardToCard = () => {
         showModal() 
     }
   }
-  const transformedList = cards.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
+  const transformedList = cards?.map(item => ({ id: item.cardId, name: formatCardNumber(item.displayPan) }));
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isValidated || inputCurrValid.value || isFieldsFill;
   const youWillPay = inputCurr.value.number + withdraw_fee;
@@ -245,7 +260,7 @@ const WithdrawFormCardToCard = () => {
             size="lg"
             onClick={handleConfirm}
             className="w-full md:text-fs14 text-fs16"
-            // disabled={isTransferDisabled}
+            disabled={isTransferDisabled}
           >
             {t("transfer")}
           </Button>

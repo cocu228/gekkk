@@ -29,7 +29,7 @@ const InfoContent = (props: TxInfoProps) => {
   const [state, setState] = useState<AddressTxOut | null>(null);
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
-  const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
+  const isNeedConfirm = props.tx_type === 3 && props.partner_info === "" && props.status === 2;
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {

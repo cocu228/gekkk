@@ -1621,6 +1621,9 @@
     "finished": "完成的",
     "select_type": "选择类型",
     "select": "选择",
-    "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认"
+    "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认",
+    "my_fiat_reports": "我的法定货币报告",
+    "reports": "报告"
+
   }
 }

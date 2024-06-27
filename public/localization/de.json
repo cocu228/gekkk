@@ -1484,7 +1484,10 @@
     "select": "Auswählen", 
     "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können",
     "not_found": "Nicht gefunden",
-    "flat_optional": "Wohnung (optional)"
+    "flat_optional": "Wohnung (optional)",
+    "my_fiat_reports": "Meine Fiat-Berichte",
+    "reports": "Berichte"
+    
 
 
 

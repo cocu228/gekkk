@@ -40,7 +40,7 @@ export function TableRow({
 
             window.open(URL.createObjectURL(response.data));
         }} className={styles.reportDownloadWrap}>
-            <IconApp code="t44" size={20} color="currentColor" />
+            <IconApp code="t44" size={13} color="currentColor" />
         </div>
     </div>
 }

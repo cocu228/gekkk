@@ -1621,6 +1621,8 @@
     "finished": "Fini",
     "select_type": "Sélectionner le genre",
     "select": "Sélectionner",
-    "create_special_code_currency": "Créez un code spécial avec lequel vous pouvez transférer ou recevoir des fonds {{currency}} entre utilisateurs Gekkoin avec ou sans votre confirmation"
+    "create_special_code_currency": "Créez un code spécial avec lequel vous pouvez transférer ou recevoir des fonds {{currency}} entre utilisateurs Gekkoin avec ou sans votre confirmation",
+    "my_fiat_reports": "Mes rapports en fiat",
+    "reports": "Rapports"
   }
 }

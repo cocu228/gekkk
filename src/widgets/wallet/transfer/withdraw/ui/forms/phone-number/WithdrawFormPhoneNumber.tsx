@@ -9,7 +9,7 @@ import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { validateBalance, validateMinimumAmount, } from "@/shared/config/validators";
-import { CtxFeeNetworks, CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
@@ -25,8 +25,13 @@ const WithdrawFormPhoneNumber = () => {
   const {uasToken, getUasToken} = useContext(UasConfirmCtx);
   const currency = useContext(CtxWalletData);
   const {account} = useContext(CtxRootData);
-  const { networkTypeSelect, tokenNetworks, } = useContext(CtxWalletNetworks);
-  const { localErrorInfoBox, localErrorClear, setBankRefresh } = useContext(CtxFeeNetworks);
+  const {
+    networkTypeSelect,
+    tokenNetworks,
+    localErrorInfoBox,
+    localErrorClear,
+    setBankRefresh
+  } = useContext(CtxWalletNetworks);
 
   // Hooks
   const { t } = useTranslation();
@@ -50,12 +55,7 @@ const WithdrawFormPhoneNumber = () => {
   })
 
   // Handlers
-  const {
-    min_withdraw = 0,
-    withdraw_fee = 0,
-    percent_fee = 0,
-    token_symbol
-  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, withdraw_fee = 0, } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
     setDetails((prev) => ({
@@ -186,15 +186,7 @@ const WithdrawFormPhoneNumber = () => {
       {/* Transfer Button End */}
 
       {/* Transaction Information Start */}
-      <FeeInformation percent={percent_fee} withdraw={withdraw_fee} coin={token_symbol}>
-        {({ fee }) => (
-          <>
-            {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>{fee}</span>&nbsp;
-            {t("per_transaction")}
-          </>
-        )}
-      </FeeInformation>
+      <FeeInformation />
       {/* Transaction Information End */}
 
       {/* Confirm Start */}

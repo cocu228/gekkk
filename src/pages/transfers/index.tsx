@@ -104,7 +104,7 @@ export default function Transfers() {
                 
                 {network && 
                   <div data-tag={"main"} className='w-full align-center'>
-                    <FeeProvider data-tag={"withdraw"} data-name={t("withdraw")}>
+                    <FeeProvider data-name={t("withdraw")}>
                       <GetDisplayedForm network={network} curr={$currency}/>
                     </FeeProvider>
                   </div>

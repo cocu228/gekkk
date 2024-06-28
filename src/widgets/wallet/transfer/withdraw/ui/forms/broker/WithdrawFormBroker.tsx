@@ -7,7 +7,7 @@ import {debounce} from "@/shared/lib/helpers";
 import {AccountRights} from '@/shared/config/mask-account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import { CtxFeeNetworks, CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
@@ -34,8 +34,7 @@ const WithdrawFormBroker = () => {
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
     const {uasToken, getUasToken} = useContext(UasConfirmCtx);
-    const {tokenNetworks, networkTypeSelect} = useContext(CtxWalletNetworks);
-    const {setRefresh, localErrorClear, localErrorInfoBox} = useContext(CtxFeeNetworks);
+    const {tokenNetworks, networkTypeSelect, setRefresh, localErrorClear, localErrorInfoBox} = useContext(CtxWalletNetworks);
 
     // Handlers
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
@@ -154,7 +153,7 @@ const WithdrawFormBroker = () => {
             {/* Transfer Button End */}
 
             {/* Transaction Information Start */}
-            <FeeInformation percent={percent_fee} withdraw={withdraw_fee} coin={token_symbol} />
+            <FeeInformation />
             {/* Transaction Information End */}
 
             {/* Confirm Start */}

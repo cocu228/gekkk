@@ -87,7 +87,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
-                                    <FeeProvider data-tag={"withdraw"} data-name={t("withdraw")}>
+                                    <FeeProvider data-name={t("withdraw")}>
                                         <Withdraw/>
                                     </FeeProvider>
                                 </NetworkProvider>

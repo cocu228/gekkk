@@ -7,7 +7,7 @@ import {debounce} from "@/shared/lib/helpers";
 import {AccountRights} from '@/shared/config/mask-account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import { CtxFeeNetworks, CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
@@ -24,8 +24,13 @@ const WithdrawFormPapaya = () => {
   // Context
   const {account} = useContext(CtxRootData);
   const currency = useContext(CtxWalletData);
-  const { tokenNetworks, networkTypeSelect, } = useContext(CtxWalletNetworks);
-  const { setRefresh, localErrorClear, localErrorInfoBox } = useContext(CtxFeeNetworks);
+  const {
+    tokenNetworks,
+    networkTypeSelect,
+    setRefresh,
+    localErrorClear,
+    localErrorInfoBox
+  } = useContext(CtxWalletNetworks);
   // Hooks
   const {t} = useTranslation();
   const navigate = useNavigate();
@@ -38,12 +43,7 @@ const WithdrawFormPapaya = () => {
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
   const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
 
-  const {
-    min_withdraw = 0,
-    withdraw_fee = 0,
-    percent_fee = 0,
-    token_symbol,
-  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, withdraw_fee = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   // Effects
   useEffect(() => {
@@ -134,17 +134,9 @@ const WithdrawFormPapaya = () => {
         </div>
         {/* Transfer Button End */}
 
-        {/* Transaction Information Start */}
-        <FeeInformation percent={percent_fee} withdraw={withdraw_fee} coin={token_symbol}>
-          {({ fee }) => (
-            <>
-              {t("fee_is_prec")}&nbsp;
-              <span className={"font-semibold"}>{fee}</span>&nbsp;
-              {t("per_transaction")}
-            </>
-          )}
-        </FeeInformation>
-        {/* Transaction Information End */}
+          {/* Transaction Information Start */}
+          <FeeInformation />
+          {/* Transaction Information End */}
 
         {/* Confirm Start */}
         <Modal

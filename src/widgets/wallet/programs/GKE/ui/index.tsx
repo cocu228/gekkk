@@ -44,7 +44,7 @@ const GkeCashbackProgram = () => {
     }, [account]);
 
     return !currencies ? <Loader/> : (
-        <>
+        <div className="md:bg-white md:rounded-[8px] md:p-2">
             <div className="row mb-10">
                 <div className="col">
                     <div className="info-box-description info-box-in-wallet">
@@ -184,7 +184,7 @@ const GkeCashbackProgram = () => {
                     >{t("confirm")}</Button>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

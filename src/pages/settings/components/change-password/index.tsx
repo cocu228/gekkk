@@ -4,15 +4,17 @@ import {
   ChangePass,
 } from "./api/change-password";
 import CheckList from "./helpers/checklist";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
+import { useNavigate } from "react-router-dom";
 
 export function ChangePassword() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
+  const [timer, setTimer] = useState(0);
   const [phoneNumber] = useState<string>();
   const [options, setOptions] = useState();
   const [newPass, setNewPass] = useState<string>();
@@ -20,11 +22,15 @@ export function ChangePassword() {
   const [challengeReg, setChallengeReg] = useState();
   const [confirmCode, setConfirmCode] = useState<string>();
   const [confirmNewPass, setConfirmNewPass] = useState<string>();
-  const [changeCodeSent, setChangeCodeSent] = useState<boolean>(false);
+  const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
+
   const [code, setCode] = useState("t84");
   const [type, setType] = useState('password');
   const [codeConfirmed, setCodeConfirm] = useState("t84");
   const [typeConfirmed, setTypeConfirm] = useState('password');
+  
+  const startTimer = () => setTimer(60);
+
   const passSave = (e: any) => {
     setNewPass(e.target.value);
   };
@@ -38,6 +44,7 @@ export function ChangePassword() {
       setType('password')
     }
   }
+
   const handleToggleConfirmed = () => {
     if (typeConfirmed==='password'){
       setCodeConfirm('t85')
@@ -47,6 +54,7 @@ export function ChangePassword() {
       setTypeConfirm('password')
     }
   }
+
   const passConfirm = (e: any) => {
     setConfirmNewPass(e.target.value);
   };
@@ -55,9 +63,47 @@ export function ChangePassword() {
     setConfirmCode(e.target.value);
   };
 
+  const sendSmsCode = () => {
+    startTimer();
+    RegisterOptionsToChangePass(
+      setOptions,
+      setChallengeReg,
+      setSmsCodeSent
+    );
+  }
+
+  const onContinue = () => {
+    if (!smsCodeSent) {
+      sendSmsCode();
+    }
+    else {
+      ChangePass(
+        phoneNumber,
+        newPass,
+        confirmCode,
+        options,
+        challengeReg
+      );
+      setSmsCodeSent(false);
+      setNewPass(null);
+      setConfirmNewPass(null);
+      setConfirmCode(null);
+      setValid(false);
+    }
+  }
+
   useEffect(() => {
-    console.log('VALID', valid)
-  }, [valid])
+    const timerInterval = setInterval(() => setTimer((prevTime) => {
+      if (prevTime > 0) {
+        return prevTime - 1;
+      }
+      
+      clearInterval(timerInterval);
+      return 0;
+    }), 1000);
+
+    return () => clearInterval(timerInterval);
+  }, [timer]);
 
   return (
     <div className="w-full">
@@ -92,12 +138,12 @@ export function ChangePassword() {
           <CheckList setValid={setValid} value={newPass} />
         </div>
         {
-          valid && (
+          valid && smsCodeSent && (
             <div className={styles.passwordLine}>
               <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
               <Input
                 allowDigits
-                disabled={!changeCodeSent}
+                disabled={!smsCodeSent}
                 onChange={codeConfirm}
                 value={confirmCode}
                 className="min-h-[40px]"
@@ -106,35 +152,36 @@ export function ChangePassword() {
           </div>
           )
         }
+
+        {!smsCodeSent ? null : timer > 0 ? (
+          <div className={styles.Resend}>Resend the code after:
+            <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+          </div>
+        ) : (
+          <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
+            Resend the code
+          </div>
+        )}
+
         <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
           <Button
             className="w-full"
-            disabled={!valid || !(newPass === confirmNewPass)}
-            onClick={() => {
-              RegisterOptionsToChangePass(
-                setOptions,
-                setChallengeReg,
-                setChangeCodeSent
-              );
-            }}
+            disabled={
+              // Disable send code if unvalid
+              !valid || !(newPass === confirmNewPass)
+              // Disable save if unvalid
+              || smsCodeSent ? !confirmCode : false
+            }
+            onClick={onContinue}
           >
-            {t("send_code")}
+            {t(smsCodeSent ? "save" : "send_code")}
           </Button>
           <Button
+            skeleton
             className="w-full"
-            disabled={!(newPass === confirmNewPass && changeCodeSent)}
-            onClick={() => {
-              ChangePass(
-                phoneNumber,
-                newPass,
-                confirmCode,
-                options,
-                challengeReg
-              );
-              setChangeCodeSent(false);
-            }}
+            onClick={() => navigate('/settings', { replace: true })}
           >
-            <span className="capitalize">{t("save")}</span>
+            <span className="capitalize">{t("back")}</span>
           </Button>
         </div>
       </div>

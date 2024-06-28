@@ -14,7 +14,7 @@ import { CtxGlobalModalContext } from '@/app/providers/CtxGlobalModalProvider';
 import ConfirmationModal from './confirmation-modal';
 import CardInfo from './card-info';
 import { Switch } from '@/shared/ui/Switch';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 interface IParams {
     cardsStorage: ICardStorage;
@@ -30,6 +30,7 @@ const MenuForm = ({
     setIsNewCardOpened
 }: IParams) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const { md } = useBreakpoints();
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
@@ -138,6 +139,10 @@ const MenuForm = ({
             rightPrimary={<IconApp code="t08" color="#888a92" size={12} />}
             onClick={() => {
                 if (md) {
+                    navigate({
+                        pathname: '/card-menu',
+                        search: 'card_info=true'
+                    })
                     setSelectedItem("showData");
                 } else {
                     setGlobalModal({
@@ -176,7 +181,7 @@ const MenuForm = ({
             }}
             to={md ? '/card-menu?how_it_works=true' : '/wallet?currency=EUR&tab=bank_cards'}
         >
-            {t("how_it_works")}
+            {t("how_it_works")}?
         </Link>
 
         <div className={styles.FooterContainer}>

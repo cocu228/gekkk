@@ -1625,7 +1625,9 @@
     "select": "选择",
     "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认",
     "my_fiat_reports": "我的法定货币报告",
-    "reports": "报告"
+    "reports": "报告",
+    "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包", 
+    "form_in_wallet": "在您的{{project}}钱包中"
 
   }
 }

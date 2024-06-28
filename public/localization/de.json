@@ -1488,7 +1488,9 @@
     "not_found": "Nicht gefunden",
     "flat_optional": "Wohnung (optional)",
     "my_fiat_reports": "Meine Fiat-Berichte",
-    "reports": "Berichte"
+    "reports": "Berichte",
+    "top_up_curr": "Sie können Ihr {{curr}}-Wallet über das Abhebungsformular aufladen", 
+    "form_in_wallet": "in Ihrem {{project}}-Wallet"
     
 
 

@@ -1625,6 +1625,8 @@
     "select": "Seçme",
     "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun",
     "my_fiat_reports": "Fiat raporlarım",
-    "reports": "Raporlar"
+    "reports": "Raporlar",
+    "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
+    "form_in_wallet": "{{project}} Cüzdanınızda"
   }
 }

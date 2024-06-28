@@ -1625,6 +1625,8 @@
     "select": "Selezionare",
     "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma",
     "my_fiat_reports": "I miei report in fiat",
-    "reports": "Rapporti"
+    "reports": "Rapporti",
+    "top_up_curr": "Puoi ricaricare il tuo portafoglio {{curr}} tramite il modulo di prelievo", 
+    "form_in_wallet": "nel tuo portafoglio {{project}}"
   }
 }

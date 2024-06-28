@@ -1094,6 +1094,8 @@
     "recepient_name": "Recepient's Name",
     "recepient_phone_number": "Recipient's Phone Number",
     "top_up_EURG": "You can top up your EURG wallet via fiat on the EUR withdrawal form",
+    "top_up_curr": "You can top up your {{curr}} wallet via withdrawal form",
+    "form_in_wallet": "in your {{project}} Wallet",
     "send_to_this": "Send a transaction to this",
     "address_small": "address",
     "fee_is_prec": "Fee is",

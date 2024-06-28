@@ -9,7 +9,6 @@ import {
 } from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ApplyTransferCode from "./forms/ApplyTransferCode";
-import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
@@ -29,12 +28,16 @@ const TopUp = memo(() => {
         is_operable = null,
         network_type: networkType
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-    
+    const [enviroment, setEnviroment] = useState<string>(null)
     const [network, setNetwork] = useState<number>(type ? +type : null)
 
     const offlineMode = !navigator.onLine;
 
     console.log(networksForSelector)
+
+    useEffect(()=>{
+        setEnviroment(import.meta.env.MODE.split('.')[0])
+    }, [import.meta.env.MODE])
 
     if (offlineMode) return <div>You are offline, please check your internet connection.</div>
 
@@ -90,9 +93,37 @@ const TopUp = memo(() => {
                 return <ApplyTransferCode/>;
             
             default:
-                return <div className={styles.NoActions}>
-                        {t("no_actions_for_network")}
-                </div>;
+                if(networkType === 232 || networkType === 233 || networkType === 234) {
+                    return <div>
+                        <span className='font-bold'>
+                            {t("top_up_curr", {curr: currency}) + " "} 
+                            <a
+                                href={
+                                    networkType === 232
+                                        ? `http://${enviroment}.gekkoin.com/wallet?currency=${currency}&tab=withdraw`
+                                        : networkType === 233
+                                            ? `http://${enviroment}.gekkard.com/wallet?currency=${currency}&tab=withdraw`
+                                            : `http://${enviroment}.gekwallet.com/wallet?currency=${currency}&tab=withdraw`
+                                }
+                                className='text-[var(--color-blue-400)]'
+                            >
+                                {t(
+                                    "form_in_wallet", 
+                                    {project: networkType === 232
+                                        ? "Gekkoin"
+                                        : networkType === 233
+                                            ? "Gekkard"
+                                            : "Gekwallet"
+                                    }
+                                )}
+                            </a>
+                        </span>
+                    </div>
+                }else{
+                    return <div className={styles.NoActions}>
+                            {t("no_actions_for_network")}
+                    </div>;
+                }
         }
     }
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))

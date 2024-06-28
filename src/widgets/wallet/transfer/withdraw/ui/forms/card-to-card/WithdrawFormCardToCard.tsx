@@ -26,6 +26,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {debounce} from "@/shared/lib";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -227,13 +228,11 @@ const WithdrawFormCardToCard = () => {
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("description")}:
           </span>
-          <Input
+          <Textarea
               name={"purpose"}
-              allowDigits
-              allowSymbols
               value={details.purpose}
-              onChange={onInput}
               placeholder={t("enter_description")}
+              onChange={onInput}
             />
         </div>
         {/* Description End */}

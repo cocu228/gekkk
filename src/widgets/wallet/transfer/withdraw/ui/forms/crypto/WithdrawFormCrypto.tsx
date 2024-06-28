@@ -19,6 +19,7 @@ import {debounce} from "@/shared/lib";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import QRCodeModal from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/ui/qr-code-modal";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -103,14 +104,12 @@ const WithdrawFormCrypto = () => {
           {t("address")}:
         </span>
         <div className="flex">
-          <Input
-            allowDigits
-            allowSymbols
+          <Textarea
+            name={"address"}
             value={inputs.address}
-            onChange={onInput}
             disabled={!networkTypeSelect}
             placeholder={t("enter_withdrawal_address")}
-            name={"address"}
+            onChange={onInput}
           />
           <div className="pl-2 -md:pt-2.5" onClick={qrCodeModal.showModal}>
             <IconApp className="cursor-pointer" color="#285E69" size={md ? 30 : 40} code="t81" />
@@ -152,14 +151,12 @@ const WithdrawFormCrypto = () => {
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("desc_optional")}:
         </span>
-        <Input
-          allowDigits
-          allowSymbols
-          placeholder={t('enter_description')}
+        <Textarea
           name={"description"}
           value={inputs.description}
-          onChange={onInput}
           disabled={!networkTypeSelect}
+          placeholder={t('enter_description')}
+          onChange={onInput}
         />
       </div>
       {/* Desc Optional End */}

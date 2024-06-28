@@ -15,6 +15,7 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 const UniversalTransferForm = () => {
   const {md} = useBreakpoints()
@@ -92,10 +93,7 @@ const UniversalTransferForm = () => {
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t('description')}:
         </span>
-        <Input
-          className="h-[32px]"
-          allowDigits
-          allowSymbols
+        <Textarea
           name={"comment"}
           value={inputs.comment}
           onChange={onInputDefault}

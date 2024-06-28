@@ -14,6 +14,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 const CrossProjectForm = () => {
   const { t } = useTranslation();
@@ -72,14 +73,11 @@ const CrossProjectForm = () => {
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px] mb-[3px] block">
           {t('desc_optional')}:
         </span>
-        <Input
-          className="h-[32px]"
-          allowDigits
-          allowSymbols
+        <Textarea
           name={"comment"}
           value={inputs.comment}
-          onChange={onInputDefault}
           placeholder={t("description")}
+          onChange={onInputDefault}
         />
       </div>
       {/* Contact End */}

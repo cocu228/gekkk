@@ -1,6 +1,5 @@
-import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
-import style from './style.module.scss'
-import { useState } from "react";
+import styles from './style.module.scss';
+import { useEffect, useState } from "react";
 import { useUserKeys } from "./model/use-user-keys";
 import { t } from "i18next";
 import Loader from "@/shared/ui/loader";
@@ -15,166 +14,208 @@ import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
+import { useNavigate } from "react-router-dom";
 
 interface IChallange {
-  newCredential:string,
-  id:string,
+  id: string;
+  newCredential: string;
 }
 
 export function UserKeys() {
-    const [code, setCode] = useState<string>(null);
-    const [keyToRemove, setKeyToRemove] = useState<UserKey>();
-    const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
-    const keysList = useUserKeys(keyDeleted);
-    const {isModalOpen, handleCancel, showModal} = useModal();
-    const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
+  const navigate = useNavigate();
+  const [timer, setTimer] = useState(0);
+  const [smsCode, setSmsCode] = useState<string>(null);
+  const [keyToRemove, setKeyToRemove] = useState<UserKey>();
+  const { isModalOpen, handleCancel, showModal } = useModal();
+  const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
+  const [sessionToRemove, setSessionToRemove] = useState<UserSession>();
+  const [challenge, setChallenge] = useState<IChallange>({
+    newCredential: "",
+    id: "",
+  });
 
-    const [smsSent, setSmsSent] = useState<boolean>(false)
-    const [challenge, setChallenge] = useState<IChallange>({
-      newCredential:"",
-      id:"",
-    })    
+  const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
+  const keysList = useUserKeys(keyDeleted);
 
+  function onRemoveKey(id) {
+    apiRemoveKey({ key_id: id }).then(() => {
+      setKeyDeleted(n => !n)
+    })
+  }
 
-    function onRemoveKey(id){
-      apiRemoveKey({key_id: id}).then(res=>{
-          setKeyDeleted(n=>!n)
-      })
+  const startTimer = () => setTimer(60);
+  const onCloseSession = (id) => apiCloseSessions({ id: id });
+
+  const sendSmsCode = () => {
+    startTimer();
+    RegisterOption(setChallenge, setSmsCodeSent);
+  }
+
+  function onContinue() {
+    if (!smsCodeSent) {
+      sendSmsCode();
     }
-
-    function onCloseSession(id){
-      apiCloseSessions({id: id});
+    else {
+      RegisterKey(
+        challenge.newCredential,
+        challenge.id,
+        smsCode,
+        setKeyDeleted,
+        setSmsCodeSent
+      );
+      setSmsCode("");
+      setSmsCodeSent(false);
     }
+  }
 
-    return (
-        <MobileWrapper className="w-[90%]">
-            <div className={style.addGekkeyBlock}>
-              <div className={style.TabTitleGroup}>
-                  <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
-                  <hr className="border-[var(--gek-dark-grey)]"/>
-              </div>
-              <div className={style.CodeWrap}>
-                <span className={style.CodeTitle}>
-                  {t("confirmation_code")}:
-                </span>
-                <Input
-                    allowDigits
-                    className={style.CodeInput}
-                    placeholder={"-" + t("enter_sms_code") + "-"}
-                    value={code}
-                    onChange={({target}) => setCode(target.value)}
-                    disabled={!smsSent}
-                />
-              </div>
+  useEffect(() => {
+    const timerInterval = setInterval(() => setTimer((prevTime) => {
+      if (prevTime > 0) {
+        return prevTime - 1;
+      }
 
-              <div className={style.btnsBlock}>
-                  <Button  
-                    className={style.Button + " w-[120px]"}
-                    onClick={()=> {
-                      RegisterOption(setChallenge, setSmsSent)
-                    }}
-                  >
-                      {t("send_sms")}
-                  </Button>
-                  <Button
-                    className="w-full"
-                    disabled={!smsSent}
-                    onClick={()=>{
-                      RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
-                      setCode("")
-                    }}
-                  >
-                      {t("create_key")}
-                  </Button>
-              </div>
-            </div>
+      clearInterval(timerInterval);
+      return 0;
+    }), 1000);
 
-            <div className={style.keysWrap}>
-                {keysList.map((key,index) => <div className={style.keysItem}>
-                  <div className="w-4/5 overflow-hidden">
-                    {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-                    <p className={style.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
-                    <p className={style.keyItemDate}>{t("type")}: {key.key_type}</p>
-                    <h4 className={style.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
-                  </div>
-                  <div className={style.keyBtnWrap}>
-                    <Button
-                      skeleton
-                      size="sm"
-                      custom={index === 0}
-                      color={index === 0 ? null : "red"}
-                      className={`w-full ${index === 0 ? style.CurentButton : ""}`}
-                      onClick={()=>{
-                          showModal()
-                          setKeyToRemove(key)
-                      }}
-                    >
-                      <span className="capitalize">
-                        {index === 0 ? t("current") : t("remove")}
-                      </span>
-                    </Button>
-                  </div>
-                </div>)
-                }
-                {!keysList.length && (
-                <div className='relative mt-32 w-full'>
-                  <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]"/>
-                </div>
-                )}
-            </div>
-            <Modal
-              onCancel={handleCancel}
-              placeBottom={window.innerWidth<768}
-              isModalOpen={isModalOpen}
-              title={keyToRemove ? `${t('remove_key')}` : `${t('close_session')}`}
+    return () => clearInterval(timerInterval);
+  }, [timer]);
+
+  return (
+    <div className="w-full">
+      <div className={styles.addGekkeyBlock}>
+        <div className={styles.TabTitleGroup}>
+          <h4 className={styles.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
+          <hr className="border-[var(--gek-dark-grey)]" />
+        </div>
+        <div className={styles.CodeWrap}>
+          <span className={styles.CodeTitle}>
+            {t("confirmation_code")}:
+          </span>
+          <Input
+            allowDigits
+            className={styles.CodeInput}
+            placeholder={t("enter_sms_code")}
+            value={smsCode}
+            onChange={({ target }) => setSmsCode(target.value)}
+            disabled={!smsCodeSent}
+          />
+        </div>
+
+        {!smsCodeSent ? null : timer > 0 ? (
+          <div className={styles.Resend}>Resend the code after:
+            <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+          </div>
+        ) : (
+          <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
+            Resend the code
+          </div>
+        )}
+
+        <div className={styles.btnsBlock}>
+          <Button
+            className="w-full"
+            onClick={onContinue}
+            disabled={smsCodeSent ? !smsCode : false}
+          >
+            {t(smsCodeSent ? "create_key" : "send_sms")}
+          </Button>
+          <Button
+            skeleton
+            className="w-full"
+            onClick={() => navigate('/settings', { replace: true })}
+          >
+            {t("back")}
+          </Button>
+        </div>
+      </div>
+
+      <div className={styles.keysWrap}>
+        {keysList.map((key, index) => <div className={styles.keysItem}>
+          <div className="w-4/5 overflow-hidden">
+            {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
+            <p className={styles.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
+            <p className={styles.keyItemDate}>{t("type")}: {key.key_type}</p>
+            <h4 className={styles.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
+          </div>
+          <div className={styles.keyBtnWrap}>
+            <Button
+              skeleton
+              size="sm"
+              custom={index === 0}
+              color={index === 0 ? null : "red"}
+              className={`w-full ${index === 0 ? styles.CurentButton : ""}`}
+              onClick={() => {
+                showModal()
+                setKeyToRemove(key)
+              }}
             >
-              <span>
-                {keyToRemove?t("remove_key_warning"):t("close_session_warning")}
+              <span className="capitalize">
+                {index === 0 ? t("current") : t("remove")}
               </span>
-              <div className='w-full flex mt-[25px] justify-center gap-[20px]'>
-                  {keyToRemove ? <><Button
-                    color="red"
-                    skeleton
-                    className="w-full"
-                    onClick={()=>{
-                      onRemoveKey(keyToRemove.id)
-                      handleCancel()
-                    }}
-                    >
-                    {t("remove")}
-                  </Button>
-                  <Button
-                    color="green"
-                    skeleton
-                    className="w-full"
-                    onClick={()=>{
-                      handleCancel()
-                      setKeyToRemove(null)
-                    }}
-                  >
-                    {t("cancel")}
-                  </Button> </>:<> <Button
-                    color="blue"
-                    onClick={()=>{
-                      onCloseSession(sessionToRemove.id)
-                      handleCancel()
-                    }}
-                    >
-                    {t("close")}
-                  </Button>
-                  <Button
-                    color="blue"
-                    onClick={()=>{
-                      setSessionToRemove(null)
-                      handleCancel()
-                    }}
-                  >
-                    {t("cancel")}
-                  </Button> </>
-        
-                  }
-                </div>
-            </Modal>
-        </MobileWrapper>
-    )
+            </Button>
+          </div>
+        </div>)
+        }
+        {!keysList.length && (
+          <div className='relative mt-32 w-full'>
+            <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]" />
+          </div>
+        )}
+      </div>
+      <Modal
+        onCancel={handleCancel}
+        placeBottom={window.innerWidth < 768}
+        isModalOpen={isModalOpen}
+        title={keyToRemove ? `${t('remove_key')}` : `${t('close_session')}`}
+      >
+        <span className={styles.ModalText}>
+          {keyToRemove ? t("remove_key_warning") : t("close_session_warning")}
+        </span>
+        <div className='w-full flex mt-[25px] justify-center gap-[20px]'>
+          {keyToRemove ? <><Button
+            color="red"
+            skeleton
+            className="w-full"
+            onClick={() => {
+              onRemoveKey(keyToRemove.id)
+              handleCancel()
+            }}
+          >
+            {t("remove")}
+          </Button>
+            <Button
+              color="green"
+              skeleton
+              className="w-full"
+              onClick={() => {
+                handleCancel()
+                setKeyToRemove(null)
+              }}
+            >
+              {t("cancel")}
+            </Button> </> : <> <Button
+              color="blue"
+              onClick={() => {
+                onCloseSession(sessionToRemove.id)
+                handleCancel()
+              }}
+            >
+              {t("close")}
+            </Button>
+            <Button
+              color="blue"
+              onClick={() => {
+                setSessionToRemove(null)
+                handleCancel()
+              }}
+            >
+              {t("cancel")}
+            </Button> </>
+
+          }
+        </div>
+      </Modal>
+    </div>
+  )
 }

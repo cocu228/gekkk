@@ -23,19 +23,7 @@ type Props = {
 function GetDisplayedForm({curr, network}: Props) {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
-
-
-    const {networkTypeSelect, setNetworkType} = useContext(CtxWalletNetworks);
-    
-    const [loading, setLoading] = useState<boolean>(true)
-    useEffect(()=>{
-
-        setLoading(true)
-        setTimeout(()=>{
-            setLoading(false)
-        }, 1000)
-
-    },[curr])
+    const {networkTypeSelect} = useContext(CtxWalletNetworks);
     
     
     const getDisplayForm = (networkType: number): JSX.Element => {
@@ -79,15 +67,7 @@ function GetDisplayedForm({curr, network}: Props) {
 
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
     
-    return (
-        loading ?
-        <div className='w-full h-[200px] relative mb-5'>
-                    <Loader/>
-                </div>
-            :
-            displayedForm
-    )
+    return displayedForm;
 }
 
-export default GetDisplayedForm
-
+export default GetDisplayedForm;

@@ -3,9 +3,6 @@ import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import Form from "@/shared/ui/form/Form";
 // import FormItem from "@/shared/ui/form/form-item/FormItem";
-import { codeMessage } from "@/shared/config/message";
-import useMask from "@/shared/model/hooks/useMask";
-import { MASK_CODE } from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import Timer from "@/shared/model/hooks/useTimer";
@@ -25,7 +22,6 @@ const QuickExchangeConfirm = memo(
   }: IOperationInfo & { handleCancel: () => void }) => {
     //const setContent = useContext(CtxGlobalModalContext);
     // const [form] = useForm();
-    const { onInput } = useMask(MASK_CODE);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [
@@ -96,7 +92,6 @@ const QuickExchangeConfirm = memo(
             <Input
               type="text"
               allowDigits
-              onInput={onInput}
               placeholder={t("enter_sms_code")}
               onChange={setInp}
               autoComplete="off"

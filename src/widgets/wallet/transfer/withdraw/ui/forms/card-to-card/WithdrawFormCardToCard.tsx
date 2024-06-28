@@ -1,10 +1,8 @@
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {useCallback, useContext, useEffect, useState} from "react";
-import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
@@ -33,7 +31,6 @@ const WithdrawFormCardToCard = () => {
   const {account} = useContext(CtxRootData);
   const {$const} = useContext(CtxWalletData);
   const { isModalOpen, showModal, handleCancel } = useModal();
-  const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const getCards = storeActiveCards((state) => state.getActiveCards);
@@ -202,7 +199,6 @@ const WithdrawFormCardToCard = () => {
             value={details.cardNumber}
             allowDigits
             type={"text"}
-            onInput={onCardNumberInput}
             onChange={onInput}
           />
         </div>

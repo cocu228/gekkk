@@ -2,6 +2,7 @@ import React, {MutableRefObject, useState} from "react";
 import styles from "./style.module.scss";
 import {validateInput} from "./model/helpers";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 type IParams = {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
@@ -85,9 +86,12 @@ const Input = React.forwardRef(
                         )
                     }
                 </div>
-                {caption && showCaption ? <div className='flex mt-[5px]'>
-                    <text className={styles.Caption}>*{caption}</text>
-                </div> : ''}
+                {caption && showCaption ? (
+                  <div className={styles.Caption}>
+                    <IconApp color={"var(--gek-orange)"} code="t27" size={13} />
+                    <span>{caption}</span>
+                  </div>
+                ) : null}
             </div>
         );
     }

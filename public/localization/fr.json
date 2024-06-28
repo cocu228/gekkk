@@ -1026,6 +1026,7 @@
     "sign_transfer": "Transfert de signe",
     "to_card": "À la carte",
     "cardholder": "Titulaire de la carte",
+    "cardholder_caption": "Uniquement pour Gekkard et Black Cat Card clients Papaya LTD",
     "select_card": "Sélectionnez la carte",
     "select_card_type": "Sélectionnez le type de carte",
     "select_currency": "Sélectionnez la devise",

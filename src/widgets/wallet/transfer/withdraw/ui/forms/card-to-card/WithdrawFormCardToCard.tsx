@@ -203,6 +203,7 @@ const WithdrawFormCardToCard = () => {
             allowDigits
             type={"text"}
             onChange={onInput}
+            caption={t("cardholder_caption")}
           />
         </div>
         {/* To Card End */}

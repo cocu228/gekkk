@@ -18,9 +18,13 @@
 }
 
 .Caption{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
   font-size: 14px;
   color: var(--gek-orange);
-  margin-left: 5px;
+  margin: 5px 0 0 5px;
   @include max-devices(md){
     font-size: 12px;
   }

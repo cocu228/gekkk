@@ -1025,6 +1025,7 @@
     "sign_transfer": "标志转让",
     "to_card": "到卡",
     "cardholder": "持卡人",
+    "cardholder_caption": "仅适用于 Gekkard 和黑猫卡客户 Papaya LTD",
     "select_card": "选择卡",
     "select_card_type": "选择卡类型",
     "select_currency": "选择货币",

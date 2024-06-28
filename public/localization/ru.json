@@ -602,6 +602,7 @@
     "sign_out": "Выход",
     "main": "Главная",
     "exchange": {
+      "exchange_excluding": "без учета скидок и бонусов",
       "you_pay": "Вы платите",
       "get_no_less": "Получите не меньше",
       "title": "Обмен",

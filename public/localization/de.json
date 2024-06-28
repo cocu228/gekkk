@@ -576,6 +576,7 @@
     "sign_out": "Abmelden",
     "main": "Haupt",
     "exchange": {
+      "exchange_excluding": "ausgenommen Rabatte und Boni",
       "you_pay": "Sie zahlen",
       "get_no_less": "Bekommen Sie nicht weniger",
       "create_order": "Bestellung erstellen",

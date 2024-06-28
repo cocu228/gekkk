@@ -29,6 +29,7 @@ const Validator: FC<IParams> = (({
     const firstEffect = useRef(true);
     const [error, setError] = useState<null | string | JSX.Element>(null);
     const [showDescription, setShowDescription] = useState(true)
+    
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false

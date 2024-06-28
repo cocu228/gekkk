@@ -19,6 +19,7 @@
       "invalid_password": "Vérifiez que le mot de passe comporte plus de 8 caractères et contient au moins un de chaque : chiffre, caractère majuscule, caractère spécial.",
       "invalid_phone": "Veuillez entrer votre numéro complet"
     },
+
     "select_token_no_data": "jetons introuvables",
     "download": "Télécharger",
     "next": "Suivant",
@@ -618,6 +619,7 @@
     "sign_out": "Se déconnecter",
     "main": "Principal",
     "exchange": {
+      "exchange_excluding": "hors réductions et bonus",
       "you_pay": "Tu payes",
       "get_no_less": "N'en obtenez pas moins",
       "title": "Échange",

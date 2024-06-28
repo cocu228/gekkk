@@ -24,6 +24,8 @@ import {CtxRootData} from "@/processes/RootContext";
 import {debounce} from "@/shared/lib";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import Notice from "@/shared/ui/notice";
+import useError from "@/shared/model/hooks/useError";
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -34,8 +36,10 @@ const WithdrawFormCardToCard = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const getCards = storeActiveCards((state) => state.getActiveCards);
+  // const cards = storeActiveCards((state) => state.activeCards);
   const cards = storeActiveCards((state) => state.activeCards);
-  const [ans, setAns] = useState<any>()
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingPage, setLoadingPage] = useState<boolean>(false);
 
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
@@ -52,7 +56,7 @@ const WithdrawFormCardToCard = () => {
     }
   })
 
-  const [loading, setLoading] = useState<boolean>(false);
+
   const { inputCurr, setInputCurr } = useInputState();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
 
@@ -63,6 +67,7 @@ const WithdrawFormCardToCard = () => {
     setBankRefresh,
     localErrorClear,
   } = useContext(CtxWalletNetworks);
+
 
   const onInput = ({ target }) => {
     setDetails((prev) => ({ ...prev, [target.name]: target.value }));
@@ -75,24 +80,24 @@ const WithdrawFormCardToCard = () => {
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
   const delayRes = useCallback(debounce(setBankRefresh, 2500),[]);
 
-
   useEffect(() => {
-    // if(cards) {
-      
-    // }
-    console.log('asdasd')
-    
-  }, [cards]);
+    if(cards || cards === null) {
+      setLoadingPage(false)
+    }
+  }, [cards])
 
   useEffect(()=>{
-    console.log(cards)
+    // console.log(cards)
     if(!cards) {
       (async () => {
+        setLoadingPage(true)
         const res = await getCards();
-        setAns(res)
+        setLoadingPage(false)
       })();
+    } else {
+      setLoadingPage(false)
     }
-  }, [])  
+  }, []) 
 
   const {
     min_withdraw = 0,
@@ -117,8 +122,6 @@ const WithdrawFormCardToCard = () => {
     }
   }, [inputCurr.value.number, details]);
 
-
-
   useEffect(() => {
     if (inputCurr.value.number) {
       setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
@@ -142,7 +145,7 @@ const WithdrawFormCardToCard = () => {
   const fee = withdraw_fee;
 
   return (
-    !cards ? (
+    loadingPage ? (
       <Loader className={"relative"} />
     ) : (
       <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
@@ -175,7 +178,7 @@ const WithdrawFormCardToCard = () => {
             <div className="w-full">
               <div className="basis-full">
                 <Select
-                  list={transformedList}
+                  list={transformedList || []}
                   placeholderText={t("select_card")}
                   onSelect={handleOnFromCardId}
                 />
@@ -250,6 +253,11 @@ const WithdrawFormCardToCard = () => {
         {/* Transfer Error Start */}
 
         {/* Transfer Button Start */}
+
+        {
+          cards === null && <Notice isError text={'Unknown problem'} />
+        }
+
         <div className="w-full flex justify-center">
           <Button
             size="lg"

@@ -301,9 +301,10 @@ function Exchange() {
                   {t("exchange.create_order")}
                 </Button>
 
-                <div className="mt-5 lg:mt-2.5 px-8 text-[10px] text-center text-[#B9B9B5]">
-                  {t("exchange.broker_exchange_fee")}
-                  <span className="font-semibold"> 0%</span>
+                <div className="mt-[5px] lg:mt-2.5 px-8 text-[10px] flex flex-col text-center text-[#B9B9B5]">
+
+                  <span className="block">{t("exchange.broker_exchange_fee")} <span className="font-semibold">0%</span></span>
+                  {t("exchange.exchange_excluding")}
                 </div>
               </div>
             </div>
@@ -388,14 +389,14 @@ function Exchange() {
           </div>
           {!md && (
             <div className={styles.DeskHistoryWrap}>
-              <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
+              <span className="text-[12px] hidden xxxl:block ml-[4px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )}
       </div>
 
       {md && (
-        <div className="w-full rounded-lg">
+        <div className="w-full rounded-lg mt-[15px]">
           <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
           <History className="mx-4 mb-[50px]" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>

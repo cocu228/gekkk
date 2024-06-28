@@ -618,6 +618,7 @@
     "sign_out": "Disconnessione",
     "main": "Principale",
     "exchange": {
+      "exchange_excluding": "esclusi sconti e bonus",
       "you_pay": "Tu paghi",
       "get_no_less": "Non ottenere di meno",
       "title": "Scambio",

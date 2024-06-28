@@ -618,6 +618,7 @@
     "sign_out": "Oturumu Kapat",
     "main": "Ana",
     "exchange": {
+      "exchange_excluding": "indirimler ve bonuslar hariç",
       "you_pay": "Öde",
       "get_no_less": "Daha azını alma",
       "title": "Değişme",

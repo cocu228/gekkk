@@ -719,6 +719,7 @@
     "sign_out": "Sign Out",
     "main": "Main",
     "exchange": {
+      "exchange_excluding": "excluding discounts and bonuses",
       "you_pay": "You pay",
       "get_no_less": "Get no less",
       "title": "Exchange",

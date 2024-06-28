@@ -618,6 +618,7 @@
     "sign_out": "登出",
     "main": "主要的",
     "exchange": {
+      "exchange_excluding": "不包括折扣和獎金",
       "you_pay": "你付钱",
       "get_no_less": "得到不少于",
       "title": "交换",

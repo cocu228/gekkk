@@ -163,7 +163,7 @@ const MenuForm = ({
 
         {/* Desktop: show modal with "How it works"*/}
         {/* Mobile: replace content with "How it works"*/}
-        {/* <Link className={styles.LinkButton}
+        <Link className={styles.LinkButton}
             onClick={() => {
                 if (md) {
                     setSelectedItem("how-it-works");
@@ -177,7 +177,7 @@ const MenuForm = ({
             to={md ? '/card-menu?how_it_works=true' : '/wallet?currency=EUR&tab=bank_cards'}
         >
             {t("how_it_works")}
-        </Link> */}
+        </Link>
 
         <div className={styles.FooterContainer}>
             {selectedCard?.cardStatus !== 'ACTIVE' ? null : (

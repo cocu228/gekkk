@@ -2,8 +2,7 @@ import Form from "@/shared/ui/form/Form";
 import Input from "@/shared/ui/input/Input";
 import { useSessionStorage } from "usehooks-ts";
 import Button from "@/shared/ui/button/Button";
-import { MASK_CODE } from "@/shared/config/mask";
-import useMask from "@/shared/model/hooks/useMask";
+
 import { useAuth } from "@/app/providers/AuthRouter";
 // import FormItem from "@/shared/ui/form/form-item/FormItem";
 import { storyDisplayAuth } from "@/widgets/(no-usages)auth/model/story";
@@ -42,7 +41,6 @@ const FormCode = memo(() => {
   const { login } = useAuth();
   const { t } = useTranslation();
   const inputRef = useRef(null);
-  const { onInput } = useMask(MASK_CODE);
   const [code, setCode] = useState("");
   const { md } = useContext(BreakpointsContext);
   const [loading, setLoading] = useState<boolean>(false);
@@ -156,7 +154,6 @@ const FormCode = memo(() => {
             ref={inputRef}
             data-testid="PhoneCode"
             placeholder="Enter code that we sent to your phone"
-            onInput={onInput}
             onlyLetters={true}
             onChange={({ target }) => onChange(target.value)}
           />

@@ -166,3 +166,22 @@
         border: 1px var(--gek-mid-grey) solid;
     } */
 }
+
+@media screen and (max-width: 768px) {
+    .CurTypeTxtWrap {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .TotalBal {
+        width: 100%;
+        max-width: 500px;
+        padding: 3px 10px 0 10px;
+    }
+
+    .CurTypeTxt {
+        width: 100%;
+        max-width: 500px;
+    }
+}

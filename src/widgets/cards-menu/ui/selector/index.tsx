@@ -67,6 +67,7 @@ const ExtendedSelect = ({
                 <div className="bg-[white] mb-4 h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                   <IconApp size={20} code="t12" color="#000" />
                   <Input
+                    value={searchValue}
                     className="w-full text-[10px] border-[none]"
                     placeholder={t("crypto_assets.search_currency")}
                     onChange={({target}) => setSearchValue(target.value)}

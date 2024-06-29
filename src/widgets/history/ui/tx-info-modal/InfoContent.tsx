@@ -11,13 +11,14 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {actionResSuccess, isNull, isNumbersOnly} from "@/shared/lib/helpers";
+import {actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import Receipt from "@/widgets/receipt/ui";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
@@ -276,7 +277,7 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && props.status === 128 ? (
+          {!isNeedConfirm && getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
             <div className={"flex gap-[20px] w-full justify-between mt-3"}>
               <Button
                   skeleton

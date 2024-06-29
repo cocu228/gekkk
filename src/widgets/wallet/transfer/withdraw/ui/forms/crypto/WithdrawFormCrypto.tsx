@@ -4,7 +4,7 @@ import { Modal } from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
@@ -19,6 +19,7 @@ import {debounce} from "@/shared/lib";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import QRCodeModal from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/ui/qr-code-modal";
+import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -27,35 +28,36 @@ export interface IWithdrawFormCryptoState {
 }
 
 const WithdrawFormCrypto = () => {
+  // Context
+  const currency = useContext(CtxWalletData);
+  const {
+    tokenNetworks,
+    networkTypeSelect,
+    setRefresh,
+    localErrorClear,
+    localErrorInfoBox
+  } = useContext(CtxWalletNetworks);
+
+  // Hooks
   const navigate = useNavigate();
   const { t } = useTranslation();
   const qrCodeModal = useModal();
   const { md } = useBreakpoints();
-  const currency = useContext(CtxWalletData);
   const [loading, setLoading] = useState(false);
   const { inputCurr, setInputCurr } = useInputState();
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const {
-    setRefresh,
-    tokenNetworks,
-    localErrorClear,
-    networkTypeSelect,
-    localErrorInfoBox
-  } = useContext(CtxWalletNetworks);
-
-
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
     recipient: null,
     description: null,
   });
 
+  // Handlers
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
   const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
 
   const {
-    percent_fee = 0,
     withdraw_fee = 0,
     min_withdraw = 0,
     max_withdraw = 0,
@@ -65,14 +67,15 @@ const WithdrawFormCrypto = () => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
+  // Effects
   useEffect(() => {
     localErrorClear();
-    if (inputs.address && inputs.recipient && inputCurr.value.number) {
+    if (inputCurr.value.number) {
       setLoading(true);
       delayRes(inputCurr.value.number);
       delayDisplay();
     }
-  }, [inputs.address, inputs.recipient, inputCurr.value.number]);
+  }, [inputCurr.value.number]);
 
   return (
     <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
@@ -193,17 +196,7 @@ const WithdrawFormCrypto = () => {
       {/* Transfer Button End */}
 
       {/* Transaction Information Start */}
-      {md && (percent_fee > 0 || withdraw_fee > 0) && (
-        <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>
-              {withdraw_fee === 0 ? `${percent_fee}%` : withdraw_fee}
-            </span>&nbsp;
-            {t("per_transaction")}
-          </span>
-        </div>
-      )}
+      <FeeInformation />
       {/* Transaction Information End */}
 
       {/* Confirm Start */}

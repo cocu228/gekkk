@@ -3,10 +3,13 @@ import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
 import { PaymentDetails, TokensNetwork } from "@/shared/(orval)api/gek/model";
 
-export interface ICtxWalletNetworks {
+export interface ICtxFeeNetworks {
     tokenNetworks: null | Array<TokensNetwork>,
-    networksForSelector: null | TNetworksForSelector,
     networkTypeSelect: number | null,
+}
+
+export interface ICtxWalletNetworks extends ICtxFeeNetworks {
+    networksForSelector: null | TNetworksForSelector,
     addressesForQR: null | string,
     loading: boolean,
     refreshKey: null | string,
@@ -41,4 +44,9 @@ export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>(
     setNetworkType: function (networkId: number) {},
     setRefresh: function (quite: boolean, amount: number) {},
     setBankRefresh: function (paymentDetails: PaymentDetails) {}
+});
+
+export const CtxFeeNetworks = React.createContext<ICtxFeeNetworks>({
+    tokenNetworks: null,
+    networkTypeSelect: null,
 });

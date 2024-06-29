@@ -127,16 +127,6 @@ const UniversalTransferForm = () => {
       </div>
       {/* Transfer Button End */}
 
-      {/* Transaction Information Start */}
-      <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t('fee_is')}&nbsp;
-            <span className="uppercase font-bold"> 0 EURG</span>&nbsp;
-            {t("per_transaction")}
-          </span>
-      </div>
-      {/* Transaction Information End */}
-
       {/* Confirm Start */}
       <Modal
         destroyOnClose

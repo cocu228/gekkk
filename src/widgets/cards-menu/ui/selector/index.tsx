@@ -68,7 +68,7 @@ const ExtendedSelect = ({
                   <IconApp size={20} code="t12" color="#000" />
                   <Input
                     value={searchValue}
-                    className="w-full text-[10px] border-[none]"
+                    className="w-full"
                     placeholder={t("crypto_assets.search_currency")}
                     onChange={({target}) => setSearchValue(target.value)}
                   />

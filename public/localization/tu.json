@@ -1025,6 +1025,7 @@
     "sign_transfer": "İmza transferi",
     "to_card": "Karta",
     "cardholder": "Kart sahibi",
+    "cardholder_caption": "Sadece Gekkard ve Black Cat Card müşterileri için Papaya LTD",
     "select_card": "Kart seç",
     "select_card_type": "Kart türünü seçin",
     "select_currency": "Para birimini seçin",

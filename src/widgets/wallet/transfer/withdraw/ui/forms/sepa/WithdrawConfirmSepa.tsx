@@ -46,8 +46,8 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
   const getTransformDetails = (): IPaymentDetails => {
     const { purpose, ...others } = details
     return {
+      purpose,
       ...others,
-      transferDetails: transferDescriptions.find((d) => d.value === purpose)?.label
     } as IPaymentDetails
   }
 

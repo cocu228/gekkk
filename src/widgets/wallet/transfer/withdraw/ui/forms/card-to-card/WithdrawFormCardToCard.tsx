@@ -148,7 +148,7 @@ const WithdrawFormCardToCard = () => {
     loadingPage ? (
       <Loader className={"relative"} />
     ) : (
-      <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[20px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+      <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
         {/* Amount Start */}
         <div className="w-full">
           <AmountInput

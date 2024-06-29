@@ -77,7 +77,6 @@ const UniversalTransferForm = () => {
           {t('contact')}:
         </span>
         <Input
-          className="h-[32px]"
           allowDigits
           allowSymbols
           name={"requisite"}
@@ -94,6 +93,7 @@ const UniversalTransferForm = () => {
           {t('description')}:
         </span>
         <Textarea
+          allowDigits
           name={"comment"}
           value={inputs.comment || ""}
           onChange={onInputDefault}

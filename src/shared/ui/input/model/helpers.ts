@@ -20,6 +20,4 @@ export const validateInput = (
         return false;
 
     return !latinAlphabetPattern.test(inpValue);
-
-
 };

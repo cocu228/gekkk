@@ -76,6 +76,7 @@ const CrossProjectForm = () => {
           {t('desc_optional')}:
         </span>
         <Textarea
+          allowDigits
           name={"comment"}
           value={inputs.comment || ""}
           placeholder={t("description")}

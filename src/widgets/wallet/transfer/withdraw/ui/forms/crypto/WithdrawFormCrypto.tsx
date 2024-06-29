@@ -108,6 +108,7 @@ const WithdrawFormCrypto = () => {
         </span>
         <div className="flex">
           <Textarea
+            allowDigits
             name={"address"}
             value={inputs.address || ""}
             disabled={!networkTypeSelect}
@@ -155,6 +156,7 @@ const WithdrawFormCrypto = () => {
           {t("desc_optional")}:
         </span>
         <Textarea
+          allowDigits
           name={"description"}
           value={inputs.description || ""}
           disabled={!networkTypeSelect}

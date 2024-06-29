@@ -148,6 +148,7 @@ const WithdrawFormPhoneNumber = () => {
           {t("description")}:
         </span>
         <Textarea
+          allowDigits
           name={"purpose"}
           value={details.purpose || ""}
           placeholder={t("enter_description")}

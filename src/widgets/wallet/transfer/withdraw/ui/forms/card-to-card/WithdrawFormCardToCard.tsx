@@ -228,10 +228,11 @@ const WithdrawFormCardToCard = () => {
             {t("description")}:
           </span>
           <Textarea
+              allowDigits
               name={"purpose"}
+              onChange={onInput}
               value={details.purpose || ""}
               placeholder={t("enter_description")}
-              onChange={onInput}
             />
         </div>
         {/* Description End */}

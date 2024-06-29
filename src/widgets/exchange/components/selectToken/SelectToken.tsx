@@ -43,6 +43,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   isBalance = false,
   balanceFilter = false,
 }) => {
+  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { from } = useContext(CtxExchangeData);
@@ -52,13 +53,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
     ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
     : 0;
 
-    const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
-
-  useEffect(() => {
-    console.log('select', currency, 'list excluded', excludedCurrencies)
-  }, [currency])
-
-  const {md} = useBreakpoints()
+  const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
 
   return (
     <>

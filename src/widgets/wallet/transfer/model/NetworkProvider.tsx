@@ -147,7 +147,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
                 }));
             });
         })();
-    }, []);
+    }, [$const]);
 
     return (
       <CtxWalletNetworks.Provider

@@ -17,15 +17,16 @@ import {AxiosResponse} from "axios";
 import {randomId} from "@/shared/lib/helpers";
 import { PaymentDetails, PaymentFeeApiResponse, TokensNetwork } from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface IProps {
     children: React.ReactNode
 }
 
 const NetworkProvider = ({children, ...props}: IProps) => {
+    const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const isTopUp = props["data-tag"] === "top_up";
-
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     
     const initState: WalletNetworksStateType = {
@@ -147,7 +148,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
                 }));
             });
         })();
-    }, [$const, state.refreshKey]);
+    }, [$const, state.refreshKey, account]);
 
     return (
       <CtxWalletNetworks.Provider

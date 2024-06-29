@@ -1444,7 +1444,10 @@
     "account_statement": "Выписка по счету в бумажном формате",
     "card_express": "Экспресс-доставка карты",
     "price_depends_on_the": "Цена зависит от адреса клиента и отображается в приложении перед размещением ордера",
-
+    "transaction_receipt": "Чек по транзакции",
+    "payment_type": "Тип платежа",
+    "bank_name": "Название банка",
+    "payment_method": "Способ оплаты",
     "frequently_asked_questions": "Часто задаваемые вопросы",
     "please_enter_sender_name": "Пожалуйста, введите имя отправителя",
     "enter_sender_name": "Введите имя отправителя",

@@ -60,7 +60,7 @@ const InfoContent = (props: TxInfoProps) => {
     } else {
       modalContext.setContent({
         title: t("transaction_receipt"),
-        content: (isBankTx
+        content: (!isBankTx
           ? <Receipt txInfo={{...props, addressTxInfo: state}}/>
           : <Receipt txId={props.id_transaction}/>
         )

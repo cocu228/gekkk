@@ -109,7 +109,7 @@ const WithdrawFormCrypto = () => {
         <div className="flex">
           <Textarea
             name={"address"}
-            value={inputs.address}
+            value={inputs.address || ""}
             disabled={!networkTypeSelect}
             placeholder={t("enter_withdrawal_address")}
             onChange={onInput}
@@ -156,7 +156,7 @@ const WithdrawFormCrypto = () => {
         </span>
         <Textarea
           name={"description"}
-          value={inputs.description}
+          value={inputs.description || ""}
           disabled={!networkTypeSelect}
           placeholder={t('enter_description')}
           onChange={onInput}

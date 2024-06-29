@@ -77,7 +77,7 @@ const CrossProjectForm = () => {
         </span>
         <Textarea
           name={"comment"}
-          value={inputs.comment}
+          value={inputs.comment || ""}
           placeholder={t("description")}
           onChange={onInputDefault}
         />

@@ -21,9 +21,7 @@ const Textarea: FC<IAddressInputProps> = ({ placeholder, ...props }) => {
     }
 
     if (textareaRef.current) {
-      const tx = textareaRef.current;
-      tx.setAttribute("style", "height:" + (tx.scrollHeight) + "px;overflow-y:hidden;");
-      tx.addEventListener("input", OnInput, false);
+      textareaRef.current.addEventListener("input", OnInput, false);
     }
 
     return () => {

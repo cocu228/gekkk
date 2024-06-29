@@ -229,7 +229,7 @@ const WithdrawFormCardToCard = () => {
           </span>
           <Textarea
               name={"purpose"}
-              value={details.purpose}
+              value={details.purpose || ""}
               placeholder={t("enter_description")}
               onChange={onInput}
             />

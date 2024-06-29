@@ -95,7 +95,7 @@ const UniversalTransferForm = () => {
         </span>
         <Textarea
           name={"comment"}
-          value={inputs.comment}
+          value={inputs.comment || ""}
           onChange={onInputDefault}
           placeholder={t("desc_optional")}
         />

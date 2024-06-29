@@ -27,6 +27,7 @@ import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import Notice from "@/shared/ui/notice";
 import useError from "@/shared/model/hooks/useError";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 const WithdrawFormCardToCard = () => {
   // Context
@@ -225,13 +226,11 @@ const WithdrawFormCardToCard = () => {
           <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
             {t("description")}:
           </span>
-          <Input
+          <Textarea
               name={"purpose"}
-              allowDigits
-              allowSymbols
               value={details.purpose}
-              onChange={onInput}
               placeholder={t("enter_description")}
+              onChange={onInput}
             />
         </div>
         {/* Description End */}

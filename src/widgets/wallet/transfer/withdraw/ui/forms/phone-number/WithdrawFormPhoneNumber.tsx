@@ -19,6 +19,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
+import Textarea from "@/widgets/wallet/transfer/components/textarea";
 
 const WithdrawFormPhoneNumber = () => {
   // Context
@@ -146,13 +147,11 @@ const WithdrawFormPhoneNumber = () => {
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>
-        <Input
-          allowDigits
-          allowSymbols
+        <Textarea
           name={"purpose"}
           value={details.purpose}
-          onChange={onInput}
           placeholder={t("enter_description")}
+          onChange={onInput}
         />
       </div>
       {/* Description End */}

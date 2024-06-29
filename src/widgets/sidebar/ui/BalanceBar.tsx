@@ -75,11 +75,16 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                             )}
                 </div>
 
-                <span className={styles.CurTypeTxt}>{t("fiat")}</span>
+                <div className={styles.CurTypeTxtWrap}>
+                    <span className={styles.CurTypeTxt}>{t("fiat")}</span>
+                </div>
                 {/* fiat wallets */}
                 <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurWallet} />
                 {/* Crypto wallets wrapper */}
-                <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
+                <div className={styles.CurTypeTxtWrap}>
+                    <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
+                </div>
+                
                 {/* EURG wallet */}
                 <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
                 {/* GKE wallet */}
@@ -107,10 +112,11 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                     helperFilterListGekkoin(secondaryWallets)).map((item) =>
                         <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
-
-            <div className={styles.TotalBal}>
-                <span>{t("total_balance")}</span>
-                <span className={styles.TotalBalSum} data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '...'}</span>
+            <div className={styles.CurTypeTxtWrap}>
+                <div className={styles.TotalBal}>
+                    <span>{t("total_balance")}</span>
+                    <span className={styles.TotalBalSum} data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '...'}</span>
+                </div>
             </div>
         </>
     )

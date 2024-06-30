@@ -67,6 +67,7 @@ function CustomHistory() {
     setStartDate(getFirstDayOfPreviousMonth())
     setEndDate(new Date())
     setFiat(false);
+    setSelectedCard({value: '', label: ''});
     setCurr('');
     setSelector(null);
     setType(null);
@@ -264,6 +265,9 @@ function CustomHistory() {
                     <div
                       className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                       onClick={() => {
+                        if (currency.$const !== "EUR") {
+                          setSelectedCard({value: '', label: ''});
+                        }
                         setCurr(currency.$const);
                         setFiat(currency.currency.flags.fiatCurrency)
                         setSelector(null);

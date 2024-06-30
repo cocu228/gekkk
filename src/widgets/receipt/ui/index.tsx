@@ -58,17 +58,17 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
       });
       
       const pdfBlob = pdf.output('blob');
-      const fileName = formatForFile(Date.now());
+      const fileName = `${formatForFile(Date.now())}.pdf`;
+      const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-      if (md && navigator.share) {
-          const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
-          navigator.share({
+      if (md && navigator?.canShare({files: [file]})) {
+          await navigator.share({
               files: [file],
               title: fileName,
               text: 'Send receipt to...',
           })
       } else {
-          window.open(URL.createObjectURL(pdfBlob));
+          window.open(URL.createObjectURL(file));
       }
   };
 

@@ -138,7 +138,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             });
             
             helperApiTokenNetworks(response).success((tokenNetworks: Array<TokensNetwork>) => {
-                const networksForSelector = sortingNetworksForSelector([tokenNetworks[0]]);
+                const networksForSelector = sortingNetworksForSelector(tokenNetworks);
                 
                 setState(prev => ({
                     ...prev,

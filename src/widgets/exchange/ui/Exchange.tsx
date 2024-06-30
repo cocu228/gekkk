@@ -301,11 +301,14 @@ function Exchange() {
                   {t("exchange.create_order")}
                 </Button>
 
-                <div className="mt-[5px] lg:mt-2.5 px-8 text-[10px] flex flex-col text-center text-[#B9B9B5]">
-
-                  <span className="block">{t("exchange.broker_exchange_fee")} <span className="font-semibold">0%</span></span>
-                  {t("exchange.exchange_excluding")}
-                </div>
+                {to.currency && (
+                  <div className="mt-[5px] lg:mt-2.5 px-8 text-[10px] flex flex-col text-center text-[#B9B9B5]">
+                    <span className="block">{t("exchange.broker_exchange_fee")} <span className="font-semibold">{
+                      currencies.get(to.currency)?.marketFee
+                    }%</span></span>
+                    {t("exchange.exchange_excluding")}
+                  </div>
+                )}
               </div>
             </div>
 

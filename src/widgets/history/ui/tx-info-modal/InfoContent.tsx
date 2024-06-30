@@ -277,7 +277,7 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
+          {isNeedConfirm ? null : getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
             <div className={"flex gap-[20px] w-full justify-between mt-3"}>
               <Button
                   skeleton

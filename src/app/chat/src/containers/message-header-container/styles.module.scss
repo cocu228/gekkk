@@ -1,32 +1,29 @@
-.InnerContainer {
+.HeaderContainer {
     width: 100%;
-    padding: 15px 20px;
-    border-radius: 8px 8px 0 0;
+    height: 55px;
     display: flex;
+    padding: 15px 19px;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
     background-color: #fff;
+    border-radius: 8px 8px 0 0;
+    justify-content: space-between;
     border-bottom: 2px solid #F7F7F0;
 
-
-    & > svg {
-        cursor: pointer;
-        transform: rotate(180deg);
-    }
-
     @media screen and (max-width: 768px) {
+        border-radius: 0;
         border-bottom: none;
         justify-content: flex-start;
-        border-radius: 0;
-        background-color: #1F3446;
+        background-color: #29354c;
     }
 }
 
 .Title {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
     color: #285E69;
+    font-weight: 700;
+    user-select: none;
+    font-style: normal;
+    line-height: normal;
 
     @media screen and (max-width: 768px) {
         color: #fff;
@@ -39,11 +36,21 @@
     @media screen and (max-width: 768px) {
         display: block;
     }
-}
 
+    &Container {
+        gap: 20px;
+        display: flex;
+        align-items: center;
+        
+        & > svg {
+            transform: rotate(180deg);
+        }
+    }
+}
 
 .IconDesk {
     display: block;
+    cursor: pointer;
 
     @media screen and (max-width: 768px) {
         display: none;

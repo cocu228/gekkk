@@ -29,19 +29,20 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
         && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
         && $const !== "EURG"
         && (isCryptoNetwork(networkTypeSelect));
-    
+    // TODO: Refactoring for networks.length == 1
     return <div>
         <div className={styles.Container}>
-            
-                {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
-                    md ? <div className={styles.TypeTitle}> 
-                        <span>
-                            {t("type")}:
-                        </span>
-                    </div>
-                    :
-                        withdraw ? <span className="ml-[10px] mb-[5px] block">{t("select_withdraw_network") + ":"}</span> : <span className="ml-[10px] mb-[5px] block">{t("select_network") + ":"}</span>
-                }
+            {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null : md ? (
+                <div className={styles.TypeTitle}> 
+                    <span>
+                        {t("type")}:
+                    </span>
+                </div>
+            ) : withdraw ? (
+                <span className="ml-[10px] mb-[5px] block">{t("select_withdraw_network") + ":"}</span>
+            ) : (
+                <span className="ml-[10px] mb-[5px] block">{t("select_network") + ":"}</span>
+            )}
 
             <div className="col w-full md:overflow-hidden overflow-visible">
                 {Array.isArray(networksForSelector) &&
@@ -88,41 +89,37 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                             </span>}
                         />
                     :
-                        Array.isArray(networksForSelector) && networksForSelector.length === 1 
-                        ?
-                            <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3>
-                        :
-                            Array.isArray(networksForSelector) &&
-                                md ? 
-                                    <div className='w-full relative h-[32px] flex flex-row'>
-                                        <div 
-                                            className="row w-full relative cursor-pointer border-r-[0px] px-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]"
-                                            onClick={()=>{
-                                                setNetwork(null)
-                                                navigate(`/wallet?currency=${$const}&tab=top_up`)
-                                            }}
-                                        >
-                                            <div onClick={()=>{setNetwork(null)}} className="flex w-full text-[12px] text-[#3A5E66] h-full justify-start items-center">
-                                                {!network ? (
-                                                    <span className={"inline-flex justify-center w-full text-[10px] text-[#B9B9B5]"}>-{t("select")}-</span>
-                                                ) : (
-                                                    <span className="text-[12px] text-[#3A5E66] text-nowrap overflow-ellipsis overflow-hidden">
-                                                        {[...networksForSelector].filter(el => el.value === network)[0]?.label}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-                                            <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
+                        Array.isArray(networksForSelector) &&
+                            md ? 
+                                <div className='w-full relative h-[32px] flex flex-row'>
+                                    <div 
+                                        className="row w-full relative cursor-pointer border-r-[0px] px-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]"
+                                        onClick={()=>{
+                                            setNetwork(null)
+                                            navigate(`/wallet?currency=${$const}&tab=top_up`)
+                                        }}
+                                    >
+                                        <div onClick={()=>{setNetwork(null)}} className="flex w-full text-[12px] text-[#3A5E66] h-full justify-start items-center">
+                                            {!network ? (
+                                                <span className={"inline-flex justify-center w-full text-[10px] text-[#B9B9B5]"}>-{t("select")}-</span>
+                                            ) : (
+                                                <span className="text-[12px] text-[#3A5E66] text-nowrap overflow-ellipsis overflow-hidden">
+                                                    {[...networksForSelector].filter(el => el.value === network)[0]?.label}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
-                                :
-                                <Select
-                                    placeholder={"Networks not found"} 
-                                    value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0].label : 151}
-                                    typeChange={setNetworkType} 
-                                    options={networksForSelector}
-                                />
+                                    <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+                                        <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
+                                    </div>
+                                </div>
+                            :
+                            <Select
+                                placeholder={"Networks not found"} 
+                                value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0].label : 151}
+                                typeChange={setNetworkType} 
+                                options={networksForSelector}
+                            />
                 }
             </div>
         </div>

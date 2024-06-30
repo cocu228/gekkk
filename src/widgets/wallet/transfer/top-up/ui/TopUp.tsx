@@ -31,13 +31,6 @@ const TopUp = memo(() => {
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     const [network, setNetwork] = useState<number>(type ? +type : null)
 
-    const offlineMode = !navigator.onLine;
-
-    console.log(networksForSelector)
-
-
-    if (offlineMode) return <div>You are offline, please check your internet connection.</div>
-
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
             return <TopUpFormQR/>;
@@ -109,7 +102,6 @@ const TopUp = memo(() => {
 
     useEffect(()=>{
         md && setNetworkType(network)
-    
     }, [networkTypeSelect])
 
     useEffect(()=>{

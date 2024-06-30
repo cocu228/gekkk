@@ -47,10 +47,10 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
 }) => {
   // Hooks
   const {t} = useTranslation();
-  const [localErrorHunter,,localErrorInfoBox] = useError();
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [stageReq, setStageReq] = useState(initStageConfirm);
+  const [localErrorHunter,,localErrorInfoBox, localErrorClear] = useError();
 
   // Context
   const {$const} = useContext(CtxWalletData);
@@ -150,6 +150,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
   };
 
   const inputChange = ({target}: any) => {
+    localErrorClear();
     setInput(target.value);
   };
 

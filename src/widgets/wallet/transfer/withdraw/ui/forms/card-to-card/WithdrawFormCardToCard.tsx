@@ -25,9 +25,8 @@ import {debounce} from "@/shared/lib";
 import {UasConfirmCtx} from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import Notice from "@/shared/ui/notice";
-import useError from "@/shared/model/hooks/useError";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
-import Textarea from "@/widgets/wallet/transfer/components/textarea";
+import Textarea from "@/shared/ui/textarea";
 
 const WithdrawFormCardToCard = () => {
   // Context

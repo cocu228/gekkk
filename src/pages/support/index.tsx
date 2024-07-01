@@ -5,6 +5,7 @@ import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
 import { NavLink } from 'react-router-dom';
 import { IconApp } from '@/shared/ui/icons/icon-app';
+import QualityControl from "@/pages/support/components/quality-control";
 
 const Support = () => {
     const { t } = useTranslation();
@@ -90,14 +91,7 @@ const Support = () => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.Control}>
-                    <div className={styles.ControlTitle}>{t("quality_control")}</div>
-                    <div className={styles.ControlMain}>
-                        <IconApp code='t49' className={styles.ControlMainLike} size={30} color='#9D9D9D' />
-                        <IconApp code='t49' className={styles.ControlMainDislike} size={30} color='#9D9D9D' />
-                    </div>
-                    <div className={styles.ControlFooter}>{t("thank_you_for_rating")}!</div>
-                </div>
+                <QualityControl />
             </div>
         )
     }

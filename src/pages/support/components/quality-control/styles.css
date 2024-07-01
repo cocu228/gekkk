@@ -1,0 +1,102 @@
+.control-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.control-main-title {
+    color: #1F3446;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.control-main-body {
+    width: 100%;
+    max-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    border-radius: 8px;
+    background: #FFF;
+}
+
+.control-main-body > svg {
+    cursor: pointer;
+}
+
+.control-main-body > svg:first-of-type:hover {
+    fill: var(--gek-green);
+}
+
+.control-main-body > svg:last-of-type {
+    transform: rotate(180deg);
+}
+
+.control-main-body > svg:last-of-type:hover {
+    fill: var(--gek-red);
+}
+
+.control-main-footer {
+    color: #3A5E66;
+    text-align: center;
+    font-size: 12px;
+}
+
+.control-form-fade {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s linear;
+}
+
+.control-form-fade.active {
+    max-height: 250px;
+}
+
+.control-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #FFF;
+    border-radius: 8px;
+    padding: 15px 10px 10px;
+}
+
+.control-form-title {
+    color: #1F3446;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.control-form-stars {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.control-form-stars svg {
+    cursor: pointer;
+}
+
+.control-form > button {
+    width: 100%;
+    max-width: 120px;
+    margin: 0 auto;
+}

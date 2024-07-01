@@ -15,7 +15,7 @@ import {Modal} from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import Textarea from "@/widgets/wallet/transfer/components/textarea";
+import Textarea from "@/shared/ui/textarea";
 
 const UniversalTransferForm = () => {
   const {md} = useBreakpoints()

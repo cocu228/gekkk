@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useRef, useState } from "react";
 import styles from "./style.module.css"
 import { validateInput } from "@/shared/ui/input/model/helpers";
 
-interface IAddressInputProps {
+interface ITextareaProps {
   name: string;
   value: string;
   disabled?: boolean;
@@ -13,7 +13,7 @@ interface IAddressInputProps {
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-const Textarea: FC<IAddressInputProps> = ({
+const Textarea: FC<ITextareaProps> = ({
   onChange,
   placeholder,
   allowDigits,

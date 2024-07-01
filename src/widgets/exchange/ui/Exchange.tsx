@@ -31,6 +31,7 @@ import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
+import { ExchangeHeader } from "./exchangeHeader/ExchangeHeader";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -192,6 +193,7 @@ function Exchange() {
   ) : (
     <div className=" ">
       {md ? null : (
+        // <ExchangeHeader />
         <PageHead
           title={getHeadTitle()}
           subtitle={<span className="select-text">{getHeadSubtitle()}</span>}

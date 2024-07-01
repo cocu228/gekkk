@@ -16,11 +16,9 @@ export async function getTransactionSignParams(phone: string, uasToken: string) 
 
     if (!decrAppPass) return;
 
-    const uuid = getAppUuid(cryptoConfiguration, decrAppPass);
-    
     return ({
-        appUuid: uuid,
-        appPass: decrAppPass
+        appPass: decrAppPass,
+        appUuid: getAppUuid(cryptoConfiguration, decrAppPass),
     });
 }
 

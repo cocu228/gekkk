@@ -1,13 +1,13 @@
-import {JSEncrypt} from "jsencrypt";
+import JSEncrypt from "jsencrypt";
 import {AES, enc, PBKDF2, mode, format, pad, HmacSHA256} from 'crypto-js';
 import {apiPublicKey, apiRegisterApp, IAppRegistration} from "@/shared/api";
 
-export async function getTransactionSignParams() {
+export async function getTransactionSignParams(phone: string, uasToken: string) {
     const {
         publicKey: localPublicKey,
         privateKey: localPrivateKey,
     } = getLocalKeypair();
-    const cryptoConfiguration = await getCryptoConfiguration(localPublicKey);
+    const cryptoConfiguration = await getCryptoConfiguration(phone, uasToken, localPublicKey);
 
     const decrAppPass = decryptRsaMessage(
         cryptoConfiguration.secretePassword,
@@ -31,8 +31,12 @@ function getAppUuid(cryptoConfiguration: IAppRegistration, decrAppPass: string) 
     return decryptAESv2(appUuid, decrAppPass, salt);
 }
 
-async function getCryptoConfiguration(localPublicKey: string): Promise<IAppRegistration> {
-    const serverPublicKey = (await apiPublicKey()).data.publicKey;
+async function getCryptoConfiguration(
+    phone: string,
+    uasToken: string,
+    localPublicKey: string
+): Promise<IAppRegistration> {
+    const serverPublicKey = (await apiPublicKey({phoneNumber: phone})).data.publicKey;
     const encryptedLocalPublicKey = encryptRsaMessage(
         serverPublicKey,
         localPublicKey
@@ -42,7 +46,11 @@ async function getCryptoConfiguration(localPublicKey: string): Promise<IAppRegis
 
     const {
         data: appRegistration
-    } = await apiRegisterApp(encryptedLocalPublicKey);
+    } = await apiRegisterApp({
+        uasToken: uasToken,
+        phoneNumber: phone,
+        appPublicKey: encryptedLocalPublicKey
+    });
 
     return appRegistration;
 }

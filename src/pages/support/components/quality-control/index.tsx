@@ -64,7 +64,7 @@ const QualityControl: FC = () => {
       </div>
       <div className={`control-form-fade ${quality ? "active" : ""}`}>
         <div className="control-form">
-          <p className="control-form-title">Rate the quality</p>
+          <p className="control-form-title">{t("rate_quality")}</p>
           <div className="control-form-stars">
             {[1, 2, 3, 4, 5].map(star => (
               <div
@@ -81,7 +81,7 @@ const QualityControl: FC = () => {
               </div>
             ))}
           </div>
-          <p className="control-form-title">Ideas for quality improvement:</p>
+          <p className="control-form-title">{t("quality_improvement")}:</p>
           <Textarea
             allowDigits
             name="message"
@@ -90,7 +90,7 @@ const QualityControl: FC = () => {
             onChange={handleOnMessage}
           />
           <Button onClick={handleOnSubmit}>
-            Send
+            {t("send")}
           </Button>
         </div>
       </div>

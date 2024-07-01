@@ -618,6 +618,7 @@
     "sign_out": "登出",
     "main": "主要的",
     "exchange": {
+      "exchange_excluding": "不包括折扣和獎金",
       "you_pay": "你付钱",
       "get_no_less": "得到不少于",
       "title": "交换",
@@ -701,7 +702,7 @@
     "daily_limit": "每日限额",
     "day_limit": "天数限制",
     "month_limit": "月限制",
-    "how_it_works": "怎么运行的？",
+    "how_it_works": "怎么运行的",
     "disable_limits_temporarily": "暂时禁用限制",
     "card_transaction_history": "信用卡交易记录",
     "specify_the_place_of_delivery_of_your_real_card": "指定您的真实卡的交付地点",
@@ -800,6 +801,7 @@
     "card_owner": "所有者",
     "card_pin": "PIN码",
     "card_info": "卡信息",
+    "card_data": "卡数据",
     "card_holder": "持卡人",
     "use_only": "仅使用 AZ 0-9",
     "payment_exetution": "付款执行",
@@ -1023,6 +1025,7 @@
     "sign_transfer": "标志转让",
     "to_card": "到卡",
     "cardholder": "持卡人",
+    "cardholder_caption": "仅适用于 Gekkard 和黑猫卡客户 Papaya LTD",
     "select_card": "选择卡",
     "select_card_type": "选择卡类型",
     "select_currency": "选择货币",
@@ -1608,11 +1611,15 @@
     "response_time_up_to": "响应时间最长为 {{hours}} 小时",
     "this_code_can_be_used": "此代码只能使用一次",
     "get_gekkard_pro": "获取 Gekkard PRO",
-    "language_name": "英语",
+    "language_name": "中文",
     "select_top_up_type": "选择充值类型",
     "generate_address": "生成地址",
     "confirm_place_order": "确认下单",
     "order_type": "订单类型",
+    "transaction_receipt": "交易收据",
+    "payment_type": "付款类型",
+    "bank_name": "银行名称",
+    "payment_method": "付款方式",
     "actions": "操作",
     "clean": "干净的",
     "created": "创建",
@@ -1621,6 +1628,11 @@
     "finished": "完成的",
     "select_type": "选择类型",
     "select": "选择",
-    "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认"
+    "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认",
+    "my_fiat_reports": "我的法定货币报告",
+    "reports": "报告",
+    "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包", 
+    "form_in_wallet": "在您的{{project}}钱包中"
+
   }
 }

@@ -49,7 +49,6 @@ const CtxGlobalModalProvider: FC<PropsWithChildren> = ({children}) => {
                 isModalOpen={isModalOpen}
                 title={state.title}
                 onCancel={closeContent}
-                placeBottom={window.innerWidth < 768}
             >
                 {state.content}
             </Modal>

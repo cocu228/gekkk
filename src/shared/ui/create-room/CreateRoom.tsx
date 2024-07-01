@@ -33,14 +33,13 @@ function CreateRoom({
   onFromCurrencyChange,
   onCancel
 }: IParams) {
+  const {md} = useBreakpoints();
   const [isIco, setIsIco] = useState(false);
-  const [purchaseLimit, setPurchaseLimit] = useState(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [localErrorHunter, , localErrorInfoBox] = UseError();
-  const {md} = useBreakpoints()
   const { currencies } = useContext(CtxCurrencies);
-
-  const allowedFlags = [CurrencyFlags.ExchangeAvailable]
+  const [loading, setLoading] = useState<boolean>(false);
+  const allowedFlags = [CurrencyFlags.ExchangeAvailable];
+  const [localErrorHunter, , localErrorInfoBox] = UseError();
+  const [purchaseLimit, setPurchaseLimit] = useState<string>(null);
 
   const assetsFilter = (asset: ICtxCurrency) => {
     if (allowedFlags) {
@@ -50,7 +49,7 @@ function CreateRoom({
     return true;
   };
 
-  const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
+  const [tokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter));
 
   const handleOnCancel = () => {
     onFromCurrencyChange("");
@@ -132,9 +131,10 @@ function CreateRoom({
           </label>
           <Input
             allowDigits
+            value={purchaseLimit}
             placeholder={t("exchange.it_is_empty")}
             onChange={(event) => {
-              setPurchaseLimit(+event.target.value)
+              setPurchaseLimit(event.target.value)
             }}
           />
         </div>
@@ -143,8 +143,7 @@ function CreateRoom({
 
         <div className="mt-6 gap-[20px] sm:mt-6 flex justify-between">
           <Button
-            size="lg"
-            className="!w-[120px]"
+            className="w-full"
             disabled={!(from.currency && to.currency)}
             onClick={() => {
               setLoading(true);
@@ -153,7 +152,7 @@ function CreateRoom({
                 currency1: from.currency,
                 currency2: to.currency,
                 flags: isIco ? 1 : 0,
-                to_balance_limit: purchaseLimit,
+                to_balance_limit: +purchaseLimit,
               })
                 .then(({ data }) => {
                   if (data.error) {
@@ -174,8 +173,8 @@ function CreateRoom({
             {t("confirm")}
           </Button>
           <Button
-            className="!w-[120px]"
             skeleton
+            className="w-full"
             onClick={handleOnCancel}
           >
             {t("cancel")}

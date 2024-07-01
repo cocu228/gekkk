@@ -29,6 +29,7 @@ const Validator: FC<IParams> = (({
     const firstEffect = useRef(true);
     const [error, setError] = useState<null | string | JSX.Element>(null);
     const [showDescription, setShowDescription] = useState(true)
+    
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false
@@ -69,8 +70,8 @@ const Validator: FC<IParams> = (({
                     </span>
                     ) : (
                     <div className="flex gap-1 items-center">
-                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t27" size={13}/></div>}
-                        <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>{error}</span>
+                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-red)" code="t27" size={13}/></div>}
+                        <span className='text-[var(--gek-red)] md:text-fs12 text-fs14'>{error}</span>
                     </div>
                 )}
             </div>

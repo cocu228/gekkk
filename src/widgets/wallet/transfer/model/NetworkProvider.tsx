@@ -17,18 +17,19 @@ import {AxiosResponse} from "axios";
 import {randomId} from "@/shared/lib/helpers";
 import { PaymentDetails, PaymentFeeApiResponse, TokensNetwork } from "@/shared/(orval)api/gek/model";
 import useError from "@/shared/model/hooks/useError";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface IProps {
     children: React.ReactNode
 }
 
 const NetworkProvider = ({children, ...props}: IProps) => {
+    const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const isTopUp = props["data-tag"] === "top_up";
-
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     
-    const initState = {
+    const initState: WalletNetworksStateType = {
         networksForSelector: null,
         tokenNetworks: null,
         networkTypeSelect: null,
@@ -40,6 +41,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     const [state, setState] = useState<WalletNetworksStateType>(initState);
     
     const setNetworkId = async (networkTypeSelect: ICtxWalletNetworks["networkTypeSelect"]) => {
+        localErrorClear();
         let firstAddress = null;
         const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect)?.id || 0;
         
@@ -78,7 +80,6 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     }
 
     const setBankRefresh = async (paymentDetails: PaymentDetails) => {
-        localErrorClear();
         const response: AxiosResponse<PaymentFeeApiResponse> = await apiGetPaymentCommission(paymentDetails);
         if (response.data.error) {
             localErrorHunter(response.data.error)
@@ -147,7 +148,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
                 }));
             });
         })();
-    }, [$const, state.refreshKey]);
+    }, [$const, state.refreshKey, account]);
 
     return (
       <CtxWalletNetworks.Provider

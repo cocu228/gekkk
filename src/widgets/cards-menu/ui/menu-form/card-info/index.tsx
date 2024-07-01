@@ -82,7 +82,7 @@ const CardInfo = ({ cardId, onBack }: IParams) => {
             )}
 
             <div className={styles.ButtonContainer}>
-                <Button color="blue" onClick={onBack}>
+                <Button custom className={styles.Button} color="blue" onClick={onBack}>
                     {t("close")}
                 </Button>
             </div>

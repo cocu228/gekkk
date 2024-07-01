@@ -32,12 +32,13 @@
   
     &Selected {
     //   background-color: var(--theme-color, #000000);
+      &:hover {
+        opacity: 1;
+      }
     }
 
     &:hover {
-        &:not(.Selected) {
-            opacity: 0.09;
-        }
+      opacity: 0.09;
     }
 }
 

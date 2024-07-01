@@ -3,9 +3,7 @@ import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import { $axios } from "@/shared/lib/(orval)axios";
 import Button from "@/shared/ui/button/Button";
-import { MASK_CODE } from "@/shared/config/mask";
 import { InternalAxiosRequestConfig } from "axios";
-import useMask from "@/shared/model/hooks/useMask";
 import { CtxRootData } from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
@@ -35,7 +33,6 @@ const ActionConfirmationWindow = () => {
     loading: false,
   });
   const { t } = useTranslation();
-  const { onInput } = useMask(MASK_CODE);
   const { setRefresh } = useContext(CtxRootData);
   const phoneNumber = "79111111111"; //getCookieData<{phoneNumber: string}>();
   const { isModalOpen, handleCancel, showModal } = useModal();
@@ -172,7 +169,6 @@ const ActionConfirmationWindow = () => {
             type="text"
             value={code}
             maxLength={11}
-            onInput={onInput}
             autoComplete="off"
             placeholder={t("enter_sms_code")}
             onChange={({ target }) => {

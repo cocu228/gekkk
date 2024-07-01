@@ -576,6 +576,7 @@
     "sign_out": "Abmelden",
     "main": "Haupt",
     "exchange": {
+      "exchange_excluding": "ausgenommen Rabatte und Boni",
       "you_pay": "Sie zahlen",
       "get_no_less": "Bekommen Sie nicht weniger",
       "create_order": "Bestellung erstellen",
@@ -819,6 +820,7 @@
     "sign_transfer": "Überweisung unterschreiben",
     "to_card": "Auf die Karte",
     "cardholder": "Karteninhaber",
+    "cardholder_caption": "Nur für Gekkard und Black Cat Card Kunden Papaya LTD",
     "select_card": "Karte auswählen",
     "select_currency": "Währung auswählen",
     "no_data_avialible": "Keine Daten verfügbar",
@@ -1387,6 +1389,10 @@
     "account_maintenance_value_additional": "{{value}} EUR monatlich, {{payments}} kostenlose Interbank-SEPA-Zahlungen enthalten (1 IBAN-Konto + 1 Karte + zusätzliche Karten)",
     "commission_for_using_mobile": "Kommission für die Nutzung einer mobilen Bank pro Monat",
     "bonus_programs": "Bonusprogramme",
+    "transaction_receipt": "Transaktionsbeleg",
+    "payment_type": "Zahlungsart",
+    "bank_name": "Bankname",
+    "payment_method": "Zahlungsmethode",
     "csh_purchases_card": "Rückvergütung für Kartenzahlungen (ohne Bargeldabhebungen und Überweisungen)",
     "csh_purchases_card_value": "{{percent}} (mindestens {{payout}} EUR pro Monat)",
     "csh_purchases_amazon": "Rückvergütung für Einkäufe auf Amazon",
@@ -1415,7 +1421,7 @@
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
     "decline": "Stornieren",
-    "how_it_works": "Wie funktioniert es?",
+    "how_it_works": "Wie funktioniert es",
     "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
     "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",
     "payment_of_purchases_on_the_card": "Zahlung von Einkäufen mit der Karte",
@@ -1455,6 +1461,7 @@
     "order_type": "Bestellart",
     "payment_cards": "Zahlungskarten",
     "card_info": "Karteninformationen",
+    "card_data": "Kartendaten",
     "send_to_card": "Auf Karte senden:", 
     "card_number": "KARTENNUMMER", 
     "expiration_date": "Ablaufdatum", 
@@ -1484,7 +1491,12 @@
     "select": "Auswählen", 
     "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können",
     "not_found": "Nicht gefunden",
-    "flat_optional": "Wohnung (optional)"
+    "flat_optional": "Wohnung (optional)",
+    "my_fiat_reports": "Meine Fiat-Berichte",
+    "reports": "Berichte",
+    "top_up_curr": "Sie können Ihr {{curr}}-Wallet über das Abhebungsformular aufladen", 
+    "form_in_wallet": "in Ihrem {{project}}-Wallet"
+    
 
 
 

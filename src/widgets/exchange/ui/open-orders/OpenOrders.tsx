@@ -218,7 +218,7 @@ function  OpenOrders({ refreshKey }: IParams) {
         </div>
       )}
 
-      <div className="mt-1.5 m-[0_10px]">
+      <div className="mt-1.5 -xxxl:m-0">
         {!isLoading ? null : <div className="min-h-[70px]">
           <Loader className="relative mt-10 mb-10" />
         </div>}
@@ -237,18 +237,18 @@ function  OpenOrders({ refreshKey }: IParams) {
               <div className="flex justify-between">
                 <div className="flex gap-2">
                   <div className="bg-opacity-10 rounded-md flex items-center gap-[4px]">
-                    <span className="font-bold">
+                    <span className="font-bold text-[#29354C]">
                       {currencyPrecision(ord.volume_source, ord.from)}
                     </span>{" "}
-                    <span className="font-normal text-[#29354C] text-[12px]">{ord.from}</span> &rarr;{" "}
-                    <span className="font-bold">
+                    <span className="font-normal text-[#29354C] text-[12px]">{ord.from}</span> -{" "}
+                    <span className="font-bold -xxxl:text-[12px]">
                       {ord.type_order === "Market" && "~"}
                       {currencyPrecision(ord.volume_dest, ord.to)}
                     </span>{" "}
                     <span className="font-normal text-[#29354C] text-[12px]">{ord.to}</span>
                   </div>
 
-                  <span className="text-[10px] text-[#9D9D9D] font-normal font-[Inter] leading-[16px]">
+                  <span className="text-[10px] text-[#B9B9B5] font-normal font-[Inter] leading-[16px]">
                     {t(ord.state.toLowerCase()).capitalize()}{" "}
                     {ord.state !== OrderState.FAILED ? null : (
                       <Tooltip
@@ -278,9 +278,9 @@ function  OpenOrders({ refreshKey }: IParams) {
               </div>
               <div className="flex justify-between gap-0.5 mt-1.5">
                 <div className="flex gap-2.5 items-center">
-                  <div className="text-[10px] text-[#9D9D9D] font-normal font-[Inter]">{t("price")}: </div>
+                  <div className="text-[10px] text-[#B9B9B5] font-normal font-[Inter]">{t("price")}: </div>
                   <div>
-                    <span className="text-[#7B797C] text-[10px] font-normal">
+                    <span className="text-[#7B797C] text-[10px] font-normal font-[Inter]">
                       1 {ord.from} ~{" "}
                       {currencyPrecision(
                         ord.volume_dest / ord.volume_source,

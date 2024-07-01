@@ -57,8 +57,10 @@ const HeaderMobile = ({ items, actions }) => {
             case `private-room`:
                 return t("exchange.private_title").capitalize();
             case 'card-menu':
-                if(location.search) {
-                    return t("how_it_works").capitalize().slice(0, -1)
+                if(location.search === '?how_it_works=true') {
+                    return t("how_it_works").capitalize()
+                } else if(location.search === '?card_info=true') {
+                    return t("card_data").capitalize()
                 } else {
                     return t("payment_cards").capitalize()
                 }
@@ -81,14 +83,14 @@ const HeaderMobile = ({ items, actions }) => {
                 return t('change_password')
             case 'user-keys':
                 return t('user_keys')      
-            case 'history':
+            case 'sign-history':
                 return t('sign_history')
             case 'user-sessions':
                 return t('user_sessions')
             case 'pricing':
                 return t('pricing')
             case 'my-reports':
-                return t('my_reports')                       
+                return `${t('my_fiat_reports')} (EUR)`                  
             default:
                 return t('settings')    
         }
@@ -136,7 +138,7 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 ) : settingsTab ? (
                     (
-                        <div className="flex items-center w-full" onClick={() => { navigate('/settings') }} data-testid="HeaderMenuContainer">
+                        <div className="flex items-center w-full" onClick={() => {settingsTab === "my-reports" ? navigate(-2) : navigate('/settings') }} data-testid="HeaderMenuContainer">
                             <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
                             <span className={styles.HeaderTitle}>{settingsTabTitle()}</span>
                         </div>
@@ -148,10 +150,10 @@ const HeaderMobile = ({ items, actions }) => {
                             <span className={styles.HeaderTitle}>{headerTitle()}</span>
                         </div>
                         {
-                            walletPage?.pathname === '/wallet' && params.get('currency') === 'EUR' && (
+                            walletPage?.pathname === '/wallet' && params.get('currency') === 'EUR' && tab !== "programs" && (
                                 <Link to='/settings?sessionsSection=my-reports' >
                                     <div className="flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold">
-                                        Reports
+                                        {t("reports")}
                                         <IconApp code="t09" className="min-w-[9px]" size={9} color="#fff" />
                                     </div>
                                 </Link>

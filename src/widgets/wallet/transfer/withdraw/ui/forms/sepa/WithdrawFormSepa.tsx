@@ -8,11 +8,10 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
-import styles from "../styles.module.scss"
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {Modal} from "@/shared/ui/modal/Modal";
 import { Select } from '@/shared/ui/oldVersions/Select';
@@ -22,33 +21,31 @@ import { PaymentDetails } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
+import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
 const WithdrawFormSepa = () => {
-  const {t} = useTranslation();
-  const {md} = useBreakpoints();
-  const navigate = useNavigate();
+  // Context
   const currency = useContext(CtxWalletData);
-  const {initialLanguage} = getInitialProps();
   const {account} = useContext(CtxRootData);
-  const {inputCurr, setInputCurr} = useInputState();
-  const {isModalOpen, showModal, handleCancel} = useModal();
   const {uasToken, getUasToken} = useContext(UasConfirmCtx)
-  const {inputCurrValid, setInputCurrValid} = useInputValidateState();
   const {
     networkTypeSelect,
     tokenNetworks,
     localErrorInfoBox,
-    setBankRefresh,
-    localErrorClear
+    localErrorClear,
+    setBankRefresh
   } = useContext(CtxWalletNetworks);
-  const {
-    min_withdraw = 0,
-    withdraw_fee = 0
-  } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
+  // Hooks
+  const {t} = useTranslation();
+  const {md} = useBreakpoints();
+  const navigate = useNavigate();
+  const {initialLanguage} = getInitialProps();
+  const {inputCurr, setInputCurr} = useInputState();
+  const {isModalOpen, showModal, handleCancel} = useModal();
+  const {inputCurrValid, setInputCurrValid} = useInputValidateState();
   const [loading, setLoading] = useState<boolean>(false);
   const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
-
   const [details, setDetails] = useState<PaymentDetails>({
     purpose: null,
     iban: null,
@@ -63,6 +60,9 @@ const WithdrawFormSepa = () => {
     },
   })
 
+  // Handlers
+  const { min_withdraw = 0, withdraw_fee = 0, } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+
   const onInput = ({ target }) => {
     setDetails((prev) => ({ ...prev, [target.name]: target.value }))
   };
@@ -72,13 +72,20 @@ const WithdrawFormSepa = () => {
   }
 
   const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
-  const delayRes = useCallback(
-    debounce((details: PaymentDetails) => {
-      setBankRefresh(details);
-      }, 2500),
-    []);
+  const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
+  const handleConfirm = async () => {
+    if(!uasToken) {
+      await getUasToken()
+      showModal()
+    } else {
+      showModal()
+    }
+  };
+
+  // Effects
   useEffect(() => {
+    localErrorClear();
     if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
@@ -103,30 +110,21 @@ const WithdrawFormSepa = () => {
     }
   }, [inputCurr.value.number]);
 
-  const handleConfirm = async () => {
-    if(!uasToken) {
-        await getUasToken()
-        showModal()
-    } else {
-        showModal() 
-    }
-  };
-
-  useEffect(() => () => {
-    localErrorClear();
-  }, [])
-
+  // Helpers
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
+  const youWillPay = inputCurr.value.number;
+  const youWillGet = inputCurr.value.number - withdraw_fee;
+  const fee = withdraw_fee;
 
   return (
-    <div className="wrapper">
+    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
-      <div className="w-full md:mb-[5px] mb-[10px]">
+      <div className="w-full">
         <AmountInput
           transfers={md}
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const)}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
@@ -142,7 +140,7 @@ const WithdrawFormSepa = () => {
       {/* Amount End */}
 
       {/* IBAN Start */}
-      <div className="w-full md:mb-[10px] mb-[15px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           IBAN:
         </span>
@@ -157,7 +155,7 @@ const WithdrawFormSepa = () => {
       {/* IBAN End */}
 
       {/*  Recipient Start */}
-      <div className="w-full md:mb-[5px] mb-[10px] gap-[3px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("recipient")}:
         </span>
@@ -172,7 +170,7 @@ const WithdrawFormSepa = () => {
       {/* Recipient End */}
 
       {/* Description Start */}
-      <div className="w-full md:mb-[10px] mb-[15px] gap-[3px]">
+      <div className="w-full flex flex-col gap-[3px]">
         <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
           {t("description")}:
         </span>
@@ -187,53 +185,43 @@ const WithdrawFormSepa = () => {
       {/* Description End */}
 
       {/* Commissions Start */}
-      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+      <div className="w-full flex justify-center">
         <Commissions
           isLoading={loading}
-          youWillPay={inputCurr.value.number}
-          youWillGet={inputCurr.value.number - withdraw_fee}
-          fee={withdraw_fee}
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
         />
       </div>
       {/* Commissions End */}
 
       {/* Transfer Error Start */}
-      {localErrorInfoBox ? <div className="w-full md:mb-[10px] mb-[15px]">{localErrorInfoBox}</div> : null}
+      {localErrorInfoBox}
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center md:mb-[10px] mb-[15px]">
+      <div className="w-full flex justify-center">
         <Button
           size="lg"
           onClick={handleConfirm}
-          className={"w-full md:text-fs14 text-fs16"}
+          className="w-full md:text-fs14 text-fs16"
           disabled={isTransferDisabled}
         >
-          <span className={styles.ButtonLabel}>{t("transfer")}</span>
+          {t("transfer")}
         </Button>
       </div>
       {/* Transfer Button End */}
 
       {/* Transaction Information Start */}
-      <div className={"w-full md:flex hidden justify-center"}>
-          <span className={"text-[var(--gek-mid-grey)] md:text-fs12 text-fs14"}>
-            {t("fee_is_prec")}&nbsp;
-            <span className={"font-semibold"}>
-              {withdraw_fee} EURG
-            </span>
-            &nbsp;{t("per_transaction")}
-          </span>
-      </div>
+      <FeeInformation />
       {/* Transaction Information End */}
 
       {/* Confirm Start */}
-      <Modal
-        destroyOnClose
-        isModalOpen={isModalOpen}
-        title={t("confirm_transaction")}
-        onCancel={handleCancel}
-      >
+      <Modal isModalOpen={isModalOpen} title={t("confirm_transaction")} onCancel={handleCancel}>
         <WithdrawConfirmSepa
+          youWillPay={youWillPay}
+          youWillGet={youWillGet}
+          fee={fee}
           details={details}
           handleCancel={handleCancel}
         />

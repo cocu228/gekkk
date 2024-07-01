@@ -71,7 +71,7 @@ const WalletHeader = () => {
                             <span className={styles.WalletInfoMainText}>
                                 {(isEUR ? t("available") : t("free")).capitalize()}:
                             </span>
-                            <span data-testid="wallet_free_balance">{(isEUR
+                            <span style={{fontFamily: "Azeret Mono"}} className="font-bold" data-testid="wallet_free_balance">{(isEUR
                                 ? toLocaleFiatRounding(balance?.free_balance)
                                 : toLocaleCryptoRounding(balance?.free_balance, decimalPrec, decimalPrec)) ?? '-'
                             }</span>
@@ -82,11 +82,11 @@ const WalletHeader = () => {
                             ? styles.WalletInfoMainTextIncomeEUR
                             : styles.WalletInfoMainTextIncome
                         )}>
-                            <span className={styles.WalletInfoMainText}>
+                            <span  className={`${styles.WalletInfoMainText}`}>
                                 {(isEUR ? t("block") : t("income")).capitalize()}:
                             </span>
                             <span>
-                                <div data-testid="wallet_lock_in_balance">{isEUR
+                                <div style={{fontFamily: "Azeret Mono"}} className="text-[#45AD77]" data-testid="wallet_lock_in_balance">{isEUR
                                     ? `${toLocaleFiatRounding(balance?.lock_in_balance) ?? '-'}`
                                     : `+${toLocaleCryptoRounding(balance?.lock_in_balance, decimalPrec, decimalPrec) ?? '-'}`
                                 }</div>
@@ -99,7 +99,7 @@ const WalletHeader = () => {
                                 {(isEUR ? t("planned") : t("outcome")).capitalize()}:
                             </span>
                             <span>
-                                <div data-testid="wallet_lock_out_balance">{isEUR
+                                <div style={{fontFamily: "Azeret Mono"}} className="text-[#972235]" data-testid="wallet_lock_out_balance">{isEUR
                                     ? `${toLocaleFiatRounding(balance?.lock_out_balance) ?? '-'}`
                                     : `-${toLocaleCryptoRounding(balance?.lock_out_balance, decimalPrec, decimalPrec) ?? '-'}`
                                 }</div>
@@ -111,8 +111,8 @@ const WalletHeader = () => {
                             <div className={styles.WalletInfoMainText + " " + styles.WalletInfoMainTextOrders}>
                                 <span className={styles.WalletInfoMainText}>{t("orders").capitalize()}:</span>
                                 <span className={styles.LockOrders}>
-                                    <IconApp code="t54" color="#9D9D9D" size={9} />       
-                                    <div data-testid="wallet_lock_orders"> {toLocaleCryptoRounding(balance?.lock_orders ?? 0, decimalPrec, decimalPrec) ?? '-'}</div>
+                                    <IconApp code="t54" color="#B9B9B5" size={9} />       
+                                    <div style={{fontFamily: "Azeret Mono"}} data-testid="wallet_lock_orders"> {toLocaleCryptoRounding(balance?.lock_orders ?? 0, decimalPrec, decimalPrec) ?? '-'}</div>
                                 </span>
                             </div>
                             <div className={styles.DashedLine}></div>

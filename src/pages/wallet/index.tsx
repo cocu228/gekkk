@@ -28,6 +28,7 @@ import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 import {IS_GEKKARD_APP} from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
+import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -71,7 +72,7 @@ function Wallet() {
     }, [currencies])
 
     const isShownTabs = !(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnAboutPage)
-    
+
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -81,13 +82,15 @@ function Wallet() {
                 {!md ?
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid" style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
-                            <div className="substrate z-10 w-inherit relative min-h-[600px]">
+                            <div className="shadow-[0_3px_4px_#00000040] bg-[#fff] p-[40px] rounded-[10px] mb-[4px] w-inherit relative min-h-[600px]">
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
 
                                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
-                                    <Withdraw/>
+                                    <FeeProvider data-name={t("withdraw")}>
+                                        <Withdraw/>
+                                    </FeeProvider>
                                 </NetworkProvider>
 
                                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&
@@ -128,7 +131,7 @@ function Wallet() {
                             </div>
 
                             {!xl && (
-                              <div className="substrate z-0 -ml-4 h-full">
+                              <div className="z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]">
                                 <History currenciesFilter={currencyForHistory}/>
                               </div>
                             )}
@@ -152,6 +155,7 @@ function Wallet() {
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History
+                                className="mb-[40px]"
                                 data-tag={"history"}
                                 data-name={t("history")}
                                 currenciesFilter={currencyForHistory}

@@ -56,5 +56,34 @@
 .ButtonContainer {
     display: flex;
     margin-top: 1.5rem;
+    justify-content: end;
+}
+
+.Button {
+    width: 59px;
+    height: 27px;
+    display: flex;
+    max-width: 81px;
+    padding: 5px 0px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    align-items: center;
+    flex-direction: row;
     justify-content: center;
+    color: var(--gek-background);
+    transition: all ease-out 0.2s;
+    background: var(--gek-additional);
+    border: 2px solid var(--gek-additional);
+
+    &:disabled {
+      color: var(--gek-mid-grey);
+      background: var(--gek-background);
+      border: 2px solid var(--gek-mid-grey);
+    }
+
+    &:not(:disabled):hover {
+      color: var(--gek-background);
+      background: var(--gek-orange);
+    }
 }

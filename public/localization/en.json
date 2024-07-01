@@ -719,6 +719,7 @@
     "sign_out": "Sign Out",
     "main": "Main",
     "exchange": {
+      "exchange_excluding": "excluding discounts and bonuses",
       "you_pay": "You pay",
       "get_no_less": "Get no less",
       "title": "Exchange",
@@ -802,7 +803,7 @@
     "daily_limit": "Daily Limit",
     "day_limit": "Day Limit",
     "month_limit": "Month Limit",
-    "how_it_works": "How it works?",
+    "how_it_works": "How it works",
     "disable_limits_temporarily": "Disable Limits Temporarily",
     "card_transaction_history": "Card Transaction History",
     "specify_the_place_of_delivery_of_your_real_card": "Specify the place of delivery of your real card",
@@ -902,6 +903,7 @@
     "card_owner": "Owner",
     "card_pin": "Pin code",
     "card_info": "Card information",
+    "card_data": "Card data",
     "card_holder": "CARDHOLDER",
     "use_only": "Use only A-Z 0-9",
     "payment_exetution": "Payment exetution",
@@ -1092,6 +1094,8 @@
     "recepient_name": "Recepient's Name",
     "recepient_phone_number": "Recipient's Phone Number",
     "top_up_EURG": "You can top up your EURG wallet via fiat on the EUR withdrawal form",
+    "top_up_curr": "You can top up your {{curr}} wallet via withdrawal form",
+    "form_in_wallet": "in your {{project}} Wallet",
     "send_to_this": "Send a transaction to this",
     "address_small": "address",
     "fee_is_prec": "Fee is",
@@ -1126,6 +1130,7 @@
     "sign_transfer": "Sign transfer",
     "to_card": "To card",
     "cardholder": "Cardholder",
+    "cardholder_caption": "Only for Gekkard and Black Cat Card clients  Papaya LTD",
     "select_card": "Select card",
     "select_card_type": "Select card type",
     "select_currency": "Select currency",
@@ -1691,6 +1696,7 @@
     "the_fee_to_be_taken": "*The fee to be taken on a monthly basis from accounts with no transactions for more than {{months}} calendar months",
     "additional_services": "Additional services",
     "account_closure": "Account closure",
+    "transaction_receipt": "Transaction receipt",
     "additional_card_issue": "Additional card issue",
     "extra_fee_if_name": "Extra fee if name on additional card is different from the main card",
     "reissue_of_the_card": "Reissue of the card at the request of the client",
@@ -1717,6 +1723,9 @@
     "generate_address": "Generate address",
     "confirm_place_order": "Confirm place order",
     "order_type": "Order type",
+    "payment_type": "Payment type",
+    "bank_name": "Bank name",
+    "payment_method": "Payment method",
     "actions": "Actions",
     "clean": "Clean",
     "created": "Created",
@@ -1726,7 +1735,9 @@
     "select_type": "Select type",
     "select": "Select",
     "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation",
-    "not_found": "Not found"
+    "not_found": "Not found",
+    "my_fiat_reports": "My fiat reports",
+    "reports": "Reports"
 
   }
 }

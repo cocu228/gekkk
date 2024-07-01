@@ -10,27 +10,26 @@ import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import { Modal } from "@/shared/ui/modal/Modal";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 export function UserSession() {
-    const {sessions, closeAllSessions, closeSession} = useSession();
-    const isCurrent =(index:number) => index === 0;
-    const {isModalOpen, handleCancel, showModal} = useModal();
+    const { t } = useTranslation();
+    const { md } = useBreakpoints();
+    const isCurrent = (index: number) => index === 0;
+    const { isModalOpen, handleCancel, showModal } = useModal();
+    const { sessions, closeAllSessions, closeSession } = useSession();
     const [sessionToRemove, setSessionToRemove] = useState<UserSessionT>()
-    const {t} = useTranslation()
-    console.log(sessions);
-    
 
     return (
         <>
-        
-                <div className={styles.sessionWrap}>
-                    {sessions.map((session,index) =>
+            <div className={styles.sessionWrap}>
+                {sessions.map((session, index) =>
                     <>
                         {index === 0 || getDate(session.utc_create) !== getDate(sessions[index - 1].utc_create) ? (
                             <div className={styles.DataMobile}>
                                 {getDate(session.utc_create)}
                             </div>
-                        ): null}
+                        ) : null}
                         <div className={styles.SessionItem}>
                             <div className={'flex flex-col'}>
                                 <h4 className={styles.sessionItemTitle}>{getTime(getUnixTime(parseISO(session?.utc_create)))}</h4>
@@ -42,8 +41,9 @@ export function UserSession() {
                                 skeleton
                                 color='red'
                                 className='w-[75px]'
+                                size={md ? 'sm' : 'md'}
                                 disabled={isCurrent(index)}
-                                onClick={()=>{
+                                onClick={() => {
                                     showModal()
                                     setSessionToRemove(session)
                                 }}
@@ -52,29 +52,29 @@ export function UserSession() {
                             </Button>
                         </div>
                     </>)
-                    }
-                    {(sessions?.length > 1) &&
+                }
+                {(sessions?.length > 1) &&
                     <div className='m-5 min-h-[45px]'>
                         <Button
                             size='lg'
                             color='red'
                             className={styles.EndSessionTitle}
-                            onClick={()=>{
+                            onClick={() => {
                                 closeAllSessions();
                             }}
                         >
                             {t("end_all_other_sessions")}
                         </Button>
                     </div>
-                    }
-                    {!sessions.length && (
-                        <div className='relative w-full mt-32 flex justify-center min-h-[70px]'>
-                            <Loader/>
-                        </div>
-                    )}
-                </div>
-                <Modal
-                placeBottom={window.innerWidth<768}
+                }
+                {!sessions.length && (
+                    <div className='relative w-full mt-32 flex justify-center min-h-[70px]'>
+                        <Loader />
+                    </div>
+                )}
+            </div>
+            <Modal
+                placeBottom={window.innerWidth < 768}
                 isModalOpen={isModalOpen}
                 title={t('close_session')}
                 onCancel={handleCancel}
@@ -83,31 +83,31 @@ export function UserSession() {
                     {t("close_session_warning")}
                 </span>
                 <div className={styles.ModalFooter}>
-                    <> 
-                    <Button
-                        skeleton
-                        color='red'
-                        className='w-full !max-w-[100%]'
-                        onClick={()=>{
-                        closeSession(sessionToRemove);
-                        handleCancel()
-                        }}
+                    <>
+                        <Button
+                            skeleton
+                            color='red'
+                            className='w-full !max-w-[100%]'
+                            onClick={() => {
+                                closeSession(sessionToRemove);
+                                handleCancel()
+                            }}
                         >
-                        {t("close")}
-                    </Button>
-                    <Button
-                        skeleton
-                        className='w-full !max-w-[100%]'
-                        color='green'
-                        onClick={()=>{
-                        setSessionToRemove(null)
-                        handleCancel()
-                        }}
-                    >
-                        {t("cancel")}
-                    </Button> 
+                            {t("confirm")}
+                        </Button>
+                        <Button
+                            skeleton
+                            className='w-full !max-w-[100%]'
+                            color='green'
+                            onClick={() => {
+                                setSessionToRemove(null)
+                                handleCancel()
+                            }}
+                        >
+                            {t("cancel")}
+                        </Button>
                     </>
-                    </div>
+                </div>
             </Modal>
         </>
     );

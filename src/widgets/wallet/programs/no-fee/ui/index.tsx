@@ -39,7 +39,7 @@ const NoFeeProgram = () => {
     }, [account])
 
     return (
-        <>
+        <div className="md:bg-white md:rounded-[8px] md:p-2">
             <div className="row mb-10">
                 <div className="col">
                     <div className="info-box-warning">
@@ -55,7 +55,7 @@ const NoFeeProgram = () => {
             </div>
 
             <div className="row mb-6">
-                <div className="col bg-[#F9F9FA] px-6 py-5">
+                <div className="col bg-[#F9F9FA] md:bg-white px-6 py-5">
                     <div className="row flex flex-wrap mb-4">
                         <div className="col w-1/3  flex flex-row items-center justify-center">
                             <img
@@ -225,7 +225,7 @@ const NoFeeProgram = () => {
                     >{t("confirm")}</Button>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

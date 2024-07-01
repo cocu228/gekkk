@@ -1,4 +1,3 @@
-import {getCookieData} from "@/shared/lib/helpers";
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 export type $AxiosError = {
@@ -14,31 +13,16 @@ export type $AxiosResponse<T> = {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const sessionHeader = () => {
-    const {
-        phone,
-        token,
-        tokenHeaderName
-    } = getCookieData<{
-        phone: string,
-        token: string,
-        tokenHeaderName: string
-    }>();
+const sessionHeaders = {
+    'productId': "GEKKARD",
+    'applicationId': 'GEKKARD',
+    'Content-Type': 'application/json',
+};
 
-    return {
-        'productId': "GEKKARD",
-        'applicationId': 'GEKKARD',
-        'Content-Type': 'application/json',
-        ...(token ? {
-            'Authorization': phone,
-            [tokenHeaderName]: token,
-        } : {})
-    }
-}
 
 export const $axios = axios.create({
     withCredentials: true,
-    headers: sessionHeader(),
+    headers: sessionHeaders,
     paramsSerializer: {
         indexes: null // by default: false
     },

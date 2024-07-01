@@ -60,7 +60,7 @@ const WithdrawConfirmSepa: FC<IWithdrawConfirmSepaProps> = ({
       const response = await apiPaymentSepa(getTransformDetails(), false, headers);
       // @ts-ignore
       const confToken = response.data.errors[0].properties.confirmationToken;
-      const inSideHeaders = await signHeadersGeneration(phone, confToken);
+      const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
       const transformedDetails = getTransformDetails();
       const res = await apiPaymentSepa(transformedDetails, false, { ...headers, ...inSideHeaders })
       if (resValidation(res)) {

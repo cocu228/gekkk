@@ -13,7 +13,7 @@ const FeeInformation: FC = () => {
     token_symbol
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
-  const fee = percent_fee > 0 ? `${percent_fee}%` : withdraw_fee > 0 ? `${withdraw_fee} ${token_symbol}` : null;
+  const fee = percent_fee > 0 ? `${percent_fee}%` : withdraw_fee > 0 ? `${withdraw_fee} ${token_symbol}` : "0%";
 
   const initialChild = (
     <>

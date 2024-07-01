@@ -101,7 +101,6 @@ const WithdrawFormPhoneNumber = () => {
   return (
     <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
       {/* Amount Start */}
-      <>{`${!!localErrorInfoBox}`} || {`${loading}`} || {`${inputCurrValid.value}`} || {`${!isFieldsFill}`}</>
       <div className="w-full">
         <AmountInput
           transfers

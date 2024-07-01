@@ -50,7 +50,7 @@ const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
             const response = await apiPaymentContact(details, false, headers);
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
-            const inSideHeaders = await signHeadersGeneration(phone, confToken);
+            const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
 
             const res = await apiPaymentContact(details, false, { ...headers, ...inSideHeaders })
             if (resValidation(res)) {

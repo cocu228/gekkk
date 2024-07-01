@@ -68,7 +68,7 @@ const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handle
             const response = await apiPaymentSepa(details, false, headers)
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
-            const inSideHeaders = await signHeadersGeneration(phone, confToken);
+            const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
             const res = await apiPaymentSepa(details, false, { ...headers, ...inSideHeaders })
             if (resValidation(res)) {
                 setRefresh();

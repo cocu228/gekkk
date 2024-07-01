@@ -1,11 +1,115 @@
-.exchangeHeader {
+.ExchangeHeader {
     border-radius: 8px;
     background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #FFF 101.23%);
     display: flex;
+    margin-top: 20px;
     align-items: center;
     gap: 40px; 
-    padding: 40px;
+    padding: 10px 40px;
     box-sizing: border-box;
     height: 100px;
     margin-bottom: 15px;
+
+    &TitleGroup {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        &Title {
+            font-weight: 700;
+            font-size: 20px;
+            font-family: Inter;
+            color: #285E69;
+        }
+
+        &Text {
+            font-family: Inter;
+            color: #285E69;
+            font-weight: 400;
+            font-size: 14px;
+        }
+    }
+}
+
+.ExchangeTabsBlock {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--gek-additional);
+    border-radius: 8px;
+    padding: 5px 10px;
+    gap: 8px;
+    height: 36px;
+    box-sizing: border-box;
+}
+
+.ExchangeTabsBlockItem {
+    height: 100%;
+    // background: #fff;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    transition: all .2s;
+
+    &:hover {
+        border: 1px solid #fff;
+    }
+
+    &Active {
+        font-weight: 700;
+        color: #285E69;
+        background: #F7F7F0;
+    }
+}
+
+.ExchangePrivateInfo {
+    margin-left: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+
+    &Close {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        color: #8F123A;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: Inter;
+        text-decoration: underline;
+    }
+
+    @media screen and (max-width: 1100px) {
+        margin-left: 20px;
+    }
+}
+
+.ExchangePrivateParticipantsQuantity {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    color: #29354C;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 3px;
+    text-align: end;
+    font-family: Inter;
+
+    &Wrap {
+        display: flex;
+        align-items: center;
+        gap: 3.5px;
+    }
 }

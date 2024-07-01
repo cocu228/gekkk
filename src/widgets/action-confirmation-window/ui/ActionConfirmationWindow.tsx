@@ -3,14 +3,12 @@ import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
-import { MASK_CODE } from "@/shared/config/mask";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { InternalAxiosRequestConfig } from "axios";
-import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import { useContext, useEffect, useState } from "react";
-import { CtxNeedConfirm } from "@/processes/errors-provider-context";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IState {
@@ -28,14 +26,13 @@ const ActionConfirmationWindow = () => {
     loading: false,
   });
   const { t } = useTranslation();
-  const { onInput } = useMask(MASK_CODE);
   const { isModalOpen, handleCancel, showModal } = useModal();
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   const {
     pending,
     setSuccess,
     actionConfirmResponse: response,
-  } = useContext(CtxNeedConfirm);
+  } = useContext(UasConfirmCtx);
 
   useEffect(() => {
     (async () => {
@@ -93,8 +90,9 @@ const ActionConfirmationWindow = () => {
 
   return (
     <Modal
-      isModalOpen={isModalOpen}
+      zIndex
       closable={false}
+      isModalOpen={isModalOpen}
       title={t('identity_verification')}
       onCancel={() => {
         handleCancel();
@@ -118,7 +116,6 @@ const ActionConfirmationWindow = () => {
             size={'md'}
             type="text"
             value={code}
-            onInput={onInput}
             placeholder={t("enter_sms_code")}
             onChange={({ target }) => {
               localErrorClear();

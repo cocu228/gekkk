@@ -29,25 +29,23 @@ const InputField: FC<IParams> & {
 
     return (
         <div className={wrapperClassName ? wrapperClassName : styles.Field}>
-            <div className={'display: flex'}>
+            <div className="flex">
                 <input
                     type="text"
                     name={name}
                     disabled={disabled || !currency}
                     className={styles.Input}
                     value={value}
-                    placeholder={!currency ? '' : `-${placeholder?.toLowerCase()}-`}
+                    placeholder={!currency ? '' : placeholder && `-${placeholder?.toLowerCase()}-`}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         const value: string = event.target.value
                         onChange(value)
                     }}
-
                 />
                 <div className={styles.SuffixWrapper}>
                     <span className={styles.Token}>
                         {currency ?? t("select_a_token")}
                     </span>
-
                     {currency && <IconCoin width={40} height={40} code={currency}/>}
                 </div>
             </div>

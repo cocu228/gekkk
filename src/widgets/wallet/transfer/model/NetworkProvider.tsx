@@ -1,6 +1,11 @@
-import {CtxWalletNetworks, ICtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {
+    CtxWalletNetworks,
+    ICtxWalletNetworks,
+    CtxWalletData,
+    WalletNetworksStateType
+} from "@/widgets/wallet/transfer/model/context";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {apiTokensNetworks} from "@/shared/(orval)api/gek";
+import { apiGetPaymentCommission, apiTokensNetworks } from "@/shared/(orval)api/gek";
 import {
     getChosenNetwork,
     helperApiListAddresses,
@@ -10,17 +15,21 @@ import {
 import {apiListAddresses} from "@/shared/(orval)api/gek";
 import {AxiosResponse} from "axios";
 import {randomId} from "@/shared/lib/helpers";
-import {TokensNetwork} from "@/shared/(orval)api/gek/model";
+import { PaymentDetails, PaymentFeeApiResponse, TokensNetwork } from "@/shared/(orval)api/gek/model";
+import useError from "@/shared/model/hooks/useError";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface IProps {
     children: React.ReactNode
 }
 
 const NetworkProvider = ({children, ...props}: IProps) => {
+    const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const isTopUp = props["data-tag"] === "top_up";
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     
-    const initState = {
+    const initState: WalletNetworksStateType = {
         networksForSelector: null,
         tokenNetworks: null,
         networkTypeSelect: null,
@@ -29,12 +38,12 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         refreshKey: null
     }
     
-    const [state, setState] =
-        useState<Omit<ICtxWalletNetworks, "setRefresh" | "setLoading" | "setNetworkType">>(initState);
+    const [state, setState] = useState<WalletNetworksStateType>(initState);
     
     const setNetworkId = async (networkTypeSelect: ICtxWalletNetworks["networkTypeSelect"]) => {
+        localErrorClear();
         let firstAddress = null;
-        const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect).id;
+        const networkId = getChosenNetwork(state.tokenNetworks, networkTypeSelect)?.id || 0;
         
         if (isTopUp && networkId !== 0) {
             setLoading(true)
@@ -58,7 +67,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         ...prev,
         loading
     }));
-    
+
     const setRefresh = (quite: boolean = false, amount: number) => {
         if (!quite) {
             setState(prev => ({
@@ -69,6 +78,19 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             updateQuiteNetworksDefault(amount)
         }
     }
+
+    const setBankRefresh = async (paymentDetails: PaymentDetails) => {
+        const response: AxiosResponse<PaymentFeeApiResponse> = await apiGetPaymentCommission(paymentDetails);
+        if (response.data.error) {
+            localErrorHunter(response.data.error)
+        } else {
+            helperApiTokenNetworks(response)
+              .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
+                  ...prev,
+                  tokenNetworks: networksDefault
+              })));
+        }
+    }
     
     const updateQuiteNetworksDefault = async (amount: number) => {
         const response: AxiosResponse = await apiTokensNetworks({
@@ -76,12 +98,15 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             currency: $const,
             wdr_amount: amount
         });
-        
-        helperApiTokenNetworks(response)
-            .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
-                ...prev,
-                tokenNetworks: networksDefault
-            })));
+        if (response.data.error) {
+            localErrorHunter(response.data.error)
+        } else {
+            helperApiTokenNetworks(response)
+              .success((networksDefault: Array<TokensNetwork>) => setState(prev => ({
+                  ...prev,
+                  tokenNetworks: networksDefault
+              })));
+        }
     }
     
     const clearState = (changedCurrency) => setState(prevState => ({
@@ -123,10 +148,23 @@ const NetworkProvider = ({children, ...props}: IProps) => {
                 }));
             });
         })();
-    }, [$const, state.refreshKey]);
+    }, [$const, state.refreshKey, account]);
 
-    return <CtxWalletNetworks.Provider
-        value={({...state, setNetworkType: setNetworkId, setLoading, setRefresh})}>{children}</CtxWalletNetworks.Provider>
+    return (
+      <CtxWalletNetworks.Provider
+          value={({
+              ...state,
+              setNetworkType: setNetworkId,
+              setLoading,
+              setRefresh,
+              setBankRefresh,
+              localErrorInfoBox,
+              localErrorClear
+          })}
+        >
+          {children}
+      </CtxWalletNetworks.Provider>
+    )
 
 }
 

@@ -1,30 +1,9 @@
 import {$axios} from "@/shared/lib/(orval)axios";
 import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
-
-interface IParams {
-    account: string;
-    beneficiaryName: string | null;
-    cardNumber: string | null; // By card number
-    fromCardId: string; // From card
-    phoneNumber: string; // By phone number
-    purpose: string;
-    amount: {
-        sum: {
-            currency: {
-                // label: string; Not used
-                code: string;
-            };
-            value: number;
-        }
-    };
-    
-    // Not used
-    // sendLinkToRecipient: boolean;
-    // transferDetails: string;
-}
+import type { PaymentDetails } from "@/shared/(orval)api/gek/model";
 
 export const apiPaymentContact = (
-    params: Partial<IParams>,
+    params: PaymentDetails,
     commission: boolean = false,
     headers: any = null
     // headers: Partial<SignHeaders> = null

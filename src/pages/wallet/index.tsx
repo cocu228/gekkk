@@ -9,12 +9,11 @@ import {AccountRights} from "@/shared/config/mask-account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import CardsMenu from "@/widgets/!cards-menu/ui";
+import CardsMenu from "@/widgets/cards-menu/ui";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
-import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 // import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {mockEUR} from "@/processes/PWA/mock-EUR";
@@ -25,9 +24,11 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
-import Programs from "@/widgets/wallet/programs/cashback/EUR/ui";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 import {IS_GEKKARD_APP} from "@/shared/lib/";
+import Programs from "@/widgets/wallet/programs/CashbackCard";
+import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
+import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -49,13 +50,6 @@ function Wallet() {
         $currency = currencies.get(currency) ? currencies.get(currency) : mockEUR;
     }
 
-    useEffect(() => {
-        if (currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")) {
-
-            navigate("404")
-        }
-    }, [currencies])
-
     const isOnAboutPage = tab === "about";
     const isOnProgramsPage = tab === "programs";
     const isOnNoFeeProgramPage = tab === "no_fee_program";
@@ -70,6 +64,13 @@ function Wallet() {
     const currencyForHistory = useMemo(() => [currency], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 
+    useEffect(() => {
+        if (currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")) {
+
+            navigate("404")
+        }
+    }, [currencies])
+    
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -80,13 +81,15 @@ function Wallet() {
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid"
                              style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
-                            <div className="substrate z-10 w-inherit relative min-h-[200px]">
+                            <div className="shadow-[0_3px_4px_#00000040] bg-[#fff] p-[40px] rounded-[10px] mb-[4px] w-inherit relative min-h-[600px]">
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
 
                                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
-                                    <Withdraw/>
+                                    <FeeProvider data-name={t("withdraw")}>
+                                        <Withdraw/>
+                                    </FeeProvider>
                                 </NetworkProvider>
 
                                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) &&
@@ -116,7 +119,7 @@ function Wallet() {
                                                 data-name={t("history")}/>}
                             </div>
 
-                            {!xl && <div className="substrate z-0 -ml-4 h-full">
+                            {!xl && <div className="z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]">
                                 <History currenciesFilter={currencyForHistory}/>
                             </div>}
                         </div>
@@ -139,6 +142,7 @@ function Wallet() {
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History
+                                className="mb-[40px]"
                                 data-tag={"history"}
                                 data-name={t("history")}
                                 currenciesFilter={currencyForHistory}

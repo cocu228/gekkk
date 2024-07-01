@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { CtxRootData } from "@/processes/RootContext";
@@ -9,7 +9,8 @@ import { AccountRights } from "@/shared/config/mask-account-rights";
 import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { IS_GEKKARD_APP } from "@/shared/lib";
+import { IS_GEKKARD_APP, IS_GEKKWALLET_APP } from "@/shared/lib";
+import Tooltip from "@/shared/ui/tooltip/Tooltip";
 
 const SvgGekkardLogo = (
   <svg
@@ -58,7 +59,7 @@ const HeaderDesktop = ({ items, actions }) => {
           <a onClick={() => navigate("/")}>
             {IS_GEKKARD_APP() ? (
               SvgGekkardLogo
-            ) : (
+            ) : IS_GEKKWALLET_APP() ? <img src="/img/gekwallet_logo.svg" alt="logo" /> : (
               <img src="/img/gekkoin.svg" alt="logo" />
             )}
           </a>

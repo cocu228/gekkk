@@ -1,0 +1,151 @@
+@import "@styles/mixins";
+
+.Wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-y: hidden;
+  background: white;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Block {
+  width: 90%;
+  height: 100%;
+  padding: 20px;
+  background: #fff;
+  box-sizing: border-box;
+  border: 1px solid var(--gek-light-grey);
+
+  @include max-devices('md'){
+    width: 100%;
+  }
+}
+
+.Header {
+  gap: 4px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  &Id,
+  &Logo,
+  &Date,
+  &Title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &Logo {
+    margin-bottom: 12px;
+  }
+
+  &Title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gek-additional);
+
+    @include max-devices('md'){
+      font-size: 10px;
+    }
+  }
+
+  &Id {
+    font-size: 14px;
+    font-weight: 700;
+
+    @include max-devices('md'){
+      font-size: 12px;
+    }
+  }
+
+  &Date {
+    font-size: 12px;
+    font-weight: 600;
+
+    @include max-devices('md'){
+      font-size: 10px;
+    }
+  }
+}
+
+.InformationBlock {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+
+  &Item {
+    padding-bottom: 7px;
+    display: flex;
+    flex-direction: column;
+
+    &Title,
+    &Value {
+      font-size: 12px;
+      font-weight: 600;
+      color: #676767;
+    }
+
+    &Title {
+      color: var(--gek-additional);
+      font-weight: 700;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+    }
+
+    &Value {
+      color: var(--text-primary)
+    }
+  }
+
+  &Title {
+    margin-top: 12px;
+    display: block;
+    width: 100%;
+    background: inherit;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #b4c0cd;
+    font-size: 12px;
+    font-weight: 400;
+    color: #b4c0cd;
+    font-family: Inter;
+    outline: none;
+    margin-bottom: 8px;
+  }
+}
+
+.Footer {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid #b4c0cd;
+}
+
+.Status {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: 1px dashed rgba(43, 182, 115, 0.5);
+  border-radius: 10px;
+
+  span {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(43, 182, 115, 0.5);
+    font-style: italic;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    display: inline;
+  }
+}
+
+.ButtonContainer {
+  width: 100%;
+  display: flex;
+  margin-top: 16px;
+  justify-content: center;
+}

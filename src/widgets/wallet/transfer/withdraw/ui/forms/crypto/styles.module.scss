@@ -81,3 +81,21 @@
     display: flex;
     margin-bottom: 1.25rem;
 }
+
+.Input {
+    font-size: 14px;
+    height: 35px;
+    text-align: center;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+
+.Input::placeholder {
+    font-size: 14px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}

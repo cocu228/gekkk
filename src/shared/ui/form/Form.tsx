@@ -1,11 +1,10 @@
-import {memo, PropsWithChildren} from 'react';
-import {FormProps} from 'antd';
+import {FormHTMLAttributes, memo, PropsWithChildren, Ref, RefAttributes} from 'react';
 
-interface Props extends FormProps {
+interface Props extends FormHTMLAttributes<HTMLFormElement>{
     title?: string;
     subtitle?: string;
     wrapperClassName?: string;
-    onSubmit: () => void
+    onSubmit: () => void,
 }
 
 const Form = memo<PropsWithChildren<Props>>(

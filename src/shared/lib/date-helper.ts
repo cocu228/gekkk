@@ -20,10 +20,9 @@ export const formatForApi = (value: Date | string) => typeof value === "string"
     ? format(new Date(value), 'yyyy-MM-dd')
     : format(value, 'yyyy-MM-dd');
 
-// const timeZoneCustomer = 'Europe/Moscow'
-
 const timeZoneCustomer = Intl.DateTimeFormat().resolvedOptions().timeZone
 export const formatForTimeZone = (value) => utcToZonedTime(value, timeZoneCustomer)
-export const formatForCustomer = (value) => format(formatForTimeZone(new Date(value)), "dd/MM/yy HH:mm")
+export const formatForFile = (value) => format(formatForTimeZone(new Date(value)), "dd.MM.yyyy_HH.mm")
 export const formatForHistoryMobile = (value) => format(formatForTimeZone(new Date(value)), "dd.MM.yy")
+export const formatForCustomer = (value) => format(formatForTimeZone(new Date(value)), "dd/MM/yy HH:mm")
 export const formatForHistoryTimeMobile = (value) => format(formatForTimeZone(new Date(value)), "HH:mm")

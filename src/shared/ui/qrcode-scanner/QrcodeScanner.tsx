@@ -40,7 +40,7 @@ const QrcodeScanner = ({
         };
     }, []);
 
-    return <div className={styles.a} id={qrScannerId}/>;
+    return <div className={styles.QrScanner} id={qrScannerId}/>;
 };
 
 export default QrcodeScanner;

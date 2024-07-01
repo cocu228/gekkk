@@ -29,7 +29,10 @@
     "one-time code": "Einmalcode",
     "phone_code": "Telefoncode",
     "back_to_login_page": "← Zurück zur Anmeldeseite",
-    "can_use_code": "Sie können den Code für: {{amount}} Sekunden verwenden",
+    "use_code": {
+      "can_use_code": "Sie können den Code für",
+      "amount": ": {{amount}} Sekunden verwenden"
+    },
     "resend_one-time_code": "Einmalcode erneut senden",
     "unconfirmed_transactions": "Sie haben unbestätigte Transaktionen. Bitte geben Sie den Namen des Absenders ein",
     "here": "hier",
@@ -435,7 +438,7 @@
     "transfer_to_contact": "Überweisung an Kontakt",
     "templates": "Vorlagen",
     "history": "Verlauf",
-    "signHistory": "Anmelde und Signaturverlauf",
+    "sign_history": "Anmelde und Signaturverlauf",
     "withdraw": "Abheben",
     "funds_transfer": "Fondstransfer",
     "create_transfer": "Überweisung erstellen",
@@ -573,15 +576,16 @@
     "sign_out": "Abmelden",
     "main": "Haupt",
     "exchange": {
+      "exchange_excluding": "ausgenommen Rabatte und Boni",
       "you_pay": "Sie zahlen",
       "get_no_less": "Bekommen Sie nicht weniger",
       "create_order": "Bestellung erstellen",
       "broker_exchange_fee": "Maklerwechselgebühr",
-      "title": "Austausch",
+      "title": "Krypto austausch",
       "private_title": "Privatraum",
       "closed_orders": "Abgeschlossene Bestellungen",
       "active_orders": "Aktive Bestellungen",
-      "rooms": "Zimmer",
+      "rooms": "Private zimmer",
       "new_room": "Neues Zimmer",
       "describe": "Kryptowährungsumtausch - schnell und einfach",
       "create_private_exchange_room": "Privaten Austauschraum erstellen",
@@ -816,6 +820,7 @@
     "sign_transfer": "Überweisung unterschreiben",
     "to_card": "Auf die Karte",
     "cardholder": "Karteninhaber",
+    "cardholder_caption": "Nur für Gekkard und Black Cat Card Kunden Papaya LTD",
     "select_card": "Karte auswählen",
     "select_currency": "Währung auswählen",
     "no_data_avialible": "Keine Daten verfügbar",
@@ -828,6 +833,7 @@
     "minimum_order_amount": "Der Mindestbestellwert beträgt {{amount}}",
     "per": "pro",
     "close_current_room": "Aktuellen Raum schließen",
+    "close_room": "Raum schließen",
     "back_to_exchange": "Zurück zum Austausch",
     "close_private_exchange_room": "Private Austauschraum schließen",
     "beneficiary": "Begünstigter",
@@ -1384,6 +1390,10 @@
     "account_maintenance_value_additional": "{{value}} EUR monatlich, {{payments}} kostenlose Interbank-SEPA-Zahlungen enthalten (1 IBAN-Konto + 1 Karte + zusätzliche Karten)",
     "commission_for_using_mobile": "Kommission für die Nutzung einer mobilen Bank pro Monat",
     "bonus_programs": "Bonusprogramme",
+    "transaction_receipt": "Transaktionsbeleg",
+    "payment_type": "Zahlungsart",
+    "bank_name": "Bankname",
+    "payment_method": "Zahlungsmethode",
     "csh_purchases_card": "Rückvergütung für Kartenzahlungen (ohne Bargeldabhebungen und Überweisungen)",
     "csh_purchases_card_value": "{{percent}} (mindestens {{payout}} EUR pro Monat)",
     "csh_purchases_amazon": "Rückvergütung für Einkäufe auf Amazon",
@@ -1412,7 +1422,7 @@
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
     "decline": "Stornieren",
-    "how_it_works": "Wie funktioniert es?",
+    "how_it_works": "Wie funktioniert es",
     "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
     "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",
     "payment_of_purchases_on_the_card": "Zahlung von Einkäufen mit der Karte",
@@ -1452,6 +1462,7 @@
     "order_type": "Bestellart",
     "payment_cards": "Zahlungskarten",
     "card_info": "Karteninformationen",
+    "card_data": "Kartendaten",
     "send_to_card": "Auf Karte senden:", 
     "card_number": "KARTENNUMMER", 
     "expiration_date": "Ablaufdatum", 
@@ -1479,7 +1490,16 @@
     "select_type": "Typ auswählen",
     "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen",
     "select": "Auswählen", 
-    "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können"
+    "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können",
+    "not_found": "Nicht gefunden",
+    "flat_optional": "Wohnung (optional)",
+    "my_fiat_reports": "Meine Fiat-Berichte",
+    "reports": "Berichte",
+    "top_up_curr": "Sie können Ihr {{curr}}-Wallet über das Abhebungsformular aufladen", 
+    "form_in_wallet": "in Ihrem {{project}}-Wallet"
+    
+
+
 
 
 

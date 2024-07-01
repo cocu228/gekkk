@@ -2,14 +2,16 @@ import {useState} from 'react';
 import styles from './style.module.scss';
 import { IconApp } from '../icons/icon-app';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import useCopyStore from '@/shared/store/useCopy/useCopyStore';
 
 interface Props {
     value: string
 }
 
 function ClipboardField({value}: Props) {
-    const [isCopied, setIsCopied] = useState<boolean>(false);
+    const [isCopied, setIsCopiedF] = useState<boolean>(false);
     const {md} = useBreakpoints()
+    const {setIsCopied} = useCopyStore()
 
     const copyTextToClipboard = async (text) => {
         if ('clipboard' in navigator) {
@@ -20,11 +22,12 @@ function ClipboardField({value}: Props) {
     }
 
     const handleCopyClick = () => {
+        setIsCopied(true)
         copyTextToClipboard(value)
             .then(() => {
-                setIsCopied(true);
+                setIsCopiedF(true);
                 setTimeout(() => {
-                    setIsCopied(false);
+                    setIsCopiedF(false);
                 }, 1000);
             })
             .catch((err) => {

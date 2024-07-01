@@ -22,7 +22,7 @@ const WalletHeaderMobile = () => {
         decimalPrec
     } = useContext(CtxWalletData);
     const {getAccountDetails} = storeAccountDetails(state => state);
-
+    const {setIsCopied} = useCopyStore()
     const [params] = useSearchParams();
     const currency = params.get('currency');
     const {account} = useContext(CtxRootData);
@@ -49,18 +49,15 @@ const WalletHeaderMobile = () => {
             setRates(rates);
         })();
     }, [account]);
-    if (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) {
-        return <></>
-    }
 
-    const {setIsCopied} = useCopyStore()
+
 
     const ibanCopy = () => {
         navigator.clipboard.writeText(IBAN)
         setIsCopied(true)
     }
 
-    return (
+    return (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) ? null : (
         <div className={styles.HeaderWalletMobileWrap}>
             <div className={styles.HeaderWalletMobile}>
                 
@@ -100,7 +97,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("block") : t("income")).capitalize()}:
                         </span>
                         <span>
-                            <div data-testid="wallet_lock_in_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#45AD77]" data-testid="wallet_lock_in_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_in_balance) ?? '-'}`
                                 : `+${toLocaleCryptoRounding(balance?.lock_in_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>
@@ -113,7 +110,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("planned") : t("outcome")).capitalize()}:
                         </span>
                         <span>
-                            <div  data-testid="wallet_lock_out_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#972235]" data-testid="wallet_lock_out_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_out_balance) ?? '-'}`
                                 : `-${toLocaleCryptoRounding(balance?.lock_out_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>

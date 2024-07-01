@@ -1,4 +1,4 @@
-import { Input } from "antd";
+// import { Input } from "antd";
 import Form from "@/shared/ui/form/Form";
 import "@styles/(cs)react-phone-input.scss";
 import { useSessionStorage } from "usehooks-ts";
@@ -6,7 +6,7 @@ import { memo, useRef, useState } from "react";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import { storyDisplayAuth } from "@/widgets/(no-usages)auth/model/story";
 import { formatAsNumber } from "@/shared/lib/formatting-helper";
-import useValidation from "@/shared/model/hooks/useValidation";
+// import useValidation from "@/shared/model/hooks/useValidation";
 import { passwordMessage, phoneMessage } from "@/shared/config/message";
 import useError from "@/shared/model/hooks/useError";
 import { TSessionAuth } from "@/widgets/(no-usages)auth/model/types";
@@ -377,13 +377,13 @@ const FormLoginAccount = memo(() => {
       >
         {/*<Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>*/}
         <Form autoComplete={"on"} onFinish={onFinish}>
-          <FormItem
+          {/* <FormItem
             className="mb-2"
             label="Phone"
             id={"phoneNumber"}
             preserve
             rules={[{ required: true, ...phoneMessage }, phoneValidator]}
-          >
+          > */}
             {/* <div style={{
                             display: 'flex',
                             gap: '26px',
@@ -487,19 +487,19 @@ const FormLoginAccount = memo(() => {
                 />
               </div>
             </div>
-          </FormItem>
+          {/* </FormItem> */}
           <span className="text-fs12 text-red-800">{localErrorSpan}</span>
 
-          <FormItem
+          {/* <FormItem
             name="password"
             label="Password"
             rules={[{ required: true, ...passwordMessage }, passwordValidator]}
-          >
+          > */}
             <div>
               {/* <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
                             Password
                         </div> */}
-              <Input.Password
+              <Input
                 className={styles.input}
                 disabled={loading}
                 onChange={({ target }) =>
@@ -512,7 +512,7 @@ const FormLoginAccount = memo(() => {
                 placeholder="Password"
               />
             </div>
-          </FormItem>
+          {/* </FormItem> */}
 
           <div className="row text-right mb-4">
             {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}

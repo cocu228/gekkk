@@ -6,7 +6,7 @@ import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/
 import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
 import {storeAssets} from "@/shared/store/assets";
-import { IS_GEKKARD_APP } from '@/shared/lib';
+import { $axios, IS_GEKKARD_APP } from '@/shared/lib';
 
 interface IState {
     currencies: Map<string, ICtxCurrency> | null,
@@ -30,46 +30,48 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     useEffect(() => {
         (async function () {
-            const walletsResponse = await apiGetBalance();
-            const assetsResponse = assets ?? await getAssets();
-            
-            let currencies: Map<string, ICtxCurrency>
-            
-            actionResSuccess(walletsResponse)
-                .success(async function () {
-                    currencies = isNull(state.currencies)
-                        ? initEmptyCurrenciesCollection(assetsResponse)
-                        : state.currencies;
-                    
-                    currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse));
-                    
-                    setState(prev => ({
-                        ...prev,
-                        currencies,
-                        totalAmount: {
-                            ...prev.totalAmount,
-                            refreshKey: randomId()
-                        }
-                    }));
-
-                    if (IS_GEKKARD_APP()) {
-                        //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
-                        // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
-                        const eurResponse = await apiGetBalance({
-                            currency: 'EUR'
-                        });
+            if (!!$axios.defaults.headers["AccountId"]) {
+                const walletsResponse = await apiGetBalance();
+                const assetsResponse = assets ?? await getAssets();
+                
+                let currencies: Map<string, ICtxCurrency>
+                
+                actionResSuccess(walletsResponse)
+                    .success(async function () {
+                        currencies = isNull(state.currencies)
+                            ? initEmptyCurrenciesCollection(assetsResponse)
+                            : state.currencies;
                         
-                        currencies = walletsGeneration(currencies, uncoverResponse(eurResponse));
+                        currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse));
                         
                         setState(prev => ({
-                            ...prev, currencies,
+                            ...prev,
+                            currencies,
                             totalAmount: {
                                 ...prev.totalAmount,
                                 refreshKey: randomId()
                             }
                         }));
-                    }
-                }).reject(() => null);
+                    
+                        if (IS_GEKKARD_APP()) {
+                            //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
+                            // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
+                            const eurResponse = await apiGetBalance({
+                                currency: 'EUR'
+                            });
+                            
+                            currencies = walletsGeneration(currencies, uncoverResponse(eurResponse));
+                            
+                            setState(prev => ({
+                                ...prev, currencies,
+                                totalAmount: {
+                                    ...prev.totalAmount,
+                                    refreshKey: randomId()
+                                }
+                            }));
+                        }
+                    }).reject(() => {});
+            }
         })();
     }, [refreshKey]);
     

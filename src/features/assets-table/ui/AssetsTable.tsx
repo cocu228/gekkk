@@ -1,22 +1,18 @@
 import styles from "./style.module.scss";
 import Input from "@/shared/ui/input/Input";
-import { useNavigate } from "react-router-dom";
 import GTable from "@/shared/ui/grid-table/";
 import { getAlignment, getWidth } from "../model/helpers";
 import { AssetTableKeys } from "../model/types";
-import Button from "@/shared/ui/button/Button";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { apiGetRates } from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { evenOrOdd, getRoundingValue, scrollToTop } from "@/shared/lib/helpers";
 import { useTranslation } from "react-i18next";
-import { getCurrencyRounding } from "@/shared/lib/number-format-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { AssetsTableRow } from "./AssetsTableRow";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface IParams {
   modal?: boolean;
@@ -32,8 +28,8 @@ interface IParams {
 
 function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
   return (
-    currency.$const?.toLowerCase().includes(searchValue) ||
-    currency.name?.toLowerCase().includes(searchValue)
+    currency.$const?.toLowerCase().includes(searchValue.toLowerCase()) ||
+    currency.name?.toLowerCase().includes(searchValue.toLowerCase())
   );
 }
 
@@ -49,6 +45,8 @@ const AssetsTable = ({
   border
 }: IParams) => {
   const inputRef = useRef(null);
+  const { t } = useTranslation();
+  const { account } = useContext(CtxRootData);
   const { lg, md } = useContext(BreakpointsContext);
   const { currencies } = useContext(CtxCurrencies);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -62,8 +60,6 @@ const AssetsTable = ({
       inputRef.current.focus();
     }
   });
-
-  const { t } = useTranslation();
 
   const assetsFilter = (asset: ICtxCurrency) => {
     if (balanceFilter && (!asset.balance || asset.balance?.free_balance <= 0)) {
@@ -96,32 +92,34 @@ const AssetsTable = ({
       setRates(rates);
       setRatesLoading(false);
     })();
-  }, []);
+  }, [account]);
 
   const searchInpChange = (e: any) => {
-    setSearchValue(e.target.value.trim().toLowerCase());
+    setSearchValue(e.target.value.trim());
   };
-
+  
   return (
     <div className={className}>
       <div className={`mb-2`}>
         {!md ? (
           <Input
             ref={inputRef}
+            value={searchValue}
             data-testid="SearchName"
-            placeholder={t("crypto_assets.search_name")}
             onChange={searchInpChange}
+            placeholder={t("crypto_assets.search_name")}
           />
         ) : (
           <div className={`${styles.SearchInput} ${border && styles.Border}`}>
             <IconApp size={20} code="t12" color="#000" />
             <input
-              className={`${styles.searchInputInner}`}
               type="text"
               ref={inputRef}
+              value={searchValue}
               data-testid="SearchName"
-              placeholder={t("crypto_assets.search_name")}
               onChange={searchInpChange}
+              className={styles.searchInputInner}
+              placeholder={t("crypto_assets.search_name")}
             />
           </div>
         )}

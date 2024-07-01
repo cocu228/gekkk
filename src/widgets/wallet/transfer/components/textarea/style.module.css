@@ -1,0 +1,41 @@
+.Wrapper {
+    width: 100%;
+    display: flex;
+    border: 1px solid var(--gek-light-grey);
+    border-radius: 6px;
+    outline: none;
+    padding: 20px 12px;
+    box-sizing: border-box;
+
+    @media only screen and (max-width: 768px) {
+        padding-block: 9px;
+    }
+}
+
+.Textarea {
+    font-family: "Inter", "Azeret Mono", sans-serif;
+    width: 100%;
+    height: auto;
+    resize: none;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 14px;
+    background: transparent;
+    color: #3A5E66;
+    overflow: hidden;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+
+.Textarea::placeholder {
+    color: var(--gek-mid-grey);
+}
+
+.Textarea:focus, .Textarea:focus-visible  {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}

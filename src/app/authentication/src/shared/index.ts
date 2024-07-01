@@ -44,11 +44,13 @@ export async function SignIn(silent?: boolean) {
 
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
+    
+    console.log(res)
     opt = res.result;
 
     opt.challenge = Base64URL_to_Uint8Array(opt.challenge);
 
-    if (!silent)
+    if (!silent) {
         Swal.fire({
             title: 'Logging In...',
             text: 'Tap your security key to login.',
@@ -58,11 +60,12 @@ export async function SignIn(silent?: boolean) {
             focusConfirm: false,
             focusCancel: false
         });
-    else console.log("CMA login...")
+    } else {
+    }
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
-    try {
+    try {        
         assertedCredential = !silent ?
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({
@@ -80,10 +83,11 @@ export async function SignIn(silent?: boolean) {
             text: "Could not get credentials in browser or OS.",
             footer: e
         });
-        else console.log(e);
+        else console.error(e);
         return false;
     }
 
+    console.log(`6. Handling received key`)
     // Move data into Arrays incase it is super long
     let authData = new Uint8Array(assertedCredential.response.authenticatorData);
     let clientDataJSON = new Uint8Array(assertedCredential.response.clientDataJSON);
@@ -106,6 +110,8 @@ export async function SignIn(silent?: boolean) {
             }
         }
     };
+
+    console.log(`7. Sending API login`)
     let resLogin = await apiLogin(data);
 
     if (resLogin.result === 'Success') { AccountIdSet(); return true; }

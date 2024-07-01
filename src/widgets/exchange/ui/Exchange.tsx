@@ -31,6 +31,7 @@ import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
+import { ExchangeHeader } from "./exchangeHeader/ExchangeHeader";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -93,18 +94,21 @@ function Exchange() {
     switch (roomType) {
       case "default":
         return (
-          <DropdownC 
-            isOpen={roomInfoModal.isModalOpen}
-            trigger={<span>{t("exchange.title")}</span>}
-          >
-            <DropdownCItem
-              onClick={roomInfoModal.showModal}
-              icon={<IconApp color="red" code="t33" size={20} />}
-            >
-              {t("exchange.create_private_exchange_room")}
-            </DropdownCItem>
-          </DropdownC>
-        );
+          <span>{t("exchange.title")}</span>
+        )
+        // return (
+        //   <DropdownC 
+        //     isOpen={roomInfoModal.isModalOpen}
+        //     trigger={<span>{t("exchange.title")}</span>}
+        //   >
+        //     <DropdownCItem
+        //       onClick={roomInfoModal.showModal}
+        //       icon={<IconApp color="red" code="t33" size={20} />}
+        //     >
+        //       {t("exchange.create_private_exchange_room")}
+        //     </DropdownCItem>
+        //   </DropdownC>
+        // );
       case "creator":
         return `Private room`;
       case "visitor":
@@ -118,19 +122,18 @@ function Exchange() {
         return t("exchange.describe");
       case "creator":
         return (
-          <>
-            <b>
+          <div className="">
+            <b className="text-[#29354C]">
               {from.currency} - {to.currency}
             </b>
-            <span> (id: {roomInfo.timetick})</span>
-            <p>{t("exchange.owner_private_room")}</p>
+            <span className='text-[#29354C]'> (ID: {roomInfo.timetick})</span>
             <button
-              className="underline text-accent"
+              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px]"
               onClick={roomInfoModal.showModal}
             >
-              {t("exchange.invite_link")}
+              <IconApp code="t34" color="#285E69" size={17} /> {t("exchange.invite_link")}
             </button>
-          </>
+          </div>
         );
       case "visitor":
         return (
@@ -192,19 +195,7 @@ function Exchange() {
   ) : (
     <div className=" ">
       {md ? null : (
-        <PageHead
-          title={getHeadTitle()}
-          subtitle={<span className="select-text">{getHeadSubtitle()}</span>}
-          rightContent={
-            roomType !== "creator" ? null : (
-              <ParticipantsNumber
-                quantity={roomInfo.count}
-                onLeave={cancelRoomModal.showModal}
-                onIconClick={roomInfoModal.showModal}
-              />
-            )
-          }
-        />
+        <ExchangeHeader privateRoomInfo={roomInfo} title={getHeadTitle()} text={<span className="select-text">{getHeadSubtitle()}</span>} />
       )}
 
       <div className={styles.MainGrid} >
@@ -255,8 +246,8 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className="mt-3 md:mt-2 flex flex-col gap-[5px]">
-                  <div className={`${styles.FieldPreTitle} ml-[10px]`}>
+                <div className="mt-3 md:mt-2 flex flex-col gap-[0]">
+                  <div className={`${styles.FieldPreTitle} mb-[-2px] ml-[10px]`}>
                     {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />
@@ -301,10 +292,14 @@ function Exchange() {
                   {t("exchange.create_order")}
                 </Button>
 
-                <div className="mt-5 lg:mt-2.5 px-8 text-[10px] text-center text-[#B9B9B5]">
-                  {t("exchange.broker_exchange_fee")}
-                  <span className="font-semibold"> 0%</span>
-                </div>
+                {to.currency && (
+                  <div className="mt-[5px] lg:mt-2.5 px-8 text-[10px] flex flex-col text-center text-[#B9B9B5]">
+                    <span className="block">{t("exchange.broker_exchange_fee")} <span className="font-semibold">{
+                      currencies.get(to.currency)?.marketFee
+                    }%</span></span>
+                    {t("exchange.exchange_excluding")}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -388,14 +383,14 @@ function Exchange() {
           </div>
           {!md && (
             <div className={styles.DeskHistoryWrap}>
-              <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
+              <span className="text-[12px] hidden xxxl:block ml-[4px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )}
       </div>
 
       {md && (
-        <div className="w-full rounded-lg">
+        <div className="w-full rounded-lg mt-[15px]">
           <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
           <History className="mx-4 mb-[50px]" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>

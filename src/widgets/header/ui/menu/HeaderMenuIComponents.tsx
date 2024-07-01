@@ -170,7 +170,7 @@ export const CrossPlatformNav = () => {
 
     return (
         <>
-            <button className="w-full text-left" onClick={showModal}>
+            <button className="w-full text-left pointer-events-none" onClick={showModal}>
                 {buttonTitle}
             </button>
             <Modal

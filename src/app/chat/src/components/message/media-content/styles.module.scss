@@ -1,0 +1,42 @@
+.ImageContainer {
+    width: 99%;
+    padding: 1px;
+    position: relative;
+    user-select: none;
+}
+
+.LoadingContainer {
+    min-width: 50px;
+    min-height: 30px;
+}
+
+.Image {
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.FileContainer {
+    text-align: left;
+    vertical-align: text-top;
+    font-size: 14px;
+    align-self: flex-start;
+    color: #000000;
+    padding: 8px 16px;
+    position: relative;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    width: 100%;
+    text-decoration: none;
+    user-select: none;
+}
+
+.SizeText {
+    margin-left: 6px;
+    font-size: 11px;
+}
+
+.Video {
+    width: 100%;
+    height: 240px;
+}

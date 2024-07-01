@@ -14,11 +14,15 @@ const DisplayBalance: FC<IParams> = (({ children, className, currency }: IParams
     return (
         <div className={className}>
             {children}
-            <div>{!currency ? null :
-                <span className={styles.FieldInfoText + " md:text-[var(--gek-mid-grey)]"}>{t("exchange.balance")}{
-                    currency.balance?.free_balance ?? 0
-                } {currency.$const}</span>
-            }</div>
+            <div>
+                {!currency ? null :
+                    <span className={styles.FieldInfoText + " md:text-[var(--gek-mid-grey)]"}>
+                        {t("exchange.balance")}
+                        {currency.balance?.free_balance ?? 0}
+                        {currency.$const}
+                    </span>
+                }
+            </div>
         </div>
     );
 });

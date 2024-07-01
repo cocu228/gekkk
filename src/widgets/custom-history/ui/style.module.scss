@@ -13,31 +13,6 @@
         .grey:hover {
             background-color: #dadada !important;
         }
-      :global(.ant-picker-input) {
-        input {
-          color: var(--gek-dark-blue) !important;
-          font-size: 12px !important;
-          font-weight: 600 !important;
-          text-align: center !important;
-        }
-      }
-      :global(.ant-space-item) {
-        height: 40px;
-      }
-
-      :global(.ant-space-item:nth-child(2)) {
-        display: flex;
-        align-items: center;
-
-        div {
-          margin-bottom: 12px !important;
-        }
-      }
-
-      :global(.ant-picker) {
-        height: 100%;
-        border: none !important;
-      }
     }
 }
 
@@ -203,12 +178,6 @@
   right: 0;
 }
 
-.filter {
-  :global(.ant-select-selector) {
-    padding: 0 0 0 11px;
-  }
-}
-
 .SelectWrap {
   // 'flex flex-col text-lg pt-1 gap-2 w-full'
   display: flex;
@@ -217,43 +186,6 @@
   gap: 5px;
   width: 100%;
 
-  :global(.ant-select-focused) {
-    border: none !important;
-    border-style: none !important;
-    box-shadow: none !important;
-  }
-
-  :global(.ant-select) {
-    :global(.ant-select-selector) {
-      border: 1px solid #d9d9d9 !important;
-      box-shadow: none !important;
-      :global(.ant-select-selection-placeholder) {
-        color: #3A5E66 !important;
-        font-size: 12px;
-        font-weight: 400;
-      }
-    }
-  }
-
-  :global(.ant-select) {
-
-    :global(.ant-select-selector) {
-      padding: 0 0 0 11px;
-
-      :global(.ant-select-selection-item) {
-        color: #3A5E66 !important;
-        font-size: 12px;
-        font-weight: 400;
-      }
-    }
-
-    :global(.ant-select-arrow) {
-      right: 0;
-      border-radius: 0 6px 6px 0;
-      height: 31px !important;
-      top: 6.5px !important;
-    }
-  }
 }
 
 .BottomBtn {
@@ -337,12 +269,4 @@
 .TypeList {
   margin-top: 15px;
   width: 100%;
-}
-
-* {
-  :global(.ant-select-dropdown) {
-    :global(.ant-select-item) {
-      background: #fff !important;
-    }
-  }
 }

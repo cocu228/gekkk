@@ -1,13 +1,12 @@
 const digitsPattern = /[\d|\.]/;
 const allowedSymbolsPattern = /[\@\!\#\$\%\^\&\*\(\)\_\+\-\=\"\,\/]/;
 const latinAlphabetPattern = /[^a-zA-Z|\s|\d\@\!\#\$\%\^\&\*\(\)\_\+\-\=\"\,\.\/]+/;
-const latinAlphabet = /[a-zA-Z]/;
 
 export const validateInput = (
     event: React.ChangeEvent<any>,
-    allowDigits: boolean,
-    allowSymbols: boolean,
-    discardSymbols: boolean,
+    allowDigits: boolean = false,
+    allowSymbols: boolean = false,
+    discardLetters: boolean = false,
 ): boolean => {
     const inpValue = event.target.value;
 
@@ -17,11 +16,8 @@ export const validateInput = (
     if (!allowSymbols && allowedSymbolsPattern.test(inpValue))
         return false;
 
-    if (discardSymbols && latinAlphabet.test(inpValue))
+    if (discardLetters && latinAlphabetPattern.test(inpValue))
         return false;
 
-    if (latinAlphabetPattern.test(inpValue))
-        return false;
-
-    return true;
+    return !latinAlphabetPattern.test(inpValue);
 };

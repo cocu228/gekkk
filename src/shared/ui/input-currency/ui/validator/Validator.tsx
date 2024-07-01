@@ -29,6 +29,7 @@ const Validator: FC<IParams> = (({
     const firstEffect = useRef(true);
     const [error, setError] = useState<null | string | JSX.Element>(null);
     const [showDescription, setShowDescription] = useState(true)
+    
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false
@@ -62,12 +63,17 @@ const Validator: FC<IParams> = (({
         <div>
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
-            <div className={className}>
-                {description && showDescription===true && isNull(error)  ? <div className='mt-[5px] ml-[5px] text-[var(--gek-orange)]  md:text-fs10 ? text-fs12'>*{description}</div> :
-                    <div className="flex ml-[5px] mt-[5px] gap-1 items-center">
-                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-orange)" code="t56" size={13}/></div>}
-                        <span className='text-[var(--gek-orange)] md:text-fs10 ? text-fs12'>{error}</span>
-                    </div>}
+            <div className={"flex mt-[5px] ml-[5px] " + className}>
+                {description && showDescription===true && isNull(error) ?(
+                    <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>
+                        *{description}
+                    </span>
+                    ) : (
+                    <div className="flex gap-1 items-center">
+                        {error && <div className="mt-[1px]"><IconApp color="var(--gek-red)" code="t27" size={13}/></div>}
+                        <span className='text-[var(--gek-red)] md:text-fs12 text-fs14'>{error}</span>
+                    </div>
+                )}
             </div>
             </CtxInputCurrencyValid.Provider>
         </div>

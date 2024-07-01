@@ -1,15 +1,4 @@
 import Decimal from "decimal.js";
-import {AxiosResponse} from "axios";
-import {actionSuccessConstructor, getCookieData, uncoverArray} from "@/shared/lib/helpers";
-import {SignHeaders} from "@/shared/api";
-import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
-import { apiTokensNetworks } from "@/shared/(orval)api";
-import { helperApiTokenNetworks } from "../../model/helpers";
-import { TokensNetwork } from "@/shared/(orval)api/gek/model";
-
-export const isDisabledBtnWithdraw = (inputs) => {
-    return !inputs.address || !inputs.recipient;
-}
 
 type TGetFinalFee = {
     type: {
@@ -82,12 +71,3 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 //     }
 //
 // }
-
-export const reponseOfUpdatingTokensNetworks = async (amount: number, $const) => {
-    const response: AxiosResponse = await apiTokensNetworks({
-        top_up: false,
-        currency: $const,
-        wdr_amount: amount
-    });
-    return response.data
-}

@@ -15,6 +15,7 @@ import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumbe
 import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
 import CreateTransferCode from "./forms/create-transfer-code";
 import {getInitialProps, useTranslation} from 'react-i18next';
+import CrossProjectForm from './forms/cross-project/CrossProjectForm';
 
 const Withdraw = memo(() => {
     const {t} = useTranslation()
@@ -57,6 +58,10 @@ const Withdraw = memo(() => {
                 return <UniversalTransferForm/>; // To Gekkard user by contact (Crypto)
             case 231:
                 return <CreateTransferCode/>; // Code (Crypto)
+            case 232:
+            case 233:
+            case 234:
+                return <CrossProjectForm/>; // Cross-project transfer (Crypto)
             default:
                 return <div>
                     {t("no_actions_for_network")}
@@ -76,13 +81,13 @@ const Withdraw = memo(() => {
                 {displayedForm}
                 
                 {(finalFeeEntity.type.percent || finalFeeEntity.type.number) && <div className="row mt-4">
-                    <div className="col">
-                        <div className='text-center'>
+                    <div className="col md:text-[12px] text-[14px]">
+                        <div className='text-center text-[#9D9D9D]'>
                             {t("fee_is_perc")} {finalFeeEntity.type.number ?
                             <>
-                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const}</span>
+                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const} </span>
                             </> :
-                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} %</b>
+                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} % </b>
                         } {t("per_transaction")}
                         </div>
                     </div>

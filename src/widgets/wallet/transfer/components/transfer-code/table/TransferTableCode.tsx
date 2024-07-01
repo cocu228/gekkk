@@ -1,5 +1,4 @@
 import styles from "./style.module.scss";
-import stylesForms from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
 import {formatForCustomer, formatForHistoryMobile, formatForHistoryTimeMobile} from "@/shared/lib/date-helper";
 import Button from "@/shared/ui/button/Button";
 import GTable from "@/shared/ui/grid-table/";
@@ -18,17 +17,13 @@ import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 
 const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inputCurr?: IUseInputState }) => {
-    const [tableHeads, setTableHeads] = useState([
-        'code',
-        'amount',
-        'status',
-        'action'
-    ])
     const currency = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
+    const {md, lg} = useBreakpoints() 
 
     useEffect(() => {
         (async () => {
@@ -36,25 +31,14 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
         })()
     }, [currency.$const])
 
-    useEffect(() => {
-        if(window.innerWidth < 768) {
-            setTableHeads([
-                'code',
-                'status',
-                'action'
-            ])
-        }
-    }, [])
-
     const filteredListTxCode = listTxCode.filter(item => item.currency === currency.$const && item.isOwner === isOwner)
     const {t} = useTranslation();
-    const {md} = useBreakpoints() 
 
     return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead}>
-            <GTable.Row>
-                {
+            <GTable.Row className={styles.TableHeadBody} >
+                {/* {
                     tableHeads.map((item, ind) => (
                         <GTable.Col key={ind} className={styles.CodeModalTitle}>
                             <div data-text={item.capitalize()}>
@@ -62,7 +46,27 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                             </div>
                         </GTable.Col>
                     ))
-                }
+                } */}
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Code'}>
+                        <span>{t('code')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Amount'}>
+                        <span>{t('amount')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Status'}>
+                        <span>{t('status')}</span>
+                    </div>
+                </GTable.Col>
+                <GTable.Col className={styles.CodeModalTitle}>
+                    <div data-text={'Action'}>
+                        <span>{t('action')}</span>
+                    </div>
+                </GTable.Col>
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
@@ -94,7 +98,7 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                     </GTable.Col>
 
                     {
-                        !md && (
+                        !md && !lg && (
                             <GTable.Col className="text-center">
                                 <span className="text-gra-600 text-xs">{it.amount}</span>
                             </GTable.Col>
@@ -199,31 +203,32 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
             isModalOpen={isModalOpen} 
             title={t("the_code_confirmed")}
         >
-            {localErrorInfoBox ? localErrorInfoBox : <>
-                <div>
-                <div className={stylesForms.ModalRows}>3
-                    <div className={styles.ModalDateList}>
-                        {
-                            modalDateArray.map((item, ind) => (
-                                <div key={ind} className={styles.ModalDateListItem}>
-                                    <span className={styles.ModalDateListItemTitle} >{t(item.titleKey)}</span>
-                                    <span className={styles.ModalDateListItemValue}>{modalKeys[item.key]}</span>
+            {localErrorInfoBox ? localErrorInfoBox : (
+              <div>
+                  <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+                      <div className="flex flex-col gap-[10px]">
+                          {
+                              modalDateArray.map((item) => (
+                                <div key={item.key}>
+                                    <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t(item.titleKey)}</p>
+                                    <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">
+                                        {modalKeys[item.key]}
+                                    </p>
                                 </div>
-                            ))
-                        }
-                    </div>
-                </div>
-                <div className={stylesForms.ButtonContainer}>
-                    <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
-                        {t("confirm")}
-                    </Button>
-                    <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
-                        {t("cancel")}
-                    </Button>
-                </div>
-                </div>
-            </>}
+                              ))
+                          }
+                      </div>
+                  </div>
+                  <ConfirmButtons
+                    onConfirm={() => {
+                        onBtnConfirm(code);
+                        handleCancel()
+                    }}
+                    onCancel={handleCancel}
+                  />
+              </div>
+            )}
         </Modal>
-    </>   
+    </>
 }
 export default TransferTableCode;

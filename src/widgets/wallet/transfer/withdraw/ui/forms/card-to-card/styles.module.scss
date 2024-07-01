@@ -1,11 +1,15 @@
+@import "@styles/mixins";
+
 .InputTitle {
+    line-height: normal;
     color: #1F3446;
-    font-size: 12px;
-    margin-left: 10px;
-    font-weight: 600;
-    font-family: Inter;
-    margin-bottom: 4px;
-    display: block;
+    font-weight: 500;
+    font-size: 16px;
+
+    @include max-devices("md") {
+        font-weight: 700;
+        font-size: 12px;
+    }
 }
 
 .PayInfoWrap {
@@ -40,20 +44,5 @@
 
     @media screen and (max-width: 768px) {
         height: 32px;
-    }
-}
-
-.AmountInputWrap {
-    :global(.ant-input) {
-        &::placeholder {
-            font-weight: normal;
-            color: #B9B9B5 !important;
-            font-size: 12px;
-            padding-right: 5px;
-      
-            @media screen and (max-width: 768px) {
-              font-size: 10px !important;
-            }
-        }
     }
 }

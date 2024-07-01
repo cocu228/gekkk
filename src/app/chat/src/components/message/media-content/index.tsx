@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from 'react'
 import { MediaType } from '../../../types/MessageType'
 import {getBorderCss, IGetBorderCssProps} from '../borderController'
 import { makeApiRequest } from '../../../utils/(cs)axios'
-import {FileContainer, ImageContainer, LoadingContainer, SizeText, Image, Video} from "./style";
+import style from './styles.module.scss'
 
 const DownloadIcon = <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -45,38 +45,56 @@ const MediaContent : FC<IMediaContentProps> = ({
 
     if (fetching) {
         return (
-            <LoadingContainer>
+            <div className={style.LoadingContainer}>
                 {/* <img src={loadingSvg} alt="loading" /> */}
-            </LoadingContainer>
+            </div>
         )
     }
 
     const getBorder = (props: IGetBorderCssProps) => getBorderCss(props)
 
+    const borderStyles = getBorder({type: messageType, last, single})
+
     return (
         <>
             {(type === 'image' || type === 'gif') &&
-                <ImageContainer>
-                    <Image borderCss={getBorder({type: messageType, last, single})} src={content} alt={content} />
-                </ImageContainer>
+                <div className={style.ImageContainer} >
+                    <img
+                        className={style.Image}
+                        src={content} alt={content}
+                        style={{
+                            borderTopLeftRadius: borderStyles.topLeft,
+                            borderTopRightRadius: borderStyles.topRight,
+                            borderBottomLeftRadius: borderStyles.bottomLeft,
+                            borderBottomRightRadius: borderStyles.bottomRight
+                        }}
+                     />
+                </div>
             }
             {(type === 'file' || type === 'video') &&
                 <div style={{ position: "relative", width: "100%" }}>
                     {type === 'video' &&
-                        <Video controls borderCss={getBorder({type: messageType, last, single})}>
-                            <source src={url} type="video/mp4" />
-                            <source src={url} type="video/ogg" />
-                            Your browser does not support the video tag.
-                        </Video>
+                        <video
+                            controls
+                            className={style.Video}
+                            style={{
+                                borderTopLeftRadius: borderStyles.topLeft,
+                                borderTopRightRadius: borderStyles.topRight,
+                                borderBottomLeftRadius: borderStyles.bottomLeft,
+                                borderBottomRightRadius: borderStyles.bottomRight
+                            }} 
+                        >
+
+                        </video>
                     }
                     <div style={{ width: "100%", display: 'flex' }}>
-                        <FileContainer target='_blank' href={content}>
+                        <a className={style.FileContainer} target='_blank' href={content}>
                             {DownloadIcon}&nbsp;&nbsp;&nbsp;&nbsp;
                             <span style={{ textDecoration: "underline" }}>
                                 {content}
-                                {size && <SizeText>({size})</SizeText>}
+                                {size && <span className={style.SizeText} >({size})</span>}
                             </span>
-                        </FileContainer>
+                        </a>
                     </div>
                 </div>
 

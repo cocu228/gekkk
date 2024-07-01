@@ -24,10 +24,10 @@ export const getBorderCss = ({
         borderTopLeft = !!last
     }
 
-    return `
-        border-top-left-radius: ${borderTopLeft ? "8px" : "2px"};
-        border-top-right-radius: ${borderTopRight ? "8px" : "2px"};
-        border-bottom-left-radius: ${borderBottomLeft ? "8px" : "2px"};
-        border-bottom-right-radius: ${borderBottomRight ? "8px" : "2px"};
-    `
+    return {
+        topLeft: borderTopLeft ? "8px" : "2px",
+        topRight: borderTopRight ? "8px" : "2px",
+        bottomLeft: borderBottomLeft ? "8px" : "2px",
+        bottomRight: borderBottomRight ? "8px" : "2px"
+    }
 }

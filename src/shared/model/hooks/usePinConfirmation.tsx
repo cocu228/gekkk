@@ -4,9 +4,7 @@ import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import { $axios } from "@/shared/lib/(orval)axios";
 import Button from "@/shared/ui/button/Button";
-import { MASK_CODE } from "@/shared/config/mask";
 import { InternalAxiosRequestConfig } from "axios";
-import useMask from "@/shared/model/hooks/useMask";
 import { getCookieData } from "@/shared/lib/helpers";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
@@ -41,7 +39,6 @@ const usePinConfirmation = (): TypeUseConfirmation => {
     loading: false,
   });
   const { t } = useTranslation();
-  const { onInput } = useMask(MASK_CODE);
   const { phone } = getCookieData<{ phone: string }>();
   const { isModalOpen, handleCancel, showModal } = useModal();
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
@@ -107,7 +104,6 @@ const usePinConfirmation = (): TypeUseConfirmation => {
             <Input
               allowDigits
               type="text"
-              onInput={onInput}
               placeholder={t("enter_code")}
               onChange={({ target }) => {
                 localErrorClear();

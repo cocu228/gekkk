@@ -104,15 +104,15 @@ export default function TransfersWrapper({
           return (
             <div className="flex flex-col items-center justify-center">
               <div className="flex h-[54px] w-full items-center flex-row justify-start mb-[10px] rounded-[8px] bg-[white]">
-                <span className="ml-5 min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
+                <span className="ml-[20px] min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
                   {returnTitle(child?.props["data-tag"])}
                 </span>
-                <div className="flex w-full overflow-hidden mr-5 justify-center items-center">
+                <div className="flex w-full overflow-hidden mr-[10px] justify-center items-center">
                   {child}
                 </div>
               </div>
               {returnText(child?.props["data-tag"]) && (
-                <span className="w-full flex flex-col self-start text-[12px] text-[#1F3446] font-bold items-start mb-5">
+                <span className="w-full flex flex-col self-start text-[12px] text-[#1F3446] font-bold items-start mt-1 mb-4">
                   {returnText(child?.props["data-tag"])}
                 </span>
               )}
@@ -184,7 +184,7 @@ export default function TransfersWrapper({
                 <div className="min-h-[200px] gap-5 w-full">
                   {networksForSelector?.map((network) => (
                     <div
-                      className="w-full flex justify-between items-center min-h-[60px] mt-2 pl-5 bg-[white] rounded-lg cursor-pointer"
+                      className="w-full flex justify-between items-center min-h-[60px] first:mt-0 mt-2 overflow-hidden px-5 bg-[white] rounded-lg cursor-pointer"
                       onClick={() => {
                         setNetworkType(network.value);
                         setNetwork(network.value);
@@ -193,7 +193,7 @@ export default function TransfersWrapper({
                         );
                       }}
                     >
-                      <span className="text-[12px] text-[#1F3446] font-bold">
+                      <span className="text-[12px] text-[#1F3446] font-bold overflow-hidden overflow-ellipsis">
                         {network.label}
                       </span>
                     </div>

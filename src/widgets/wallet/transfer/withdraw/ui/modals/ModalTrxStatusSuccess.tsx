@@ -40,7 +40,7 @@ function ModalTrxStatusSuccess({
                     className='w-full'
                     onClick={onReceipt}
                 >
-                    <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt")}
+                    <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt").capitalize()}
                 </Button>
             )}
 

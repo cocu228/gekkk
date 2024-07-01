@@ -1,9 +1,6 @@
 import {FC, MutableRefObject, useEffect, useRef, useState} from 'react'
 import styles from './styles.module.scss'
 import { IconApp } from '../../icons/icon-app'
-import { useTranslation } from 'react-i18next'
-
-
 
 /// TODO: в событие onChange, проблема с типизацией.
 
@@ -26,7 +23,6 @@ export const Select:FC<SelectProps> = ({
     mobile,
     listHeight
 }) => {
-    const {t} = useTranslation()
     const [active, setActive] = useState(false)
 
     const optionHandler = (feeLabel:string, id:any) => {

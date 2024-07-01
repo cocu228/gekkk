@@ -230,14 +230,14 @@ export const logout = async () => {
     location.replace('/');
 };
 
-export function debounce(func: (amount: number) => void, delay: number) {
+export function debounce(func: (...props: any[]) => void, delay: number) {
 
     let timer: ReturnType<typeof setTimeout>;
 
-    return function (amount?: number) {
+    return function (...props: any[]) {
         clearTimeout(timer);
         timer = setTimeout(() => {
-            func(amount);
+            func(...props);
         }, delay);
     };
 }
@@ -331,4 +331,10 @@ export function useQuery() {
     const { search } = useLocation();
 
     return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
+const onlyNumbersRegex = new RegExp(/^[0-9]*$/)
+
+export function isNumbersOnly(val: string | number) {
+    return onlyNumbersRegex.test(val as string);
 }

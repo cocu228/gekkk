@@ -25,28 +25,29 @@ import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service
 
 export const signHeadersGeneration = async (
 	phone: string,
-	token: string | null = null
+	uasToken: string,
+	confirmationToken: string | null = null
 ): Promise<Partial<SignHeaders>> => {
 	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
 		"X-Confirmation-Type": "SIGN"
 	}
 	
-	if (token === null) return header;
+	if (confirmationToken === null) return header;
 	
 	const {
 		appUuid,
 		appPass
-	} = await getTransactionSignParams();
+	} = await getTransactionSignParams(phone, uasToken);
 	
 	const jwtPayload = {
 		initiator: phone,
-		confirmationToken: token,
+		confirmationToken: confirmationToken,
 		exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
 	};
 	
 	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
 		"X-App-Uuid": appUuid,
-		"X-Confirmation-Token": token,
+		"X-Confirmation-Token": confirmationToken,
 		"X-Confirmation-Code": generateJWT(jwtPayload, appPass)
 	};
 	

@@ -17,6 +17,31 @@ const languages = [
         code: 'de',
         subTitle: 'German'
     },
+    {
+        title: 'Français',
+        code: 'FR',
+        subTitle: 'French'
+    },
+    {
+        title: 'Italiano',
+        code: 'IT',
+        subTitle: 'Italian'
+    },
+    {
+        title: '汉语',
+        code: 'CN',
+        subTitle: 'Chinese'
+    },
+    {
+        title: 'Türkçe',
+        code: 'TR',
+        subTitle: 'Turkish'
+    },
+    {
+        title: 'Español',
+        code: 'ES',
+        subTitle: 'Spanish'
+    },
 ]
 
 export function LanguageSettings() {

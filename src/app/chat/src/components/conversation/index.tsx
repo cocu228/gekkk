@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import MessageType from '../../types/MessageType';
 import placeholderProfilePNG from './profile.png';
 import { calculateTimeAgo } from '../../utils/date-utils';
+import style from './style.module.scss'
 
 export type Props = {
   title: string;
@@ -16,200 +16,7 @@ export type Props = {
    */
   currentUserId?: string;
 };
-const Container = styled.div`
-  width: 100%;
-  height: 88px;
-  position: relative;
-  margin-top: 1px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-user-select: none;
 
-`;
-const ContentContainer = styled.div`
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 8px;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-`;
-
-const Background = styled.div<{
-  themeColor: string
-  selected?: boolean
-  hoverColor?: string
-  backgroundColor?: string
-  selectedBackgroundColor?: string
-}>`
-position: absolute;
-width: 100%;
-height: 100%;
-background-color: ${({ themeColor, selected, backgroundColor, selectedBackgroundColor }) =>
-    selected ? (selectedBackgroundColor || themeColor) : (backgroundColor || '#ffffff')};
-opacity: 0.2;
-z-index: 1;
-transition: all 0.3s ease-in-out;
-
-&:hover{
-${({ selected }) => (!selected ? 'opacity: 0.09;' : '')} 
-background-color: ${({ themeColor, hoverColor }) => hoverColor || themeColor};
-
-}
-`;
-
-const Name = styled.div<{
-  unread?: boolean,
-  titleTextColor?: string
-}>`
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  text-align: left;
-  vertical-align: text-top;
-  font-size: 14px;
-  line-height: auto;
-  position: relative;
-  z-index: 1;
-  color: ${({ titleTextColor }) => titleTextColor || '#000000'};
-
-  ${({ unread }) =>
-    unread
-      ? `
-font-weight: 700;
-`
-      : ''}
-`;
-
-const NameContainer = styled.div`
-display: flex;
-width: 100%;
-justify-content: space-between;
-`
-
-const Timestamp = styled.div<{
-  color?: string,
-  unread?: boolean
-}>`
-text-align:right;
-vertical-align:text-top;
-font-size:12px;
-margin-left: 6px;
-margin-top:2px;
-margin-right:2px;
-align-self:flex-start;
-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-${({ unread, color }) =>
-    unread
-      ? `
-color: ${color || 'black'} ;
-font-weight: 600;
-` : `
-color: ${color || 'rgb(75 85 99)'};
-`}
-`
-
-// const LastMessageUser = styled.div<{ seen?: boolean }>`
-// font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-//     text-align:left;
-// vertical-align:text-top;
-// font-size:12px;
-// align-self:flex-start;
-// position:relative;
-// color:#7a7a7a;
-// white-space: nowrap;
-// text-overflow: ellipsis;
-
-// ${({ seen }) => !seen ? `
-// color: black;
-// font-weight: 600;
-// ` : ''}
-
-// `
-
-const MessageComponent = styled.div<{
-  unread?: boolean;
-  width: number;
-  media?: boolean;
-  color?: string
-}>`
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  text-align: left;
-  vertical-align: text-top;
-  font-size: 12px;
-  align-self: flex-start;
-  position: relative;
-  color: ${({ color }) => color || '#7a7a7a'};
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
-  max-width: ${({ width }) => width}px;
-  display: flex;
-  margin-top: 4px;
-
-  ${({ unread, color }) =>
-    unread
-      ? `
-color: ${color || 'black'} ;
-font-weight: 600;
-` : ''}
-
-`;
-
-
-const TextContainer = styled.div`
-  position: relative;
-  height: 100%;
-  width: 100%;
-  padding-right: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const DisplayPictureContainer = styled.div`
-  width: 58px;
-  height: 58px;
-  margin-right: 12px;
-  box-sizing: border-box;
-`;
-
-const DisplayPicture = styled.img`
-  width: 58px;
-  height: 58px;
-  border-radius: 9999px;
-  box-sizing: border-box;
-  border-width: 2px;
-  border-color: rgb(255 255 255);
-  object-fit: cover;
-  z-index: 1;
-  position: relative;
-`;
-
-const MediaIconContainer = styled.div`
-  width: 16px;
-  height: 16px;
-  margin-left: 3px;
-`;
-
-const MediaContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  gap: 4px;
-  margin-left: 4px;
-`
 
 export default function Conversation({
   title,
@@ -350,60 +157,68 @@ export default function Conversation({
   }
 
   return (
-    <Container ref={containerRef} onClick={onClick} className="fade-animation">
-      <Background selected={selected}
-        hoverColor={"hoverColor"}
-        selectedBackgroundColor={"selectedBackgroundColor"}
-        backgroundColor={"backgroundColor"}
-        themeColor={"themeColor"} />
+    <div ref={containerRef} onClick={onClick} className={`${style.Container} fade-animation`}>
 
-      <ContentContainer>
+      <div
+        className={`${style.Background}
+        ${selected && style.BackgroundSelected}
+        `}
+      ></div>
+
+      <div className={style.ContentContainer} > 
         <div>
-          <DisplayPictureContainer>
-            <DisplayPicture
+          <div className={style.DisplayPictureContainer} >
+            <img
+              className={style.DisplayPicture}
               onError={() => {
                 setUsedAvatar(placeholderProfilePNG);
               }}
               src={usedAvatar}
             />
-          </DisplayPictureContainer>
+          </div>
         </div>
 
-        <TextContainer>
+        <div className={style.TextContainer} >
 
-          <NameContainer>
-            <Name
-              titleTextColor={"titleTextColor"}
-              unread={unread}>{title}</Name>
+          <div
+            className={style.NameContainer}
+          >
+            <div
+              className={`${style.Name} ${unread && style.NameUnread}`}>{title}</div>
 
-            <Timestamp
-              unread={unread}
-              color={"contentTextColor"}>{dateSent}</Timestamp>
-          </NameContainer>
-
-          <MessageComponent
-            color={"contentTextColor"}
-            width={containerWidth - 96}
-            unread={unread}
+            <div
+              className={`${style.Timestamp} ${unread && style.TimestampUnread}`}>{dateSent}</div>
+          </div>
+          
+          <div
+            className={`${style.MessageComponent} ${unread && style.MessageComponentUnread} max-w-[${containerWidth - 96}px]`}
           >
             {lastMessage?.user.id === currentUserId
               ? 'You'
               : lastMessage?.user.name}
             :{'  '}
+            {lastMessage?.user.id === currentUserId
+              ? 'You'
+              : lastMessage?.user.name}
+            :{'  '}
             {lastMessage?.media ? (
-              <MediaContainer>
-                <MediaIconContainer>
+              <div
+                className={style.MediaContainer}
+              >
+                <div
+                  className={style.MediaIconContainer}
+                >
                   {getMediaIcon()}
-                </MediaIconContainer>
+                </div>
                 {getMediaText()}
-              </MediaContainer>
+              </div>
             ) : (
               <div
                 dangerouslySetInnerHTML={{ __html: lastMessage?.text || "" }}></div>
             )}
-          </MessageComponent>
-        </TextContainer>
-      </ContentContainer>
-    </Container>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

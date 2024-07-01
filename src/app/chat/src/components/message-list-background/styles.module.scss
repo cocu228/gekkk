@@ -1,0 +1,21 @@
+.ScrollBackground {
+    background-color: #f3f4f6;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f4f6;
+    border-radius: 0px;
+
+}
+
+.ScrollBackgroundRounded {
+    border-radius: 16px;
+}
+
+.ScrollBackgroundContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    box-sizing: border-box;
+}

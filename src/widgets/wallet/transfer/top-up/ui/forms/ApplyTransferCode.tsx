@@ -93,11 +93,11 @@ const ApplyTransferCode = () => {
             </div>
             <div className={styles.CodeButtonWrapper}>
 
-                <Button 
+                <Button
+                    className={"w-full"}
                     disabled={input === "" || loading} 
                     onClick={showModal}
-                    size={md ? "md" : "lg"}
-                    className={styles.CodeButton}
+                    size={"md"}
                 >
                     {t("apply")}
                 </Button>
@@ -106,7 +106,7 @@ const ApplyTransferCode = () => {
                            onCancel={handleCancel} isModalOpen={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
-                            <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} code={input} onBtnApply={onBtnApply}/> :
+                            <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} onClose={handleCancel} code={input} onBtnApply={onBtnApply}/> :
                             <>
                                 <div className="row mb-6">
                                     <div className="col">

@@ -148,6 +148,7 @@ const TypeChoose = memo(() => {
                         <InputCurrency.PercentSelector header={'Enter deposit amount'} currency={eurgWallet} onSelect={onAmountChange}>
                             <InputCurrency.DisplayBalance currency={eurgWallet}>
                                 <InputCurrency
+                                    placeholder={t("exchange.enter_amount")}
                                     value={amount.toString()}
                                     onChange={(v) => onAmountChange(formatAsNumberAndDot(v))}
                                     currency={eurgWallet.$const}
@@ -168,6 +169,7 @@ const TypeChoose = memo(() => {
                         <InputCurrency.DisplayBalance currency={gkeWallet}>
                             <InputCurrency
                                 disabled
+                                placeholder={t("exchange.enter_amount")}
                                 value={"" + amount}
                                 onChange={(v) => onAmountChange(formatAsNumberAndDot(v))}
                                 currency={gkeWallet.$const}

@@ -8,14 +8,13 @@ import {
     getChosenNetwork, isCryptoNetwork,
 } from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import ApplyTransferCode from "./forms/ApplyTransferCode";
-import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
 import { IconApp } from '@/shared/ui/icons/icon-app';
 import TransferTableCode from '../../components/transfer-code/table/TransferTableCode';
+import CrossPlatformTopUp from './forms/CrossPlatformTopUp';
 
 const TopUp = memo(() => {
     const {t} = useTranslation()
@@ -25,16 +24,12 @@ const TopUp = memo(() => {
     const currency = params.get("currency");
     const type = params.get("type");
     const navigate = useNavigate();
-    const {offline} = useContext(CtxOfflineMode);
     const {loading = true, networkTypeSelect, tokenNetworks, networksForSelector, setNetworkType} = useContext(CtxWalletNetworks);
     const {
         is_operable = null,
         network_type: networkType
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-    
     const [network, setNetwork] = useState<number>(type ? +type : null)
-
-    if (offline) return <div>You are offline, please check your internet connection.</div>
 
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
@@ -86,11 +81,16 @@ const TopUp = memo(() => {
                 </div>;
             case 231:
                 return <ApplyTransferCode/>;
+            case 232:
+            case 233:
+            case 234: 
+                return <CrossPlatformTopUp />;
             
             default:
                 return <div className={styles.NoActions}>
                         {t("no_actions_for_network")}
                 </div>;
+                
         }
     }
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
@@ -102,7 +102,6 @@ const TopUp = memo(() => {
 
     useEffect(()=>{
         md && setNetworkType(network)
-    
     }, [networkTypeSelect])
 
     useEffect(()=>{
@@ -138,8 +137,8 @@ const TopUp = memo(() => {
             
             {!md && displayedForm}
 
-            {md && <div className="mt-5">
-                {!network && networksForSelector.length > 0 && <span className={styles.TextSelectTitle}>
+            {md && <div className={`mt-5 h-[440px]`}>
+                {!network && networksForSelector?.length > 0 && <span className={styles.TextSelectTitle}>
                     {t("select_top_up_type")}
                 </span>}
                 {!network && networksForSelector?.map((network) => (

@@ -10,7 +10,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import HistoryWrapper from './history-wrapper/HistoryWrapper'
 import ChooseNetworkMobile from '@/widgets/wallet/transfer/mobile/ui/choose-network-mobile'
-
+import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 export default function Transfers() {
   const query = useQuery();
   const {t} = useTranslation();
@@ -43,7 +43,7 @@ export default function Transfers() {
   useEffect(()=>{
     if(currencies && curr) {
       setCurrency(currencies?.get(curr))            
-    }                        
+    }
   },[currencies, curr])
   
   return !currencies ? <Loader/> : (
@@ -101,12 +101,12 @@ export default function Transfers() {
                       data-tag={"choose_network"}
                   />
                 }
+                
                 {network && 
-                  <div
-                      data-tag={"main"}
-                      className='bg-[white] w-full align-center p-[1.25rem_10px] pb-1 rounded-[8px]'
-                  >
+                  <div data-tag={"main"} className='w-full align-center'>
+                    <FeeProvider data-name={t("withdraw")}>
                       <GetDisplayedForm network={network} curr={$currency}/>
+                    </FeeProvider>
                   </div>
                 }
               </TransfersWrapper>

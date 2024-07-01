@@ -1,12 +1,11 @@
 @import "@styles/mixins";
 
 .Title{
-    margin-bottom: 2rem;
-
     &Col{
         padding-bottom: 15px;
 
         &Text{
+            line-height: normal;
             color: #1F3446;
             font-weight: 500;
             font-size: 16px;
@@ -28,11 +27,10 @@
 
 .EURCost{
     display: flex; 
-    padding: 1rem;
-    margin-bottom: 1rem; 
-    flex-direction: column; 
+    padding: 10px;
+    flex-direction: column;
     gap: 0.25rem; 
-    border-radius: 0.5rem; 
+    border-radius: 8px;
     background: #DADADA;
 
     @include max-devices("md") {
@@ -40,7 +38,7 @@
     }
 
     &Value{
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 700;
         color: #3A5E66;
 
@@ -53,15 +51,16 @@
         font-size: 0.75rem;
         line-height: 1rem; 
         color: #3A5E66;
-    
+
         &Text{
-            font-size: 12px;
+            font-size: 14px;
 
             @include max-devices("md") {
-                font-size: 10px;
+                font-size: 12px;
             }
 
             &Uppercase{
+                font-weight: bold;
                 text-transform: uppercase;
             }
 
@@ -76,85 +75,6 @@
         }
     }
 }
-
-.PayInfo{
-    display: flex; 
-    margin-bottom: 1rem;
-    margin-top: 1.5rem; 
-    gap: 10rem;
-    justify-content: space-between;
-    font-size: 14px;
-    line-height: 1.25rem; 
-    font-weight: 500;
-
-
-    @include max-devices("md") {
-        gap: 1rem;
-        font-size: 12px;
-        margin-top: 0.2rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        justify-content: space-between; 
-    }
-
-    &Col{
-        display: flex; 
-        flex-direction: column; 
-        width: max-content;
-
-        @include max-devices("md") {
-            gap: .25rem;
-        }
-
-        &Value{
-            display: flex; 
-            flex-direction: row; 
-            gap: 0.5rem; 
-            width: max-content;
-        }
-    }
-
-    &Text{
-        color:#3A5E66;
-        text-wrap: nowrap;
-        &Fee{
-            color: #9D9D9D;
-        }
-    }
-
-    &ValueFlex{
-        display: flex; 
-        justify-content: flex-end;
-        align-items: center; 
-
-        &Text{
-            width: 100%; 
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: end;
-            text-wrap: nowrap;
-            max-width: 20vw;
-
-
-            &Fee{
-                color: #9D9D9D;
-                text-align: start;
-                text-wrap: nowrap;
-
-                max-width: 20vw;
-            }
-        }
-        &TextCurrency{
-            width: 100%; 
-            font-weight: 600; 
-            color: #1F3446;
-            text-align: start;
-            text-wrap: nowrap;
-        }
-    }
-}
-
-
 
 .ButtonContainer{
     width: 100%;
@@ -191,17 +111,23 @@
 }
 
 .BottomFeeInfo{
-    display: flex; 
+    display: none; 
     justify-content: center; 
     width: 100%; 
 
     &Text{
+        font-family: "Inter";
+        font-weight: 400;
         color: #9D9D9D;
         font-size: 10px;
 
         &Bold{
             font-weight: bold;
         }
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
     }
 }
 
@@ -243,9 +169,8 @@
 }
 
 .ModalRows{
-    margin-left: 1rem;
+    margin-left: 10px;
     width: 100%;
-
 
     &Title{
         color: #9D9D9D;
@@ -274,7 +199,6 @@
 
 .ModalPayInfo{
     display: flex;
-    margin-left: 2.5rem;
     margin-right: 2.5rem;
     margin-top: 1.5rem;
     gap: 1rem; 
@@ -282,9 +206,9 @@
     font-size: 0.875rem;
     line-height: 1.25rem; 
     font-weight: 500; 
+    width: 80%;
     
     @include max-devices("md") {
-        margin-left: 3rem;
         margin-right: 3rem;
         margin-top: 1rem;
     }
@@ -360,3 +284,13 @@
 }
 
 
+.MobWrap {
+    background: #F7F7F0;
+    margin: 0 -10px -10px -10px;
+}
+
+.MobWrapBlock {
+    padding: 0 10px 0px 10px;
+    border-radius: 0 0 8px 8px;
+    background: #fff;
+}

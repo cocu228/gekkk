@@ -1,8 +1,8 @@
 import {FC, MutableRefObject, ReactNode, useContext} from "react";
 import MessageType from "../../types/MessageType";
-import {ScrollContainer, Buffer, NoMessagesTextContainer} from "./style";
 import Loader from "../../components/loader";
 import {CtxAuthInfo} from "../../contexts/AuthContext";
+import style from './style.module.scss'
 
 export interface IScrollLayoutChildrenProps extends MessageType{
     last: boolean;
@@ -31,17 +31,18 @@ const ScrollLayout: FC<IScrollLayoutProps> = ({
     } = useContext(CtxAuthInfo)
 
     return (
-        <ScrollContainer ref={scrollContainerRef} onScroll={onScroll}>
+        <div className={style.ScrollContainer} ref={scrollContainerRef} onScroll={onScroll}>
             {authLoading
                 ? <Loader/>
                 : (messages && messages.length <= 0)
                 && (
-                    <NoMessagesTextContainer
+                    <div
+                        className={style.NoMessagesTextContainer}
                         color={"noMessageTextColor"}>
                         {!authConfig?.token
                             ? <p>Click here to load messages</p>
                             : <p>No messages yet...</p>}
-                    </NoMessagesTextContainer>
+                    </div>
                 )
             }
             {messages && scrollContainerRef.current && bottomBufferRef.current && messages.map((message, index) => {
@@ -81,9 +82,9 @@ const ScrollLayout: FC<IScrollLayoutProps> = ({
                 return children({ last, single, index, user, ...messageProps })
             })}
             <div>
-                <Buffer ref={bottomBufferRef}/>
+                <div className={style.Buffer} ref={bottomBufferRef}></div>
             </div>
-        </ScrollContainer>
+        </div>
     )
 }
 

@@ -24,9 +24,16 @@ export default memo(({onAction}: TProps) => {
         instanceTimer.run();
     }
 
-    return <div>
-        {state === null
-            ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>{t("resend_one-time_code")}</a>
-            : <span className="text-gray-400">{ t("can_use_code", {amount: state})}</span>}
-    </div>
+    return (
+        <div className="mt-[10px] text-center md:text-fs12 text-fs14">
+            {state === null
+                ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>{t("resend_one-time_code")}</a>
+                : (
+                <div className="text-[var(--gek-dark-grey)]">
+                  <span>{t("use_code.can_use_code")}</span>
+                  <span className="text-[#3A5E66] font-bold">{t("use_code.amount", { amount: state })}</span>
+                </div>
+            )}
+        </div>
+    )
 })

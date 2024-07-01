@@ -11,13 +11,14 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
-import ReceiptData from "@/widgets/receipt/receiptData";
+import Receipt from "@/widgets/receipt/ui";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
@@ -33,23 +34,37 @@ const InfoContent = (props: TxInfoProps) => {
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
-    props.handleCancel()
+    props.handleCancel();
+    const isBankTx = !isNumbersOnly(props.id_transaction);
+
     if (md) {
       const searchParams = new URLSearchParams(location.search)
       const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      
       const params = createSearchParams({
-        txId: props.id_transaction,
-        ...search
-      })
+        ...search,
+        ...(isBankTx ? {txId: props.id_transaction} : {})
+      });
+
+      if (!isBankTx) {
+        localStorage.setItem("receiptInfo", JSON.stringify({
+          ...props,
+          addressTxInfo: state
+        }));
+      }
+
       navigate({
         pathname: "/receipt",
         search: params.toString()
-      })
+      });
     } else {
       modalContext.setContent({
-        content: <ReceiptData txId={props.id_transaction}/>,
-        title: 'Transaction receipt'
-      })
+        title: t("transaction_receipt"),
+        content: (!isBankTx
+          ? <Receipt txInfo={{...props, addressTxInfo: state}}/>
+          : <Receipt txId={props.id_transaction}/>
+        )
+      });
     }
   }
 
@@ -248,7 +263,7 @@ const InfoContent = (props: TxInfoProps) => {
                       <div className="cursor-pointer">
                         <a
                           target={"_blank"}
-                          href={!isNaN(Number(state.txHash)) ? null : (state.explorerBaseAddress + state.txHash)}
+                          href={isNumbersOnly(state.txHash) ? null : (state.explorerBaseAddress + state.txHash)}
                           className={style.InfoItemHash}
                         >
                           {state.txHash}
@@ -262,22 +277,32 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && (
-              <div className={"flex gap-[20px] w-full justify-between mt-3"}>
-                <Button
-                    skeleton
-                    className='w-full'
-                    onClick={handleOnReceipt}
-                >
-                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
-                </Button>
-                <Button
-                    className='w-full'
-                    onClick={props.handleCancel}
-                >
-                  {t("close")}
-                </Button>
-              </div>
+          {isNeedConfirm ? null : getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
+            <div className={"flex gap-[20px] w-full justify-between mt-3"}>
+              <Button
+                  skeleton
+                  className='w-full'
+                  onClick={handleOnReceipt}
+              >
+                <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
+              </Button>
+
+              <Button
+                  className='w-full'
+                  onClick={props.handleCancel}
+              >
+                {t("close")}
+              </Button>
+            </div>
+          ) : (
+            <div className={"flex gap-[20px] w-full justify-center mt-3"}>
+              <Button
+                  className='w-full'
+                  onClick={props.handleCancel}
+              >
+                {t("close")}
+              </Button>
+            </div>
           )}
         </div>
       )}

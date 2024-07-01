@@ -15,7 +15,7 @@ export function Table({
         statements[account?.number] ?? []
     ), [account, statements]);
 
-    return <div className="flex flex-col pt-[36px] gap-[24px]">
+    return <div className="flex flex-col gap-[5px]">
         {reports.map(item => {
             return <TableRow statement={item} uasToken={uasToken}/>
         })}

@@ -2,10 +2,20 @@
 
 .Table {
   display: grid;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 10px;
+  }
 }
 
+.TableHeadBody {
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
 
 .TableHead {
+  border-radius: 8px 8px 0 0;
   display: inherit;
   background-color: #eeeff2;
   color: #282828;
@@ -16,7 +26,8 @@
   padding: 1rem 0;
   align-items: center;
   grid-template-columns: repeat(12, minmax(20px, 1fr));
-  @include max-devices(md){
+
+  @media screen and (max-width: 768px) {
     font-size: 12px;
     background-color: var(--gek-light-grey);
     display: flex;
@@ -24,7 +35,6 @@
     align-items: center;
     padding: 0px;
     height: 35px;
-    border-radius: 8px 8px 0 0;
   }
 }
 
@@ -64,17 +74,13 @@
   }   
 }
 
-:global(.ant-modal-footer) {
-  display: none !important;
-}
-
 .TableBody {
   display: inherit;
   position: relative;
   min-height: 140px;
   background-color: #f9f9fa;
   border: 1px solid #eff3f8;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 8px 8px;
 
 
 
@@ -113,7 +119,8 @@
   width: 100%;
   display: block;
 
-  @include max-devices(md) {
+
+  @media screen and (max-width: 768px) {
     font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -121,6 +128,12 @@
     font-weight: 600;
     width: 100%;
     color: #29354C;
+
+    &:nth-child(2) {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }
 
@@ -239,7 +252,7 @@
 .CopyIcon {
   flex-direction: column;
   min-width: 14px;
-  margin-right: 25px;
+  // margin-right: 25px;
 
   svg {
     margin: 0 !important;

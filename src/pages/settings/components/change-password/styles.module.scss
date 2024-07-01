@@ -84,3 +84,31 @@
     line-height: 20px;
     width: 100%;
 }
+
+.Resend {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+    text-align: center;
+    display: inline-block;
+    color: var(--gek-mid-grey);
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    &Timer {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gek-additional);
+    
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
+    }
+
+    &.ResendActive {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

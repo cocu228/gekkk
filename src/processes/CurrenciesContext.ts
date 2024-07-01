@@ -14,6 +14,7 @@ export class ICtxCurrency {
     $const: null | ETokensConst;
     minOrder: null | number;
     roundPrec: null | number;
+    marketFee: null | number;
     ordersPrec: null | number;
     decimalPrec: null | number;
     defaultTokenNetworkIn: null | number;
@@ -29,6 +30,7 @@ export class ICtxCurrency {
         this.$const = asset.code as ETokensConst;
         this.minOrder = asset.min_order;
         this.roundPrec = asset.round_prec;
+        this.marketFee = asset.market_fee;
         this.ordersPrec = asset.orders_prec;
         this.decimalPrec = asset.decimal_prec;
         this.defaultTokenNetworkIn = asset.default_token_network_in;

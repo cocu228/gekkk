@@ -5,7 +5,6 @@ import PendingTransactions from "@/widgets/pending-transactions";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import CtxGlobalModalProvider from "@/app/providers/CtxGlobalModalProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
-import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 import {useMatch} from "react-router-dom";
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
@@ -24,7 +23,9 @@ const Content: FC<PropsWithChildren> = ({children}) => {
     const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP()
 
     return isGEKAndGEKW ? (
-        <div className="w-full flex-1 md:mb-3 mb-10" style={{overflow: 'hidden'}}>
+        <div className="w-full flex-1 md:mb-3 mb-10"
+        style={{overflow: 'hidden'}}
+        >
             <CtxGlobalModalProvider>
                 {md ? null : (
                     <>
@@ -32,7 +33,6 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                         {!IS_GEKKWALLET_APP() && <PendingTransactions/>}
                     </>
                 )}
-                {md ? null : <ActionConfirmationWindow/>}
                 <div className={`${styles.Content} ${!((isExchange || isPrivateRoom) && md)
                     ? styles.ContentPadding : ''}`}>
                     {children}

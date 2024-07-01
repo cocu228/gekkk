@@ -32,7 +32,7 @@ const TxInfoRow = ({
                 ? styles.HTypeImgOrg
                 : styles.HTypeImg
             )}>
-                <use href={"/img/gek_icons_lib1.svg?v3#type" + item.tx_type} />
+                <use href={"/img/gek_icons_lib1.svg?v4#type" + item.tx_type} />
             </svg>
             
             <div className={(item.tx_type === 3 && item.partner_info === ""

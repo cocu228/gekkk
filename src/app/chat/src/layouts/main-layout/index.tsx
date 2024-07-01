@@ -1,9 +1,9 @@
 import {PropsWithChildren, SetStateAction, Dispatch} from "react";
 import AuthProvider from "../../providers/AuthProvider";
-import {Layout, Container} from "./style";
 import StompSocketProvider from "../../providers/StompSocketProvider";
 import ChatThemeProvider from "../../providers/ChatThemeProvider";
 import {ChatMessage} from "../../types/Shared";
+import styles from './style.module.scss'
 
 interface IMainLayoutProps extends PropsWithChildren {
     setIsWebSocketReady: (value: boolean) => void;
@@ -15,11 +15,11 @@ export default function MainLayout({children, setIsWebSocketReady, setMessages}:
         <AuthProvider>
             <StompSocketProvider setIsWebSocketReady={setIsWebSocketReady} setMessages={setMessages}>
                 <ChatThemeProvider>
-                    <Layout id='chat-main-container' tabIndex={-1}>
-                        <Container>
+                    <div id='chat-main-container' className={styles.Layout} tabIndex={-1}>
+                        <div className={styles.Container}>
                             {children}
-                        </Container>
-                    </Layout>
+                        </div>
+                    </div>
                 </ChatThemeProvider>
             </StompSocketProvider>
         </AuthProvider>

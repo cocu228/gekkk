@@ -1,12 +1,10 @@
 import React, {FC, useEffect} from 'react'
-import {useTheme} from "styled-components";
 import MediaContent from '../media-content'
 import TextContent from '../text-content'
 import Timestamp from '../timestamp'
 import {IconApp} from "../../../shared/components/icon-app";
 import {IIncomingMessageProps} from "../messageTypes";
-
-import {MessageContent, MessagesContainer, UserAvatar, UserAvatarContainer} from "../style";
+import style from '../styles.module.scss'
 
 const IncomingMessage: FC<IIncomingMessageProps> = ({
     text,
@@ -16,7 +14,6 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
     single,
     created_at,
 }) => {
-    const theme = useTheme();
 
     const [avatar, setAvatar] = React.useState<string | null>(null)
 
@@ -33,24 +30,24 @@ const IncomingMessage: FC<IIncomingMessageProps> = ({
     const date = created_at?.toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"})
 
     return (
-        <MessagesContainer data-testid="incoming-message" className='fade-animation' data-date={date}>
-            <UserAvatarContainer>
+        <div data-testid="incoming-message" className={`fade-animation ${style.MessagesContainer}`} data-date={date}>
+            <div className={style.UserAvatarContainer}>
                 {avatar ?
-                    <UserAvatar src={avatar} onError={handleOnError}/>
+                    <img src={avatar} className={style.UserAvatar} onError={handleOnError}/>
                     :
-                    <IconApp code={"t24"} size={25} color={theme.lightBlue}/>
+                    <IconApp code={"t24"} size={25} color={'#285E69'}/>
                 }
-            </UserAvatarContainer>
-            <MessageContent>
+            </div>
+            <div className={style.MessageContent}>
                     {media ?
                         <MediaContent last={last} single={single} messageType='incoming'{...media} />
                         :
                         <TextContent>{text}</TextContent>
                     }
                     <Timestamp date={created_at}/>
-            </MessageContent>
-            <UserAvatarContainer/>
-        </MessagesContainer>
+            </div>
+            <div className={style.UserAvatarContainer}></div>
+        </div>
     )
 }
 

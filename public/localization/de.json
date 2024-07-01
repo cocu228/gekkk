@@ -499,7 +499,7 @@
     "white_paper": "White Paper",
     "exchange_rate_fixed": "Der Wechselkurs ist fest",
     "note": "Anmerkung",
-    "exchange_fee": "Die Standardwechselgebühr beträgt ",
+    "exchange_fee": "Hinweis: Die Standard-Umtauschgebühr beträgt",
     "withdraw_fee": "Standardabhebegebühr nach {{to}} beträgt",
     "if_you": "Wenn Sie",
     "freeze_GKE_tokens": "GKE-Token einfrieren",

@@ -532,7 +532,7 @@
     "white_paper": "Carta bianca",
     "exchange_rate_fixed": "Il tasso di cambio è fisso",
     "note": "Nota",
-    "exchange_fee": "La commissione di cambio standard è",
+    "exchange_fee": "Nota: la tariffa di cambio standard è",
     "withdraw_fee": "La commissione di prelievo standard su {{to}} è",
     "if_you": "Se tu",
     "freeze_GKE_tokens": "congelare i token GKE",

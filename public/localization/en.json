@@ -633,7 +633,7 @@
     "white_paper": "White Paper",
     "exchange_rate_fixed": "The exchange rate is fixed",
     "note": "Note",
-    "exchange_fee": "Standard exchange fee is ",
+    "exchange_fee": "Note: Standard exchange fee is",
     "withdraw_fee": "Standard withdraw fee to {{to}} is",
     "if_you": "If you",
     "freeze_GKE_tokens": "freeze GKE tokens",

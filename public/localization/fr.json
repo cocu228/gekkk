@@ -313,6 +313,26 @@
           "can_my_card_be_reloaded": "Ma carte peut-elle être rechargée ?",
           "how_can_i_replenish_my_card": "Comment puis-je réapprovisionner ma carte ?"
         },
+        "card_limits": {
+          "title": "Limites de carte",
+          "answers": {
+            "the_function": "La fonction de définition/désactivation des limites vous permet de créer vous-même des limites, qui régulent vos dépenses sur votre carte. Les limites s'appliquent aux transactions suivantes de la carte :",
+            "cash": "- Retrait d'espèces de la carte",
+            "payment": "- Paiement des achats avec la carte",
+            "day_limit": "Limite journalière",
+            "possible": "Il est possible d'indiquer le montant maximum des transactions dans une journée. Par exemple, si vous indiquez une limite journalière de 1000 EUR, vous ne pourrez pas effectuer de transactions (retraits d'espèces et achats) de plus de 1000 EUR en une journée. Dans le champ « Disponible », vous pouvez voir le montant disponible avant d'atteindre la limite. Si un montant est retenu lors d'un retrait d'espèces ou d'un achat, la valeur disponible est également réduite de ce montant. Si la limite journalière est atteinte, vous ne pourrez pas payer l'achat ou retirer de l'argent de la carte.",
+            "month_limit": "Limite mensuelle",
+            "monts_limit_ans": "Il est possible d'indiquer le montant des dépenses sur un mois à partir du moment où la limite est définie, par exemple, 10 000 EUR. En cas d'une telle configuration, il ne sera pas possible d'effectuer des transactions (retraits d'espèces et achats) de plus de 10 000 EUR par mois. Si la limite journalière spécifiée est supérieure à la limite mensuelle spécifiée, la valeur de la limite mensuelle est automatiquement augmentée à la valeur de la limite journalière. Dans le champ « Disponible », vous pouvez voir le montant disponible avant d'atteindre la limite. Si un montant est retenu lors d'un retrait d'espèces ou d'un achat, la valeur disponible est également réduite de ce montant. Si la limite mensuelle est atteinte, vous ne pourrez pas payer l'achat ou retirer de l'argent de la carte.",
+            "temporarily": "Désactiver temporairement les limites",
+            "temporarily_ans": "Pour désactiver temporairement les limites journalières et mensuelles, vous devez activer le commutateur « Désactiver temporairement les limites ». Vous ne pouvez désactiver les limites que jusqu'au premier retrait d'espèces ou achat, ou jusqu'à ce que 3 minutes se soient écoulées depuis la désactivation. Après cela, le commutateur « Désactiver temporairement les limites » revient automatiquement à la position désactivée. À côté du commutateur « Désactiver temporairement les limites », le compteur de temps d'attente est affiché."
+          }
+        },
+        "partnership": {
+          "title": "Programme de partenariat",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Achats par carte",
           "answers": {

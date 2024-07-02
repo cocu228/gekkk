@@ -1,12 +1,4 @@
-import CreateIntelligentAnalysisTask from '@/assets/create-intelligent-analysis-task.svg?react'
-import Balances from '@/assets/balances.svg?react'
-import Security from '@/assets/security.svg?react'
-import PosMachine from '@/assets/pos-machine.svg?react'
-import Atm from '@/assets/atm.svg?react'
-import Other from '@/assets/other.svg?react'
 import { FAQTemplate } from './components/FAQTemplate'
-import { IconApp } from '@/shared/ui/icons/icon-app'
-
 
 
 export const faqAreasMap = (t = (str) => null) => {
@@ -14,7 +6,6 @@ export const faqAreasMap = (t = (str) => null) => {
 
   return {
     'account': {
-      icon: <IconApp size={35} code="t07" color="currentColor" />,
       title: "support.faq.account.title",
       area: (
         <FAQTemplate
@@ -108,7 +99,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'account-opening': {
-      icon: <CreateIntelligentAnalysisTask />,
       title: "support.faq.account_opening.title",
       area: (
         <FAQTemplate
@@ -191,7 +181,6 @@ export const faqAreasMap = (t = (str) => null) => {
     },
     
     'account-balance': {
-      icon: <Balances />,
       title: "support.faq.account_balance.title",
       area: (
         <FAQTemplate
@@ -243,7 +232,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'personal-information': {
-      icon: <IconApp code="t55" size={25} color="currentColor" />,
       title: "support.faq.personal_information.title",
       area: (
         <FAQTemplate
@@ -403,7 +391,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'security': {
-      icon: <Security />,
       title: "support.faq.security.title",
       area: (
         <FAQTemplate
@@ -602,7 +589,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'card': {
-      icon: <IconApp size={35} code="t22" color="currentColor" />,
       title: "support.faq.card.title",
       area: (
         <FAQTemplate
@@ -985,8 +971,99 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
+    'card_limits': {
+      title: "support.faq.card_limits.title",
+      area: (
+        <FAQTemplate
+          title="support.faq.card_limits.title"
+          items={[
+            {
+              title: '',
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.card_limits.answers.the_function")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <div className='mt-[10px]' >
+                    {t("support.faq.card_limits.answers.cash")}
+                    <br/>
+                    {t("support.faq.card_limits.answers.payment")} 
+                  </div>
+                </>
+              ),
+            },
+            {
+              title:'',
+              content: (
+                <>
+                  <p className='mt-[10px]' >
+                    {t("support.faq.card_limits.answers.day_limit")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <p className='mt-[10px]'>
+                    {t("support.faq.card_limits.answers.possible")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <p className='mt-[10px]' >
+                    {t("support.faq.card_limits.answers.month_limit")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <p className='mt-[10px]'>
+                    {t("support.faq.card_limits.answers.monts_limit_ans")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <p className='mt-[10px]'>
+                    {t("support.faq.card_limits.answers.temporarily")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: '',
+              content: (
+                <>
+                  <p className='mt-[10px]'>
+                    {t("support.faq.card_limits.answers.temporarily_ans")}
+                  </p>
+                </>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
     'card-purchases': {
-      icon: <PosMachine />,
       title: "support.faq.card_purchases.title",
       area: (
         <FAQTemplate
@@ -1098,7 +1175,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'atm-transactions': {
-      icon: <Atm />,
       title: "support.faq.atm_transactions.title",
       area: (
         <FAQTemplate
@@ -1125,7 +1201,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'money-transfers': {
-      icon: <IconApp size={36} code="t51" color="currentColor" />,
       title: "support.faq.money_transfers.title",
       area: (
         <FAQTemplate
@@ -1146,7 +1221,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'fees': {
-      icon: <IconApp size={25} code="t61" color="currentColor" />,
       title: "support.faq.fees.title",
       area: (
         <FAQTemplate
@@ -1170,7 +1244,6 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'other': {
-      icon: <Other />,
       title: "support.faq.other.title",
       area: (
         <FAQTemplate
@@ -1220,6 +1293,26 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
+    // 'partnership_program': {
+    //   title: "support.faq.partnership.title",
+    //   area: (
+    //     <FAQTemplate
+    //       title="support.faq.partnership.title"
+    //       items={[
+    //         {
+    //           title: '',
+    //           content: (
+    //             <>
+    //               <p>
+    //                 {/* {t("support.faq.partnership.answers.the_function")} */}
+    //               </p>
+    //             </>
+    //           ),
+    //         },
+    //       ]}
+    //     />
+    //   ),
+    // },
   }
 }
 

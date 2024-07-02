@@ -13,7 +13,11 @@ export function FAQTemplate({ items }: FAQTemplateProps) {
   return <>
     {items.map(({title, content}) => {      
       return (<div key={title}>      
-        <span className={styles.Question}>{t(title)}</span>
+        {
+          title && (
+            <span className={styles.Question}>{t(title)}</span>
+          )
+        }
         <div className={styles.Answer}>
           {content}
         </div>

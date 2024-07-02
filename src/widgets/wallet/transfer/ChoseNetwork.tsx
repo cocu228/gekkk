@@ -53,7 +53,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                             </div>
                             <span className={styles.NoOptionsText}>
                                 {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("top_up")})}
-                                {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
+                                {!currencies?.get($const).flags[CurrencyFlags.ExchangeAvailable]
                                     ? null
                                     : (<span> {t("or_create") + " "} 
                                             <span
@@ -74,7 +74,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                             </div>}
                             message={<span>
                                 {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("top_up")})}
-                                {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
+                                {!currencies?.get($const).flags[CurrencyFlags.ExchangeAvailable]
                                     ? null
                                     : (<span> {t("or_create") + " "} 
                                             <span

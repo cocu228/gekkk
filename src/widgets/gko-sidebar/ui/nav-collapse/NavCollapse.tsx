@@ -17,8 +17,8 @@ const NavCollapse = ({children, id, header}) => {
         toggleActive(prev => !prev);
     }
     
-    return <div>
-        <button onClick={handlerToggle} className={styles.Header + (isActive ? " active" : "")}>
+    return <div className="bg-[#fff]">
+        <button  onClick={handlerToggle} className={styles.Header + (isActive ? " active" : "")}>
             <div className={`flex flex-nowrap items-center justify-end pr-4 pt-2 pb-2`}>
                 <span className="text-gray-400 text-sm mr-4 font-medium">{header}</span>
                 <IconApp code="t08" className="rotate-[90deg]" size={10} color='#285E69' />

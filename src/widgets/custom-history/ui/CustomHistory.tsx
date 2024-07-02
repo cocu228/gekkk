@@ -136,8 +136,7 @@ function CustomHistory() {
       <div className={styles.wrapper}>
         <form className={styles.filters}>
           <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
-          <div>
-            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
+          <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
               <Datepicker 
                 isTo={false}
                 date={startDate}
@@ -150,7 +149,6 @@ function CustomHistory() {
                 setDate={setEndDate}
               />
             </div>
-          </div>
           <div className={styles.SelectWrap}>
             <div
               className={styles.SelectBlock}

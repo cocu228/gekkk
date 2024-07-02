@@ -24,9 +24,9 @@ export function ChangePassword() {
   const [confirmNewPass, setConfirmNewPass] = useState<string>();
   const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
 
-  const [code, setCode] = useState("t84");
+  const [code, setCode] = useState("t41");
   const [type, setType] = useState('password');
-  const [codeConfirmed, setCodeConfirm] = useState("t84");
+  const [codeConfirmed, setCodeConfirm] = useState("t41");
   const [typeConfirmed, setTypeConfirm] = useState('password');
   
   const startTimer = () => setTimer(60);
@@ -37,20 +37,20 @@ export function ChangePassword() {
 
   const handleToggle = () => {
     if (type==='password'){
-      setCode('t85')
+      setCode('t71')
       setType('text')
     } else {
-      setCode('t84')
+      setCode('t41')
       setType('password')
     }
   }
 
   const handleToggleConfirmed = () => {
     if (typeConfirmed==='password'){
-      setCodeConfirm('t85')
+      setCodeConfirm('t71')
       setTypeConfirm('text')
     } else {
-      setCodeConfirm('t84')
+      setCodeConfirm('t41')
       setTypeConfirm('password')
     }
   }
@@ -115,7 +115,7 @@ export function ChangePassword() {
               allowSymbols
               type={type}
               onChange={passSave}
-              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} onClick={handleToggle}/>}
+              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color={"#285E69"} onClick={handleToggle}/>}
               value={newPass}
               className="min-h-[40px] h-[52px]"
               placeholder={t("enter_new_password")}
@@ -128,7 +128,7 @@ export function ChangePassword() {
             allowSymbols
             type={typeConfirmed}
             onChange={passConfirm}
-            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} onClick={handleToggleConfirmed}/>}
+            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color={"#285E69"} onClick={handleToggleConfirmed}/>}
             value={confirmNewPass}
             className="min-h-[40px] h-[52px]"
             placeholder={t("confirm_new_password")}

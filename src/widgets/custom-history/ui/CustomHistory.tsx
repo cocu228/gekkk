@@ -16,7 +16,7 @@ import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
-import { getFirstDayOfPreviousMonth } from "../model/helpers";
+import { getFirstDayOfPreviousMonth, getHigherDate, getLowerDate } from "@/shared/lib/date-helper";
 
 // TODO: clean up
 function CustomHistory() {
@@ -383,11 +383,11 @@ function CustomHistory() {
         <History
           tab="custom"
           className="mt-2"
-          to={endDate}
-          from={startDate}
           types={historyData.types}
           includeFiat={historyData.includeFiat}
           currenciesFilter={historyData.assets}
+          to={getHigherDate(endDate, startDate)}
+          from={getLowerDate(endDate, startDate)}
         />
       )}
     </>

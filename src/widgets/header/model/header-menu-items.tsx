@@ -37,18 +37,18 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 padding: "12px 12px"
             }
         },
-        {
-            item: <CrossPlatformNav/>,
-            id: 'investPlatform',
-            action: {
-                type: null,
-                value: null,
-            },
-            icon: <IconApp color="var(--gek-additional)" size={18} code="t21" />,
-            style: {
-                padding: "12px 12px"
-            }
-        },
+        // {
+        //     item: <CrossPlatformNav/>,
+        //     id: 'investPlatform',
+        //     action: {
+        //         type: null,
+        //         value: null,
+        //     },
+        //     icon: <IconApp color="var(--gek-additional)" size={18} code="t21" />,
+        //     style: {
+        //         padding: "12px 12px"
+        //     }
+        // },
         {
             item: t('header_menu.support'),
             id: 'support',

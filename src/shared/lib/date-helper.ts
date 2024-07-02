@@ -20,6 +20,35 @@ export const formatForApi = (value: Date | string) => typeof value === "string"
     ? format(new Date(value), 'yyyy-MM-dd')
     : format(value, 'yyyy-MM-dd');
 
+export function getFirstDayOfPreviousMonth(): Date {
+    const currentDate = new Date();
+    const firstDayCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    
+    firstDayCurrentMonth.setMonth(firstDayCurrentMonth.getMonth() - 1);
+    
+    return new Date(firstDayCurrentMonth.getFullYear(), firstDayCurrentMonth.getMonth(), 1);
+}
+
+export function getHigherDate(first: Date, second: Date): Date {
+    let date1 = new Date(first).getTime();
+    let date2 = new Date(second).getTime();
+
+    if (date1 < date2)
+        return second;
+
+    return first;
+}
+
+export function getLowerDate(first: Date, second: Date): Date {
+    let date1 = new Date(first).getTime();
+    let date2 = new Date(second).getTime();
+
+    if (date1 < date2)
+        return first;
+
+    return second;
+}
+
 const timeZoneCustomer = Intl.DateTimeFormat().resolvedOptions().timeZone
 export const formatForTimeZone = (value) => utcToZonedTime(value, timeZoneCustomer)
 export const formatForFile = (value) => format(formatForTimeZone(new Date(value)), "dd.MM.yyyy_HH.mm")

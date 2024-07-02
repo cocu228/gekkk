@@ -15,10 +15,10 @@ export async function getTransactionSignParams(phone: string, uasToken: string) 
     );
 
     if (!decrAppPass) return;
-    
+
     return ({
         appPass: decrAppPass,
-        appUuid: getAppUuid(cryptoConfiguration, decrAppPass)
+        appUuid: getAppUuid(cryptoConfiguration, decrAppPass),
     });
 }
 

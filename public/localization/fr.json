@@ -533,7 +533,7 @@
     "white_paper": "Papier blanc",
     "exchange_rate_fixed": "Le taux de change est fixe",
     "note": "Note",
-    "exchange_fee": "Les frais de change standard sont",
+    "exchange_fee": "Note: La commission d'échange standard est de",
     "withdraw_fee": "Les frais de retrait standard vers {{to}} sont",
     "if_you": "Si tu",
     "freeze_GKE_tokens": "geler les jetons GKE",

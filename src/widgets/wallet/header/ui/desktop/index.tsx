@@ -18,7 +18,6 @@ const WalletHeader = () => {
     const currency = params.get('currency');
     const {account} = useContext(CtxRootData);
 
-
     const {
         name,
         $const,
@@ -26,14 +25,11 @@ const WalletHeader = () => {
         decimalPrec
     } = useContext(CtxWalletData);
 
-
-
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
 
     const [rates, setRates] = useState<Record<ETokensConst, number>>();
-
 
     useEffect(() => {
         (async () => {

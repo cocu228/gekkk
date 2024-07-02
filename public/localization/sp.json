@@ -532,7 +532,7 @@
     "white_paper": "Papel blanco",
     "exchange_rate_fixed": "El tipo de cambio es fijo.",
     "note": "Nota",
-    "exchange_fee": "La tarifa de cambio estándar es",
+    "exchange_fee": "Nota: La comisión de cambio estándar es de",
     "withdraw_fee": "La tarifa de retiro estándar a {{to}} es",
     "if_you": "Si usted",
     "freeze_GKE_tokens": "congelar tokens GKE",

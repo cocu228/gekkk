@@ -532,7 +532,7 @@
     "white_paper": "白皮书",
     "exchange_rate_fixed": "汇率是固定的",
     "note": "笔记",
-    "exchange_fee": "标准兑换费为",
+    "exchange_fee": "注：标准兑换费为",
     "withdraw_fee": "提现至 {{to}} 的标准费用为",
     "if_you": "如果你",
     "freeze_GKE_tokens": "冻结 GKE 代币",

@@ -532,7 +532,7 @@
     "white_paper": "Beyaz kağıt",
     "exchange_rate_fixed": "Döviz kuru sabitlendi",
     "note": "Not",
-    "exchange_fee": "Standart değişim ücreti",
+    "exchange_fee": "Not: Standart değişim ücreti",
     "withdraw_fee": "{{to}} için standart para çekme ücreti:",
     "if_you": "Eğer sen",
     "freeze_GKE_tokens": "GKE jetonlarını dondur",

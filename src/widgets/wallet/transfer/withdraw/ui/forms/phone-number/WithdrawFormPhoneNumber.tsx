@@ -19,7 +19,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
-import Textarea from "@/widgets/wallet/transfer/components/textarea";
+import Textarea from "@/shared/ui/textarea";
 
 const WithdrawFormPhoneNumber = () => {
   // Context

@@ -1148,88 +1148,111 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         //     </p>
         // </div>,
 
-        [ETokensConst.EURG]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'> 
-            <p className='mb-3'>
-                {t("EUR_is_utility_token")} <a
-                className='font-semibold underline hover:cursor-pointer'
-                href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >{t("gekkard_app")}</a>.
-            </p>
-
-            <p className='mb-3'>{t("for_more_information")} <a
-                className='underline font-semibold hover:cursor-pointer'
-                href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
-                target="_blank"
-                rel="noopener noreferrer"
-            >{t("white_paper")}</a>.
-            </p>
-
-            {IS_GEKKARD_APP() && 
-                <>
-                    <div className="row  flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                        <div className='text-[14px]'>
+        [ETokensConst.EURG]: (
+          <div className="flex flex-col gap-[10px]">
+              <div className="flex flex-col gap-[1ch] text-justify">
+                  <p>
+                      &emsp;{t("EUR_is_utility_token")}&nbsp;
+                      <a
+                        target="_blank"
+                        href={`${gekkardUrl ?? "https://dev.gekkard.com"}/app-release.apk`}
+                        className="font-bold underline hover:cursor-pointer"
+                        rel="noopener noreferrer"
+                      >
+                          {t("gekkard_app")}
+                      </a>.
+                  </p>
+                  <p>
+                      &emsp;{t("for_more_information")}&nbsp;
+                      <a
+                        target="_blank"
+                        href="https://gekkoin.com/source/Gekkoin_EURG_WP.pdf"
+                        className="underline font-bold hover:cursor-pointer"
+                        rel="noopener noreferrer"
+                      >
+                          {t("white_paper")}
+                      </a>.
+                  </p>
+              </div>
+              {IS_GEKKARD_APP() &&
+                <div className="flex flex-col gap-[15px]">
+                    <div className="border-1 border-solid border-[var(--gek-orange)] rounded-md p-[5px] text-[var(--gek-orange)]">
+                        <p>
                             {t("exchange_rate_fixed")}: <span className="font-[700]">1 EUR = 1 EURG*</span>
-                        </div>
-                        <div className="col text-xs">
-                            {account && <span>{t("exchange_fee")} 1,5%.
-                                {account.rights[AccountRights.IsJuridical] ? null : <>
-                                    {t("if_you")} <a
-                                    className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
-                                    onClick={() => {
-                                        navigate('/wallet?currency=GKE&tab=no_fee_program');
-                                        scrollToTop();
-                                    }}
-                                >
-                                    {t("freeze_GKE_tokens")}
-                                </a> {t("fee_is")} 0%.
-                                </>}
-                        </span>}
-                        </div>
+                        </p>
+                        <p>
+                            {account && (
+                                <span>
+                                    *{t("exchange_fee")} 1,5%.&nbsp;
+                                    {account.rights[AccountRights.IsJuridical] ? null : (
+                                        <>
+                                            {t("if_you")}&nbsp;
+                                            <a
+                                                className="underline hover:text-blue-400 hover:cursor-pointer font-semibold"
+                                                onClick={() => {
+                                                    navigate("/wallet?currency=GKE&tab=no_fee_program");
+                                                    scrollToTop();
+                                                }}
+                                            >
+                                                {t("freeze_GKE_tokens")}
+                                            </a>&nbsp;
+                                            {t("fee_is")} 0%.
+                                        </>
+                                    )}
+                                </span>
+                            )}
+                        </p>
                     </div>
-                    <div className='info-box-description mb-4'>
-                            <p className='font-bold text-[14px]'>4% {t("AER_interest")}</p>
-                            <p>{t("you_get_per_annum")}:</p>
+                    <div className="border-1 border-solid border-[var(--gek-green)] rounded-md p-[5px_10px] text-[var(--gek-green)]">
+                        <p className='font-bold text-[14px]'>&emsp;4% {t("AER_interest")}</p>
+                        <p>&emsp;{t("you_get_per_annum")}:</p>
                         <ul className='list-disc list-inside'>
                             <li>{t("your_weighted_average")};</li>
                             <li>{t("our_upper_limit")}.</li>
                         </ul>
                     </div>
-                </>
+                </div>
             }
-
             <div>
-                <p className='mb-3'>
-                    {t("EURG_tokens_created")}:
-                </p>
-
-                <ul className='pl-[25px] list-disc mb-3'>
-                    <li><a
-                        className='underline font-bold hover:cursor-pointer'
-                        href='https://gekkoin.com/source/Emission-rules-Gekkoin.pdf'
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >{t("reglament_emission")};</a></li>
-                    <li><a
-                        className='underline font-bold hover:cursor-pointer'
-                        href='https://gekkoin.com/source/Token-distribution-report.pdf'
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >{t("token_distribution_report")}.</a></li>
+                <p>&emsp;{t("EURG_tokens_created")}:</p>
+                <ul className='list-disc list-inside pl-[10px]'>
+                    <li>
+                        <a
+                            className='underline font-bold hover:cursor-pointer'
+                            href='https://gekkoin.com/source/Emission-rules-Gekkoin.pdf'
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t("reglament_emission")};
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            className='underline font-bold hover:cursor-pointer'
+                            href='https://gekkoin.com/source/Token-distribution-report.pdf'
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t("token_distribution_report")}.
+                        </a>
+                    </li>
                 </ul>
-
+                <br/>
                 <p>
-                    {t("EURG_built_on")} <a
-                    className='underline font-bold hover:cursor-pointer'
-                    href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >{t("here")}</a>.
+                    &emsp;{t("EURG_built_on")}&nbsp;
+                    <a
+                        className='underline font-bold hover:cursor-pointer'
+                        href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {t("here")}
+                    </a>.
                 </p>
             </div>
 
-        </div>,
+        </div>
+        ),
 
         [ETokensConst.EVER]: <div className='text-[var(--gek-dark-grey)] indent-[10px]'>
             <p className='mb-3'>

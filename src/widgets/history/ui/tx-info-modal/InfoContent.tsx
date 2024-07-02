@@ -295,14 +295,16 @@ const InfoContent = (props: TxInfoProps) => {
               </Button>
             </div>
           ) : ( */}
-            <div className={"flex gap-[20px] w-full justify-center mt-3"}>
-              <Button
-                  className='w-full'
-                  onClick={props.handleCancel}
-              >
-                {t("close")}
-              </Button>
-            </div>
+            {isNeedConfirm ? null : (
+              <div className={"flex gap-[20px] w-full justify-center mt-3"}>
+                <Button
+                    className='w-full'
+                    onClick={props.handleCancel}
+                >
+                  {t("close")}
+                </Button>
+              </div>
+            )}
           {/* )} */}
         </div>
       )}

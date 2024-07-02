@@ -20,7 +20,7 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import QRCodeModal from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/ui/qr-code-modal";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
-import Textarea from "@/widgets/wallet/transfer/components/textarea";
+import Textarea from "@/shared/ui/textarea";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;

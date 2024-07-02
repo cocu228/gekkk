@@ -10,6 +10,7 @@ interface ITextareaProps {
   allowDigits?: boolean;
   allowSymbols?: boolean;
   discardLetters?: boolean;
+  className?: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
@@ -19,6 +20,7 @@ const Textarea: FC<ITextareaProps> = ({
   allowDigits,
   allowSymbols,
   discardLetters,
+  className = "",
   ...props
 }) => {
   const [value, setValue] = useState<string>('');
@@ -32,7 +34,7 @@ const Textarea: FC<ITextareaProps> = ({
   };
 
   return (
-    <div className={styles.Wrapper}>
+    <div className={`${styles.Wrapper} ${className}`}>
       <textarea
         rows={1}
         {...props}

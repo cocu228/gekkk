@@ -1,7 +1,6 @@
-import { ChangeEvent, FC, useState, MouseEvent } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import "./styles.css"
 import { QualityType, IControlState } from "@/pages/support/components/quality-control/types";
 import Textarea from "@/shared/ui/textarea";
 import Button from "@/shared/ui/button/Button";
@@ -49,13 +48,13 @@ const QualityControl: FC = () => {
         <div className="control-main-body">
           <IconApp
             code='t49'
-            size={30}
+            size={27}
             color={quality === "LIKE" ? "var(--gek-green)" : "#9D9D9D"}
             onClick={handleOnQuality("LIKE")}
           />
           <IconApp
             code='t49'
-            size={30}
+            size={27}
             color={quality === "DISLIKE" ? "var(--gek-red)" : "#9D9D9D"}
             onClick={handleOnQuality("DISLIKE")}
           />
@@ -74,7 +73,7 @@ const QualityControl: FC = () => {
                 onMouseLeave={handleOnMouseLeave}
               >
                 <IconApp
-                  size={30}
+                  size={20}
                   color={getRatingIconCode(star) === "t85" ? "var(--gek-additional)" : "var(--gek-green)"}
                   code={getRatingIconCode(star)}
                 />
@@ -86,6 +85,7 @@ const QualityControl: FC = () => {
             allowDigits
             name="message"
             placeholder="describe your idea/problem"
+            className={"py-[9px]"}
             value={control?.message || ""}
             onChange={handleOnMessage}
           />

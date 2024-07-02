@@ -24,13 +24,13 @@ const TableReferrals = (props) => {
 
     return <>
         <GTable>
-            <GTable.Head className={"bg-gray-200 p-4"}>
+            <GTable.Head className={"bg-[#DCDCD9] rounded-t-[8px] p-1"}>
                 <GTable.Row>
-                    <GTable.Col className={`flex my-2`}>
-                        <span className="text-gray-600 font-medium">{t("partnership_program.id")}</span>
+                    <GTable.Col className={`flex my-2 pl-[40px]`}>
+                        <span className=" text-[12px] text-[--gek-additional] font-semibold">{t("partnership_program.id")}</span>
                     </GTable.Col>
-                    <GTable.Col className={`flex my-2`}>
-                        <span className="text-gray-600 font-medium">{t("partnership_program.registration_date")}</span>
+                    <GTable.Col className={`flex my-2 pl-[30px]`}>
+                        <span className="text-[12px] text-[--gek-additional] font-semibold">{t("partnership_program.registration_date")}</span>
                     </GTable.Col>
                 </GTable.Row>
             </GTable.Head>

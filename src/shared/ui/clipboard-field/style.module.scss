@@ -10,7 +10,7 @@
 
   @include max-devices(md){
     justify-content: center;
-    height: 51px;
+    height: 35px;
     border-color: #DCDCD9;
     border-radius: 8px;
   }
@@ -23,6 +23,7 @@
     border: none;
     outline: none;
     min-width: 0;
+    overflow: hidden;
     text-overflow: ellipsis;
     color: #7B797C;
     font-family: "Inter";

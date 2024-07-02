@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import PageHead from '@/shared/ui/page-head/PageHead';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import TableReferrals from "@/widgets/partnership-program/TableReferrals";
@@ -17,12 +16,11 @@ const PartnershipProgram = () => {
     const {xl, md} = useContext(BreakpointsContext);
 
     return (<div className="wrapper h-inherit w-full">
-        <PageHead
-            subtitle={t("partnership_program.subtitle")}
-            title={t("partnership_program.title")}/>
+        <div className=" flex justify-between ml-[18px] pb-[10px] text-[12px] font-semibold">{t("partnership_program.agent_info")}
+            <a className="text-[10px] text-[--gek-additional] underline" href="">{t("how_it_works")}</a>
+        </div>
         <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
-            <div
-                className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
+            <div className={`${!md ? "substrate" : "-ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                 {xl && <ContentDescription/>}
                 <ContentMain/>
             </div>
@@ -51,65 +49,30 @@ const ContentDescription = () => {
     }, []);
 
     return <>
-         {md && 
-            <div className={md?styles.AgentCodeMobile:""}>
-            <div className={`row ${md?"mb-2 mt-6 ml-2":"mb-6"}`}>
-                <div className="col">
-                    <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
-                </div>
-            </div>
-            <div className={`row mb-8 ${md&&"flex justify-center"}`}>
-                <div className={`col ${md&&"w-[95%]"}`}>
-                    <ClipboardField value={state}/>
-                </div>
-            </div>
-            </div>
-        }
-        <div className="row mb-8">
-            <div className="col">
-                <h5 className="mt-5 font-[700]">{t("partnership_program.reward_for_buying")}</h5>
-            </div>
-        </div>
-        <div className="row mb-5 flex justify-center text-sm">
-            <div className="col info-box-description relative">
-                <img width={106} height={92} className="absolute top-[-40px] right-[-20px]"
-                     src="/img/gramophone.png" alt="gramophone"/>
-                <div className="row mb-3">
-                    <span className="font-semibold leading-6">{t("partnership_program.agent_who_attracts")}</span>
-                </div>
-                <div className="row">
-                    <ul className="leading-6">
-                        <li className="mb-2 leading-6"><span
-                            className="font-semibold leading-6">• 2% {t("partnership_program.per_annum")}</span><br/>
-                            {t("partnership_program.monthly_balance_first_year")}
-                        </li>
-                        <li className="leading-6"><span
-                            className="font-semibold leading-6">• 1% {t("partnership_program.per_annum")}</span><br/>
-                            {t("partnership_program.monthly_balance_second_year")}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div className="row mb-14">
-            <div className="col">
-                <p className="text-gray-500 font-medium leading-6">{t("partnership_program.rewards_transferred")}</p>
-            </div>
-        </div>
-        <div className="row mb-6">
-            <div className="col">
-                <h4 className="font-bold">{t("partnership_program.rewards_opening")}</h4>
-            </div>
-        </div>
-        <div className="row mb-6">
-            <div className="col info-box-warning font-medium leading-6">{t("partnership_program.bring_your_friends")}
-            </div>
-        </div>
-        <div className="row">
-            <div className="col">
-                <p className="text-gray-500 font-medium leading-6">{t("partnership_program.reward_right_after")}</p>
-            </div>
-        </div>
+         {md &&
+             <div className={md ? styles.AgentCodeMobile : ""}>
+                 <div className={`row ${md ? "mb-2 mt-[10px] ml-2" : "mb-6"}`}>
+                     <div className="col">
+                         <h4 className="font-semibold text-[12px] ml-[10px] text-[--gek-additional] ">{t("partnership_program.agent_code")}:</h4>
+                     </div>
+                 </div>
+                 <div className={`row ${md && "flex justify-center"}`}>
+                     <div className={`col ${md && "w-[95%]"}`}>
+                         <ClipboardField value={state}/>
+                     </div>
+                 </div>
+                 <div className={`row ${md ? "mb-2 mt-6 ml-2" : "mb-6"}`}>
+                     <div className="col">
+                         <h4 className="font-semibold text-[12px] ml-[10px] text-[--gek-additional] ">{t("partnership_program.agent_link")}:</h4>
+                     </div>
+                 </div>
+                 <div className={`row mb-3 ${md && "flex justify-center"}`}>
+                     <div className={`col ${md && "w-[95%]"}`}>
+                         <ClipboardField value={`https://web.gekkard.com/agent?code=${state}`}/>
+                     </div>
+                 </div>
+             </div>
+         }
     </>
 }
 
@@ -129,33 +92,43 @@ const ContentMain = () => {
     }, [])
 
     return <>
-        {!md && 
-            <div className={md?styles.AgentCodeMobile:""}>
-            <div className={`row ${md?"mb-2 mt-6 ml-2":"mb-6"}`}>
-                <div className="col">
-                    <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
+        {!md &&
+            <div className={md ? styles.AgentCodeMobile : ""}>
+                <div className={`row ${md ? "mb-2 mt-6 ml-2" : "mb-6"}`}>
+                    <div className="col">
+                        <h4 className="font-bold ">{t("partnership_program.agent_code")}</h4>
+                    </div>
                 </div>
-            </div>
-            <div className={`row mb-8 ${md&&"flex justify-center"}`}>
-                <div className={`col ${md&&"w-[95%]"}`}>
-                    <ClipboardField value={state}/>
+                <div className={`row mb-8 ${md && "flex justify-center"}`}>
+                    <div className={`col ${md && "w-[95%]"}`}>
+                        <ClipboardField value={state}/>
+                    </div>
                 </div>
-            </div>
+                <div className={`row ${md ? "mb-2 mt-6 ml-2" : "mb-6"}`}>
+                    <div className="col">
+                        <h4 className="font-bold ">{t("partnership_program.agent_code")}</h4>
+                    </div>
+                </div>
+                <div className={`row mb-8 ${md && "flex justify-center"}`}>
+                    <div className={`col ${md && "w-[95%]"}`}>
+                        <ClipboardField value={`https://web.gekkard.com/agent?code=${state}`}/>
+                    </div>
+                </div>
             </div>
         }
-        <div className="row mb-6">
+        <div className="row mb-[10px] mt-[10px] ml-[18px]">
             <div className="col">
-                <h4 className="font-bold">{t("partnership_program.referrals_info")}</h4>
+                <h4 className="font-semibold text-[12px]">{t("partnership_program.referrals_info")}</h4>
             </div>
         </div>
-        <div className="row mb-10">
+        <div className="row mb-[10px] ">
             <div className="col">
                 <TableReferrals/>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row ml-[18px]">
             <div className="col">
-                <h4 className="font-bold">{t("partnership_program.rewards")}</h4>
+                <h4 className="font-semibold text-[12px]">{t("partnership_program.rewards")}</h4>
             </div>
         </div>
         <div className={`row ${md&&"mb-[200px]"}`}>

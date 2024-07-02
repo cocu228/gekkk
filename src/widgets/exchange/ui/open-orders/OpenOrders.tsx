@@ -19,12 +19,12 @@ import {
   actionResSuccess,
 } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
 import {Switch } from "@/shared/ui/Switch/index";
 import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
-import { formatForApi } from "@/shared/lib/date-helper";
+import { formatForApi, getHigherDate, getLowerDate } from "@/shared/lib/date-helper";
+import { getFirstDayOfPreviousMonth } from "@/shared/lib/date-helper";
 
 interface IParams {
   refreshKey?: string;
@@ -45,7 +45,7 @@ function  OpenOrders({ refreshKey }: IParams) {
   const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(getFirstDayOfPreviousMonth())
   const [endDate, setEndDate] = useState(new Date())
 
   useEffect(() => {
@@ -71,9 +71,9 @@ function  OpenOrders({ refreshKey }: IParams) {
         })
         : await apiGetOrders({
           room_key: roomInfo?.timetick,
-          end: formatForApi(endDate),
-          start: formatForApi(startDate),
           ord_states: [127, 198, 199, 200, 210, 211],
+          end: formatForApi(getHigherDate(endDate, startDate)),
+          start: formatForApi(getLowerDate(endDate, startDate)),
         });
 
     actionResSuccess(response).success(() => {
@@ -98,9 +98,9 @@ function  OpenOrders({ refreshKey }: IParams) {
         : await apiGetOrders({
           from_order_id: lastValue.id,
           room_key: roomInfo?.timetick,
-          end: formatForApi(endDate),
-          start: formatForApi(startDate),
           ord_states: [127, 198, 199, 200, 210, 211],
+          end: formatForApi(getHigherDate(endDate, startDate)),
+          start: formatForApi(getLowerDate(endDate, startDate)),
         });
 
     if (data.result.length < 10) setAllOrdVisibly(true);
@@ -126,7 +126,7 @@ function  OpenOrders({ refreshKey }: IParams) {
   };
 
   useEffect(()=>{
-    setStartDate(new Date())
+    setStartDate(getFirstDayOfPreviousMonth())
     setEndDate(new Date())
   },[activeTab])
 
@@ -174,10 +174,10 @@ function  OpenOrders({ refreshKey }: IParams) {
             <div className={styles.CustomDateContainerPickers}>
               <div className={styles.DatepickerWrap}>
                 <Datepicker 
+                  border
+                  isTo={false}
                   date={startDate}
                   setDate={setStartDate}
-                  isTo={false}
-                  border
                 />
               </div>
 
@@ -186,9 +186,9 @@ function  OpenOrders({ refreshKey }: IParams) {
               <div className={styles.DatepickerWrap}>
                 <Datepicker
                   border
+                  isTo={true}
                   date={endDate}
                   setDate={setEndDate}
-                  isTo={true}
                 />
               </div>
             </div>
@@ -207,7 +207,7 @@ function  OpenOrders({ refreshKey }: IParams) {
                 color="gray"
                 disabled={isLoading || !endDate || !startDate}
                 onClick={()=>{
-                  setStartDate(new Date())
+                  setStartDate(getFirstDayOfPreviousMonth())
                   setEndDate(new Date())
                 }}
               >

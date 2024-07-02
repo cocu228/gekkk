@@ -41,7 +41,6 @@ const WithdrawFormPhoneNumber = () => {
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const [loading, setLoading] = useState<boolean>(false);
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [details, setDetails] = useState<PaymentDetails>({
     account: account.account_id,
     phoneNumber: null,
@@ -87,19 +86,14 @@ const WithdrawFormPhoneNumber = () => {
   }, [inputCurr.value.number, details]);
 
   useEffect(() => {
-    setIsValid(() =>
-      Object.keys(details).every((i) => {
-        if (!details[i]) return false;
-        if (i === "phoneNumber") return details[i].length > 7;
-
-        return details[i].length > 0;
-      })
-    );
-  }, [details, inputCurr.value]);
+    if (inputCurr.value.number) {
+      setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
+    }
+  }, [inputCurr.value.number]);
 
   // Helpers
   const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
-  const isTransferDisabled = !!localErrorInfoBox || loading || !isValid || inputCurrValid.value || !isFieldsFill;
+  const isTransferDisabled = !!localErrorInfoBox || loading || inputCurrValid.value || !isFieldsFill;
   const youWillPay = inputCurr.value.number + withdraw_fee;
   const youWillGet = inputCurr.value.number;
   const fee = withdraw_fee;
@@ -178,7 +172,7 @@ const WithdrawFormPhoneNumber = () => {
           size="lg"
           onClick={handleConfirm}
           className="w-full md:text-fs14 text-fs16"
-          // disabled={isTransferDisabled}
+          disabled={isTransferDisabled}
         >
           {t("transfer")}
         </Button>

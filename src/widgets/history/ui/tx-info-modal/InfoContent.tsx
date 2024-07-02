@@ -277,7 +277,7 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {isNeedConfirm ? null : getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
+          {/* {isNeedConfirm ? null : getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
             <div className={"flex gap-[20px] w-full justify-between mt-3"}>
               <Button
                   skeleton
@@ -294,16 +294,18 @@ const InfoContent = (props: TxInfoProps) => {
                 {t("close")}
               </Button>
             </div>
-          ) : (
-            <div className={"flex gap-[20px] w-full justify-center mt-3"}>
-              <Button
-                  className='w-full'
-                  onClick={props.handleCancel}
-              >
-                {t("close")}
-              </Button>
-            </div>
-          )}
+          ) : ( */}
+            {isNeedConfirm ? null : (
+              <div className={"flex gap-[20px] w-full justify-center mt-3"}>
+                <Button
+                    className='w-full'
+                    onClick={props.handleCancel}
+                >
+                  {t("close")}
+                </Button>
+              </div>
+            )}
+          {/* )} */}
         </div>
       )}
     </div>

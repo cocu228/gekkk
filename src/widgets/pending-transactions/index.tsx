@@ -88,7 +88,7 @@ export const PendingTransactions = () => {
         const {
             appUuid,
             appPass
-        } = await getTransactionSignParams();
+        } = await getTransactionSignParams(phone, uasToken);
         
         const jwtPayload = {
           initiator: phone,

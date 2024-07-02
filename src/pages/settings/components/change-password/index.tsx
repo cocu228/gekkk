@@ -115,7 +115,7 @@ export function ChangePassword() {
               allowSymbols
               type={type}
               onChange={passSave}
-              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color={"#285E69"} onClick={handleToggle}/>}
+              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color="var(--gek-additional)" onClick={handleToggle}/>}
               value={newPass}
               className="min-h-[40px] h-[52px]"
               placeholder={t("enter_new_password")}
@@ -128,7 +128,7 @@ export function ChangePassword() {
             allowSymbols
             type={typeConfirmed}
             onChange={passConfirm}
-            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color={"#285E69"} onClick={handleToggleConfirmed}/>}
+            suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color="var(--gek-additional)" onClick={handleToggleConfirmed}/>}
             value={confirmNewPass}
             className="min-h-[40px] h-[52px]"
             placeholder={t("confirm_new_password")}

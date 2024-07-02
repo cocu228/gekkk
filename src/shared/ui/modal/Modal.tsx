@@ -2,7 +2,6 @@ import { FC, ReactNode, useCallback, useEffect, useRef } from 'react'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import styles from './styles.module.scss'
 import { IconApp } from '../icons/icon-app';
-import { useNavigate } from 'react-router-dom';
 
 interface ModalProps {
   title: string;
@@ -28,28 +27,6 @@ export const Modal: FC<ModalProps> = ({
   destroyOnClose = true
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   const handleBackButton = (event: PopStateEvent) => {
-  //     if (isModalOpen && modalRef.current) {
-  //       event.preventDefault();
-  //       onCancel();
-  //       window.history.pushState(null, '', window.location.href); // Reset the state to prevent navigation
-  //     }
-  //   };
-    
-  //   if (isModalOpen) {
-  //     window.history.pushState(null, '', window.location.href);
-  //   }
-  
-  //   window.addEventListener('popstate', handleBackButton);
-  
-  //   return () => {
-  //     window.removeEventListener('popstate', handleBackButton);
-  //   };
-  // }, [isModalOpen, onCancel]);
-
-  const navigate = useNavigate();
 
   const handleBackButton = useCallback((event) => {
     if (isModalOpen) {

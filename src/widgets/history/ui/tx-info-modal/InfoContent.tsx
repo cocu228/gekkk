@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
 import {createSearchParams, useLocation, useNavigate} from "react-router-dom";
 import style from './style.module.scss';
@@ -11,14 +10,12 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly} from "@/shared/lib/helpers";
+import {actionResSuccess, isNull, isNumbersOnly} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
-import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import Receipt from "@/widgets/receipt/ui";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
-import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
@@ -142,7 +139,7 @@ const InfoContent = (props: TxInfoProps) => {
             <div className={style.InfoItem}>
               <span className={style.InfoItemTitle}>{t("fee")}</span>
               <span className={style.InfoItemValue}>
-                {new Decimal(props.fee).toString()} {props.currency}
+                {props.fee.toString()} {props.currency}
               </span>
             </div>
             <div className={style.InfoItem}>

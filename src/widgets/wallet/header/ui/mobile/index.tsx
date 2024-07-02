@@ -10,7 +10,6 @@ import {apiGetRates} from "@/shared/(orval)api/gek";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import useCopyStore from "@/shared/store/useCopy/useCopyStore";
 
 
@@ -21,7 +20,6 @@ const WalletHeaderMobile = () => {
         balance,
         decimalPrec
     } = useContext(CtxWalletData);
-    const {getAccountDetails} = storeAccountDetails(state => state);
     const {setIsCopied} = useCopyStore()
     const [params] = useSearchParams();
     const currency = params.get('currency');

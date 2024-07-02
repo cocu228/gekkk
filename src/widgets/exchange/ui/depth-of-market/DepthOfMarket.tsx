@@ -155,18 +155,17 @@ function DepthOfMarket({
                 <DepthItem
                     color={color}
                     amount={0}
-                    percent={new Decimal(0)}
+                    percent={null}
                     price={null}
                 />
             ) : (
                 <DepthItem
                     color={color}
                     amount={getCurrencyRounding(array[i][0])}
-                    percent={new Decimal((array[i][1] / maxAmount) * 100)}
-                    price={new Decimal(!isSwapped
+                    percent={((array[i][1] / maxAmount) * 100)}
+                    price={parseInt(!isSwapped
                         ? (array[i][2]).toFixed(currencies.get(currencyTo)?.ordersPrec)
-                        : (array[i][0] / array[i][1]).toFixed(currencies.get(currencyFrom)?.ordersPrec)
-                    )}
+                        : (array[i][0] / array[i][1]).toFixed(currencies.get(currencyFrom)?.ordersPrec))}
                 />
             ));
         }

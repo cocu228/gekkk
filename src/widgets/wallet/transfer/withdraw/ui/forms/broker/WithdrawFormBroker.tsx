@@ -9,7 +9,6 @@ import {validateBalance, validateMinimumAmount} from '@/shared/config/validators
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
-import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
@@ -84,8 +83,7 @@ const WithdrawFormBroker = () => {
                     ]}
                     onError={setInputCurrValid}
                     onSelect={val => {
-                        const amount = new Decimal(val);
-                        setInputCurr(amount.mul(100).floor().div(100).toString())
+                        setInputCurr(val.toString())
                     }}
                     onChange={setInputCurr}
                 />

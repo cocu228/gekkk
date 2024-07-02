@@ -1,5 +1,3 @@
-import Decimal from "decimal.js";
-
 type TGetFinalFee = {
     type: {
         number: boolean | null,
@@ -26,13 +24,10 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 
     if (curFee === 0 && perFee === 0) return result
 
-    const decCurFee = new Decimal(curFee)
-    const decPerFee = new Decimal(perFee)
-
-    result.type.percent = !decPerFee.isZero()
-    result.type.number = !decCurFee.isZero()
-    result.value.percent = decPerFee.toNumber()
-    result.value.number = decCurFee.toNumber()
+    result.type.percent = perFee !== 0
+    result.type.number = curFee !== 0
+    result.value.percent = perFee
+    result.value.number = curFee
 
     return result
 

@@ -1,7 +1,6 @@
 import React, {FC, useEffect, useRef, useState} from "react";
 import {IValidatorCreator} from "@/shared/config/validators";
 import {CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
-import Decimal from "decimal.js";
 import {isNull} from "@/shared/lib/helpers";
 import { useTranslation } from 'react-i18next';
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -34,8 +33,8 @@ const Validator: FC<IParams> = (({
         if (firstEffect.current) {
             firstEffect.current = false
         } else {
-
-            if (new Decimal(value ?? 0).isZero() && !availableNullable) {
+            
+            if ((value ?? 0) === 0 && !availableNullable) {
                 setError(t("null_value"));
                 onError(true);
             } else {

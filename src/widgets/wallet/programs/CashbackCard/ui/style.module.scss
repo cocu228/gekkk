@@ -148,6 +148,7 @@
         letter-spacing: 0.8px;
         margin-left: 10px;
         margin-bottom: 10px;
+        color: #29354C;
         
         &Mobile{
             margin: 0;
@@ -156,7 +157,6 @@
 
     &List {
         font-size: 10px;
-        // max-width: 150px;
         padding-left: 20px;
         padding-right: 10px;
         margin-right: 10px;
@@ -166,6 +166,7 @@
         li {
             margin-bottom: 6px;
             line-height: 12px;
+            color: #29354C;
 
             &:last-child {
                 margin-bottom: 0;

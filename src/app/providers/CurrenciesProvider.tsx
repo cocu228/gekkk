@@ -4,7 +4,6 @@ import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
 import {apiGetBalance} from '@/shared/(orval)api/gek';
 import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
-import Decimal from 'decimal.js';
 import {storeAssets} from "@/shared/store/assets";
 import { $axios, IS_GEKKARD_APP } from '@/shared/lib';
 
@@ -12,7 +11,7 @@ interface IState {
     currencies: Map<string, ICtxCurrency> | null,
     totalAmount: {
         refreshKey: string;
-        EUR: Decimal | null;
+        EUR: number | null;
     }
 }
 
@@ -78,16 +77,16 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     useEffect(() => {
         if (state.currencies !== null) (async () => {
             
-            const value: Decimal = Array.from(state.currencies.values())
+            const value: number = Array.from(state.currencies.values())
                 .reduce((previousValue, currentValue) => {
                     
                     if (currentValue.balance?.user_balance_EUR_equ) {
-                        const value = new Decimal(currentValue.balance.user_balance_EUR_equ)
-                        return value.plus(previousValue)
+                        const value = currentValue.balance.user_balance_EUR_equ
+                        return value + previousValue
                     }
                     
                     return previousValue;
-                }, new Decimal(0));
+                }, 0);
             
             setState(prev => ({
                 ...prev,

@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
@@ -11,7 +11,6 @@ import {
   validateMinimumAmount,
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
-import Decimal from "decimal.js";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
@@ -49,9 +48,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   const { from } = useContext(CtxExchangeData);
   const { currencies } = useContext(CtxCurrencies);
 
-  const minAmount = currencies.get(from.currency)
-    ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
-    : 0;
+  const minAmount = currencies.get(from.currency) ? currencies.get(from.currency)?.minOrder : 0
 
   const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
 

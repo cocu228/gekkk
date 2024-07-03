@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import {PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
@@ -31,19 +30,20 @@ export function getDepositStrategyData(depType: number): IDepositStrategyData {
     }
 }
 
-export function getDifRatesAmount(rate: Decimal, startingRate: Decimal, percentage: PercentageType) {
-    const diff = rate.minus(startingRate);
+export function getDifRatesAmount(rate:number, startingRate:number, percentage:PercentageType) {
+    const diff = rate - startingRate;
 
-    if (diff.lessThan(0))
-        return -diff.mul(percentage.dropPercentage / 100).toNumber();
-    else
-        return diff.mul(percentage.risePercentage / 100).toNumber();
+    if (diff < 0) {
+        return -(diff * (percentage.dropPercentage / 100));
+    } else {
+        return diff * (percentage.risePercentage / 100);
+    }
 }
 
 export function getDepositCurrentProfit(
     annualProfit: number,
-    amount: Decimal,
-    diffPercent: Decimal,
+    amount: number,
+    diffPercent: number,
     strategyInfo: IDepositStrategyData,
     isGke: boolean
 ): number {
@@ -63,21 +63,20 @@ export function getDepositCurrentProfit(
             ? dropPercentage * 2
             : dropPercentage / 2;
     }
-
-    const rateGrowthProfit = amount.mul(diffPercent).mul(risePercentage).div(10000);
+    const rateGrowthProfit = (amount * diffPercent * risePercentage) / 10000;
 
     if (strategy.id / 10 === 1) {
-        return diffPercent.greaterThanOrEqualTo(0)
-            ? Math.max(rateGrowthProfit.toNumber(), annualProfit)
-            : annualProfit
+        return diffPercent >= 0
+            ? Math.max(rateGrowthProfit, annualProfit)
+            : annualProfit;
     }
 
-    if (diffPercent.equals(0)) return 0
+    if (diffPercent === 0) return 0;
 
-    const rateDropLoss = amount.mul(diffPercent).div(100)
-    const projectedLoss = amount.mul(dropPercentage).div(100)
-
-    return diffPercent.greaterThanOrEqualTo(0)
-        ? rateGrowthProfit.toNumber()
-        : Math.max(rateDropLoss.toNumber(), projectedLoss.toNumber())
+    const rateDropLoss = (amount * diffPercent) / 100;
+    const projectedLoss = (amount * dropPercentage) / 100;
+    
+    return diffPercent >= 0
+        ? rateGrowthProfit
+        : Math.max(rateDropLoss, projectedLoss);
 }

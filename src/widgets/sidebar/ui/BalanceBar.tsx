@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { toLocaleFiatRounding } from '@/shared/lib/number-format-helper';
 import BankCardsCarousel from '@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel';
 import NewBankCard from '@/widgets/dashboard/ui/cards/bank-card/NewBankCard';
@@ -115,7 +115,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
             <div className={styles.CurTypeTxtWrap}>
                 <div className={styles.TotalBal}>
                     <span>{t("total_balance")}</span>
-                    <span className={styles.TotalBalSum} data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '...'}</span>
+                    <span className={styles.TotalBalSum} data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount) ?? '...'}</span>
                 </div>
             </div>
         </>

@@ -6,7 +6,7 @@
   justify-content: flex-end;
   min-height: 2.812rem;
 
-  @include max-devices("md") {
+  @media screen and (max-width:768px) {
     min-height: 2.187rem;
   }
 }
@@ -21,11 +21,6 @@
   width: 100%;
   font-size: 12px;
   user-select: none;
-
-
-  @media screen and (max-width: 768px) {
-    // flex-direction: column;
-  }
 }
 
 .FieldsSpacer {
@@ -126,9 +121,7 @@
   padding: 1rem 0;
   background: #fff;
   position: relative;
-  left: -1px  ;
-
-
+  left: -1px;
 
   @media screen and (max-width: 1700px) {
     background: inherit;
@@ -142,9 +135,6 @@
 
 .DeskHistoryWrap > div {
   max-width: 100%;
-  @media screen and (max-width: 1400px) {
-    // padding: 0 10px;
-  }
 }
 
 
@@ -165,7 +155,6 @@
 }
 
 .ExchangeOrdersWrap {
-
   z-index: 10;
   background: #fff;
   border-radius: 10px;

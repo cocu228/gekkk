@@ -4,7 +4,6 @@ import styles from "./style.module.scss";
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {useCallback, useContext, useRef} from "react";
-import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import {IconCoin, ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
 import {storyToggleSidebar} from "@/widgets/gko-sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";

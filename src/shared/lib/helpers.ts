@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import { apiLogout } from "../(orval)api";
 import { useLocation } from "react-router-dom";
 import React from "react";
@@ -50,9 +49,9 @@ export const getCryptoIconName = ($const, extension = "svg") => {
     return `${$const.toLowerCase().capitalize()}Icon.${extension}`
 }
 
-export const getRoundingValue = (balance: Decimal | number | string, roundingValue: number) => {
-    const result = typeof balance === "number" || typeof balance === "string" ? new Decimal(balance) : balance
-    return result.toDecimalPlaces(roundingValue).toNumber()
+export const getRoundingValue = (balance: number | string, roundingValue: number) => {
+    const numBalance = typeof balance === "string" ? parseFloat(balance) : balance;
+    return parseFloat(numBalance.toFixed(roundingValue));
 }
 
 export function getSecondaryTabsAsRecord(tabs: Array<{ Key: string, Title: string }>) {
@@ -144,21 +143,22 @@ export function scrollToTop() {
     }
 }
 
-export function calculateAmount(_amount: string | number | Decimal, percentage: number | string | Decimal, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
+export function calculateAmount(_amount: string | number, percentage: number | string, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
+    const amount = typeof _amount === 'string' ? parseFloat(_amount) : Number(_amount);
+    const percent = typeof percentage === 'string' ? parseFloat(percentage) : Number(percentage);
 
-    const amount = new Decimal(_amount);
-    const amountPercentageValue = amount.dividedBy(100);
-    const percentageValue = amountPercentageValue.times(new Decimal(percentage));
+    const percentageValue = (amount * (percent / 100));
 
     switch (flag) {
         case "afterPercentage":
-            return amount.minus(percentageValue).toNumber();
+            return amount - percentageValue;
         case "withPercentage":
-            return amount.plus(percentageValue).toNumber()
+            return amount + percentageValue;
         case "onlyPercentage":
-            return percentageValue.toNumber()
+            return percentageValue;
+        default:
+            return 0; 
     }
-
 }
 
 export const uncoverResponse = (response) => response.data.result

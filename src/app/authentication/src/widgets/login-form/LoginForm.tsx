@@ -1,6 +1,6 @@
 import {useState} from 'preact/hooks';
 import Button from '../components/button/Button';
-import styles from './style.module.css';
+import styles from './style.module.scss';
 import PhoneInput from 'react-phone-number-input';
 import Swal from 'sweetalert2';
 import {formatAsNumber, setCookieData} from "../../shared";

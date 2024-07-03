@@ -41,7 +41,6 @@
     "date-fns": "2.29.3",
     "date-fns-tz": "2.0.0",
     "dayjs": "1.11.11",
-    "decimal.js": "10.4.3",
     "elliptic": "^6.5.5",
     "html2canvas": "1.4.1",
     "html5-qrcode": "^2.3.8",

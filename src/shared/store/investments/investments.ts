@@ -1,8 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {apiGetInvestments} from "@/shared/(orval)api";
-import {GetDepositOut, InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
-import Decimal from "decimal.js";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreInvestments {
     totalAmount: string;
@@ -68,5 +67,5 @@ export const storeInvestments = create<IStoreInvestments>()(devtools((set) => ({
 
 const getTotalAmount = (investments: GetDepositOut[]): string =>
     investments
-        .reduce((sum, invest) => sum.add(invest.cur_amount), new Decimal(0))
+        .reduce((sum, invest) => sum + invest.cur_amount, 0)
         .toString();

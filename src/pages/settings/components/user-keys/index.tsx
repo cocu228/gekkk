@@ -69,6 +69,52 @@ export function UserKeys() {
   }
 
   useEffect(() => {
+    const setOtp = () => {
+      const input = document.querySelector('input[autocomplete="one-time-code"]');
+
+      console.log('OTP input:');
+      console.log(input);
+
+      if (!input) return;
+      // Set up an AbortController to use with the OTP request
+      const ac = new AbortController();
+      const form = input.closest("form");
+      if (form) {
+        // Abort the OTP request if the user attempts to submit the form manually
+        form.addEventListener("submit", (e) => {
+          ac.abort();
+        });
+      }
+      
+      // Request the OTP via get()
+      navigator.credentials
+        .get({
+          // @ts-ignore
+          otp: { transport: ["sms"] },
+          signal: ac.signal,
+        })
+        .then((otp) => {
+          // When the OTP is received by the app client, enter it into the form
+          // input and submit the form automatically
+          // @ts-ignore
+          input.value = otp.code;
+          if (form) form.submit();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
+    console.log(`"OTPCredential" in window: ${"OTPCredential" in window}`)
+
+    if ("OTPCredential" in window) {
+      window.addEventListener("DOMContentLoaded", setOtp);
+    }
+
+    return () => window.removeEventListener('DOMContentLoaded', setOtp);
+  })
+
+  useEffect(() => {
     const timerInterval = setInterval(() => setTimer((prevTime) => {
       if (prevTime > 0) {
         return prevTime - 1;
@@ -94,11 +140,12 @@ export function UserKeys() {
           </span>
           <Input
             allowDigits
+            value={smsCode}
+            disabled={!smsCodeSent}
+            autoComplete='one-time-code'
             className={styles.CodeInput}
             placeholder={t("enter_sms_code")}
-            value={smsCode}
             onChange={({ target }) => setSmsCode(target.value)}
-            disabled={!smsCodeSent}
           />
         </div>
 

@@ -97,54 +97,27 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
     }
 
     useEffect(() => {
-        const setOtp = () => {
           console.log('setOtp call');
-          
+        
           const input = inputRef.current;
-
           console.log(`OTP input: ${!!input}`);
-    
+
           if (!input) return;
-
-          const ac = new AbortController();
-
-          const form = input.closest("form");
-          
-          if (form) {
-            form.addEventListener("submit", () => {
-              ac.abort();
-            });
-          }
-          
           console.log('navigator.credentials.get call');
-
           navigator.credentials
             .get({
               // @ts-ignore
               otp: { transport: ["sms"] },
-              signal: ac.signal,
             })
             .then((otp) => {
               console.log('navigator.credentials.get call');
-
               // @ts-ignore
               input.value = otp.code;
-              if (form) form.submit();
             })
             .catch((err) => {
               console.log('navigator.credentials.get error');
               console.error(err);
             });
-        }
-
-        console.log(`"OTPCredential" in window: ${"OTPCredential" in window}`);
-    
-        if ("OTPCredential" in window) {
-          console.log('added event listener');
-          window.addEventListener("DOMContentLoaded", setOtp);
-        }
-    
-        return () => window.removeEventListener('DOMContentLoaded', setOtp);
     }, [])
 
     return <main className={styles.ResetForm}>

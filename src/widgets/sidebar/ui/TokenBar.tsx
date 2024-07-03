@@ -1,4 +1,4 @@
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { NavLink } from 'react-router-dom';
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";

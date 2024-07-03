@@ -1,16 +1,20 @@
-import Decimal from "decimal.js";
+export const getCurrentRate = (
+    rates: unknown | Array<{ key: string, value: number }>,
+    $const: string,
+    commission: number
+): number => {
+    if (rates === null) return 0;
+    
+    if(rates) {
+        if (rates[$const] === undefined) return 0
+    }
 
-export const getCurrentRate = (rates: unknown | Array<{
-    key: string,
-    value: number
-}>, $const: string, commission: number) => {
-    if (rates === null) return 0
-    if (rates[$const] === undefined) return 0
+    const ratesObj = rates as { [key: string]: number };
 
-    const rateDecimal = new Decimal(rates[$const]);
+    if (ratesObj[$const] === undefined) return 0;
 
-    const increaseAmount = rateDecimal.mul(new Decimal(commission).div(100));
+    const rate = ratesObj[$const];
+    const increaseAmount = rate * (commission / 100);
 
-    return rateDecimal.add(increaseAmount).toNumber()
-
+    return rate + increaseAmount;
 }

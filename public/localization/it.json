@@ -312,6 +312,26 @@
           "can_my_card_be_reloaded": "La mia carta può essere ricaricata?",
           "how_can_i_replenish_my_card": "Come posso ricaricare la mia carta?"
         },
+        "card_limits": {
+          "title": "Limiti della carta",
+          "answers": {
+            "the_function": "La funzione di impostazione/disabilitazione dei limiti ti permette di creare tu stesso i limiti, che regolano le tue spese sulla carta. I limiti si applicano alle seguenti transazioni della carta:",
+            "cash": "- Prelievo di contante dalla carta",
+            "payment": "- Pagamento degli acquisti con la carta",
+            "day_limit": "Limite giornaliero",
+            "possible": "È possibile indicare l'importo massimo delle transazioni entro un giorno. Ad esempio, se specifichi un limite giornaliero di 1000 EUR, non potrai effettuare transazioni (prelievi di contante e acquisti) superiori a 1000 EUR in un giorno. Nel campo «Disponibile» puoi vedere l'importo disponibile per l'uso prima di raggiungere il limite. Se un importo viene trattenuto durante un prelievo di contante o un acquisto, il valore disponibile viene ridotto anche di questo importo. Se il limite giornaliero è raggiunto, non potrai pagare l'acquisto o prelevare contante dalla carta.",
+            "month_limit": "Limite mensile",
+            "monts_limit_ans": "È possibile indicare l'importo delle spese entro un mese dal momento in cui viene impostato il limite, ad esempio, 10 000 EUR. Nel caso di una tale impostazione, non sarà possibile effettuare transazioni (prelievi di contante e acquisti) superiori a 10 000 EUR al mese. Se il limite giornaliero specificato è superiore al limite mensile specificato, il valore del limite mensile viene automaticamente aumentato al valore del limite giornaliero. Nel campo «Disponibile» puoi vedere l'importo disponibile per l'uso prima di raggiungere il limite. Se un importo viene trattenuto durante un prelievo di contante o un acquisto, il valore disponibile viene ridotto anche di questo importo. Se il limite mensile è raggiunto, non potrai pagare l'acquisto o prelevare contante dalla carta.",
+            "temporarily": "Disabilitare temporaneamente i limiti",
+            "temporarily_ans": "Per disattivare temporaneamente i limiti giornalieri e mensili, devi attivare l'interruttore «Disabilita temporaneamente i limiti». Puoi disattivare i limiti solo fino al primo prelievo di contante o transazione di acquisto, o fino a quando non sono trascorsi 3 minuti dalla disattivazione. Successivamente, l'interruttore «Disabilita temporaneamente i limiti» torna automaticamente alla posizione disattivata. Accanto all'interruttore «Disabilita temporaneamente i limiti», viene visualizzato il contatore di timeout."
+          }
+        },
+        "partnership": {
+          "title": "Programma di partenariato",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Acquisti con carta",
           "answers": {
@@ -621,9 +641,9 @@
       "exchange_excluding": "esclusi sconti e bonus",
       "you_pay": "Tu paghi",
       "get_no_less": "Non ottenere di meno",
-      "title": "Scambio",
+      "title": "Scambio di criptovalute",
       "private_title": "Stanza privata",
-      "rooms": "Camere",
+      "rooms": "Stanze private",
       "new_room": "Nuova stanza",
       "describe": "Scambio di criptovaluta: facile e veloce",
       "create_private_exchange_room": "Crea una stanza di scambio privata",
@@ -1041,6 +1061,7 @@
     "minimum_order_amount": "L'importo minimo dell'ordine è {{amount}}",
     "per": "per",
     "close_current_room": "Chiudi la stanza corrente",
+    "close_room": "Stanza chiusa",
     "back_to_exchange": "Torniamo allo scambio",
     "close_private_exchange_room": "Chiudere la stanza di scambio privata",
     "beneficiary": "beneficiario",

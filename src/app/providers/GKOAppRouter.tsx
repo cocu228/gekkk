@@ -7,7 +7,7 @@ import Support from "@/pages/support";
 import ProfileSettings from "@/pages/profile-settings";
 import DepositTypes from "@/pages/deposit-types";
 import CurrentDeposit from "@/pages/current-deposit";
-
+import Wallet from '@/pages/wallet';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: 'deposit/:id',
                 element: <CurrentDeposit/>
+            },
+            {
+                path: 'wallet',
+                element: <Wallet />
             },
             {
                 path: 'support',

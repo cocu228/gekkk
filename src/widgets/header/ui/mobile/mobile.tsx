@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
+import useModal from "@/shared/model/hooks/useModal";
 
 const HeaderMobile = ({ items, actions }) => {
     const {t} = useTranslation();
@@ -18,6 +19,8 @@ const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
     const {md} = useContext(BreakpointsContext);
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+    const roomModal = useModal();
+    const roomCloseModal = useModal();
     
     const [params] = useSearchParams();
     const tab = params.get("tab");
@@ -164,7 +167,7 @@ const HeaderMobile = ({ items, actions }) => {
             }
             {!(exchangePage || privateRoomPage) ? null : (
                 <div className="flex items-center justify-end w-[20%] gap-2 pr-2" data-testid="ExchangeRoomMenu">
-                    <ExchangeRoomMenu roomId={roomId}/>
+                    <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomModal={roomModal} roomId={roomId}/>
                 </div>
             )}
 

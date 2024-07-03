@@ -1,5 +1,6 @@
 import {FC, MutableRefObject, ReactNode, useEffect, useRef, useState} from 'react'
 import style from './styles.module.scss'
+import { useLocation } from 'react-router-dom'
 
 interface DropdownProps {
     className?: string,
@@ -8,12 +9,14 @@ interface DropdownProps {
     onOpen?: (value: boolean) => void | undefined,
     trigger: React.ReactNode,
     children: ReactNode,
+    desktop?: boolean,
     customBodyClassName?: string,
 }
 
-export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position, customBodyClassName}) => {
+export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position, customBodyClassName, desktop}) => {
     const [opened, setOpened] = useState(false)
     const bodyRef = useRef(null)
+    const location = useLocation()
 
     const useOutsideAlerter = (ref: MutableRefObject<HTMLElement | null>) => {
         useEffect(() => {
@@ -30,11 +33,13 @@ export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position,
       }
 
     useOutsideAlerter(bodyRef);
+    
+    console.log(location)
 
     return (
-        <div ref={bodyRef} className={`${style.DropdownWrap}`}>
+        <div ref={bodyRef} className={`${style.DropdownWrap} ${location.pathname === '/private-room' && desktop && style.DropdownActive} ${desktop && style.DropdownWrapDesktop}`}>
              <div className={style.DropdownTriggerWrap}  >
-                <div className={style.DropdownTrigger} onClick={() => setOpened(!opened)} >
+                <div className={`${style.DropdownTrigger} ${opened && style.DropdownTriggerOpened}`} onClick={() => setOpened(!opened)} >
                     {trigger}
                 </div>
                 <div onClick={() => setOpened(false)} className={`${style.DropdownBody} ${customBodyClassName} ${position === 'right' && style.DropdownBodyRight} ${opened && style.DropdownBodyActive}`}>

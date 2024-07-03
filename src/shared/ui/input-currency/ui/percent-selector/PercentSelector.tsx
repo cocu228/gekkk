@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import {CtxInputCurrencyOptions} from "../../model/context";
 import React, {FC, useContext, useEffect, useState} from "react";
@@ -25,22 +24,26 @@ const PercentSelector: FC<IParams> = ({
     mobileSecHidden
 }: IParams) => {
     const {currencies} = useContext(CtxCurrencies);
-    const [percent, setPercent] = useState<Decimal>(null);
+    const [percent, setPercent] = useState<number | null>(null);
 
     useEffect(() => {
         setPercent(null);
-    }, [percent]);
+    }, [currency]);
 
-    const onBtnClick = (percent: Decimal) => {
-        const value = disabled ? null : percent.div(new Decimal(100)).mul(currency.balance?.free_balance);
+    const onBtnClick = (percent: number) => {
+        if (disabled || !currency || !currency.balance?.free_balance) {
+            return;
+        }
 
-        const result = new Decimal(!percent.comparedTo(100) ? value :
-            value.toFixed(currencies.get(currency.$const).roundPrec)
-        );
+        const value = (percent / 100) * currency.balance.free_balance;
+        const roundPrec = currencies.get(currency.$const).roundPrec;
+        const result = Math.round(value * Math.pow(10, roundPrec)) / Math.pow(10, roundPrec);
 
-        onSelect(result.toString());
+        if (onSelect) {
+            onSelect(result.toString());
+        }
 
-        return setPercent(result);
+        setPercent(result);
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
@@ -55,11 +58,11 @@ const PercentSelector: FC<IParams> = ({
                         } ${mobileSecHidden && style.PercentSelector}
                     `}
                 >
-                    <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
-                    <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
-                    <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
-                   {/*TODO  Recalculate 100% taking fee*/}
-                    <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(25)}>25%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(50)}>50%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(75)}>75%</PercentBtn>
+                    {/*TODO  Recalculate 100% taking fee*/}
+                    <PercentBtn onClick={() => onBtnClick(100)}>100%</PercentBtn>
                 </div>
             </div>
 

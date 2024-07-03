@@ -307,6 +307,26 @@
           "can_my_card_be_reloaded": "Kann meine Karte nachgeladen werden?",
           "how_can_i_replenish_my_card": "Wie kann ich meine Karte aufladen?"
         },
+        "card_limits": {
+          "title": "Kartenlimits",
+          "answers": {
+            "the_function": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits zu erstellen, die Ihre Ausgaben auf Ihrer Karte regulieren. Limits gelten für die folgenden Kartentransaktionen:",
+            "cash": "- Bargeldabhebung von der Karte",
+            "payment": "- Zahlung von Einkäufen mit der Karte",
+            "day_limit": "Tageslimit",
+            "possible": "Es ist möglich, den maximalen Transaktionsbetrag innerhalb eines Tages anzugeben. Zum Beispiel, wenn Sie ein Tageslimit von 1000 EUR angeben, können Sie keine Transaktionen (Bargeldabhebungen und Einkäufe) von mehr als 1000 EUR an einem Tag durchführen. Im Feld «Verfügbar» können Sie den Betrag sehen, der vor Erreichen des Limits noch verfügbar ist. Wenn ein Betrag bei einer Bargeldabhebung oder einem Einkauf einbehalten wird, wird der verfügbare Wert ebenfalls um diesen Betrag reduziert. Wenn das Tageslimit erreicht ist, können Sie den Einkauf nicht bezahlen oder Bargeld von der Karte abheben.",
+            "month_limit": "Monatslimit",
+            "monts_limit_ans": "Hier ist es möglich, den Betrag der Ausgaben innerhalb eines Monats ab dem Zeitpunkt der Festlegung des Limits anzugeben, zum Beispiel 10 000 EUR. Bei einer solchen Einstellung ist es nicht möglich, Transaktionen (Bargeldabhebungen und Einkäufe) von mehr als 10 000 EUR pro Monat durchzuführen. Wenn das angegebene Tageslimit höher als das angegebene Monatslimit ist, wird der Wert des Monatslimits automatisch auf den Wert des Tageslimits erhöht. Im Feld «Verfügbar» können Sie den Betrag sehen, der vor Erreichen des Limits noch verfügbar ist. Wenn ein Betrag bei einer Bargeldabhebung oder einem Einkauf einbehalten wird, wird der verfügbare Wert ebenfalls um diesen Betrag reduziert. Wenn das Monatslimit erreicht ist, können Sie den Einkauf nicht bezahlen oder Bargeld von der Karte abheben.",
+            "temporarily": "Limits vorübergehend deaktivieren",
+            "temporarily_ans": "Um die Tages- und Monatslimits vorübergehend zu deaktivieren, sollten Sie den Schalter „Limits vorübergehend deaktivieren“ in die Position EIN schalten. Sie können Limits nur bis zur ersten Bargeldabhebung oder Kauftransaktion deaktivieren, oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Zeitüberschreitungszähler angezeigt."
+          }
+        },
+        "partnership": {
+          "title": "Partnerschaftsprogramm",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Karteneinkäufe",
           "answers": {
@@ -581,11 +601,11 @@
       "get_no_less": "Bekommen Sie nicht weniger",
       "create_order": "Bestellung erstellen",
       "broker_exchange_fee": "Maklerwechselgebühr",
-      "title": "Austausch",
+      "title": "Krypto austausch",
       "private_title": "Privatraum",
       "closed_orders": "Abgeschlossene Bestellungen",
       "active_orders": "Aktive Bestellungen",
-      "rooms": "Zimmer",
+      "rooms": "Private zimmer",
       "new_room": "Neues Zimmer",
       "describe": "Kryptowährungsumtausch - schnell und einfach",
       "create_private_exchange_room": "Privaten Austauschraum erstellen",
@@ -835,6 +855,7 @@
     "minimum_order_amount": "Der Mindestbestellwert beträgt {{amount}}",
     "per": "pro",
     "close_current_room": "Aktuellen Raum schließen",
+    "close_room": "Raum schließen",
     "back_to_exchange": "Zurück zum Austausch",
     "close_private_exchange_room": "Private Austauschraum schließen",
     "beneficiary": "Begünstigter",

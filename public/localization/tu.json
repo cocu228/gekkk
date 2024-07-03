@@ -312,6 +312,26 @@
           "can_my_card_be_reloaded": "Kartıma yeniden yükleme yapılabilir mi?",
           "how_can_i_replenish_my_card": "Kartımı nasıl yenileyebilirim?"
         },
+        "card_limits": {
+          "title": "Kart limitleri",
+          "answers": {
+            "the_function": "Limit belirleme/devre dışı bırakma işlevi, kartınızdaki harcamalarınızı düzenleyen limitler oluşturmanıza olanak tanır. Limitler aşağıdaki kart işlemleri için geçerlidir:",
+            "cash": "- Karttan nakit çekme",
+            "payment": "- Kartla yapılan alışveriş ödemesi",
+            "day_limit": "Günlük limit",
+            "possible": "Bir gün içinde yapılacak işlemlerin maksimum tutarını belirlemek mümkündür. Örneğin, günlük limit olarak 1000 EUR belirtirseniz, bir gün içinde 1000 EUR'dan fazla işlem (nakit çekme ve alışveriş) yapamazsınız. 'Mevcut' alanında, limiti aşmadan önce kullanılabilir tutarı görebilirsiniz. Nakit çekme veya alışveriş yaparken bir tutar bloke edilirse, Mevcut değeri de bu tutar kadar azalır. Günlük limit dolarsa, alışveriş ödemesi yapamaz veya karttan nakit çekemezsiniz.",
+            "month_limit": "Aylık limit",
+            "monts_limit_ans": "Burada, limit belirleme anından itibaren bir ay içinde yapılacak harcamaların tutarını belirlemek mümkündür, örneğin 10.000 EUR. Böyle bir ayarlama durumunda, ayda 10.000 EUR'dan fazla işlem (nakit çekme ve alışveriş) yapılamaz. Belirtilen Günlük Limit, belirtilen Aylık Limiti aşıyorsa, Aylık Limit değeri otomatik olarak Günlük Limit değerine yükseltilir. 'Mevcut' alanında, limiti aşmadan önce kullanılabilir tutarı görebilirsiniz. Nakit çekme veya alışveriş yaparken bir tutar bloke edilirse, Mevcut değeri de bu tutar kadar azalır. Aylık limit dolarsa, alışveriş ödemesi yapamaz veya karttan nakit çekemezsiniz.",
+            "temporarily": "Limitleri geçici olarak devre dışı bırakma",
+            "temporarily_ans": "Günlük ve Aylık limitleri geçici olarak devre dışı bırakmak için 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarını açık konuma getirmelisiniz. Limitleri yalnızca ilk nakit çekme veya alışveriş işlemi gerçekleşene kadar veya devre dışı bırakmadan 3 dakika geçene kadar devre dışı bırakabilirsiniz. Bundan sonra, 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarı otomatik olarak kapalı konuma geri döner. 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarının yanında zaman aşımı sayacı gösterilir."
+          }
+        },
+        "partnership": {
+          "title": "Ortaklık programı",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Kart alımları",
           "answers": {
@@ -621,9 +641,9 @@
       "exchange_excluding": "indirimler ve bonuslar hariç",
       "you_pay": "Öde",
       "get_no_less": "Daha azını alma",
-      "title": "Değişme",
+      "title": "Kripto borsası",
       "private_title": "Özel oda",
-      "rooms": "Odalar",
+      "rooms": "Özel odalar",
       "new_room": "Yeni oda",
       "describe": "Kripto para birimi değişimi — hızlı ve kolay",
       "create_private_exchange_room": "Özel değişim odası oluşturun",
@@ -1041,6 +1061,7 @@
     "minimum_order_amount": "Minimum sipariş tutarı {{amount}}",
     "per": "başına",
     "close_current_room": "Mevcut odayı kapat",
+    "close_room": "Odayı kapat",
     "back_to_exchange": "Değişime geri dön",
     "close_private_exchange_room": "Özel değişim odasını kapat",
     "beneficiary": "yararlanıcı",

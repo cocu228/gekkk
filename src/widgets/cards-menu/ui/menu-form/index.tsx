@@ -9,12 +9,11 @@ import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import { Card as ICardData } from "@/shared/(orval)api/gek/model/card";
 import BankCardsCarousel from '@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel';
 import Button from '@/shared/ui/button/Button';
-import HowItWorks from './how-it-works';
 import { CtxGlobalModalContext } from '@/app/providers/CtxGlobalModalProvider';
 import ConfirmationModal from './confirmation-modal';
 import CardInfo from './card-info';
 import { Switch } from '@/shared/ui/Switch';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface IParams {
     cardsStorage: ICardStorage;
@@ -63,10 +62,6 @@ const MenuForm = ({
             cardId={selectedCard.cardId}
             onBack={() => setSelectedItem(null)}
         />);
-    }
-
-    if (selectedItem === "how-it-works") {
-        return (<HowItWorks onBack={() => setSelectedItem(null)}/>);
     }
 
     return <div className='px-2'>
@@ -169,17 +164,7 @@ const MenuForm = ({
         {/* Desktop: show modal with "How it works"*/}
         {/* Mobile: replace content with "How it works"*/}
         <Link className={styles.LinkButton}
-            onClick={() => {
-                if (md) {
-                    setSelectedItem("how-it-works");
-                } else {
-                    setGlobalModal({
-                        title: "How it works",
-                        content: <HowItWorks onBack={onGlobalCancel}/>
-                    });
-                }
-            }}
-            to={md ? '/card-menu?how_it_works=true' : '/wallet?currency=EUR&tab=bank_cards'}
+            to={'/faq?faqSection=card_limits'}
         >
             {t("how_it_works")}?
         </Link>

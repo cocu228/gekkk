@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {useCallback, useContext, useRef} from "react";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
@@ -20,7 +20,7 @@ const SidebarDesktop = () => {
     const {currencies} = useContext(CtxCurrencies);
     const {sm, md} = useContext(BreakpointsContext);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
-
+    const loc = useLocation()
 
     const {
         investments,
@@ -42,13 +42,16 @@ const SidebarDesktop = () => {
         gkeWallet = currencies.get("GKE");
     }
 
+    console
+
     return (
         <div className={`${styles.Sidebar} flex flex-col justify-between`}>
             <div className="wrapper">
-                {/* EURG wallet */}
-                <div>
-                    <div className={styles.ItemWrapper}>
+                <div className="flex flex-col gap-[5px]">
+                    {/* EURG wallet */}
+                    <NavLink to='/wallet?currency=EURG' className={`${styles.ItemWrapper} ${loc.search === '?currency=EURG' && styles.ItemWrapperActive}`}>
                         <div className={`${styles.ItemInactive}`}>
+                            <div className={`${styles.ItemHover}`}></div>
                             <div className="col flex items-center pl-4">
                                 <IconCoin width={50} height={50} code={`EURG`}
                                           alt="EURG"/>
@@ -76,13 +79,12 @@ const SidebarDesktop = () => {
                                 </div>}
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </NavLink>
 
                 {/* GKE wallet */}
-                <div>
-                    <div className={styles.ItemWrapper}>
+                    <NavLink to='/wallet?currency=GKE' className={`${styles.ItemWrapper} ${loc.search === '?currency=GKE' && styles.ItemWrapperActive}`}>
                         <div className={`${styles.ItemInactive}`}>
+                            <div className={styles.ItemHover}></div>
                             <div className="col flex items-center pl-4">
                                 <IconCoin width={50} height={50} code={`GKE`}
                                           alt="GKE"/>
@@ -113,12 +115,12 @@ const SidebarDesktop = () => {
                                     </div>}
                             </div>
                         </div>
-                    </div>
+                    </NavLink>
                 </div>
 
                 {/* Secondary options wrapper */}
                 <div style={{backgroundColor: "#f7f7f0"}} className="h-[8px] w-full"/>
-                <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
+                <NavLink className="bg-[#fff] block" onClick={NavLinkEvent} to={"open-deposit"}>
                     <div className={`${styles.Item}`}>
                         <div className="col flex items-center pl-4">
                                 <IconApp lib={3} code="t35" size={50} color="var(--color-gray-400)" />
@@ -133,7 +135,7 @@ const SidebarDesktop = () => {
 
                 {/* User assets collapse */}
                 {!investments.length ? null : (
-                    <NavCollapse header={"Current deposits"} id={"deposits"}>
+                    <NavCollapse className="bg-[#fff] block" header={"Current deposits"} id={"deposits"}>
                         {investments.map((item, i) =>
                             <NavLink onClick={NavLinkEvent} to={`deposit/${item.id}`} key={item.id}>
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>

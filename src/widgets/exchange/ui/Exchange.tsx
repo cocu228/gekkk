@@ -94,18 +94,21 @@ function Exchange() {
     switch (roomType) {
       case "default":
         return (
-          <DropdownC 
-            isOpen={roomInfoModal.isModalOpen}
-            trigger={<span>{t("exchange.title")}</span>}
-          >
-            <DropdownCItem
-              onClick={roomInfoModal.showModal}
-              icon={<IconApp color="red" code="t33" size={20} />}
-            >
-              {t("exchange.create_private_exchange_room")}
-            </DropdownCItem>
-          </DropdownC>
-        );
+          <span>{t("exchange.title")}</span>
+        )
+        // return (
+        //   <DropdownC 
+        //     isOpen={roomInfoModal.isModalOpen}
+        //     trigger={<span>{t("exchange.title")}</span>}
+        //   >
+        //     <DropdownCItem
+        //       onClick={roomInfoModal.showModal}
+        //       icon={<IconApp color="red" code="t33" size={20} />}
+        //     >
+        //       {t("exchange.create_private_exchange_room")}
+        //     </DropdownCItem>
+        //   </DropdownC>
+        // );
       case "creator":
         return `Private room`;
       case "visitor":
@@ -119,19 +122,18 @@ function Exchange() {
         return t("exchange.describe");
       case "creator":
         return (
-          <>
-            <b>
+          <div className="">
+            <b className="text-[#29354C]">
               {from.currency} - {to.currency}
             </b>
-            <span> (id: {roomInfo.timetick})</span>
-            <p>{t("exchange.owner_private_room")}</p>
+            <span className='text-[#29354C]'> (ID: {roomInfo.timetick})</span>
             <button
-              className="underline text-accent"
+              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px]"
               onClick={roomInfoModal.showModal}
             >
-              {t("exchange.invite_link")}
+              <IconApp code="t34" color="#285E69" size={17} /> {t("exchange.invite_link")}
             </button>
-          </>
+          </div>
         );
       case "visitor":
         return (
@@ -193,20 +195,7 @@ function Exchange() {
   ) : (
     <div className=" ">
       {md ? null : (
-        // <ExchangeHeader />
-        <PageHead
-          title={getHeadTitle()}
-          subtitle={<span className="select-text">{getHeadSubtitle()}</span>}
-          rightContent={
-            roomType !== "creator" ? null : (
-              <ParticipantsNumber
-                quantity={roomInfo.count}
-                onLeave={cancelRoomModal.showModal}
-                onIconClick={roomInfoModal.showModal}
-              />
-            )
-          }
-        />
+        <ExchangeHeader privateRoomInfo={roomInfo} title={getHeadTitle()} text={<span className="select-text">{getHeadSubtitle()}</span>} />
       )}
 
       <div className={styles.MainGrid} >

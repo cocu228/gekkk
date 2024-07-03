@@ -5,11 +5,9 @@ import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
 import {getChosenNetwork, isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "./forms/sepa/WithdrawFormSepa";
-// import WithdrawFormSwift from "./forms/(no-usages)WithdrawFormSwift";
 import WithdrawFormCardToCard from "./forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "./forms/broker/WithdrawFormBroker";
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
-import Decimal from "decimal.js";
 import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
 import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
@@ -93,9 +91,9 @@ const Withdraw = memo(() => {
                         <div className='text-center text-[#9D9D9D]'>
                             {t("fee_is_perc")} {finalFeeEntity.type.number ?
                             <>
-                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const} </span>
+                                <span><b>{finalFeeEntity.value.number.toString()} </b>{currency.$const} </span>
                             </> :
-                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} % </b>
+                            <b>{finalFeeEntity.value.percent.toString()} % </b>
                         } {t("per_transaction")}
                         </div>
                     </div>

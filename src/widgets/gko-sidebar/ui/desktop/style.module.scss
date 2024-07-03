@@ -5,7 +5,7 @@
   flex-grow: 0;
   flex-shrink: 0;
   height: initial;
-  background-color: white;
+  // background-color: white;
   box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
   overscroll-behavior-y: contain;
 
@@ -26,6 +26,7 @@
     flex-basis: var(--sidebar-width-xxl);
   }
 }
+
 
 .TotalVal {
   background-color: #285E69;
@@ -480,4 +481,41 @@
 
 .SecondaryItem {
   background: #EDEDED;
+}
+
+
+.ItemInactive {
+  background-color: white;
+  position: relative;
+  border-radius: 8px;
+  
+  .ItemHover {
+    width: 5px;
+    position: absolute;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 8px 0 0 8px;
+    left: 0;
+  }
+}
+
+.ItemWrapper {
+  transition: all .3s;
+
+  &:hover {
+
+    .ItemInactive {
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
+    }
+
+    .ItemHover {
+      background-color: var(--gek-mid-grey) !important;
+    }
+  }
+}
+
+.ItemWrapperActive {
+  .ItemHover {
+    background-color: var(--gek-additional) !important;
+  }
 }

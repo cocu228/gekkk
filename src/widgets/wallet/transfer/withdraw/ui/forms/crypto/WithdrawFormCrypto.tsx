@@ -10,7 +10,6 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
-import Decimal from "decimal.js";
 import {getWithdrawDesc} from "../../../model/entitys";
 import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate } from "react-router-dom";
@@ -84,7 +83,7 @@ const WithdrawFormCrypto = () => {
       <div className="w-full">
         <AmountInput
           name="amount"
-          value={new Decimal(inputCurr.value.number).plus(withdraw_fee).toNumber()}
+          value={Number(inputCurr.value.number) + Number(withdraw_fee)}
           description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}

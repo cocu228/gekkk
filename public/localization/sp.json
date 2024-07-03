@@ -312,6 +312,26 @@
           "can_my_card_be_reloaded": "¿Se puede recargar mi tarjeta?",
           "how_can_i_replenish_my_card": "¿Cómo puedo recargar mi tarjeta?"
         },
+        "card_limits": {
+          "title": "Límites de la tarjeta",
+          "answers": {
+            "the_function": "La función de establecer/desactivar límites le permite crear límites usted mismo, que regulan sus gastos en su tarjeta. Los límites se aplican a las siguientes transacciones de la tarjeta:",
+            "cash": "- Retiro de efectivo de la tarjeta",
+            "payment": "- Pago de compras con la tarjeta",
+            "day_limit": "Límite diario",
+            "possible": "Es posible indicar el monto máximo de transacciones dentro de un día. Por ejemplo, si indica un límite diario de 1000 EUR, no podrá realizar transacciones (retiros de efectivo y compras) de más de 1000 EUR en un día. En el campo «Disponible» puede ver la cantidad disponible para usar antes de alcanzar el límite. Si se retiene una cantidad al realizar un retiro de efectivo o una compra, el valor Disponible también se reduce en esa cantidad. Si se alcanza el límite diario, no podrá pagar la compra o retirar efectivo de la tarjeta.",
+            "month_limit": "Límite mensual",
+            "monts_limit_ans": "Aquí es posible indicar la cantidad de gastos dentro de un mes desde el momento en que se establece el límite, por ejemplo, 10 000 EUR. En el caso de tal configuración, no será posible realizar transacciones (retiros de efectivo y compras) por más de 10 000 EUR por mes. Si el Límite Diario especificado es mayor que el Límite Mensual especificado, el valor del Límite Mensual se aumenta automáticamente al valor del Límite Diario. En el campo «Disponible» puede ver la cantidad disponible para usar antes de alcanzar el límite. Si se retiene una cantidad al realizar un retiro de efectivo o una compra, el valor Disponible también se reduce en esa cantidad. Si se alcanza el límite mensual, no podrá pagar la compra o retirar efectivo de la tarjeta.",
+            "temporarily": "Desactivar temporalmente los límites",
+            "temporarily_ans": "Para desactivar temporalmente los límites diarios y mensuales, debe activar el interruptor «Desactivar Límites Temporalmente». Solo puede desactivar los límites hasta la primera transacción de retiro de efectivo o compra, o hasta que hayan pasado 3 minutos desde la desactivación. Después de eso, el interruptor «Desactivar Límites Temporalmente» vuelve automáticamente a la posición de apagado. Junto al interruptor «Desactivar Límites Temporalmente», se muestra el contador de tiempo."
+          }
+        },
+        "partnership": {
+          "title": "Programa de asociación",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Compras con tarjeta",
           "answers": {
@@ -621,9 +641,9 @@
       "exchange_excluding": "excluyendo descuentos y bonificaciones",
       "you_pay": "Tu pagas",
       "get_no_less": "No consigas menos",
-      "title": "Intercambio",
+      "title": "Intercambio de criptomonedas",
       "private_title": "Habitación privada",
-      "rooms": "Habitaciones",
+      "rooms": "Cuartos privados",
       "new_room": "Nueva habitación",
       "describe": "Intercambio de criptomonedas: rápido y sencillo",
       "create_private_exchange_room": "Crear sala de intercambio privada",
@@ -1041,6 +1061,7 @@
     "minimum_order_amount": "El monto mínimo del pedido es {{amount}}",
     "per": "por",
     "close_current_room": "Cerrar la sala actual",
+    "close_room": "Cerrar habitación",
     "back_to_exchange": "Volver al intercambio",
     "close_private_exchange_room": "Cerrar sala de intercambio privada",
     "beneficiary": "beneficiario",

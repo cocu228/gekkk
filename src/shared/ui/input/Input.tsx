@@ -19,6 +19,7 @@ type IParams = {
     prefix?: React.ReactNode,
     disabled?: boolean,
     type?: string,
+    autoComplete?: React.HTMLInputAutoCompleteAttribute;
     onInput?: (event: React.FormEvent) => void
 };
 
@@ -38,6 +39,7 @@ const Input = React.forwardRef(({
         disabled,
         type,
         onInput,
+        autoComplete,
         ...props
     }: IParams,
     ref: MutableRefObject<any>
@@ -64,6 +66,7 @@ const Input = React.forwardRef(({
                     {prefix && (<span className={styles.Prefix}>{prefix}</span>
                     )}
                     <input
+                        autoComplete={autoComplete ?? null}
                         className={`${inputSize === 'md' ? styles.InputDesktop : styles.InputMobile} ${className && className   }`}
                         {...props}
                         type={type}

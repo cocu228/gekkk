@@ -84,6 +84,11 @@
       "title": "Apoyo",
       "subtitle": "Si tiene alguna pregunta o dificultad, háganoslo saber de cualquiera de las siguientes maneras:",
       "response_time": "Tiempo de respuesta hasta 24 horas",
+      "quality_control": "Control de calidad",
+      "rate_quality": "Valore la calidad",
+      "quality_improvement": "Ideas para mejorar la calidad",
+      "quality_improvement_placeholder": "describa su idea/problema",
+      "thank_you_for_rating": "Gracias por calificar",
       "faq": {
         "account_opening": {
           "title": "Apertura de cuenta",
@@ -884,10 +889,6 @@
     "enter_sms_code": "introduzca el código SMS",
     "Save": "Ahorrar",
     "REGISTERED": "REGISTRADO",
-    "quality_control": "Control de calidad",
-    "rate_quality": "Valore la calidad",
-    "quality_improvement": "Ideas para mejorar la calidad",
-    "thank_you_for_rating": "Gracias por calificar",
     "third-party_software_libraries": "Bibliotecas de software de terceros",
     "frequently_asked_questions": "Preguntas frecuentes",
     "issue_new_card": "Emitir nueva tarjeta",

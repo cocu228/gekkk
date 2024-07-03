@@ -11,6 +11,7 @@ interface ITextareaProps {
   allowSymbols?: boolean;
   discardLetters?: boolean;
   className?: string;
+  textareaClassName?: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
@@ -21,6 +22,7 @@ const Textarea: FC<ITextareaProps> = ({
   allowSymbols,
   discardLetters,
   className = "",
+  textareaClassName,
   ...props
 }) => {
   const [value, setValue] = useState<string>('');
@@ -42,7 +44,7 @@ const Textarea: FC<ITextareaProps> = ({
         ref={textareaRef}
         onChange={handleChange}
         placeholder={`-${placeholder.toLowerCase()}-`}
-        className={styles.Textarea}
+        className={`${styles.Textarea} ${textareaClassName}`}
         onInput={() => {
           textareaRef.current.style.height = 'auto';
           textareaRef.current.style.height = (textareaRef.current.scrollHeight) + "px";

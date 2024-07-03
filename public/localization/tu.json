@@ -84,6 +84,11 @@
       "title": "Destek",
       "subtitle": "Herhangi bir sorunuz veya zorluğunuz varsa, lütfen aşağıdaki yollardan herhangi birini kullanarak bize bildirin:",
       "response_time": "24 saate kadar yanıt süresi",
+      "quality_control": "Kalite kontrol",
+      "rate_quality": "Kaliteyi değerlendirin",
+      "quality_improvement": "Kalite iyileştirme için fikirler",
+      "quality_improvement_placeholder": "fikrinizi/probleminizi tanımlayın",
+      "thank_you_for_rating": "Derecelendirmeniz için teşekkür ederiz",
       "faq": {
         "account_opening": {
           "title": "Hesap açma",
@@ -884,10 +889,6 @@
     "enter_sms_code": "sms kodunu girin",
     "Save": "Kaydetmek",
     "REGISTERED": "KAYITLI",
-    "quality_control": "Kalite kontrol",
-    "rate_quality": "Kaliteyi değerlendirin",
-    "quality_improvement": "Kalite iyileştirme için fikirler",
-    "thank_you_for_rating": "Derecelendirmeniz için teşekkür ederiz",
     "third-party_software_libraries": "Üçüncü taraf yazılım kitaplıkları",
     "frequently_asked_questions": "Sıkça Sorulan Sorular",
     "issue_new_card": "Yeni kart verin",

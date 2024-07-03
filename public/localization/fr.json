@@ -85,6 +85,11 @@
       "title": "Soutien",
       "subtitle": "Si vous avez des questions ou des difficultés, veuillez nous en informer de l'une des manières suivantes :",
       "response_time": "Délai de réponse jusqu'à 24 heures",
+      "quality_control": "Contrôle de qualité",
+      "rate_quality": "Évaluer la qualité",
+      "quality_improvement": "Idées d'amélioration de la qualité",
+      "quality_improvement_placeholder": "décrivez votre idée/problème",
+      "thank_you_for_rating": "Merci pour votre évaluation",
       "faq": {
         "account_opening": {
           "title": "Ouverture de compte",
@@ -885,10 +890,6 @@
     "enter_sms_code": "entrez le code SMS",
     "Save": "Sauvegarder",
     "REGISTERED": "INSCRIT",
-    "quality_control": "Contrôle de qualité",
-    "rate_quality": "Évaluer la qualité",
-    "quality_improvement": "Idées d'amélioration de la qualité",
-    "thank_you_for_rating": "Merci pour votre évaluation",
     "third-party_software_libraries": "Bibliothèques de logiciels tiers",
     "frequently_asked_questions": "Questions fréquemment posées",
     "issue_new_card": "Émettre une nouvelle carte",

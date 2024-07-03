@@ -84,6 +84,11 @@
       "title": "支持",
       "subtitle": "如果您有任何问题或困难，请通过以下任何方式告知我们：",
       "response_time": "响应时间最长为 24 小时",
+      "quality_control": "质量控制",
+      "rate_quality": "评价质量",
+      "quality_improvement": "提高质量的想法",
+      "quality_improvement_placeholder": "描述您的想法/问题",
+      "thank_you_for_rating": "感谢您的评分",
       "faq": {
         "account_opening": {
           "title": "开立帐户",

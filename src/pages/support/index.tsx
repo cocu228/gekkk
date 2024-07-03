@@ -1,7 +1,7 @@
 import QualityControl from "@/pages/support/components/quality-control";
 import SupportHead from "@/pages/support/components/support-head";
 import SupportLinks from "@/pages/support/components/support-links";
-import "./styles.scss"
+import "./styles.css"
 
 const Support = () => {
     return (

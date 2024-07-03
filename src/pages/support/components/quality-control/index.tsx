@@ -44,7 +44,7 @@ const QualityControl: FC = () => {
   return (
     <div className="control-container">
       <div className="control-main">
-        <p className="control-main-title">{t("quality_control")}</p>
+        <p className="control-main-title">{t("support.quality_control")}</p>
         <div className="control-main-body">
           <IconApp
             code='t49'
@@ -59,11 +59,11 @@ const QualityControl: FC = () => {
             onClick={handleOnQuality("DISLIKE")}
           />
         </div>
-        <p className="control-main-footer">{t("thank_you_for_rating")}!</p>
+        <p className="control-main-footer">{t("support.thank_you_for_rating")}!</p>
       </div>
       <div className={`control-form-fade ${quality ? "active" : ""}`}>
         <div className="control-form">
-          <p className="control-form-title">{t("rate_quality")}</p>
+          <p className="control-form-title">{t("support.rate_quality")}</p>
           <div className="control-form-stars">
             {[1, 2, 3, 4, 5].map(star => (
               <div
@@ -80,12 +80,13 @@ const QualityControl: FC = () => {
               </div>
             ))}
           </div>
-          <p className="control-form-title">{t("quality_improvement")}:</p>
+          <p className="control-form-title">{t("support.quality_improvement")}:</p>
           <Textarea
             allowDigits
             name="message"
-            placeholder="describe your idea/problem"
+            placeholder={t("support.quality_improvement_placeholder")}
             className={"py-[9px]"}
+            textareaClassName={"text-fs12"}
             value={control?.message || ""}
             onChange={handleOnMessage}
           />

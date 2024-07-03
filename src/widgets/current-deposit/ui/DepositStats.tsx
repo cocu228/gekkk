@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import {useEffect, useState} from 'react';
 import {apiGetRates} from '@/shared/(orval)api/gek';
 import { SkeletonInput } from '@/shared/ui/Skeleton/SkeletonInput';
@@ -93,8 +92,8 @@ function DepositStats({
             annualProfit: annual,
             income: getDepositCurrentProfit(
                 annual,
-                new Decimal(amount),
-                new Decimal(diffPerc),
+                amount,
+                diffPerc,
                 strategyData,
                 isGke
             )

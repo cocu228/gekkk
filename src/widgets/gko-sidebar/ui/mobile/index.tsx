@@ -4,7 +4,6 @@ import {useTranslation} from 'react-i18next';
 import {storyToggleSidebar} from "../../model/story";
 import {useCallback, useContext, useRef} from "react";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import {IconCoin, ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";

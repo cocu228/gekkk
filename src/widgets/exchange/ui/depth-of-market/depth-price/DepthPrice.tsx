@@ -1,8 +1,7 @@
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {RateState} from "@/widgets/exchange/model/types";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {getCurrencyRounding} from "@/shared/lib/number-format-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 

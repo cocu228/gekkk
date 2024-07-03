@@ -2,7 +2,6 @@ import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxExchangeData, ICtxExchangeData} from "./context";
 import {ReactNode, useContext, useEffect, useState} from "react";
-import Decimal from "decimal.js";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
 interface IProps {
@@ -43,22 +42,31 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         if (from === 0 && to === 0) return;
 
         const result = isSwapped
-            ? new Decimal(from).div(to)
-            : new Decimal(to).div(from);
+            ? Number(from) / Number(to)
+            : Number(to) / Number(from);
 
-        return !result.isFinite() || result.isNaN() || result.isZero() ? null :
-            result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
+        if (!isFinite(result) || isNaN(result) || result === 0) {
+            return null;
+        }
+        
+        const roundPrec = currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec;
+        return result.toFixed(roundPrec);
     }
 
     const calculateToAmount = (from: number, price: number, isSwapped: boolean) => {
         if (from === 0 || price === 0) return;
 
         const result = isSwapped
-            ? new Decimal(from).div(price)
-            : new Decimal(price).mul(from);
+            ? Number(from) / Number(price)
+            : Number(price) * Number(from);
 
-        return !result.isFinite() || result.isNaN()|| result.isZero() ? null :
-            result.toFixed(currencies.get(state.to.currency)?.roundPrec);
+        if (!isFinite(result) || isNaN(result) || result === 0) {
+            return null;
+        }
+
+        const roundPrec = currencies.get(state.to.currency)?.roundPrec;
+        return result.toFixed(roundPrec);    
+
     }
 
     const handleFromCurrencyChange = (value: string) => {

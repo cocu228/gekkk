@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
@@ -8,8 +8,6 @@ import History from "@/widgets/history/ui/History";
 import { useTranslation } from 'react-i18next';
 import {apiGetAgentCode} from "@/shared/(orval)api/gek";
 import styles from "./style.module.scss"
-// import Footer from "@/widgets/footer";
-
 
 const PartnershipProgram = () => {
 

@@ -1,4 +1,4 @@
-import styles from './style.module.css';
+import styles from './style.module.scss';
 import {memo, useState} from 'preact/compat';
 import {getCookieData, setCookieData} from '../../shared';
 import Button from '../components/button/Button';

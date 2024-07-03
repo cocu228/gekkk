@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import styles from './style.module.scss';
 import { CtxExchangeData } from '../../model/context';
 import { useContext, useEffect, useState } from 'react';

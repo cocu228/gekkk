@@ -116,7 +116,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                             :
                             <Select
                                 placeholder={"Networks not found"} 
-                                value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0].label : 151}
+                                value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0]?.label : 151}
                                 typeChange={setNetworkType} 
                                 options={networksForSelector}
                             />

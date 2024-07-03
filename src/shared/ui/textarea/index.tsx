@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useRef, useState } from "react";
-import styles from "./style.module.css"
+import styles from "./style.module.scss"
 import { validateInput } from "@/shared/ui/input/model/helpers";
 
 interface ITextareaProps {

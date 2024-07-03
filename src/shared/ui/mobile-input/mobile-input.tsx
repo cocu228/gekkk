@@ -1,4 +1,4 @@
-import { forwardRef, ForwardedRef, ReactNode, ChangeEvent } from 'react';
+import { forwardRef, ForwardedRef, ChangeEvent } from 'react';
 import styles from './style.module.scss';
 
 interface Props {

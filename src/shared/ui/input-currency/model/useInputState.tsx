@@ -1,7 +1,5 @@
-import {ChangeEventHandler, useState} from "react";
+import {useState} from "react";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
-import Decimal from "decimal.js";
-
 
 export interface IUseInputState {
     value: {
@@ -22,7 +20,7 @@ export const useInputState = (): { inputCurr: IUseInputState, setInputCurr: (val
     const setInputCurr = (value: string): void => {
 
         const formatValue = formatAsNumberAndDot(value)
-        const numberValue = !formatValue ? 0 : new Decimal(formatValue).toNumber()
+        const numberValue = !formatValue ? 0 : parseInt(formatValue)
 
         setState(prev => ({
             value: {

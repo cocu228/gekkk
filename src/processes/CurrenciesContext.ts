@@ -1,5 +1,4 @@
 import React from "react";
-import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
 import {GetBalanceOut, CurrencysOut} from "@/shared/(orval)api/gek/model";
 import {getFlagsFromMask} from "@/shared/lib/helpers";
@@ -42,7 +41,7 @@ export class ICtxCurrency {
 
 export interface ICtxCurrencies {
     currencies: Map<string, ICtxCurrency>;
-    totalAmount: Decimal | null;
+    totalAmount: number | null;
 }
 
 export const CtxCurrencies = React.createContext<ICtxCurrencies>({

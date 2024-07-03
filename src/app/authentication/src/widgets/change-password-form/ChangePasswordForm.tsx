@@ -103,6 +103,7 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
           console.log(`OTP input: ${!!input}`);
 
           if (!input) return;
+
           console.log('navigator.credentials.get call');
           navigator.credentials
             .get({
@@ -118,7 +119,7 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
               console.log('navigator.credentials.get error');
               console.error(err);
             });
-    }, [])
+    }, [smsSended])
 
     return <main className={styles.ResetForm}>
         <Form onSubmit={onSubmit} className={styles.FormBody}>

@@ -95,7 +95,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("block") : t("income")).capitalize()}:
                         </span>
                         <span>
-                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#45AD77]" data-testid="wallet_lock_in_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className={`${isEUR ? 'text-[#B9B9B5]' : 'text-[#45AD77]'}`} data-testid="wallet_lock_in_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_in_balance) ?? '-'}`
                                 : `+${toLocaleCryptoRounding(balance?.lock_in_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>
@@ -108,7 +108,7 @@ const WalletHeaderMobile = () => {
                             {(isEUR ? t("planned") : t("outcome")).capitalize()}:
                         </span>
                         <span>
-                            <div style={{fontFamily: "Azeret Mono"}} className="text-[#972235]" data-testid="wallet_lock_out_balance">{isEUR
+                            <div style={{fontFamily: "Azeret Mono"}} className={`${isEUR ? 'text-[#B9B9B5]' : 'text-[#972235]'}`} data-testid="wallet_lock_out_balance">{isEUR
                                 ? `${toLocaleFiatRounding(balance?.lock_out_balance) ?? '-'}`
                                 : `-${toLocaleCryptoRounding(balance?.lock_out_balance ?? 0, decimalPrec, decimalPrec) ?? '-'}`
                             }</div>
@@ -129,7 +129,7 @@ const WalletHeaderMobile = () => {
                 </div>
 
                 <div className={styles.EurGekkoinPrice}>
-                    {
+                    {/* {
                         isEUR && (
                             <div onClick={ibanCopy} className="flex group gap-[4px] items-center">
                                 <span className="text-[#B9B9B5] text-[12px] group-hover:text-[#2BAB72] font-bold flex items-center gap-[5px]">
@@ -139,7 +139,7 @@ const WalletHeaderMobile = () => {
                                 <p className="text-[#B9B9B5] group-hover:text-[#2BAB72] text-[12px] font-normal">{IBAN}</p>
                             </div>
                         )
-                    }
+                    } */}
                     <span className={styles.IsEqualEuro}>
                         {(!isEUR && rates && rates[currency]) && currency + " = " + getCurrencyRounding(rates[currency]) + "€"}
                     </span>

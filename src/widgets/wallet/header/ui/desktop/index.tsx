@@ -43,6 +43,7 @@ const WalletHeader = () => {
         })();
     }, [account]);
 
+
     return (
         <>
             <div className={styles.HeaderWalletDesktop}>
@@ -86,7 +87,7 @@ const WalletHeader = () => {
                                 {(isEUR ? t("block") : t("income")).capitalize()}:
                             </span>
                             <span>
-                                <div style={{fontFamily: "Azeret Mono"}} className="text-[#45AD77]" data-testid="wallet_lock_in_balance">{isEUR
+                                <div style={{fontFamily: "Azeret Mono"}} className={`${isEUR ? 'text-[#B9B9B5]' : 'text-[#45AD77]'}`} data-testid="wallet_lock_in_balance">{isEUR
                                     ? `${toLocaleFiatRounding(balance?.lock_in_balance) ?? '-'}`
                                     : `+${toLocaleCryptoRounding(balance?.lock_in_balance, decimalPrec, decimalPrec) ?? '-'}`
                                 }</div>
@@ -99,7 +100,7 @@ const WalletHeader = () => {
                                 {(isEUR ? t("planned") : t("outcome")).capitalize()}:
                             </span>
                             <span>
-                                <div style={{fontFamily: "Azeret Mono"}} className="text-[#972235]" data-testid="wallet_lock_out_balance">{isEUR
+                                <div style={{fontFamily: "Azeret Mono"}} className={`${isEUR ? 'text-[#B9B9B5]' : 'text-[#972235]'}`} data-testid="wallet_lock_out_balance">{isEUR
                                     ? `${toLocaleFiatRounding(balance?.lock_out_balance) ?? '-'}`
                                     : `-${toLocaleCryptoRounding(balance?.lock_out_balance, decimalPrec, decimalPrec) ?? '-'}`
                                 }</div>

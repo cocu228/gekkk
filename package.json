@@ -44,7 +44,6 @@
     "html2canvas": "1.4.1",
     "html5-qrcode": "^2.3.8",
     "i18next": "^23.11.5",
-    "imask": "6.4.3",
     "js-sha256": "^0.11.0",
     "jsencrypt": "3.3.2",
     "jspdf": "2.5.1",

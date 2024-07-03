@@ -9,11 +9,12 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
     className?: string;
     label?: string;
     errorText?: string;
+    autoComplete: string;
     RhsComponent?: JSX.Element;
 }
 
 const TextInput = memo(
-    ({className, label, errorText, id, RhsComponent, ...rest}: Props) => {
+    ({className, label, errorText, id, autoComplete, RhsComponent, ...rest}: Props) => {
         const [validationMessage, setValidationMessage] = useState<string>("");
 
         const onInvalid = (e) => {
@@ -43,9 +44,10 @@ const TextInput = memo(
                 <div className={styles.innerContent}>
                     <input
                         id={id}
-                        className={styles.input}
-                        onInvalid={onInvalid}
                         onBlur={onBlur}
+                        onInvalid={onInvalid}
+                        className={styles.input}
+                        autoComplete={autoComplete ?? null}
                         {...rest}
                     />
 

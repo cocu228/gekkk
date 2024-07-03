@@ -1,6 +1,6 @@
 import styles from './style.module.css';
 import Button from "../components/button/Button";
-import {useState} from "preact/hooks";
+import {useEffect, useState} from "preact/hooks";
 import {RegisterDeviceKey, ResetPass} from '../../shared';
 import Form from '../components/form';
 import TextInput from '../components/textInput';
@@ -95,6 +95,46 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
         }
     }
 
+    useEffect(() => {
+        const setOtp = () => {
+          const input = document.querySelector('input[autocomplete="one-time-code"]');
+    
+          console.log('OTP input:');
+          console.log(input);
+    
+          if (!input) return;
+
+          const ac = new AbortController();
+          const form = input.closest("form");
+          if (form) {
+            form.addEventListener("submit", () => {
+              ac.abort();
+            });
+          }
+          
+          navigator.credentials
+            .get({
+              // @ts-ignore
+              otp: { transport: ["sms"] },
+              signal: ac.signal,
+            })
+            .then((otp) => {
+              // @ts-ignore
+              input.value = otp.code;
+              if (form) form.submit();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+    
+        if ("OTPCredential" in window) {
+          window.addEventListener("DOMContentLoaded", setOtp);
+        }
+    
+        return () => window.removeEventListener('DOMContentLoaded', setOtp);
+    }, [])
+
     return <main className={styles.ResetForm}>
         <Form onSubmit={onSubmit} className={styles.FormBody}>
             <div style={{
@@ -116,7 +156,7 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                         onChange={e => setEmailCode(e.currentTarget.value)}
                     />
                 : <>
-                    <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
+                    <TextInput placeholder={"SMS code"} autoComplete='one-time-code' type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
 
                     {!isGekkey ? <>
                         <PasswordInput

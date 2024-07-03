@@ -9,7 +9,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
     className?: string;
     label?: string;
     errorText?: string;
-    autoComplete: string;
+    autoComplete?: string;
     RhsComponent?: JSX.Element;
 }
 

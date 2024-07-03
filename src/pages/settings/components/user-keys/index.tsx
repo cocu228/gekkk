@@ -105,6 +105,8 @@ export function UserKeys() {
         });
     }
 
+    console.log(`"OTPCredential" in window: ${"OTPCredential" in window}`)
+
     if ("OTPCredential" in window) {
       window.addEventListener("DOMContentLoaded", setOtp);
     }

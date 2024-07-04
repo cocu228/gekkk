@@ -28,7 +28,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
   const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
 
   return (
-    <div className='flex flex-col relative pb-[60px] justify-center'>
+    <div className='flex flex-col relative pb-[40px] justify-center'>
       <div 
         className={` ${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
         onClick={showModal}

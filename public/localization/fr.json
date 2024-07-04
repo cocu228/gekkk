@@ -596,7 +596,7 @@
     "end_of_the_program_term": "À la fin de la durée du programme, les fonds bloqués en {{currency}} seront restitués sur votre compte.",
     "lock_tokens": "Verrouiller les jetons {{currency}}",
     "period_of_locking_tokens": "La période de verrouillage des jetons est de {{days}} jours. Les dates de début et de fin du programme seront mises à jour",
-    "period_of_locking_tokens_GKE": "La période de verrouillage des jetons est de {{days}} jours. A la fin de cette période, les fonds reviendront sur votre compte.",
+    "period_of_locking_tokens_GKE": "La période de verrouillage des jetons est de {{days}} jours. Les dates de début et de fin du programme seront mises à jour.",
     "start_of_program": "Début du programme",
     "term": "Terme",
     "until": "Jusqu'à",

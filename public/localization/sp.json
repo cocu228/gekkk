@@ -595,7 +595,7 @@
     "end_of_the_program_term": "Al final del plazo del programa, los fondos de {{currency}} bloqueados volverán a su cuenta",
     "lock_tokens": "Bloquear tokens de {{currency}}",
     "period_of_locking_tokens": "El período de bloqueo de tokens es de {{days}} días. Se actualizarán las fechas de inicio y finalización del programa.",
-    "period_of_locking_tokens_GKE": "El período de bloqueo de tokens es de {{days}} días. Al final de este período, los fondos volverán a su cuenta.",
+    "period_of_locking_tokens_GKE": "El período de bloqueo de tokens es de {{days}} días. Se actualizarán las fechas de inicio y finalización del programa.",
     "start_of_program": "Inicio del programa",
     "term": "Término",
     "until": "Hasta",

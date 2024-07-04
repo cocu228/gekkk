@@ -15,6 +15,9 @@ import {CtxRootData} from "@/processes/RootContext";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { uncoverArray } from "@/shared/lib";
 import { Modal } from "@/shared/ui/modal/Modal";
+import styles from './styles.module.scss'
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 const NoFeeProgram = () => {
     const {t} = useTranslation();
@@ -25,6 +28,7 @@ const NoFeeProgram = () => {
     const {inputCurr, setInputCurr} = useInputState();
     const [investment, setInvestment] = useState<GetDepositOut>(null);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+    const {md} = useBreakpoints()
 
     useEffect(() => {
         (async () => {
@@ -39,98 +43,93 @@ const NoFeeProgram = () => {
     }, [account])
 
     return (
-        <div className="md:bg-white md:rounded-[8px] md:p-2">
-            <div className="row mb-10">
-                <div className="col">
-                    <div className="info-box-warning">
+        <div className=" md:mx-[-10px]">
+            <div className="bg-[#fff] md:p-[5px_20px] md:rounded-[8px]">
+                <div className="row mb-[10px]">
+                    <div className={`${styles.InfoBoxDescription} text-[#3a5e66]`}>
                         <p className="font-extrabold text-sm mb-3">
                             {t("locking_tokens_gives", {currency: currency.$const})}
                         </p>
 
-                        <p className="text-sm">
-                            {t("up_amount_not_exceeding_similar", {currency: currency.$const})} {t("funds_are_blocked_for", {days: 90})}
-                        </p>
+                        <ul className={styles.InfoBoxList}>
+                            <li>{t("up_amount_not_exceeding_similar", {currency: currency.$const})}</li>
+                            <li>{t("funds_are_blocked_for", {days: 90})}</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
 
-            <div className="row mb-6">
-                <div className="col bg-[#F9F9FA] md:bg-white px-6 py-5">
-                    <div className="row flex flex-wrap mb-4">
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <img
-                                className="mr-2"
-                                width={24} height={24}
-                                alt="replenishment"
-                                src="/img/icon/replenishment.svg"
-                            />
-
-                            <span className="text-gray-400 text-sm">{t("locked_funds")}</span>
+                {
+                    !md && (
+                        <div className={styles.Table}>
+                            <div className={styles.TableItem}>
+                                <div className="flex items-center gap-[5px]">
+                                    <IconApp code="t87" size={16} color='#285E69' />
+                                    <span className={styles.TableItemTitle}>{t("locked_funds")}</span>
+                                </div>
+                                <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount : 0}</span>
+                            </div>
+                            <div className={styles.TableItem}>
+                                <div className="flex items-center gap-[5px]">
+                                    <IconApp code="t86" size={16} color='#285E69' />
+                                    <span className={`${styles.TableItemTitle} capitalize`}>{t("used")}</span>
+                                </div>
+                                <span className={styles.TableItemText}>{investment?.cur_amount ?? 0}</span>
+                            </div>
+                            <div className={styles.TableItem}>
+                                <div className="flex items-center gap-[5px]">
+                                    <IconApp code="t88" size={16} color='#285E69' />
+                                    <span className={styles.TableItemTitle}>{t("available_for_use")}</span>
+                                </div>
+                                <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount: 0}</span>
+                            </div>
                         </div>
+                    )
+                }
 
-                        <div className="col w-1/3 flex flex-row items-center  justify-center">
-                            <img
-                                className="mr-2"
-                                width={24} height={24}
-                                alt="DepositStartingRateIcon"
-                                src="/img/icon/DepositStartingRateIcon.svg"
-                            />
-
-                            <span className="text-gray-400 text-sm">{t("used").capitalize()}</span>
-                        </div>
-
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <img
-                                className="mr-2"
-                                width={24} height={24}
-                                src="/img/icon/DepositCurrentIncomeIcon.svg"
-                                alt="DepositCurrentIncomeIcon"
-                            />
-
-                            <span className="text-gray-400 text-sm">{t("available_for_use")}</span>
-                        </div>
+                <div className={styles.NoFeeTable}>
+                    <div className={`w-full -md:w-[50%] ${styles.NoFeeTableProperties}`}>
+                        <NoFeeProperties
+                            endDate={investment?.date_end ?? new Date()}
+                            startDate={investment?.date_start ?? new Date()}
+                            templateTerm={90}
+                            t={t}
+                        />
                     </div>
-
-                    <div className="row flex gap-1">
-                        <div className="col w-1/3  flex flex-row items-center gap-1 justify-center">
-                            <span className="text-lg font-bold">{investment?.amount ?? 0}</span>
-                            <span className="text-lg text-green font-bold">{!inputCurr.value.string ? null : (
-                                `(+${inputCurr.value.string})`
-                            )}</span>
-                        </div>
-
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <span className="text-lg font-bold">{investment?.cur_amount ?? 0}</span>
-                        </div>
-
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <span className="text-lg font-bold text-green">{investment
-                                ? investment.amount - investment.cur_amount
-                                : 0
-                            }</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="row flex flex-wrap mb-6">
-                <div className="col -md:border-r-1 -md:border-solid -md:border-gray-400 md:mb-5 -md:pr-10 md:w-full w-3/5">
-                    <NoFeeProperties
-                        endDate={investment?.date_end ?? new Date()}
-                        startDate={investment?.date_start ?? new Date()}
-                        templateTerm={90}
-                        t={t}
-                    />
-                </div>
-
-                <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
-                    <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
+                    <div className={styles.AtTheEndText}>
                         {t("end_of_the_program_term", {currency: currency.$const})} 
-                    </p>
+                    </div>
                 </div>
             </div>
 
-            <div className="row mb-7">
+            {
+                md && (
+                    <div className={styles.Table}>
+                        <div className={styles.TableItem}>
+                            <div className="flex items-center gap-[5px]">
+                                <IconApp code="t87" size={16} color='#285E69' />
+                                <span className={styles.TableItemTitle}>{t("locked_funds")}</span>
+                            </div>
+                            <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount : 0}</span>
+                        </div>
+                        <div className={styles.TableItem}>
+                            <div className="flex items-center gap-[5px]">
+                                <IconApp code="t86" size={16} color='#285E69' />
+                                <span className={`${styles.TableItemTitle} capitalize`}>{t("used")}</span>
+                            </div>
+                            <span className={styles.TableItemText}>{investment?.cur_amount ?? 0}</span>
+                        </div>
+                         <div className={styles.TableItem}>
+                            <div className="flex items-center gap-[5px]">
+                                <IconApp code="t88" size={16} color='#285E69' />
+                                <span className={styles.TableItemTitle}>{t("available_for_use")}</span>
+                            </div>
+                            <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount: 0}</span>
+                        </div>
+                    </div>
+                )
+            }
+
+            <div className="row mb-7 -md:mt-[20px] md:bg-[#fff] md:p-[20px_13px_5px_13px] mt-[10px] md:rounded-[8px]">
                 <div className="col">
                     <InputCurrency.Validator
                         value={inputCurr.value.number}
@@ -142,7 +141,7 @@ const NoFeeProgram = () => {
                         ]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                       header={<span className='text-gray-600'>{t("amount")}:</span>}
+                                                       header={<span className='ml-[7px] font-semibold text-[#1F3446]'>{t("amount")}:</span>}
                                                        currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
@@ -155,23 +154,17 @@ const NoFeeProgram = () => {
                         </InputCurrency.PercentSelector>
                     </InputCurrency.Validator>
                 </div>
-            </div>
-
-            <div className="row mb-4">
-                <div className="flex justify-center col">
-                    <Button
-                        size="lg"
-                        disabled={inputCurrValid.value}
-                        onClick={lockConfirmModal.showModal}
-                        className="w-full"
-                        >{t("lock_tokens", {currency: currency.$const})}
-                    </Button>
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col flex justify-center">
-                    <span className="text-fs12 text-gray-500 text-center leading-4">
+                <div className="mt-[25px]">
+                    <div className="flex justify-center col">
+                        <Button
+                            size="lg"
+                            disabled={inputCurrValid.value}
+                            onClick={lockConfirmModal.showModal}
+                            className="w-full"
+                            >{t("lock_tokens", {currency: currency.$const})}
+                        </Button>
+                    </div>
+                    <span className="text-fs12 block mt-[20px] text-gray-500 text-center leading-4">
                         {t("period_of_locking_tokens", {days: 90})}
                     </span>
                 </div>

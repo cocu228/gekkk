@@ -48,14 +48,12 @@ const WalletHeaderMobile = () => {
         })();
     }, [account]);
 
-
-
     const ibanCopy = () => {
         navigator.clipboard.writeText(IBAN)
         setIsCopied(true)
     }
 
-    return (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) ? null : (
+    return (
         <div className={`${styles.HeaderWalletMobileWrap} ${isOnAboutPage ? "" : "bg-white"}`}>
             <div className={styles.HeaderWalletMobile}>
                 

@@ -196,31 +196,6 @@ input {
   }
 }
 
-.info-box-description {
-  background-color: #e2ffee;
-  font-size: 14px;
-  height: min-content;
-  color: var(--gek-additional);
-  border-radius: 8px;
-  padding: 18px 16px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-
-  @include max-devices("md") {
-    margin-bottom: 16px;
-    border: 1px solid var(--gek-green);
-    color: var(--gek-green);
-    background: white;
-    font-size: 12px;
-    text-align: justify;
-    padding: 5px, 10px, 5px, 10px;
-
-  }
-}
-.info-box-in-wallet {
-  color: #3a5e66;
-}
-
 //.ellipsis:not(.ellipsis-lg):hover::after {
 //  content: none;
 //}

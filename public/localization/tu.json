@@ -595,7 +595,7 @@
     "end_of_the_program_term": "Program döneminin sonunda bloke edilen {{currency}} fonlar hesabınıza geri dönecektir",
     "lock_tokens": "{{currency}} jetonunu kilitle",
     "period_of_locking_tokens": "Jetonların kilitlenme süresi {{days}} gündür. Programın başlangıç ​​ve bitiş tarihleri ​​güncellenecektir.",
-    "period_of_locking_tokens_GKE": "Jetonların kilitlenme süresi {{days}} gündür. Bu sürenin sonunda para hesabınıza geri dönecektir.",
+    "period_of_locking_tokens_GKE": "Jetonların kilitlenme süresi {{days}} gündür. Programın başlangıç ​​ve bitiş tarihleri ​​güncellenecektir.",
     "start_of_program": "Programın başlangıcı",
     "term": "Terim",
     "until": "Değin",

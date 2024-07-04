@@ -919,7 +919,7 @@
     "check_your_information_carefully": "Bitte überprüfen Sie Ihre Transaktionsinformationen sorgfältig und bestätigen Sie die Operation.",
     "start_date": "Startdatum",
     "end_date": "Enddatum",
-    "period_of_locking_tokens_GKE": "Die Sperrfrist für Tokens beträgt {{days}} Tage. Am Ende dieses Zeitraums werden die Mittel auf Ihr Konto zurückgebucht.",
+    "period_of_locking_tokens_GKE": "Die Sperrfrist für Tokens beträgt {{days}} Tage. Start- und Enddatum des Programms werden aktualisiert.",
     "up_amount_not_exceeding_similar": "Bis zu einem Betrag, der nicht über eine ähnliche Anzahl von blockierten {{currency}}-Tokens hinausgeht.",
     "funds_are_blocked_for": "Die Mittel werden für {{days}} Tage blockiert.",
     "cashback_is_credited_once_a_month": "Cashback wird einmal im Monat am Ende des Abrechnungszeitraums gutgeschrieben",

@@ -17,8 +17,8 @@ import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import {uncoverArray} from "@/shared/lib";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
-import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Modal } from "@/shared/ui/modal/Modal";
+import styles from './styles.module.scss'
 
 const GkeCashbackProgram = () => {
     const {t} = useTranslation();
@@ -44,110 +44,86 @@ const GkeCashbackProgram = () => {
     }, [account]);
 
     return !currencies ? <Loader/> : (
-        <div className="md:bg-white md:rounded-[8px] md:p-2">
-            <div className="row mb-10">
-                <div className="col">
-                    <div className="info-box-description info-box-in-wallet">
-                        <div className="row mb-3">
-                            <div className="col">
-                                <p className="font-extrabold text-sm">
-                                    {t("locked_tokens_give_you_access", {currency: currency.$const})}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="row mb-3">
-                            <div className="col flex">
-                            <IconApp code="t59" size={20} className="rotate-[-90deg]" color="#fff" />
-
-                                <p className="text-sm">
-                                    {t("up_amount_not_exceeding_similar", {currency: currency.$const})}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col flex">
-                                <IconApp code="t59" size={20} className="rotate-[-90deg]" color="#fff" />
-                                <p className="text-sm">
-                                    {t("cashback_is_credited_once_a_month")}
-                                </p>
-                            </div>
-                        </div>
+        <div className=" md:mx-[-10px]">
+            <div className="md:p-[5px_20px] md:rounded-[8px] bg-[#fff]">
+                <div className="mb-[15px]">
+                    <div className={`${styles.InfoBoxDescription} text-[#3a5e66]`}>
+                        <p className="font-extrabold text-sm">
+                            {t("locked_tokens_give_you_access", {currency: currency.$const})}
+                         </p>
+                         <ul className={styles.InfoBoxList}>
+                            <li>{t("up_amount_not_exceeding_similar", {currency: currency.$const})}</li>
+                            <li>{t("cashback_is_credited_once_a_month")}</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
 
-            <div className="row flex flex-wrap mb-6">
-                <div className="col -md:border-r-1 md:mb-5 -md:border-solid -md:border-gray-400 -md:pr-10 md:w-full w-3/5">
-                    <CashbackProperties
-                        locked={investment?.amount ?? 0}
-                        amount={inputCurr.value.number}
-                        endDate={investment?.date_end}
-                        startDate={investment?.date_start}
-                        currency={currency.$const}
-                        templateTerm={30}
-                    />
-                </div>
-
-                <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
-                    <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
+                <div className="bg-[#fff] flex gap-[10px] mb-6">
+                    <div className="md:p-[5px_0] -md:w-[50%] -md:mr-[5px] md:w-full">
+                        <CashbackProperties
+                            locked={investment?.amount ?? 0}
+                            amount={inputCurr.value.number}
+                            endDate={investment?.date_end}
+                            startDate={investment?.date_start}
+                            currency={currency.$const}
+                            templateTerm={30}
+                        />
+                    </div>
+                    <p className={styles.AtTheEndText}>
                         {t("end_of_the_program_term", {currency: currency.$const})}
                     </p>
                 </div>
             </div>
 
-            <div className="row mb-7">
-                <div className="col">
-                    <InputCurrency.Validator
-                        className='text-sm'
-                        value={inputCurr.value.number}
-                        onError={setInputCurrValid}
-                        description={t("minimum_order_amount", {amount: 100 + " " + currency.$const})}
-                        validators={[
-                            validateBalance(currencies.get(currency.$const), navigate, t),
-                            validateMinimumAmount(100, inputCurr.value.number, currency.$const, t)
-                        ]}
-                    >
-                        <InputCurrency.PercentSelector
-                            onSelect={setInputCurr}
-                            currency={currencies.get(currency.$const)}
-                            header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
-                                {t("exchange.pay_from")}
-                            </span>}
+            <div className="md:bg-[#fff] -md:mt-[20px] mt-[10px] md:rounded-[8px] md:p-[20px_13px_5px_13px]">
+                <div className="row mb-7">
+                    <div className="col">
+                        <InputCurrency.Validator
+                            className='text-sm'
+                            value={inputCurr.value.number}
+                            onError={setInputCurrValid}
+                            description={t("minimum_order_amount", {amount: 100 + " " + currency.$const})}
+                            validators={[
+                                validateBalance(currencies.get(currency.$const), navigate, t),
+                                validateMinimumAmount(100, inputCurr.value.number, currency.$const, t)
+                            ]}
                         >
-                            <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
-                                <InputCurrency
-                                    placeholder={t("exchange.enter_amount")}
-                                    value={inputCurr.value.string}
-                                    currency={currency.$const}
-                                    onChange={setInputCurr}
-                                />
-                            </InputCurrency.DisplayBalance>        
-                        </InputCurrency.PercentSelector>
-                    </InputCurrency.Validator>
+                            <InputCurrency.PercentSelector
+                                onSelect={setInputCurr}
+                                currency={currencies.get(currency.$const)}
+                                header={<span className='font-semibold text-[#1F3446] ml-[7px] text-md lg:text-sm md:text-xs select-none'>
+                                    {t("amount")}
+                                </span>}
+                            >
+                                <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
+                                    <InputCurrency
+                                        placeholder={t("exchange.enter_amount")}
+                                        value={inputCurr.value.string}
+                                        currency={currency.$const}
+                                        onChange={setInputCurr}
+                                    />
+                                </InputCurrency.DisplayBalance>        
+                            </InputCurrency.PercentSelector>
+                        </InputCurrency.Validator>
+                    </div>
                 </div>
-            </div>
 
-            <div className="row mb-4">
-                <div className="flex justify-center col">
-                    <Button
-                        size="lg"
-                        className="w-full"
-                        disabled={inputCurrValid.value}
-                        onClick={lockConfirmModal.showModal}
-                    >
-                        {t("lock_tokens", {currency: currency.$const})}
-                    </Button>
+                <div className="row mb-4">
+                    <div className="flex justify-center col">
+                        <Button
+                            size="lg"
+                            className="w-full"
+                            disabled={inputCurrValid.value}
+                            onClick={lockConfirmModal.showModal}
+                        >
+                            {t("lock_tokens", {currency: currency.$const})}
+                        </Button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="row">
-                <div className="col flex justify-center">
-                    <span className="text-fs12 text-gray-500 text-center leading-4">
-                        {t("period_of_locking_tokens_GKE", {days: 30})}
-                    </span>
-                </div>
+                <span className="text-fs12 block text-gray-500 text-center leading-4">
+                    *{t("period_of_locking_tokens_GKE", {days: 30})}
+                </span>
             </div>
 
             <Modal

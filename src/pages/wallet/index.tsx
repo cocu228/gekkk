@@ -71,7 +71,7 @@ function Wallet() {
         }
     }, [currencies])
 
-    const isShownTabs = !(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnAboutPage)
+    const isShownTabs = !(isOnAboutPage)
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -172,9 +172,6 @@ function Wallet() {
                                 )
                             )
                         }
-                        {IS_GEKKARD_APP() && isOnProgramsPage &&
-                            <Programs data-tag={"programs"} data-name={t("programs")}/>
-                        }
                         {isCardsMenu &&
                             <div className="mt-4">
                                 <CardsMenu
@@ -197,6 +194,11 @@ function Wallet() {
                                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
+                            </div>
+                        }
+                        {tab === "programs" &&
+                            <div className="min-h-[200px] relative">
+                                <Programs data-tag={"programs"} data-name={t("programs")}/>
                             </div>
                         }
                     </>

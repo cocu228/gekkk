@@ -1,143 +1,121 @@
-import Loader from "@/shared/ui/loader";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import styles from "./style.module.scss";
-import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
 import History from "../../history/ui/History";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxRootData } from "@/processes/RootContext";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import { getRoundingValue } from "@/shared/lib/helpers";
 import { options } from "../model/constants";
-import { ISelectCard, ISelectTxTypes } from "../model/types";
-import { useContext, useEffect, useRef, useState } from "react";
+import { ISelectCard, ISelectTxTypes, CurrenciesOptionType, SelectorType } from "../model/types";
 import { formatCardNumber } from "../../dashboard/model/helpers";
-import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { Datepicker } from "@/shared/ui/Datepicker/Datepicker";
 import { getFirstDayOfPreviousMonth, getHigherDate, getLowerDate } from "@/shared/lib/date-helper";
+import Selector from "../components/selector";
+import Options from "../components/options";
+import CardRenderOption from "@/widgets/custom-history/ui/components/card-render-option";
+import CurrencyRenderOption from "@/widgets/custom-history/ui/components/currency-render-option";
+import TypeRenderOption from "@/widgets/custom-history/ui/components/type-render-option";
 
-// TODO: clean up
-function CustomHistory() {
-  const inputRef = useRef(null);
+const CustomHistory = () => {
+  // Hooks
   const { t } = useTranslation();
-  const { refreshKey } = useContext(CtxRootData);
-  const { currencies } = useContext(CtxCurrencies);
-  const [curr, setCurr] = useState<string>('');
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
-  
-  const [startDate, setStartDate] = useState(getFirstDayOfPreviousMonth())
-  const [endDate, setEndDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(getFirstDayOfPreviousMonth());
+  const [endDate, setEndDate] = useState(new Date());
+  const [selector, setSelector] = useState<SelectorType | null>(null)
+  const [isFiat, setIsFiat] = useState<boolean>(false)
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrenciesOptionType | null>(null);
+  const [selectedType, setSelectedType] = useState<ISelectTxTypes | null>(null);
+  const [selectedCard, setSelectedCard] = useState<ISelectCard | null>(null);
+  const [isApply, setIsApply] = useState<boolean>(false);
 
+  // Context
+  const { currencies } = useContext(CtxCurrencies);
+
+  // Store
   const {
     activeCards: cards,
     loading: cardsLoading,
     getActiveCards: loadActiveCards
   } = storeActiveCards(state => state);
-  const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
-  const [selectedCard, setSelectedCard] = useState<ISelectCard>({value: '', label: ''});
 
-  // remove
-  const translatedOptions = options.map((el) => {
-    return {
-      ...el,
-      label: t(el.t),
-    };
-  });
+  // Handlers
+  const handleOnSelectClick = (selectType: SelectorType) => () => {
+    setIsApply(false)
+    setSelector(prev => prev === selectType ? null : selectType);
+  }
 
-  // remove
-  const [fiat, setFiat] = useState<boolean>(false);
-  const [apply, setApply] = useState<boolean>(false);
-  const [type, setType] = useState<ISelectTxTypes | null>(null);
+  const handleOnCurrency = useCallback((currency: CurrenciesOptionType) => {
+    setSelectedCurrency(currency)
+    setIsFiat(currency.currency.flags.fiatCurrency)
+    setSelector(null);
+    setSelectedCard(prev => currency.$const !== "EUR" ? null : prev)
+  }, [])
 
-  // remove
-  const [historyData, setHistoryData] = useState<{
-    assets: string[];
-    includeFiat?: boolean;
-    types: TransactTypeEnum[];
-  }>({
-    assets: [curr],
-    types: type?.value,
-    includeFiat: fiat,
-  });
+  const handleOnType = useCallback((option: ISelectTxTypes) => {
+    setSelectedType(option)
+    setSelector(null)
+  }, [])
 
-  const handleReset = () => {
+  const handleOnCard = useCallback((option: ISelectCard) => {
+    setSelectedCard(option)
+    setSelector(null)
+  }, [])
+
+  const handleOnApply = () => {
+    setSelector(null);
+    setIsApply(true)
+  }
+
+  const handleOnReset = () => {
     setStartDate(getFirstDayOfPreviousMonth())
     setEndDate(new Date())
-    setFiat(false);
-    setSelectedCard({value: '', label: ''});
-    setCurr('');
-    setSelector(null);
-    setType(null);
-  };
+    setSelector(null)
+    setIsFiat(false)
+    setSelectedCurrency(null)
+    setSelectedType(null)
+    setSelectedCard(null)
+  }
 
-  const applyHandler = () => {
-    setSelector(null);
-    setHistoryData({
-      assets: [curr],
-      types: type?.value,
-      includeFiat: fiat,
-    });
-  };
-
-  useEffect(() => {
-    (async () => {
-      if (curr === 'EUR') {
-        await loadActiveCards();
-      }
-    })();
-  }, [curr]);
-
-  useEffect(() => {
-    if (cards) {
-      const cardsOpts: ISelectCard[] = cards.map((card) => ({
-        label: formatCardNumber(card.displayPan),
-        value: card.cardId,
-      }));
-      setCardsOptions(cardsOpts);
-    }
-  }, [cards]);
-
-  useEffect(() => {
-    applyHandler();
-  }, [refreshKey]);
-
-  function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
+  const handleOnFilterCurrency = (currency: CurrenciesOptionType, searchValue: string) => {
     return (
-      (currency.$const?.toLowerCase().includes(searchValue) ||
-        currency.name?.toLowerCase().includes(searchValue)) &&
-      currency.balance?.free_balance
+      (currency.currency.$const?.toLowerCase().includes(searchValue) ||
+        currency.currency.name?.toLowerCase().includes(searchValue)) &&
+      !!currency.currency.balance?.free_balance
     );
   }
 
-  const currenciesList =
-    currencies && !![...currencies].find((el) => el[0] === "EUR")[1].balance
-      ? [...currencies]
-          .sort((x, y) => {
-            return x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0;
-          })
-          ?.map((el) => {
-            return {
-              $const: el[0],
-              currency: el[1],
-            };
-          })
-      : [];
+  // Effects
+  useEffect(() => {
+    (async () => {
+      if (selectedCurrency?.$const === 'EUR') {
+        await loadActiveCards();
+      }
+    })();
+  }, [selectedCurrency?.$const]);
 
-  const setValueSearch = (e: any) => {
-    setSearchValue(e.target.value.trim().toLowerCase());
-  };
+  // Helpers
+  const currenciesList = useMemo<CurrenciesOptionType[]>(() => {
+    const hasBalance = currencies && !![...currencies].find((el) => el[0] === "EUR")[1].balance;
+    const sortedList = hasBalance ? [...currencies].sort((x, y) => x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0) : [];
+    const transformList = sortedList.map(el => ({ $const: el[0], currency: el[1] }));
+    return transformList.filter((value) => handleOnFilterCurrency(value, ""))
+  }, [currencies])
+  const cardsOptions = useMemo<ISelectCard[]>(() => {
+    return (cards || []).map((card) => ({
+      label: formatCardNumber(card.displayPan),
+      value: card.cardId,
+    }));
+  }, [cards])
+  const types = selectedType ? selectedType.value : undefined;
+  const currenciesFilter = selectedCurrency ? [selectedCurrency.$const] : undefined;
 
-  // TODO:refactor display of selectors
   return (
     <>
       <div className={styles.wrapper}>
         <form className={styles.filters}>
           <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
-          <div>
-            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
+          <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2 mb-[5px]">
               <Datepicker 
                 isTo={false}
                 date={startDate}
@@ -150,242 +128,86 @@ function CustomHistory() {
                 setDate={setEndDate}
               />
             </div>
-          </div>
           <div className={styles.SelectWrap}>
-            <div
-              className={styles.SelectBlock}
-              onClick={() => {
-                selector === 'currency' ? setSelector(null) : setSelector('currency');
-                setApply(false);
-              }}
-            >
-              <span className={styles.SelectTitle}>{t("currency")}:</span>
-              <div
-                className={`${styles.SelectActive} ${
-                  curr && styles.SelectCurrencyActive
-                }`}
-              >
-                <div className={styles.SelectPickedValue}>
-                  {!curr ? (
-                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
-                  ) : (
-                    <span className={styles.SelectActiveToken}>
-                      <IconCoin
-                        height={20}
-                        className={`max-h-[36px]`}
-                        code={curr}
-                      />
-                      {currencies?.get(curr)?.name}
-                    </span>
-                  )}
-                </div>
-                <div className={styles.SelectIconBlock}>
-                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
-                </div>
-              </div>
-            </div>
-            <div
-              className={styles.SelectBlock}
-              onClick={() => {
-                selector === 'type' ? setSelector(null) : setSelector('type');
-                setApply(false);
-              }}
-            >
-              <span className={styles.SelectTitle}>{t("type")}:</span>
-              <div
-                className={`${styles.SelectActive} ${
-                  type && styles.SelectCurrencyActive
-                }`}
-              >
-                <div className={styles.SelectPickedValue}>
-                  {!type ? (
-                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
-                  ) : (
-                    <span className={styles.SelectActiveToken}>
-                      {type.label}
-                    </span>
-                  )}
-                </div>
-                <div className={styles.SelectIconBlock}>
-                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
-                </div>
-              </div>
-            </div>
-            {
-              fiat && (
-                <div
-              className={styles.SelectBlock}
-              onClick={() => {
-                selector === 'card' ? setSelector(null) : setSelector('card');
-                setApply(false);
-              }}                       
-            >
-              <span className={styles.SelectTitle}>{t("card")}:</span>
-              <div
-                className={`${styles.SelectActive} ${
-                  selectedCard.value && styles.SelectCurrencyActive
-                }`}
-              >
-                <div className={styles.SelectPickedValue}>
-                  {!selectedCard.value ? (
-                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
-                  ) : (
-                    <span className={styles.SelectActiveToken}>
-                      {selectedCard.label}
-                    </span>
-                  )}
-                </div>
-                <div className={styles.SelectIconBlock}>
-                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
-                </div>
-              </div>
-            </div>
-          )}
+            <Selector
+              value={selectedCurrency}
+              label={t("currency")}
+              renderInput={({ $const }) => (
+                <>
+                  <IconCoin height={20} className={`max-h-[36px]`} code={$const} />
+                  {currencies?.get($const)?.name}
+                </>
+              )}
+              onClick={handleOnSelectClick("currency")}
+            />
+            <Selector
+              value={selectedType}
+              label={t("type")}
+              renderInput={(value) => t(value.t)}
+              onClick={handleOnSelectClick("type")}
+            />
+            {isFiat ? (
+              <Selector
+                value={selectedCard}
+                label={t("card")}
+                renderInput={(value) => value.label}
+                onClick={handleOnSelectClick("card")}
+              />
+            ) : null}
           </div>
           {selector === 'currency' && (
-            <div className="w-full mt-[15px]">
-              <span className={styles.CurrencyListTitle}>{t("select_currency")}</span>
-              <div className="bg-[white] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
-                <IconApp size={20} code="t12" color="#000" />
-                <Input
-                  size="sm"
-                  type="text"
-                  ref={inputRef}
-                  data-testid="SearchName"
-                  onChange={setValueSearch}
-                  placeholder={t("crypto_assets.search_currency")}
-                />
-              </div>
-              {currenciesList.length > 0 ? (
-                currenciesList
-                  ?.filter((curr) =>
-                    searchTokenFilter(curr.currency, searchValue)
-                  )
-                  ?.map((currency, index) => (
-                    <div
-                      className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
-                      onClick={() => {
-                        if (currency.$const !== "EUR") {
-                          setSelectedCard({value: '', label: ''});
-                        }
-                        setCurr(currency.$const);
-                        setFiat(currency.currency.flags.fiatCurrency)
-                        setSelector(null);
-                      }}
-                    >
-                      <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
-                        <IconCoin height={40} code={currency.$const} />
-                        <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
-                          {currency.$const === "EUR" ? (
-                            currency.$const
-                          ) : (
-                            <div className="flex h-full flex-col justify-around">
-                              <span>{currency.$const}</span>
-                              <span className="font-[400] whitespace-nowrap text-[#676767]">
-                                {currency.currency.name}
-                              </span>
-                            </div>
-                          )}
-                        </span>
-                      </div>
-                      <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                        <span className="self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular">
-                          {t("free_balance")}:
-                        </span>
-                        <span className="self-end text-[12px] text-[#1F3446] font-regular">
-                          {getRoundingValue(
-                            currency.currency.balance?.free_balance,
-                            currency.currency.roundPrec
-                          )}{" "}
-                          {currency.$const}
-                        </span>
-                      </div>
-                    </div>
-                  ))
-              ) : (
-                <div className="min-h-[200px] flex justify-center w-full relative">
-                  <Loader />
-                </div>
+            <Options
+              searchable
+              placeholder={t("crypto_assets.search_currency")}
+              filterOption={handleOnFilterCurrency}
+              title={t("select_currency")}
+              options={currenciesList}
+              isLoading={!(currenciesList.length > 0)}
+              renderOption={(props) => (
+                <CurrencyRenderOption key={props.option.$const} {...props} />
               )}
-            </div>
+              onClick={handleOnCurrency}
+            />
           )}
           {selector === 'type' && (
-            <div className={styles.TypeList}>
-              <span className={styles.CurrencyListTitle}>{t("select_type")}</span>
-              {
-                translatedOptions.map((item, ind) => (
-                  <div
-                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
-                  onClick={() => {
-                    setType(item)
-                    setSelector(null)  
-                  }}
-                >
-                  <div className="ml-5 flex flex-row p-2 gap-5 justify-center items-center ">
-                    <span className="text-[12px] h-full flex items-center font-bold">
-                      {item.label}
-                    </span>
-                  </div>
-                </div>
-                ))
-              }
-            </div>
+            <Options
+              title={t("select_type")}
+              options={options}
+              renderOption={(props) => (
+                <TypeRenderOption key={props.option.label} {...props} />
+              )}
+              onClick={handleOnType}
+            />
           )}
           {selector === 'card' && (
-            <div className={styles.TypeList}>
-              <span className={styles.CurrencyListTitle}>Select card</span>
-              {cardsLoading
-                ? <Loader className="relative"/>
-                : cardsOptions.length <= 0
-                ? <span className={styles.NoCardsTitle}>{t("no_active_cards")}</span>
-                : cardsOptions.map((item, ind) => (
-                  <div
-                    className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
-                    onClick={() => {
-                      setSelectedCard(item)
-                      setSelector(null)  
-                    }}
-                  >
-                    <div className="ml-5 flex flex-row p-2 gap-5 justify-center items-center ">
-                      <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
-                        {item.label}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
+            <Options
+              title={t("select_card")}
+              isLoading={cardsLoading}
+              noOption={<span className={styles.NoCardsTitle}>{t("no_active_cards")}</span>}
+              options={cardsOptions}
+              renderOption={(props) => (
+                <CardRenderOption key={props.option.label} {...props} />
+              )}
+              onClick={handleOnCard}
+            />
           )}
           <div className={styles.BottomBtnsWrap}>
-            <Button
-              className={styles.BottomBtn}
-              onClick={() => {
-                setApply(true);
-                applyHandler();
-              }}
-            >
+            <Button className={styles.BottomBtn} onClick={handleOnApply}>
               {t("apply")}
             </Button>
-            <Button
-              className={`${styles.BottomBtn}`}
-              color="gray"
-              onClick={() => {
-                setApply(false);
-                handleReset();
-              }}
-            >
+            <Button className={`${styles.BottomBtn}`} color="gray" onClick={handleOnReset}>
               {t("clear")}
             </Button>
           </div>
         </form>
       </div>
-      {apply && (
+      {isApply && (
         <History
           tab="custom"
           className="mt-2"
-          types={historyData.types}
-          includeFiat={historyData.includeFiat}
-          currenciesFilter={historyData.assets}
+          types={types}
+          includeFiat={isFiat}
+          currenciesFilter={currenciesFilter}
           to={getHigherDate(endDate, startDate)}
           from={getLowerDate(endDate, startDate)}
         />

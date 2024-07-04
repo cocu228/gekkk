@@ -42,7 +42,7 @@ const MenuItem = ({
 			    </div>
                     
 			    <div className={styles.MenuItemColumn}>
-			    	<div className='font-bold text-right'>{rightPrimary}</div>
+			    	<div className='font-bold text-right text-[var(--gek-additional)]'>{rightPrimary}</div>
                     
 			    	{!rightSecondary ? null : (
 			    		<div className='text-[var(--gek-mid-grey)] text-right'>{rightSecondary}</div>

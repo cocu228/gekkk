@@ -50,8 +50,8 @@ const CardInfo = ({ cardId, onBack }: IParams) => {
                         </h3>
                     </div>
             
-                    <div className={`${styles.InfoContainerFirst} ${styles.InfoContainer}`}>
-                        <span>
+                    <div className={styles.InfoContainer}>
+                        <span className="text-[var(--gek-dark-grey)]">
                             **** **
                             <b className={styles.InfoData}>
                                 {cardInfo.pan.slice(0, 2) + " " + cardInfo.pan.slice(2)}
@@ -60,19 +60,15 @@ const CardInfo = ({ cardId, onBack }: IParams) => {
                         </span>
                     </div>
 
-                    <div className="flex flex-row gap-4 mt-2">
-                        <div
-                            className={`${styles.InfoContainerSecond} ${styles.InfoContainer}`}
-                        >
-                            <span>
+                    <div className="flex gap-[10px]">
+                        <div className={styles.InfoContainer}>
+                            <div className="flex items-center gap-[10px]">
                                 <span className={styles.InfoPlaceholder}>CV/CVV</span>
                                 <b className={styles.InfoData}> {cardInfo.cvv ?? "-"}</b>
-                            </span>
+                            </div>
                         </div>
-                        <div
-                            className={`${styles.InfoContainerSecond} ${styles.InfoContainer}`}
-                        >
-                            <span>
+                        <div className={styles.InfoContainer}>
+                            <span className="flex items-center gap-[10px]">
                                 <span className={styles.InfoPlaceholder}>PIN</span>
                                 <b className={styles.InfoData}> {cardInfo.pin ?? "-"}</b>
                             </span>

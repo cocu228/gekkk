@@ -17,9 +17,11 @@ const BankCard = ({
 }: CardData) => {
     const { t } = useTranslation();
 
+    const isBlockedByBank = status === "BLOCKED_BY_BANK"
+
     return (
         <div className={styles.BankCard}>
-            <div className={styles.CardStatus}>
+            <div className={`${styles.CardStatus} ${isBlockedByBank ? styles.White : ""}`}>
                 {status && status !== 'ACTIVE' && t(CardStatusDescriptions[status])}
             </div>
             <div className={`${styles.Text} ${styles.CardNumber}`}>{cardNumber}</div>

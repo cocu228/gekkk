@@ -25,12 +25,10 @@ const Textarea: FC<ITextareaProps> = ({
   textareaClassName,
   ...props
 }) => {
-  const [value, setValue] = useState<string>('');
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
-      setValue(event.target.value);
       onChange(event);
     }
   };
@@ -40,7 +38,6 @@ const Textarea: FC<ITextareaProps> = ({
       <textarea
         rows={1}
         {...props}
-        value={value}
         ref={textareaRef}
         onChange={handleChange}
         placeholder={`-${placeholder.toLowerCase()}-`}

@@ -4,11 +4,12 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { QualityType, IControlState } from "@/pages/support/components/quality-control/types";
 import Textarea from "@/shared/ui/textarea";
 import Button from "@/shared/ui/button/Button";
+import { apiPostFeedback } from "@/shared/(orval)api";
 
 const QualityControl: FC = () => {
   const { t } = useTranslation();
-  const [currentStar, setCurrentStar] = useState<number>(0);
   const [quality, setQuality] = useState<QualityType | null>(null);
+  const [currentStar, setCurrentStar] = useState<number>(0);
   const [control, setControl] = useState<IControlState| null>(null)
 
   const handleOnQuality = (qualityType: QualityType) => () => {
@@ -37,9 +38,23 @@ const QualityControl: FC = () => {
     return star <= currentStar ? "t84" : "t85"
   }
 
-  const handleOnSubmit = () => {
-    console.log(control);
+  const handleOnSubmit = async () => {
+    if (quality) {
+      const qualityText = `Quality control: ${quality}`;
+      const rating = control?.rating ? quality === "thumbs_up" ? control.rating + 5 : 6 - control.rating : null;
+      const ratingText = rating ? `\nRating: (${rating}/10)` : "";
+      const messageText = control?.message ? `\n${control?.message}` : "";
+      const text = `${qualityText}${ratingText}${messageText}`
+      const res = await apiPostFeedback({ text })
+      if (!res.data.error) {
+        setQuality(null)
+        setCurrentStar(0)
+        setControl(null)
+      }
+    }
   }
+
+  const starColor = quality === "thumbs_up" ? "var(--gek-green)" : "var(--gek-red)"
 
   return (
     <div className="control-container">
@@ -49,14 +64,14 @@ const QualityControl: FC = () => {
           <IconApp
             code='t49'
             size={27}
-            color={quality === "LIKE" ? "var(--gek-green)" : "#9D9D9D"}
-            onClick={handleOnQuality("LIKE")}
+            color={quality === "thumbs_up" ? "var(--gek-green)" : "#9D9D9D"}
+            onClick={handleOnQuality("thumbs_up")}
           />
           <IconApp
             code='t49'
             size={27}
-            color={quality === "DISLIKE" ? "var(--gek-red)" : "#9D9D9D"}
-            onClick={handleOnQuality("DISLIKE")}
+            color={quality === "thumbs_down" ? "var(--gek-red)" : "#9D9D9D"}
+            onClick={handleOnQuality("thumbs_down")}
           />
         </div>
         <p className="control-main-footer">{t("support.thank_you_for_rating")}!</p>
@@ -74,7 +89,7 @@ const QualityControl: FC = () => {
               >
                 <IconApp
                   size={20}
-                  color={getRatingIconCode(star) === "t85" ? "var(--gek-additional)" : "var(--gek-green)"}
+                  color={getRatingIconCode(star) === "t85" ? "var(--gek-additional)" : starColor}
                   code={getRatingIconCode(star)}
                 />
               </div>

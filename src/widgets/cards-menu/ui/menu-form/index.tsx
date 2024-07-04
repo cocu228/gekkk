@@ -172,6 +172,7 @@ const MenuForm = ({
         <div className={styles.FooterContainer}>
             {selectedCard?.cardStatus !== 'ACTIVE' ? null : (
                 <Button
+                    className={"min-w-[120px] p-[15px_7px]"}
                     color='red'
                     onClick={() => {
                         setSelectedItem(selectedCard?.cardStatus !== "LOCKED"
@@ -180,22 +181,25 @@ const MenuForm = ({
                         );
                     }}
                 >
-                    <IconApp code="t54" size={10} color="#fff" />
-                    <div>
+                    <IconApp code="t54" size={10} className={"min-w-[10px]"} color="#fff" />
+                    <p className={"whitespace-nowrap"}>
                         {selectedCard?.cardStatus === "ACTIVE"
                             ? t("block_card")
                             : t("unblock_card")}
-                    </div>
+                    </p>
                 </Button>
             )}
 
             {/* Order new card displays in header on desktop */}
             {md && (
-                <Button onClick={() => {
+                <Button
+                  className={"min-w-[120px] p-[15px_7px]"}
+                  onClick={() => {
                     onSelectCard(null);
                     setIsNewCardOpened(true);
-                }}>
-                  <div>{t("order_new_card")}</div>
+                }}
+                >
+                  <p className={"whitespace-nowrap"}>{t("order_new_card")}</p>
                 </Button>
             )}
         </div>

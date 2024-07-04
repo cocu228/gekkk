@@ -46,9 +46,9 @@
 .FooterContainer {
     width: 100%;
     display: flex;
-    min-height: 43px;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     margin-top: 15px;
     margin-bottom: 40px;
-    justify-content: space-evenly;
 }

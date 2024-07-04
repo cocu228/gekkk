@@ -34,7 +34,7 @@
   flex: 1 0;
   padding-top: 5%;
   font-weight: bold;
-  color: var(--gek-red);  
+  color: var(--gek-red);
 
   &.White {
     font-size: 14px;

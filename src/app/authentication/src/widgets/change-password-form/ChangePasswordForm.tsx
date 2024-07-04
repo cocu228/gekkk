@@ -1,6 +1,6 @@
 import styles from './style.module.css';
 import Button from "../components/button/Button";
-import {useEffect, useState} from "preact/hooks";
+import {useEffect, useRef, useState} from "preact/hooks";
 import {RegisterDeviceKey, ResetPass} from '../../shared';
 import Form from '../components/form';
 import TextInput from '../components/textInput';
@@ -16,6 +16,7 @@ interface IParams {
 
 export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) => {
     const [smsCode, setSmsCode] = useState('');
+    const inputRef = useRef<HTMLInputElement>();
     const [password, setPassword] = useState('');
     const [options, setOptions] = useState(null);
     const [isValid, setIsValid] = useState<boolean>(false);
@@ -96,44 +97,29 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
     }
 
     useEffect(() => {
-        const setOtp = () => {
-          const input = document.querySelector('input[autocomplete="one-time-code"]');
-    
-          console.log('OTP input:');
-          console.log(input);
-    
+          console.log('setOtp call');
+        
+          const input = inputRef.current;
+          console.log(`OTP input: ${!!input}`);
+
           if (!input) return;
 
-          const ac = new AbortController();
-          const form = input.closest("form");
-          if (form) {
-            form.addEventListener("submit", () => {
-              ac.abort();
-            });
-          }
-          
+          console.log('navigator.credentials.get call');
           navigator.credentials
             .get({
               // @ts-ignore
               otp: { transport: ["sms"] },
-              signal: ac.signal,
             })
             .then((otp) => {
+              console.log('navigator.credentials.get call');
               // @ts-ignore
               input.value = otp.code;
-              if (form) form.submit();
             })
             .catch((err) => {
+              console.log('navigator.credentials.get error');
               console.error(err);
             });
-        }
-    
-        if ("OTPCredential" in window) {
-          window.addEventListener("DOMContentLoaded", setOtp);
-        }
-    
-        return () => window.removeEventListener('DOMContentLoaded', setOtp);
-    }, [])
+    }, [smsSended])
 
     return <main className={styles.ResetForm}>
         <Form onSubmit={onSubmit} className={styles.FormBody}>
@@ -156,7 +142,16 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                         onChange={e => setEmailCode(e.currentTarget.value)}
                     />
                 : <>
-                    <TextInput placeholder={"SMS code"} autoComplete='one-time-code' type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
+                    <TextInput
+                        id='code'
+                        name='code'
+                        type="text"
+                        ref={inputRef}
+                        value={smsCode}
+                        placeholder={"SMS code"}
+                        autoComplete='one-time-code'
+                        onChange={e => setSmsCode(e.currentTarget.value)}
+                    />
 
                     {!isGekkey ? <>
                         <PasswordInput

@@ -76,7 +76,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
                 allowDigits
                 type={"text"}
                 className="text-[10px] text-[var(--gek-mid-grey)]"
-                placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
+                placeholder={t("header_menu.enter_promo_code").toLowerCase()}
                 suffix={<div className={style.IconsWrap}>
                     {
                         err ? (

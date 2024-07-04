@@ -6,12 +6,14 @@ import {CtxRootData} from "@/processes/RootContext";
 import { useTranslation } from 'react-i18next';
 import {apiGetReferrals} from "@/shared/(orval)api/gek";
 import {ReferralOut} from "@/shared/(orval)api/gek/model";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const TableReferrals = (props) => {
 
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const [state, setState] = useState<ReferralOut | null>(null);
+    const {md} = useBreakpoints();
 
     useEffect(() => {
         (async () => {
@@ -25,11 +27,11 @@ const TableReferrals = (props) => {
     return <>
         <GTable>
             <GTable.Head className={"bg-[#DCDCD9] rounded-t-[8px] p-1"}>
-                <GTable.Row>
-                    <GTable.Col className={`flex my-2 pl-[40px]`}>
+                <GTable.Row className="flex">
+                    <GTable.Col className={`flex my-2 justify-start ${md ? "pl-[40px]" : "pl-[130px]"}`}>
                         <span className=" text-[12px] text-[--gek-additional] font-semibold">{t("partnership_program.id")}</span>
                     </GTable.Col>
-                    <GTable.Col className={`flex my-2 pl-[30px]`}>
+                    <GTable.Col className={`flex my-2 justify-end ${md ? "pr-[40px]" : "pr-[110px]"}`}>
                         <span className="text-[12px] text-[--gek-additional] font-semibold">{t("partnership_program.registration_date")}</span>
                     </GTable.Col>
                 </GTable.Row>

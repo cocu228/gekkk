@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import { Modal } from "@/shared/ui/modal/Modal";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import { BoxWrapper } from '@/shared/ui/mobile-wrapper/mobile-wrapper';
 
 export function UserSession() {
     const { t } = useTranslation();
@@ -22,7 +23,7 @@ export function UserSession() {
 
     return (
         <>
-            <div className={styles.sessionWrap}>
+            <BoxWrapper>
                 {sessions.map((session, index) =>
                     <>
                         {index === 0 || getDate(session.utc_create) !== getDate(sessions[index - 1].utc_create) ? (
@@ -72,7 +73,7 @@ export function UserSession() {
                         <Loader />
                     </div>
                 )}
-            </div>
+            </BoxWrapper>
             <Modal
                 placeBottom={window.innerWidth < 768}
                 isModalOpen={isModalOpen}

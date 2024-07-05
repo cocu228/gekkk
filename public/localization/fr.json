@@ -1657,6 +1657,7 @@
     "my_fiat_reports": "Mes rapports en fiat",
     "reports": "Rapports",
     "top_up_curr": "Vous pouvez recharger votre portefeuille {{curr}} via le formulaire de retrait", 
-    "form_in_wallet": "dans votre portefeuille {{project}}"
+    "form_in_wallet": "dans votre portefeuille {{project}}",
+    "fast_and_easy": "Échange de crypto-monnaie - rapide et facile"
   }
 }

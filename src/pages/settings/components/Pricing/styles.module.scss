@@ -4,11 +4,13 @@
     padding-top: 36px;
     gap: 16px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column !important;
     justify-content: space-between;
 
-    &Xl {
-        flex-direction: column !important;
+    @media screen and (max-width: 767px) {
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
     }
 }
 
@@ -27,8 +29,9 @@
     margin-bottom: 30px;
     font-weight: 700;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.4285714285714286;
+    color: var(--gek-additional);
 }
 
 .TableItemTextWrap {

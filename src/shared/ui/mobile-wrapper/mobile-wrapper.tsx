@@ -6,7 +6,7 @@ interface Props {
     className?: string 
 }
 
-export const MobileWrapper =  forwardRef((props: Props, ref:ForwardedRef<HTMLDivElement>) => {
+export const BoxWrapper =  forwardRef((props: Props, ref:ForwardedRef<HTMLDivElement>) => {
     return (
         <div ref={ref} className={`${styles.wrapper} ${props.className}`}>
             {props.children}

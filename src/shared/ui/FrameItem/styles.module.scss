@@ -1,5 +1,6 @@
 .frameItem {
-    padding: 24px 27px; 
+    height: 44px;
+    padding: 10px;
     border-radius: 8px;
     border: 2px solid #EEEEEEA6;
     display: flex;
@@ -10,7 +11,16 @@
     background: #fff;
 
     &Selected {
-        background: var(--gek-dark-blue);
-        color: #fff;
+        border: 2px solid var(--gek-green);
+
+        @media screen and (max-width: 768px) {
+            background: var(--gek-dark-blue);
+            color: #fff;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 24px 27px;
+        height: auto;
     }
 }

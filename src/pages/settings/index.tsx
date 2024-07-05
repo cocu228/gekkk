@@ -4,7 +4,7 @@ import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
 import { settingsContext } from "./settingsContext";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PersonalInformation } from "./components/personalInformation";
 import { Pricing } from "./components/Pricing";
 import { IdentificationStatus } from "./components/IdentificationStatus";
@@ -21,6 +21,9 @@ import { settingsList } from "./model/constants";
 import { CtxRootData } from "@/processes/RootContext";
 import { apiSessions } from "@/shared/(orval)api";
 import { maskSessionFlags, SessionFlags } from "@/shared/config/mask-session-flags";
+import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
+import TabsGroupCustom from "@/shared/ui/tabs-group/custom";
+import { group } from "console";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -35,19 +38,38 @@ const areaMap = {
   "language": <LanguageSettings />,
 };
 
+const settingsGroups: Record<string, string[]> = {
+  'general_information': ['app-version', 'personal-information', 'language'], 
+  'access_management': ['change-password', 'user-keys', 'sign-history', 'user-sessions'], 
+  'documents_and_legal_notices': ['pricing', 'terms-and-conditions', 'data-protection', 'legal-agreements']
+}
+
 type SettingsSections = keyof typeof areaMap | "" | string;
 
 export function Settings() {
   const { t } = useTranslation();
   const {account} = useContext(CtxRootData);
-  const { xxl, md, xl } = useBreakpoints();
+  const navigate = useNavigate();
+  const { xxl, md, xl, lg } = useBreakpoints();  
   const [searchParams, setSearchParams] = useSearchParams();
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [settingsGroup, setSettigsGroup] = useState<string>(null)
   const selectedArea = useMemo(
     () => searchParams.get("sessionsSection") || "",
     [searchParams]
   ) as SettingsSections;
   const area = areaMap[selectedArea] || null;
+  const fullWidthOrHalf = useMemo(() => (xl || !selectedArea ? 1 : 2), [xl, selectedArea]);
+
+  const setGroupIfAreaInGroup = (area) => {
+    setSettigsGroup(
+      Object.keys(settingsGroups).find(group => {
+        if(settingsGroups[group].includes(area)){
+          return group
+        }
+      })
+    )
+  }
 
   const setSelectedArea = useCallback(
     (selectedArea: SettingsSections) => {
@@ -63,6 +85,11 @@ export function Settings() {
     [searchParams, setSearchParams]
   );
 
+  const resetAll = () => {
+    setSettigsGroup(null);
+    setSelectedArea("")
+  }
+
   useEffect(() => {
     setSelectedArea(selectedArea);
 
@@ -76,29 +103,89 @@ export function Settings() {
     })();
   }, [account]);
 
+  useEffect(()=>{
+    if(!settingsGroup){
+      setGroupIfAreaInGroup(selectedArea)
+    }
+  }, [selectedArea])
+  
   return (
     <settingsContext.Provider
       value={{ closeArea: useCallback(() => setSelectedArea(""), []) }}
     >
-      {!md && ( 
-        <h1 
-          className={styles.title}
-        >
-          {t("my_settings")}
-        </h1>
+      {!md && (
+        <div>
+          <div className={styles.settingsHeader}>
+            <div 
+              className={styles.settingsButton}
+              onClick={resetAll}
+            >
+              <IconApp code="t13" size={35} color="#3A5E66"/>
+            </div>
+            <div className={styles.settingsHeaderText}>
+              <span className={styles.settingsTitle}>
+                {t("settings")}
+              </span>
+              <span className={styles.settingsSubTitle}>
+                {settingsGroup && selectedArea ? t(settingsGroup) : t("fast_and_easy")}
+              </span>
+            </div>
+          </div>
+          <TabsGroupCustom
+            initValue={!selectedArea ? settingsGroup : selectedArea}
+            callInitValue={!selectedArea ? settingsGroup : {account, selectedArea}}
+          >
+            {!selectedArea
+              ? Object.keys(settingsGroups).map(group => {
+                  return <div
+                    data-name={t(group)}
+                    data-tag={t(group)}
+                    data-onclick={()=>{
+                      setSettigsGroup(group)
+                      setSelectedArea(settingsGroups[group][0])
+                    }}
+                  />
+                })
+              : settingsGroup && settingsGroup !== "documents_and_legal_notices"
+                ? 
+                  settingsGroups[settingsGroup].map(area => {
+                    return <div
+                      data-name={t(area.replaceAll("-", "_"))}
+                      data-tag={area}
+                      data-onclick={()=>{
+                        setSelectedArea(area)
+                      }}
+                    />
+                  })
+                : settingsGroup && settingsGroup === "documents_and_legal_notices" &&
+                    settingsGroups[settingsGroup].map(area => {
+                      return <div
+                        data-name={t(area.replaceAll("-", "_"))}
+                        data-tag={area}
+                        data-onclick={()=>{
+                          area === 'pricing'
+                            ? setSelectedArea(area)
+                            // @ts-ignore
+                            : window.location = `https://gekkard.com/${area === 'data-protection' ? area + '-policy' : area}.html`
+                        }}
+                      />
+                    })
+            }
+          </TabsGroupCustom>
+        </div>
       )}
       <div
         className={`
-          ${styles.itemsWrap} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
+          ${styles.itemsWrap} ${!md && styles.notMobileSettings} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
         `}
-        style={{flexDirection: selectedArea ? 'row' : 'column'}}
+        style={{flexDirection: selectedArea ? 'row' : 'column', gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}
       >
         {(!xl || !area) && (
           <div 
-          className={`${styles.boxWrap} ${selectedArea && styles.boxWrapMin}`}
+            className={`${styles.boxWrap} `}
           >
             <div 
-              className={styles.box}
+              className={`${styles.box} ${fullWidthOrHalf === 1 && !lg && styles.boxWrapMin}`}
             >
               <h2 
                 className={`${styles.itemTitle} ${styles.mobTitle} ${!md && styles.itemTitleColor} ${md && styles.itemTitleWeight}`}
@@ -106,7 +193,7 @@ export function Settings() {
                 {t("general_information")}
               </h2>
               <div 
-                className={`${styles.itemsList} ${md && styles.itemsListGap}`}
+                className={`${styles.itemsList}`}
               >
                 {
                   (IS_GEKKARD_APP()
@@ -120,6 +207,7 @@ export function Settings() {
                       isLang={item.selectArea === "language"}
                       onClick={() => {
                         setSelectedArea(item.selectArea);
+                        setGroupIfAreaInGroup(item.selectArea)
                       }}
                       isSelected={selectedArea === item.selectArea}
                     />
@@ -127,9 +215,9 @@ export function Settings() {
                 }
               </div>
             </div>
-            <div className={styles.box} >
+            <div className={`${styles.box} ${fullWidthOrHalf === 1 && !lg && styles.boxWrapMin}`} >
               <h2 
-                  className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
+                  className={`${styles.accessTitle} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
               >
                 {md ? t("access_management") : t("account_and_app_settings")}
               </h2>
@@ -144,6 +232,7 @@ export function Settings() {
                       text={t(item.text)}
                       onClick={() => {
                         setSelectedArea(item.selectArea);
+                        setGroupIfAreaInGroup(item.selectArea)
                       }}
                       isSelected={selectedArea === item.selectArea}
                     />
@@ -153,13 +242,13 @@ export function Settings() {
             </div>
             
             {IS_GEKKARD_APP() && (
-              <div className={styles.box} >
+              <div className={`${styles.box} ${fullWidthOrHalf === 1 && !lg && styles.boxWrapMin}`} >
                 <h2 
-                  className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
+                  className={`${styles.accessTitle} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
                 >
                   {md ? t("documents_and_legal_notices") : t("documents")}
                 </h2>
-                <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
+                <div className={`${styles.itemsList}`} >
                 {
                     settingsList.slice(7, settingsList.length).map((item, ind) => (
                       <SettingsButton
@@ -168,6 +257,7 @@ export function Settings() {
                         text={t(item.text)}
                         onClick={() => {
                           setSelectedArea(item.selectArea);
+                          setGroupIfAreaInGroup(item.selectArea)
                         }}
                         isSelected={selectedArea === item.selectArea}
                       />

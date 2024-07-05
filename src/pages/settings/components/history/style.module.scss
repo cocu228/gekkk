@@ -4,7 +4,6 @@
     align-items: center;
     align-self: stretch;
     border-radius: 8px;
-    background: var(--Brand-white, var(--gek-background));
     backdrop-filter: blur(2px);
     color: #29354C;
     font-family: Inter;
@@ -12,8 +11,9 @@
     font-style: normal;
     font-weight: 700;
     line-height: 12px; /* 100% */
-    @media (min-width: 770px) {
-        font-size: 18px;
+
+    @media (max-width: 767px) {
+        background: var(--Brand-white, var(--gek-background));
     }
 }
 
@@ -31,10 +31,11 @@
     display: flex;
     width: 100%;
     background-color: #ffffff;
-    padding: 40px;
+    border: 1px solid var(--gek-light-grey);
+    padding: 10px;
 
     @media screen and (max-width: 767px) {
-        padding: 10px;
+        border: 0px;
     }
 }
 

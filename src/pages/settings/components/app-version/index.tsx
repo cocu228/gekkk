@@ -1,4 +1,4 @@
-import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
+import { BoxWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
 import styles from '../../styles.module.scss'
 import versions from '@/../versions.json';
 import {VersionCard} from "./version-card";
@@ -11,13 +11,13 @@ export function AppVersion() {
     const {t} = useTranslation()
 
     return (
-        <MobileWrapper className="w-full">
+        <BoxWrapper className="w-full">
             <div className={styles.appVersionBlock}>
                 <div className={styles.versionGroup}>
                     <h4 className={styles.versionTitle}>{t("current_app_version")}:</h4>
                     <h4 className={styles.versionValue}>{appVersion}</h4>
                 </div>
-                <div className={styles.versionGroup} style={{paddingTop: '2.5rem'}}>
+                <div className={`${styles.versionGroup} md:pt-[2.5rem]`}>
                     <h4 className={styles.versionTitle}>{t("current_api_version")}:</h4>
                     <h4 className={styles.versionValue}>2.0.3-20231230-1327.5649</h4>
                 </div>
@@ -25,6 +25,6 @@ export function AppVersion() {
             <div className="flex flex-col">
                 {versions[import.meta.env.VITE_APP_TYPE].map((ver) => <VersionCard key={ver.version} date={ver.date} description={ver.description} version={ver.version}/>)}
             </div>
-        </MobileWrapper>
+        </BoxWrapper>
     )
 }

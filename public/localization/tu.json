@@ -1656,6 +1656,7 @@
     "my_fiat_reports": "Fiat raporlarım",
     "reports": "Raporlar",
     "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
-    "form_in_wallet": "{{project}} Cüzdanınızda"
+    "form_in_wallet": "{{project}} Cüzdanınızda",
+    "fast_and_easy": "Kripto para değişimi - hızlı ve kolay"
   }
 }

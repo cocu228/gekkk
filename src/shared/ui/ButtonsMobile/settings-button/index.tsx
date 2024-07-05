@@ -23,7 +23,9 @@ export function SettingsButton(props: Props ) {
           isSelected={props.isSelected}
       >
         <div className={styles.itemBody}>
-          {props.icon}
+          <div className={styles.itemIcon}>
+            {props.icon}
+          </div>
           <h4
             className={`${styles.itemTitle} ${props.isSelected && styles.itemTitleSelected}`}
           >{props.text}</h4>

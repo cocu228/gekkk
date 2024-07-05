@@ -1,4 +1,4 @@
-import {MobileWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
+import {BoxWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
 import styles from '../../styles.module.scss'
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
@@ -47,7 +47,7 @@ export function PersonalInformation() {
     }
     
     return (
-        <MobileWrapper className="w-full">
+        <BoxWrapper className="w-full">
             <div 
                 className={styles.perInfoBody}
             >
@@ -64,8 +64,7 @@ export function PersonalInformation() {
                             </div>
                         ))
                     }
-                </>}
-                {xl && 
+                </>}                
                 <div className={styles.downBtnWrap}>
                     <Button
                         color="blue"
@@ -74,8 +73,8 @@ export function PersonalInformation() {
                     >
                         {t("back")}
                     </Button>
-                </div>}
+                </div>
             </div>
-        </MobileWrapper>
+        </BoxWrapper>
     )
 }

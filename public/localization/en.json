@@ -1760,7 +1760,8 @@
     "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation",
     "not_found": "Not found",
     "my_fiat_reports": "My fiat reports",
-    "reports": "Reports"
+    "reports": "Reports",
+    "fast_and_easy": "Cryptocurrency exchange - fast and easy"
 
   }
 }

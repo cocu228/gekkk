@@ -13,6 +13,11 @@
     padding: 10px 3%;
     gap: 10px;
     margin-bottom: 10px;
+    border: 1px solid var(--gek-light-grey);
+
+    @media screen and (max-width: 768px) {
+        border: 0px;
+    }
 }
 
 .addGekkeyTitle {
@@ -54,6 +59,11 @@
     width: 100%;
     background-color: #ffffff;
     padding: 10px;
+    border: 1px solid var(--gek-light-grey);
+
+    @media screen and (max-width: 768px) {
+        border: 0px;
+    }
 }
 
 .keyItemDate {

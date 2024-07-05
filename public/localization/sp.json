@@ -1656,6 +1656,7 @@
     "my_fiat_reports": "Mis informes en fiat",
     "reports": "Informes",
     "top_up_curr": "Puede recargar su billetera {{curr}} a través del formulario de retiro", 
-    "form_in_wallet": "en su billetera {{project}}"
+    "form_in_wallet": "en su billetera {{project}}",
+    "fast_and_easy": "Intercambio de criptomonedas - rápido y fácil"
   }
 }

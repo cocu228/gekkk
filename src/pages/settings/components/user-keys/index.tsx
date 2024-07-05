@@ -15,6 +15,7 @@ import { RegisterKey, RegisterOption } from "../change-password/api/register-key
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
+import { BoxWrapper } from '@/shared/ui/mobile-wrapper/mobile-wrapper';
 
 interface IChallange {
   id: string;
@@ -129,87 +130,86 @@ export function UserKeys() {
 
   return (
     <div className="w-full">
-      <div className={styles.addGekkeyBlock}>
-        <div className={styles.TabTitleGroup}>
-          <h4 className={styles.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
-          <hr className="border-[var(--gek-dark-grey)]" />
-        </div>
-        <div className={styles.CodeWrap}>
-          <span className={styles.CodeTitle}>
-            {t("confirmation_code")}:
-          </span>
-          <Input
-            allowDigits
-            value={smsCode}
-            disabled={!smsCodeSent}
-            autoComplete='one-time-code'
-            className={styles.CodeInput}
-            placeholder={t("enter_sms_code")}
-            onChange={({ target }) => setSmsCode(target.value)}
-          />
-        </div>
-
-        {!smsCodeSent ? null : timer > 0 ? (
-          <div className={styles.Resend}>Resend the code after:
-            <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+      <BoxWrapper>
+        <div className={styles.addGekkeyBlock}>
+          <div className={styles.TabTitleGroup}>
+            <h4 className={styles.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
+            <hr className="border-[var(--gek-dark-grey)]" />
           </div>
-        ) : (
-          <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
-            Resend the code
+          <div className={styles.CodeWrap}>
+            <span className={styles.CodeTitle}>
+              {t("confirmation_code")}:
+            </span>
+            <Input
+              allowDigits
+              value={smsCode}
+              disabled={!smsCodeSent}
+              autoComplete='one-time-code'
+              className={styles.CodeInput}
+              placeholder={t("enter_sms_code")}
+              onChange={({ target }) => setSmsCode(target.value)}
+            />
           </div>
-        )}
-
-        <div className={styles.btnsBlock}>
-          <Button
-            className="w-full"
-            onClick={onContinue}
-            disabled={smsCodeSent ? !smsCode : false}
-          >
-            {t(smsCodeSent ? "create_key" : "send_sms")}
-          </Button>
-          <Button
-            skeleton
-            className="w-full"
-            onClick={() => navigate('/settings', { replace: true })}
-          >
-            {t("back")}
-          </Button>
-        </div>
-      </div>
-
-      <div className={styles.keysWrap}>
-        {keysList.map((key, index) => <div className={styles.keysItem}>
-          <div className="w-4/5 overflow-hidden">
-            {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-            <p className={styles.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
-            <p className={styles.keyItemDate}>{t("type")}: {key.key_type}</p>
-            <h4 className={styles.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
-          </div>
-          <div className={styles.keyBtnWrap}>
+          {!smsCodeSent ? null : timer > 0 ? (
+            <div className={styles.Resend}>Resend the code after:
+              <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+            </div>
+          ) : (
+            <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
+              Resend the code
+            </div>
+          )}
+          <div className={styles.btnsBlock}>
+            <Button
+              className="w-full"
+              onClick={onContinue}
+              disabled={smsCodeSent ? !smsCode : false}
+            >
+              {t(smsCodeSent ? "create_key" : "send_sms")}
+            </Button>
             <Button
               skeleton
-              size="sm"
-              custom={index === 0}
-              color={index === 0 ? null : "red"}
-              className={`w-full ${index === 0 ? styles.CurentButton : ""}`}
-              onClick={() => {
-                showModal()
-                setKeyToRemove(key)
-              }}
+              className="w-full"
+              onClick={() => navigate('/settings', { replace: true })}
             >
-              <span className="capitalize">
-                {index === 0 ? t("current") : t("remove")}
-              </span>
+              {t("back")}
             </Button>
           </div>
-        </div>)
-        }
-        {!keysList.length && (
-          <div className='relative mt-32 w-full'>
-            <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]" />
-          </div>
-        )}
-      </div>
+        </div>
+        <div className={styles.keysWrap}>
+          {keysList.map((key, index) => <div className={styles.keysItem}>
+            <div className="w-4/5 overflow-hidden">
+              {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
+              <p className={styles.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
+              <p className={styles.keyItemDate}>{t("type")}: {key.key_type}</p>
+              <h4 className={styles.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
+            </div>
+            <div className={styles.keyBtnWrap}>
+              <Button
+                skeleton
+                size="sm"
+                custom={index === 0}
+                color={index === 0 ? null : "red"}
+                className={`w-full ${index === 0 ? styles.CurentButton : ""}`}
+                onClick={() => {
+                  showModal()
+                  setKeyToRemove(key)
+                }}
+              >
+                <span className="capitalize">
+                  {index === 0 ? t("current") : t("remove")}
+                </span>
+              </Button>
+            </div>
+          </div>)
+          }
+          {!keysList.length && (
+            <div className='relative mt-32 w-full'>
+              <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]" />
+            </div>
+          )}
+        </div>
+      </BoxWrapper>
       <Modal
         onCancel={handleCancel}
         placeBottom={window.innerWidth < 768}
@@ -259,7 +259,6 @@ export function UserKeys() {
             >
               {t("cancel")}
             </Button> </>
-
           }
         </div>
       </Modal>

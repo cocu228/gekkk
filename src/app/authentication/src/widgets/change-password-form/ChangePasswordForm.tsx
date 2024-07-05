@@ -97,28 +97,36 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
     }
 
     useEffect(() => {
-          console.log('setOtp call');
-        
-          const input = inputRef.current;
-          console.log(`OTP input: ${!!input}`);
+        (async () => {
+            console.log('setOtp call');
+            const ac = new AbortController();
+            
+            console.log('navigator.credentials.get call');
+            const otp = await navigator.credentials.get({
+                // @ts-ignore
+                otp: {transport: ["sms"]},
+                signal: ac.signal
+            });
 
-          if (!input) return;
+            if (!otp) {
+                console.log('error')
+            }
 
-          console.log('navigator.credentials.get call');
-          navigator.credentials
-            .get({
-              // @ts-ignore
-              otp: { transport: ["sms"] },
-            })
+            console.log('setSms call')
+            // @ts-ignore
+            setSmsCode(otp.code);
+        })();
+            /*
             .then((otp) => {
-              console.log('navigator.credentials.get call');
-              // @ts-ignore
-              input.value = otp.code;
+                console.log('navigator.credentials.get call');
+                // @ts-ignore
+                input.value = otp.code;
             })
             .catch((err) => {
-              console.log('navigator.credentials.get error');
-              console.error(err);
+                console.log('navigator.credentials.get error');
+                console.error(err);
             });
+            */
     }, [smsSended])
 
     return <main className={styles.ResetForm}>
@@ -149,7 +157,6 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                         ref={inputRef}
                         value={smsCode}
                         placeholder={"SMS code"}
-                        autoComplete='one-time-code'
                         onChange={e => setSmsCode(e.currentTarget.value)}
                     />
 

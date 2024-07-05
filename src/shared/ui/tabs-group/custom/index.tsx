@@ -1,5 +1,5 @@
 import React, {useState, ReactNode, useEffect, memo, useContext, ButtonHTMLAttributes, EventHandler, MouseEventHandler} from "react";
-import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
+import styles from "./style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";

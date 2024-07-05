@@ -23,9 +23,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
     const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP()
 
     return isGEKAndGEKW ? (
-        <div className="w-full flex-1 md:mb-3 mb-10"
-        style={{overflow: 'hidden'}}
-        >
+        <div className="w-full flex-1 md:mb-3 mb-10">
             <CtxGlobalModalProvider>
                 {md ? null : (
                     <>

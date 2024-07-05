@@ -41,8 +41,8 @@ const PartnershipProgram = () => {
             </div>
 
         </div> }
-        <div className="wrapper grid grid-cols-2 xl:grid-cols-1 gap-2 xl:gap-0">
-            <div className={`${!md ? "substrate" : "-ml-4 -mr-4 pl-4 pr-4"} col-span-1 z-10 -xl:rounded-r-none`}>
+        <div className="wrapper grid min-h-[600px] grid-cols-2 xl:grid-cols-1 xl:gap-0">
+            <div className={`${!md ? "substrate shadow-[0_3px_4px_#00000040]" : "-ml-4 -mr-4 pl-4 pr-4"} col-span-1  z-10 `}>
                 {!md && <div
                     className="flex text-[14px] text-[--gek-dark-blue] font-semibold">{t("partnership_program.agent_info")}
                 </div>}
@@ -50,7 +50,7 @@ const PartnershipProgram = () => {
                 <ContentMain/>
             </div>
             {!xl && <div
-                className={`substrate text-sm h-full -ml-4 z-0 col-span-1 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
+                className={`substrate text-sm h-full shadow-[0_3px_4px_#00000040] z-0 col-span-1 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                 <ContentDescription/>
                 <div className={`row ${md&&"mb-[200px]"}`}>
                     <div className="col">

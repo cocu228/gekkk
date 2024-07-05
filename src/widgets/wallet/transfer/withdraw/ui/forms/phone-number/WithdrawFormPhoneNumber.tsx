@@ -60,7 +60,7 @@ const WithdrawFormPhoneNumber = () => {
   const onInput = ({ target }) => {
     setDetails((prev) => ({
       ...prev,
-      [target.name]: target.name === "phoneNumber" ? formatAsNumber(target.value) : target.value
+      [target.name]: target.value
     }));
   };
 
@@ -131,7 +131,7 @@ const WithdrawFormPhoneNumber = () => {
           name={"phoneNumber"}
           placeholder={t("auth.enter_phone_number")}
           onChange={onInput}
-          value={details.phoneNumber}
+          value={details.phoneNumber || ''}
         />
       </div>
       {/* To Card End */}

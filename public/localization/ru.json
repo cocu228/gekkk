@@ -397,7 +397,9 @@
       "referrals_info": "Информация о рефералах",
       "rewards": "Награды",
       "registration_date": "Дата регистрации",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Информация об агенте",
+      "agent_link": "Ваша агентская ссылка"
     },
 
     "crypto_assets": {

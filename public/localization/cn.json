@@ -395,7 +395,9 @@
       "referrals_info": "推荐信息",
       "rewards": "奖励",
       "registration_date": "注册日期",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "代理信息",
+      "agent_link": "您的代理链接"
     },
     "crypto_assets": {
       "title": "加密资产",

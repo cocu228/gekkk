@@ -9,14 +9,12 @@ import {apiGetAgentCode} from "@/shared/(orval)api/gek";
 import styles from "./style.module.scss"
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {useSearchParams} from "react-router-dom";
-import PageHead from "@/shared/ui/page-head/PageHead";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 // import Footer from "@/widgets/footer";
 
 
 const PartnershipProgram = () => {
     const [params, setParams] = useSearchParams();
-    const tab = params.get("tab");
     const {t} = useTranslation();
     const {xl, md} = useContext(BreakpointsContext);
     const [isOnPage ] = useState("agent/partnership_program")

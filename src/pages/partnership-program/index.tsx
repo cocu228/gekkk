@@ -21,7 +21,7 @@ const PartnershipProgram = () => {
     const {xl, md} = useContext(BreakpointsContext);
     const [isOnPage ] = useState("agent/partnership_program")
 
-    return (<div className="wrapper h-inherit w-full ">
+    return (<div className="wrapper min-h-[100vh] w-full ">
         {md ? <div
             className=" flex justify-between ml-[18px] pb-[10px] text-[12px] font-semibold">{t("partnership_program.agent_info")}
             <a className="text-[10px] text-[--gek-additional] underline" href="">{t("how_it_works")}</a>
@@ -41,8 +41,8 @@ const PartnershipProgram = () => {
             </div>
 
         </div> }
-        <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
-            <div className={`${!md ? "substrate" : "-ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
+        <div className="wrapper grid grid-cols-2 xl:grid-cols-1 gap-2 xl:gap-0">
+            <div className={`${!md ? "substrate" : "-ml-4 -mr-4 pl-4 pr-4"} col-span-1 z-10 -xl:rounded-r-none`}>
                 {!md && <div
                     className="flex text-[14px] text-[--gek-dark-blue] font-semibold">{t("partnership_program.agent_info")}
                 </div>}
@@ -50,7 +50,7 @@ const PartnershipProgram = () => {
                 <ContentMain/>
             </div>
             {!xl && <div
-                className={`substrate text-sm h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
+                className={`substrate text-sm h-full -ml-4 z-0 col-span-1 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                 <ContentDescription/>
                 <div className={`row ${md&&"mb-[200px]"}`}>
                     <div className="col">
@@ -155,6 +155,7 @@ const ContentMain = () => {
                 <TableReferrals/>
             </div>
         </div>
+
         {md && <>
             <div className="row ml-[18px]">
                 <div className="col">

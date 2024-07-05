@@ -420,7 +420,9 @@
       "referrals_info": "Yönlendirme bilgileri",
       "rewards": "Ödüller",
       "registration_date": "Kayıt Tarihi",
-      "id": "İD"
+      "id": "İD",
+      "agent_info": "Ajan bilgisi",
+      "agent_link": "Ajan bağlantınız"
     },
     "crypto_assets": {
       "title": "Kripto varlıkları",

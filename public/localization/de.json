@@ -414,7 +414,9 @@
       "referrals_info": "Empfehlungsinformationen",
       "rewards": "Belohnungen",
       "registration_date": "Anmeldedatum",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Agenteninfo",
+      "agent_link": "Ihr Agentenlink"
     },
     "crypto_assets": {
       "title": "Krypto-Vermögenswerte",

@@ -421,7 +421,9 @@
       "referrals_info": "Informations sur les références",
       "rewards": "Récompenses",
       "registration_date": "Date d'inscription",
-      "id": "IDENTIFIANT"
+      "id": "IDENTIFIANT",
+      "agent_info": "Info agent",
+      "agent_link": "Votre lien agent"
     },
     "crypto_assets": {
       "title": "Actifs cryptographiques",

@@ -512,7 +512,9 @@
       "referrals_info": "Referrals info",
       "rewards": "Rewards",
       "registration_date": "Registration date",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Agent info",
+      "agent_link": "Your agent link"
     },
     "crypto_assets": {
       "title": "Crypto assets",

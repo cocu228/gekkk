@@ -420,7 +420,9 @@
       "referrals_info": "Informazioni sui riferimenti",
       "rewards": "Premi",
       "registration_date": "Data di registrazione",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Info agente",
+      "agent_link": "Il tuo link agente"
     },
     "crypto_assets": {
       "title": "Risorse crittografiche",

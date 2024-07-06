@@ -8,12 +8,13 @@
     border-radius: 8px;
     backdrop-filter: blur(2px);
     color: var(--gek-dark-blue);
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 12px;
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
+        font-size: 12px;
         color: #9D9D9D;
         background: var(--Brand-white, var(--gek-background));
     }
@@ -29,11 +30,11 @@
 
 .sessionItemTitle {
     color: #3A5E66;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
 
     @include max-devices(md){
-        font-size: 10px;
+        font-size: 12px;
         line-height: 14px;
     }
 }
@@ -74,7 +75,7 @@
     align-items: center;
     border: 1px solid var(--gek-light-grey);
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 768px) {
         border: 0px;
         box-shadow: 0 10px 20px var(--color-gray-200);
         height: 76px;

@@ -7,13 +7,14 @@
     backdrop-filter: blur(2px);
     color: #29354C;
     font-family: Inter;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: 12px; /* 100% */
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         background: var(--Brand-white, var(--gek-background));
+        font-size: 12px;
     }
 }
 
@@ -34,15 +35,20 @@
     border: 1px solid var(--gek-light-grey);
     padding: 10px;
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 768px) {
         border: 0px;
     }
 }
 
 .historyItemTitle {
     color: #3A5E66;
-    font-size: 14px;
+    font-size: 16px;
     font-family: Inter;
     font-weight: 400;
     line-height: 20px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 14px;
+    }
+
 }

@@ -84,15 +84,6 @@
     align-items: center;
     justify-content: space-between;
 
-    &Title {
-        color: #285E69;
-        font-size: 10px;
-        font-weight: 600;
-
-        @media screen and (min-width: 768px) {
-          font-size: 12px;
-        }
-    }
 
     &Text {
         color: #2BAB72;
@@ -110,3 +101,28 @@
         flex-direction: column;
     }
   }
+
+
+.NoFeeTableProperties {
+  @media screen and (max-width: 350px) {
+    width: 100% !important;
+}
+}
+
+
+.TableItemGroup {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  color: #285E69;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    font-size: 12px;
+  }
+}

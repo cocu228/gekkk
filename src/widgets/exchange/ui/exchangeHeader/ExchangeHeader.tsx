@@ -26,7 +26,13 @@ export const ExchangeHeader:FC<ExchangeHeaderProps> = ({title, text, privateRoom
     return (
         <>
             <div className={style.ExchangeHeader}>
-                <IconApp code='t68' color="#285E69" size={42} />
+                {
+                    privateRoomInfo ? (
+                        <IconApp code='t33' color="#285E69" size={42} />
+                    ) : (
+                        <IconApp code='t68' color="#285E69" size={42} />
+                    )
+                }
                 <div className={`${style.ExchangeHeaderTitleGroup} ${privateRoomInfo && 'h-full justify-between'}`}>
                     <span className={style.ExchangeHeaderTitleGroupTitle}>{title}</span>
                     <span className={style.ExchangeHeaderTitleGroupText}>{text}</span>
@@ -41,10 +47,18 @@ export const ExchangeHeader:FC<ExchangeHeaderProps> = ({title, text, privateRoom
                                     <IconApp code={'t63'} size={13} color='#285E69' />
                                 </div>
                             </span>
-                            <div onClick={() => roomCloseModal.showModal()} className={style.ExchangePrivateInfoClose}>
-                                {t("close_room")}
-                                <IconApp code='t69' size={23} color='#8F123A' />
-                            </div>
+                            {
+                                privateRoomInfo.room_code ? (
+                                    <div onClick={() => roomCloseModal.showModal()} className={style.ExchangePrivateInfoClose}>
+                                        {t("close_room")}
+                                        <IconApp code='t69' size={23} color='#8F123A' />
+                                    </div>
+                                ) : (
+                                    <div onClick={() => roomCloseModal.showModal()} className={style.ExchangePrivateInfoClose}>
+                                        {t("exchange.leave_the_room")}
+                                    </div>
+                                )
+                            }
                         </div>
                     )
                 }

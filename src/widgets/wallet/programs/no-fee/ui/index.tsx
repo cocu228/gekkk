@@ -47,7 +47,7 @@ const NoFeeProgram = () => {
             <div className="bg-[#fff] md:p-[5px_20px] md:rounded-[8px]">
                 <div className="row mb-[10px]">
                     <div className={`${styles.InfoBoxDescription} text-[#3a5e66]`}>
-                        <p className="font-extrabold text-sm mb-3">
+                        <p className="font-extrabold text-sm mb-3 leading-[18px]">
                             {t("locking_tokens_gives", {currency: currency.$const})}
                         </p>
 
@@ -62,23 +62,23 @@ const NoFeeProgram = () => {
                     !md && (
                         <div className={styles.Table}>
                             <div className={styles.TableItem}>
-                                <div className="flex items-center gap-[5px]">
-                                    <IconApp code="t87" size={16} color='#285E69' />
-                                    <span className={styles.TableItemTitle}>{t("locked_funds")}</span>
+                                <div className={styles.TableItemGroup}>
+                                    <IconApp code="t87" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("locked_funds")}
                                 </div>
                                 <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount : 0}</span>
                             </div>
                             <div className={styles.TableItem}>
-                                <div className="flex items-center gap-[5px]">
-                                    <IconApp code="t86" size={16} color='#285E69' />
-                                    <span className={`${styles.TableItemTitle} capitalize`}>{t("used")}</span>
+                                <div className={`${styles.TableItemGroup} capitalize`}>
+                                    <IconApp code="t86" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("used")}
                                 </div>
                                 <span className={styles.TableItemText}>{investment?.cur_amount ?? 0}</span>
                             </div>
                             <div className={styles.TableItem}>
-                                <div className="flex items-center gap-[5px]">
-                                    <IconApp code="t88" size={16} color='#285E69' />
-                                    <span className={styles.TableItemTitle}>{t("available_for_use")}</span>
+                                <div className={styles.TableItemGroup}>
+                                    <IconApp code="t88" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("available_for_use")}
                                 </div>
                                 <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount: 0}</span>
                             </div>
@@ -105,26 +105,26 @@ const NoFeeProgram = () => {
                 md && (
                     <div className={styles.Table}>
                         <div className={styles.TableItem}>
-                            <div className="flex items-center gap-[5px]">
-                                <IconApp code="t87" size={16} color='#285E69' />
-                                <span className={styles.TableItemTitle}>{t("locked_funds")}</span>
+                                <div className={styles.TableItemGroup}>
+                                    <IconApp code="t87" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("locked_funds")}
+                                </div>
+                                <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount : 0}</span>
                             </div>
-                            <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount : 0}</span>
-                        </div>
-                        <div className={styles.TableItem}>
-                            <div className="flex items-center gap-[5px]">
-                                <IconApp code="t86" size={16} color='#285E69' />
-                                <span className={`${styles.TableItemTitle} capitalize`}>{t("used")}</span>
+                            <div className={styles.TableItem}>
+                                <div className={`${styles.TableItemGroup} capitalize`}>
+                                    <IconApp code="t86" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("used")}
+                                </div>
+                                <span className={styles.TableItemText}>{investment?.cur_amount ?? 0}</span>
                             </div>
-                            <span className={styles.TableItemText}>{investment?.cur_amount ?? 0}</span>
-                        </div>
-                         <div className={styles.TableItem}>
-                            <div className="flex items-center gap-[5px]">
-                                <IconApp code="t88" size={16} color='#285E69' />
-                                <span className={styles.TableItemTitle}>{t("available_for_use")}</span>
+                            <div className={styles.TableItem}>
+                                <div className={styles.TableItemGroup}>
+                                    <IconApp code="t88" size={16} color='#285E69' className="min-w-[16px]" />
+                                    {t("available_for_use")}
+                                </div>
+                                <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount: 0}</span>
                             </div>
-                            <span className={styles.TableItemText}>{investment ? investment.amount - investment.cur_amount: 0}</span>
-                        </div>
                     </div>
                 )
             }

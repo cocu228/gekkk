@@ -120,7 +120,7 @@ function Exchange() {
         return (
           <div className="">
             <b className="text-[#29354C]">
-              {from.currency} - {to.currency}
+              {from.currency}-{to.currency}
             </b>
             <span className='text-[#29354C]'> (ID: {roomInfo.timetick})</span>
             <button

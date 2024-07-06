@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import styles from "./checklist.module.css";
+import styles from "./checklist.module.scss";
 
 // Importing the validation rules
 import {
@@ -42,7 +42,7 @@ const CheckList = (props: Props) => {
       {rules.map((rule) => {
         const cn =
           props.value && props.value.match(rule.pattern) ? styles.passed : "";
-        return <p className={cn}>{t(rule.t)}</p>;
+        return <p className={`${cn} ${styles.p}`}>{t(rule.t)}</p>;
       })}
     </div>
   );

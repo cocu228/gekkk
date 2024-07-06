@@ -134,7 +134,7 @@ export function UserKeys() {
         <div className={styles.addGekkeyBlock}>
           <div className={styles.TabTitleGroup}>
             <h4 className={styles.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
-            <hr className="border-[var(--gek-dark-grey)]" />
+            <hr className="border-[#DCDCD9]" />
           </div>
           <div className={styles.CodeWrap}>
             <span className={styles.CodeTitle}>

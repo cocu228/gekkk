@@ -109,7 +109,7 @@ export function ChangePassword() {
   return (
     <div className="w-full">
         <BoxWrapper>
-          <div className="bg-white md:p-[12px] md:rounded-[8px] flex flex-col gap-[0.75rem]">
+          <div className="bg-white md:p-[12px] w-full max-w-[400px] md:rounded-[8px] flex flex-col gap-[0.75rem]">
             <div className={styles.passwordLine}>
               <h4 className={styles.inputTitle}>{t("new_password")}:</h4>
               <Input
@@ -119,8 +119,8 @@ export function ChangePassword() {
                   onChange={passSave}
                   suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color="var(--gek-additional)" onClick={handleToggle}/>}
                   value={newPass}
-                  className="min-h-[40px] h-[52px]"
-                  placeholder={t("enter_new_password")}
+                  className="min-h-[40px] max-w-[190px] h-[52px]"
+                  placeholder={t("enter_password")}
               />
             </div>
             <div className={styles.passwordLine}>
@@ -132,8 +132,8 @@ export function ChangePassword() {
                 onChange={passConfirm}
                 suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color="var(--gek-additional)" onClick={handleToggleConfirmed}/>}
                 value={confirmNewPass}
-                className="min-h-[40px] h-[52px]"
-                placeholder={t("confirm_new_password")}
+                className="min-h-[40px] max-w-[190px] h-[52px]"
+                placeholder={t("confirm_password")}
               />
             </div>
             <div className="flex justify-end pr-4">
@@ -168,7 +168,7 @@ export function ChangePassword() {
                 className="w-full"
                 disabled={
                   // Disable send code if unvalid
-                  !valid || !(newPass === confirmNewPass)
+                  !valid || !(newPass === confirmNewPass) || !newPass.length
                   // Disable save if unvalid
                   || smsCodeSent ? !confirmCode : false
                 }

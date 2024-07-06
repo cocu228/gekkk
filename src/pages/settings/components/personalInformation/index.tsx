@@ -60,7 +60,7 @@ export function PersonalInformation() {
                             >
                                 <h4 className={styles.perItemTitle}>{t(item)}:</h4>
                                 <h4 className={styles.perItemSubtitle}>{userInfoKeys[item]}</h4>
-                                <hr/>
+                                {ind + 1 !== infoList.length && <hr />}
                             </div>
                         ))
                     }

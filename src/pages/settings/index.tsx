@@ -176,7 +176,7 @@ export function Settings() {
       )}
       <div
         className={`
-          ${styles.itemsWrap} ${!md && styles.notMobileSettings} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
+          ${styles.itemsWrap} pb-[10px] ${!md && styles.notMobileSettings} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
         `}
         style={{flexDirection: selectedArea ? 'row' : 'column', gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}
       >

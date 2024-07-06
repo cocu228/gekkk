@@ -40,8 +40,8 @@ export function UserSession() {
                             </div>
                             <Button
                                 skeleton
-                                color='red'
-                                className='w-[75px]'
+                                color={`${isCurrent(index) ? 'blue' : 'red'}`}
+                                className='min-w-[80px] h-[27px] max-h-[27px]'
                                 size={md ? 'sm' : 'md'}
                                 disabled={isCurrent(index)}
                                 onClick={() => {

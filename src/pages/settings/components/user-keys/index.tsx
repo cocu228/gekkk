@@ -69,51 +69,51 @@ export function UserKeys() {
     }
   }
 
-  useEffect(() => {
-    const setOtp = () => {
-      const input = document.querySelector('input[autocomplete="one-time-code"]');
+  // useEffect(() => {
+  //   const setOtp = () => {
+  //     const input = document.querySelector('input[autocomplete="one-time-code"]');
 
-      console.log('OTP input:');
-      console.log(input);
+  //     console.log('OTP input:');
+  //     console.log(input);
 
-      if (!input) return;
-      // Set up an AbortController to use with the OTP request
-      const ac = new AbortController();
-      const form = input.closest("form");
-      if (form) {
-        // Abort the OTP request if the user attempts to submit the form manually
-        form.addEventListener("submit", (e) => {
-          ac.abort();
-        });
-      }
+  //     if (!input) return;
+  //     // Set up an AbortController to use with the OTP request
+  //     const ac = new AbortController();
+  //     const form = input.closest("form");
+  //     if (form) {
+  //       // Abort the OTP request if the user attempts to submit the form manually
+  //       form.addEventListener("submit", (e) => {
+  //         ac.abort();
+  //       });
+  //     }
       
-      // Request the OTP via get()
-      navigator.credentials
-        .get({
-          // @ts-ignore
-          otp: { transport: ["sms"] },
-          signal: ac.signal,
-        })
-        .then((otp) => {
-          // When the OTP is received by the app client, enter it into the form
-          // input and submit the form automatically
-          // @ts-ignore
-          input.value = otp.code;
-          if (form) form.submit();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+  //     // Request the OTP via get()
+  //     navigator.credentials
+  //       .get({
+  //         // @ts-ignore
+  //         otp: { transport: ["sms"] },
+  //         signal: ac.signal,
+  //       })
+  //       .then((otp) => {
+  //         // When the OTP is received by the app client, enter it into the form
+  //         // input and submit the form automatically
+  //         // @ts-ignore
+  //         input.value = otp.code;
+  //         if (form) form.submit();
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //   }
 
-    console.log(`"OTPCredential" in window: ${"OTPCredential" in window}`)
+  //   console.log(`"OTPCredential" in window: ${"OTPCredential" in window}`)
 
-    if ("OTPCredential" in window) {
-      window.addEventListener("DOMContentLoaded", setOtp);
-    }
+  //   if ("OTPCredential" in window) {
+  //     window.addEventListener("DOMContentLoaded", setOtp);
+  //   }
 
-    return () => window.removeEventListener('DOMContentLoaded', setOtp);
-  })
+  //   return () => window.removeEventListener('DOMContentLoaded', setOtp);
+  // })
 
   useEffect(() => {
     const timerInterval = setInterval(() => setTimer((prevTime) => {

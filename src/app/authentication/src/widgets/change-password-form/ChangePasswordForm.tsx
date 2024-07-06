@@ -1,6 +1,6 @@
 import styles from './style.module.css';
 import Button from "../components/button/Button";
-import {useEffect, useRef, useState} from "preact/hooks";
+import {useRef, useState} from "preact/hooks";
 import {RegisterDeviceKey, ResetPass} from '../../shared';
 import Form from '../components/form';
 import TextInput from '../components/textInput';

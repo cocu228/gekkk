@@ -42,7 +42,6 @@ export default function TransfersWrapper({
   const [searchValue, setSearchValue] = useState<string>("");
   const { currencies } = useContext(CtxCurrencies);
 
-
   const currenciesList = currencies && !![...currencies].find(el=> el[0]=== "EUR")[1].balance ?
         [...currencies]
           .sort((x, y) => {
@@ -97,6 +96,16 @@ export default function TransfersWrapper({
 
   }, [networkTypeSelect])
 
+  useEffect(()=>{
+    if(!networkLoading && networksForSelector){
+      setLoading(false)
+    } else if (!networkLoading && !networksForSelector) {
+      setTimeout(()=>{
+        setLoading(false)
+      }, 1000)
+    }
+  }, [networkLoading, networksForSelector])
+  
   return (
     <>
       {children.map((child): JSX.Element => {

@@ -108,84 +108,84 @@ export function ChangePassword() {
 
   return (
     <div className="w-full">
-        <BoxWrapper>
-          <div className="bg-white md:p-[12px] w-full max-w-[400px] md:rounded-[8px] flex flex-col gap-[0.75rem]">
-            <div className={styles.passwordLine}>
-              <h4 className={styles.inputTitle}>{t("new_password")}:</h4>
-              <Input
-                  allowDigits
-                  allowSymbols
-                  type={type}
-                  onChange={passSave}
-                  suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color="var(--gek-additional)" onClick={handleToggle}/>}
-                  value={newPass}
-                  className="min-h-[40px] max-w-[190px] h-[52px]"
-                  placeholder={t("enter_password")}
-              />
-            </div>
-            <div className={styles.passwordLine}>
-              <h4 className={styles.inputTitle}>{t("confirm_password")}:</h4>
-              <Input
+      <BoxWrapper>
+        <div className="bg-white md:p-[12px] w-full max-w-[400px] md:rounded-[8px] flex flex-col gap-[0.75rem]">
+          <div className={styles.passwordLine}>
+            <h4 className={styles.inputTitle}>{t("new_password")}:</h4>
+            <Input
                 allowDigits
                 allowSymbols
-                type={typeConfirmed}
-                onChange={passConfirm}
-                suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color="var(--gek-additional)" onClick={handleToggleConfirmed}/>}
-                value={confirmNewPass}
+                type={type}
+                onChange={passSave}
+                suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color="var(--gek-additional)" onClick={handleToggle}/>}
+                value={newPass}
                 className="min-h-[40px] max-w-[190px] h-[52px]"
-                placeholder={t("confirm_password")}
-              />
-            </div>
-            <div className="flex justify-end pr-4">
-              <CheckList setValid={setValid} value={newPass} />
-            </div>
-            {
-              valid && smsCodeSent && (
-                <div className={styles.passwordLine}>
-                  <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
-                  <Input
-                    allowDigits
-                    disabled={!smsCodeSent}
-                    onChange={codeConfirm}
-                    value={confirmCode}
-                    className="min-h-[40px]"
-                    placeholder={t("enter_confirm_code")}
-                  />
-              </div>
-              )
-            }
-            {!smsCodeSent ? null : timer > 0 ? (
-              <div className={styles.Resend}>Resend the code after:
-                <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
-              </div>
-            ) : (
-              <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
-                Resend the code
-              </div>
-            )}
-            <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
-              <Button
-                className="w-full"
-                disabled={
-                  // Disable send code if unvalid
-                  !valid || !(newPass === confirmNewPass) || !newPass.length
-                  // Disable save if unvalid
-                  || smsCodeSent ? !confirmCode : false
-                }
-                onClick={onContinue}
-              >
-                {t(smsCodeSent ? "save" : "send_code")}
-              </Button>
-              <Button
-                skeleton
-                className="w-full"
-                onClick={() => navigate('/settings', { replace: true })}
-              >
-                <span className="capitalize">{t("back")}</span>
-              </Button>
-            </div>
+                placeholder={t("enter_password")}
+            />
           </div>
-        </BoxWrapper>
+          <div className={styles.passwordLine}>
+            <h4 className={styles.inputTitle}>{t("confirm_password")}:</h4>
+            <Input
+              allowDigits
+              allowSymbols
+              type={typeConfirmed}
+              onChange={passConfirm}
+              suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color="var(--gek-additional)" onClick={handleToggleConfirmed}/>}
+              value={confirmNewPass}
+              className="min-h-[40px] max-w-[190px] h-[52px]"
+              placeholder={t("confirm_password")}
+            />
+          </div>
+          <div className="flex justify-end pr-4">
+            <CheckList setValid={setValid} value={newPass} />
+          </div>
+          {
+            valid && smsCodeSent && (
+              <div className={styles.passwordLine}>
+                <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
+                <Input
+                  allowDigits
+                  disabled={!smsCodeSent}
+                  onChange={codeConfirm}
+                  value={confirmCode}
+                  className="min-h-[40px]"
+                  placeholder={t("enter_confirm_code")}
+                />
+            </div>
+            )
+          }
+          {!smsCodeSent ? null : timer > 0 ? (
+            <div className={styles.Resend}>Resend the code after:
+              <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+            </div>
+          ) : (
+            <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
+              Resend the code
+            </div>
+          )}
+          <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
+            <Button
+              className="w-full"
+              disabled={
+                // Disable send code if unvalid
+                !valid || !(newPass === confirmNewPass) || !newPass.length
+                // Disable save if unvalid
+                || smsCodeSent ? !confirmCode : false
+              }
+              onClick={onContinue}
+            >
+              {t(smsCodeSent ? "save" : "send_code")}
+            </Button>
+            <Button
+              skeleton
+              className="w-full"
+              onClick={() => navigate('/settings', { replace: true })}
+            >
+              <span className="capitalize">{t("back")}</span>
+            </Button>
+          </div>
+        </div>
+      </BoxWrapper>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import TransfersWrapper from '@/widgets/wallet/transfer/mobile/model/TransfersWr
 import GetDisplayedForm from '@/widgets/wallet/transfer/mobile/ui/get-displayed-form'
 import SelectCurrency from '@/widgets/wallet/transfer/mobile/ui/select-currency'
 import NetworkProvider from '@/widgets/wallet/transfer/model/NetworkProvider'
-import { CtxWalletData } from '@/widgets/wallet/transfer/model/context'
+import { CtxWalletData, CtxWalletNetworks } from '@/widgets/wallet/transfer/model/context'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import HistoryWrapper from './history-wrapper/HistoryWrapper'
@@ -18,16 +18,8 @@ export default function Transfers() {
   const {currencies} = useContext(CtxCurrencies);
   const [network, setNetwork] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [$currency, setCurrency] = useState<ICtxCurrency>();
-  
-  useEffect(()=>{
-    if(loading) {
-      setTimeout(()=>{
-        setLoading(false)
-      },2000)
-    }
-  }, [loading])
-  
+  const [$currency, setCurrency] = useState<ICtxCurrency>();    
+
   useEffect(()=>{
     setLoading(true)
     
@@ -41,8 +33,12 @@ export default function Transfers() {
   },[])
   
   useEffect(()=>{
-    if(currencies && curr) {
-      setCurrency(currencies?.get(curr))            
+    if(currencies && curr) {   
+      if(currencies?.get(curr) === undefined) {
+        setLoading(false) // TODO: сделать ошибку при несуществующем токене
+      }else{
+        setCurrency(currencies?.get(curr))          
+      }
     }
   },[currencies, curr])
   

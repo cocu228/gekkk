@@ -214,13 +214,13 @@ export function UserKeys() {
         onCancel={handleCancel}
         placeBottom={window.innerWidth < 768}
         isModalOpen={isModalOpen}
-        title={keyToRemove ? `${t('remove_key')}` : `${t('close_session')}`}
+        title={t('remove_key')}
       >
         <span className={styles.ModalText}>
-          {keyToRemove ? t("remove_key_warning") : t("close_session_warning")}
+          {t("remove_key_warning")}
         </span>
         <div className='w-full flex mt-[25px] justify-center gap-[20px]'>
-          {keyToRemove ? <><Button
+          <Button
             color="red"
             skeleton
             className="w-full"
@@ -231,35 +231,17 @@ export function UserKeys() {
           >
             {t("remove")}
           </Button>
-            <Button
-              color="green"
-              skeleton
-              className="w-full"
-              onClick={() => {
-                handleCancel()
-                setKeyToRemove(null)
-              }}
-            >
-              {t("cancel")}
-            </Button> </> : <> <Button
-              color="blue"
-              onClick={() => {
-                onCloseSession(sessionToRemove.id)
-                handleCancel()
-              }}
-            >
-              {t("close")}
-            </Button>
-            <Button
-              color="blue"
-              onClick={() => {
-                setSessionToRemove(null)
-                handleCancel()
-              }}
-            >
-              {t("cancel")}
-            </Button> </>
-          }
+          <Button
+            color="green"
+            skeleton
+            className="w-full"
+            onClick={() => {
+              handleCancel()
+              setKeyToRemove(null)
+            }}
+          >
+            {t("cancel")}
+          </Button>
         </div>
       </Modal>
     </div>

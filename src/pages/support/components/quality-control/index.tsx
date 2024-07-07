@@ -54,7 +54,7 @@ const QualityControl: FC = () => {
     }
   }
 
-  const starColor = quality === "thumbs_up" ? "var(--gek-green)" : "var(--gek-red)"
+  const starColor = quality === "thumbs_up" ? "var(--gek-green)" : "var(--gek-red)";
 
   return (
     <div className="control-container">
@@ -89,7 +89,7 @@ const QualityControl: FC = () => {
               >
                 <IconApp
                   size={20}
-                  color={getRatingIconCode(star) === "t85" ? "var(--gek-additional)" : starColor}
+                  color={starColor}
                   code={getRatingIconCode(star)}
                 />
               </div>

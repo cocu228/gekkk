@@ -21,7 +21,7 @@ const BankCard = ({
 
     return (
         <div className={styles.BankCard}>
-            <div className={`${styles.CardStatus} ${isBlockedByBank ? styles.White : ""}`}>
+            <div className={`${styles.CardStatus} ${styles.White}`}>
                 {status && status !== 'ACTIVE' && t(CardStatusDescriptions[status])}
             </div>
             <div className={`${styles.Text} ${styles.CardNumber}`}>{cardNumber}</div>

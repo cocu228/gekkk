@@ -181,7 +181,7 @@ const MenuForm = ({
                         );
                     }}
                 >
-                    <IconApp code="t54" size={10} className={"min-w-[10px]"} color="#fff" />
+                    <IconApp code="t37" size={10} className={"min-w-[10px]"} color="#fff" />
                     <p className={"whitespace-nowrap"}>
                         {selectedCard?.cardStatus === "ACTIVE"
                             ? t("block_card")

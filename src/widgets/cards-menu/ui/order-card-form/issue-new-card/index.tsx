@@ -44,7 +44,7 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                         <div className={styles.Label}>{t("cardholder_name")}:</div>
                         <Input
                             value={state.cardholderName}
-                            placeholder={`-${t("enter_name")}-`} 
+                            placeholder={t("enter_name")}
                             onChange={({target}) => setState({
                                 ...state,
                                 cardholderName: target.value
@@ -57,7 +57,7 @@ export function IssueNewCard({closable}: {closable: boolean}) {
                         <Input
                             allowDigits
                             value={state.linkedPhone}
-                            placeholder={`-${t("enter_phone_number")}-`} 
+                            placeholder={t("enter_phone_number")}
                             onChange={({target}) => setState({
                                 ...state,
                                 linkedPhone: target.value

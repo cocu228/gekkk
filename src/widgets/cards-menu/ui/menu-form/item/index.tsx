@@ -22,39 +22,33 @@ const MenuItem = ({
 	dataItem = null,
 	onClick = () => {},
 }: IParams) => {
-    const bar = useRef<HTMLDivElement>();
-	
-	if (progress && bar.current) bar.current.style.width = `${progress}%`
+	const progressCL = progress !== null ? "p-[15px_20px_0_30px]" : "p-[15px_20px_15px_30px]"
 
 	return (
-		<div
-			onClick={onClick}
-			data-item={dataItem}
-			className={`${styles.MenuItem} ${className}`}
-		>
-            <div className='flex justify-between'>
-                <div className={styles.MenuItemColumn}>
-			    	<div className='font-bold'>{leftPrimary}</div>
-
-			    	{!leftSecondary ? null : (
-			    		<div className='text-[var(--gek-mid-grey)]'>{leftSecondary}</div>
-			    	)}
-			    </div>
+		<div data-item={dataItem} className={`${styles.MenuItem} ${progress !== null ? "justify-between" : "justify-center"} ${className}`} onClick={onClick}>
+			<div className={`w-full flex justify-between ${progressCL}`}>
+					<div className={styles.MenuItemColumn}>
+						<p className='font-semibold'>{leftPrimary}</p>
+						{!leftSecondary ? null : (
+							<p className='text-[var(--gek-mid-grey)]'>{leftSecondary}</p>
+						)}
+					</div>
                     
 			    <div className={styles.MenuItemColumn}>
-			    	<div className='font-bold text-right text-[var(--gek-additional)]'>{rightPrimary}</div>
-                    
-			    	{!rightSecondary ? null : (
-			    		<div className='text-[var(--gek-mid-grey)] text-right'>{rightSecondary}</div>
-			    	)}
-			    </div>
-            </div>
+			    	<p className='font-semibold text-right text-[var(--gek-additional)]'>{rightPrimary}</p>
+						{!rightSecondary ? null : (
+							<p className='text-[var(--gek-mid-grey)] text-right'>{rightSecondary}</p>
+						)}
+					</div>
+			</div>
 
-            {progress !== null && (
-     		    <div className={`${styles.ProgressBar} mt-2`}>
-	 		    	<div className={`${styles.CurrentProgress}`} ref={bar}></div>
-	 		    </div>
-            )}
+			{progress !== null && (
+				<div className="w-full p-[0_47px_5px_10px]">
+					<div className={`${styles.ProgressBar}`}>
+						<div className={`${styles.CurrentProgress} ${progress ? `w-[${progress}%]` : ""}`} />
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

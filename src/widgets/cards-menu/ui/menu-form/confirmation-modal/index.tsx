@@ -183,7 +183,7 @@ const ConfirmationModal = ({
                         <div className={styles.Warning}>
                             <IconApp size={108} code="t56" color="#8F123A" />
                             <h1 className={styles.Blocker}>Block card</h1>
-                            <p className={styles.Text}>
+                            <p className={`md:text-fs12 text-fs14 ${styles.Text}`}>
                                 Are you sure you want to
                                 <br />
                                 <b>Block selected bank card</b>?
@@ -193,21 +193,21 @@ const ConfirmationModal = ({
                 )}
 
                 {selectedItem === "unblockCard" && (
-                    <div className="mb-5">{t("unblock_selected_bank_card")}</div>
+                    <div className="mb-5 md:text-fs12 text-fs14">{t("unblock_selected_bank_card")}</div>
                 )}
 
                 {selectedItem === "activate" && (
                     <>
-                        <div className="mb-5">{t("for_security_reasons")}</div>
-                        <div className="mb-5">{t("virtual_card_data_for_online")}</div>
-                        <div className="mb-5">{t("using_your_physical_card")}</div>
-                        <div className="mb-5 font-bold">{t("activate_your_card")}</div>
+                        <div className="mb-5 md:text-fs12 text-fs14">{t("for_security_reasons")}</div>
+                        <div className="mb-5 md:text-fs12 text-fs14">{t("virtual_card_data_for_online")}</div>
+                        <div className="mb-5 md:text-fs12 text-fs14">{t("using_your_physical_card")}</div>
+                        <div className="mb-5 md:text-fs12 text-fs14 font-bold">{t("activate_your_card")}</div>
                     </>
                 )}
 
                 {(selectedItem === "dailyLimit" || selectedItem === "monthlyLimit") && (
                         <>
-                            <div className="md:text-[12px] mb-2 font-semibold">{t("limit_amount")}</div>
+                            <div className="md:text-fs12 text-fs14 mb-2 font-semibold">{t("limit_amount")}</div>
                             <div className="mb-5">
                                 <InputCurrency
                                     placeholder={t("exchange.enter_amount")}
@@ -220,7 +220,7 @@ const ConfirmationModal = ({
                     )}
 
                 {selectedItem === "disableLimits" && (
-                    <div className="mb-5">{t("disable_limits")}</div>
+                    <div className="md:text-fs12 text-fs14 text-[var(--gek-additional)]">{t("disable_limits")}</div>
                 )}
 
                 <form onSubmit={() => {onConfirm(selectedItem)}}>

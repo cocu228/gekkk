@@ -1,13 +1,13 @@
 import { getCookieData } from "@/shared/lib";
 import { useContext, useEffect } from "react";
 import { CtxRootData } from "@/processes/RootContext";
+import { url } from "inspector";
 
 interface IParams {
     children?: JSX.Element;
 }
 
 const SystemNotifications = ({children}: IParams) => {
-    let esLink = null;
     const {setRefresh} = useContext(CtxRootData);
 
     function displaySystemNotification(notify) {
@@ -37,16 +37,21 @@ const SystemNotifications = ({children}: IParams) => {
                     registration?.showNotification(title, {
                         icon: img,
                         body: text,
-                        tag: "gekkardTx"
+                        tag: "gekkardTx",
+                        // @ts-ignore
+                        vibrate: [200, 100, 200],
+                        data: {
+                            origin: self.location.origin,
+                            navUrl: `/wallet?currency=${obj.currency}`
+                        },
                     });
-
-                    console.log('notification displayed')
                 });
         }
     }
     
+    // Notification event source handler
     function connectES() {
-        esLink = new EventSource(import.meta.env.VITE_API_URL + "notify/v1/Subscribe", { withCredentials: true });
+        let esLink = new EventSource(import.meta.env.VITE_API_URL + "notify/v1/Subscribe", { withCredentials: true });
         
         esLink.onmessage = ev => handleReceivedMessage(ev.data);
         esLink.onerror = ev => {
@@ -82,9 +87,7 @@ const SystemNotifications = ({children}: IParams) => {
         connectES();
     }, []);
 
-    return <div>
-        {children}
-    </div>;
+    return <>{children}</>;
 }
 
 export default SystemNotifications;

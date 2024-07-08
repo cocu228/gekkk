@@ -23,6 +23,9 @@ export function AppVersion() {
                 </div>
             </div>
             <div className="flex flex-col">
+                <div className={styles.versionGroupTitle}>
+                    {t('versions_history')}
+                </div>
                 {versions[import.meta.env.VITE_APP_TYPE].map((ver) => <VersionCard key={ver.version} date={ver.date} description={ver.description} version={ver.version}/>)}
             </div>
         </BoxWrapper>

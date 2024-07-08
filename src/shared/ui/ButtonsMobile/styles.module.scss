@@ -32,8 +32,8 @@
 
 
     @media screen and (max-width: 768px) {
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 12px;
+        font-weight: 400;
     }
     &Selected {
         
@@ -45,7 +45,4 @@
 
 .itemIcon {
     padding: 10px;
-    @media screen and (max-width: 768px) {
-        padding: 0px; 
-    }
 }

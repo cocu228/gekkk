@@ -14,7 +14,6 @@ interface Props {
 }
 
 export function SettingsButton(props: Props ) {
-    const {md} = useBreakpoints();
     const {t} = useTranslation();
 
     return (
@@ -31,7 +30,7 @@ export function SettingsButton(props: Props ) {
           >{props.text}</h4>
         </div>
         <div className={"flex gap-[10px] items-center"}>
-            {props?.isLang ? <p className={"text-fs12 text-[var(--gek-mid-grey)]"}>{t("language_name")}</p> : null}
+            {props?.isLang ? <p className={`text-fs12 ${props.isSelected ? 'text-[var(--gek-green)]' : 'text-[var(--gek-mid-grey)]'} `}>{t("language_name")}</p> : null}
             <IconApp size={13} code="t08" color="#B9B9B5" className="min-w-[13px]" />
         </div>
       </FrameItem>

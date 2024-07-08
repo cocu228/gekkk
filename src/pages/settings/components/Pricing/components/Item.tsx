@@ -16,7 +16,7 @@ export function Item({ title, rows, description }: ItemProps) {
         const { title, value } = item
         return (
           <span className={styles.TableItemTextWrap} key={index} >
-            <span>{title}</span>
+            <li className='flex-1'>{title}</li>
             <span className={styles.TableItemValue}>{value}</span>
           </span>
 

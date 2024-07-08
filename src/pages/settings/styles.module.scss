@@ -178,17 +178,16 @@
 
 .perItemTitle {
     font-family: Inter;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 15px;
     text-align: left;
     color: #1F3446;
     padding: 0 10px;
     padding-bottom: 0.5rem;
 
     @media screen and (max-width: 768px) {
-        font-size: 12px;
-        padding-bottom: 0;
+        padding: 0 10px 5px 10px;
     }
 }
 
@@ -196,10 +195,10 @@
     user-select: text;
     color: #3A5E66;
     padding: 0 10px 5px 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     font-family: Inter;
-    line-height: 20px;
+    line-height: 17px;
 
     @media screen and (max-width: 768px) {
         margin-bottom: 4px;
@@ -311,7 +310,7 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 20px;
-    color: #1F3446;
+    color: #3A5E66;
 }
 
 .versionValue {
@@ -320,6 +319,20 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 500;
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+        font-weight: 700;
+    }
+}
+.versionGroupTitle{
+    font-size: 12px;
+    width: 100%;
+    color: var(--gek-dark-grey);
+    padding: 20px 15px 10px 15px;
+    font-weight: 700;
+    @media screen and (max-width: 768px) {
+        font-weight: 400;
+    }
 }
 
 .versionCard {

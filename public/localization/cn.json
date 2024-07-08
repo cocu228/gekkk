@@ -1663,7 +1663,9 @@
     "reports": "报告",
     "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包", 
     "form_in_wallet": "在您的{{project}}钱包中",
-    "fast_and_easy": "加密货币交易 - 快速简便"
+    "fast_and_easy": "加密货币交易 - 快速简便",
+    "versions_history": "版本历史"
+
 
   }
 }

@@ -119,7 +119,7 @@ export function ChangePassword() {
                 onChange={passSave}
                 suffix={<IconApp className="cursor-pointer pt-1" size={20} code={code} color="var(--gek-additional)" onClick={handleToggle}/>}
                 value={newPass}
-                className="min-h-[40px] max-w-[190px] h-[52px]"
+                className="min-h-[30px] max-w-[190px] h-[37px] placeholder:text-[12px] py-0"
                 placeholder={t("enter_password")}
             />
           </div>
@@ -132,7 +132,7 @@ export function ChangePassword() {
               onChange={passConfirm}
               suffix={<IconApp className="cursor-pointer pt-1" size={20} code={codeConfirmed} color="var(--gek-additional)" onClick={handleToggleConfirmed}/>}
               value={confirmNewPass}
-              className="min-h-[40px] max-w-[190px] h-[52px]"
+              className="min-h-[30px] max-w-[190px] h-[37px] placeholder:text-[12px] py-0"
               placeholder={t("confirm_password")}
             />
           </div>
@@ -148,7 +148,7 @@ export function ChangePassword() {
                   disabled={!smsCodeSent}
                   onChange={codeConfirm}
                   value={confirmCode}
-                  className="min-h-[40px]"
+                  className="min-h-[30px] max-w-[190px] h-[37px] placeholder:text-[12px] py-0"
                   placeholder={t("enter_confirm_code")}
                 />
             </div>
@@ -174,7 +174,7 @@ export function ChangePassword() {
               }
               onClick={onContinue}
             >
-              {t(smsCodeSent ? "save" : "send_code")}
+              {t(smsCodeSent ? "confirm" : "send_code")}
             </Button>
             <Button
               skeleton

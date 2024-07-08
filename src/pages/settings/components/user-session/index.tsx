@@ -32,7 +32,7 @@ export function UserSession() {
                             </div>
                         ) : null}
                         <div className={styles.SessionItem}>
-                            <div className={'flex flex-col'}>
+                            <div className={'flex flex-col overflow-hidden'}>
                                 <h4 className={styles.sessionItemTitle}>{getTime(getUnixTime(parseISO(session?.utc_create)))}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("login_type")}: {session.login_type}</h4>
                                 <h4 className={styles.sessionItemTitle}>{session.user_agent}</h4>
@@ -40,13 +40,14 @@ export function UserSession() {
                             </div>
                             <Button
                                 skeleton
-                                color={`${isCurrent(index) ? 'blue' : 'red'}`}
-                                className='min-w-[80px] h-[27px] max-h-[27px]'
+                                color='red'
+                                className={`${styles.Button} ${isCurrent(index) && styles.ButtonCurrent}`}
                                 size={md ? 'sm' : 'md'}
-                                disabled={isCurrent(index)}
                                 onClick={() => {
-                                    showModal()
-                                    setSessionToRemove(session)
+                                    if(!isCurrent(index)){
+                                        showModal()
+                                        setSessionToRemove(session)
+                                    }
                                 }}
                             >
                                 <span className='capitalize'>{isCurrent(index) ? t("current") : t("close")}</span>

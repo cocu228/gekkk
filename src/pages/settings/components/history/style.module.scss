@@ -7,9 +7,9 @@
     backdrop-filter: blur(2px);
     color: #29354C;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 12px; /* 100% */
 
     @media (max-width: 768px) {
@@ -34,6 +34,7 @@
     background-color: #ffffff;
     border: 1px solid var(--gek-light-grey);
     padding: 10px;
+    overflow: hidden;
 
     @media screen and (max-width: 768px) {
         border: 0px;
@@ -42,13 +43,16 @@
 
 .historyItemTitle {
     color: #3A5E66;
-    font-size: 16px;
+    font-size: 12px;
     font-family: Inter;
     font-weight: 400;
     line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     @media screen and (max-width: 768px) {
-        font-size: 14px;
+        font-size: 12px;
     }
 
 }

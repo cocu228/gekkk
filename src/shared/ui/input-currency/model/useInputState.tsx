@@ -20,7 +20,7 @@ export const useInputState = (): { inputCurr: IUseInputState, setInputCurr: (val
     const setInputCurr = (value: string): void => {
 
         const formatValue = formatAsNumberAndDot(value)
-        const numberValue = !formatValue ? 0 : parseInt(formatValue)
+        const numberValue = !formatValue ? 0 : parseFloat(formatValue)
 
         setState(prev => ({
             value: {

@@ -7,7 +7,7 @@ import style from '../style.module.scss'
 interface IParams {
     disabled?: boolean,
     className?: string,
-    fees: {
+    fees?: {
         percentFee: number;
         amountFee: number;
     } | null;

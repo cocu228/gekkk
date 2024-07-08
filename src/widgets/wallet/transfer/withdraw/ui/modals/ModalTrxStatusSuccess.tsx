@@ -17,15 +17,15 @@ function ModalTrxStatusSuccess({
   const {handleCancel} = useContext(CtxGlobalModalContext);
 
   return (
-    <div className='w-full flex flex-col gap-[30px] items-center my-8 md:mb-4'>
-        <IconApp code="t57" size={108} color="#45AD77" />  
+    <div className='w-full flex flex-col items-center md:mb-4'>
+        <IconApp code="t57" size={108} color="#45AD77" className='mb-[30px]' />  
 
-        <div className='text-center w-[80%] flex flex-col items-center gap-[30px]'>
-            <span className='font-bold text-[20px] text-[#3A5E66]'>
+        <div className='text-center w-[80%] flex flex-col items-center gap-[20px]'>
+            <span className='font-bold font-[Inter] text-[20px] text-[#3A5E66]'>
                 {t("success")}!
             </span>
-            <span className='md:text-[12px] text-[#9D9D9D]'>
-                {t("your_transaction_success")} {" "}
+            <span className='md:text-[12px] font-normal text-[#9D9D9D]'>
+                {t("your_transaction_success")} {" "} <br />
                 <NavLink to={"/support"}>
                     <span className='text-[#45AD77]'>
                         {t("our_support_team")}
@@ -45,6 +45,7 @@ function ModalTrxStatusSuccess({
             )}
 
             <Button
+                color='blue'
                 className='w-full'
                 onClick={handleCancel}
             >

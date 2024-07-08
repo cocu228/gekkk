@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP, IS_GEKKWALLET_APP } from "@/shared/lib";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import ModalTrxStatusSuccess from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusSuccess";
 
 const SvgGekkardLogo = (
   <svg

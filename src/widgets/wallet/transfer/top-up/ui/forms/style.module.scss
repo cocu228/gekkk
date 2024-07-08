@@ -299,3 +299,14 @@
         display: none;
     }
 }
+
+.TopUpText {
+    color: #285E69;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Inter;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}

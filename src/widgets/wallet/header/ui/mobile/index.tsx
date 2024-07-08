@@ -26,15 +26,13 @@ const WalletHeaderMobile = () => {
     const {account} = useContext(CtxRootData);
     const tab = params.get('tab');
     const isOnAboutPage = tab === "about"
-    const isOnProgramsPage = tab === "programs"
-    const isOnNoFeeProgramPage = tab === "no_fee_program"
-    const isOnCashbackProgramPage = tab === "cashback_program"
-
     const isEUR: boolean = currency === 'EUR';
 
     const [rates, setRates] = useState<Record<ETokensConst, number>>();
 
     const IBAN = account?.number
+
+    console.log('ACC', account)
 
     useEffect(() => {
         (async () => {

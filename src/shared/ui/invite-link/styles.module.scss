@@ -5,14 +5,12 @@
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
-  padding-top: 20px;
 
   @include max-devices(md){
     font-size: 12px;
   }
 
   span{
-    max-width: 80%;
     color: var(--gek-dark-grey);
   }
 }

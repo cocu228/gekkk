@@ -77,7 +77,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
                   <IconCoin className={styles.Ico} code={currency} />
                   {currency}
                 </div>
-                <div className='pl-[5px] pt-[6px]'>
+                <div className={styles.ActiveArr}>
                   <IconApp code="t08" size={12} color="#3A5E66" className={`rotate-[90deg] ${!md && 'hidden'}`} />
                 </div>
               </span>

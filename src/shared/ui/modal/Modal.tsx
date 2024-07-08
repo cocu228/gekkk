@@ -13,6 +13,7 @@ interface ModalProps {
   placeBottom?: boolean;
   destroyOnClose?: boolean;
   noHeaderBorder?: boolean;
+  noneHeader?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -23,6 +24,7 @@ export const Modal: FC<ModalProps> = ({
   isModalOpen,
   placeBottom,
   noHeaderBorder,
+  noneHeader = false,
   closable = true,
   destroyOnClose = true
 }) => {
@@ -78,15 +80,19 @@ export const Modal: FC<ModalProps> = ({
             >
               <DialogPanel className={styles.DialogPanel} >
                 <div className={styles.ModalWrap}>
-                  <div className={styles.ModalHeader}>
-                    <span className={styles.ModalTitle}>{title}</span>
-                    {
-                      closable && (
-                        <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
-                      )
-                    }
-                  </div>
-                  <div className={styles.ModalBody}>
+                  {
+                    !noneHeader && (
+                      <div className={styles.ModalHeader}>
+                        <span className={styles.ModalTitle}>{title}</span>
+                        {
+                          closable && (
+                            <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
+                          )
+                        }
+                      </div>
+                    )
+                  }
+                  <div className={`${styles.ModalBody} ${noneHeader && styles.ModalBodyPadding}`}>
                     {children}
                   </div>
                 </div>

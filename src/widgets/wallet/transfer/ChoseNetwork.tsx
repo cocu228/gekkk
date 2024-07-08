@@ -10,6 +10,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "./style.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Select } from '@/shared/ui/oldVersions/Select';
+import { TypeSelector } from "@/shared/ui/typeSelector/TypeSelector";
 
 interface IProps{
     withdraw?: boolean,
@@ -39,9 +40,9 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                     </span>
                 </div>
             ) : withdraw ? (
-                <span className="ml-[10px] mb-[5px] block">{t("select_withdraw_network") + ":"}</span>
+                <span className="ml-[10px] mb-[5px] block text-[#1F3446] text-[14px] font-semibold">{t("select_withdraw_network") + ":"}</span>
             ) : (
-                <span className="ml-[10px] mb-[5px] block">{t("select_network") + ":"}</span>
+                <span className="ml-[10px] mb-[5px] block text-[#1F3446] text-[14px] font-semibold">{t("select_network") + ":"}</span>
             )}
 
             <div className="col w-full md:overflow-hidden overflow-visible">
@@ -114,12 +115,14 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                     </div>
                                 </div>
                             :
-                            <Select
-                                placeholder={"Networks not found"} 
-                                value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0]?.label : 151}
-                                typeChange={setNetworkType} 
-                                options={networksForSelector}
-                            />
+                            <>
+                                <TypeSelector 
+                                    placeholder={"Networks not found"} 
+                                    value={networkTypeSelect ? networksForSelector?.filter(item => item.value === networkTypeSelect)[0]?.label : 151}
+                                    typeChange={setNetworkType} 
+                                    options={networksForSelector}
+                                />
+                            </>
                 }
             </div>
         </div>

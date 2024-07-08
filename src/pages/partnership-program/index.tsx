@@ -10,6 +10,7 @@ import styles from "./style.module.scss"
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {useSearchParams} from "react-router-dom";
 import {IconApp} from "@/shared/ui/icons/icon-app";
+import {CtxRootData} from "@/processes/RootContext";
 // import Footer from "@/widgets/footer";
 
 
@@ -65,7 +66,7 @@ const ContentDescription = () => {
     const {t} = useTranslation();
     const [state, setState] = useState<string>("")
     const {md} = useContext(BreakpointsContext);
-
+    const {account} = useContext(CtxRootData);
     useEffect(() => {
         (async () => {
             const response = await apiGetAgentCode()
@@ -73,7 +74,7 @@ const ContentDescription = () => {
                 setState(uncoverResponse(response))
             })
         })()
-    }, []);
+    }, [account]);
 
     return <>
          {md &&
@@ -108,7 +109,7 @@ const ContentMain = () => {
     const {t} = useTranslation();
     const [state, setState] = useState<string>("")
     const {md} = useContext(BreakpointsContext);
-
+    const {account} = useContext(CtxRootData);
     useEffect(() => {
         (async () => {
             const response = await apiGetAgentCode()
@@ -116,7 +117,7 @@ const ContentMain = () => {
                 setState(uncoverResponse(response))
             })
         })()
-    }, [])
+    }, [account])
 
     return <>
         {!md &&

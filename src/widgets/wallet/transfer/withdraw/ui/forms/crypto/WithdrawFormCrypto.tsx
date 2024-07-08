@@ -61,6 +61,7 @@ const WithdrawFormCrypto = () => {
     withdraw_fee = 0,
     min_withdraw = 0,
     max_withdraw = 0,
+    percent_fee = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
@@ -83,6 +84,10 @@ const WithdrawFormCrypto = () => {
       <div className="w-full">
         <AmountInput
           name="amount"
+          fees={{
+            percentFee: percent_fee,
+            amountFee: withdraw_fee
+          }}
           value={Number(inputCurr.value.number) + Number(withdraw_fee)}
           description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
           placeholder={t("exchange.enter_amount")}

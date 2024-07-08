@@ -10,6 +10,10 @@ interface IBrokerAmountContainerProps {
   currency: ICtxCurrency
   validators:  IValidatorCreator[];
   name?: string;
+  fees?: {
+    percentFee: number,
+    amountFee: number;
+  } | null;
   transfers?: boolean;
   description?: string;
   textClassname?: string;
@@ -22,6 +26,7 @@ interface IBrokerAmountContainerProps {
 const AmountInput: FC<IBrokerAmountContainerProps> = ({
   transfers,
   value,
+  fees,
   inputValue,
   currency,
   description,
@@ -45,7 +50,7 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
 
   return (
     <InputCurrency.Validator value={value} description={description} validators={validators} onError={onError}>
-      <InputCurrency.PercentSelector header={header} currency={currency} onSelect={onSelect}>
+      <InputCurrency.PercentSelector fees={fees} header={header} currency={currency} onSelect={onSelect}>
         <InputCurrency.DisplayBalance currency={currency}>
           <InputCurrency
             transfers={transfers}

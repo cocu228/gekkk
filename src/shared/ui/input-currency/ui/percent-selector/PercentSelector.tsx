@@ -7,6 +7,10 @@ import style from '../style.module.scss'
 interface IParams {
     disabled?: boolean,
     className?: string,
+    fees: {
+        percentFee: number;
+        amountFee: number;
+    } | null;
     children?: React.ReactNode,
     header?: string | JSX.Element,
     currency: ICtxCurrency | null,
@@ -15,6 +19,7 @@ interface IParams {
 }
 
 const PercentSelector: FC<IParams> = ({
+    fees,
     header,
     children,
     disabled,
@@ -35,7 +40,9 @@ const PercentSelector: FC<IParams> = ({
             return;
         }
 
-        const value = (percent / 100) * currency.balance.free_balance;
+        const value = fees && percent === 100
+            ? currency.balance.free_balance - (currency.balance.free_balance * (fees.percentFee / 100)) - fees.amountFee
+            : (percent / 100) * currency.balance.free_balance;
         const roundPrec = currencies.get(currency.$const).roundPrec;
         const result = Math.round(value * Math.pow(10, roundPrec)) / Math.pow(10, roundPrec);
 
@@ -61,7 +68,6 @@ const PercentSelector: FC<IParams> = ({
                     <PercentBtn onClick={() => onBtnClick(25)}>25%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(50)}>50%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(75)}>75%</PercentBtn>
-                    {/*TODO  Recalculate 100% taking fee*/}
                     <PercentBtn onClick={() => onBtnClick(100)}>100%</PercentBtn>
                 </div>
             </div>

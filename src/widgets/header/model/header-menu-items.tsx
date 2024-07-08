@@ -78,7 +78,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             id: 'partnership',
             action: {
                 type: "link",
-                value: "agent",
+                value: "partnership-program",
             },
             icon: <IconApp color="var(--gek-additional)" size={17} code="t17" />,
             style: {

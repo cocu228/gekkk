@@ -4,12 +4,8 @@
   justify-content: space-between;
   border: 1px solid var(--gek-light-grey);
   border-radius: 6px;
-  height: 70px;
+  height: 50px;
   gap: 5px;
-
-  @media screen and (max-width: 768px) {
-    height: 53px;
-  }
   position: relative;
 }
 
@@ -243,13 +239,13 @@
 }
 
 .Ico {
-  width: 34px;
-  height: 34px;
+  width: 20px;
+  height: 20px;
 
-  @media screen and (max-width: 768px) {
-    width: 25px;
-    height: 25px;
-  }
+  // @media screen and (max-width: 768px) {
+  //   width: 25px;
+  //   height: 25px;
+  // }
 }
 
 .SelectedBody > div {

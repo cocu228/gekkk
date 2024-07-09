@@ -144,7 +144,7 @@ const History = memo(function ({
   return loading ? (
       <Loader className="h-[100px] relative"/>
     ) : (
-      <Wrapper>
+      <Wrapper className="md:px-[10px]">
         <div id={"History"} className={`${styles.Container} ${className}`}>
           {!listHistory.length ? (
             <span className={styles.NoTransactions}>

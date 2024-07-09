@@ -194,7 +194,7 @@ function Wallet() {
                             <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                         {tab === "top_up" &&
-                            <Wrapper>
+                            <Wrapper className="md:px-[10px]">
                                 <div className="w-full mt-5 min-h-[200px] relative mb-[70px]">
                                     <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                         <TopUp/>

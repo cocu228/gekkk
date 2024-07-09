@@ -17,7 +17,7 @@
 }
 
 .Field {
-  font-size: 16px;
+  font-size: 10px;
   color: var(--gek-dark-blue);
   font-weight: 700;
   border: none;
@@ -28,13 +28,10 @@
   text-align: end;
   background: white;
   &::placeholder{
-    font-size: 16px;
     color: var(--gek-mid-grey);
     font-weight: normal;
+    font-size: 10px;
 
-    @include max-devices("md") {
-      font-size: 9px;
-    }
   }
   &:active {
     outline: none !important;
@@ -43,10 +40,6 @@
 
   :focus {
     border: none !important;
-  }
-
-  @include max-devices("md") {
-    font-size: 14px;
   }
 
   &PriceLabel {

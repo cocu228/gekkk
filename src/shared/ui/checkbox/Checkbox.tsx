@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './style.module.scss';
+import { IconApp } from '../icons/icon-app';
 
 interface Props {
     onChange: (v) => void;
@@ -28,7 +29,13 @@ const Checkbox = ({
                 defaultChecked={defaultChecked}
                 disabled={disabled}
             />
-            <span className={`${styles.Checkbox} ${className}`}/>
+            <span className={`${styles.Checkbox} ${className}`}>
+                {
+                    defaultChecked && (
+                        <IconApp code='t47' size={12} color='#2BAB72' />
+                    )
+                }
+            </span>
             {children}
         </label>
     );

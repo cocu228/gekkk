@@ -30,6 +30,7 @@ import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 import styles from './styles.module.scss'
+import Wrapper from "@/shared/ui/wrapper";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -193,14 +194,16 @@ function Wallet() {
                             <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                         {tab === "top_up" &&
-                            <div className="mt-5 min-h-[200px] relative">
-                                <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
-                                    <TopUp/>
-                                </NetworkProvider>
-                            </div>
+                            <Wrapper>
+                                <div className="w-full mt-5 min-h-[200px] relative mb-[70px]">
+                                    <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
+                                        <TopUp/>
+                                    </NetworkProvider>
+                                </div>
+                            </Wrapper>
                         }
                         {tab === "programs" &&
-                            <div className="min-h-[200px] relative">
+                            <div className="min-h-[200px] relative mb-[70px]">
                                 <Programs data-tag={"programs"} data-name={t("programs")}/>
                             </div>
                         }

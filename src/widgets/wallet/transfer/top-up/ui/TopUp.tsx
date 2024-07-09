@@ -35,14 +35,14 @@ const TopUp = memo(() => {
         if (isCryptoNetwork(networkType)) {
             return <TopUpFormQR/>;
         }
-        
+
         switch (networkType) {
             case 150:
                 return <div>
                     <b className={styles.ToTransfersContainer}>
                         <span className=''>
                             {t("top_up_EURG") + " "}
-                        </span> 
+                        </span>
                         <span
                             className={styles.ToTransfersLink}
                             onClick={() => {
@@ -51,7 +51,6 @@ const TopUp = memo(() => {
                                 }else{
                                     navigate("/wallet?currency=EUR&tab=withdraw")
                                 }
-                                    
                             }}
                         >
                             {t("link")}
@@ -63,7 +62,7 @@ const TopUp = memo(() => {
             case 154:
                 return <div>
                     <b className={styles.ToTransfersContainer}>
-                        {t("top_up_EUR_via_crypto")} 
+                        {t("top_up_EUR_via_crypto")}
                         <a
                             className={styles.ToTransfersLink}
                             onClick={() => {
@@ -71,7 +70,7 @@ const TopUp = memo(() => {
                                     navigate(`/transfers?currency=EURG&type=150`)
                                 }else{
                                     navigate("/wallet?currency=EURG&tab=withdraw")
-                                }     
+                                }
                             }}
                             href="javascript:void(0)"
                         >
@@ -83,14 +82,14 @@ const TopUp = memo(() => {
                 return <ApplyTransferCode/>;
             case 232:
             case 233:
-            case 234: 
+            case 234:
                 return <CrossPlatformTopUp />;
-            
+
             default:
                 return <div className={styles.NoActions}>
                         {t("no_actions_for_network")}
                 </div>;
-                
+
         }
     }
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
@@ -105,7 +104,7 @@ const TopUp = memo(() => {
     }, [networkTypeSelect])
 
     useEffect(()=>{
-        !type && setNetwork(null) 
+        !type && setNetwork(null)
     }, [type])
 
     return (<div className={styles.TopUpMainContainer}>
@@ -114,7 +113,7 @@ const TopUp = memo(() => {
 
                 <ChoseNetwork network={network} setNetwork={setNetwork}/>
 
-                {(md && network && displayedForm) && 
+                {(md && network && displayedForm) &&
                     <div className={styles.TopUpMobileForm}>
                         {is_operable === false && <div className={styles.TopUpAttentionMobile}>
                             <div className={styles.TopUpAttentionMobileContainer}>
@@ -134,10 +133,10 @@ const TopUp = memo(() => {
                         <TransferTableCode/>
                     </div>
             }
-            
+
             {!md && displayedForm}
 
-            {md && <div className={`mt-5 h-[440px]`}>
+            {md && <div className={`mt-5`}>
                 {!network && networksForSelector?.length > 0 && <span className={styles.TextSelectTitle}>
                     {t("select_top_up_type")}
                 </span>}
@@ -166,7 +165,7 @@ const TopUp = memo(() => {
                     </div>
                 </div>
             </div>}
-            
+
         </div>}
     </div>);
 });

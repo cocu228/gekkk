@@ -1,8 +1,12 @@
 import {FC, PropsWithChildren} from "react";
 
-const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+interface IWrapperProps extends PropsWithChildren {
+    className?: string;
+}
+
+const Wrapper: FC<IWrapperProps> = ({ children, className = "" }) => {
     return (
-        <div className="w-full min-w-[290px] max-w-[414px] mx-auto">
+        <div className={`md:w-full md:min-w-[290px] md:max-w-[414px] md:mx-auto ${className}`}>
             {children}
         </div>
     )

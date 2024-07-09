@@ -35,10 +35,14 @@ const PercentSelector: FC<IParams> = ({
         setPercent(null);
     }, [currency]);
 
+    ////todo
+
     const onBtnClick = (percent: number) => {
         if (disabled || !currency || !currency.balance?.free_balance) {
             return;
         }
+
+        console.log(currency.balance.free_balance)
 
         const value = fees && percent === 100
             ? currency.balance.free_balance - (currency.balance.free_balance * (fees.percentFee / 100)) - fees.amountFee

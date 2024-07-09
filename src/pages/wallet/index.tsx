@@ -29,6 +29,7 @@ import {IS_GEKKARD_APP} from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
+import styles from './styles.module.scss'
 
 function Wallet() {
     const {t} = useTranslation();
@@ -131,8 +132,10 @@ function Wallet() {
                             </div>
 
                             {!xl && (
-                              <div className="z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]">
-                                <History currenciesFilter={currencyForHistory}/>
+                              <div className={styles.TopUpHistoryWrap}>
+                                <div className={styles.TopUpHistoryBody}>
+                                    <History currenciesFilter={currencyForHistory}/>
+                                </div>
                               </div>
                             )}
                         </div>

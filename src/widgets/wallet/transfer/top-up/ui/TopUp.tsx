@@ -109,7 +109,7 @@ const TopUp = memo(() => {
     }, [type])
 
     return (<div className={styles.TopUpMainContainer}>
-        {loading ? <Loader/> : <div className='w-full'>
+        {loading ? <Loader/> : <div className={styles.TopUpBody}>
             <div className={styles.TopUpContainer}>
 
                 <ChoseNetwork network={network} setNetwork={setNetwork}/>

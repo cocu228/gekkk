@@ -52,6 +52,15 @@
         justify-content: center; 
         min-height: 200px;
 
+
+    }
+
+    &Body {
+        width: 100%;
+        
+        @media screen and (min-width: 1700px) {
+            max-width: 415px;
+        }
     }
 
     &Container{

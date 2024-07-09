@@ -124,7 +124,7 @@ function Exchange() {
             </b>
             <span className='text-[#29354C]'> (ID: {roomInfo.timetick})</span>
             <button
-              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px]"
+              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px] font-semibold"
               onClick={roomInfoModal.showModal}
             >
               <IconApp code="t34" color="#285E69" size={17} /> {t("exchange.invite_link")}

@@ -85,13 +85,7 @@ const TransferTableCode = ({isOwner = false, inputCurr}: { isOwner?: boolean;inp
                         </div>
                         <div className="row">
                             <div className="col">
-                                {
-                                    md ? (
-                                        <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
-                                    )  : (
-                                        <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
-                                    )
-                                }
+                                <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
                             </div>
                         </div>
                         <span className={styles.MobileAmount}>{it.amount} {currency.$const}</span>

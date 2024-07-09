@@ -75,7 +75,7 @@ function Wallet() {
     const isShownTabs = !(isOnAboutPage)
 
     return (
-        <div className="flex flex-col h-full w-full">
+        <div className="flex flex-col h-full md:items-center w-full">
             {/*@ts-ignore*/}
 
             <CtxWalletData.Provider value={$currency}>

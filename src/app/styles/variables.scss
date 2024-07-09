@@ -9,13 +9,13 @@ $breakpoints: (
 
 :root {
   --gek-dark-blue: #29354C;
-  --gek-additional: #285E69; 
+  --gek-additional: #285E69;
   --gek-green: #2BAB72;
   --gek-red:#8F123A;
   --gek-orange:#F8A73E;
   --gek-background: #F7F7F0;
   --gek-light-grey:#DCDCD9;
-  --gek-mid-grey:#B9B9B5;  
+  --gek-mid-grey:#B9B9B5;
   --gek-dark-grey: #7B797C;
   --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
 
@@ -66,8 +66,8 @@ $breakpoints: (
   --content-pad-left-md: 1rem;
   --content-pad-right-md: 1rem;
   --content-pad-top-md: 1rem;
-  --content-pad-horizontal-md: 1rem;
-  --content-margin-horizontal-negative-md: -16px;
+  --content-pad-horizontal-md: 0.9375rem;
+  --content-margin-horizontal-negative-md: -15px;
 
   --modal-pad-horizontal: 3.5rem;
   --modal-pad-horizontal-sm: 1.56rem;

@@ -35,7 +35,6 @@
     font-size: small;
     cursor: pointer;
     width: 100%;
-    max-width: 500px;
     color: var(--gek-dark-blue);
 
     div {
@@ -176,12 +175,10 @@
 
     .TotalBal {
         width: 100%;
-        max-width: 500px;
         padding: 3px 10px 0 10px;
     }
 
     .CurTypeTxt {
         width: 100%;
-        max-width: 500px;
     }
 }

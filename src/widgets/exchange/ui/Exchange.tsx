@@ -124,7 +124,7 @@ function Exchange() {
             </b>
             <span className='text-[#29354C]'> (ID: {roomInfo.timetick})</span>
             <button
-              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px]"
+              className="underline text-[#2BAB72] mt-[10px] flex items-end gap-[7px] font-semibold"
               onClick={roomInfoModal.showModal}
             >
               <IconApp code="t34" color="#285E69" size={17} /> {t("exchange.invite_link")}
@@ -196,6 +196,7 @@ function Exchange() {
 
       <div className={styles.MainGrid} >
         <div className={`${styles.ExchangeOrdersWrap}`} >
+            <div className={styles.ExchangeBody}>
             <div className={`gap-x-[10px] bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className="flex flex-col w-full gap-[5px]">
@@ -376,11 +377,14 @@ function Exchange() {
                 </div>
               </div>
             </Modal>
+            </div>
           </div>
           {!md && (
             <div className={styles.DeskHistoryWrap}>
-              <span className="text-[12px] hidden xxxl:block ml-[4px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
-              <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+              <div className={styles.DeskHistoryBody}>
+                <span className="text-[12px] hidden xxxl:block ml-[4px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
+                <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+              </div>
             </div>
           )}
       </div>

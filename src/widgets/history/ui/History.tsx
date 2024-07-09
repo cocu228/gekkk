@@ -18,6 +18,7 @@ import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import {IS_GEKKARD_APP} from "@/shared/lib";
 import { Modal } from "@/shared/ui/modal/Modal";
+import Wrapper from "@/shared/ui/wrapper";
 
 const History = memo(function ({
   to,
@@ -139,78 +140,79 @@ const History = memo(function ({
 
     return () => cancelTokenSource.cancel();
   }, [refreshKey, tab, currenciesFilter]);
-  
+
   return loading ? (
       <Loader className="h-[100px] relative"/>
-    ) : (<>
-      <div id={"History"} className={`${styles.Container} ${className}`}>
-        {!listHistory.length ? (
-          <span className={styles.NoTransactions}>
-            {t("no_have_any_transaction")}
-          </span>
-        ) : listHistory.map((item, index) => {
-          const doesPrevDateTimeExist = listHistory[index - 1]?.datetime !== undefined;
+    ) : (
+      <Wrapper className="md:px-[10px]">
+        <div id={"History"} className={`${styles.Container} ${className}`}>
+          {!listHistory.length ? (
+            <span className={styles.NoTransactions}>
+              {t("no_have_any_transaction")}
+            </span>
+          ) : listHistory.map((item, index) => {
+            const doesPrevDateTimeExist = listHistory[index - 1]?.datetime !== undefined;
 
-          return (
-            <div key={item.id_transaction} ref={ref}>
-              {/* Date wrapper */}
-              {!doesPrevDateTimeExist ? (
-                <div className={styles.DateLine} key={index}>
-                  {formatDate(item.datetime)}
-                </div>
-              ) : (
-                formatDate(listHistory[index].datetime) !==
-                  formatDate(listHistory[index - 1].datetime) && (
-                  <div className={styles.DateLine}>
+            return (
+              <div key={item.id_transaction} ref={ref}>
+                {/* Date wrapper */}
+                {!doesPrevDateTimeExist ? (
+                  <div className={styles.DateLine} key={index}>
                     {formatDate(item.datetime)}
                   </div>
-                )
-              )}
+                ) : (
+                  formatDate(listHistory[index].datetime) !==
+                    formatDate(listHistory[index - 1].datetime) && (
+                    <div className={styles.DateLine}>
+                      {formatDate(item.datetime)}
+                    </div>
+                  )
+                )}
 
-              {/* Tx info row */}
-              <TxInfoRow
-                setItem={setSelectedItem}
-                showModal={showModal}
-                item={item}
-                key={item.id_transaction}
-              />
-            </div>
-          );
-        })}
-        
-        {/* See more button */}
-        {(listHistory.length >= 10 && !allTxVisibly) && (
-          <div className="row mt-3">
-            <div className="col flex justify-center relative">
-              {lazyLoading || md ? (
-                <Loader className={"w-[24px] h-[24px]"} />
-              ) : (
-                <span
-                  onClick={requestMoreHistory}
-                  className="text-[#7B797C] font-semibold md:text-[10px] text-[12px] cursor-pointer inline-flex items-center"
-                >
-                  {t("see_more")}
-                  <IconApp size={10} code="t08" className="rotate-90 ml-2" color="#7B797C" />
-                </span>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+                {/* Tx info row */}
+                <TxInfoRow
+                  setItem={setSelectedItem}
+                  showModal={showModal}
+                  item={item}
+                  key={item.id_transaction}
+                />
+              </div>
+            );
+          })}
 
-      {/* Tx info modal */}
-      <Modal
-        isModalOpen={isModalOpen}
-        onCancel={handleCancel}
-        title={t('transaction_info')}
-      >
-        <TxInfoModal
-          {...selectedItem}
-          handleCancel={handleCancel}
-          onUpdateTxInfo={onUpdateTxInfo}
-        />
-      </Modal>
-    </>
+          {/* See more button */}
+          {(listHistory.length >= 10 && !allTxVisibly) && (
+            <div className="row mt-3">
+              <div className="col flex justify-center relative">
+                {lazyLoading || md ? (
+                  <Loader className={"w-[24px] h-[24px]"} />
+                ) : (
+                  <span
+                    onClick={requestMoreHistory}
+                    className="text-[#7B797C] font-semibold md:text-[10px] text-[12px] cursor-pointer inline-flex items-center"
+                  >
+                    {t("see_more")}
+                    <IconApp size={10} code="t08" className="rotate-90 ml-2" color="#7B797C" />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Tx info modal */}
+        <Modal
+          isModalOpen={isModalOpen}
+          onCancel={handleCancel}
+          title={t('transaction_info')}
+        >
+          <TxInfoModal
+            {...selectedItem}
+            handleCancel={handleCancel}
+            onUpdateTxInfo={onUpdateTxInfo}
+          />
+        </Modal>
+      </Wrapper>
   );
 });
 

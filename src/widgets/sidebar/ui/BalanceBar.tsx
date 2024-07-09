@@ -13,6 +13,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Carousel from '@/shared/ui/carousel';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
+import Wrapper from "@/shared/ui/wrapper";
 
 type Props = {
     NavLinkEvent: () => void,
@@ -37,7 +38,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
 
     const isGekwallet = IS_GEKKWALLET_APP();
     const isGekkard = IS_GEKKARD_APP();
-    
+
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
         eurgWallet = currencies.get("EURG");
@@ -49,7 +50,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
     }
 
     return (
-        <>
+        <Wrapper>
             {isGekkard ? <>
                 <div className={styles.CardInfo}>
                     {cardsLoading
@@ -84,7 +85,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                 <div className={styles.CurTypeTxtWrap}>
                     <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
                 </div>
-                
+
                 {/* EURG wallet */}
                 <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
                 {/* GKE wallet */}
@@ -98,17 +99,17 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                 {/* ETH wallet */}
                 <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={ethWallet} />
             </> : null}
-            
+
             {/* Secondary options wrapper */}
             {/* <div className="h-[6px]" /> */}
 
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
-                (isGekkard ? 
-                    helperFilterListGekkard(secondaryWallets) 
-                : isGekwallet ? 
-                    helperFilterListGekwallet(secondaryWallets) 
-                : 
+                (isGekkard ?
+                    helperFilterListGekkard(secondaryWallets)
+                : isGekwallet ?
+                    helperFilterListGekwallet(secondaryWallets)
+                :
                     helperFilterListGekkoin(secondaryWallets)).map((item) =>
                         <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
@@ -118,7 +119,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                     <span className={styles.TotalBalSum} data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount) ?? '...'}</span>
                 </div>
             </div>
-        </>
+        </Wrapper>
     )
 }
 

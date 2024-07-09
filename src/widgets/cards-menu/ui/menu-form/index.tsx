@@ -53,10 +53,10 @@ const MenuForm = ({
             ],
             refreshKey: randomId(),
         });
-        
+
         setSelectedCard(card);
     };
-    
+
     if (selectedItem === "showData") {
         return (<CardInfo
             cardId={selectedCard.cardId}
@@ -64,7 +64,7 @@ const MenuForm = ({
         />);
     }
 
-    return <div className='px-2'>
+    return <div>
         {/* Display header only in desktop mode */}
         {!md && (
             <div className={styles.Header}>

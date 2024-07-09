@@ -1,7 +1,7 @@
 @import "@styles/mixins";
 
-.Sidebar {  
-  overscroll-behavior-y: contain;  
+.Sidebar {
+  overscroll-behavior-y: contain;
   width: 100%;
   background-color: var(--gek-background);
   transition: left ease-out 0.4s;
@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.AssetInfo1 {    
+.AssetInfo1 {
   padding: 0px 10px 5px 10px;
   font-size: 12px;
 }
@@ -101,7 +101,6 @@
 
 .AssetInfo5 {
   padding: 10px 10px 5px 10px;
-  
   width: 100%;
   display: flex;
   font-size: 12px;
@@ -241,12 +240,10 @@
 .Item,
 .ItemExchange,
 .ItemEuro {
-  max-width: 500px;
-   
-    background-color: white;
-    border-radius: 8px;
-    margin-bottom: 8px;
- 
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+
 
 
   height: 85px;

@@ -78,6 +78,7 @@
 
   @media screen and (min-width: 1700px) {
     padding: 0;
+    grid-template-columns: 2fr 1fr;
   }
 }
 
@@ -130,10 +131,18 @@
   @media screen and (min-width: 1700px) {
     box-shadow: 0 3px 4px#00000040;
     padding: 30px;
+    display: flex;
+    justify-content: center;
   }
 }
 
-.DeskHistoryWrap > div {
+.DeskHistoryBody {
+  @media screen and (min-width: 1700px) {
+    max-width: 415px;
+    width: 100%;
+  }
+}
+.DeskHistoryBody > div {
   max-width: 100%;
 }
 
@@ -167,7 +176,15 @@
 
   @media screen and (min-width: 1700px) {
     box-shadow: 0 3px 4px#00000040;
+    display: flex;
+    justify-content: center;
     padding: 30px;
+  }
+}
+
+.ExchangeBody {
+  @media screen and (min-width: 1700px) {
+    max-width: 415px;
   }
 }
 

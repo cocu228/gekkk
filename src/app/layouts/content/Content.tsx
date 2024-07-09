@@ -7,9 +7,12 @@ import CtxGlobalModalProvider from "@/app/providers/CtxGlobalModalProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import {useMatch} from "react-router-dom";
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
+import Wrapper from "@/shared/ui/wrapper";
 
 const Content: FC<PropsWithChildren> = ({children}) => {
     const {md} = useBreakpoints();
+
+    const isWallet = !!useMatch('/wallet');
     const isExchange = !!useMatch('/exchange');
     const isPrivateRoom = !!useMatch('/private-room');
     const {currencies} = useContext(CtxCurrencies);
@@ -20,7 +23,8 @@ const Content: FC<PropsWithChildren> = ({children}) => {
         return value !== null && value !== 0;
     });
 
-    const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP()
+    const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP();
+    const isNoPaddingPages = isWallet || isExchange || isPrivateRoom
 
     return isGEKAndGEKW ? (
         <div className="w-full flex-1 md:mb-3 mb-10">
@@ -31,9 +35,12 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                         {!IS_GEKKWALLET_APP() && <PendingTransactions/>}
                     </>
                 )}
-                <div className={`${styles.Content} ${!((isExchange || isPrivateRoom) && md)
-                    ? styles.ContentPadding : ''}`}>
-                    {children}
+                <div className={`${styles.Content} ${!(md && isNoPaddingPages) ? styles.ContentPadding : ''}`}>
+                    {md && !isNoPaddingPages ? (
+                        <Wrapper>
+                            {children}
+                        </Wrapper>
+                    ) : children}
                 </div>
             </CtxGlobalModalProvider>
         </div>

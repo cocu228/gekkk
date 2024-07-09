@@ -9,7 +9,9 @@ interface Props {
 export const BoxWrapper =  forwardRef((props: Props, ref:ForwardedRef<HTMLDivElement>) => {
     return (
         <div ref={ref} className={`${styles.wrapper} ${props.className}`}>
-            {props.children}
+            <div className={styles.Content}>
+                {props.children}
+            </div>
         </div>
     );
 }, )

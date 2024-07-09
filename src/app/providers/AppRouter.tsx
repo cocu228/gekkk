@@ -27,7 +27,7 @@ const router = createBrowserRouter([
                 element: <Dashboard/>
             },
             {
-                path: 'agent',
+                path: 'partnership-program',
                 element: <PartnershipProgram/>,
             },
             {

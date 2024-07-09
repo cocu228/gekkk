@@ -27,34 +27,8 @@
     overscroll-behavior-y: none;
     display: flex;
     flex-direction: column;
-
-    &::-webkit-scrollbar {
-      width: 5px;
-      margin-left: 7px;
-      margin-top: 2px;
-      border-radius: 10px;
-      height: 30px !important;
-      max-height: 30px;
-      height: 50%;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #29354C;
-      width: 5px;
-      border-radius: 10px;
-      position: relative;
-      right: 10px;
-    }
-
-    *::-ms-scrollbar {
-      width: 5px;
-      border-radius: 10px;
-    }
-  
-    *::-ms-scrollbar-thumb {
-      background: #29354C;
-      border-radius: 10px;
-    }
   }
+
   &__pull-down--pull-more {
     text-align: center;
   }
@@ -80,7 +54,7 @@
       transform: rotate(0);
       transform-origin: center;
     }
-  
+
     100% {
       transform-origin: center;
       transform: rotate(360deg);
@@ -130,7 +104,7 @@
     font-size: 12px;
     font-weight: normal;
     border-radius: 8px;
-    background: white; 
+    background: white;
     text-align: justify;
     border-radius: 8px;
     padding: 5px;

@@ -26,7 +26,7 @@ const TableReferrals = (props) => {
     }, [account])
 
     return <>
-        <GTable>
+        {state === null ?<GTable>
             <GTable.Head className={"bg-[#DCDCD9] rounded-t-[8px] p-1"}>
                 <GTable.Row className="flex">
                     <GTable.Col className={`flex my-2 justify-start ${md ? "pl-[40px]" : "pl-[130px]"}`}>
@@ -37,20 +37,19 @@ const TableReferrals = (props) => {
                     </GTable.Col>
                 </GTable.Row>
             </GTable.Head>
-            {state === null ?<GTable.Body loading={true} className={"bg-[#F9F9FA] p-4"}>
+            <GTable.Body loading={true} className={"bg-[#F9F9FA] p-4"}>
                 {state?.referrals.map((item, i) => <GTable.Row>
                     <GTable.Col className={`flex my-2`}>
                         <span className="text-gray-600 font-medium">{item.client_id}</span>
                     </GTable.Col>
                     <GTable.Col className={`flex my-2`}>
-                        <span className="text-gray-600 font-medium">{formatForCustomer(item.reg_date)}</span>
+                            <span className="text-gray-600 font-medium">{formatForCustomer(item.reg_date)}</span>
                     </GTable.Col>
                 </GTable.Row>)}
-            </GTable.Body> :
-            <div className="flex justify-center items-center h-9 w-full bg-white text-base font-semibold text-[--gek-additional] rounded-md mt-2 md:text-[12px]">
-                {t("no_have_any_rewards")}
-            </div>}
-        </GTable>
+            </GTable.Body>
+        </GTable>: <div className="flex justify-center items-center h-[35px] w-full bg-white text-base font-semibold text-[--gek-additional] rounded-md mt-2 md:text-[12px]">
+            {t("no_have_any_rewards")}
+        </div>}
     </>
 }
 

@@ -46,11 +46,17 @@ const PercentSelector: FC<IParams> = ({
         const roundPrec = currencies.get(currency.$const).roundPrec;
         const result = Math.round(value * Math.pow(10, roundPrec)) / Math.pow(10, roundPrec);
 
+        let hundredRes = currency.balance.free_balance
+
+        if(fees?.amountFee) {
+            hundredRes = hundredRes - fees.amountFee
+        }
+        
         if (onSelect) {
-            onSelect(result.toString());
+            percent === 100 ? onSelect(hundredRes.toString()) : onSelect(result.toString())
         }
 
-        setPercent(result);
+        percent === 100 ? setPercent(hundredRes) : setPercent(result);
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>

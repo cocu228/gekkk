@@ -19,10 +19,9 @@
 }
 
 .InfoItemTitle {
-  font-family: "Inter";
-  color: var(--gek-additional);
-  font-weight: 700;
   font-size: 14px;
+  font-weight: 700;
+  color: var(--gek-additional);
 
   @media screen and (max-width: 768px) {
     font-size: 12px;
@@ -30,11 +29,14 @@
 }
 
 .InfoItemValue, .InfoItemAddress, .InfoItemHash{
-  color: var(--gek-dark-blue);
-  font-family: "Inter";
+  font-size: 14px;
   font-weight: 400;
-  font-size: 12px;
   line-height: normal;
+  color: var(--gek-dark-blue);
+  
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .InfoItemValue {

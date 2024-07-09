@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20240704-1101.9083+7d8342476904c2362c80fb5d1fa7f2b73d5bbe9c<br/><br/>
+                    Build version 2.0.3-20240709-2047.9249+5f26d3bd6f49ed870d67458ff02a058768d941f1<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -14,7 +14,7 @@
 
 /**
  * Флаги разрешений по доступным активам: 
-0 = None, 1 = StructInvestAvalible, 2 = ExchangeAvalible, 4 = FiatCurrency, 8 = AccountAvalible
+0 = None, 1 = StructInvestAvalible, 2 = ExchangeAvalible, 4 = FiatCurrency, 8 = AccountAvalible, 16 = ShowInList
  */
 export type CurrencyFlagsEnum = typeof CurrencyFlagsEnum[keyof typeof CurrencyFlagsEnum];
 
@@ -26,4 +26,5 @@ export const CurrencyFlagsEnum = {
   NUMBER_2: 2,
   NUMBER_4: 4,
   NUMBER_8: 8,
+  NUMBER_16: 16,
 } as const;

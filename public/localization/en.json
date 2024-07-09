@@ -628,6 +628,7 @@
     "": "order",
     "": "Networks not found",
     "": "Please note",
+    "beneficiary_information": "Beneficiary information",
     "": "You should send only ",
     "": "to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.f",
     "attention": "Attention: transactions on this network may be delayed. We recommend that you use a different network for this transaction",

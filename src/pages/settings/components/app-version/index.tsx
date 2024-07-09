@@ -15,11 +15,16 @@ export function AppVersion() {
             <div className={styles.appVersionBlock}>
                 <div className={styles.versionGroup}>
                     <h4 className={styles.versionTitle}>{t("current_app_version")}:</h4>
-                    <h4 className={styles.versionValue}>{appVersion}</h4>
+                    <h4 title={appVersion} className={styles.versionValue}>{appVersion}</h4>
                 </div>
                 <div className={`${styles.versionGroup} md:pt-[2.5rem]`}>
                     <h4 className={styles.versionTitle}>{t("current_api_version")}:</h4>
-                    <h4 className={styles.versionValue}>2.0.3-20231230-1327.5649</h4>
+                    <h4 
+                        title='2.0.3-20231230-1327.5649' 
+                        className={styles.versionValue}
+                    >
+                        2.0.3-20231230-1327.5649
+                    </h4>
                 </div>
             </div>
             <div className="flex flex-col">

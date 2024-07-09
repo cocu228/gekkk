@@ -197,7 +197,7 @@ function Exchange() {
       <div className={styles.MainGrid} >
         <div className={`${styles.ExchangeOrdersWrap}`} >
             <div className={styles.ExchangeBody}>
-            <div className={`gap-x-[10px] bg-white ${styles.Grid}`}>
+            <div className={`${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className="flex flex-col w-full gap-[5px]">
                   <div className={styles.FromBlockWrap}>

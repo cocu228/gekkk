@@ -1557,7 +1557,9 @@
     "form_in_wallet": "в вашем кошельке {{project}}",
     "fast_and_easy": "Обмен криптовалют - быстро и легко",
     "enter_password": "Введите пароль",
-    "versions_history": "История версий"
+    "versions_history": "История версий",
+    "resend_the_code": "Отправить код повторно через", 
+    "seconds": "секунд"
 
 
 

@@ -125,6 +125,16 @@ const WalletHeaderMobile = () => {
                 </div>
 
                 <div className={styles.EurGekkoinPrice}>
+                    {
+                        isEUR && !!balance?.bank_account_status && (
+                            <div className="flex group gap-[4px] items-center">
+                                <span className="text-[#B9B9B5] text-[12px] font-bold flex items-center gap-[5px]">
+                                    Account status:
+                                </span>
+                                <p className="text-[#B9B9B5] text-[12px] font-normal">{balance.bank_account_status}</p>
+                            </div>
+                        )
+                    }
                     {/* {
                         isEUR && (
                             <div onClick={ibanCopy} className="flex group gap-[4px] items-center">

@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "gekkard-version": "2.0.96",
+  "gekkard-version": "2.0.70",
   "gekkoin-version": "2.0.1",
   "gekwallet-version": "2.0.6",
   "type": "module",

@@ -24,32 +24,34 @@
   height: 100%;
   padding: 20px;
   background: #fff;
-  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
   box-sizing: border-box;
   border: 1px solid var(--gek-mid-grey);
   
-  // TODO: Receipt shadow
-  // box-shadow: 0 10px 27px 0 rgba(0, 0, 0, .25);
-  // &:before,
-  // &:after {
-  //   content: '';
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   height: 1.6rem;
-  // }
+  box-shadow: 0 10px 27px 0 rgba(0, 0, 0, .25);
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.5rem;
+  }
 
-  // &:before {
-  //   top: -0.266667rem;
-  //   background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='390pt' height='24pt' viewBox='0 0 390 24' version='1.1'%3E%3Cdefs%3E%3CclipPath id='clip1'%3E%3Cpath d='M 380 24 L 0 24 L 0 4 L 5 0 L 10 4 L 15 0 L 20 4 L 25 0 L 30 4 L 35 0 L 40 4 L 45 0 L 50 4 L 55 0 L 60 4 L 65 0 L 70 4 L 75 0 L 80 4 L 85 0 L 90 4 L 95 0 L 100 4 L 105 0 L 110 4 L 115 0 L 120 4 L 125 0 L 130 4 L 135 0 L 140 4 L 145 0 L 150 4 L 155 0 L 160 4 L 165 0 L 170 4 L 175 0 L 180 4 L 185 0 L 190 4 L 195 0 L 200 4 L 205 0 L 210 4 L 215 0 L 220 4 L 225 0 L 230 4 L 235 0 L 240 4 L 245 0 L 250 4 L 255 0 L 260 4 L 265 0 L 270 4 L 275 0 L 280 4 L 285 0 L 290 4 L 295 0 L 300 4 L 305 0 L 310 4 L 315 0 L 320 4 L 325 0 L 330 4 L 335 0 L 340 4 L 345 0 L 350 4 L 355 0 L 360 4 L 365 0 L 370 4 L 375 0 L 380 4 L 385 0 L 390 4 L 390 24 Z M 380 24 '/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='surface1'%3E%3Cg clip-path='url(%23clip1)' clip-rule='evenodd'%3E%3Crect x='0' y='0' width='390' height='24' style='fill:rgb(100%25,100%25,100%25);fill-opacity:1;stroke:none;'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A") center center repeat-x;
-  //   background-size: auto 1.6rem;
-  // }
+  &:before {
+    top: -0.266667rem;
+    background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='390pt' height='24pt' viewBox='0 0 390 24' version='1.1'%3E%3Cdefs%3E%3CclipPath id='clip1'%3E%3Cpath d='M 380 24 L 0 24 L 0 4 L 5 0 L 10 4 L 15 0 L 20 4 L 25 0 L 30 4 L 35 0 L 40 4 L 45 0 L 50 4 L 55 0 L 60 4 L 65 0 L 70 4 L 75 0 L 80 4 L 85 0 L 90 4 L 95 0 L 100 4 L 105 0 L 110 4 L 115 0 L 120 4 L 125 0 L 130 4 L 135 0 L 140 4 L 145 0 L 150 4 L 155 0 L 160 4 L 165 0 L 170 4 L 175 0 L 180 4 L 185 0 L 190 4 L 195 0 L 200 4 L 205 0 L 210 4 L 215 0 L 220 4 L 225 0 L 230 4 L 235 0 L 240 4 L 245 0 L 250 4 L 255 0 L 260 4 L 265 0 L 270 4 L 275 0 L 280 4 L 285 0 L 290 4 L 295 0 L 300 4 L 305 0 L 310 4 L 315 0 L 320 4 L 325 0 L 330 4 L 335 0 L 340 4 L 345 0 L 350 4 L 355 0 L 360 4 L 365 0 L 370 4 L 375 0 L 380 4 L 385 0 L 390 4 L 390 24 Z M 380 24 '/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='surface1'%3E%3Cg clip-path='url(%23clip1)' clip-rule='evenodd'%3E%3Crect x='0' y='0' width='390' height='24' style='fill:rgb(100%25,100%25,100%25);fill-opacity:1;stroke:none;'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A") center center repeat-x;
+    background-size: auto 1.6rem;
+  }
 
-  // &:after {
-  //   bottom: -0.4rem;
-  //   background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='390pt' height='24pt' viewBox='0 0 390 24' version='1.1'%3E%3Cdefs%3E%3CclipPath id='clip1'%3E%3Cpath d='M 380 0 L 0 0 L 0 20 L 5 24 L 10 20 L 15 24 L 20 20 L 25 24 L 30 20 L 35 24 L 40 20 L 45 24 L 50 20 L 55 24 L 60 20 L 65 24 L 70 20 L 75 24 L 80 20 L 85 24 L 90 20 L 95 24 L 100 20 L 105 24 L 110 20 L 115 24 L 120 20 L 125 24 L 130 20 L 135 24 L 140 20 L 145 24 L 150 20 L 155 24 L 160 20 L 165 24 L 170 20 L 175 24 L 180 20 L 185 24 L 190 20 L 195 24 L 200 20 L 205 24 L 210 20 L 215 24 L 220 20 L 225 24 L 230 20 L 235 24 L 240 20 L 245 24 L 250 20 L 255 24 L 260 20 L 265 24 L 270 20 L 275 24 L 280 20 L 285 24 L 290 20 L 295 24 L 300 20 L 305 24 L 310 20 L 315 24 L 320 20 L 325 24 L 330 20 L 335 24 L 340 20 L 345 24 L 350 20 L 355 24 L 360 20 L 365 24 L 370 20 L 375 24 L 380 20 L 385 24 L 390 20 L 390 0 Z M 380 0 '/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='surface1'%3E%3Cg clip-path='url(%23clip1)' clip-rule='evenodd'%3E%3Crect x='0' y='0' width='390' height='24' style='fill:rgb(100%25,100%25,100%25);fill-opacity:1;stroke:none;'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A") center center repeat-x;
-  //   background-size: auto 1.6rem;
-  // }
+  &:after {
+    bottom: -0.4rem;
+    background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='390pt' height='24pt' viewBox='0 0 390 24' version='1.1'%3E%3Cdefs%3E%3CclipPath id='clip1'%3E%3Cpath d='M 380 0 L 0 0 L 0 20 L 5 24 L 10 20 L 15 24 L 20 20 L 25 24 L 30 20 L 35 24 L 40 20 L 45 24 L 50 20 L 55 24 L 60 20 L 65 24 L 70 20 L 75 24 L 80 20 L 85 24 L 90 20 L 95 24 L 100 20 L 105 24 L 110 20 L 115 24 L 120 20 L 125 24 L 130 20 L 135 24 L 140 20 L 145 24 L 150 20 L 155 24 L 160 20 L 165 24 L 170 20 L 175 24 L 180 20 L 185 24 L 190 20 L 195 24 L 200 20 L 205 24 L 210 20 L 215 24 L 220 20 L 225 24 L 230 20 L 235 24 L 240 20 L 245 24 L 250 20 L 255 24 L 260 20 L 265 24 L 270 20 L 275 24 L 280 20 L 285 24 L 290 20 L 295 24 L 300 20 L 305 24 L 310 20 L 315 24 L 320 20 L 325 24 L 330 20 L 335 24 L 340 20 L 345 24 L 350 20 L 355 24 L 360 20 L 365 24 L 370 20 L 375 24 L 380 20 L 385 24 L 390 20 L 390 0 Z M 380 0 '/%3E%3C/clipPath%3E%3C/defs%3E%3Cg id='surface1'%3E%3Cg clip-path='url(%23clip1)' clip-rule='evenodd'%3E%3Crect x='0' y='0' width='390' height='24' style='fill:rgb(100%25,100%25,100%25);fill-opacity:1;stroke:none;'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A") center center repeat-x;
+    background-size: auto 1.6rem;
+  }
 }
 
 .Header {

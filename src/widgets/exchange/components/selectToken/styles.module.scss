@@ -138,6 +138,10 @@
     width: 80%;
   }
 
+  @media screen and (max-width: 1700px) {
+    width: 77%;
+  }
+
   @media screen and (max-width: 820px) {
     width: 45%;
   }
@@ -197,6 +201,10 @@
 
   @media screen and (min-width: 1700px) {
     left: 41%;
+  }
+
+  @media screen and (max-width: 1700px) {
+    left: 40%;
   }
 
   @media screen and (max-width: 440px) {

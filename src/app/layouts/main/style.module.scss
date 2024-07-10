@@ -2,4 +2,8 @@
   display: flex;
   position: relative;
   flex: 1;
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 50px; //padding for bottom menu
+  }
 }

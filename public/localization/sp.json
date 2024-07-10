@@ -1008,6 +1008,7 @@
     "enter_pin_code": "Introduzca el código PIN",
     "total_amount": "Cantidad total",
     "fee_is_perc": "La tarifa es",
+    "confirm_the_order": "Confirmar realizar pedido",
     "after_n_transactions_per_m": "después de {{times}} transacciones por {{period}}",
     "loading": "Cargando",
     "purpose": "Objetivo",

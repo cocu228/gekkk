@@ -80,6 +80,7 @@
     gap: 10px;
 
     &Close {
+        text-wrap: nowrap;
         cursor: pointer;
         display: flex;
         align-items: center;

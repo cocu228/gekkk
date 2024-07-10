@@ -256,7 +256,7 @@ function Exchange() {
                       defaultChecked={!isLimitOrder}
                       onChange={onIsLimitOrderChange}
                     >
-                      <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">
+                      <span className="text-[12px]">
                         {t("exchange.sell")}
                         <strong className="font-semibold">
                           {" "}

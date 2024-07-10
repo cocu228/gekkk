@@ -411,7 +411,7 @@
         "partnership": {
           "title": "Partnership program",
           "answers": {
-              
+              "info": "Partner shares the referral link and client who follows the link and joins the GEKKARD then becomes partner's referral. \nPartner gets 3% from each deposit’s amount that referral opened within two years after registration. \nRewards will be credited to your EURG balance right after your referral’s deposit ends (if it was not closed prematurely). \nPartner can observe the info about referrals in the Partnership program section."
           }
         },
         "card_purchases": {
@@ -628,6 +628,7 @@
     "": "order",
     "": "Networks not found",
     "": "Please note",
+    "beneficiary_information": "Beneficiary information",
     "": "You should send only ",
     "": "to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.f",
     "attention": "Attention: transactions on this network may be delayed. We recommend that you use a different network for this transaction",
@@ -937,6 +938,7 @@
     "card_to_card": "Card-to-card",
     "by_phone_number": "By phone number",
     "top_up_header": "Top up",
+    "confirm_the_order": "Confirm place order",
     "pin_code": "Pin code",
     "forgot_title": "You forgot pin?",
     "confirm_forgot_title": "Are your need reset pin?",
@@ -1765,7 +1767,9 @@
     "my_fiat_reports": "My fiat reports",
     "reports": "Reports",
     "fast_and_easy": "Cryptocurrency exchange - fast and easy",
-    "versions_history": "Versions history"
+    "versions_history": "Versions history",
+    "resend_the_code": "Resend the code after",
+    "seconds": "seconds"
 
   }
 }

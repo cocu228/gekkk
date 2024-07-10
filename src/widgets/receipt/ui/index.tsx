@@ -2,8 +2,7 @@ import { FC, useContext, useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import Loader from "@/shared/ui/loader";
 import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import { AddressTxOut, GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
-import { apiGetBankReceipt } from "@/shared/api/bank/get-bank-receipt";
+import { AddressTxOut, GetHistoryTrasactionOut, TransactionV1 } from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
@@ -11,9 +10,8 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { formatForFile } from "@/shared/lib/date-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import BankReceipt, { IBankReceipt } from "./bank";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { apiGetUas } from "@/shared/(orval)api";
+import BankReceipt from "./bank";
+import { apiTransactionReceipt } from "@/shared/(orval)api";
 import GekReceipt, { IGekRecepit } from "./gek";
 
 interface ReceiptProps {
@@ -28,7 +26,7 @@ interface ReceiptProps {
   onCancel?: () => void;
 }
 
-type IState = IBankReceipt | IGekRecepit;
+type IState = TransactionV1 | IGekRecepit;
 
 const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   const { t } = useTranslation();
@@ -37,7 +35,6 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const componentRef = useRef<HTMLDivElement | null>(null);
   const { handleCancel } = useContext(CtxGlobalModalContext);
-  const { getAccountDetails } = storeAccountDetails(state => state);
 
   const generatePDF = async () => {
       const pdf = new jsPDF();
@@ -61,7 +58,7 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
       const fileName = `${formatForFile(Date.now())}.pdf`;
       const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-      if (md && navigator?.canShare({files: [file]})) {
+      if (md && navigator?.share && navigator?.canShare({files: [file]})) {
           await navigator.share({
               files: [file],
               title: fileName,
@@ -73,19 +70,11 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   };
 
   const getBankReceipt = async () => {
-    const {data} = await apiGetUas();
-    const {phone} = await getAccountDetails();
-
-    const response = await apiGetBankReceipt(txId, {
-      headers: {
-        Authorization: phone,
-        Token: data.result.token,
-      },
-    });
+    const response = await apiTransactionReceipt({referenceId: txId});
 
     if (response.data) {
       setState({
-        ...response.data
+        ...response.data.result
       });
     }
   }
@@ -103,10 +92,12 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   return loading ? <Loader className="relative my-20"/> : (
     <div className={styles.Wrapper}>
       <div className={styles.Block} ref={componentRef}>
-        {!!txId
-          ? <BankReceipt {...state as IBankReceipt}/>
-          : <GekReceipt {...txInfo}/>
-        }
+        <div>
+          {!!txId
+            ? <BankReceipt {...state as TransactionV1}/>
+            : <GekReceipt {...txInfo}/>
+          }
+        </div>
       </div>
 
       {/* Buttons container */}

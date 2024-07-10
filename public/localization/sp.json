@@ -1008,6 +1008,7 @@
     "enter_pin_code": "Introduzca el código PIN",
     "total_amount": "Cantidad total",
     "fee_is_perc": "La tarifa es",
+    "confirm_the_order": "Confirmar realizar pedido",
     "after_n_transactions_per_m": "después de {{times}} transacciones por {{period}}",
     "loading": "Cargando",
     "purpose": "Objetivo",
@@ -1661,6 +1662,8 @@
     "top_up_curr": "Puede recargar su billetera {{curr}} a través del formulario de retiro", 
     "form_in_wallet": "en su billetera {{project}}",
     "fast_and_easy": "Intercambio de criptomonedas - rápido y fácil",
-    "versions_history": "Historial de versiones"
+    "versions_history": "Historial de versiones",
+    "resend_the_code": "Reenviar el código después de", 
+    "seconds": "segundos"
   }
 }

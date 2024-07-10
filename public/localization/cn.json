@@ -999,6 +999,7 @@
     "intermediary_bank": "中介银行",
     "fee_type": "费用类型",
     "urgency": "紧迫性",
+    "confirm_the_order": "確認訂單",
     "withdraw_title": "提取",
     "from_card": "从卡",
     "card_number_title": "卡号",
@@ -1665,7 +1666,9 @@
     "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包", 
     "form_in_wallet": "在您的{{project}}钱包中",
     "fast_and_easy": "加密货币交易 - 快速简便",
-    "versions_history": "版本历史"
+    "versions_history": "版本历史",
+    "resend_the_code": "重新发送验证码", 
+    "seconds": "秒" 
 
 
   }

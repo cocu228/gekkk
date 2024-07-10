@@ -80,13 +80,14 @@
     gap: 10px;
 
     &Close {
+        text-wrap: nowrap;
         cursor: pointer;
         display: flex;
         align-items: center;
         gap: 3px;
         color: #8F123A;
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 600;
         font-family: Inter;
         text-decoration: underline;
     }

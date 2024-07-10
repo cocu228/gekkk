@@ -7,12 +7,10 @@ import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
-    onReceipt?: (() => (void | Promise<void>)) | null;
+    
 }
 
-function ModalTrxStatusSuccess({
-    onReceipt = null
-}: IParams) {
+function ModalTrxStatusSuccess({}: IParams) {
   const {t} = useTranslation();
   const {handleCancel} = useContext(CtxGlobalModalContext);
 
@@ -33,17 +31,7 @@ function ModalTrxStatusSuccess({
                 </NavLink>
             </span>
         </div>
-        <div className={(onReceipt !== null ? styles.ButtonContainer : styles.ButtonContainerCenter) + " flex gap-[20px] align-center mt-[10px] md:mt-[30px] px-4"}>
-            {onReceipt === null ? null : (
-                <Button
-                    skeleton
-                    className='w-full'
-                    onClick={onReceipt}
-                >
-                    <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt").capitalize()}
-                </Button>
-            )}
-
+        <div className={`${styles.ButtonContainer} flex gap-[20px] align-center mt-[10px] md:mt-[30px] px-4`}>
             <Button
                 color='blue'
                 className='w-full'

@@ -1,10 +1,10 @@
 import styles from "./styles.module.scss";
-import { IReceiptData } from "@/shared/api/bank/get-bank-receipt";
+import { useTranslation } from "react-i18next";
+import { TransactionV1 } from "@/shared/(orval)api/gek/model";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
 import { getMethodTitle, getStatusTitle } from "../../model/helpers";
-import { useTranslation } from "react-i18next";
 
-export type IBankReceipt = IReceiptData & {
+export type IBankReceipt = TransactionV1 & {
   senderName?: string;
 };
 
@@ -20,9 +20,9 @@ const BankReceipt = (data: IBankReceipt) => {
 
         <div className={styles.HeaderTitle}>Payment Receipt</div>
         <div className={styles.HeaderId}>{data?.id}</div>
-        <div className={styles.HeaderDate}>{!data?.executedAt
+        <div className={styles.HeaderDate}>{!data?.date
           ? null
-          : formatDateTime(new Date(data.executedAt))
+          : formatDateTime(new Date(data.date))
         }</div>
       </div>
 
@@ -58,7 +58,7 @@ const BankReceipt = (data: IBankReceipt) => {
         {!data?.fromPanDisplay ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("number")}</span>
-            <span className={styles.InformationBlockItemValue}>{data.fromPanDisplay}</span>
+            <span className={styles.InformationBlockItemValue}>{data.fromPanDisplay as string}</span>
           </div>
         )}
       </div>
@@ -113,18 +113,18 @@ const BankReceipt = (data: IBankReceipt) => {
         )}
 
         {/* Currency */}
-        {!data?.currency?.code ? null : (
+        {!data?.amount?.currency ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("currency")}</span>
-            <span className={styles.InformationBlockItemValue}>{data.currency?.code}</span>
+            <span className={styles.InformationBlockItemValue}>{data.amount?.currency}</span>
           </div>
         )}
 
         {/* Amount */}
-        {!data?.amount ? null : (
+        {!data?.amount?.amount ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("amount")}</span>
-            <span className={styles.InformationBlockItemValue}>{Math.abs(+data.amount)} {data.currency?.code ?? null}</span>
+            <span className={styles.InformationBlockItemValue}>{Math.abs(+data.amount.amount)} {data?.amount?.currency ?? null}</span>
           </div>
         )}
 
@@ -132,7 +132,7 @@ const BankReceipt = (data: IBankReceipt) => {
         {!data?.fee ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("fee")}</span>
-            <span className={styles.InformationBlockItemValue}>{data.fee} {data.currency?.code ?? null}</span>
+            <span className={styles.InformationBlockItemValue}>{data.fee} {data?.amount?.currency ?? null}</span>
           </div>
         )}
 
@@ -144,10 +144,12 @@ const BankReceipt = (data: IBankReceipt) => {
           </div>
         )}
         {/* Payment method */}
-        {!data?.paymentToRepeat?.type ? null : (
+        {!data?.getOpenApiData?.getExternalData?.type ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("payment_method")}</span>
-            <span className={styles.InformationBlockItemValue}>{getMethodTitle(data.paymentToRepeat?.type)}</span>
+            <span className={styles.InformationBlockItemValue}>{
+              getMethodTitle(data.getOpenApiData.getExternalData.type)}
+            </span>
           </div>
         )}
       </div>

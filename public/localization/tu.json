@@ -1045,6 +1045,7 @@
     "contact": "Temas etmek",
     "your_transfer_code": "Transfer kodunuz",
     "cancel_code": "Kodu iptal et",
+    "confirm_the_order": "Yer siparişini onaylayın",
     "transaction_code": "İşlem kodu",
     "confirm_code": "Kodu onayla",
     "send_sms": "SMS gönder",
@@ -1661,6 +1662,8 @@
     "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
     "form_in_wallet": "{{project}} Cüzdanınızda",
     "fast_and_easy": "Kripto para değişimi - hızlı ve kolay",
-    "versions_history": "Sürüm geçmişi"
+    "versions_history": "Sürüm geçmişi",
+    "resend_the_code": "Kodu tekrar gönder", 
+    "seconds": "saniye"
   }
 }

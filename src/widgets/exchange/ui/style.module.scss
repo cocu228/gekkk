@@ -63,6 +63,8 @@
 }
 
 .Grid {
+  background: #fff;
+  gap: 0 10px;
   display: grid;
   padding: 10px;
   grid-template-columns: 1.25fr 0.75fr;
@@ -110,9 +112,11 @@
 .MainGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background: #fff;
 
   @media screen and (max-width: 1700px) {
     grid-template-columns: 1fr;
+    place-items: center;
   }
 }
 
@@ -124,8 +128,10 @@
   position: relative;
   left: -1px;
 
+
   @media screen and (max-width: 1700px) {
     background: inherit;
+    max-width: 415px;
   }
 
   @media screen and (min-width: 1700px) {
@@ -167,11 +173,14 @@
   z-index: 10;
   background: #fff;
   border-radius: 10px;
+  width: 100%;
 
   @media screen and (max-width: 1700px) {
     box-shadow: none;
     background: inherit;
     border-radius: none;
+    max-width: 415px;
+
   }
 
   @media screen and (min-width: 1700px) {
@@ -190,13 +199,9 @@
 
 .FieldPreTitle {
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 14px;
   margin-left: 8px;
   user-select: none;
   font-family: Inter;
   color: #29354C;
-
-  @media screen and (min-width: 1700px) {
-    font-size: 14px;
-  }
 }

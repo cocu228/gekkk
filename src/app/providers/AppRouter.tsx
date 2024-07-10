@@ -52,10 +52,10 @@ const router = createBrowserRouter([
                 path: 'history',
                 element: <HistoryPage/>
             },
-            // {
-            //     path: 'receipt',
-            //     element: <ReceiptPage/>
-            // },
+            {
+                path: 'receipt',
+                element: <ReceiptPage/>
+            },
             {
                 path: 'wallet',
                 element: <Wallet/>

@@ -998,6 +998,7 @@
     "urgency": "Urgence",
     "withdraw_title": "Retirer",
     "from_card": "De la carte",
+    "confirm_the_order": "Confirmer la commande",
     "card_number_title": "Numéro de carte",
     "to_confirm_enter_sms_code": "Pour confirmer l'opération, vous devez saisir le code SMS",
     "pending_transactions": "Vous avez une transaction en attente avec votre carte. Merci de confirmer ou de refuser.",
@@ -1662,6 +1663,8 @@
     "top_up_curr": "Vous pouvez recharger votre portefeuille {{curr}} via le formulaire de retrait", 
     "form_in_wallet": "dans votre portefeuille {{project}}",
     "fast_and_easy": "Échange de crypto-monnaie - rapide et facile",
-    "versions_history": "Historique des versions"
+    "versions_history": "Historique des versions",
+    "resend_the_code": "Renvoyer le code après", 
+    "seconds": "secondes" 
   }
 }

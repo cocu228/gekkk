@@ -4,12 +4,8 @@
   justify-content: space-between;
   border: 1px solid var(--gek-light-grey);
   border-radius: 6px;
-  height: 70px;
+  height: 50px;
   gap: 5px;
-
-  @media screen and (max-width: 768px) {
-    height: 53px;
-  }
   position: relative;
 }
 
@@ -32,7 +28,7 @@
   padding: 0 5px !important;
   text-overflow: ellipsis;
   outline: none !important;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--gek-dark-blue);
   font-weight: 700;
   // display: flex;
@@ -50,6 +46,10 @@
     }
 
 
+  }
+
+  @media screen and (max-width: 1700px) {
+    font-size: 14px;
   }
 
   @media screen and (max-width: 320px) {
@@ -94,6 +94,9 @@
 }
 
 .InputBody {
+
+
+  
   @media screen and (max-width: 440px) {
     width: 70% !important;
     justify-content: end;
@@ -106,20 +109,20 @@
 
 .BalanceTitle {
   color: #b4c0cd;
-  font-size: 10px;
+  font-size: 12px;
   text-wrap: nowrap;
 
   @media screen and (min-width: 768px) {
-    font-size: 13px !important;
+    font-size: 12px !important;
     bottom: -12px !important;
   }
 
   @media screen and (max-width: 768px) {
-    bottom: -13.5px !important;
+    bottom: -15.5px !important;
   }
 
   @media screen and (max-width: 390px) {
-    bottom: -12px !important;
+    bottom: -15px !important;
   }
 }
 
@@ -130,6 +133,14 @@
   align-items: center;
   gap: 5px;
   justify-content: space-between;
+
+  @media screen and (min-width: 1700px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1700px) {
+    width: 77%;
+  }
 
   @media screen and (max-width: 820px) {
     width: 45%;
@@ -187,6 +198,15 @@
 }
 
 .ActiveArrow {
+
+  @media screen and (min-width: 1700px) {
+    left: 41%;
+  }
+
+  @media screen and (max-width: 1700px) {
+    left: 40%;
+  }
+
   @media screen and (max-width: 440px) {
     left: 33%;
   }
@@ -206,7 +226,7 @@
 .BalanceTitle {
   position: absolute;
   bottom: -7px;
-  font-size: 9px;
+  // font-size: 9px;
 }
 
 .CurrencyStyles {
@@ -227,13 +247,13 @@
 }
 
 .Ico {
-  width: 34px;
-  height: 34px;
+  width: 20px;
+  height: 20px;
 
-  @media screen and (max-width: 768px) {
-    width: 25px;
-    height: 25px;
-  }
+  // @media screen and (max-width: 768px) {
+  //   width: 25px;
+  //   height: 25px;
+  // }
 }
 
 .SelectedBody > div {
@@ -293,10 +313,6 @@
       width: 30px;
       height: 30px;
     }
-  }
-
-  @media screen and (max-width: 460px) {
-    font-size: 10px;
   }
 
   @media screen and (max-width: 360px) {

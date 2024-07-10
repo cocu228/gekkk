@@ -1243,6 +1243,26 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
+    'partnership_program': {
+      title: "support.faq.partnership.title",
+      area: (
+        <FAQTemplate
+          title="support.faq.partnership.title"
+          items={[
+            {
+              title: '',
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.partnership.answers.info")}
+                  </p>
+                </>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
     'other': {
       title: "support.faq.other.title",
       area: (
@@ -1293,26 +1313,6 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
-    // 'partnership_program': {
-    //   title: "support.faq.partnership.title",
-    //   area: (
-    //     <FAQTemplate
-    //       title="support.faq.partnership.title"
-    //       items={[
-    //         {
-    //           title: '',
-    //           content: (
-    //             <>
-    //               <p>
-    //                 {/* {t("support.faq.partnership.answers.the_function")} */}
-    //               </p>
-    //             </>
-    //           ),
-    //         },
-    //       ]}
-    //     />
-    //   ),
-    // },
   }
 }
 

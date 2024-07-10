@@ -62,15 +62,15 @@ const Validator: FC<IParams> = (({
         <div>
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
-            <div className={"flex mt-[5px] ml-[5px] " + className}>
+            <div className={"flex ml-[5px] " + className}>
                 {description && showDescription===true && isNull(error) ?(
-                    <span className='text-[var(--gek-orange)] md:text-fs12 text-fs14'>
+                    <span className='text-[var(--gek-orange)] text-fs12'>
                         *{description}
                     </span>
                     ) : (
                     <div className="flex gap-1 items-center">
                         {error && <div className="mt-[1px]"><IconApp color="var(--gek-red)" code="t27" size={13}/></div>}
-                        <span className='text-[var(--gek-red)] md:text-fs12 text-fs14'>{error}</span>
+                        <span className='text-[var(--gek-red)] text-fs12'>{error}</span>
                     </div>
                 )}
             </div>

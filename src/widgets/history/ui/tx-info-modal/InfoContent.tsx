@@ -10,12 +10,14 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {actionResSuccess, isNull, isNumbersOnly} from "@/shared/lib/helpers";
+import {actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import Receipt from "@/widgets/receipt/ui";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
@@ -28,6 +30,7 @@ const InfoContent = (props: TxInfoProps) => {
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
+  const isFinishedTx = getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished];
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
@@ -82,14 +85,14 @@ const InfoContent = (props: TxInfoProps) => {
   }, [props.id_transaction]);
 
   return (
-    <div className="">
+    <div>
       {localErrorInfoBox ? (
         localErrorInfoBox
       ) : loading ? (
         <Loader className="relative my-20"/>
       ) : (
         <div className={style.ModalWrap}>
-          <div className="">
+          <div>
             <div className={style.InfoItem}>
               <span className={style.InfoItemTitle}>{t("date")}</span>
               <span className={style.InfoItemValue}>
@@ -273,36 +276,26 @@ const InfoContent = (props: TxInfoProps) => {
               </div>
             </>
           )}
-          {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {/* {isNeedConfirm ? null : getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished] ? (
-            <div className={"flex gap-[20px] w-full justify-between mt-3"}>
-              <Button
+          {isNeedConfirm ? <InfoConfirmPartner {...props}/> : (
+            <div className={`flex gap-[20px] w-full mt-3 ${isFinishedTx ? 'justify-evenly' : 'justify-center'}`}>
+              {isFinishedTx && (
+                <Button
                   skeleton
                   className='w-full'
                   onClick={handleOnReceipt}
-              >
-                <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
-              </Button>
+                >
+                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
+                </Button>
+              )}
 
               <Button
-                  className='w-full'
-                  onClick={props.handleCancel}
+                className='w-full'
+                onClick={props.handleCancel}
               >
                 {t("close")}
               </Button>
             </div>
-          ) : ( */}
-            {isNeedConfirm ? null : (
-              <div className={"flex gap-[20px] w-full justify-center mt-3"}>
-                <Button
-                    className='w-full'
-                    onClick={props.handleCancel}
-                >
-                  {t("close")}
-                </Button>
-              </div>
-            )}
-          {/* )} */}
+          )}
         </div>
       )}
     </div>

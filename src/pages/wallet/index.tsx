@@ -158,12 +158,14 @@ function Wallet() {
                             </WalletButtons>
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
-                            <History
-                                className="mb-[40px]"
-                                data-tag={"history"}
-                                data-name={t("history")}
-                                currenciesFilter={currencyForHistory}
-                            />
+                            <Wrapper className="px-[10px]">
+                                <History
+                                    className="mb-[40px]"
+                                    data-tag={"history"}
+                                    data-name={t("history")}
+                                    currenciesFilter={currencyForHistory}
+                                />
+                            </Wrapper>
                         }
                         {isOnAboutPage &&
                             (

@@ -18,7 +18,6 @@ import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import {IS_GEKKARD_APP} from "@/shared/lib";
 import { Modal } from "@/shared/ui/modal/Modal";
-import Wrapper from "@/shared/ui/wrapper";
 
 const History = memo(function ({
   to,
@@ -144,7 +143,7 @@ const History = memo(function ({
   return loading ? (
       <Loader className="h-[100px] relative"/>
     ) : (
-      <Wrapper className="md:px-[10px]">
+      <>
         <div id={"History"} className={`${styles.Container} ${className}`}>
           {!listHistory.length ? (
             <span className={styles.NoTransactions}>
@@ -212,7 +211,7 @@ const History = memo(function ({
             onUpdateTxInfo={onUpdateTxInfo}
           />
         </Modal>
-      </Wrapper>
+      </>
   );
 });
 

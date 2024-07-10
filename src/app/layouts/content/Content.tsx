@@ -36,7 +36,6 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                     ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
-                {md && <BottomMenu />}
             </CtxGlobalModalProvider>
         </div>
     ) : (

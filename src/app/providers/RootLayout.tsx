@@ -98,7 +98,7 @@ export default memo(function () {
                     ) : (
                         <>
                             <Header/>
-                            <CopyModal />
+                             <CopyModal />
                             {md ? (
                                 <ReactPullToRefresh
                                     canFetchMore
@@ -110,31 +110,48 @@ export default memo(function () {
                                     }
                                 >
                                     <Main>
-                                        <>
-                                            {isHomePage ? (
-                                                <>
+                                        {md ? (
+                                            <>
+
+                                                {isHomePage ? (
                                                     <Sidebar/>
-                                                </>
-                                            ) : (
-                                                <>
+                                                ) : (
                                                     <Content>
                                                         <Outlet/>
                                                     </Content>
-                                                </>
-                                            )}
-                                        </>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Sidebar/>
+                                                <Content>
+                                                    <Outlet/>
+                                                </Content>
+                                            </>
+                                        )}
                                     </Main>
                                 </ReactPullToRefresh>
                             ) : (
                                 <Main>
-                                    <>
-                                        <Sidebar/>
-                                        <Content>
-                                            <Outlet/>
-                                        </Content>
-                                    </>
+                                    {md ? (
+                                        isHomePage ? (
+                                            <Sidebar/>
+                                        ) : (
+                                            <Content>
+                                                <Outlet/>
+                                            </Content>
+                                        )
+                                    ) : (
+                                        <>
+                                            <Sidebar/>
+                                            <Content>
+                                                <Outlet/>
+                                            </Content>
+                                        </>
+                                    )}
                                 </Main>
                             )}
+                            {md && <BottomMenu/>}
                         </>
                     )}
                 </CurrenciesProvider>

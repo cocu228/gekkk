@@ -11,7 +11,6 @@ import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import BalanceBar from "../BalanceBar";
 import PendingTransactions from "@/widgets/pending-transactions";
 import { IS_GEKKARD_APP } from "@/shared/lib";
-import { BottomMenu } from "@/widgets/bottom-mobile/ui/BottomMenu";
 
 const SidebarMobile = () => {
   const { account } = useContext(CtxRootData);
@@ -47,16 +46,14 @@ const SidebarMobile = () => {
   }
 
   return (
-    <>
-      <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
-        <UnconfirmedTransactions/>
-        {IS_GEKKARD_APP() && <PendingTransactions/>}
-        <div className="flex flex-col" ref={refreshCont} >
-          <BalanceBar NavLinkEvent={NavLinkEvent} />
-        </div>
+    <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
+      <UnconfirmedTransactions/>
+      {IS_GEKKARD_APP() && <PendingTransactions/>}
+
+      <div className="flex flex-col" ref={refreshCont} >
+        <BalanceBar NavLinkEvent={NavLinkEvent} />
       </div>
-      <BottomMenu />
-    </>
+    </div>
   );
 };
 

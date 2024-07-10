@@ -8,22 +8,22 @@ import { useTranslation } from 'react-i18next';
 import {apiGetAgentCode} from "@/shared/(orval)api/gek";
 import styles from "./style.module.scss"
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxRootData} from "@/processes/RootContext";
 // import Footer from "@/widgets/footer";
 
-
 const PartnershipProgram = () => {
-    const [params, setParams] = useSearchParams();
     const {t} = useTranslation();
+    const navigate = useNavigate();
     const {xl, md} = useContext(BreakpointsContext);
     const [isOnPage ] = useState("agent/partnership_program")
 
+    // TODO: fix agent locales and text paddings
     return (<div className="wrapper min-h-[100vh] w-full ">
         {md ? <div
             className=" flex justify-between ml-[18px] pb-[10px] text-[12px] font-semibold">{t("partnership_program.agent_info")}
-            <a className="text-[10px] text-[--gek-additional] underline" href="">{t("how_it_works")}</a>
+            <a className="text-[10px] text-[--gek-additional] underline" onClick={() => navigate('/faq?faqSection=partnership_program')}>{t("how_it_works")}</a>
         </div> :
         <div>
             <div className="flex bg-white p-[30px] rounded-[8px]">

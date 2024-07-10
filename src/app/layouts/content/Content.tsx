@@ -7,6 +7,7 @@ import CtxGlobalModalProvider from "@/app/providers/CtxGlobalModalProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import {useMatch} from "react-router-dom";
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
+import { BottomMenu } from "@/widgets/bottom-mobile/ui/BottomMenu";
 
 const Content: FC<PropsWithChildren> = ({children}) => {
     const {md} = useBreakpoints();
@@ -35,6 +36,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                     ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
+                {md && <BottomMenu />}
             </CtxGlobalModalProvider>
         </div>
     ) : (

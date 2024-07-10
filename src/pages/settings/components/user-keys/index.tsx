@@ -151,8 +151,8 @@ export function UserKeys() {
             />
           </div>
           {!smsCodeSent ? null : timer > 0 ? (
-            <div className={styles.Resend}>Resend the code after:
-              <span className={styles.ResendTimer}>{" "}{timer} seconds</span>
+            <div className={styles.Resend}>{t("resend_the_code")}:
+              <span className={styles.ResendTimer}>{" "}{timer} {t("seconds")}</span>
             </div>
           ) : (
             <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>

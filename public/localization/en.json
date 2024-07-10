@@ -1766,7 +1766,9 @@
     "my_fiat_reports": "My fiat reports",
     "reports": "Reports",
     "fast_and_easy": "Cryptocurrency exchange - fast and easy",
-    "versions_history": "Versions history"
+    "versions_history": "Versions history",
+    "resend_the_code": "Resend the code after",
+    "seconds": "seconds"
 
   }
 }

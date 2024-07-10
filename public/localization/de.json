@@ -1524,7 +1524,9 @@
     "top_up_curr": "Sie können Ihr {{curr}}-Wallet über das Abhebungsformular aufladen", 
     "form_in_wallet": "in Ihrem {{project}}-Wallet",
     "fast_and_easy": "Kryptowährungsumtausch - schnell und einfach",
-    "versions_history": "Versionsverlauf"
+    "versions_history": "Versionsverlauf",
+    "resend_the_code": "Code erneut senden nach", 
+    "seconds": "Sekunden"
 
     
 

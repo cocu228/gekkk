@@ -1661,6 +1661,8 @@
     "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
     "form_in_wallet": "{{project}} Cüzdanınızda",
     "fast_and_easy": "Kripto para değişimi - hızlı ve kolay",
-    "versions_history": "Sürüm geçmişi"
+    "versions_history": "Sürüm geçmişi",
+    "resend_the_code": "Kodu tekrar gönder", 
+    "seconds": "saniye"
   }
 }

@@ -1,13 +1,9 @@
 .Header {
   height: 55px;
-  width: 100%;
-  padding: 10px 0px;
+  padding-block: 10px;
   display: flex;
   justify-content: space-between;
   background: var(--gek-dark-blue);
-  top: 0px;
-  position: fixed;
-  z-index: 60;
 }
 
 // .RoomModal {

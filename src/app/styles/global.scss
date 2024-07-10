@@ -20,7 +20,7 @@
 }
 
 .ptr {
-  margin-top: 55px; // 55px - размер header
+  height: calc(100vh - 105px) !important; // 55px - размер header 50px - Bottom Buttons
   overscroll-behavior-y: none;
   &__children{
     overflow: auto !important;

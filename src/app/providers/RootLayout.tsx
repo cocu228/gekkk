@@ -111,9 +111,7 @@ export default memo(function () {
                                 >
                                     <Main>
                                         {isHomePage ? (
-                                            <>
-                                                <Sidebar/>
-                                            </>
+                                            <Sidebar/>
                                         ) : (
                                             <Content>
                                                 <Outlet/>

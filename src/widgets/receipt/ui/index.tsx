@@ -58,7 +58,7 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
       const fileName = `${formatForFile(Date.now())}.pdf`;
       const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-      if (md && navigator?.canShare({files: [file]})) {
+      if (md && navigator?.share && navigator?.canShare({files: [file]})) {
           await navigator.share({
               files: [file],
               title: fileName,

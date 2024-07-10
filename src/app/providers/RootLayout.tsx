@@ -4,7 +4,7 @@ import Main from "@/app/layouts/main/Main";
 //@ts-ignore
 import Sidebar from "@VAR/widgets/{{mode-}}sidebar/ui/index.tsx";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {useLocation, useMatch} from "react-router-dom";
+import {useLocation, useMatch, useNavigate} from "react-router-dom";
 import {memo, useContext, useEffect, useState} from "react";
 //@ts-ignore
 import Content from "@VAR/app/layouts/content/{{MODE}}Content.tsx";
@@ -24,6 +24,7 @@ import { CopyModal } from "@/shared/ui/copyModal/CopyModal";
 export default memo(function () {
     // const {logout} = useAuth();
     const location = useLocation();
+    const navigate = useNavigate()
     const isNewLayout = location.pathname.startsWith("/new");
     const {md} = useContext(BreakpointsContext);
     const homePage = useMatch("/");
@@ -35,8 +36,23 @@ export default memo(function () {
         account: null,
         refreshKey: "",
     });
+    const [redirectLink, setRedirectLink] = useState<string>('')
 
     const {accounts, setAccounts} = storeAccounts((state) => state);
+
+    useEffect(() => {
+        const link = localStorage.getItem('redirectPath')
+        if(link?.length >= 1) {
+            setRedirectLink(link)
+        }
+    }, [])
+
+    useEffect(() => {
+        if(redirectLink) {
+            navigate(redirectLink)
+            localStorage.removeItem('redirectPath')
+        }
+    }, [redirectLink])
 
     // TODO: move handler to ErrorsProvider.tsx
     useEffect(() => {

@@ -334,7 +334,7 @@
         "partnership": {
           "title": "Ortaklık programı",
           "answers": {
-              
+
           }
         },
         "card_purchases": {
@@ -716,6 +716,7 @@
     "no_have_enough_funds": "Yeterli paranız yok. Lütfen",
     "top_up": "tamamlamak",
     "your_currency_account": "{{currency}} hesabınız",
+    "maximum_amount_count": "Miktar çok yüksek lütfen Gekkard destek ile iletişime geçin",
     "maximum_amount": "Maksimum miktar:",
     "minimum_amount": "Asgari tutar:",
     "null_value": "Boş değere izin verilmiyor",
@@ -1659,11 +1660,11 @@
     "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun",
     "my_fiat_reports": "Fiat raporlarım",
     "reports": "Raporlar",
-    "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
+    "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz",
     "form_in_wallet": "{{project}} Cüzdanınızda",
     "fast_and_easy": "Kripto para değişimi - hızlı ve kolay",
     "versions_history": "Sürüm geçmişi",
-    "resend_the_code": "Kodu tekrar gönder", 
+    "resend_the_code": "Kodu tekrar gönder",
     "seconds": "saniye"
   }
 }

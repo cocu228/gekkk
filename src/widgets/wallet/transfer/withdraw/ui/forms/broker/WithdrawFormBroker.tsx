@@ -54,7 +54,7 @@ const WithdrawFormBroker = () => {
             showModal()
         } else {
             setLoading(false)
-            showModal() 
+            showModal()
         }
     }
 

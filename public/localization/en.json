@@ -183,7 +183,7 @@
 
             "to_fulfill": "To fulfill our obligations under the Prevention of Money Laundering and Funding of Terrorism Regulations.",
 
-            
+
             "any_information": "Any information about personal or factual circumstances of a specific or identifiable natural person, such as e.g. name and surname, date of birth, place of birth, identification document (including type of identification document, issue date, ID number, issuing authority), address, telephone number, mobile number, e-mail address, IP address, online identifier, location data, images and information on transactions and accounts.",
 
             "general_data": "General Data Protection Regulation (GDPR) 2016/679 is a regulation in EU law on data protection and privacy for all individuals within the European Union (EU) and the European Economic Area (EEA). The GDPR aims primarily to give control to citizens and residents over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU.",
@@ -817,6 +817,7 @@
     "no_have_enough_funds": "You don't have enough funds. Please",
     "top_up": "top up",
     "your_currency_account": "your {{currency}} account",
+    "maximum_amount_count": "The amount is too high please contact Gekkard support",
     "maximum_amount": "The maximum amount is",
     "minimum_amount": "The minimum amount is",
     "null_value": "Null value is not allowed",

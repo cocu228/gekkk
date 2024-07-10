@@ -334,7 +334,7 @@
         "partnership": {
           "title": "Programma di partenariato",
           "answers": {
-              
+
           }
         },
         "card_purchases": {
@@ -716,6 +716,7 @@
     "no_have_enough_funds": "Non hai abbastanza fondi. Per favore",
     "top_up": "Riempire",
     "your_currency_account": "il tuo conto {{currency}}",
+    "maximum_amount_count": "L'importo è troppo alto, si prega di contattare il supporto Gekkard.",
     "maximum_amount": "L'importo massimo è",
     "minimum_amount": "L'importo minimo è",
     "null_value": "Il valore nullo non è consentito",
@@ -1659,11 +1660,11 @@
     "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma",
     "my_fiat_reports": "I miei report in fiat",
     "reports": "Rapporti",
-    "top_up_curr": "Puoi ricaricare il tuo portafoglio {{curr}} tramite il modulo di prelievo", 
+    "top_up_curr": "Puoi ricaricare il tuo portafoglio {{curr}} tramite il modulo di prelievo",
     "form_in_wallet": "nel tuo portafoglio {{project}}",
     "fast_and_easy": "Scambio di criptovalute - veloce e facile",
     "versions_history": "Cronologia delle versioni",
-    "resend_the_code": "Rispedisci il codice dopo", 
+    "resend_the_code": "Rispedisci il codice dopo",
     "seconds": "secondi"
   }
 }

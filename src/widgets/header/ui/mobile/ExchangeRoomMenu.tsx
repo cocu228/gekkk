@@ -28,10 +28,9 @@ type roomType = {
 interface ExchangeRoomMenuProps {
   roomId: string;
   roomCloseModal?: roomType;
-  roomInfo?: RoomInfo;
 }
 
-export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseModal, roomInfo }) => {
+export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseModal }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {md} = useBreakpoints()
@@ -133,7 +132,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
                         </div>
                       </DropdownCItem>
                       <DropdownCItem
-                        className="w-full min-w-[214px] p-0  rounded-none bg-[#DCDCD9]"
+                        className="w-full min-w-[214px] p-0 rounded-none bg-[#DCDCD9]"
                         onClick={roomCloseModal?.showModal}
                       >
                         <div className={`${styles.BorderWrap}`}>

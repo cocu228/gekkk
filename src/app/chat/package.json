@@ -18,12 +18,11 @@
     "react-dom": "preact-compat"
   },
   "dependencies": {
-    "@types/styled-components": "^5.1.28",
     "crypto-js": "^4.2.0",
     "preact": "^10.20.1",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",
-    "styled-components": "^5.3.11",
+    "sass": "^1.77.6",
     "sweetalert2": "^11.10.5",
     "uuid": "^9.0.1"
   },

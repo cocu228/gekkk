@@ -6,7 +6,7 @@
   justify-content: flex-end;
   min-height: 2.812rem;
 
-  @include max-devices("md") {
+  @media screen and (max-width:768px) {
     min-height: 2.187rem;
   }
 }
@@ -21,19 +21,15 @@
   width: 100%;
   font-size: 12px;
   user-select: none;
-
-  @media screen and (max-width: 768px) {
-    // flex-direction: column;
-  }
 }
 
 .FieldsSpacer {
-  margin-top: 0.5rem;
-  margin-bottom: -0.5rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   svg {
-    width: 27px;
-    height: 27px;
+    width: 17px;
+    height: 17px;
   }
 
   @media screen and (max-width: 770px) {
@@ -58,22 +54,31 @@
     }
   }
 
-  @media screen and (max-width: 770px) {
-    svg {
-      width: 17px;
-      height: 17px;
-    }
+  svg {
+    width: 17px;
+    height: 17px;
   }
 }
 
 .Grid {
+  background: #fff;
+  gap: 0 10px;
   display: grid;
-  padding: 10px 5px 10px 10px;
+  padding: 10px;
   grid-template-columns: 1.25fr 0.75fr;
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 0.5rem;
 
   @media screen and (max-width: 360px) {
     padding: 12px 5px 10px 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    border-radius: 0;
+  }
+
+  @media screen and (min-width: 1700px) {
+    padding: 0;
+    grid-template-columns: 2fr 1fr;
   }
 }
 
@@ -93,7 +98,7 @@
   }
 }
 
-.CancelButton {
+.CancelButton{
   width: 100%;
 
   background: var(--gek-background) !important;
@@ -105,9 +110,16 @@
 .MainGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background: #fff;
 
   @media screen and (max-width: 1700px) {
     grid-template-columns: 1fr;
+    border-radius: 8px;
+    place-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    background: none;
   }
 }
 
@@ -116,18 +128,41 @@
   border-radius: 0.5rem;
   padding: 1rem 0;
   background: #fff;
+  position: relative;
+  left: -1px;
+
 
   @media screen and (max-width: 1700px) {
     background: inherit;
+    max-width: 415px;
+  }
+
+  @media screen and (min-width: 1700px) {
+    box-shadow: 0 3px 4px#00000040;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
   }
 }
+
+.DeskHistoryBody {
+  @media screen and (min-width: 1700px) {
+    max-width: 415px;
+    width: 100%;
+  }
+}
+.DeskHistoryBody > div {
+  max-width: 100%;
+}
+
 
 .DeskHistoryTitle {
   font-size: 15px;
   padding-left: 10px;
   margin-bottom: 10px;
   display: block;
-  color: #29354c;
+  z-index: 11;
+  color: #29354C;
   font-weight: 700;
   max-width: 600px;
   margin: 0 auto;
@@ -140,21 +175,41 @@
 .ExchangeOrdersWrap {
   z-index: 10;
   background: #fff;
-  border-radius: 0.5rem 0 0 0.5rem;
-  box-shadow: 0 10px 20px var(--color-gray-200);
+  border-radius: 10px;
+  width: 100%;
 
   @media screen and (max-width: 1700px) {
     box-shadow: none;
     background: inherit;
     border-radius: none;
+    max-width: 415px;
+
+  }
+
+  @media screen and (min-width: 1700px) {
+    box-shadow: 0 3px 4px#00000040;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+  }
+}
+
+.ExchangeBody {
+  @media screen and (min-width: 1700px) {
+    max-width: 415px;
   }
 }
 
 .FieldPreTitle {
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 14px;
   margin-left: 8px;
   user-select: none;
   font-family: Inter;
-  color: #29354c;
+  color: #29354C;
+}
+
+.MobHistoryWrap {
+  width: 100%;
+  max-width: 414px;
 }

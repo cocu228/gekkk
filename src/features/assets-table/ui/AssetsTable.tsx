@@ -1,19 +1,18 @@
-import { ChangeEvent, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-
+import styles from "./style.module.scss";
+import Input from "@/shared/ui/input/Input";
+import GTable from "@/shared/ui/grid-table/";
+import { getAlignment, getWidth } from "../model/helpers";
+import { AssetTableKeys } from "../model/types";
+import { apiGetRates } from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { apiGetRates } from "@/shared/(orval)api/gek";
-import GTable from "@/shared/ui/grid-table/";
-import Input from "@/shared/ui/input/Input";
+import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-
-import { AssetTableKeys } from "../model/types";
-import { getAlignment, getWidth } from "../model/helpers";
-import styles from "./style.module.scss";
 import { AssetsTableRow } from "./AssetsTableRow";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface IParams {
   modal?: boolean;
@@ -28,11 +27,14 @@ interface IParams {
 }
 
 function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
-  return currency.$const?.toLowerCase().includes(searchValue) || currency.name?.toLowerCase().includes(searchValue);
+  return (
+    currency.$const?.toLowerCase().includes(searchValue.toLowerCase()) ||
+    currency.name?.toLowerCase().includes(searchValue.toLowerCase())
+  );
 }
 
 const AssetsTable = ({
-  // modal,
+  modal,
   balanceFilter,
   className = "",
   columnKeys = [],
@@ -42,12 +44,16 @@ const AssetsTable = ({
   isModal,
   border
 }: IParams) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef(null);
+  const { t } = useTranslation();
+  const { account } = useContext(CtxRootData);
   const { lg, md } = useContext(BreakpointsContext);
   const { currencies } = useContext(CtxCurrencies);
   const [searchValue, setSearchValue] = useState<string>("");
   const [rates, setRates] = useState<Record<ETokensConst, number>>(null);
-  const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
+  const [ratesLoading, setRatesLoading] = useState<boolean>(
+    columnKeys.includes(AssetTableKeys.PRICE)
+  );
 
   useEffect(() => {
     if (inputRef && inputRef.current && !lg) {
@@ -55,22 +61,21 @@ const AssetsTable = ({
     }
   });
 
-  const { t } = useTranslation();
-
   const assetsFilter = (asset: ICtxCurrency) => {
     if (balanceFilter && (!asset.balance || asset.balance?.free_balance <= 0)) {
       return false;
     }
 
     if (allowedFlags) {
-      return Object.values(allowedFlags).some(f => asset.flags[f]);
+      return Object.values(allowedFlags).some((f) => asset.flags[f]);
     }
 
     return true;
   };
 
   const tokensList = useMemo<ICtxCurrency[]>(
-    () => (currencies ? Array.from(currencies.values()).filter(assetsFilter) : []),
+    () =>
+      currencies ? Array.from(currencies.values()).filter(assetsFilter) : [],
     [currencies, blockedCurrencies, allowedFlags]
   );
 
@@ -79,7 +84,7 @@ const AssetsTable = ({
 
     (async () => {
       const { data } = await apiGetRates({
-        to: "EUR"
+        to: "EUR",
       });
 
       const rates: Record<string, number> = data.result;
@@ -87,50 +92,51 @@ const AssetsTable = ({
       setRates(rates);
       setRatesLoading(false);
     })();
-  }, []);
+  }, [account]);
 
-  const searchInpChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value.trim().toLowerCase());
+  const searchInpChange = (e: any) => {
+    setSearchValue(e.target.value.trim());
   };
-
+  
   return (
     <div className={className}>
       <div className={`mb-2`}>
         {!md ? (
           <Input
             ref={inputRef}
-            data-testid='SearchName'
-            placeholder={t("crypto_assets.search_name")}
+            value={searchValue}
+            data-testid="SearchName"
             onChange={searchInpChange}
+            placeholder={t("crypto_assets.search_name")}
           />
         ) : (
           <div className={`${styles.SearchInput} ${border && styles.Border}`}>
-            <IconApp size={20} code='t12' color='#000' />
+            <IconApp size={20} code="t12" color="#000" />
             <input
-              className={`${styles.searchInputInner}`}
-              type='text'
+              type="text"
               ref={inputRef}
-              data-testid='SearchName'
-              placeholder={t("crypto_assets.search_name")}
+              value={searchValue}
+              data-testid="SearchName"
               onChange={searchInpChange}
+              className={styles.searchInputInner}
+              placeholder={t("crypto_assets.search_name")}
             />
           </div>
         )}
       </div>
 
-      <div className='mb-10'>
+      <div className="mb-10">
         <GTable>
           <GTable.Head>
             {!md && (
               <GTable.Row>
                 {columnKeys.map((item: string) => (
                   <GTable.Col
-                    key={item}
-                    className={`flex ${styles.TableColTitle} ${getAlignment(columnKeys, item)} my-2 ${getWidth(
+                    className={`flex ${styles.TableColTitle} ${getAlignment(
                       columnKeys,
                       item,
                       md
-                    )}`}
+                    )} my-2 ${getWidth(columnKeys, item, md)}`}
                   >
                     <span className={styles.DeskCol}>{t(item.toLowerCase()).capitalize()}</span>
                   </GTable.Col>
@@ -140,22 +146,23 @@ const AssetsTable = ({
           </GTable.Head>
           <GTable.Body
             loading={ratesLoading}
-            className={`${styles.ItemsList} ${!ratesLoading && !md && styles.Loaded}`}
+            className={`${styles.ItemsList} ${
+              !ratesLoading && !md && styles.Loaded
+            }`}
           >
             {tokensList
-              .filter(value => searchTokenFilter(value, searchValue))
+              .filter((value) => searchTokenFilter(value, searchValue))
               .map((currency, index) => (
-                <AssetsTableRow
-                  key={currency.id}
+                <AssetsTableRow key={index}
                   border={border}
                   isModal={isModal}
-                  currency={currency}
+                  currency={currency} 
                   blockedCurrencies={blockedCurrencies}
                   index={index}
                   onSelect={onSelect}
                   columnKeys={columnKeys}
                   rates={rates}
-                />
+                 />
               ))}
           </GTable.Body>
         </GTable>
@@ -163,7 +170,9 @@ const AssetsTable = ({
 
       {!ratesLoading && !tokensList.length && (
         <div className={styles.SearchValueTitle}>
-          {searchValue.length ? `Token "${searchValue}" not found` : "Tokens not found"}
+          {searchValue.length
+            ? `Token "${searchValue}" not found`
+            : "Tokens not found"}
         </div>
       )}
     </div>

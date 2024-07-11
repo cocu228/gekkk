@@ -1,35 +1,68 @@
 .DropdownTriggerWrap {
-  position: relative;
+    position: relative;
 }
 
 .DropdownTrigger {
-  display: inline-flex;
-  cursor: pointer;
-  gap: 0.5rem;
+    display: inline-flex; 
+    cursor: pointer;
+    gap: 0.5rem;
+
+    &Opened {
+        & > div > svg {
+            transform: rotate(-90deg);
+        }
+    }
 }
 
 .DropdownBody {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  width: fit-content;
-  z-index: 22;
-  transition: all 0.3s;
-  opacity: 0;
-  visibility: hidden;
-  padding: 0.3rem 0;
-  border-radius: 0.25rem;
-  border: 1px solid var(--color-secondary);
-  background: var(--color-bgPrimary);
-  box-shadow: var(--dropdown-shadow);
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: fit-content;
+    z-index: 22;
+    transition: all .3s;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0.3rem 0;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-secondary);
+    background: var(--color-bgPrimary);
+    box-shadow: var(--dropdown-shadow);
 
-  &Active {
-    opacity: 1;
-    visibility: visible;
-  }
+    &Active {
+        opacity: 1;
+        visibility: visible;
+    }
 
-  &Right {
-    left: auto;
-    right: 0;
-  }
+    &Right {
+        left: auto;
+        right: 0;
+    }
+}
+
+.DropdownWrapDesktop {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s;
+
+    &:hover {
+        border: 1px solid #F7F7F0;
+    }
+
+    .DropdownTriggerWrap {
+        width: 100%;
+
+        .DropdownTrigger {
+            padding: 0 16px;
+            width: 100%;
+        }
+    }
+}
+
+.DropdownActive {
+    background: #F7F7F0;
 }

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
-                    Build version 1.0.2-20240603-1400.7918+1d767e41e02f7ade725004459d7957572da17870<br/><br/>
+                    Build version 1.0.2-20240704-1325.9097+5f97bdbb757819e601f7f820670a1596eab520f0<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>

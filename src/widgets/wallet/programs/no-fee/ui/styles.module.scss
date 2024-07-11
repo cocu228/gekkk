@@ -1,0 +1,128 @@
+.InfoBoxDescription {
+    background: #2BAB7233;
+    font-size: 14px;
+    height: min-content;
+    color: var(--gek-additional);
+    border-radius: 8px;
+    padding: 14px 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  
+    @media screen and (max-width: 768px) {
+      margin-bottom: 16px;
+      color: var(--gek-green);
+      font-size: 12px;
+      text-align: justify;
+      padding: 5px, 10px, 5px, 10px;
+  
+    }
+  }
+
+  .InfoBoxList {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    li {
+        list-style-type: disc;
+        margin-left: 17px;
+    }
+  }
+
+  .AtTheEndText {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-left: 1px solid #2BAB72;
+    text-align: center;
+    font-size: 10px;
+    color: #285E69;
+    font-weight: 400;
+    width: 50%;
+
+    @media screen and (min-width: 768px) {
+      font-size: 12px;
+    }
+
+    @media screen and (max-width: 1350px) {
+      width: 40%;
+    }
+
+    @media screen and (max-width: 350px) {
+        width: 100%;
+        border-left: none;
+    }
+  }
+
+  .NoFeeTableProperties {
+    @media screen and (max-width: 1350px) {
+      width: 60% !important;
+    }
+  }
+
+  .Table {
+    gap: 5px;
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+
+    @media screen and (min-width: 768px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .TableItem {
+    width: 100%;
+    min-height: 55px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #DCDCD9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+
+    &Text {
+        color: #2BAB72;
+        font-size: 12px;
+        font-weight: 600;
+    }
+  }
+
+  .NoFeeTable {
+    display: flex;
+    gap: 10px;
+
+
+    @media screen and (max-width: 350px) {
+        flex-direction: column;
+    }
+  }
+
+
+.NoFeeTableProperties {
+  @media screen and (max-width: 350px) {
+    width: 100% !important;
+}
+}
+
+
+.TableItemGroup {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  color: #285E69;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    font-size: 12px;
+  }
+}

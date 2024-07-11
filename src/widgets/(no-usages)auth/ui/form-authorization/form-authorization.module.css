@@ -20,10 +20,6 @@
   background: red;
 }
 
-.modal .ant-modal-close {
-  display: none;
-}
-
 .searchInput {
   width: 100%;
   background: transparent;

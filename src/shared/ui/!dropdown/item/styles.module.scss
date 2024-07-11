@@ -1,6 +1,7 @@
 .DropdownItem {
   fill: var(--color-primary);
   transition: all 0.2s;
+  border-radius: 6px;
 
   i {
     flex-shrink: 0;

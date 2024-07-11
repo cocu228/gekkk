@@ -5,7 +5,7 @@
 }
 
 .BorderLine {
-  color: #3a5e66;
+  color: #3A5E66;
   height: 1px;
   border-width: 0;
   margin-bottom: 10px;
@@ -19,24 +19,24 @@
 }
 
 .InfoItemTitle {
-  font-family: "Inter";
-  color: var(--gek-additional);
-  font-weight: 700;
   font-size: 14px;
+  font-weight: 700;
+  color: var(--gek-additional);
 
   @media screen and (max-width: 768px) {
     font-size: 12px;
   }
 }
 
-.InfoItemValue,
-.InfoItemAddress,
-.InfoItemHash {
-  color: var(--gek-dark-blue);
-  font-family: "Inter";
+.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+  font-size: 14px;
   font-weight: 400;
-  font-size: 12px;
   line-height: normal;
+  color: var(--gek-dark-blue);
+  
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .InfoItemValue {
@@ -47,13 +47,11 @@
   }
 }
 
-.InfoItemValue,
-.InfoItemAddress {
+.InfoItemValue, .InfoItemAddress {
   user-select: text;
 }
 
-.InfoItemAddress,
-.InfoItemHash {
+.InfoItemAddress, .InfoItemHash {
   display: block;
   max-width: 250px;
   word-break: break-all;

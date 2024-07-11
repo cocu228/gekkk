@@ -1,30 +1,28 @@
-import { Decimal } from "decimal.js";
 import { AxiosResponse } from "axios";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-
+import {createSearchParams, useLocation, useNavigate} from "react-router-dom";
+import style from './style.module.scss';
 import Loader from "@/shared/ui/loader";
+import {useContext, useEffect, useState} from "react";
+import { useTranslation } from "react-i18next";
+import { TxInfoProps } from "../../model/types";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import { actionResSuccess, isNull } from "@/shared/lib/helpers";
-import { AddressTxOut, AdrTxTypeEnum } from "@/shared/(orval)api/gek/model";
-import Button from "@/shared/ui/button/Button";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import ReceiptData from "@/widgets/receipt/receiptData";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-
-import { TxInfoProps } from "../../model/types";
 import InfoConfirmPartner from "./InfoConfirmPartner";
-import style from "./style.module.scss";
+import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
+import {formatForCustomer} from "@/shared/lib/date-helper";
+import {actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly} from "@/shared/lib/helpers";
+import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
+import Button from "@/shared/ui/button/Button";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
+import Receipt from "@/widgets/receipt/ui";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 const InfoContent = (props: TxInfoProps) => {
-  const { md } = useBreakpoints();
+  const {md} = useBreakpoints();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation()
   const { t } = useTranslation();
   const modalContext = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
@@ -32,28 +30,43 @@ const InfoContent = (props: TxInfoProps) => {
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
+  const isFinishedTx = getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished];
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
     props.handleCancel();
+    const isBankTx = !isNumbersOnly(props.id_transaction);
+
     if (md) {
-      const searchParams = new URLSearchParams(location.search);
-      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {};
+      const searchParams = new URLSearchParams(location.search)
+      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      
       const params = createSearchParams({
-        txId: props.id_transaction,
-        ...search
+        ...search,
+        ...(isBankTx ? {txId: props.id_transaction} : {})
       });
+
+      if (!isBankTx) {
+        localStorage.setItem("receiptInfo", JSON.stringify({
+          ...props,
+          addressTxInfo: state
+        }));
+      }
+
       navigate({
         pathname: "/receipt",
         search: params.toString()
       });
     } else {
       modalContext.setContent({
-        content: <ReceiptData txId={props.id_transaction} />,
-        title: t("transaction_receipt")
+        title: t("transaction_receipt"),
+        content: (!isBankTx
+          ? <Receipt txInfo={{...props, addressTxInfo: state}}/>
+          : <Receipt txId={props.id_transaction}/>
+        )
       });
     }
-  };
+  }
 
   useEffect(() => {
     if (isAvailableType) {
@@ -61,7 +74,7 @@ const InfoContent = (props: TxInfoProps) => {
         setState(null);
 
         const response: AxiosResponse = await apiAddressTxInfo({
-          tx_id: +props.id_transaction
+          tx_id: +props.id_transaction,
         });
 
         actionResSuccess(response)
@@ -72,98 +85,129 @@ const InfoContent = (props: TxInfoProps) => {
   }, [props.id_transaction]);
 
   return (
-    <div className=''>
+    <div>
       {localErrorInfoBox ? (
         localErrorInfoBox
       ) : loading ? (
-        <Loader className='relative my-20' />
+        <Loader className="relative my-20"/>
       ) : (
         <div className={style.ModalWrap}>
-          <div className=''>
+          <div>
             <div className={style.InfoItem}>
               <span className={style.InfoItemTitle}>{t("date")}</span>
-              <span className={style.InfoItemValue}>{formatForCustomer(props.datetime)}</span>
+              <span className={style.InfoItemValue}>
+                  {formatForCustomer(props.datetime)}
+              </span>
             </div>
             <div className={style.CopyBlock}>
               <div className={style.InfoItem}>
-                <div className='col w-auto'>
-                  <span className={style.InfoItemTitle}>{t("transaction_id")}</span>
+                <div className="col w-auto">
+                  <span className={style.InfoItemTitle}>
+                    {t("transaction_id")}
+                  </span>
                 </div>
-                <div
+                <div 
                   className={`${style.InfoItemValue} cursor-pointer`}
-                  onClick={() => {
-                    navigator.clipboard.writeText(props.id_transaction);
-                  }}
+                  onClick={()=>{
+                    navigator.clipboard.writeText(props.id_transaction)
+                  }}    
                 >
-                  <span className={style.InfoItemAddress}>{props.id_transaction}</span>
+                  <span className={style.InfoItemAddress}>
+                    {props.id_transaction}
+                  </span>
                 </div>
               </div>
               <CopyIcon value={props.id_transaction} />
             </div>
             <div className={style.InfoItem}>
-              <span className={style.InfoItemTitle}>{t("transaction_type")}</span>
-              <span className={style.InfoItemValue}>{props.tx_type_text}</span>
+                <span className={style.InfoItemTitle}>
+                  {t("transaction_type")}
+                </span>
+                <span className={style.InfoItemValue}>{props.tx_type_text}</span>
             </div>
             <div className={style.InfoItem}>
-              <span className={style.InfoItemTitle}>{t("currency")}</span>
-              <span className={style.InfoItemValue}>{props.currency}</span>
+                <span className={style.InfoItemTitle}>
+                  {t("currency")}
+                </span>
+                <span className={style.InfoItemValue}>{props.currency}</span>
             </div>
             <div className={style.InfoItem}>
-              <span className={style.InfoItemTitle}>{t("amount")}</span>
-              <span className={style.InfoItemValue}>
-                {props.amount} {props.currency}
-              </span>
+                <span className={style.InfoItemTitle}>
+                  {t("amount")}
+                </span>
+                <span className={style.InfoItemValue}>
+                  {props.amount} {props.currency}
+                </span>
             </div>
             <div className={style.InfoItem}>
               <span className={style.InfoItemTitle}>{t("fee")}</span>
               <span className={style.InfoItemValue}>
-                {new Decimal(props.fee).toString()} {props.currency}
+                {props.fee.toString()} {props.currency}
               </span>
             </div>
             <div className={style.InfoItem}>
-              <span className={style.InfoItemTitle}>{t("status")}</span>
-              <span className={style.InfoItemValue}>{props.status_text}</span>
+                <span className={style.InfoItemTitle}>
+                  {t("status")}
+                </span>
+                <span className={style.InfoItemValue}>
+                  {props.status_text}
+                </span>
             </div>
             {props.tag && (
               <div className={style.InfoItem}>
                 <div>
-                  <span className={style.InfoItemTitle}>{t("description")}</span>
+                  <span className={style.InfoItemTitle}>
+                    {t("description")}
+                  </span>
                 </div>
                 <div>
-                  <span className={style.InfoItemValue}>{props.tag}</span>
+                  <span className={style.InfoItemValue}>
+                    {props.tag}
+                  </span>
                 </div>
               </div>
             )}
-            {isNeedConfirm || state?.txType === AdrTxTypeEnum[6] || state?.txType === AdrTxTypeEnum[8] ? null : (
+            {isNeedConfirm ||
+            state?.txType === AdrTxTypeEnum[6] ||
+            state?.txType === AdrTxTypeEnum[8] ? null : (
               <div className={style.InfoItem}>
                 <div>
-                  <span className={style.InfoItemTitle}>{t("sender_name")}</span>
+                  <span className={style.InfoItemTitle}>
+                    {t("sender_name")}
+                  </span>
                 </div>
                 <div>
-                  <span className={style.InfoItemValue}>{props.partner_info}</span>
+                  <span className={style.InfoItemValue}>
+                    {props.partner_info}
+                  </span>
                 </div>
               </div>
             )}
           </div>
           {state !== null && (
             <>
-              <div className='font-light'>
-                {state.txType === AdrTxTypeEnum[6] || state.txType === AdrTxTypeEnum[8] ? null : (
+              <div className="font-light">
+                {state.txType === AdrTxTypeEnum[6] ||
+                state.txType === AdrTxTypeEnum[8] ? null : (
                   <div>
                     {state.addressFrom && (
                       <div className={style.CopyBlock}>
                         <div className={style.InfoItem}>
-                          <div className='flex flex-col'>
+                          <div className="flex flex-col">
                             <div>
-                              <span className={style.InfoItemTitle}>{t("address_from")}</span>
+                              <span className={style.InfoItemTitle}>
+                                {t("address_from")}
+                              </span>
                             </div>
-                            <div
-                              className='cursor-pointer'
-                              onClick={() => {
-                                navigator.clipboard.writeText(state.addressFrom);
-                              }}
+                            <div 
+                              className="cursor-pointer"
+                              onClick={()=>{
+                                navigator.clipboard.writeText(state.addressFrom)
+                              }}  
                             >
-                              <span className={style.InfoItemAddress}>{state.addressFrom}</span>
+                              <span className={style.InfoItemAddress}>
+                                {state.addressFrom}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -174,15 +218,19 @@ const InfoContent = (props: TxInfoProps) => {
                       <div className={style.CopyBlock}>
                         <div className={style.InfoItem}>
                           <div>
-                            <span className={style.InfoItemTitle}>{t("address_to")}</span>
+                            <span className={style.InfoItemTitle}>
+                              {t("address_to")}
+                            </span>
                           </div>
-                          <div
-                            className='cursor-pointer'
-                            onClick={() => {
-                              navigator.clipboard.writeText(state.addressTo);
+                          <div 
+                            className="cursor-pointer"
+                            onClick={()=>{
+                              navigator.clipboard.writeText(state.addressTo)
                             }}
                           >
-                            <span className={style.InfoItemAddress}>{state.addressTo}</span>
+                            <span className={style.InfoItemAddress}>
+                              {state.addressTo}
+                            </span>
                           </div>
                         </div>
                         <CopyIcon value={state.addressTo} />
@@ -191,10 +239,14 @@ const InfoContent = (props: TxInfoProps) => {
                     {state.tokenNetwork && (
                       <div className={style.InfoItem}>
                         <div>
-                          <span className={style.InfoItemTitle}>{t("token_network")}</span>
+                          <span className={style.InfoItemTitle}>
+                            {t("token_network")}
+                          </span>
                         </div>
                         <div>
-                          <span className={style.InfoItemValue}>{state.tokenNetwork}</span>
+                          <span className={style.InfoItemValue}>
+                            {state.tokenNetwork}
+                          </span>
                         </div>
                       </div>
                     )}
@@ -204,14 +256,15 @@ const InfoContent = (props: TxInfoProps) => {
                   <div className={style.CopyBlock}>
                     <div className={style.InfoItem}>
                       <div>
-                        <span className={style.InfoItemTitle}>{t("transaction")}</span>
+                        <span className={style.InfoItemTitle}>
+                          {t("transaction")}
+                        </span>
                       </div>
-                      <div className='cursor-pointer'>
+                      <div className="cursor-pointer">
                         <a
                           target={"_blank"}
-                          href={!isNaN(Number(state.txHash)) ? null : state.explorerBaseAddress + state.txHash}
+                          href={isNumbersOnly(state.txHash) ? null : (state.explorerBaseAddress + state.txHash)}
                           className={style.InfoItemHash}
-                          rel='noreferrer'
                         >
                           {state.txHash}
                         </a>
@@ -223,13 +276,22 @@ const InfoContent = (props: TxInfoProps) => {
               </div>
             </>
           )}
-          {isNeedConfirm && <InfoConfirmPartner {...props} />}
-          {!isNeedConfirm && (
-            <div className={"flex gap-[20px] w-full justify-between mt-3"}>
-              <Button skeleton className='w-full' onClick={handleOnReceipt}>
-                <IconApp size={20} code='t58' color='#2BAB72' /> {t("receipt").capitalize()}
-              </Button>
-              <Button className='w-full' onClick={props.handleCancel}>
+          {isNeedConfirm ? <InfoConfirmPartner {...props}/> : (
+            <div className={`flex gap-[20px] w-full mt-3 ${isFinishedTx ? 'justify-evenly' : 'justify-center'}`}>
+              {isFinishedTx && (
+                <Button
+                  skeleton
+                  className='w-full'
+                  onClick={handleOnReceipt}
+                >
+                  <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt").capitalize()}
+                </Button>
+              )}
+
+              <Button
+                className='w-full'
+                onClick={props.handleCancel}
+              >
                 {t("close")}
               </Button>
             </div>

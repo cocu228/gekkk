@@ -1,152 +1,152 @@
-@import "@styles/mixins";
+@import '@styles/mixins';
 
-.LockOrders {
-  display: flex;
-  flex-direction: row;
-  justify-items: center;
-  align-items: center;
+.LockOrders{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    gap: 7px;
 }
 
-.IsEqualEuro {
-  align-self: center;
-  color: #9d9d9d;
-  font-family: Inter;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-wrap: nowrap;
-  word-break: keep-all;
-  white-space: nowrap;
-
-  @include max-devices(md) {
-    color: var(--Pale-green, var(--gek-green));
-    font-weight: 500;
-  }
+.IsEqualEuro{
+    align-self: center;
+    color: #B9B9B5;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-wrap: nowrap;
+    word-break: keep-all;
+    white-space: nowrap;
+    
+    @include max-devices(md) {
+        color: var(--Pale-green, var(--gek-green));
+        font-weight: 500;
+    }
 }
 
-.WalletInfoMain {
-  flex: 1 0 0;
-  display: flex;
-  min-width: 100px;
-  align-self: stretch;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-
-  @include max-devices(md) {
+.WalletInfoMain{
+    flex: 1 0 0;
     display: flex;
     min-width: 100px;
-    padding-left: 80px;
     align-self: stretch;
-    align-items: baseline;
-    justify-content: flex-start;
+    align-items: center;
     flex-direction: column;
-  }
-}
+    justify-content:center;
 
-.WalletInfoMainText {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 15px;
-  align-items: center;
-  align-self: stretch;
-  color: #9d9d9d;
-  font-family: Inter;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-
-  &Free {
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-left: 1px;
-    color: #285e69;
-  }
-
-  &Income {
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    // color: var(--gek-green);
-
-    &EUR {
-      font-family: "Azeret Mono";
-      // color: var(--Pale-blue, #3A5E66);
+    @include max-devices(md) {
+        display: flex;
+        min-width: 100px;
+        padding-left: 80px;
+        align-self: stretch;
+        align-items: baseline;
+        justify-content: flex-start;
+        flex-direction: column;
     }
-  }
+}
 
-  &Outcome {
-    font-family: "Azeret Mono";
+.WalletInfoMainText{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 15px;
+    align-items: center;
+    align-self: stretch;
+    color: #B9B9B5;
+    font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;
-  }
+    line-height: 20px;
+    
+    &Free{
+        font-family: "Azeret Mono";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-left: 1px;
+        color: #285E69;
+    }
 
-  &Orders {
-    font-family: "Azeret Mono";
-    font-size: 12px;
+    &Income{
+        font-family: "Azeret Mono";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        // color: var(--gek-green);
+
+        &EUR {
+            font-family: "Azeret Mono";
+            // color: var(--Pale-blue, #3A5E66);
+        }
+    }
+
+    &Outcome{
+        font-family: "Azeret Mono";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    &Orders{
+        font-family: "Azeret Mono";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        color: var(--gek-additional);
+    }
+}
+
+.WalletNameContainer{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-wrap: nowrap;
+
+    @include max-devices(md) {
+        padding-left: 10px;
+    }
+}
+
+.WalletShortName{
+    display: flex;
+    align-items: flex-start;
+    flex: 1 0 0;
+    color: #29354C;
+    font-family: Inter;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    color: var(--gek-additional);
-  }
-}
-
-.WalletNameContainer {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  text-wrap: nowrap;
-
-  @include max-devices(md) {
-    padding-left: 10px;
-  }
-}
-
-.WalletShortName {
-  display: flex;
-  align-items: flex-start;
-  flex: 1 0 0;
-  color: #1f3446;
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-
-  @include max-devices(md) {
-    color: var(--gek-dark-blue);
-    text-align: right;
-    font-size: 14px;
-    font-weight: 500;
-    justify-content: flex-end;
-  }
-}
-
-.WalletName {
-  color: var(--gek-dark-blue);
-  font-family: Inter;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  @include max-devices(md) {
     font-weight: 700;
-  }
+    line-height: normal;
+
+    @include max-devices(md) {
+        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
+        justify-content: flex-end;
+    }
 }
 
-.DashedLine {
-  width: 100%;
-  border-top: 1px dashed #dadada;
-  margin-bottom: "3px";
+.WalletName{
+    color: #29354C;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    @include max-devices(md) {
+        font-weight: 700;
+    }
+}
+
+.DashedLine{
+    width:100%;
+    border-top: 1px dashed #DADADA;
+    margin-bottom:"3px"
 }

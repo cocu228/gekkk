@@ -19,6 +19,7 @@
       "invalid_password": "Vérifiez que le mot de passe comporte plus de 8 caractères et contient au moins un de chaque : chiffre, caractère majuscule, caractère spécial.",
       "invalid_phone": "Veuillez entrer votre numéro complet"
     },
+
     "select_token_no_data": "jetons introuvables",
     "download": "Télécharger",
     "next": "Suivant",
@@ -30,7 +31,10 @@
     "phone_code": "Code de téléphone",
     "payment_information": "Informations de paiement",
     "back_to_login_page": "← Retour à la page de connexion",
-    "can_use_code": "Vous pouvez utiliser le code pendant : {{amount}} secondes",
+    "use_code": {
+      "can_use_code": "Vous pouvez utiliser le code pendant ",
+      "amount": ": {{amount}} secondes"
+    },
     "resend_one-time_code": "Renvoyer à nouveau le code à usage unique",
     "unconfirmed_transactions": "Vous avez des transactions non confirmées. Veuillez saisir ici le nom de l'expéditeur.",
     "here": "ici",
@@ -81,6 +85,11 @@
       "title": "Soutien",
       "subtitle": "Si vous avez des questions ou des difficultés, veuillez nous en informer de l'une des manières suivantes :",
       "response_time": "Délai de réponse jusqu'à 24 heures",
+      "quality_control": "Contrôle de qualité",
+      "rate_quality": "Évaluer la qualité",
+      "quality_improvement": "Idées d'amélioration de la qualité",
+      "quality_improvement_placeholder": "décrivez votre idée/problème",
+      "thank_you_for_rating": "Merci pour votre évaluation",
       "faq": {
         "account_opening": {
           "title": "Ouverture de compte",
@@ -309,6 +318,26 @@
           "can_my_card_be_reloaded": "Ma carte peut-elle être rechargée ?",
           "how_can_i_replenish_my_card": "Comment puis-je réapprovisionner ma carte ?"
         },
+        "card_limits": {
+          "title": "Limites de carte",
+          "answers": {
+            "the_function": "La fonction de définition/désactivation des limites vous permet de créer vous-même des limites, qui régulent vos dépenses sur votre carte. Les limites s'appliquent aux transactions suivantes de la carte :",
+            "cash": "- Retrait d'espèces de la carte",
+            "payment": "- Paiement des achats avec la carte",
+            "day_limit": "Limite journalière",
+            "possible": "Il est possible d'indiquer le montant maximum des transactions dans une journée. Par exemple, si vous indiquez une limite journalière de 1000 EUR, vous ne pourrez pas effectuer de transactions (retraits d'espèces et achats) de plus de 1000 EUR en une journée. Dans le champ « Disponible », vous pouvez voir le montant disponible avant d'atteindre la limite. Si un montant est retenu lors d'un retrait d'espèces ou d'un achat, la valeur disponible est également réduite de ce montant. Si la limite journalière est atteinte, vous ne pourrez pas payer l'achat ou retirer de l'argent de la carte.",
+            "month_limit": "Limite mensuelle",
+            "monts_limit_ans": "Il est possible d'indiquer le montant des dépenses sur un mois à partir du moment où la limite est définie, par exemple, 10 000 EUR. En cas d'une telle configuration, il ne sera pas possible d'effectuer des transactions (retraits d'espèces et achats) de plus de 10 000 EUR par mois. Si la limite journalière spécifiée est supérieure à la limite mensuelle spécifiée, la valeur de la limite mensuelle est automatiquement augmentée à la valeur de la limite journalière. Dans le champ « Disponible », vous pouvez voir le montant disponible avant d'atteindre la limite. Si un montant est retenu lors d'un retrait d'espèces ou d'un achat, la valeur disponible est également réduite de ce montant. Si la limite mensuelle est atteinte, vous ne pourrez pas payer l'achat ou retirer de l'argent de la carte.",
+            "temporarily": "Désactiver temporairement les limites",
+            "temporarily_ans": "Pour désactiver temporairement les limites journalières et mensuelles, vous devez activer le commutateur « Désactiver temporairement les limites ». Vous ne pouvez désactiver les limites que jusqu'au premier retrait d'espèces ou achat, ou jusqu'à ce que 3 minutes se soient écoulées depuis la désactivation. Après cela, le commutateur « Désactiver temporairement les limites » revient automatiquement à la position désactivée. À côté du commutateur « Désactiver temporairement les limites », le compteur de temps d'attente est affiché."
+          }
+        },
+        "partnership": {
+          "title": "Programme de partenariat",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Achats par carte",
           "answers": {
@@ -392,7 +421,9 @@
       "referrals_info": "Informations sur les références",
       "rewards": "Récompenses",
       "registration_date": "Date d'inscription",
-      "id": "IDENTIFIANT"
+      "id": "IDENTIFIANT",
+      "agent_info": "Info agent",
+      "agent_link": "Votre lien agent"
     },
     "crypto_assets": {
       "title": "Actifs cryptographiques",
@@ -529,7 +560,7 @@
     "white_paper": "Papier blanc",
     "exchange_rate_fixed": "Le taux de change est fixe",
     "note": "Note",
-    "exchange_fee": "Les frais de change standard sont",
+    "exchange_fee": "Note: La commission d'échange standard est de",
     "withdraw_fee": "Les frais de retrait standard vers {{to}} sont",
     "if_you": "Si tu",
     "freeze_GKE_tokens": "geler les jetons GKE",
@@ -567,7 +598,7 @@
     "end_of_the_program_term": "À la fin de la durée du programme, les fonds bloqués en {{currency}} seront restitués sur votre compte.",
     "lock_tokens": "Verrouiller les jetons {{currency}}",
     "period_of_locking_tokens": "La période de verrouillage des jetons est de {{days}} jours. Les dates de début et de fin du programme seront mises à jour",
-    "period_of_locking_tokens_GKE": "La période de verrouillage des jetons est de {{days}} jours. A la fin de cette période, les fonds reviendront sur votre compte.",
+    "period_of_locking_tokens_GKE": "La période de verrouillage des jetons est de {{days}} jours. Les dates de début et de fin du programme seront mises à jour.",
     "start_of_program": "Début du programme",
     "term": "Terme",
     "until": "Jusqu'à",
@@ -615,11 +646,12 @@
     "sign_out": "Se déconnecter",
     "main": "Principal",
     "exchange": {
+      "exchange_excluding": "hors réductions et bonus",
       "you_pay": "Tu payes",
       "get_no_less": "N'en obtenez pas moins",
-      "title": "Échange",
+      "title": "Échange de crypto",
       "private_title": "Chambre privée",
-      "rooms": "Pièces",
+      "rooms": "Pièces privées",
       "new_room": "Nouvelle pièce",
       "describe": "Échange de crypto-monnaie – rapide et facile",
       "create_private_exchange_room": "Créer une salle d'échange privée",
@@ -678,6 +710,7 @@
     "you_will_get": "Tu auras",
     "enter_period": "Entrez la période ou choisissez dans le calendrier",
     "no_have_any_transaction": "Vous n'avez encore aucune transaction",
+    "no_have_any_rewards": "Vous n'avez aucune récompense",
     "funds": "Fonds",
     "fiat": "Décret",
     "crypto": "Cryptomonnaie",
@@ -698,7 +731,7 @@
     "daily_limit": "Limite journalière",
     "day_limit": "Limite de jour",
     "month_limit": "Limite mensuelle",
-    "how_it_works": "Comment ça fonctionne?",
+    "how_it_works": "Comment ça fonctionne",
     "disable_limits_temporarily": "Désactiver temporairement les limites",
     "card_transaction_history": "Historique des transactions par carte",
     "specify_the_place_of_delivery_of_your_real_card": "Précisez le lieu de livraison de votre vraie carte",
@@ -797,6 +830,7 @@
     "card_owner": "Propriétaire",
     "card_pin": "Code PIN",
     "card_info": "Informations sur la carte",
+    "card_data": "Données de la carte",
     "card_holder": "TITULAIRE DE LA CARTE",
     "use_only": "Utilisez uniquement AZ 0-9",
     "payment_exetution": "Exécution du paiement",
@@ -859,8 +893,6 @@
     "enter_sms_code": "entrez le code SMS",
     "Save": "Sauvegarder",
     "REGISTERED": "INSCRIT",
-    "quality_control": "Contrôle de qualité",
-    "thank_you_for_rating": "Merci pour votre évaluation",
     "third-party_software_libraries": "Bibliothèques de logiciels tiers",
     "frequently_asked_questions": "Questions fréquemment posées",
     "issue_new_card": "Émettre une nouvelle carte",
@@ -966,6 +998,7 @@
     "urgency": "Urgence",
     "withdraw_title": "Retirer",
     "from_card": "De la carte",
+    "confirm_the_order": "Confirmer la commande",
     "card_number_title": "Numéro de carte",
     "to_confirm_enter_sms_code": "Pour confirmer l'opération, vous devez saisir le code SMS",
     "pending_transactions": "Vous avez une transaction en attente avec votre carte. Merci de confirmer ou de refuser.",
@@ -1020,6 +1053,7 @@
     "sign_transfer": "Transfert de signe",
     "to_card": "À la carte",
     "cardholder": "Titulaire de la carte",
+    "cardholder_caption": "Uniquement pour Gekkard et Black Cat Card clients Papaya LTD",
     "select_card": "Sélectionnez la carte",
     "select_card_type": "Sélectionnez le type de carte",
     "select_currency": "Sélectionnez la devise",
@@ -1033,6 +1067,7 @@
     "minimum_order_amount": "Le montant minimum de la commande est de {{amount}}",
     "per": "par",
     "close_current_room": "Fermer la salle actuelle",
+    "close_room": "Fermer la pièce",
     "back_to_exchange": "Retour à l'échange",
     "close_private_exchange_room": "Fermer la salle d'échange privée",
     "beneficiary": "Bénéficiaire",
@@ -1579,6 +1614,10 @@
     "cash_withdrawal_at_atms_outside_the_eu": "Retrait d'espèces aux distributeurs automatiques hors UE",
     "cash_withdrawal_at_atms_outside_the_eu_value": "1 % {{percent}} du montant du retrait, minimum 1,50 {{amount}} EUR",
     "daily_cash_withdrawal_limit": "Limite quotidienne de retrait d'espèces",
+    "transaction_receipt": "Reçu de transaction",
+    "payment_type": "Type de paiement",
+    "bank_name": "Nom de la banque",
+    "payment_method": "Méthode de paiement",
     "monthly_cash_withdrawal_limit": "Plafond mensuel de retrait d'espèces",
     "dormancy_fee": "Frais de dormance* (En vigueur le 9 mai 2020)",
     "the_fee_to_be_taken": "*Les frais doivent être prélevés mensuellement sur les comptes sans transaction depuis plus de {{months}} mois calendaires.",
@@ -1605,7 +1644,7 @@
     "response_time_up_to": "Temps de réponse jusqu'à {{hours}} heures",
     "this_code_can_be_used": "Ce code ne peut être utilisé qu'une seule fois",
     "get_gekkard_pro": "Obtenez Gekkard PRO",
-    "language_name": "Anglais",
+    "language_name": "Français",
     "select_top_up_type": "Sélectionnez le type de recharge",
     "generate_address": "Générer une adresse",
     "confirm_place_order": "Confirmer la commande",
@@ -1618,6 +1657,14 @@
     "finished": "Fini",
     "select_type": "Sélectionner le genre",
     "select": "Sélectionner",
-    "create_special_code_currency": "Créez un code spécial avec lequel vous pouvez transférer ou recevoir des fonds {{currency}} entre utilisateurs Gekkoin avec ou sans votre confirmation"
+    "create_special_code_currency": "Créez un code spécial avec lequel vous pouvez transférer ou recevoir des fonds {{currency}} entre utilisateurs Gekkoin avec ou sans votre confirmation",
+    "my_fiat_reports": "Mes rapports en fiat",
+    "reports": "Rapports",
+    "top_up_curr": "Vous pouvez recharger votre portefeuille {{curr}} via le formulaire de retrait", 
+    "form_in_wallet": "dans votre portefeuille {{project}}",
+    "fast_and_easy": "Échange de crypto-monnaie - rapide et facile",
+    "versions_history": "Historique des versions",
+    "resend_the_code": "Renvoyer le code après", 
+    "seconds": "secondes" 
   }
 }

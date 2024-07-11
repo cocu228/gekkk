@@ -5,18 +5,22 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-width: 200px;
+  min-width: 160px;
 
   @include max-devices(lg) {
     min-width: 154px;
   }
 
-  @include max-devices(md) {
+  @media screen and (max-width:768px) {
     min-width: 140px;
   }
 
   @media screen and (max-width: 340px) and (min-width: 320px) {
     min-width: 130px;
+  }
+
+  @media screen and (min-width: 1700px) {
+    min-width: 160px;
   }
 }
 
@@ -26,7 +30,7 @@
   min-height: 1.812rem;
   margin-bottom: 0.4rem;
 
-  @include max-devices(md) {
+  @media screen and (max-width:768px) {
     min-height: 1.187rem;
     margin-bottom: 0.3rem;
   }
@@ -35,7 +39,7 @@
 .Pair {
   font-size: 0.625rem;
 
-  @include max-devices(md) {
+  @media screen and (max-width:768px) {
     margin: -0.4em 0;
     font-size: 0.5rem;
 
@@ -56,9 +60,10 @@
   background: rgba(var(--green) / 0.05);
 }
 
+
 .CoinPreTitle {
   font-family: "Inter";
-  color: #b9b9b5;
+  color: #B9B9B5;
   font-size: 10px;
   font-weight: 400;
 }
@@ -66,7 +71,7 @@
 .TokenTitle {
   font-family: Inter;
   user-select: none;
-  color: #29354c;
-  font-size: 0.75rem;
+  color: #29354C;
+  font-size: 14px;
   font-weight: 600;
 }

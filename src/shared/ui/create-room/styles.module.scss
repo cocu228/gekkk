@@ -6,67 +6,38 @@
   align-items: flex-start;
   justify-content: center;
 
-  @include max-devices(md) {
+  @include max-devices(md){
     font-size: 10px;
     color: var(--gek-dark-grey);
     justify-content: center;
   }
+
 }
 
-.Title {
+
+.Title{
   display: inline-flex;
   margin: 0 0 5px 8px;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
 
-  @include max-devices(md) {
+  @include max-devices(md){
     font-size: 12px;
     font-weight: 600;
     color: var(--gek-dark-blue);
   }
 }
 
-.SelectToken {
+.SelectToken{
   width: 100%;
-
-  :global(.ant-select-selector) {
-    @include max-devices(md) {
-      border-radius: 6px !important ;
-      border-color: var(--gek-light-grey) !important;
-    }
-  }
-}
-
-.PurchaseLimit {
-  &:global(.ant-input) {
-    height: 50px;
-    border-radius: 6px;
-    border-color: var(--gek-light-grey);
-    font-size: 14px !important;
-    font-weight: 600 !important;
-  }
-}
-
-.LimitInputWrap {
-  :global(.ant-input) {
-    border-color: #ced4da !important;
-    box-shadow: none !important;
-
-    &:active,
-    &:focus {
-      border-color: #ced4da !important;
-      box-shadow: none !important;
-    }
-  }
 }
 
 .Input {
   box-shadow: none !important;
-  border-color: #ced4da;
-  :active,
-  :focus {
-    border-color: #ced4da !important;
+  border-color: #CED4DA;
+  :active, :focus {
+    border-color: #CED4DA !important;
     box-shadow: none !important;
   }
 }

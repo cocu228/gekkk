@@ -1,23 +1,16 @@
 import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
+import { ICtxCurrency } from "@/processes/CurrenciesContext";
 
 export interface ISelectTxTypes {
-  t: string;
-  label: string;
-  value: TransactTypeEnum[];
-}
-
-export interface ISelectAssets {
-  label: string;
-  value: string;
-  isFiat?: boolean;
+    t: string;
+    label: string;
+    value: TransactTypeEnum[];
 }
 
 export interface ISelectCard {
-  label: string;
-  value: string;
+    label: string;
+    value: string;
 }
 
-export interface IDateRange {
-  to: Date | null;
-  from: Date | null;
-}
+export type SelectorType = 'type' | 'card' | 'currency';
+export type CurrenciesOptionType = { $const: string; currency: ICtxCurrency }

@@ -30,7 +30,10 @@
     "phone_code": "Phone code",
     "payment_information": "Payment Information",
     "back_to_login_page": "← Back to login page",
-    "can_use_code": "You can use the code for: {{amount}} seconds",
+    "use_code": {
+      "can_use_code": "You can use the code for",
+      "amount": ": {{amount}} seconds"
+    },
     "resend_one-time_code": "Resend one-time code again",
     "unconfirmed_transactions": "You have unconfirmed transactions. Please enter the sender's name here.",
     "here": "here",
@@ -81,7 +84,11 @@
       "title": "Support",
       "subtitle": "If you have any questions or difficulties, please let us know in any of the following way:",
       "response_time": "Response time up to 24 hours",
-
+      "quality_control": "Quality control",
+      "thank_you_for_rating": "Thank you for rating",
+      "rate_quality": "Rate the quality",
+      "quality_improvement": "Ideas for quality improvement",
+      "quality_improvement_placeholder": "describe your idea/problem",
       "faq": {
         "account_opening": {
           "title": "Account opening",
@@ -176,6 +183,7 @@
 
             "to_fulfill": "To fulfill our obligations under the Prevention of Money Laundering and Funding of Terrorism Regulations.",
 
+            
             "any_information": "Any information about personal or factual circumstances of a specific or identifiable natural person, such as e.g. name and surname, date of birth, place of birth, identification document (including type of identification document, issue date, ID number, issuing authority), address, telephone number, mobile number, e-mail address, IP address, online identifier, location data, images and information on transactions and accounts.",
 
             "general_data": "General Data Protection Regulation (GDPR) 2016/679 is a regulation in EU law on data protection and privacy for all individuals within the European Union (EU) and the European Economic Area (EEA). The GDPR aims primarily to give control to citizens and residents over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU.",
@@ -386,6 +394,26 @@
           "how_can_i_replenish_my_card": "How can I replenish my card?"
         },
 
+        "card_limits": {
+          "title": "Card limits",
+          "answers": {
+            "the_function": "The function of setting / disabling limits allows you to create limits yourself, which regulate your expenses on your card. Limits apply to the following card transactions:",
+            "cash": "-Cash withdrawal from the card",
+            "payment": "-Payment of purchases on the card",
+            "day_limit": "Day limit",
+            "possible": "It is possible to indicate the maximum amount of transactions within one day. For example, if you specify a daily limit of 1000 EUR, you will not be able to carry out transactions (cash withdrawals and purchases) of more than 1000 EUR in one day. In «Available» field you can see the amount available for use before reaching the limit. If some amount is held when making a cash withdrawal or purchase, then the Available value is also reduced by this amount. If the daily limit is reached, you will not be able to pay for the purchase or withdraw cash from the card.",
+            "month_limit": "Month limit",
+            "monts_limit_ans": "Here it is possible to indicate the amount of expenses within one month from the moment the limit is set, for example, 10 000 EUR. In the case of such a setting, it will not be possible to carry out transactions (cash withdrawals and purchases) by more than 10,000 EUR per month. If specified Daily Limit is more than specified Monthly limit, the value of the Monthly Limit is automatically increased to the value of the Daily Limit. In «Available» field you can see the amount available for use before reaching the limit. If some amount is held when making a cash withdrawal or purchase, then the Available value is also reduced by this amount. If the Monthly limit is reached, you will not be able to pay for the purchase or withdraw cash from the card.",
+            "temporarily": "Temporarily disable limits",
+            "temporarily_ans": "To temporarily deactivate Daily and Monthly limits you should turn the \"Disable Limits Temporarily\" switch to the ON position. You can only deactivate limits until the first cash withdrawal or purchase transaction, or until 3 minutes have passed since the deactivation. After that the \"Disable Limits Temporarily” switch automatically returns to the OFF position. Next to the switch \"Disable Limits Temporarily”, the timeout counter is displayed."
+          }
+        },
+        "partnership": {
+          "title": "Partnership program",
+          "answers": {
+              "info": "Partner shares the referral link and client who follows the link and joins the GEKKARD then becomes partner's referral. \nPartner gets 3% from each deposit’s amount that referral opened within two years after registration. \nRewards will be credited to your EURG balance right after your referral’s deposit ends (if it was not closed prematurely). \nPartner can observe the info about referrals in the Partnership program section."
+          }
+        },
         "card_purchases": {
           "title": "Card purchases",
           "answers": {
@@ -484,7 +512,9 @@
       "referrals_info": "Referrals info",
       "rewards": "Rewards",
       "registration_date": "Registration date",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Agent info",
+      "agent_link": "Your agent link"
     },
     "crypto_assets": {
       "title": "Crypto assets",
@@ -504,7 +534,7 @@
       "buy": "Buy",
       "search_currency": "Search currency"
     },
-    "gekkard_pro": {
+    "gekkard_pro":{
       "title": "Gekkard PRO",
       "join_gekkard_pro": "Join Gekkard PRO",
       "i_accept": "I accept",
@@ -598,6 +628,7 @@
     "": "order",
     "": "Networks not found",
     "": "Please note",
+    "beneficiary_information": "Beneficiary information",
     "": "You should send only ",
     "": "to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.f",
     "attention": "Attention: transactions on this network may be delayed. We recommend that you use a different network for this transaction",
@@ -629,7 +660,7 @@
     "white_paper": "White Paper",
     "exchange_rate_fixed": "The exchange rate is fixed",
     "note": "Note",
-    "exchange_fee": "Standard exchange fee is ",
+    "exchange_fee": "Note: Standard exchange fee is",
     "withdraw_fee": "Standard withdraw fee to {{to}} is",
     "if_you": "If you",
     "freeze_GKE_tokens": "freeze GKE tokens",
@@ -667,7 +698,7 @@
     "end_of_the_program_term": "At the end of the program term, the blocked {{currency}} funds will return to your account",
     "lock_tokens": "Lock {{currency}} tokens",
     "period_of_locking_tokens": "The period of locking tokens is {{days}} days. Start and end dates of the program will be updated",
-    "period_of_locking_tokens_GKE": "The period of locking tokens is {{days}} days. At the end of this period the funds will return to your account.",
+    "period_of_locking_tokens_GKE": "The period of locking tokens is {{days}} days. Start and end dates of the program will be updated",
     "start_of_program": "Start of program",
     "term": "Term",
     "until": "Until",
@@ -682,8 +713,8 @@
     "directly_from": "directly from your Gekkoin account",
     "eurg_description": "EURG is utility token of Gekkard platform. You can change this token at the rate of 1 EURG = 1 EUR. You can receive 3% on the balance of your funds",
     "buy_and_sell": "Buy and Sell your",
-    "terms_and_conditions": "Terms and Conditions",
-    "data_protection": "Data Protection",
+    "terms_and_conditions": "Terms and conditions",
+    "data_protection": "Data protection",
     "legal_agreements": "Legal Agreements",
     "legal_notices": "Legal Notices",
     "profile_name": "Name",
@@ -715,11 +746,12 @@
     "sign_out": "Sign Out",
     "main": "Main",
     "exchange": {
+      "exchange_excluding": "excluding discounts and bonuses",
       "you_pay": "You pay",
       "get_no_less": "Get no less",
-      "title": "Exchange",
+      "title": "Crypto exchange",
       "private_title": "Private room",
-      "rooms": "Rooms",
+      "rooms": "Private rooms",
       "new_room": "New room",
       "describe": "Cryptocurrency exchange — fast and easy",
       "create_private_exchange_room": "Create private exchange room",
@@ -738,7 +770,7 @@
       "room_description": "Room description",
       "room_number": "Room number",
       "participants_number": "Participants number",
-      "invite_link": "invite link",
+      "invite_link": "Invite link",
       "number_of_participants": "Number of participants",
       "leave_the_room": "Leave the room",
       "open_private_exchange_room": "Open private exchange room",
@@ -778,6 +810,7 @@
     "you_will_get": "You will get",
     "enter_period": "Enter period or choose from calendar",
     "no_have_any_transaction": "You don't have any transaction yet",
+    "no_have_any_rewards": "You don't have any rewards yet",
     "funds": "Funds",
     "fiat": "Fiat",
     "crypto": "Crypto",
@@ -798,7 +831,7 @@
     "daily_limit": "Daily Limit",
     "day_limit": "Day Limit",
     "month_limit": "Month Limit",
-    "how_it_works": "How it works?",
+    "how_it_works": "How it works",
     "disable_limits_temporarily": "Disable Limits Temporarily",
     "card_transaction_history": "Card Transaction History",
     "specify_the_place_of_delivery_of_your_real_card": "Specify the place of delivery of your real card",
@@ -898,12 +931,14 @@
     "card_owner": "Owner",
     "card_pin": "Pin code",
     "card_info": "Card information",
+    "card_data": "Card data",
     "card_holder": "CARDHOLDER",
     "use_only": "Use only A-Z 0-9",
     "payment_exetution": "Payment exetution",
     "card_to_card": "Card-to-card",
     "by_phone_number": "By phone number",
     "top_up_header": "Top up",
+    "confirm_the_order": "Confirm place order",
     "pin_code": "Pin code",
     "forgot_title": "You forgot pin?",
     "confirm_forgot_title": "Are your need reset pin?",
@@ -914,8 +949,8 @@
     "confirm_forgot_password": "Are you forgot password?",
     "error_pin": "You password incorrect, try again.",
     "change_faceid_switch": "Face/Touch ID",
-    "my_settings": "My Settings",
-    "general_information": "General Information",
+    "my_settings": "My settings",
+    "general_information": "General information",
     "identification_status": "Identification Status",
     "use_your_pin": "Use your pin",
     "account_and_app_settings": "Account and app Settings",
@@ -960,8 +995,6 @@
     "enter_sms_code": "enter sms-code",
     "Save": "Save",
     "REGISTERED": "REGISTERED",
-    "quality_control": "Quality control",
-    "thank_you_for_rating": "Thank you for rating",
     "third-party_software_libraries": "Third-party software libraries",
     "frequently_asked_questions": "Frequently Asked Questions",
     "issue_new_card": "Issue new card",
@@ -1012,7 +1045,7 @@
       "1_perc_cash": "1% cashback on all card purchases",
       "4_perc_cash": "4% per annum on your balance EURG",
       "5_perc_cash": "5% per annum on your balance GKE",
-      "cash_without_commision": "Crypto-fiat exchange without commission",
+      "cash_without_commision": "Crypto-fiat convert without commission",
       "paid_monthly": "Paid monthly",
       "paid_monthly_interest": "Monhly interest payout",
       "block_GKE_tokens": "To get this cashback, you need to block GKE tokens",
@@ -1088,6 +1121,8 @@
     "recepient_name": "Recepient's Name",
     "recepient_phone_number": "Recipient's Phone Number",
     "top_up_EURG": "You can top up your EURG wallet via fiat on the EUR withdrawal form",
+    "top_up_curr": "You can top up your {{curr}} wallet via withdrawal form",
+    "form_in_wallet": "in your {{project}} Wallet",
     "send_to_this": "Send a transaction to this",
     "address_small": "address",
     "fee_is_prec": "Fee is",
@@ -1122,6 +1157,7 @@
     "sign_transfer": "Sign transfer",
     "to_card": "To card",
     "cardholder": "Cardholder",
+    "cardholder_caption": "Only for Gekkard and Black Cat Card clients  Papaya LTD",
     "select_card": "Select card",
     "select_card_type": "Select card type",
     "select_currency": "Select currency",
@@ -1135,6 +1171,7 @@
     "minimum_order_amount": "Minimum order amount is {{amount}}",
     "per": "per",
     "close_current_room": "Close current room",
+    "close_room": "Close room",
     "back_to_exchange": "Back to exchange",
     "close_private_exchange_room": "Close private exchange room",
     "beneficiary": "beneficiary",
@@ -1188,7 +1225,7 @@
     "start_date": "Start date",
     "end_date": "End date",
     "cashback_is_credited_once_a_month": "Cashback is credited once a month at the end of the billing period",
-    "locked_tokens_give_you_access": "Locking {{currency}} tokens gives you access to the cashback of 1% on Gekkard card spending, on monthly turnover in euros",
+    "locked_tokens_give_you_access": "Locking {{currency}} tokens gives you access to the cashback of 1% on Gekkard card spending, on monthly turnover in EURO",
     "disable_limits_for_minutes": "Disable limits for {{minutes}} minutes",
     "order_new_card": "Order new card",
     "card_locked": "Card locked",
@@ -1687,6 +1724,7 @@
     "the_fee_to_be_taken": "*The fee to be taken on a monthly basis from accounts with no transactions for more than {{months}} calendar months",
     "additional_services": "Additional services",
     "account_closure": "Account closure",
+    "transaction_receipt": "Transaction receipt",
     "additional_card_issue": "Additional card issue",
     "extra_fee_if_name": "Extra fee if name on additional card is different from the main card",
     "reissue_of_the_card": "Reissue of the card at the request of the client",
@@ -1713,6 +1751,9 @@
     "generate_address": "Generate address",
     "confirm_place_order": "Confirm place order",
     "order_type": "Order type",
+    "payment_type": "Payment type",
+    "bank_name": "Bank name",
+    "payment_method": "Payment method",
     "actions": "Actions",
     "clean": "Clean",
     "created": "Created",
@@ -1722,6 +1763,13 @@
     "select_type": "Select type",
     "select": "Select",
     "create_special_code_currency": "Create a special code with which you can transfer or receive {{currency}} funds between Gekkoin users with or without your confirmation",
-    "not_found": "Not found"
+    "not_found": "Not found",
+    "my_fiat_reports": "My fiat reports",
+    "reports": "Reports",
+    "fast_and_easy": "Cryptocurrency exchange - fast and easy",
+    "versions_history": "Versions history",
+    "resend_the_code": "Resend the code after",
+    "seconds": "seconds"
+
   }
 }

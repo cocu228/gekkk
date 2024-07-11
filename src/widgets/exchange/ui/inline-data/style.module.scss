@@ -1,29 +1,32 @@
 @import "@styles/mixins.scss";
 
 .Container {
-  gap: 10px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 0.75fr 0.75fr;
+    gap: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr .75fr .75fr;
 
-  @include max-devices(md) {
-    font-size: 12px;
-  }
+    @include max-devices(md){
+        font-size: 12px;
+    }
 }
 
 .Left {
-  color: #3a5e66;
+    color: #3A5E66;
+    font-size: 12px;
 }
 
 .Center {
-  display: flex;
-  color: #1f3446;
-  font-weight: 600;
-  justify-content: right;
+    display: flex;
+    color: #1F3446;
+    font-weight: 600;
+    font-size: 12px;
+    justify-content: right;
 }
 
 .Right {
-  font-weight: 600;
-  color: #1f3446;
-  justify-content: left;
+    font-weight: 600;
+    font-size: 12px;
+    color: #1F3446;
+    justify-content: left;
 }

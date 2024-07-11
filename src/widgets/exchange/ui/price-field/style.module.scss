@@ -1,22 +1,22 @@
 @import "@styles/mixins";
 
+
 .Wrap {
   position: relative;
   display: flex;
   margin-top: 0.4rem;
-  height: 64px;
+  height: 50px;
   padding: 0 12px;
   border: 1px solid var(--gek-light-grey);
   border-radius: 6px;
 
   @include max-devices("md") {
     padding: 0 9px;
-    height: 50px;
   }
 }
 
 .Field {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--gek-dark-blue);
   font-weight: 700;
   border: none;
@@ -26,14 +26,11 @@
   width: 100%;
   text-align: end;
   background: white;
-  &::placeholder {
-    font-size: 16px;
+  &::placeholder{
     color: var(--gek-mid-grey);
     font-weight: normal;
+    font-size: 10px;
 
-    @include max-devices("md") {
-      font-size: 9px;
-    }
   }
   &:active {
     outline: none !important;
@@ -44,28 +41,23 @@
     border: none !important;
   }
 
-  @include max-devices("md") {
-    font-size: 14px;
-  }
-
   &PriceLabel {
     display: inline-flex;
     align-items: center;
     height: 100%;
     gap: 0.25rem;
+    font-size: 12px;
     color: var(--gek-mid-grey);
     white-space: nowrap;
     text-align: left;
 
     @include max-devices("lg") {
-      font-size: 10px;
       flex-shrink: initial;
       white-space: initial;
     }
 
     @include max-devices("md") {
       margin-right: -0.3rem;
-      font-size: 10px;
     }
   }
 
@@ -79,12 +71,8 @@
     background: white;
     pointer-events: all;
 
-    img {
-      min-width: 22px;
-
-      @include max-devices("md") {
-        min-width: 10px;
-      }
+    svg {
+      margin-left: 6px;
     }
   }
 
@@ -93,3 +81,4 @@
     background: var(--gek-light-grey);
   }
 }
+

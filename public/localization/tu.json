@@ -30,7 +30,10 @@
     "phone_code": "Telefon kodu",
     "payment_information": "ödeme bilgileri",
     "back_to_login_page": "← Giriş sayfasına geri dön",
-    "can_use_code": "Kodu şu süre boyunca kullanabilirsiniz: {{amount}} saniye",
+    "use_code": {
+      "can_use_code": "Kodu şu süre boyunca kullanabilirsiniz",
+      "amount": ": {{amount}} saniye"
+    },
     "resend_one-time_code": "Tek kullanımlık kodu tekrar gönder",
     "unconfirmed_transactions": "Onaylanmamış işlemleriniz var. Lütfen gönderenin adını buraya girin.",
     "here": "Burada",
@@ -81,6 +84,11 @@
       "title": "Destek",
       "subtitle": "Herhangi bir sorunuz veya zorluğunuz varsa, lütfen aşağıdaki yollardan herhangi birini kullanarak bize bildirin:",
       "response_time": "24 saate kadar yanıt süresi",
+      "quality_control": "Kalite kontrol",
+      "rate_quality": "Kaliteyi değerlendirin",
+      "quality_improvement": "Kalite iyileştirme için fikirler",
+      "quality_improvement_placeholder": "fikrinizi/probleminizi tanımlayın",
+      "thank_you_for_rating": "Derecelendirmeniz için teşekkür ederiz",
       "faq": {
         "account_opening": {
           "title": "Hesap açma",
@@ -309,6 +317,26 @@
           "can_my_card_be_reloaded": "Kartıma yeniden yükleme yapılabilir mi?",
           "how_can_i_replenish_my_card": "Kartımı nasıl yenileyebilirim?"
         },
+        "card_limits": {
+          "title": "Kart limitleri",
+          "answers": {
+            "the_function": "Limit belirleme/devre dışı bırakma işlevi, kartınızdaki harcamalarınızı düzenleyen limitler oluşturmanıza olanak tanır. Limitler aşağıdaki kart işlemleri için geçerlidir:",
+            "cash": "- Karttan nakit çekme",
+            "payment": "- Kartla yapılan alışveriş ödemesi",
+            "day_limit": "Günlük limit",
+            "possible": "Bir gün içinde yapılacak işlemlerin maksimum tutarını belirlemek mümkündür. Örneğin, günlük limit olarak 1000 EUR belirtirseniz, bir gün içinde 1000 EUR'dan fazla işlem (nakit çekme ve alışveriş) yapamazsınız. 'Mevcut' alanında, limiti aşmadan önce kullanılabilir tutarı görebilirsiniz. Nakit çekme veya alışveriş yaparken bir tutar bloke edilirse, Mevcut değeri de bu tutar kadar azalır. Günlük limit dolarsa, alışveriş ödemesi yapamaz veya karttan nakit çekemezsiniz.",
+            "month_limit": "Aylık limit",
+            "monts_limit_ans": "Burada, limit belirleme anından itibaren bir ay içinde yapılacak harcamaların tutarını belirlemek mümkündür, örneğin 10.000 EUR. Böyle bir ayarlama durumunda, ayda 10.000 EUR'dan fazla işlem (nakit çekme ve alışveriş) yapılamaz. Belirtilen Günlük Limit, belirtilen Aylık Limiti aşıyorsa, Aylık Limit değeri otomatik olarak Günlük Limit değerine yükseltilir. 'Mevcut' alanında, limiti aşmadan önce kullanılabilir tutarı görebilirsiniz. Nakit çekme veya alışveriş yaparken bir tutar bloke edilirse, Mevcut değeri de bu tutar kadar azalır. Aylık limit dolarsa, alışveriş ödemesi yapamaz veya karttan nakit çekemezsiniz.",
+            "temporarily": "Limitleri geçici olarak devre dışı bırakma",
+            "temporarily_ans": "Günlük ve Aylık limitleri geçici olarak devre dışı bırakmak için 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarını açık konuma getirmelisiniz. Limitleri yalnızca ilk nakit çekme veya alışveriş işlemi gerçekleşene kadar veya devre dışı bırakmadan 3 dakika geçene kadar devre dışı bırakabilirsiniz. Bundan sonra, 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarı otomatik olarak kapalı konuma geri döner. 'Limitleri Geçici Olarak Devre Dışı Bırak' anahtarının yanında zaman aşımı sayacı gösterilir."
+          }
+        },
+        "partnership": {
+          "title": "Ortaklık programı",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Kart alımları",
           "answers": {
@@ -392,7 +420,9 @@
       "referrals_info": "Yönlendirme bilgileri",
       "rewards": "Ödüller",
       "registration_date": "Kayıt Tarihi",
-      "id": "İD"
+      "id": "İD",
+      "agent_info": "Ajan bilgisi",
+      "agent_link": "Ajan bağlantınız"
     },
     "crypto_assets": {
       "title": "Kripto varlıkları",
@@ -529,7 +559,7 @@
     "white_paper": "Beyaz kağıt",
     "exchange_rate_fixed": "Döviz kuru sabitlendi",
     "note": "Not",
-    "exchange_fee": "Standart değişim ücreti",
+    "exchange_fee": "Not: Standart değişim ücreti",
     "withdraw_fee": "{{to}} için standart para çekme ücreti:",
     "if_you": "Eğer sen",
     "freeze_GKE_tokens": "GKE jetonlarını dondur",
@@ -567,7 +597,7 @@
     "end_of_the_program_term": "Program döneminin sonunda bloke edilen {{currency}} fonlar hesabınıza geri dönecektir",
     "lock_tokens": "{{currency}} jetonunu kilitle",
     "period_of_locking_tokens": "Jetonların kilitlenme süresi {{days}} gündür. Programın başlangıç ​​ve bitiş tarihleri ​​güncellenecektir.",
-    "period_of_locking_tokens_GKE": "Jetonların kilitlenme süresi {{days}} gündür. Bu sürenin sonunda para hesabınıza geri dönecektir.",
+    "period_of_locking_tokens_GKE": "Jetonların kilitlenme süresi {{days}} gündür. Programın başlangıç ​​ve bitiş tarihleri ​​güncellenecektir.",
     "start_of_program": "Programın başlangıcı",
     "term": "Terim",
     "until": "Değin",
@@ -615,11 +645,12 @@
     "sign_out": "Oturumu Kapat",
     "main": "Ana",
     "exchange": {
+      "exchange_excluding": "indirimler ve bonuslar hariç",
       "you_pay": "Öde",
       "get_no_less": "Daha azını alma",
-      "title": "Değişme",
+      "title": "Kripto borsası",
       "private_title": "Özel oda",
-      "rooms": "Odalar",
+      "rooms": "Özel odalar",
       "new_room": "Yeni oda",
       "describe": "Kripto para birimi değişimi — hızlı ve kolay",
       "create_private_exchange_room": "Özel değişim odası oluşturun",
@@ -678,6 +709,7 @@
     "you_will_get": "Alacaksın",
     "enter_period": "Dönemi girin veya takvimden seçim yapın",
     "no_have_any_transaction": "Henüz herhangi bir işleminiz yok",
+    "no_have_any_rewards": "Henüz hiç ödülün yok",
     "funds": "Para kaynağı",
     "fiat": "Fiat'ın",
     "crypto": "Kripto",
@@ -698,7 +730,7 @@
     "daily_limit": "Günlük sınır",
     "day_limit": "Gün Limiti",
     "month_limit": "Ay Sınırı",
-    "how_it_works": "Nasıl çalışır?",
+    "how_it_works": "Nasıl çalışır",
     "disable_limits_temporarily": "Sınırları Geçici Olarak Devre Dışı Bırak",
     "card_transaction_history": "Kart İşlem Geçmişi",
     "specify_the_place_of_delivery_of_your_real_card": "Gerçek kartınızın teslim yerini belirtin",
@@ -797,6 +829,7 @@
     "card_owner": "Mal sahibi",
     "card_pin": "Pin kodu",
     "card_info": "Kart bilgisi",
+    "card_data": "Kart verileri",
     "card_holder": "KART SAHİBİ",
     "use_only": "Yalnızca AZ 0-9'u kullanın",
     "payment_exetution": "Ödemenin gerçekleştirilmesi",
@@ -859,8 +892,6 @@
     "enter_sms_code": "sms kodunu girin",
     "Save": "Kaydetmek",
     "REGISTERED": "KAYITLI",
-    "quality_control": "Kalite kontrol",
-    "thank_you_for_rating": "Derecelendirmeniz için teşekkür ederiz",
     "third-party_software_libraries": "Üçüncü taraf yazılım kitaplıkları",
     "frequently_asked_questions": "Sıkça Sorulan Sorular",
     "issue_new_card": "Yeni kart verin",
@@ -1014,12 +1045,14 @@
     "contact": "Temas etmek",
     "your_transfer_code": "Transfer kodunuz",
     "cancel_code": "Kodu iptal et",
+    "confirm_the_order": "Yer siparişini onaylayın",
     "transaction_code": "İşlem kodu",
     "confirm_code": "Kodu onayla",
     "send_sms": "SMS gönder",
     "sign_transfer": "İmza transferi",
     "to_card": "Karta",
     "cardholder": "Kart sahibi",
+    "cardholder_caption": "Sadece Gekkard ve Black Cat Card müşterileri için Papaya LTD",
     "select_card": "Kart seç",
     "select_card_type": "Kart türünü seçin",
     "select_currency": "Para birimini seçin",
@@ -1033,6 +1066,7 @@
     "minimum_order_amount": "Minimum sipariş tutarı {{amount}}",
     "per": "başına",
     "close_current_room": "Mevcut odayı kapat",
+    "close_room": "Odayı kapat",
     "back_to_exchange": "Değişime geri dön",
     "close_private_exchange_room": "Özel değişim odasını kapat",
     "beneficiary": "yararlanıcı",
@@ -1594,6 +1628,10 @@
     "enter_sender_name": "Gönderenin adını girin",
     "decline": "Reddetmek",
     "virtual": "Sanal",
+    "transaction_receipt": "İşlem makbuzu",
+    "payment_type": "Ödeme türü",
+    "bank_name": "Banka adı",
+    "payment_method": "Ödeme yöntemi",
     "plastic": "Plastik",
     "enter_beneficiary_name": "Faydalanıcı adını girin",
     "enter_account_number_or_IBAN": "Hesap numarasını / IBAN'ı girin",
@@ -1605,7 +1643,7 @@
     "response_time_up_to": "{{hours}} saate kadar yanıt süresi",
     "this_code_can_be_used": "Bu kod yalnızca bir kez kullanılabilir",
     "get_gekkard_pro": "Gekkard PRO'yu edinin",
-    "language_name": "İngilizce",
+    "language_name": "Türkçe",
     "select_top_up_type": "Yükleme türünü seçin",
     "generate_address": "Adres oluştur",
     "confirm_place_order": "Yer siparişini onaylayın",
@@ -1618,6 +1656,14 @@
     "finished": "Bitmiş",
     "select_type": "Tür seçin",
     "select": "Seçme",
-    "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun"
+    "create_special_code_currency": "Onayınız olsun ya da olmasın, Gekkoin kullanıcıları arasında {{currency}} tutarında fon aktarabileceğiniz veya alabileceğiniz özel bir kod oluşturun",
+    "my_fiat_reports": "Fiat raporlarım",
+    "reports": "Raporlar",
+    "top_up_curr": "{{curr}} cüzdanınızı çekme formu aracılığıyla doldurabilirsiniz", 
+    "form_in_wallet": "{{project}} Cüzdanınızda",
+    "fast_and_easy": "Kripto para değişimi - hızlı ve kolay",
+    "versions_history": "Sürüm geçmişi",
+    "resend_the_code": "Kodu tekrar gönder", 
+    "seconds": "saniye"
   }
 }

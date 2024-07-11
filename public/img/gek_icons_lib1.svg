@@ -216,6 +216,10 @@
             <use href="#type2" />
         </symbol>
 
+        <symbol id="type21" viewBox="0 0 30 30">
+            <use href="#type1" />
+        </symbol>
+
         <symbol id="type51" stroke="none" viewBox="0 0 30 30">
             <use href="#hexagon1" />
             <path fill-rule="evenodd" clip-rule="evenodd"

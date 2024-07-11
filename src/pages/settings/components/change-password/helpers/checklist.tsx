@@ -1,14 +1,19 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import styles from "./checklist.module.scss";
 
-import styles from "./checklist.module.css";
 // Importing the validation rules
-import { UPPERCASE_REGEX, NUMBER_REGEX, LENGTH_REGEX, SPECIAL_CHARS_REGEX } from "./validationRules";
+import {
+  UPPERCASE_REGEX,
+  NUMBER_REGEX,
+  LENGTH_REGEX,
+  SPECIAL_CHARS_REGEX
+} from "./validationRules";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   value: string | undefined;
   className?: string;
-  setValid: Dispatch<SetStateAction<boolean>>;
+  setValid: Dispatch<SetStateAction<boolean>>
 }
 
 const rules = [
@@ -18,27 +23,26 @@ const rules = [
   { label: "One special char", pattern: SPECIAL_CHARS_REGEX, t: "one_special_char" }
 ];
 
-const CheckList = (props: Props) => {
-  const { t } = useTranslation();
 
-  useEffect(() => {
-    if (props.value) {
-      if (rules.every(el => props?.value.match(el.pattern))) {
-        props.setValid(true);
-      } else {
-        props.setValid(false);
+const CheckList = (props: Props) => {
+
+  const {t} = useTranslation()
+
+  useEffect(()=>{
+    if(props.value){
+      if(rules.every(el=> props?.value.match(el.pattern))){
+        props.setValid(true)
+      }else{
+        props.setValid(false)
       }
     }
-  }, [props.value]);
+  },[props.value])
   return (
     <div className={styles.wrapper}>
-      {rules.map(rule => {
-        const cn = props.value && props.value.match(rule.pattern) ? styles.passed : "";
-        return (
-          <p key={rule.t} className={cn}>
-            {t(rule.t)}
-          </p>
-        );
+      {rules.map((rule) => {
+        const cn =
+          props.value && props.value.match(rule.pattern) ? styles.passed : "";
+        return <p className={`${cn} ${styles.p}`}>{t(rule.t)}</p>;
       })}
     </div>
   );

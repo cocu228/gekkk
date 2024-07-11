@@ -1,221 +1,102 @@
-import { useTranslation } from "react-i18next";
-import { useContext, useEffect, useRef, useState } from "react";
-
-import { apiGetUas } from "@/shared/(orval)api";
-import Button from "@/shared/ui/button/Button";
-import { CtxRootData } from "@/processes/RootContext";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import { formatAsNumber } from "@/shared/lib";
-import Loader from "@/shared/ui/loader";
-import { apiPaymentContact, IResCommission, IResResult } from "@/shared/api";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
-import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/receipt/bank";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
-import Commissions from "@/widgets/wallet/transfer/components/commissions";
-
-import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import styles from "../styles.module.scss";
+import {useTranslation} from "react-i18next";
+import {CtxRootData} from "@/processes/RootContext";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
+import { FC, useContext, useState } from "react";
+import {apiPaymentContact} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
+import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import {CtxDisplayHistory} from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import Commissions, { ICommissionsProps } from "@/widgets/wallet/transfer/components/commissions";
+import {PaymentDetails} from "@/shared/(orval)api/gek/model";
+import {UasConfirmCtx} from "@/processes/errors-provider-context";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
+import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
 
-interface IParams {
-  amount: number;
-  comment: string;
-  phoneNumber: string;
-  handleCancel: () => void;
+interface IWithdrawConfirmPhoneNumberProps extends ICommissionsProps {
+    details: PaymentDetails;
+    handleCancel: () => void;
 }
 
-interface IState {
-  loading: boolean;
-  totalCommission: IResCommission;
-}
+const WithdrawConfirmPhoneNumber: FC<IWithdrawConfirmPhoneNumberProps> = ({
+    details,
+    handleCancel,
+    ...commissionsProps
+}) => {
+    // Hooks
+    const {t} = useTranslation();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-const WithdrawConfirmPhoneNumber = ({ amount, comment, phoneNumber, handleCancel }: IParams) => {
-  const [{ loading, totalCommission }, setState] = useState<IState>({
-    loading: true,
-    totalCommission: undefined
-  });
-  const { t } = useTranslation();
-  const { account } = useContext(CtxRootData);
-  const { $const } = useContext(CtxWalletData);
-  const { setRefresh } = useContext(CtxRootData);
-  const { setContent } = useContext(CtxGlobalModalContext);
-  const [uasToken, setUasToken] = useState<string>(null);
-  const { displayHistory } = useContext(CtxDisplayHistory);
-  const { getAccountDetails } = storeAccountDetails(state => state);
-  const { networkTypeSelect, networksForSelector } = useContext(CtxWalletNetworks);
-  const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
+    // Context
+    const {setRefresh} = useContext(CtxRootData);
+    const {setContent} = useContext(CtxGlobalModalContext);
+    const {displayHistory} = useContext(CtxDisplayHistory);
+    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+    const {uasToken} = useContext(UasConfirmCtx)
 
-  const details = useRef({
-    account: account.account_id,
-    beneficiaryName: null,
-    cardNumber: null,
-    phoneNumber: formatAsNumber(phoneNumber),
-    purpose: comment,
-    amount: {
-      sum: {
-        value: amount,
-        currency: {
-          code: $const
+    // Store
+    const {getAccountDetails} = storeAccountDetails(state => state);
+
+    // Handles
+    const onConfirm = async () => {
+        setIsLoading(true)
+        const {phone} = await getAccountDetails();
+        try {
+            const headers = { Authorization: phone, Token: uasToken };
+            const response = await apiPaymentContact(details, false, headers);
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
+
+            const res = await apiPaymentContact(details, false, { ...headers, ...inSideHeaders })
+            if (resValidation(res)) {
+                setRefresh();
+                displayHistory();
+                setContent({ content: <ModalTrxStatusSuccess/> });
+            } else {
+                setContent({ content: <ModalTrxStatusError /> });
+            }
+        } catch (_) {
+            setContent({ content: <ModalTrxStatusError /> });
         }
-      }
-    }
-  });
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await apiGetUas();
-      const { phone } = await getAccountDetails();
-
-      setUasToken(data.result.token);
-
-      apiPaymentContact(details.current, true, {
-        Authorization: phone,
-        Token: data.result.token
-      })
-        .then(({ data }) =>
-          setState(prev => ({
-            ...prev,
-            loading: false,
-            totalCommission: data as IResCommission
-          }))
-        )
-        .catch(() => {
-          handleCancel();
-          setContent({ content: <ModalTrxStatusError /> });
-        });
-    })();
-  }, []);
-
-  const onConfirm = async () => {
-    setState(prev => ({
-      ...prev,
-      loading: true
-    }));
-
-    const { phone } = await getAccountDetails();
-
-    await apiPaymentContact(details.current, false, {
-      Authorization: phone,
-      Token: uasToken
-    }).then(async response => {
-      // @ts-ignore
-      const confToken = response.data.errors[0].properties.confirmationToken;
-
-      const headers = await signHeadersGeneration(phone, confToken);
-
-      await apiPaymentContact(details.current, false, {
-        ...headers,
-        Authorization: phone,
-        Token: uasToken
-      }).then(({ data }) => {
         handleCancel();
-        setRefresh();
-        displayHistory();
-        setContent({
-          content: <ModalTrxStatusSuccess onReceipt={() => getReceipt((data as IResResult).referenceNumber)} />
-        });
-      });
-    });
-  };
+        setIsLoading(false)
+    }
 
-  const getReceipt = async (referenceNumber: string) => {
-    setContent({
-      content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken} />,
-      title: "Transaction receipt"
-    });
-  };
+    // Helpers
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
+    const { phoneNumber, purpose, } = details
+    const phoneNumberInfo: { label: string, value: string }[] = [
+        { label: t("network"), value: label },
+        { label: t("recepient_phone_number"), value: phoneNumber },
+        ...(purpose ? [{ label: t("comment"), value: purpose }] : [])
+    ]
+    
+    return (
+       <ConfirmLoading isLoading={isLoading}>
+          <Notice text={t("check_your_information_carefully")} />
 
-  return (
-    <div className='-md:px-4'>
-      {loading && <Loader className='justify-center' />}
-
-      <div className={loading ? "collapse" : ""}>
-        <div className='row mb-5 md:mb-0'>
-          <div className='col'>
-            <div className='p-4'>
-              <div className={`wrapper ${styles.ModalInfo}`}>
-                <div className={styles.ModalInfoIcon}>
-                  <div className='col'>
-                    <IconApp color='#8F123A' size={22} code='t27' />
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col'>
-                    <span className={styles.ModalInfoText}>{t("check_your_information_carefully")}</span>
-                  </div>
-                </div>
+          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+              <div className="flex flex-col gap-[10px]">
+                  {phoneNumberInfo.map(({ label, value }) => (
+                    <div key={value} className="flex flex-col gap-[1.5px]" >
+                        <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{label}</p>
+                        <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14 break-words">{value}</p>
+                    </div>
+                  ))}
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.ModalRows}>
-          <div className='row mb-2 md:mb-1'>
-            <div className='col'>
-              <span className={styles.ModalRowsTitle}>{t("network")}</span>
-            </div>
-          </div>
-          <div className='row mb-4 md:mb-2'>
-            <div className='col'>
-              <span className={styles.ModalRowsValue}>{label}</span>
-            </div>
-          </div>
-          <div className='row mb-2 md:mb-1'>
-            <div className='col'>
-              <span className={styles.ModalRowsTitle}>{t("recepient_phone_number")}</span>
-            </div>
-          </div>
-          <div className='row mb-4 md:mb-2'>
-            <div className='col'>
-              <span className={styles.ModalRowsValue}>{phoneNumber}</span>
-            </div>
-          </div>
-          {!comment ? null : (
-            <>
-              <div className='row mb-2 md:mb-1'>
-                <div className='col'>
-                  <span className={styles.ModalRowsTitle}>{t("comment")}</span>
-                </div>
+              <div className="w-full">
+                  <Commissions {...commissionsProps}/>
               </div>
-              <div className='row mb-4 md:mb-2'>
-                <div className='col'>
-                  <span className={styles.ModalRowsValue}>{comment}</span>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-        <Commissions
-          isLoading={loading}
-          youWillPay={totalCommission.total}
-          youWillGet={amount}
-          fee={totalCommission.commission}
-        />
-        <div className='row mt-4'>
-          <div className='col relative'>
-            <div className={`${styles.ButtonContainer} px-4`}>
-              <Button onClick={onConfirm} disabled={!totalCommission} className={styles.ButtonTwo}>
-                {t("confirm")}
-              </Button>
-
-              <Button
-                skeleton
-                className={styles.ButtonTwo}
-                onClick={() => {
-                  handleCancel();
-                }}
-              >
-                {t("cancel")}
-              </Button>
-            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+
+          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
+      </ConfirmLoading>
+    )
+}
 
 export default WithdrawConfirmPhoneNumber;

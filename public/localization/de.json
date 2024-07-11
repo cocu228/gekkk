@@ -29,7 +29,10 @@
     "one-time code": "Einmalcode",
     "phone_code": "Telefoncode",
     "back_to_login_page": "← Zurück zur Anmeldeseite",
-    "can_use_code": "Sie können den Code für: {{amount}} Sekunden verwenden",
+    "use_code": {
+      "can_use_code": "Sie können den Code für",
+      "amount": ": {{amount}} Sekunden verwenden"
+    },
     "resend_one-time_code": "Einmalcode erneut senden",
     "unconfirmed_transactions": "Sie haben unbestätigte Transaktionen. Bitte geben Sie den Namen des Absenders ein",
     "here": "hier",
@@ -73,7 +76,11 @@
       "title": "Support",
       "subtitle": "Bei Fragen oder Schwierigkeiten lassen Sie es uns bitte auf einem der folgenden Wege wissen:",
       "response_time": "Reaktionszeit bis zu 24 Stunden",
-
+      "quality_control": "Qualitätskontrolle",
+      "rate_quality": "Bewerten Sie die Qualität",
+      "quality_improvement": "Ideen zur Qualitätsverbesserung",
+      "quality_improvement_placeholder": "Beschreiben Sie Ihre Idee/Ihr Problem",
+      "thank_you_for_rating": "Vielen Dank für Ihre Bewertung",
       "faq": {
         "account_opening": {
           "title": "Kontoeröffnung",
@@ -304,6 +311,26 @@
           "can_my_card_be_reloaded": "Kann meine Karte nachgeladen werden?",
           "how_can_i_replenish_my_card": "Wie kann ich meine Karte aufladen?"
         },
+        "card_limits": {
+          "title": "Kartenlimits",
+          "answers": {
+            "the_function": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits zu erstellen, die Ihre Ausgaben auf Ihrer Karte regulieren. Limits gelten für die folgenden Kartentransaktionen:",
+            "cash": "- Bargeldabhebung von der Karte",
+            "payment": "- Zahlung von Einkäufen mit der Karte",
+            "day_limit": "Tageslimit",
+            "possible": "Es ist möglich, den maximalen Transaktionsbetrag innerhalb eines Tages anzugeben. Zum Beispiel, wenn Sie ein Tageslimit von 1000 EUR angeben, können Sie keine Transaktionen (Bargeldabhebungen und Einkäufe) von mehr als 1000 EUR an einem Tag durchführen. Im Feld «Verfügbar» können Sie den Betrag sehen, der vor Erreichen des Limits noch verfügbar ist. Wenn ein Betrag bei einer Bargeldabhebung oder einem Einkauf einbehalten wird, wird der verfügbare Wert ebenfalls um diesen Betrag reduziert. Wenn das Tageslimit erreicht ist, können Sie den Einkauf nicht bezahlen oder Bargeld von der Karte abheben.",
+            "month_limit": "Monatslimit",
+            "monts_limit_ans": "Hier ist es möglich, den Betrag der Ausgaben innerhalb eines Monats ab dem Zeitpunkt der Festlegung des Limits anzugeben, zum Beispiel 10 000 EUR. Bei einer solchen Einstellung ist es nicht möglich, Transaktionen (Bargeldabhebungen und Einkäufe) von mehr als 10 000 EUR pro Monat durchzuführen. Wenn das angegebene Tageslimit höher als das angegebene Monatslimit ist, wird der Wert des Monatslimits automatisch auf den Wert des Tageslimits erhöht. Im Feld «Verfügbar» können Sie den Betrag sehen, der vor Erreichen des Limits noch verfügbar ist. Wenn ein Betrag bei einer Bargeldabhebung oder einem Einkauf einbehalten wird, wird der verfügbare Wert ebenfalls um diesen Betrag reduziert. Wenn das Monatslimit erreicht ist, können Sie den Einkauf nicht bezahlen oder Bargeld von der Karte abheben.",
+            "temporarily": "Limits vorübergehend deaktivieren",
+            "temporarily_ans": "Um die Tages- und Monatslimits vorübergehend zu deaktivieren, sollten Sie den Schalter „Limits vorübergehend deaktivieren“ in die Position EIN schalten. Sie können Limits nur bis zur ersten Bargeldabhebung oder Kauftransaktion deaktivieren, oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Zeitüberschreitungszähler angezeigt."
+          }
+        },
+        "partnership": {
+          "title": "Partnerschaftsprogramm",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Karteneinkäufe",
           "answers": {
@@ -387,7 +414,9 @@
       "referrals_info": "Empfehlungsinformationen",
       "rewards": "Belohnungen",
       "registration_date": "Anmeldedatum",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Agenteninfo",
+      "agent_link": "Ihr Agentenlink"
     },
     "crypto_assets": {
       "title": "Krypto-Vermögenswerte",
@@ -406,7 +435,7 @@
       "buy": "Kaufen",
       "search_currency": "Währung suchen"
     },
-    "gekkard_pro": {
+    "gekkard_pro":{
       "title": "Gekkard PRO",
       "join_gekkard_pro": "Gekkard PRO beitreten",
       "i_accept": "Ich akzeptiere",
@@ -496,7 +525,7 @@
     "white_paper": "White Paper",
     "exchange_rate_fixed": "Der Wechselkurs ist fest",
     "note": "Anmerkung",
-    "exchange_fee": "Die Standardwechselgebühr beträgt ",
+    "exchange_fee": "Hinweis: Die Standard-Umtauschgebühr beträgt",
     "withdraw_fee": "Standardabhebegebühr nach {{to}} beträgt",
     "if_you": "Wenn Sie",
     "freeze_GKE_tokens": "GKE-Token einfrieren",
@@ -573,15 +602,16 @@
     "sign_out": "Abmelden",
     "main": "Haupt",
     "exchange": {
+      "exchange_excluding": "ausgenommen Rabatte und Boni",
       "you_pay": "Sie zahlen",
       "get_no_less": "Bekommen Sie nicht weniger",
       "create_order": "Bestellung erstellen",
       "broker_exchange_fee": "Maklerwechselgebühr",
-      "title": "Austausch",
+      "title": "Krypto austausch",
       "private_title": "Privatraum",
       "closed_orders": "Abgeschlossene Bestellungen",
       "active_orders": "Aktive Bestellungen",
-      "rooms": "Zimmer",
+      "rooms": "Private zimmer",
       "new_room": "Neues Zimmer",
       "describe": "Kryptowährungsumtausch - schnell und einfach",
       "create_private_exchange_room": "Privaten Austauschraum erstellen",
@@ -639,6 +669,7 @@
     "you_will_get": "Sie werden erhalten",
     "enter_period": "Zeitraum eingeben oder aus dem Kalender auswählen",
     "no_have_any_transaction": "Sie haben keine Transaktion für diese Zeit",
+    "no_have_any_rewards": "Du hast noch keine Belohnungen",
     "funds": "Guthaben",
     "fiat": "Fiat",
     "crypto": "Krypto",
@@ -651,8 +682,6 @@
     "transaction_request_successfully": "Ihr Transaktionsantrag wurde erfolgreich zur Warteschlange hinzugefügt. Die Transaktion kann einige Minuten dauern. Wenn nicht, kontaktieren Sie bitte ",
     "transaction_request_with_errors": "Ihr Transaktionsantrag wurde aufgrund eines unerwarteten Fehlers nicht abgeschlossen. Versuchen Sie es später erneut oder kontaktieren Sie ",
     "our_support": "unseren Support",
-    "quality_control": "Qualitätskontrolle",
-    "thank_you_for_rating": "Vielen Dank für Ihre Bewertung",
     "balance": "Bilanz",
     "answers_to_common_questions": "Antworten auf häufig gestellte Fragen",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Um Rat von unserem Bank-Support-Service zu erhalten, öffnen Sie den Chat.",
@@ -816,6 +845,7 @@
     "sign_transfer": "Überweisung unterschreiben",
     "to_card": "Auf die Karte",
     "cardholder": "Karteninhaber",
+    "cardholder_caption": "Nur für Gekkard und Black Cat Card Kunden Papaya LTD",
     "select_card": "Karte auswählen",
     "select_currency": "Währung auswählen",
     "no_data_avialible": "Keine Daten verfügbar",
@@ -828,6 +858,8 @@
     "minimum_order_amount": "Der Mindestbestellwert beträgt {{amount}}",
     "per": "pro",
     "close_current_room": "Aktuellen Raum schließen",
+    "close_room": "Raum schließen",
+    "send": "Senden Sie",
     "back_to_exchange": "Zurück zum Austausch",
     "close_private_exchange_room": "Private Austauschraum schließen",
     "beneficiary": "Begünstigter",
@@ -890,7 +922,7 @@
     "check_your_information_carefully": "Bitte überprüfen Sie Ihre Transaktionsinformationen sorgfältig und bestätigen Sie die Operation.",
     "start_date": "Startdatum",
     "end_date": "Enddatum",
-    "period_of_locking_tokens_GKE": "Die Sperrfrist für Tokens beträgt {{days}} Tage. Am Ende dieses Zeitraums werden die Mittel auf Ihr Konto zurückgebucht.",
+    "period_of_locking_tokens_GKE": "Die Sperrfrist für Tokens beträgt {{days}} Tage. Start- und Enddatum des Programms werden aktualisiert.",
     "up_amount_not_exceeding_similar": "Bis zu einem Betrag, der nicht über eine ähnliche Anzahl von blockierten {{currency}}-Tokens hinausgeht.",
     "funds_are_blocked_for": "Die Mittel werden für {{days}} Tage blockiert.",
     "cashback_is_credited_once_a_month": "Cashback wird einmal im Monat am Ende des Abrechnungszeitraums gutgeschrieben",
@@ -1384,6 +1416,10 @@
     "account_maintenance_value_additional": "{{value}} EUR monatlich, {{payments}} kostenlose Interbank-SEPA-Zahlungen enthalten (1 IBAN-Konto + 1 Karte + zusätzliche Karten)",
     "commission_for_using_mobile": "Kommission für die Nutzung einer mobilen Bank pro Monat",
     "bonus_programs": "Bonusprogramme",
+    "transaction_receipt": "Transaktionsbeleg",
+    "payment_type": "Zahlungsart",
+    "bank_name": "Bankname",
+    "payment_method": "Zahlungsmethode",
     "csh_purchases_card": "Rückvergütung für Kartenzahlungen (ohne Bargeldabhebungen und Überweisungen)",
     "csh_purchases_card_value": "{{percent}} (mindestens {{payout}} EUR pro Monat)",
     "csh_purchases_amazon": "Rückvergütung für Einkäufe auf Amazon",
@@ -1412,7 +1448,7 @@
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
     "decline": "Stornieren",
-    "how_it_works": "Wie funktioniert es?",
+    "how_it_works": "Wie funktioniert es",
     "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
     "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",
     "payment_of_purchases_on_the_card": "Zahlung von Einkäufen mit der Karte",
@@ -1420,17 +1456,17 @@
     "here_it_is_possible_to_indicate_the_amount_of_expenses": "Hier können Sie den Betrag der Ausgaben innerhalb eines Monats ab dem Zeitpunkt der Festlegung des Limits angeben, z.B. 10.000 EUR. Bei einer solchen Festlegung ist es nicht möglich, Transaktionen (Bargeldabhebungen und Einkäufe) über 10.000 EUR pro Monat durchzuführen. Wenn das festgelegte Tageslimit höher ist als das festgelegte Monatslimit, wird der Wert des Monatslimits automatisch auf den Wert des Tageslimits erhöht. Im Feld „Verfügbar“ können Sie den Betrag sehen, der vor Erreichen des Limits verfügbar ist. Wenn bei einer Bargeldabhebung oder einem Kauf ein Betrag einbehalten wird, wird der verfügbare Wert auch um diesen Betrag reduziert. Wenn das Monatslimit erreicht ist, können Sie den Kauf nicht bezahlen oder Bargeld von der Karte abheben.",
     "temporarily_disable_limits": "Limits vorübergehend deaktivieren",
     "to_temporarily_deactivate_daily_and_monthly_limits": "Um die täglichen und monatlichen Limits vorübergehend zu deaktivieren, müssen Sie den Schalter „Limits vorübergehend deaktivieren“ auf die Position EIN stellen. Sie können die Limits nur deaktivieren, bis die erste Bargeldabhebung oder Kauftransaktion erfolgt oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Timeout-Zähler angezeigt.",
-    "day_limit": "Tageslimit",
+    "day_limit": "Tageslimit", 
     "month_limit": "Monatslimit",
     "card_type": "Kartentyp",
     "linked_phone_number": "Verknüpfte Telefonnummer",
     "enter_cardholder_name": "Geben Sie den Namen des Karteninhabers ein",
-    "virtual": "Virtuell",
+    "virtual": "Virtuell", 
     "plastic": "Plastik",
-    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar",
-    "flat": "Wohnung",
+    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar", 
+    "flat": "Wohnung", 
     "enter_flat_name_or_number_if_available": "Geben Sie den Namen oder die Nummer der Wohnung ein, falls verfügbar",
-    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein",
+    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein", 
     "enter_account_number_or_IBAN": "Geben Sie die Kontonummer / IBAN ein",
     "recipient_name": "Name des Empfängers",
     "transfer": "Überweisung",
@@ -1438,7 +1474,7 @@
     "phone_number_or_IBAN": "Telefonnummer oder IBAN",
     "crypto_wallet": "Kryptowallet",
     "write_email_to_support": "E-Mail an den Support schreiben",
-    "how_can_we_help": "Wie können wir helfen?",
+    "how_can_we_help":  "Wie können wir helfen?", 
     "contact_crypto": "Kontaktieren Sie den Kryptowährungs-Support",
     "chat_us": "Schreibe uns",
     "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden",
@@ -1452,18 +1488,19 @@
     "order_type": "Bestellart",
     "payment_cards": "Zahlungskarten",
     "card_info": "Karteninformationen",
-    "send_to_card": "Auf Karte senden:",
-    "card_number": "KARTENNUMMER",
-    "expiration_date": "Ablaufdatum",
-    "card_cvc": "CVC-Code",
-    "card_owner": "Inhaber",
+    "card_data": "Kartendaten",
+    "send_to_card": "Auf Karte senden:", 
+    "card_number": "KARTENNUMMER", 
+    "expiration_date": "Ablaufdatum", 
+    "card_cvc": "CVC-Code", 
+    "card_owner": "Inhaber", 
     "card_pin": "PIN-Code",
-    "card_design": "Kartendesign",
-    "delivery_type": "Lieferart",
-    "account_owner": "Kontoinhaber",
-    "card_issuance": "Kartenausstellung",
-    "card_delivery": "Kartenlieferung",
-    "total_fees": "Gesamtgebühren",
+    "card_design": "Kartendesign", 
+    "delivery_type": "Lieferart", 
+    "account_owner": "Kontoinhaber", 
+    "card_issuance": "Kartenausstellung", 
+    "card_delivery": "Kartenlieferung", 
+    "total_fees": "Gesamtgebühren", 
     "expected_delivery_time": "Voraussichtliche Lieferzeit",
     "order_card": "Karte bestellen",
     "update": "Aktualisieren",
@@ -1472,15 +1509,38 @@
     "gekkard_redirect": "Gekkard Weiterleitung",
     "actions": "Aktionen",
     "clean": "Löschen",
-    "created": "Erstellt",
-    "failed": "Fehlgeschlagen",
+    "created": "Erstellt", 
+    "failed": "Fehlgeschlagen", 
     "canceled": "Abgebrochen",
     "finished": "Beendet",
     "select_type": "Typ auswählen",
     "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen",
-    "select": "Auswählen",
+    "select": "Auswählen", 
     "create_special_code_currency": "Erstellen Sie einen speziellen Code, mit dem Sie {{currency}}-Fonds zwischen Gekkoin-Benutzern mit oder ohne Ihre Bestätigung übertragen oder erhalten können",
     "not_found": "Nicht gefunden",
-    "flat_optional": "Wohnung (optional)"
+    "flat_optional": "Wohnung (optional)",
+    "my_fiat_reports": "Meine Fiat-Berichte",
+    "reports": "Berichte",
+    "top_up_curr": "Sie können Ihr {{curr}}-Wallet über das Abhebungsformular aufladen", 
+    "form_in_wallet": "in Ihrem {{project}}-Wallet",
+    "fast_and_easy": "Kryptowährungsumtausch - schnell und einfach",
+    "versions_history": "Versionsverlauf",
+    "resend_the_code": "Code erneut senden nach", 
+    "seconds": "Sekunden"
+
+    
+
+
+
+
+
+
+
+
+    
+
+
+
+
   }
 }

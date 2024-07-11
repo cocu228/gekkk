@@ -28,6 +28,17 @@ const Auth = () => {
     const [form, setForm] = useState<IForm>(!emailCode ? 'LOGIN' : 'RESET_PASSWORD');
 
     // const [chatOpened, setChatOpened] = useState<boolean>(false)
+    
+    useEffect(() => {
+        const pathname = window.location?.pathname
+        const search = window.location?.search
+        const redirectLink = pathname+search
+    
+
+        if(redirectLink && redirectLink !== '/') {
+            localStorage.setItem('redirectPath', redirectLink)
+        }
+    }, [])
 
     useEffect(() => {
         const runCMA = async () => {

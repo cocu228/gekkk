@@ -1,0 +1,54 @@
+.Header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    justify-content: space-between;
+
+    &Title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 28px;
+    }
+
+    &Button {
+        text-decoration: underline;
+        color: var(--gek-mid-grey);
+
+        &:hover {
+            cursor: pointer;
+            color: var(--gek-dark-grey);
+        }
+    }
+}
+
+.Carousel {
+    display: flex;
+    justify-content: center;  
+    margin-bottom: 15px;
+}
+
+.LinkButton {
+    display: flex;
+    cursor: pointer;
+    font-size: 10px;
+    margin-top: 8px;
+    font-weight: 600;
+    justify-content: center;
+    text-decoration: underline;
+    color: var(--gek-additional);
+
+    @media screen and (min-width: 768px) {
+        font-size: 12px;
+    }
+}
+
+.FooterContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}

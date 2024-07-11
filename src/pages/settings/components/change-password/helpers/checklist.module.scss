@@ -1,0 +1,23 @@
+.wrapper p {
+  color: #DCDCD9;
+  margin: 4px 15px;
+  font-size: 10px;
+}
+
+.p {
+  &::before {
+    content: "✔";  
+    color: #DCDCD9;
+    display: inline-block;
+    margin-right: 0.4em;
+  }
+
+}
+
+.p.passed {
+  color: green;
+
+  &::before {
+    color: green;
+  }
+}

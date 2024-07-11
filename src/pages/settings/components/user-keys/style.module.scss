@@ -1,159 +1,210 @@
 @import "@styles/mixins.scss";
 
 .addGekkeyBlock {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 10px;
-  // box-shadow: 0 10px 20px var(--color-gray-200);
-  padding: 10px 3%;
-  gap: 10px;
-  margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    // box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 10px 3%;
+    gap: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gek-light-grey);
+
+    @media screen and (max-width: 768px) {
+        border: 0px;
+    }
 }
 
 .addGekkeyTitle {
-  color: #1f3446;
-  font-family: Inter;
-  font-weight: 400;
-  padding: 10px 10px;
-  @include max-devices(md) {
-    font-size: 12px;
-  }
+    color: #1F3446;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 10px;
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+
 }
 
 .btnsBlock {
-  display: flex;
-  flex-direction: row;
-  min-height: 45px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+    display: flex;
+    flex-direction: row;
+    min-height: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .keysWrap {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  gap: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 5px;
 }
 
 .keysItem {
-  max-height: 62px;
-  gap: 0.75rem;
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  border-radius: 0.5rem;
-  width: 100%;
-  background-color: #ffffff;
-  padding: 10px;
+    max-height: 62px;
+    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid var(--gek-light-grey);
+
+    @media screen and (max-width: 768px) {
+        border: 0px;
+    }
 }
 
 .keyItemDate {
-  color: #3a5e66;
-  font-family: Inter;
-  @include max-devices(md) {
-    font-size: 10px;
-  }
-
-  font-weight: 400;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    font-size: 12px;
+    color: var(--gek-additional);
+    font-family: Inter;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .keyBtnWrap {
-  gap: 5px;
-  width: 30%;
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    gap: 5px;
+    width: 30%;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .CurentButton {
-  width: 100%;
-  height: 25px;
-  max-width: 81px;
-  font-weight: 600;
-  padding: 0.3125rem;
-  border-radius: 5px;
-  font-size: 0.75rem;
-  transition: all ease-out 0.2s;
-  color: var(--gek-orange);
-  background: var(--gek-background);
-  border: 2px solid var(--gek-orange);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:disabled {
-    color: var(--gek-mid-grey);
+    width: 100%;
+    height: 25px;
+    max-width: 81px;
+    font-weight: 600;
+    padding: 0.3125rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    transition: all ease-out 0.2s;
+    color: var(--gek-orange);
     background: var(--gek-background);
-    border: 2px solid var(--gek-mid-grey);
+    border: 2px solid var(--gek-orange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    svg {
-      fill: var(--gek-mid-grey);
-      stroke: var(--gek-mid-grey);
+    &:disabled {
+      color: var(--gek-mid-grey);
+      background: var(--gek-background);
+      border: 2px solid var(--gek-mid-grey);
     }
-  }
 
-  &:not(:disabled):hover {
-    color: var(--gek-background);
-    background: var(--gek-orange);
-
-    svg {
-      fill: var(--gek-background);
-      stroke: var(--gek-background);
+    &:not(:disabled):hover {
+      color: var(--gek-background);
+      background: var(--gek-orange);
     }
-  }
 }
 
+
 .CodeInput {
-  height: 29px !important;
-  display: flex;
-
-  &::placeholder {
-    color: #dcdcd9;
+    height: 29px !important;
+    display: flex;
+    max-width: 180px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     text-align: center;
-    padding: 0 0.5rem;
-  }
-
-  @media screen and (max-width: 768px) {
-    div > input {
-      height: 29px !important;
+    
+    &::placeholder {
+        color: var(--gek-light-grey);
+        text-align: center;
+        font-size: 12px;
     }
-  }
+
+    @media screen and (max-width: 768px) {
+        div > input {
+            height: 29px !important;
+        }
+    }
 }
 
 .CodeTitle {
-  text-wrap: nowrap;
-  font-weight: 700;
-  color: #1f3446;
-
-  @include max-devices(md) {
-    font-size: 12px;
-  }
+    font-size: 14px;
+    text-wrap: nowrap;
+    font-weight: 600;
+    color: #1F3446;
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .CodeWrap {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  gap: 25px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 25px;
+}
+
+.CodeWrap > div {
+    max-width: 180px;
 }
 
 .TabTitleGroup {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ModalText {
+    width: 100%;
+    font-size: 14px;
+    text-indent: 8px;
+    text-align: justify;
+    display: inline-block;
+    color: var(--gek-additional);
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+
+.Resend {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+    text-align: center;
+    display: inline-block;
+    color: var(--gek-mid-grey);
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    &Timer {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gek-additional);
+    
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
+    }
+
+    &.ResendActive {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 }

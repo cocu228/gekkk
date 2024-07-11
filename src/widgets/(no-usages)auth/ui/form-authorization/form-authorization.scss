@@ -1,16 +1,4 @@
-.login-modal {
-  padding: 0;
-  .ant-modal-body {
-    padding: 0;
 
-    & > * {
-      padding: 24px 27px;
-    }
-  }
-  .ant-modal-content {
+.login-modal {
     padding: 0;
-  }
-  .ant-modal-close {
-    display: none;
-  }
 }

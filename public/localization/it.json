@@ -30,7 +30,10 @@
     "phone_code": "Codice telefonico",
     "payment_information": "Informazioni sul pagamento",
     "back_to_login_page": "← Torna alla pagina di accesso",
-    "can_use_code": "Puoi utilizzare il codice per: {{amount}} secondi",
+    "use_code": {
+      "can_use_code": "Puoi utilizzare il codice per",
+      "amount": ": {{amount}} secondi"
+    },
     "resend_one-time_code": "Invia nuovamente il codice monouso",
     "unconfirmed_transactions": "Hai transazioni non confermate. Inserisci qui il nome del mittente.",
     "here": "Qui",
@@ -81,6 +84,11 @@
       "title": "Supporto",
       "subtitle": "Se avete domande o difficoltà, fatecelo sapere in uno dei seguenti modi:",
       "response_time": "Tempo di risposta fino a 24 ore",
+      "quality_control": "Controllo di qualità",
+      "rate_quality": "Valutare la qualità",
+      "quality_improvement": "Idee per il miglioramento della qualità",
+      "quality_improvement_placeholder": "descrivere la propria idea/problema",
+      "thank_you_for_rating": "Grazie per la valutazione",
       "faq": {
         "account_opening": {
           "title": "Apertura del conto",
@@ -309,6 +317,26 @@
           "can_my_card_be_reloaded": "La mia carta può essere ricaricata?",
           "how_can_i_replenish_my_card": "Come posso ricaricare la mia carta?"
         },
+        "card_limits": {
+          "title": "Limiti della carta",
+          "answers": {
+            "the_function": "La funzione di impostazione/disabilitazione dei limiti ti permette di creare tu stesso i limiti, che regolano le tue spese sulla carta. I limiti si applicano alle seguenti transazioni della carta:",
+            "cash": "- Prelievo di contante dalla carta",
+            "payment": "- Pagamento degli acquisti con la carta",
+            "day_limit": "Limite giornaliero",
+            "possible": "È possibile indicare l'importo massimo delle transazioni entro un giorno. Ad esempio, se specifichi un limite giornaliero di 1000 EUR, non potrai effettuare transazioni (prelievi di contante e acquisti) superiori a 1000 EUR in un giorno. Nel campo «Disponibile» puoi vedere l'importo disponibile per l'uso prima di raggiungere il limite. Se un importo viene trattenuto durante un prelievo di contante o un acquisto, il valore disponibile viene ridotto anche di questo importo. Se il limite giornaliero è raggiunto, non potrai pagare l'acquisto o prelevare contante dalla carta.",
+            "month_limit": "Limite mensile",
+            "monts_limit_ans": "È possibile indicare l'importo delle spese entro un mese dal momento in cui viene impostato il limite, ad esempio, 10 000 EUR. Nel caso di una tale impostazione, non sarà possibile effettuare transazioni (prelievi di contante e acquisti) superiori a 10 000 EUR al mese. Se il limite giornaliero specificato è superiore al limite mensile specificato, il valore del limite mensile viene automaticamente aumentato al valore del limite giornaliero. Nel campo «Disponibile» puoi vedere l'importo disponibile per l'uso prima di raggiungere il limite. Se un importo viene trattenuto durante un prelievo di contante o un acquisto, il valore disponibile viene ridotto anche di questo importo. Se il limite mensile è raggiunto, non potrai pagare l'acquisto o prelevare contante dalla carta.",
+            "temporarily": "Disabilitare temporaneamente i limiti",
+            "temporarily_ans": "Per disattivare temporaneamente i limiti giornalieri e mensili, devi attivare l'interruttore «Disabilita temporaneamente i limiti». Puoi disattivare i limiti solo fino al primo prelievo di contante o transazione di acquisto, o fino a quando non sono trascorsi 3 minuti dalla disattivazione. Successivamente, l'interruttore «Disabilita temporaneamente i limiti» torna automaticamente alla posizione disattivata. Accanto all'interruttore «Disabilita temporaneamente i limiti», viene visualizzato il contatore di timeout."
+          }
+        },
+        "partnership": {
+          "title": "Programma di partenariato",
+          "answers": {
+              
+          }
+        },
         "card_purchases": {
           "title": "Acquisti con carta",
           "answers": {
@@ -392,7 +420,9 @@
       "referrals_info": "Informazioni sui riferimenti",
       "rewards": "Premi",
       "registration_date": "Data di registrazione",
-      "id": "ID"
+      "id": "ID",
+      "agent_info": "Info agente",
+      "agent_link": "Il tuo link agente"
     },
     "crypto_assets": {
       "title": "Risorse crittografiche",
@@ -529,7 +559,7 @@
     "white_paper": "Carta bianca",
     "exchange_rate_fixed": "Il tasso di cambio è fisso",
     "note": "Nota",
-    "exchange_fee": "La commissione di cambio standard è",
+    "exchange_fee": "Nota: la tariffa di cambio standard è",
     "withdraw_fee": "La commissione di prelievo standard su {{to}} è",
     "if_you": "Se tu",
     "freeze_GKE_tokens": "congelare i token GKE",
@@ -567,7 +597,7 @@
     "end_of_the_program_term": "Alla fine della durata del programma, i fondi bloccati in {{currency}} torneranno sul tuo conto",
     "lock_tokens": "Blocca token {{currency}}",
     "period_of_locking_tokens": "Il periodo di blocco dei token è di {{days}} giorni. Le date di inizio e fine del programma verranno aggiornate",
-    "period_of_locking_tokens_GKE": "Il periodo di blocco dei token è di {{days}} giorni. Al termine di questo periodo i fondi torneranno sul tuo conto.",
+    "period_of_locking_tokens_GKE": "Il periodo di blocco dei token è di {{days}} giorni. Le date di inizio e fine del programma verranno aggiornate.",
     "start_of_program": "Inizio del programma",
     "term": "Termine",
     "until": "Fino a",
@@ -615,11 +645,12 @@
     "sign_out": "Disconnessione",
     "main": "Principale",
     "exchange": {
+      "exchange_excluding": "esclusi sconti e bonus",
       "you_pay": "Tu paghi",
       "get_no_less": "Non ottenere di meno",
-      "title": "Scambio",
+      "title": "Scambio di criptovalute",
       "private_title": "Stanza privata",
-      "rooms": "Camere",
+      "rooms": "Stanze private",
       "new_room": "Nuova stanza",
       "describe": "Scambio di criptovaluta: facile e veloce",
       "create_private_exchange_room": "Crea una stanza di scambio privata",
@@ -678,6 +709,7 @@
     "you_will_get": "Otterrete",
     "enter_period": "Inserisci il periodo o scegli dal calendario",
     "no_have_any_transaction": "Non hai ancora alcuna transazione",
+    "no_have_any_rewards": "Non hai ancora nessuna ricompensa",
     "funds": "Fondi",
     "fiat": "Fiat",
     "crypto": "Criptovaluta",
@@ -698,7 +730,7 @@
     "daily_limit": "Limite giornaliero",
     "day_limit": "Limite giornaliero",
     "month_limit": "Limite mensile",
-    "how_it_works": "Come funziona?",
+    "how_it_works": "Come funziona",
     "disable_limits_temporarily": "Disabilita temporaneamente i limiti",
     "card_transaction_history": "Cronologia delle transazioni con carta",
     "specify_the_place_of_delivery_of_your_real_card": "Specifica il luogo di consegna della tua carta reale",
@@ -797,6 +829,7 @@
     "card_owner": "Proprietario",
     "card_pin": "Codice PIN",
     "card_info": "Informazioni sulla carta",
+    "card_data": "Dati della carta",
     "card_holder": "TITOLARE DELLA CARTA",
     "use_only": "Utilizzare solo AZ 0-9",
     "payment_exetution": "Esecuzione del pagamento",
@@ -859,8 +892,6 @@
     "enter_sms_code": "inserisci il codice SMS",
     "Save": "Salva",
     "REGISTERED": "REGISTRATO",
-    "quality_control": "Controllo di qualità",
-    "thank_you_for_rating": "Grazie per la valutazione",
     "third-party_software_libraries": "Librerie software di terze parti",
     "frequently_asked_questions": "Domande frequenti",
     "issue_new_card": "Emettere nuova carta",
@@ -1020,6 +1051,7 @@
     "sign_transfer": "Trasferimento del segno",
     "to_card": "A cardare",
     "cardholder": "Titolare della carta",
+    "cardholder_caption": "Solo per i clienti della carta Gekkard e Black Cat Papaya LTD",
     "select_card": "Seleziona carta",
     "select_card_type": "Seleziona il tipo di carta",
     "select_currency": "Seleziona valuta",
@@ -1033,6 +1065,7 @@
     "minimum_order_amount": "L'importo minimo dell'ordine è {{amount}}",
     "per": "per",
     "close_current_room": "Chiudi la stanza corrente",
+    "close_room": "Stanza chiusa",
     "back_to_exchange": "Torniamo allo scambio",
     "close_private_exchange_room": "Chiudere la stanza di scambio privata",
     "beneficiary": "beneficiario",
@@ -1072,6 +1105,7 @@
     "confirmation_code": "Codice di conferma",
     "send_code": "Manda il codice",
     "save": "Salva",
+    "confirm_the_order": "Conferma l'ordine",
     "add_new_gekkey": "Aggiungi un nuovo Gekkey",
     "send_sms_code": "Invia codice SMS",
     "current": "attuale",
@@ -1605,10 +1639,14 @@
     "response_time_up_to": "Tempo di risposta fino a {{hours}} ore",
     "this_code_can_be_used": "Questo codice può essere utilizzato una sola volta",
     "get_gekkard_pro": "Ottieni Gekkard PRO",
-    "language_name": "Inglese",
+    "language_name": "Italiano",
     "select_top_up_type": "Seleziona il tipo di ricarica",
     "generate_address": "Genera indirizzo",
     "confirm_place_order": "Conferma l'ordine",
+    "transaction_receipt": "Ricevuta della transazione",
+    "payment_type": "Tipo di pagamento",
+    "bank_name": "Nome della banca",
+    "payment_method": "Metodo di pagamento",
     "order_type": "Tipo di ordine",
     "actions": "Azioni",
     "clean": "Pulito",
@@ -1618,6 +1656,14 @@
     "finished": "Finito",
     "select_type": "Seleziona il tipo",
     "select": "Selezionare",
-    "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma"
+    "create_special_code_currency": "Crea un codice speciale con il quale puoi trasferire o ricevere fondi di {{currency}} tra utenti Gekkoin con o senza la tua conferma",
+    "my_fiat_reports": "I miei report in fiat",
+    "reports": "Rapporti",
+    "top_up_curr": "Puoi ricaricare il tuo portafoglio {{curr}} tramite il modulo di prelievo", 
+    "form_in_wallet": "nel tuo portafoglio {{project}}",
+    "fast_and_easy": "Scambio di criptovalute - veloce e facile",
+    "versions_history": "Cronologia delle versioni",
+    "resend_the_code": "Rispedisci il codice dopo", 
+    "seconds": "secondi"
   }
 }

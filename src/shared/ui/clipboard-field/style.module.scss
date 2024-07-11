@@ -1,17 +1,16 @@
 @import "@styles/mixins.scss";
 
 .CopyForm {
-  height: 60px;
+  height: 35px;
   background: var(--color-bgSecondary);
-  border: 1px solid #dcdcd9;
+  border: 1px solid #DCDCD9;
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
 
-  @include max-devices(md) {
+  @include max-devices(md){
     justify-content: center;
-    height: 51px;
-    border-color: #dcdcd9;
+    border-color: #DCDCD9;
     border-radius: 8px;
   }
 
@@ -23,13 +22,14 @@
     border: none;
     outline: none;
     min-width: 0;
+    overflow: hidden;
     text-overflow: ellipsis;
-    color: #7b797c;
+    color: #7B797C;
     font-family: "Inter";
     font-weight: 700;
     font-size: 12px;
 
-    @include max-devices(md) {
+    @include max-devices(md){
       padding-right: 0px;
       font-size: 12px;
       font-weight: bold;
@@ -44,9 +44,9 @@
     background: none;
     border: none;
 
-    @include max-devices(md) {
+    @include max-devices(md){
       border: 0px;
-      padding-left: 0px;
+      padding-left: 10px;
     }
   }
 }

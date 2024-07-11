@@ -1,44 +1,37 @@
-import { Decimal } from "decimal.js";
-import { AxiosResponse } from "axios";
-
-import { apiTokensNetworks } from "@/shared/(orval)api";
-
-export const isDisabledBtnWithdraw = inputs => !inputs.address || !inputs.recipient;
-
 type TGetFinalFee = {
-  type: {
-    number: boolean | null;
-    percent: boolean | null;
-  };
-  value: {
-    number: number;
-    percent: number;
-  };
-};
-export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
-  const result = {
     type: {
-      number: false,
-      percent: false
+        number: boolean | null,
+        percent: boolean | null
     },
     value: {
-      number: 0,
-      percent: 0
+        number: number,
+        percent: number
     }
-  };
+}
+export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 
-  if (curFee === 0 && perFee === 0) return result;
+    let result = {
+        type: {
+            number: false,
+            percent: false
+        },
+        value: {
+            number: 0,
+            percent: 0
+        }
+    }
 
-  const decCurFee = new Decimal(curFee);
-  const decPerFee = new Decimal(perFee);
 
-  result.type.percent = !decPerFee.isZero();
-  result.type.number = !decCurFee.isZero();
-  result.value.percent = decPerFee.toNumber();
-  result.value.number = decCurFee.toNumber();
+    if (curFee === 0 && perFee === 0) return result
 
-  return result;
-};
+    result.type.percent = perFee !== 0
+    result.type.number = curFee !== 0
+    result.value.percent = perFee
+    result.value.number = curFee
+
+    return result
+
+}
 
 // export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
 //
@@ -73,12 +66,3 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 //     }
 //
 // }
-
-export const reponseOfUpdatingTokensNetworks = async (amount: number, $const) => {
-  const response: AxiosResponse = await apiTokensNetworks({
-    top_up: false,
-    currency: $const,
-    wdr_amount: amount
-  });
-  return response.data;
-};

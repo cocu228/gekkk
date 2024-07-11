@@ -1,5 +1,4 @@
-import { createContext } from "react";
-import { Decimal } from "decimal.js";
+import React from "react";
 
-export const CtxInputCurrencyOptions = createContext<Decimal>(null);
-export const CtxInputCurrencyValid = createContext<boolean>(null);
+export const CtxInputCurrencyOptions = React.createContext<number>(null);
+export const CtxInputCurrencyValid = React.createContext<boolean>(null);

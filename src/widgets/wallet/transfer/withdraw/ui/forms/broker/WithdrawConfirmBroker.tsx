@@ -1,261 +1,115 @@
-import { FC, useContext, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Decimal } from "decimal.js";
-
-import Loader from "@/shared/ui/loader";
-import Form from "@/shared/ui/form/Form";
-import { apiPaymentSepa } from "@/shared/api";
-import Button from "@/shared/ui/button/Button";
-import { CtxRootData } from "@/processes/RootContext";
-import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
-import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import { apiGetUas } from "@/shared/(orval)api";
+import {apiPaymentSepa} from "@/shared/api";
+import { FC, useContext, useState } from "react";
+import {CtxRootData} from "@/processes/RootContext";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { IconApp } from "@/shared/ui/icons/icon-app";
+import { useTranslation } from "react-i18next";
+import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-
-import styles from "../styles.module.scss";
-import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
+import Notice from "@/shared/ui/notice";
+import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
+import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
+import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
 
 interface IWithdrawConfirmBrokerProps {
-  amount: number;
-  handleCancel: () => void;
+    amount: number;
+    handleCancel: () => void;
 }
 
 const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handleCancel }) => {
-  const { t } = useTranslation();
-  const { md } = useBreakpoints();
-  const { setContent } = useContext(CtxGlobalModalContext);
-  const [loading, setLoading] = useState<boolean>(false);
-  const { displayHistory } = useContext(CtxDisplayHistory);
+    // Hooks
+    const {t} = useTranslation();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { networkTypeSelect, networksForSelector, tokenNetworks } = useContext(CtxWalletNetworks);
+    // Context
+    const {setContent} = useContext(CtxGlobalModalContext);
+    const { displayHistory } = useContext(CtxDisplayHistory);
+    const { uasToken } = useContext(UasConfirmCtx)
+    const {account} = useContext(CtxRootData);
+    const {setRefresh} = useContext(CtxRootData);
+    const {$const} = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
+    const {
+        networkTypeSelect,
+        networksForSelector,
+        tokenNetworks
+    } = useContext(CtxWalletNetworks);
+    const {
+        token_hot_address,
+        withdraw_fee
+    } = getChosenNetwork(
+        tokenNetworks,
+        networkTypeSelect
+    ) ?? {}
 
-  const { token_hot_address, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
-  const { account } = useContext(CtxRootData);
-  const { setRefresh } = useContext(CtxRootData);
-  const { $const } = useContext(CtxWalletData);
-  const { getAccountDetails } = storeAccountDetails(state => state);
-  const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
-
-  const details = useRef({
-    purpose: t("purchase_of", { token: "EURG" }),
-    iban: token_hot_address,
-    account: account.account_id,
-    beneficiaryName: account.name,
-    amount: {
-      sum: {
-        currency: {
-          code: $const
-        },
-        value: amount
-      }
-    }
-  });
-
-  const onConfirm = async () => {
-    setLoading(true);
-
-    const { data } = await apiGetUas();
-    const { phone } = await getAccountDetails();
-
-    await apiPaymentSepa(details.current, false, {
-      Authorization: phone,
-      Token: data.result.token
-    }).then(async response => {
-      // @ts-ignore
-      const confToken = response.data.errors[0].properties.confirmationToken;
-
-      const headers = await signHeadersGeneration(phone, confToken);
-
-      await apiPaymentSepa(details.current, false, {
-        ...headers,
-        Authorization: phone,
-        Token: data.result.token
-      }).then(response => {
-        if (md) {
-          //@ts-ignore
-          if (response.data.status === "ok") {
-            handleCancel();
-            setRefresh();
-            displayHistory();
-            setContent({ content: <ModalTrxStatusSuccess /> });
-          }
+    const onConfirm = async () => {
+        setIsLoading(true)
+        const details = {
+            purpose: t("purchase_of", {token: "EURG"}),
+            iban: token_hot_address,
+            account: account.account_id,
+            beneficiaryName: account.name,
+            amount: {
+                sum: {
+                    currency: { code: $const },
+                    value: amount
+                }
+            }
+        }
+        const {phone} = await getAccountDetails();
+        const headers = { Authorization: phone, Token: uasToken };
+        try {
+            const response = await apiPaymentSepa(details, false, headers)
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
+            const res = await apiPaymentSepa(details, false, { ...headers, ...inSideHeaders })
+            if (resValidation(res)) {
+                setRefresh();
+                displayHistory();
+                setContent({ content: <ModalTrxStatusSuccess/> });
+            } else {
+                setContent({ content: <ModalTrxStatusError /> });
+            }
+        } catch (_) {
+            setContent({ content: <ModalTrxStatusError /> });
         }
         handleCancel();
-      });
-    });
-  };
+        setIsLoading(false)
+    }
 
-  return !md ? (
-    <div>
-      {loading && <Loader className='justify-center' />}
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
-      <div className={loading ? "collapse" : ""}>
-        <div className='row mb-5'>
-          <div className='col'>
-            <div className='p-4 bg-gray-300'>
-              <div className='wrapper flex flex-col'>
-                <div className='row mb-1'>
-                  <div className='col'>
-                    <span className='text-red-800'>{t("please_note")}</span>
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col'>
-                    <span className='text-gray-400'>{t("use_withdraw_addr_supported")}</span>
-                  </div>
+    return (
+      <ConfirmLoading isLoading={isLoading}>
+          <Notice text={t("check_your_information_carefully")} />
+
+          <div className="flex flex-col px-[10px] gap-[25px] mb-[30px]">
+              <div className="flex flex-col gap-[10px]">
+                <div>
+                    <p className="text-[#9D9D9D] md:text-fs12 text-fs14">{t("type_transaction")}</p>
+                    <p className="font-semibold text-[#3A5E66] md:text-fs12 text-fs14">{label}</p>
                 </div>
               </div>
-            </div>
+              <div className="w-full">
+                  <Commissions
+                    youWillPay={amount + withdraw_fee}
+                    youWillGet={amount}
+                    fee={withdraw_fee}
+                    youWillGetCoin={"EURG"}
+                  />
+              </div>
           </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("network")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span>{label}</span>
-          </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("beneficiary_name")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span>{account.name}</span>
-          </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("account_number")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span>{account.number}</span>
-          </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("purpose")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span>
-              {t("purchase_of", { token: "EURG" })} {t("for_token", { token: "EUR" })}
-            </span>
-          </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("amount")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span>
-              {amount} {$const}
-            </span>
-          </div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("fee")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>{new Decimal(withdraw_fee).toString()} EUR</div>
-        </div>
-        <div className='row mb-2'>
-          <div className='col'>
-            <span className='text-gray-400'>{t("you_will_get")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>{new Decimal(amount).minus(withdraw_fee).toString()} EURG</div>
-        </div>
 
-        <Form onSubmit={onConfirm}>
-          <div className='row mt-4 mb-4'>
-            <div className='flex justify-center col'>
-              <Button size='lg' className='w-full' htmlType={"submit"}>
-                {t("confirm")}
-              </Button>
-            </div>
-          </div>
-        </Form>
-      </div>
-    </div>
-  ) : (
-    <>
-      <div className='row mb-5'>
-        <div className='col'>
-          <div className='p-4'>
-            <div className={`wrapper ${styles.ModalInfo}`}>
-              <div className={styles.ModalInfoIcon}>
-                <div className='col'>
-                  <IconApp color='#8F123A' size={20} code='t27' />
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col'>
-                  <span className={styles.ModalInfoText}>{t("check_your_information_carefully")}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.ModalRows}>
-        <div className='row'>
-          <div className='col'>
-            <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
-          </div>
-        </div>
-        <div className='row mb-4'>
-          <div className='col'>
-            <span className={styles.ModalRowsValue}>{label}</span>
-          </div>
-        </div>
-      </div>
-      <Commissions
-        isLoading={loading}
-        youWillPay={new Decimal(amount).plus(withdraw_fee).toString()}
-        youWillGet={amount}
-        fee={new Decimal(withdraw_fee).toString()}
-        youWillGetCoin={"EURG"}
-      />
-      <Form onSubmit={onConfirm}>
-        <div className='row mt-4 mb-4'>
-          <div className={styles.ButtonContainer}>
-            <Button className={styles.ButtonTwo} htmlType={"submit"}>
-              {t("confirm")}
-            </Button>
-            <Button skeleton className={styles.ButtonTwo} onClick={handleCancel}>
-              {t("cancel")}
-            </Button>
-          </div>
-        </div>
-      </Form>
-      {/*{is_operable === false && <>*/}
-      {/*    <div className="info-box-danger">*/}
-      {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
-      {/*            network for this transaction.</p>*/}
-      {/*    </div>*/}
-      {/*</>}*/}
-    </>
-  );
-};
+          <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
+      </ConfirmLoading>
+    )
+}
 
 export default WithdrawConfirmBroker;

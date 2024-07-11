@@ -5,25 +5,23 @@
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
-  padding-top: 20px;
 
-  @include max-devices(md) {
+  @include max-devices(md){
     font-size: 12px;
   }
 
-  span {
-    max-width: 80%;
+  span{
     color: var(--gek-dark-grey);
   }
 }
 
-.LinkText {
-  margin-top: 0.625rem;
+.LinkText{
+  margin-top: 0.625rem; 
   font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
+  line-height: 1.25rem; 
+  font-weight: 500; 
 
-  @include max-devices(md) {
+  @include max-devices(md){
     font-size: 12px;
     color: var(--gek-mid-grey);
     text-align: center;
@@ -31,7 +29,7 @@
   }
 }
 
-.ButtonWrapper {
+.ButtonWrapper{
   width: 100%;
   display: flex;
   justify-content: center;

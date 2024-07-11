@@ -1,0 +1,119 @@
+@import "@styles/mixins";
+
+.TabBtn {
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  color: var(--gek-background);
+  cursor: pointer;
+  //border-bottom: 3px solid transparent;
+  padding: 5px 16px;
+  z-index: 1;
+  transition: .2s;
+  border-radius: 8px;
+  margin: 4px;
+  border: transparent solid 1px;
+  // border-width: 1px;
+  // border-color: var(--gek-additional);
+
+  &:hover {
+    border: var(--gek-background) solid 1px;
+    color: white;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  &:global(.active) {
+    // border-color: var(--color-blue-400);
+    background-color: var(--gek-background);
+    font-weight: 700;
+    color: #285E69;
+  }
+}
+
+.Underline {
+  height: 2px;
+  overflow: hidden;
+  background-color: var(--color-gray-200);
+  margin: 39px calc(-1 * var(--content-pad-right)) -39px calc(-1 * var(--content-pad-left));
+
+  @include max-devices(xxl) {
+    margin: 39px calc(-1 * var(--content-pad-horizontal-md)) -39px calc(-1 * var(--content-pad-horizontal-md));
+  }
+
+  @include max-devices(xl) {
+    margin: 39px calc(-1 * var(--content-pad-horizontal-md)) -39px calc(-1 * var(--content-pad-horizontal-md));
+  }
+
+  @include max-devices(md) {
+    margin: 55px calc(-1 * var(--content-pad-horizontal-md)) -55px calc(-1 * var(--content-pad-horizontal-md));
+  }
+}
+
+.TabsWrapper {
+  width: 100%;
+  position: relative;
+  // margin-left: calc(-1 * var(--content-pad-left));
+  // margin-right: calc(-1 * var(--content-pad-right));
+  // padding-left: var(--content-pad-left);
+  // padding-right: var(--content-pad-right);
+  //padding: 0px 5px;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--gek-additional);
+  border-radius: 8px;
+  margin: 0px 5px;
+  margin-bottom: 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+
+  // Previous underline method
+  //&:after {
+  //  content: "";
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  height: 2px;
+  //  position: absolute;
+  //  background-color: var(--color-gray-200);
+  //}
+
+  @include max-devices(xl) {
+    padding-left: var(--content-pad-left-xl);
+    padding-right: var(--content-pad-right-xl);
+  }
+
+  @include max-devices(md) {
+    padding-left: var(--content-pad-horizontal-md);
+    padding-right: var(--content-pad-horizontal-md);
+    padding-top: var(--content-pad-top-md);
+  }
+
+  @include max-devices(xl) {
+    margin-left: calc(-1 * var(--content-pad-left-xl));
+    margin-right: calc(-1 * var(--content-pad-right-xl));
+  }
+
+  @include max-devices(xxl) {
+    margin-left: calc(-1 * var(--content-pad-horizontal-md));
+    margin-right: calc(-1 * var(--content-pad-horizontal-md));
+  }
+
+  @include max-devices(md) {
+    margin-left: calc(-1 * var(--content-pad-horizontal-md));
+    margin-right: calc(-1 * var(--content-pad-horizontal-md));
+  }
+}

@@ -1,8 +1,7 @@
-import { FC, ReactNode } from "react";
-import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
-
-import styles from "./styles.module.scss";
-import { IconApp } from "../icons/icon-app";
+import { FC, ReactNode, useCallback, useEffect, useRef } from 'react'
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
+import styles from './styles.module.scss'
+import { IconApp } from '../icons/icon-app';
 
 interface ModalProps {
   title: string;
@@ -14,6 +13,7 @@ interface ModalProps {
   placeBottom?: boolean;
   destroyOnClose?: boolean;
   noHeaderBorder?: boolean;
+  noneHeader?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -24,51 +24,83 @@ export const Modal: FC<ModalProps> = ({
   isModalOpen,
   placeBottom,
   noHeaderBorder,
+  noneHeader = false,
   closable = true,
   destroyOnClose = true
-}) => (
-  <Transition
-    unmount={destroyOnClose}
-    enter='linear duration-300'
-    enterFrom='opacity-0'
-    enterTo='opacity-100'
-    leave='linear duration-200'
-    leaveFrom='opacity-100'
-    leaveTo='opacity-0'
-    appear
-    show={isModalOpen}
-  >
-    <Dialog
-      as='div'
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleBackButton = useCallback((event) => {
+    if (isModalOpen) {
+      event.preventDefault();
+      onCancel();
+    }
+  }, [isModalOpen, onCancel]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      window.history.pushState(null, '', window.location.href);
+      window.addEventListener('popstate', handleBackButton);
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, [isModalOpen, handleBackButton]);
+
+  return (
+    <Transition
       unmount={destroyOnClose}
-      className={`relative ${zIndex ? "z-[200]" : "z-[150]"} focus:outline-none`}
-      onClose={onCancel}
+      enter="linear duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="linear duration-200"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+      appear
+      show={isModalOpen}
     >
-      <div className={`${styles.Modal} ${noHeaderBorder && styles.ModalNoBorder}`}>
-        <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
-          <TransitionChild
-            unmount={destroyOnClose}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <DialogPanel className={styles.DialogPanel}>
-              <div className={styles.ModalWrap}>
-                <div className={styles.ModalHeader}>
-                  <span className={styles.ModalTitle}>{title}</span>
-                  {closable && (
-                    <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
-                  )}
+      <Dialog
+        as="div"
+        ref={modalRef}
+        onClose={onCancel}
+        unmount={destroyOnClose}
+        className={`relative ${zIndex ? 'z-[200]' : 'z-[150]'} focus:outline-none`}
+      >
+        <div className={`${styles.Modal} ${noHeaderBorder && styles.ModalNoBorder}`}>
+          <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
+            <TransitionChild
+              unmount={destroyOnClose}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <DialogPanel className={styles.DialogPanel} >
+                <div className={styles.ModalWrap}>
+                  {
+                    !noneHeader && (
+                      <div className={styles.ModalHeader}>
+                        <span className={styles.ModalTitle}>{title}</span>
+                        {
+                          closable && (
+                            <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
+                          )
+                        }
+                      </div>
+                    )
+                  }
+                  <div className={`${styles.ModalBody} ${noneHeader && styles.ModalBodyPadding}`}>
+                    {children}
+                  </div>
                 </div>
-                <div className={styles.ModalBody}>{children}</div>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
+              </DialogPanel>
+            </TransitionChild>
+          </div>
         </div>
-      </div>
-    </Dialog>
-  </Transition>
-);
+      </Dialog>
+    </Transition>
+  )
+}

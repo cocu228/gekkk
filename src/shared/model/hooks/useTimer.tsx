@@ -1,35 +1,39 @@
-import { memo, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import {memo, useEffect, useMemo, useState} from "react";
+import {Timer} from "@/widgets/(no-usages)auth/model/helpers";
+import { useTranslation } from 'react-i18next';
 
-import { Timer } from "@/widgets/(no-usages)auth/model/helpers";
+function isPromise(obj: unknown) {
+    return obj instanceof Promise;
+}
 
-// function isPromise(obj: unknown) {
-//   return obj instanceof Promise;
-// }
 
-type TProps = { onAction: () => void | Promise<unknown> };
-export default memo(({ onAction }: TProps) => {
-  const { t } = useTranslation();
-  const [state, setState] = useState<null | number>(null);
+type TProps = { onAction: () => void | Promise<unknown> }
+export default memo(({onAction}: TProps) => {
 
-  const instanceTimer = useMemo(() => new Timer(setState), []);
+    const {t} = useTranslation();
+    const [state, setState] = useState<null | number>(null)
 
-  useEffect(() => () => instanceTimer.clear(), []);
+    const instanceTimer = useMemo(() => new Timer(setState), [])
 
-  const onSendCode = async () => {
-    await onAction();
-    instanceTimer.run();
-  };
+    useEffect(() => {
+        return () => instanceTimer.clear()
+    }, []);
 
-  return (
-    <div>
-      {state === null ? (
-        <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>
-          {t("resend_one-time_code")}
-        </a>
-      ) : (
-        <span className='text-gray-400'>{t("can_use_code", { amount: state })}</span>
-      )}
-    </div>
-  );
-});
+    const onSendCode = async () => {
+        await onAction();
+        instanceTimer.run();
+    }
+
+    return (
+        <div className="mt-[10px] text-center md:text-fs12 text-fs14">
+            {state === null
+                ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>{t("resend_one-time_code")}</a>
+                : (
+                <div className="text-[var(--gek-dark-grey)]">
+                  <span>{t("use_code.can_use_code")}</span>
+                  <span className="text-[#3A5E66] font-bold">{t("use_code.amount", { amount: state })}</span>
+                </div>
+            )}
+        </div>
+    )
+})

@@ -19,7 +19,6 @@ const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
     const {md} = useContext(BreakpointsContext);
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
-    const roomModal = useModal();
     const roomCloseModal = useModal();
     
     const [params] = useSearchParams();
@@ -167,7 +166,7 @@ const HeaderMobile = ({ items, actions }) => {
             }
             {!(exchangePage || privateRoomPage) ? null : (
                 <div className="flex items-center justify-end w-[20%] gap-2 pr-2" data-testid="ExchangeRoomMenu">
-                    <ExchangeRoomMenu roomModal={roomModal} roomCloseModal={roomCloseModal} roomId={roomId}/>
+                    <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomId={roomId}/>
                 </div>
             )}
 

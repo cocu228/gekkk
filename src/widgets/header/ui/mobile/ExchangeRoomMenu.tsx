@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {Dropdown as DropdownC} from '@/shared/ui/!dropdown'
+import {Dropdown} from '@/shared/ui/!dropdown'
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
@@ -24,15 +24,14 @@ type roomType = {
 
 interface ExchangeRoomMenuProps {
   roomId: string;
-  desktop?:boolean;
-  roomModal?: roomType;
   roomCloseModal?: roomType
 }
 
-export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, roomCloseModal }) => {
+export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseModal }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {md} = useBreakpoints()
+  const roomModal = useModal();
   const desktop = !md
   const location = useLocation()
   const [to, setTo] = useState<IExchangeField>({
@@ -58,7 +57,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, 
 
   return !roomsList ? null : (
     <div>
-      <DropdownC
+      <Dropdown
         desktop={desktop}
         position={window.innerWidth < 768 ? 'right' : 'left'}
         customBodyClassName={styles.DropdownBody}
@@ -172,7 +171,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, 
             )
           }
         </div>
-      </DropdownC>
+      </Dropdown>
 
       <Modal
         isModalOpen={roomModal.isModalOpen}

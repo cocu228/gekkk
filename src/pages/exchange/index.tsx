@@ -25,6 +25,11 @@ export default () => {
                 const {data} = await apiApplyCode({
                     code: inviteCode
                 });
+
+                if (!data) {
+                    navigate(`/exchange`);
+                }
+
                 getRoomsList();
 
                 navigate(`/private-room?roomId=${data.result.result}`);

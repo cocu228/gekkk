@@ -26,7 +26,7 @@ export default () => {
                     code: inviteCode
                 });
 
-                if (!data) {
+                if (!!data.error) {
                     navigate(`/exchange`);
                 }
 

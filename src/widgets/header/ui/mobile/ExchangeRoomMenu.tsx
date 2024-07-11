@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {Dropdown} from '@/shared/ui/!dropdown'
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -15,9 +15,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import RoomProperties from "@/widgets/exchange/ui/room-properties/RoomProperties";
-import useError from "@/shared/model/hooks/useError";
 
 type roomType = {
   isModalOpen: boolean;
@@ -35,7 +33,6 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
   const navigate = useNavigate();
   const {md} = useBreakpoints()
   const roomModal = useModal();
-  const desktop = !md
   const location = useLocation()
   const [to, setTo] = useState<IExchangeField>({
     amount: null,
@@ -62,16 +59,16 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
   return !roomsList ? null : (
     <div>
       <Dropdown
-        desktop={desktop}
+        desktop={!md}
         position={window.innerWidth < 768 ? 'right' : 'left'}
         customBodyClassName={styles.DropdownBody}
         trigger={
           <div className="flex gap-2 items-center">
             {
-              desktop ? (
+              !md ? (
                 <>
-                  <span className={`${styles.HeaderTitle} ${location.pathname === '/private-room' && desktop && styles.HeaderTitleActive}`}>{t("exchange.rooms")}</span>
-                  <IconApp className="rotate-[-270deg] duration-150" size={13} code="t08" color={location.pathname === '/private-room' && desktop ? '#285E69' : "#fff"} />
+                  <span className={`${styles.HeaderTitle} ${location.pathname === '/private-room' && !md && styles.HeaderTitleActive}`}>{t("exchange.rooms")}</span>
+                  <IconApp className="rotate-[-270deg] duration-150" size={13} code="t08" color={location.pathname === '/private-room' && !md ? '#285E69' : "#fff"} />
                 </>
               ) : (
                 <>
@@ -103,7 +100,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
         }
         <div className={styles.LastButtons}>
           {
-            !desktop ? (
+            md ? (
               <>
                 {
                   !active ? (

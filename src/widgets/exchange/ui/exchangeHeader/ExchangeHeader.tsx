@@ -7,7 +7,6 @@ import useModal from '@/shared/model/hooks/useModal'
 import { RoomInfo } from '@/shared/(orval)api/gek/model'
 import { useTranslation } from 'react-i18next'
 
-
 interface ExchangeHeaderProps {
     title: React.ReactNode,
     text: React.ReactNode,

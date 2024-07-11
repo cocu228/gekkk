@@ -35,7 +35,6 @@ export const GekwalletAuth = () => {
     }, []);
 
     return (
-        // chatOpened ? <SupportChatUnauthorized setClose={setChatOpened}/> :
         <>
             <Header code='w10' />
             <div className={styles.Main}>

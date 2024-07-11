@@ -4,49 +4,194 @@
   justify-content: center;
   align-items: center;
   background-color: white;
+
+  @media (max-width: 768px) {
+    padding-top: 2vh;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
 
 .Outline {
   position: relative;
   aspect-ratio: 1.157/1;
-  height: 85%;
-  border: 10px solid #D9D9D9;
-  border-radius: 2% 10% 10% 2%;
+  height: 70vh;
+  border: 1.2vh solid #D9D9D9;
+  border-radius: 2vh 6vh 6vh 2vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 2.2vh;
+  padding-left: 0px;
+
+  @media (max-width: 768px) {
+    height: 35vh;
+    border: .6vh solid #D9D9D9;
+    border-radius: 1vh 3vh 3vh 1vh;
+    padding: 1vh;
+    padding-left: 0px;
+    margin-top: 5vh;
+  }
 }
 
 .Dashed {
-  aspect-ratio: 1.157/1;
-  width: 95%;
-  border: 3px dashed #D9D9D9;
+  width: 100%;
+  height: 100%;
+  border: .4vh dashed #D9D9D9;
   border-left: 0px;
-  border-radius: 0px 10% 10% 0px;
+  border-radius: 0px 5vh 5vh 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 768px) {
+    border: .3vh dashed #D9D9D9;
+    border-radius: 0px 2.5vh 2.5vh 0px;
+    border-left: 0px;
+  }
 }
 
 .Login {
   aspect-ratio: 1.53/1;
   height: 25%;
-  border: 10px solid #D9D9D9;
+  border: 1.2vh solid #D9D9D9;
   position: absolute;
-  border-radius: 70px 20px 20px 70px;
-  right: -7%;
+  border-radius: 10vh 3vh 3vh 10vh;
+  right: -6.5vh;
   background-color: white;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  @media (max-width: 768px) {
+    border: .6vh solid #D9D9D9;
+    right: -3vh;
+  }
 }
 
 .Round {
-  width: 8vh;
-  height: 8vh;
-  border: 10px solid #D9D9D9;
+  width: 6.5vh;
+  height: 6.5vh;
+  border: 1.2vh solid #D9D9D9;
+
   border-radius: 50%;
+  @media (max-width: 768px) {
+    width: 3.5vh;
+    height: 3.5vh;
+    border: .6vh solid #D9D9D9;
+  }
+}
+
+.Login:hover {
+  cursor: pointer;
+}
+
+.Login:hover .Round{
+  background-color: var(--gek-green);
+}
+
+.Login:hover .LoginTitle{
+  color: var(--gek-green) ;
 }
 
 .LoginTitle {
   color: #B9B9B5;
   font-size: 3vh;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.5vh;
+  }
+}
+
+.LoginTitle:hover {
+  color: var(--gek-green);
+}
+
+.ImageWrapper {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+}
+
+.GekLogo {
+  height: 100%;
+}
+
+.Footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5vh 5vh;
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    padding: 1.5vh 0px;
+  }
+}
+
+.Registration {
+  font-family: Inter;
+  font-size: 2vh;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  color: var(--gek-additional);
+
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+.Install {
+  font-family: Inter;
+  font-size: 1.8vh;
+  font-weight: 600;
+  line-height: 14.52px;
+  text-align: left;
+  color: var(--gek-mid-grey);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+.DeviceKey {
+  font-family: Inter;
+  font-size: 2vh;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  color: var(--gek-additional);
+
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: 0px;
+  padding: 0;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.2vh;
+  }
+}
+
+.DeviceKeyWrapper {
+  position: absolute;
+  bottom: 4vh;
+  width: 100%;
+  margin-left: 5vh;
+  @media (max-width: 768px) {
+    bottom: 1vh;
+    margin-left: 2.5vh;
+  }
 }

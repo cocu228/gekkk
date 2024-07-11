@@ -4,7 +4,6 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import { apiApplyCode } from "@/shared/(orval)api/gek";
 import { useTranslation } from "react-i18next";
-import buttonStyles from "@/widgets/wallet/transfer/withdraw/ui/forms/styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import style from './styles.module.scss';
 
@@ -57,19 +56,13 @@ const PromoCode = memo(({handleCancel}: IProps) => {
     <>
       <div className="px-3 md:pb-0">
         <form onSubmit={onSubmit} >
-        <div className={`wrapper my-6 ${buttonStyles.ModalInfo}`}>
-            <div className={buttonStyles.ModalInfoIcon}>
-                <div className="col">
-                    <IconApp code="t27" size={15} color="#8F123A"/>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <span className={buttonStyles.ModalInfoText}>
-                        {t("this_code_can_be_used")}
-                    </span>
-                </div>
-            </div>
+        <div className={`flex gap-2 wrapper my-6`}>
+            <span className="content-center">
+                <IconApp code="t27" size={15} color="#8F123A"/>
+            </span>
+            <span className="text-[14px] text-[var(--gek-dark-grey)] font-normal">
+              {t("this_code_can_be_used")}
+            </span>
         </div>
           <div className={style.InputWrap}>
               <Input
@@ -91,16 +84,16 @@ const PromoCode = memo(({handleCancel}: IProps) => {
                 disabled={loading}
                 onChange={handlerInput}
               />
-
-
           </div>
-            <div className={`${style.HelpMessage} ${err && style.HelpMessageRed}`}>{message}</div>
-            <div className={buttonStyles.ButtonContainer}>
-                <Button
-                    htmlType="submit"
-                    className={buttonStyles.ButtonTwo}
-                    disabled={
-                    valInput === "" ||
+          
+          <div className={`${style.HelpMessage} ${err && style.HelpMessageRed}`}>{message}</div>
+          
+          <div className={"flex justify-evenly md:gap-2"}>
+            <Button
+              htmlType="submit"
+              className="w-full"
+              disabled={
+                valInput === "" ||
                 loading ||
                 isCodeApplied
               }
@@ -109,7 +102,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
             </Button>
             <Button
               skeleton
-              className={buttonStyles.ButtonTwo}
+              className="w-full"
               onClick={handleCancel}
             >
               {t("cancel")}

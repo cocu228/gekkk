@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {Dropdown as DropdownC} from '@/shared/ui/!dropdown'
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -14,6 +14,9 @@ import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
 import { Modal } from "@/shared/ui/modal/Modal";
+import { CtxExchangeData } from "@/widgets/exchange/model/context";
+import RoomProperties from "@/widgets/exchange/ui/room-properties/RoomProperties";
+import useError from "@/shared/model/hooks/useError";
 
 type roomType = {
   isModalOpen: boolean;
@@ -28,9 +31,10 @@ interface ExchangeRoomMenuProps {
   roomCloseModal?: roomType
 }
 
-export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, desktop, roomModal, roomCloseModal }) => {
+export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, desktop, roomCloseModal }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const roomModal = useModal();
   const location = useLocation()
   const [to, setTo] = useState<IExchangeField>({
     amount: null,
@@ -41,12 +45,33 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, desktop, ro
     currency: null,
   });
   const [active, setActive] = useState<RoomInfo>(null);
+  const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   const {
     roomsList,
-    removeRoom,
     addRoom: addExchangeRoom,
+    removeRoom: closeExchangeRoom
   } = storeListExchangeRooms((state) => state);
+  const {
+    roomType,
+    roomInfo,
+  } = useContext(CtxExchangeData);
 
+  const closeRoom = async () => {
+    localErrorClear();
+
+    const { data } = await apiCloseRoom({
+      roomId: roomInfo.timetick,
+    });
+
+    if (data.error) {
+      localErrorHunter(data.error);
+      return;
+    }
+
+    closeExchangeRoom(roomInfo.timetick);
+    roomCloseModal.handleCancel();
+    navigate("/exchange");
+  };
   useEffect(() => {
     if (roomsList) {
       setActive(roomsList.find((r) => r.timetick === +roomId));
@@ -204,40 +229,33 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, desktop, ro
       </Modal>
 
       <Modal
+        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+      } ${t("exchange.private_exchange_room")}`}
         isModalOpen={roomCloseModal.isModalOpen}
         onCancel={roomCloseModal.handleCancel}
-        title={t("close_current_room")}
       >
-        <div className="pt-5 text-sm">
-          {active
-            ? t("are_you_sure_close", {
-                currency1: active?.currency1,
-                currency2: active?.currency2,
-              })
-            : t("are_you_sure_leave", {
-                currency1: active?.currency1,
-                currency2: active?.currency2,
-              })}
+        <div className="text-sm">
+          {t("exchange.are_you_sure")}{" "}
+          {roomType === "creator"
+            ? t("exchange.close_private_exchange")
+            : t("exchange.leave_private_exchange")}
+          {t("exchange.unclosed_orders")}.
         </div>
 
-        <div className="mt-16 sm:mt-14 flex justify-center">
-          <Button
-            size="lg"
-            className="w-full"
-            onClick={() => {
-              apiCloseRoom({
-                roomId: active.timetick,
-              })
-                .then(() => {
-                  removeRoom(active.timetick);
-                  roomCloseModal.handleCancel();
-                  navigate("/exchange");
-                })
-                .catch(roomCloseModal.handleCancel);
-            }}
-          >
-            {t("close_private_exchange_room")}
-          </Button>
+        {roomType !== "creator" ? null : (
+          <>
+            <div className="mt-4 mb-2 font-medium">
+              {t("exchange.room_description")}:
+            </div>
+            <RoomProperties room={roomInfo} />
+          </>
+        )}
+
+        <div className="mt-4">{localErrorInfoBox}</div>
+
+        <div className="mt-8 sm:mt-4 flex justify-center">
+          <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+            } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
       </Modal>
     </div>

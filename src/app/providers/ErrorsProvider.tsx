@@ -24,7 +24,6 @@ const ErrorsProvider: FC<PropsWithChildren & {  }> = function ({
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
     const [uasToken, setUasToken] = useState(null)
-
     const getUasToken = async () => {
         const {data} = await apiGetUas();
 
@@ -85,7 +84,15 @@ const ErrorsProvider: FC<PropsWithChildren & {  }> = function ({
                 scrollToTop();
             }
 
-            if (hunterErrorsApi.isAuthExpired()) logout();
+            if (hunterErrorsApi.isAuthExpired()) {
+                const pathname = window.location?.pathname
+                const search = window.location?.search
+                const redirectLink = pathname+search
+                if(pathname) {
+                    localStorage.setItem('redirectPath', redirectLink)
+                }
+                logout()
+            }
             
             if (hunterErrorsApi.isTokenReceive()) {
                 return new Promise((resolve, reject) => {

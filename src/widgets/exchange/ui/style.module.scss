@@ -117,6 +117,10 @@
     border-radius: 8px;
     place-items: center;
   }
+
+  @media screen and (max-width: 768px) {
+    background: none;
+  }
 }
 
 .DeskHistoryWrap {

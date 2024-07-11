@@ -44,7 +44,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
     currency: null,
   });
   const [active, setActive] = useState<RoomInfo>(null);
-  const {roomInfo} = useContext(CtxExchangeData)
+  // const {roomInfo} = useContext(CtxExchangeData)
   const {
     roomsList,
     removeRoom,
@@ -213,7 +213,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
         title={t("close_current_room")}
       >
         <div className="pt-5 text-sm">
-          {roomInfo?.room_code
+          {active
             ? t("are_you_sure_close", {
                 currency1: active?.currency1,
                 currency2: active?.currency2,

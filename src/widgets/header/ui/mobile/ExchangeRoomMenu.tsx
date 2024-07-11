@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { CtxExchangeData } from "@/widgets/exchange/model/context";
+import RoomProperties from "@/widgets/exchange/ui/room-properties/RoomProperties";
 
 import styles from "./style.module.scss";
 
@@ -78,7 +78,7 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
     currency: null
   });
   const [active, setActive] = useState<RoomInfo>(null);
-  const { roomInfo } = useContext(CtxExchangeData);
+
   const { roomsList, removeRoom, addRoom: addExchangeRoom } = storeListExchangeRooms(state => state);
 
   useEffect(() => {
@@ -138,10 +138,7 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
           {!desktop ? (
             <>
               {!active ? (
-                <DropdownCItem
-                  className='w-full min-w-[214px] bg-[var(--gek-light-grey)]'
-                  onClick={roomModal?.showModal}
-                >
+                <DropdownCItem className='w-full min-w-[214px] bg-[#DCDCD9]' onClick={roomModal?.showModal}>
                   <div className='flex justify-between items-center w-full'>
                     <span className='font-semibold text-[#1F3446]'>{t("exchange.new_room")}</span>
                     <IconApp size={22} color='var(--gek-additional)' code='t35' />
@@ -149,24 +146,32 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
                 </DropdownCItem>
               ) : (
                 <>
-                  <DropdownCItem className='w-full min-w-[214px] bg-[#EDEDED]' onClick={roomModal?.showModal}>
+                  <DropdownCItem
+                    className='w-full min-w-[214px] rounded-none bg-[#DCDCD9]'
+                    onClick={roomModal?.showModal}
+                  >
                     <div className='flex justify-between items-center w-full'>
                       <span className='font-semibold text-[#1F3446]'>{t("invite_link")}</span>
                       <IconApp size={22} color='var(--gek-additional)' code='t34' />
                     </div>
                   </DropdownCItem>
                   <DropdownCItem
-                    className='w-full min-w-[214px] border-b-1 border-[var(--gek-additional)] bg-[#EDEDED]'
+                    className='w-full min-w-[214px] p-0 rounded-none bg-[#DCDCD9]'
                     onClick={roomCloseModal?.showModal}
                   >
-                    <div className='flex justify-between items-center w-full'>
-                      <span className='font-semibold text-[var(--gek-red)]'>{t("close_current_room")}</span>
-                      <div className={styles.CloseWrap}>
-                        <IconApp size={20} color='var(--gek-red)' code='t69' />
+                    <div className={`${styles.BorderWrap}`}>
+                      <div className='flex justify-between items-center w-full'>
+                        <span className='font-semibold text-[var(--gek-red)]'>{t("close_current_room")}</span>
+                        <div className={styles.CloseWrap}>
+                          <IconApp size={20} color='var(--gek-red)' code='t69' />
+                        </div>
                       </div>
                     </div>
                   </DropdownCItem>
-                  <DropdownCItem className='w-full min-w-[214px] bg-[#EDEDED]' onClick={() => navigate("/exchange")}>
+                  <DropdownCItem
+                    className='w-full rounded-none min-w-[214px] bg-[#DCDCD9]'
+                    onClick={() => navigate("/exchange")}
+                  >
                     <div className='flex justify-between items-center w-full'>
                       <span className='font-semibold text-[#1F3446]'>{t("back_to_exchange")}</span>
                       <IconApp code='t20' size={22} color='var(--gek-additional)' />
@@ -219,10 +224,10 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
       <Modal
         isModalOpen={roomCloseModal.isModalOpen}
         onCancel={roomCloseModal.handleCancel}
-        title={t("close_current_room")}
+        title={active?.room_code ? t("close_current_room") : t("exchange.leave_the_room")}
       >
-        <div className='pt-5 text-sm'>
-          {roomInfo?.room_code
+        <div className='text-sm'>
+          {active?.room_code
             ? t("are_you_sure_close", {
                 currency1: active?.currency1,
                 currency2: active?.currency2
@@ -232,6 +237,13 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
                 currency2: active?.currency2
               })}
         </div>
+
+        {!active?.room_code ? null : (
+          <>
+            <div className='mt-4 mb-2 font-medium'>{t("exchange.room_description")}:</div>
+            <RoomProperties room={active} />
+          </>
+        )}
 
         <div className='mt-16 sm:mt-14 flex justify-center'>
           <Button
@@ -249,7 +261,7 @@ export const ExchangeRoomMenu: FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseM
                 .catch(roomCloseModal.handleCancel);
             }}
           >
-            {t("close_private_exchange_room")}
+            {active?.room_code ? t("close_private_exchange_room") : t("exchange.leave_the_room")}
           </Button>
         </div>
       </Modal>

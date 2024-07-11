@@ -24,12 +24,12 @@
 }
 
 .FieldsSpacer {
-  margin-top: 0.5rem;
-  margin-bottom: -0.5rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   svg {
-    width: 27px;
-    height: 27px;
+    width: 17px;
+    height: 17px;
   }
 
   @media screen and (max-width: 770px) {
@@ -54,11 +54,9 @@
     }
   }
 
-  @media screen and (max-width: 770px) {
-    svg {
-      width: 17px;
-      height: 17px;
-    }
+  svg {
+    width: 17px;
+    height: 17px;
   }
 }
 

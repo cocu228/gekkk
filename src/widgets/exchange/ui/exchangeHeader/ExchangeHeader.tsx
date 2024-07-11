@@ -6,6 +6,7 @@ import { ExchangeRoomMenu } from '@/widgets/header/ui/mobile/ExchangeRoomMenu'
 import useModal from '@/shared/model/hooks/useModal'
 import { RoomInfo } from '@/shared/(orval)api/gek/model'
 import { useTranslation } from 'react-i18next'
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 
 
 interface ExchangeHeaderProps {
@@ -65,7 +66,7 @@ export const ExchangeHeader:FC<ExchangeHeaderProps> = ({title, text, privateRoom
             </div>
             <div className={style.ExchangeTabsBlock}>
                 <div onClick={() => navigate('/exchange')} className={`${style.ExchangeTabsBlockItem} ${loc.pathname === '/exchange' && style.ExchangeTabsBlockItemActive}`}>Exchange</div>
-                <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomModal={roomModal} desktop={true} roomId={roomId}/>
+                <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomModal={roomModal} roomId={roomId}/>
             </div>
         </>
     )

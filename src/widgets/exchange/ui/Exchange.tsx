@@ -217,13 +217,13 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className={`flex mb-[5px] justify-center ${styles.FieldsSpacer}`}>
+                <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
                     className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""
                       }`}
                   >
-                    <IconApp code='t36' size={27} color="#B9B9B5" />
+                    <IconApp code='t36' size={17} color="#B9B9B5" />
                   </div>
                 </div>
 

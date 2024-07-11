@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {Dropdown} from '@/shared/ui/!dropdown'
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -15,6 +15,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { CtxExchangeData } from "@/widgets/exchange/model/context";
 
 type roomType = {
   isModalOpen: boolean;
@@ -43,6 +44,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
     currency: null,
   });
   const [active, setActive] = useState<RoomInfo>(null);
+  const {roomInfo} = useContext(CtxExchangeData)
   const {
     roomsList,
     removeRoom,
@@ -211,7 +213,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomCloseMo
         title={t("close_current_room")}
       >
         <div className="pt-5 text-sm">
-          {active
+          {roomInfo?.room_code
             ? t("are_you_sure_close", {
                 currency1: active?.currency1,
                 currency2: active?.currency2,

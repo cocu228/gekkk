@@ -1,12 +1,7 @@
-import {FC} from 'react'
-import s from './styles.module.scss'
+import { FC } from "react";
+
+import s from "./styles.module.scss";
 
 interface TypeSelectorProps {}
 
-export const TypeSelector:FC<TypeSelectorProps> = () => {
-    return (
-        <div className={s.TypeSelectorWrao}>
-
-        </div>
-    )
-}
+export const TypeSelector: FC<TypeSelectorProps> = () => <div className={s.TypeSelectorWrao} />;

@@ -49,9 +49,9 @@ export const LocalizationMenu = () => {
   return (
     <>
       <Dropdown trigger={<IconFlag code={state} size={24} />}>
-        {menu.map((item, ind) => (
+        {menu.map(item => (
           <DropdownCItem
-            key={ind}
+            key={item.key}
             className='uppercase'
             onClick={() => onChange(item.key)}
             icon={<IconFlag code={item.key} size={24} />}

@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import { useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 
 import { HelperClassName } from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -92,7 +92,11 @@ export const ItemOrganization = ({
   }
 };
 
-export const PromoCodeModal = ({ active = false }) => {
+interface IPromoCodeModalProps {
+  active?: boolean;
+}
+
+export const PromoCodeModal: FC<IPromoCodeModalProps> = () => {
   const { showModal, handleCancel, isModalOpen } = useModal();
 
   return (

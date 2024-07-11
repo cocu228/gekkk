@@ -31,6 +31,7 @@ export async function SignTX(signData: string) {
       id: assertedCredential.id,
       rawId: coerceToBase64Url(rawId),
       type: assertedCredential.type,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       extensions: assertedCredential.getClientExtensionResults(),
       response: {
         authenticatorData: coerceToBase64Url(authData),

@@ -32,8 +32,6 @@ const TypeChoose = memo(() => {
 
   const { currencies } = useContext(CtxCurrencies);
 
-  if (!currencies) return null;
-
   const TopUpModal = useModal();
 
   const { t } = useTranslation();
@@ -97,6 +95,8 @@ const TypeChoose = memo(() => {
 
     setModalLoading(false);
   };
+
+  if (!currencies) return null;
 
   return (
     <div className='px-10 mt-10 md:mt-4 md:px-4'>

@@ -1,6 +1,6 @@
-import React from "react";
-
 // import { IResMarketAsset } from "@/shared/api";
+import { createContext } from "react";
+
 import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
 
 export type ICtxNewDeposit = {
@@ -24,4 +24,4 @@ export type ICtxNewDeposit = {
   onRiskLevelChange?: (value: StructedDepositStrategy) => void;
 };
 
-export const CtxNewDeposit = React.createContext<ICtxNewDeposit>(null);
+export const CtxNewDeposit = createContext<ICtxNewDeposit>(null);

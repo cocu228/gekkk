@@ -1,7 +1,8 @@
 import { ActiveBonusProgram, Deal } from "@/shared/api/bank/deals";
-import styles from "@/widgets/wallet/programs/cashback/EUR/ui/style.module.scss";
 
 import { storeDeals } from "./deals";
+
+import styles from "@/widgets/wallet/programs/cashback/EUR/ui/style.module.scss";
 
 const DealText: { [key: string]: any } = {
   [ActiveBonusProgram.CASHBACK || ActiveBonusProgram.CASHBACK2]: {

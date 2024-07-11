@@ -4,7 +4,7 @@ import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { CtxRootData } from "@/processes/RootContext";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import PendingTransactions from "@/widgets/pending-transactions";
@@ -35,16 +35,16 @@ const SidebarMobile = () => {
     }
   }, [account]);
 
-  let eurWallet: ICtxCurrency = null;
-  let eurgWallet: ICtxCurrency = null;
-  let gkeWallet: ICtxCurrency = null;
-  let secondaryWallets: ICtxCurrency[] = [];
+  // let eurWallet: ICtxCurrency = null;
+  // let eurgWallet: ICtxCurrency = null;
+  // let gkeWallet: ICtxCurrency = null;
+  // let secondaryWallets: ICtxCurrency[] = [];
 
   if (currencies !== null) {
-    eurWallet = currencies.get("EUR");
-    eurgWallet = currencies.get("EURG");
-    gkeWallet = currencies.get("GKE");
-    secondaryWallets = Array.from(currencies.values());
+    // eurWallet = currencies.get("EUR");
+    // eurgWallet = currencies.get("EURG");
+    // gkeWallet = currencies.get("GKE");
+    // secondaryWallets = Array.from(currencies.values());
   }
 
   return (

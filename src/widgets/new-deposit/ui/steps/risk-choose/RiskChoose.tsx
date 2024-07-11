@@ -31,8 +31,9 @@ const RiskChoose = () => {
                   <p className='text-gray-400 text-sm'>Risk</p>
 
                   <div className='flex gap-1'>
-                    {[1, 2, 3].map((_, index) => (
+                    {[1, 2, 3].map((num, index) => (
                       <div
+                        key={num}
                         className={`${
                           index >= strategy.riskPoints ? "bg-gray-200" : "bg-red-800"
                         } w-[0.5rem] h-[0.5rem] rounded-full`}
@@ -45,8 +46,9 @@ const RiskChoose = () => {
                   <p className='text-gray-400 text-sm'>Return</p>
 
                   <div className='flex gap-1'>
-                    {[1, 2, 3].map((_, index) => (
+                    {[1, 2, 3].map((num, index) => (
                       <div
+                        key={num}
                         className={`${
                           index >= strategy.returnPoints ? "bg-gray-200" : "bg-green"
                         } w-[0.5rem] h-[0.5rem] rounded-full`}

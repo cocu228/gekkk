@@ -1,24 +1,24 @@
-import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
-import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
-import UniversalTransferConfirm from "./UniversalTransferConfirm";
+
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import { validateBalance, validateMaximumAmount, validateMinimumAmount } from "@/shared/config/validators";
+import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import {Modal} from "@/shared/ui/modal/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Textarea from "@/shared/ui/textarea";
 
+import UniversalTransferConfirm from "./UniversalTransferConfirm";
+
 const UniversalTransferForm = () => {
-  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -33,11 +33,10 @@ const UniversalTransferForm = () => {
     requisite: string;
   }>({
     comment: "",
-    requisite: null,
+    requisite: null
   });
 
-  const { min_withdraw = 0, max_withdraw = 0 } =
-    getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, max_withdraw = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   useEffect(() => {
     const { requisite } = inputs;
@@ -46,16 +45,16 @@ const UniversalTransferForm = () => {
   }, [inputs, inputCurr.value]);
 
   const onInputDefault = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
+    setInputs(prev => ({ ...prev, [target.name]: target.value }));
   };
 
   return (
-    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
       {/* Amount Start */}
-      <div className="w-full">
+      <div className='w-full'>
         <AmountInput
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t("minimum_amount"))}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
@@ -72,10 +71,8 @@ const UniversalTransferForm = () => {
       {/* Amount End */}
 
       {/* Contact Start */}
-      <div className="w-full">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t('contact')}:
-        </span>
+      <div className='w-full'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("contact")}:</span>
         <Input
           allowDigits
           allowSymbols
@@ -88,10 +85,8 @@ const UniversalTransferForm = () => {
       {/* Contact End */}
 
       {/* Description Start */}
-      <div className="w-full">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t('description')}:
-        </span>
+      <div className='w-full'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("description")}:</span>
         <Textarea
           allowDigits
           name={"comment"}
@@ -103,20 +98,16 @@ const UniversalTransferForm = () => {
       {/* Description End */}
 
       {/* Commissions Start */}
-      <div className="w-full flex justify-center">
-        <Commissions
-          youWillPay={inputCurr.value.number}
-          youWillGet={inputCurr.value.number}
-          fee={"-"}
-        />
+      <div className='w-full flex justify-center'>
+        <Commissions youWillPay={inputCurr.value.number} youWillGet={inputCurr.value.number} fee={"-"} />
       </div>
       {/* Commissions End */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center">
+      <div className='w-full flex justify-center'>
         <Button
-          size="lg"
-          className="w-full md:text-fs14 text-fs16"
+          size='lg'
+          className='w-full md:text-fs14 text-fs16'
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}
         >
@@ -126,17 +117,8 @@ const UniversalTransferForm = () => {
       {/* Transfer Button End */}
 
       {/* Confirm Start */}
-      <Modal
-        destroyOnClose
-        isModalOpen={isModalOpen}
-        onCancel={handleCancel}
-        title={t("confirm_transaction")}
-      >
-        <UniversalTransferConfirm
-          {...inputs}
-          handleCancel={handleCancel}
-          amount={inputCurr.value.number}
-        />
+      <Modal destroyOnClose isModalOpen={isModalOpen} onCancel={handleCancel} title={t("confirm_transaction")}>
+        <UniversalTransferConfirm {...inputs} handleCancel={handleCancel} amount={inputCurr.value.number} />
       </Modal>
       {/* Confirm End */}
     </div>

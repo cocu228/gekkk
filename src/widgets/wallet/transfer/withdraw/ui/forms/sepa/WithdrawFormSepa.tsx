@@ -1,20 +1,20 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import Input from "@/shared/ui/input/Input";
-import {useNavigate} from "react-router-dom";
-import Button from "@/shared/ui/button/Button";
-import useModal from "@/shared/model/hooks/useModal";
-import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
-import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import { useNavigate } from "react-router-dom";
+import { getInitialProps, useTranslation } from "react-i18next";
+
+import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
+import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
+import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { validateBalance, validateMinimumAmount } from "@/shared/config/validators";
 import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
-import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
-import {getInitialProps, useTranslation} from "react-i18next";
-import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
-import {Modal} from "@/shared/ui/modal/Modal";
-import { Select } from '@/shared/ui/oldVersions/Select';
+import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { Modal } from "@/shared/ui/modal/Modal";
+import { Select } from "@/shared/ui/oldVersions/Select";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import { debounce } from "@/shared/lib";
 import { PaymentDetails } from "@/shared/(orval)api/gek/model";
@@ -23,27 +23,24 @@ import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
+import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
+
 const WithdrawFormSepa = () => {
   // Context
   const currency = useContext(CtxWalletData);
-  const {account} = useContext(CtxRootData);
-  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
-  const {
-    networkTypeSelect,
-    tokenNetworks,
-    localErrorInfoBox,
-    localErrorClear,
-    setBankRefresh
-  } = useContext(CtxWalletNetworks);
+  const { account } = useContext(CtxRootData);
+  const { uasToken, getUasToken } = useContext(UasConfirmCtx);
+  const { networkTypeSelect, tokenNetworks, localErrorInfoBox, localErrorClear, setBankRefresh } =
+    useContext(CtxWalletNetworks);
 
   // Hooks
-  const {t} = useTranslation();
-  const {md} = useBreakpoints();
+  const { t } = useTranslation();
+  const { md } = useBreakpoints();
   const navigate = useNavigate();
-  const {initialLanguage} = getInitialProps();
-  const {inputCurr, setInputCurr} = useInputState();
-  const {isModalOpen, showModal, handleCancel} = useModal();
-  const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+  const { initialLanguage } = getInitialProps();
+  const { inputCurr, setInputCurr } = useInputState();
+  const { isModalOpen, showModal, handleCancel } = useModal();
+  const { inputCurrValid, setInputCurrValid } = useInputValidateState();
   const [loading, setLoading] = useState<boolean>(false);
   const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
   const [details, setDetails] = useState<PaymentDetails>({
@@ -54,39 +51,42 @@ const WithdrawFormSepa = () => {
     amount: {
       sum: {
         currency: {
-          code: currency.$const,
-        },
-      },
-    },
-  })
+          code: currency.$const
+        }
+      }
+    }
+  });
 
   // Handlers
-  const { min_withdraw = 0, withdraw_fee = 0, } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, withdraw_fee = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
-    setDetails((prev) => ({ ...prev, [target.name]: target.value }))
+    setDetails(prev => ({ ...prev, [target.name]: target.value }));
   };
 
   const handleOnPurpose = (val: string) => {
-    setDetails(prev => ({ ...prev, purpose: val }))
-  }
+    setDetails(prev => ({ ...prev, purpose: val }));
+  };
 
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), [],);
+  const delayDisplay = useCallback(
+    debounce(() => setLoading(false), 2700),
+    []
+  );
   const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
   const handleConfirm = async () => {
-    if(!uasToken) {
-      await getUasToken()
-      showModal()
+    if (!uasToken) {
+      await getUasToken();
+      showModal();
     } else {
-      showModal()
+      showModal();
     }
   };
 
   // Effects
   useEffect(() => {
     localErrorClear();
-    if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
+    if (!Object.values(details).some(val => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
       delayDisplay();
@@ -95,36 +95,37 @@ const WithdrawFormSepa = () => {
 
   useEffect(() => {
     setTransferDescriptionsTranslated(
-      transferDescriptions.map((el) => {
-        return {
-          value: el.value,
-          label: t(el.value.toLocaleLowerCase()),
-        };
-      }),
+      transferDescriptions.map(el => ({
+        value: el.value,
+        label: t(el.value.toLocaleLowerCase())
+      }))
     );
   }, [initialLanguage]);
 
   useEffect(() => {
     if (inputCurr.value.number) {
-      setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
+      setDetails(prev => ({
+        ...prev,
+        amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }
+      }));
     }
   }, [inputCurr.value.number]);
 
   // Helpers
-  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "")
+  const isFieldsFill = Object.values(details).every(v => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || !isFieldsFill || inputCurrValid.value;
   const youWillPay = inputCurr.value.number;
   const youWillGet = inputCurr.value.number - withdraw_fee;
   const fee = withdraw_fee;
 
   return (
-    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
       {/* Amount Start */}
-      <div className="w-full">
+      <div className='w-full'>
         <AmountInput
           transfers={md}
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t("minimum_amount"))}
           currency={currency}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
@@ -140,10 +141,8 @@ const WithdrawFormSepa = () => {
       {/* Amount End */}
 
       {/* IBAN Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          IBAN:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>IBAN:</span>
         <Input
           name={"iban"}
           onChange={onInput}
@@ -155,10 +154,8 @@ const WithdrawFormSepa = () => {
       {/* IBAN End */}
 
       {/*  Recipient Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("recipient")}:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("recipient")}:</span>
         <Input
           onChange={onInput}
           name={"beneficiaryName"}
@@ -170,10 +167,8 @@ const WithdrawFormSepa = () => {
       {/* Recipient End */}
 
       {/* Description Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("description")}:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("description")}:</span>
         <Select
           value={details.purpose || ""}
           listHeight={170}
@@ -185,13 +180,8 @@ const WithdrawFormSepa = () => {
       {/* Description End */}
 
       {/* Commissions Start */}
-      <div className="w-full flex justify-center">
-        <Commissions
-          isLoading={loading}
-          youWillPay={youWillPay}
-          youWillGet={youWillGet}
-          fee={fee}
-        />
+      <div className='w-full flex justify-center'>
+        <Commissions isLoading={loading} youWillPay={youWillPay} youWillGet={youWillGet} fee={fee} />
       </div>
       {/* Commissions End */}
 
@@ -200,11 +190,11 @@ const WithdrawFormSepa = () => {
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center">
+      <div className='w-full flex justify-center'>
         <Button
-          size="lg"
+          size='lg'
           onClick={handleConfirm}
-          className="w-full md:text-fs14 text-fs16"
+          className='w-full md:text-fs14 text-fs16'
           disabled={isTransferDisabled}
         >
           {t("transfer")}

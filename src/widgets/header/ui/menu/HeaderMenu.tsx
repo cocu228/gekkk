@@ -49,12 +49,12 @@ const HeaderMenu = ({ children, items, className = "", actions, onStateChange = 
             </span>
             <RefreshButton calloutFunc={handleOnCalloutFunc} />
           </div>
-          {items.map((item, i) => {
+          {items.map(item => {
             if (!item || (!md && item.id === "logout")) return null;
             return (
               <button
+                key={`ItemMenu_${item.id}`}
                 style={item.style}
-                key={`ItemMenu_${i}`}
                 className={`${styles.DropdownItem} ${
                   item.id === account?.number ? styles.SelectedAccount : ""
                 } h-full gap-[3%]`}

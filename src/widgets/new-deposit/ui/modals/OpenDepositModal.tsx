@@ -17,7 +17,7 @@ interface IParams {
   onCancel: () => void;
 }
 
-const OpenDepositModal = ({ open, loading, onCancel, onConfirm, ...props }: IParams) => {
+const OpenDepositModal = ({ open, loading, onCancel, onConfirm }: IParams) => {
   const {
     type,
     rate,

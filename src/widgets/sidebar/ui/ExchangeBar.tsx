@@ -60,12 +60,12 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
       {/* Private exchange rooms collapse */}
       {!(privateRooms && privateRooms.length) ? null : (
         <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
-          {privateRooms.map((item, i) => (
+          {privateRooms.map(item => (
             <NavLink
+              key={item.timetick}
               onClick={NavLinkEvent}
               to={`private-room?roomId=${item.timetick}`}
               className={({ isActive }) => (isActive && +roomId === item.timetick ? "active" : "")}
-              key={item.timetick}
             >
               <div className={styles.Item}>
                 <div className='col flex items-center pl-4 w-[85px]'>

@@ -1,17 +1,18 @@
-import {FC} from "react";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {IValidatorCreator} from "@/shared/config/validators";
-import {useTranslation} from "react-i18next";
-import {ICtxCurrency} from "@/processes/CurrenciesContext";
+import { IValidatorCreator } from "@/shared/config/validators";
+import { ICtxCurrency } from "@/processes/CurrenciesContext";
 
 interface IBrokerAmountContainerProps {
   value: number;
   inputValue: string;
-  currency: ICtxCurrency
-  validators:  IValidatorCreator[];
+  currency: ICtxCurrency;
+  validators: IValidatorCreator[];
   name?: string;
   fees?: {
-    percentFee: number,
+    percentFee: number;
     amountFee: number;
   } | null;
   transfers?: boolean;
@@ -38,15 +39,13 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
   onSelect,
   onChange
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const header = (
-    <span
-      className={textClassname ? textClassname : "font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]"}
-    >
+    <span className={textClassname ? textClassname : "font-bold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]"}>
       {t("amount")}:
     </span>
-  )
+  );
 
   return (
     <InputCurrency.Validator value={value} description={description} validators={validators} onError={onError}>
@@ -63,7 +62,7 @@ const AmountInput: FC<IBrokerAmountContainerProps> = ({
         </InputCurrency.DisplayBalance>
       </InputCurrency.PercentSelector>
     </InputCurrency.Validator>
-  )
-}
+  );
+};
 
 export default AmountInput;

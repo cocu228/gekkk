@@ -20,7 +20,7 @@ module.exports = {
     1,
     {
       code: 120,
-      comments: 120,
+      comments: 200,
       ignoreComments: false,
       ignoreRegExpLiterals: true,
       ignoreStrings: true,

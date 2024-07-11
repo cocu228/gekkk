@@ -100,7 +100,13 @@ async function registerCredentialWithServer(formData: any, changeKeyList: any, s
   return data.result;
 }
 
-export async function RegisterKey(newCredential, challenge_id, code, changeKeyList, setSmsSent) {
+export async function RegisterKey(
+  newCredential: any,
+  challenge_id: any,
+  code: any,
+  changeKeyList: any,
+  setSmsSent: any
+) {
   // Move data into Arrays incase it is super long
   const attestationObject = new Uint8Array(newCredential.response.attestationObject);
   const clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
@@ -113,10 +119,12 @@ export async function RegisterKey(newCredential, challenge_id, code, changeKeyLi
       id: newCredential.id,
       rawId: coerceToBase64Url(rawId),
       type: newCredential.type,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       extensions: newCredential.getClientExtensionResults(),
       response: {
         attestationObject: coerceToBase64Url(attestationObject),
         clientDataJSON: coerceToBase64Url(clientDataJSON),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         transports: newCredential.response.getTransports()
       }
     }

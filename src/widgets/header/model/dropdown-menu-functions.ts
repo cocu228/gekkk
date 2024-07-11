@@ -1,13 +1,13 @@
-import React from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 import { TOnActionParams, THeaderMenuList } from "@/widgets/header/model/types";
 
 export default class DropdownMenuFunctions {
-  ref: React.MutableRefObject<null | HTMLDivElement>;
+  ref: MutableRefObject<null | HTMLDivElement>;
 
   actions?: TOnActionParams;
 
-  toggleOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleOpen: Dispatch<SetStateAction<boolean>>;
 
   constructor(ref, toggleOpen, actions?) {
     this.ref = ref;

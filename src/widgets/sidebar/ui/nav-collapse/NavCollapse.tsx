@@ -14,7 +14,7 @@ const NavCollapse = ({ children, id, header }) => {
   const [isActive, toggleActive] = useState(initActiveStorage);
 
   const handlerToggle = () => {
-    setValue(prevState => ({ [id]: !isActive }));
+    setValue(() => ({ [id]: !isActive }));
 
     toggleActive(prev => !prev);
   };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { apiGetRates } from "@/shared/(orval)api/gek";
 import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
@@ -6,10 +6,10 @@ import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/c
 import { CtxNewDeposit, ICtxNewDeposit } from "./context";
 
 interface IProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const NewDepositProvider = ({ children, ...props }: IProps) => {
+const NewDepositProvider = ({ children }: IProps) => {
   const initialState: ICtxNewDeposit = {
     step: 0,
     rate: null,

@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
-export const CtxInputCurrencyOptions = React.createContext<number>(null);
-export const CtxInputCurrencyValid = React.createContext<boolean>(null);
+export const CtxInputCurrencyOptions = createContext<number>(null);
+export const CtxInputCurrencyValid = createContext<boolean>(null);

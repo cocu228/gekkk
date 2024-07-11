@@ -17,7 +17,11 @@ const PersentageChoose = () => {
           const { risePercent, dropPercent } = getGkePercent(pt, isGke);
 
           return (
-            <ChooseButton isSelected={pt === percentageType} onClick={() => onPercentageTypeChange(pt)}>
+            <ChooseButton
+              key={risePercent / dropPercent}
+              isSelected={pt === percentageType}
+              onClick={() => onPercentageTypeChange(pt)}
+            >
               {risePercent}/{dropPercent}
             </ChooseButton>
           );

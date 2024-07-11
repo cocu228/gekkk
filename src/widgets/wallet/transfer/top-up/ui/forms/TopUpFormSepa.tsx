@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import { CtxRootData } from "@/processes/RootContext";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 // import {storeOrganizations} from "@/shared/store/organizations";
 import styles from "./style.module.scss";
@@ -12,7 +11,6 @@ const TopUpFormSepa = () => {
   // const organizations = storeOrganizations(state => state.organizations);
   const { account } = useContext(CtxRootData);
   const { t } = useTranslation();
-  const { md } = useBreakpoints();
 
   return (
     <div className='wrapper'>

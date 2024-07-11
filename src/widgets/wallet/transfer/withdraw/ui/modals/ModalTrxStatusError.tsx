@@ -8,9 +8,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import styles from "../forms/styles.module.scss";
 
-type IParams = {};
-
-function ModalTrxStatusError({}: IParams) {
+function ModalTrxStatusError() {
   const { t } = useTranslation();
   const { handleCancel } = useContext(CtxGlobalModalContext);
 

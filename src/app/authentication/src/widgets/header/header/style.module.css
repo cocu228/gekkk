@@ -1,0 +1,30 @@
+.Header {
+    display: flex;
+    /* position: sticky; */
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    background: var(--gek-dark-blue);
+    padding: 0 25px;
+  
+    .LogoContainer {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      align-self: center;
+      margin-left: 2%;
+  
+      :hover {
+        cursor: pointer;
+      }
+    }
+}
+  
+header {
+    max-width: 500px;
+  
+    p {
+      font-size: 14px;
+      color: var(--gek-additional);
+    }
+}

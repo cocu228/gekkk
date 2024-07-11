@@ -181,13 +181,15 @@ function DepthOfMarket({
                 </div>
                 {(currencyFrom && currencyTo) && (
                     <div className={`flex justify-between items-center ${styles.Pair}`}>
-                        <span className={styles.CoinPreTitle}>
-                            ({isSwapped
-                                ? `${currencyTo}/${currencyFrom}`
-                                : `${currencyFrom}/${currencyTo}`
-                            })                           
-                        </span>
-                        <IconApp code="t60" color="#F8A73E" size={14} className="rotate-[90deg] " />
+                        <div>
+                            <span className={styles.CoinPreTitle}>
+                                ({isSwapped
+                                    ? `${currencyTo}/${currencyFrom}`
+                                    : `${currencyFrom}/${currencyTo}`
+                                })                           
+                            </span>
+                            <IconApp code="t60" color="#F8A73E" size={14} className="rotate-[90deg] " />
+                        </div>
                         <span className={styles.CoinPreTitle}>({currencyFrom})</span>
                     </div>
                 )}

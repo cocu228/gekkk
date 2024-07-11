@@ -33,7 +33,7 @@ const DepthPrice = ({loading, amount}: IParams) => {
     
     return (
         <div
-            className={`flex gap-1 my-4 w-full md:my-0 font-semibold text-md lg:text-sm md:text-md
+            className={`flex gap-1 w-full my-[3px] md:my-0 font-semibold text-md lg:text-sm md:text-md
                 ${styles.Rate}
                 ${rateState === RateState.UP ? styles.RateUp :
                 rateState === RateState.DOWN ? styles.RateDown : 'fill-none'}`
@@ -41,7 +41,7 @@ const DepthPrice = ({loading, amount}: IParams) => {
         >
             {(loading && !displayAmount) ? (
                 <Loader className='relative h-[25px] w-[25px]' />
-            ) : <div className="flex items-center w-full justify-center">
+            ) : <div className="flex items-center text-[10px] w-full justify-center">
                 {displayAmount ? (
                     <>~{getCurrencyRounding(displayAmount)} <IconApp code="t59" size={20} className={`${rateState === RateState.UP ? 'rotate-[180deg]' : 'rotate-[360deg]'}`} color="rgb(var(--green))" /></>
                 ) : (

@@ -8,10 +8,8 @@ import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { useContext, useEffect, useState } from "react";
-import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { apiCreateOrder } from "@/shared/(orval)api/gek";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import RoomProperties from "./room-properties/RoomProperties";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import PriceField from "@/widgets/exchange/ui/price-field/PriceField";
 import OpenOrders from "@/widgets/exchange/ui/open-orders/OpenOrders";
@@ -38,7 +36,6 @@ function Exchange() {
 
   const confirmModal = useModal();
   const roomInfoModal = useModal();
-  const cancelRoomModal = useModal();
 
   const { md } = useBreakpoints();
   const navigate = useNavigate();
@@ -48,7 +45,7 @@ function Exchange() {
   const { roomsList, getRoomsList } = storeListExchangeRooms((state) => state);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
   const [hasValidationError, setHasValidationError] = useState<boolean>(false);
-  const { addRoom: addExchangeRoom, removeRoom: closeExchangeRoom } =
+  const { addRoom: addExchangeRoom } =
     storeListExchangeRooms((state) => state);
 
   const {
@@ -169,28 +166,12 @@ function Exchange() {
     confirmModal.handleCancel();
   };
 
-  const closeRoom = async () => {
-    localErrorClear();
-
-    const { data } = await apiCloseRoom({
-      roomId: roomInfo.timetick,
-    });
-
-    if (data.error) {
-      localErrorHunter(data.error);
-      return;
-    }
-
-    closeExchangeRoom(roomInfo.timetick);
-    cancelRoomModal.handleCancel();
-    navigate("/exchange");
-  };
-
   return !roomsList ? (
     <Loader className="relative" />
   ) : (
     <div className=" ">
       {md ? null : (
+        // TODO: Refactor header
         <ExchangeHeader privateRoomInfo={roomInfo} title={getHeadTitle()} text={<span className="select-text">{getHeadSubtitle()}</span>} />
       )}
 
@@ -217,13 +198,13 @@ function Exchange() {
                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                   />
                 </div>
-                <div className={`flex mb-[5px] justify-center ${styles.FieldsSpacer}`}>
+                <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
                     className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""
                       }`}
                   >
-                    <IconApp code='t36' size={27} color="#B9B9B5" />
+                    <IconApp code='t36' size={17} color="#B9B9B5" />
                   </div>
                 </div>
 
@@ -390,9 +371,11 @@ function Exchange() {
       </div>
 
       {md && (
-        <div className="w-full rounded-lg mt-[15px]">
-          <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
-          <History className="mx-4 mb-[50px]" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+        <div className="w-full rounded-lg mt-[15px] flex justify-center">
+          <div className={styles.MobHistoryWrap}>
+            <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
+            <History className="mx-4 mb-[50px]" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          </div>
         </div>
       )}
       <Modal
@@ -419,37 +402,6 @@ function Exchange() {
         ) : (
           <InviteLink roomInfo={roomInfo} />
         )}
-      </Modal>
-
-      <Modal
-        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-      } ${t("exchange.private_exchange_room")}`}
-        isModalOpen={cancelRoomModal.isModalOpen}
-        onCancel={cancelRoomModal.handleCancel}
-      >
-        <div className="text-sm">
-          {t("exchange.are_you_sure")}{" "}
-          {roomType === "creator"
-            ? t("exchange.close_private_exchange")
-            : t("exchange.leave_private_exchange")}
-          {t("exchange.unclosed_orders")}.
-        </div>
-
-        {roomType !== "creator" ? null : (
-          <>
-            <div className="mt-4 mb-2 font-medium">
-              {t("exchange.room_description")}:
-            </div>
-            <RoomProperties room={roomInfo} />
-          </>
-        )}
-
-        <div className="mt-4">{localErrorInfoBox}</div>
-
-        <div className="mt-8 sm:mt-4 flex justify-center">
-          <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-            } ${t("exchange.private_exchange_room")}`}</Button>
-        </div>
       </Modal>
     </div>
   );

@@ -20,7 +20,6 @@ export const ExchangeHeader:FC<ExchangeHeaderProps> = ({title, text, privateRoom
     const roomId = params.get('roomId');
     const navigate = useNavigate()
     const loc = useLocation()
-    const roomModal = useModal();
     const roomCloseModal = useModal();
 
     return (
@@ -65,7 +64,7 @@ export const ExchangeHeader:FC<ExchangeHeaderProps> = ({title, text, privateRoom
             </div>
             <div className={style.ExchangeTabsBlock}>
                 <div onClick={() => navigate('/exchange')} className={`${style.ExchangeTabsBlockItem} ${loc.pathname === '/exchange' && style.ExchangeTabsBlockItemActive}`}>Exchange</div>
-                <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomModal={roomModal} desktop={true} roomId={roomId}/>
+                <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomId={roomId}/>
             </div>
         </>
     )

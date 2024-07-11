@@ -141,3 +141,10 @@
   font-weight: 700;
   color: #285E69;
 }
+
+.BorderWrap {
+  margin: 0 0.75rem;
+  padding: 0.75rem 0;
+  width: 100%;
+  border-bottom: 1px solid var(--gek-additional);
+}

@@ -13,6 +13,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import BankReceipt from "./bank";
 import { apiTransactionReceipt } from "@/shared/(orval)api";
 import GekReceipt, { IGekRecepit } from "./gek";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface ReceiptProps {
   /**Bank transaction number */
@@ -31,6 +32,7 @@ type IState = TransactionV1 | IGekRecepit;
 const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   const { t } = useTranslation();
   const { md } = useBreakpoints();
+  const { account } = useContext(CtxRootData);
   const [state, setState] = useState<IState>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const componentRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +41,12 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   const generatePDF = async () => {
       const pdf = new jsPDF();
       const input = componentRef.current;
+
+      input.style.boxShadow = 'none';
+
       const canvas = await html2canvas(input);
+      
+      input.style.boxShadow = '0px -10px 10px -10px rgba(0, 0, 0, 0.15), 0px 15px 10px -10px rgba(0, 0, 0, 0.25)';
       const imgData = canvas.toDataURL('image/png');
       const imgWidth = 210/3; // 1/3 of A4 width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -87,7 +94,7 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
 
       setLoading(false);
     })();
-  }, []);
+  }, [account]);
 
   return loading ? <Loader className="relative my-20"/> : (
     <div className={styles.Wrapper}>

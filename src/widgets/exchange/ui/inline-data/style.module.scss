@@ -12,18 +12,21 @@
 }
 
 .Left {
-    color: #3A5E66
+    color: #3A5E66;
+    font-size: 12px;
 }
 
 .Center {
     display: flex;
     color: #1F3446;
     font-weight: 600;
+    font-size: 12px;
     justify-content: right;
 }
 
 .Right {
     font-weight: 600;
+    font-size: 12px;
     color: #1F3446;
     justify-content: left;
 }

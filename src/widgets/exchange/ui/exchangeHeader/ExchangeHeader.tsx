@@ -6,7 +6,6 @@ import { ExchangeRoomMenu } from '@/widgets/header/ui/mobile/ExchangeRoomMenu'
 import useModal from '@/shared/model/hooks/useModal'
 import { RoomInfo } from '@/shared/(orval)api/gek/model'
 import { useTranslation } from 'react-i18next'
-import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 
 
 interface ExchangeHeaderProps {

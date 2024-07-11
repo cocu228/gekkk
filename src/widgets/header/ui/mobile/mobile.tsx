@@ -167,7 +167,7 @@ const HeaderMobile = ({ items, actions }) => {
             }
             {!(exchangePage || privateRoomPage) ? null : (
                 <div className="flex items-center justify-end w-[20%] gap-2 pr-2" data-testid="ExchangeRoomMenu">
-                    <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomModal={roomModal} roomId={roomId}/>
+                    <ExchangeRoomMenu roomModal={roomModal} roomCloseModal={roomCloseModal} roomId={roomId}/>
                 </div>
             )}
 

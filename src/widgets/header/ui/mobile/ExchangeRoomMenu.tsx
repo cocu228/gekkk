@@ -8,6 +8,7 @@ import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import Button from "@/shared/ui/button/Button";
 import { apiCloseRoom } from "@/shared/(orval)api";
+import useModal from "@/shared/model/hooks/useModal";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -23,6 +24,7 @@ type roomType = {
 
 interface ExchangeRoomMenuProps {
   roomId: string;
+  desktop?:boolean;
   roomModal?: roomType;
   roomCloseModal?: roomType
 }
@@ -30,8 +32,9 @@ interface ExchangeRoomMenuProps {
 export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, roomCloseModal }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation()
   const {md} = useBreakpoints()
+  const desktop = !md
+  const location = useLocation()
   const [to, setTo] = useState<IExchangeField>({
     amount: null,
     currency: null,
@@ -56,16 +59,16 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, 
   return !roomsList ? null : (
     <div>
       <DropdownC
-        desktop={!md}
+        desktop={desktop}
         position={window.innerWidth < 768 ? 'right' : 'left'}
         customBodyClassName={styles.DropdownBody}
         trigger={
           <div className="flex gap-2 items-center">
             {
-              !md ? (
+              desktop ? (
                 <>
-                  <span className={`${styles.HeaderTitle} ${location.pathname === '/private-room' && !md && styles.HeaderTitleActive}`}>{t("exchange.rooms")}</span>
-                  <IconApp className="rotate-[-270deg] duration-150" size={13} code="t08" color={location.pathname === '/private-room' && !md ? '#285E69' : "#fff"} />
+                  <span className={`${styles.HeaderTitle} ${location.pathname === '/private-room' && desktop && styles.HeaderTitleActive}`}>{t("exchange.rooms")}</span>
+                  <IconApp className="rotate-[-270deg] duration-150" size={13} code="t08" color={location.pathname === '/private-room' && desktop ? '#285E69' : "#fff"} />
                 </>
               ) : (
                 <>
@@ -97,7 +100,7 @@ export const ExchangeRoomMenu:FC<ExchangeRoomMenuProps> = ({ roomId, roomModal, 
         }
         <div className={styles.LastButtons}>
           {
-            md ? (
+            !desktop ? (
               <>
                 {
                   !active ? (

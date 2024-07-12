@@ -39,6 +39,7 @@
     "here": "这里",
     "action": "行动",
     "price": "价格",
+    "scan_qr": "掃描二維碼",
     "enter_code": "输入代码",
     "invalid_confirmation_code": "确认码无效",
     "transaction_info": "交易信息",

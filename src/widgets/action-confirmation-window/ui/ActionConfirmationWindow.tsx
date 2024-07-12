@@ -92,8 +92,7 @@ const ActionConfirmationWindow = () => {
   return (
     <Modal
       zIndex
-      // isModalOpen={isModalOpen}
-      isModalOpen={true}
+      isModalOpen={isModalOpen}
       title={t('identity_verification')}
       onCancel={() => {
         handleCancel();

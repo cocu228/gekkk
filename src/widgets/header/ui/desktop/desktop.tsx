@@ -10,9 +10,6 @@ import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { useTranslation } from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP, IS_GEKKWALLET_APP } from "@/shared/lib";
-import Tooltip from "@/shared/ui/tooltip/Tooltip";
-import ModalTrxStatusSuccess from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusSuccess";
-import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 
 const SvgGekkardLogo = (
   <svg
@@ -92,7 +89,6 @@ const HeaderDesktop = ({ items, actions }) => {
               </button>
             </div>
           </HeaderMenu>
-          <ActionConfirmationWindow />
           <div className={styles.HeaderItemsContainer}>
             <LocalizationMenu />
             <span className={styles.HeaderMenuTitles}>

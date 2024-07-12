@@ -1,4 +1,4 @@
-import {useContext, useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -25,7 +25,7 @@ import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
-import {IS_GEKKARD_APP} from "@/shared/lib/";
+import {IS_GEKKARD_APP, IS_GEKKOIN_APP} from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
@@ -42,7 +42,7 @@ function Wallet() {
     const descriptions = getTokenDescriptions(navigate, account);
 
     const gekkardMode = IS_GEKKARD_APP();
-
+    const gekkoinMod = IS_GEKKOIN_APP();
     let $currency = mockEUR;
 
     if (currencies) {
@@ -66,10 +66,13 @@ function Wallet() {
 
     useEffect(() => {
         if (currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")) {
-
             navigate("404")
         }
-    }, [currencies])
+        if (gekkoinMod && (currency !== "GKE" && currency !== "EURG")) {
+            navigate("404");
+        }
+
+    }, [currencies, currency, gekkoinMod, navigate])
 
     const isShownTabs = !(isOnAboutPage)
 
@@ -206,6 +209,6 @@ function Wallet() {
             </CtxWalletData.Provider>
         </div>
     );
-};
+}
 
 export default Wallet;

@@ -162,9 +162,9 @@ function DepthOfMarket({
                     color={color}
                     amount={getCurrencyRounding(array[i][0])}
                     percent={((array[i][1] / maxAmount) * 100)}
-                    price={parseInt(!isSwapped
+                    price={!isSwapped
                         ? (array[i][2]).toFixed(currencies.get(currencyTo)?.ordersPrec)
-                        : (array[i][0] / array[i][1]).toFixed(currencies.get(currencyFrom)?.ordersPrec))}
+                        : (array[i][0] / array[i][1]).toFixed(currencies.get(currencyFrom)?.ordersPrec)}
                 />
             ));
         }

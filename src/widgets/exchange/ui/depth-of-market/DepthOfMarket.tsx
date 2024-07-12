@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { t } from "i18next";
 
 import { uncoverResponse } from "@/shared/lib/helpers";
@@ -26,7 +26,7 @@ interface DepthOfMarketState {
   rate: Record<string, number>;
 }
 
-function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams) {
+const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFrom }) => {
   const initialState: DepthOfMarketState = {
     rate: {},
     price: null,
@@ -35,6 +35,7 @@ function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams
   };
 
   const { currencies } = useContext(CtxCurrencies);
+  // const { onPriceCurrenciesSwap } = useContext(CtxExchangeData);
   const [{ rate, price, loading, tradeInfo }, setState] = useState<DepthOfMarketState>(initialState);
   useEffect(() => {
     if (!roomKey && currencyTo && currencyFrom) {
@@ -146,11 +147,11 @@ function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams
             color={color}
             amount={getCurrencyRounding(array[i][0])}
             percent={(array[i][1] / maxAmount) * 100}
-            price={parseInt(
+            price={
               !isSwapped
                 ? array[i][2].toFixed(currencies.get(currencyTo)?.ordersPrec)
                 : (array[i][0] / array[i][1]).toFixed(currencies.get(currencyFrom)?.ordersPrec)
-            )}
+            }
           />
         )
       );
@@ -187,6 +188,6 @@ function DepthOfMarket({ roomKey, isSwapped, currencyTo, currencyFrom }: IParams
       <div className={styles.GreenWrapper}>{getDepthItems(tradeInfo?.bids, "top", "green")}</div>
     </div>
   );
-}
+};
 
 export default DepthOfMarket;

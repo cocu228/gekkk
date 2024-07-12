@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useRef, useState } from "react";
-import styles from "./style.module.scss"
+import styles from "./style.module.scss";
 import { validateInput } from "@/shared/ui/input/model/helpers";
 
 interface ITextareaProps {
@@ -12,7 +12,8 @@ interface ITextareaProps {
   discardLetters?: boolean;
   className?: string;
   textareaClassName?: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  maxLength?: number;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const Textarea: FC<ITextareaProps> = ({
@@ -43,12 +44,12 @@ const Textarea: FC<ITextareaProps> = ({
         placeholder={`-${placeholder.toLowerCase()}-`}
         className={`${styles.Textarea} ${textareaClassName}`}
         onInput={() => {
-          textareaRef.current.style.height = 'auto';
-          textareaRef.current.style.height = (textareaRef.current.scrollHeight) + "px";
+          textareaRef.current.style.height = "auto";
+          textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
         }}
       />
     </div>
-  )
-}
+  );
+};
 
 export default Textarea;

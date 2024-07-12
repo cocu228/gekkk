@@ -15,14 +15,16 @@
   }
 }
 
-#root, html, body {
+#root,
+html,
+body {
   overflow-x: hidden;
 }
 
 .ptr {
   height: calc(100vh - 105px) !important; // 55px - размер header 50px - Bottom Buttons
   overscroll-behavior-y: none;
-  &__children{
+  &__children {
     overflow: auto !important;
     overscroll-behavior-y: none;
     display: flex;
@@ -143,7 +145,7 @@ input {
   background-color: #fff;
 
   &:active {
-    outline: none !important
+    outline: none !important;
   }
 }
 
@@ -226,14 +228,14 @@ input {
   }
 }
 
-
 .react-datepicker__header {
   background: #fff !important;
   border-bottom: none !important;
   padding: 0 !important;
 }
 
-.react-datepicker__day-name, .react-datepicker__day {
+.react-datepicker__day-name,
+.react-datepicker__day {
   font-family: Inter !important;
   font-size: 13.5px;
   color: rgba(0, 0, 0, 0.88) !important;
@@ -254,7 +256,10 @@ input {
 .react-datepicker {
   width: 100% !important;
   border-radius: 8px !important;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05) !important;
   border: none !important;
 }
 
@@ -308,7 +313,6 @@ input {
 }
 
 .datepickerBorder {
-
 }
 
 .react-datepicker__input-container {
@@ -318,7 +322,7 @@ input {
 
   input {
     font-size: 12px;
-    color:#29354C;
+    color: #29354c;
     font-weight: 600;
     border-radius: 5px;
     height: 100%;
@@ -354,7 +358,8 @@ input {
   }
 }
 
-.datepicker-from, .datepicker-to {
+.datepicker-from,
+.datepicker-to {
   @media screen and (max-width: 370px) {
     min-width: 70px !important;
     width: 100%;

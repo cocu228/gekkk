@@ -1,295 +1,284 @@
 .CashbackCard {
+  z-index: 10;
+  display: block;
+  position: relative;
+  max-width: 355px;
+  border-radius: 8px;
+  padding: 10px 20px 20px 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: var(--gek-additional);
+
+  &Blue {
+    background-image: linear-gradient(277deg, #9fc2c9 0%, #bdf2ed 100%);
+  }
+
+  &Orange {
+    background: linear-gradient(277deg, #d1a186 0%, #f2e0bd 100%);
+  }
+
+  &Green {
+    background: linear-gradient(277deg, #9fc9a8 0%, #b3ec9f 89.58%, #bdf2c9 100%);
+  }
+
+  &Purple {
+    background: linear-gradient(279deg, rgba(40, 38, 99) 7.99%, rgba(160, 221, 225) 110.61%);
+
+    .CashbackCardCheckbox {
+      color: #fff;
+    }
+  }
+
+  &LightBlue {
+    background: #e1f1f6;
+  }
+
+  &LightGreen {
+    background: #e2ffee;
+  }
+
+  &LightOrange {
+    background: #efdab8;
+  }
+
+  &Active {
+    background: linear-gradient(277deg, #fff 0%, #fff 100%);
+
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &Icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  &Name {
     z-index: 10;
-    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    max-width: 60%;
+    margin-bottom: 20px;
+  }
+
+  &Image {
+    opacity: 0.5;
+    width: 89px;
+    height: 89px;
+    margin-top: -16px;
+    margin-left: 4px;
+  }
+
+  &AccrualPeriod {
+    font-size: 12px;
+    font-weight: 600;
+    min-height: 30px;
+  }
+
+  &Checkbox {
+    font-size: 10px;
+    color: #7b797c;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  &Button {
     position: relative;
-    max-width: 355px;
-    border-radius: 8px;
-    padding: 10px 20px 20px 20px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    color: var(--gek-additional);
+    height: 27px !important;
+    outline: none;
+    font-size: 10px !important;
+    color: #3a5e66;
+    font-weight: normal !important;
+    padding: 8px 15px;
+    white-space: nowrap;
+    border-radius: 8px !important;
+    border: 1px solid #3a5e66;
+    transition: all ease-out 0.2s;
+    z-index: 11;
 
-    &Blue {
-        background-image: linear-gradient(277deg, #9FC2C9 0%, #BDF2ED 100%);
+    &Container {
+      position: absolute;
+      left: 50%;
+      bottom: -13.5px;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+      z-index: 11;
     }
-
-    &Orange {
-        background: linear-gradient(277deg, #D1A186 0%, #F2E0BD 100%);
+    &ContainerMobile {
+      position: absolute;
+      left: 50%;
+      bottom: -13.5px;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+      z-index: 11;
+      top: -13.5px;
     }
-
-    &Green {
-        background: linear-gradient(277deg, #9FC9A8 0%, #B3EC9F 89.58%, #BDF2C9 100%);
-    }
-
-    &Purple {
-        background: linear-gradient(279deg, rgba(40, 38, 99) 7.99%, rgba(160, 221, 225) 110.61%);
-
-        .CashbackCardCheckbox {
-            color: #FFF;
-        }
-    }
-
-    &LightBlue{
-        background:  #E1F1F6;
-    }
-
-    &LightGreen{
-        background: #E2FFEE;
-    }
-
-    &LightOrange{
-        background: #EFDAB8;
-    }
-
-    &Active {
-        background: linear-gradient(277deg, #FFF 0%, #FFF 100%);
-
-        &:after {
-            opacity: 1;
-        }
-    }
-
-    &Icon {
-        position: absolute;
-        top: 5px; right: 10px;
-    }
-
-    &Name {
-        z-index: 10;
-        font-size: 16px;
-        font-weight: 600;
-        max-width: 60%;
-        margin-bottom: 20px;
-    }
-
-    &Image {
-        opacity: 0.5;
-        width: 89px;
-        height: 89px;
-        margin-top: -16px;
-        margin-left: 4px;
-    }
-
-    &AccrualPeriod {
-        font-size: 12px;
-        font-weight: 600;
-        min-height: 30px;
-    }
-
-    &Checkbox {
-        font-size: 10px;
-        color: #7B797C;
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    &Button {
-        position: relative;
-        height: 27px !important;
-        outline: none;
-        font-size: 10px !important;
-        color: #3A5E66;
-        font-weight: normal !important;
-        padding: 8px 15px;
-        white-space: nowrap;
-        border-radius: 8px !important;
-        border: 1px solid #3A5E66;
-        transition: all ease-out 0.2s;
-        z-index: 11 ;
-        
-        &Container {
-            position: absolute;
-            left: 50%;
-            bottom: -13.5px;
-            -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-            z-index: 11;
-        }   
-        &ContainerMobile {
-            position: absolute;
-            left: 50%;
-            bottom: -13.5px;
-            -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-            z-index: 11;
-            top: -13.5px;
-        }   
-    }
+  }
 }
 
 .CashbackDescription {
-    z-index: 0;
-    width: 223px;
-    margin-block: 18px;
-    padding-top: 20px;
-    padding-left: 30px;
-    padding-bottom: 15px;
-    border-radius:0px 8px 8px 0px;
-    box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+  z-index: 0;
+  width: 223px;
+  margin-block: 18px;
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-bottom: 15px;
+  border-radius: 0px 8px 8px 0px;
+  box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 
-    &Mobile{
-        display: flex;
-        flex-direction: column;
-        background: white;
-        margin: 0;
-        align-self: center;
-        max-width: 310px;
-        width: 80vw;
-        align-items: flex-start;
-        padding: 10px 10px 10px 12px;
-        border-radius:0px 0px 8px 8px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        margin-top: 1px;
-        
-    }
-    &Title {
-        font-size: 10px;
-        font-weight: 400;
-        letter-spacing: 0.8px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        color: #29354C;
-        
-        &Mobile{
-            margin: 0;
-        }
-    }
+  &Mobile {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    margin: 0;
+    align-self: center;
+    max-width: 310px;
+    width: 80vw;
+    align-items: flex-start;
+    padding: 10px 10px 10px 12px;
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 1px;
+  }
+  &Title {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #29354c;
 
-    &List {
-        font-size: 10px;
-        padding-left: 20px;
-        padding-right: 10px;
-        margin-right: 10px;
-        &Mobile{
-            margin: 0;
-        }
-        li {
-            margin-bottom: 6px;
-            line-height: 12px;
-            color: #29354C;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
+    &Mobile {
+      margin: 0;
     }
+  }
+
+  &List {
+    font-size: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    margin-right: 10px;
+    &Mobile {
+      margin: 0;
+    }
+    li {
+      margin-bottom: 6px;
+      line-height: 12px;
+      color: #29354c;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
-
-
 
 .CashbackCardMobile {
-    @extend .CashbackCard;
-    padding: 10px 20px 20px 20px;
-    position: relative;
-    max-width: 365px;
-    width: 90vw;
-    align-self: center;
+  @extend .CashbackCard;
+  padding: 10px 20px 20px 20px;
+  position: relative;
+  max-width: 365px;
+  width: 90vw;
+  align-self: center;
 
+  &Name {
+    @extend .CashbackCardName;
+    margin-bottom: 38px;
+  }
 
-    &Name {
-        @extend .CashbackCardName;
-        margin-bottom: 38px;
+  &Image {
+    position: absolute;
+    right: 16px;
+    bottom: -16px;
+    opacity: 0.5;
+    width: 107px;
+    height: 107px;
+    z-index: -5;
+  }
+
+  &AccrualPeriod {
+    @extend .CashbackCardAccrualPeriod;
+  }
+
+  &Active {
+    background-image: linear-gradient(277deg, #fff 0%, #fff 100%);
+
+    &:after {
+      content: "";
+      box-shadow: inset 0px 0px 0px 2px rgba(119, 164, 92, 1);
+      position: absolute;
+      border-radius: 25px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
-
-    
-
-    &Image {
-        position: absolute;
-        right: 16px;
-        bottom: -16px;
-        opacity: 0.5;
-        width: 107px;
-        height: 107px;
-        z-index: -5;   
-    }
-
-    &AccrualPeriod {
-        @extend .CashbackCardAccrualPeriod;
-    }
-
-    &Active {
-        background-image: linear-gradient(277deg, #FFF 0%, #FFF 100%);
-
-        &:after {
-            content: '';
-            box-shadow: inset 0px 0px 0px 2px rgba(119, 164, 92, 1);
-            position: absolute;
-            border-radius: 25px;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    }
+  }
 }
-
-
 
 .CashbackCardMobileModal {
+  &Blue {
+    & > div:nth-child(2) {
+      background: linear-gradient(277deg, #9fc2c9 0%, #bdf2ed 100%);
+    }
+  }
 
-    &Blue {
-        & > div:nth-child(2) {
-            background: linear-gradient(277deg, #9FC2C9 0%, #BDF2ED 100%);
-        }
+  &Orange {
+    & > div:nth-child(2) {
+      background: linear-gradient(277deg, #d1a186 0%, #f2e0bd 100%);
     }
-    
-    &Orange {
-        & > div:nth-child(2) {
-            background: linear-gradient(277deg, #D1A186 0%, #F2E0BD 100%);
-        }
-    }
+  }
 
-    &Green {
-        & > div:nth-child(2) {
-            background: linear-gradient(277deg, #9FC9A8 0%, #B3EC9F 89.58%, #BDF2C9 100%);
-        }
+  &Green {
+    & > div:nth-child(2) {
+      background: linear-gradient(277deg, #9fc9a8 0%, #b3ec9f 89.58%, #bdf2c9 100%);
     }
+  }
 
-    &Purple {
-        & > div:nth-child(2) {
-            background: linear-gradient(279deg, rgba(40, 38, 99) 7.99%, rgba(160, 221, 225) 110.61%);
-        }
+  &Purple {
+    & > div:nth-child(2) {
+      background: linear-gradient(279deg, rgba(40, 38, 99) 7.99%, rgba(160, 221, 225) 110.61%);
     }
+  }
 
-    &Image {
-        width: 112px;
-        height: 112px;
-        opacity: 0.9;
-    }
+  &Image {
+    width: 112px;
+    height: 112px;
+    opacity: 0.9;
+  }
 }
 
-
-
 .CashbackModalDescription {
+  &Title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 12px;
+    text-align: center;
+    color: #000;
+    padding: 20px;
+  }
 
-    &Title {
-        font-size: 20px;
-        font-weight: 500;
-        line-height: 12px;
-        text-align: center;
-        color: #000;
-        padding: 20px;
+  &List {
+    font-size: 15px;
+    line-height: 12px;
+    margin-left: 40px;
+
+    li {
+      margin-bottom: 25px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
-
-    &List {
-        font-size: 15px;
-        line-height: 12px;
-        margin-left: 40px;
-
-        li {
-            margin-bottom: 25px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-    }
+  }
 }
 
 .CashbackModalTerms {
-    color: #758498;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 12px;
-    margin-left: 20px;
+  color: #758498;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 12px;
+  margin-left: 20px;
 }

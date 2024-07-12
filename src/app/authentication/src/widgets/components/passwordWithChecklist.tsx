@@ -6,7 +6,7 @@ const PasswordWithChecklist = (props: PasswordInputProps) => {
   const { onChange, ...rest } = props;
   const [password, setPassword] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const target = e.target as HTMLInputElement;
     setPassword(target.value);
     if (onChange) onChange(e);

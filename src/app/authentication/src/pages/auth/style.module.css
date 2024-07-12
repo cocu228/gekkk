@@ -1,0 +1,279 @@
+.Header {
+  display: flex;
+  /* position: sticky; */
+  align-items: center;
+  justify-content: space-between;
+  height: 65px;
+  background: var(--gek-dark-blue);
+  padding: 0 25px;
+
+  .LogoContainer {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    align-self: center;
+    margin-left: 2%;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.Main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+
+  .Body {
+    margin: 20px;
+    margin-left: min(20%, 150px);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    @media (max-width: 700px) {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  }
+}
+
+header {
+  max-width: 500px;
+
+  p {
+    font-size: 14px;
+    color: var(--gek-additional);
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1.85;
+  flex: 1 1 auto;
+  max-width: 500px;
+  min-width: 320px;
+  max-height: 270px;
+
+  @media (min-width: 700px) {
+    min-width: 500px;
+  }
+
+  font-size: small;
+  font-weight: 400;
+  color: var(--gek-dark-blue);
+
+  background: white;
+  border-radius: 8px 8px 0 0;
+  box-shadow:
+    3px 2px 8px 0 #a8a8a84a,
+    13px 8px 15px 0 #a8a8a842,
+    28px 17px 20px 0 #a8a8a826,
+    50px 30px 23px 0 #a8a8a80a,
+    79px 47px 26px 0 #a8a8a803;
+
+  input {
+    height: 36px;
+
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    vertical-align: baseline;
+    font-weight: 400;
+    line-height: 1.29;
+    letter-spacing: 0.16px;
+    border-radius: 0;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    width: 100%;
+
+    border: none;
+    border-bottom: 1px solid var(--gek-light-grey);
+
+    padding: 0 16px;
+    color: var(--gek-dark-blue);
+  }
+
+  input:focus {
+    border-bottom: 1px solid var(--gek-mid-grey);
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--gek-dark-blue);
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px white;
+}
+
+figure {
+  @media (max-width: 1000px) {
+    display: none;
+  }
+
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  width: 50%;
+  max-width: 50%;
+  overflow: visible;
+}
+
+.MainBackground {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  max-width: 783px;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--gek-additional);
+}
+
+a:hover {
+  text-decoration: inherit;
+  color: var(--gek-dark-blue);
+}
+
+footer,
+details {
+  font-size: 12px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+
+  a {
+    margin: 8px 0px;
+  }
+}
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+footer {
+  p {
+    margin: 0px;
+    text-align: justify;
+    color: var(--gek-mid-grey);
+  }
+
+  p:last-child {
+    color: var(--gek-dark-grey);
+  }
+}
+
+details {
+  flex: 1 1 auto;
+  color: black;
+
+  summary {
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+  }
+
+  summary > * {
+    display: inline;
+  }
+
+  h4 {
+    color: var(--gek-additional);
+  }
+
+  a {
+    color: var(--gek-green);
+    font-weight: 550;
+  }
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.InstallButton {
+  align-self: flex-start;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: var(--gek-additional);
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--gek-dark-blue);
+
+    svg {
+      fill: var(--gek-dark-blue);
+    }
+  }
+
+  &:active {
+    color: var(--gek-green);
+
+    svg {
+      fill: var(--gek-green);
+    }
+  }
+
+  svg {
+    margin-right: 5px;
+    fill: var(--gek-additional);
+  }
+}
+
+.underlineOne {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  /* align-items: center; */
+}
+
+.bottom {
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  position: absolute;
+  animation: animateBottom 6s linear infinite;
+
+  background: var(--gek-background);
+}
+
+@keyframes animateBottom {
+  from {
+    width: 0;
+  }
+  10% {
+    background: var(--gek-additional);
+  }
+  20% {
+    width: 100%;
+  }
+  21% {
+    background-color: var(--gek-background);
+  }
+
+  to {
+    background-color: var(--gek-background);
+  }
+}
+
+details > summary > h4 > div {
+  margin-right: 5px;
+  display: inline-block;
+}

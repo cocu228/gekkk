@@ -13,5 +13,5 @@
  */
 
 export type GetAuthV1RegisterOptionsParams = {
-code?: string;
+  code?: string;
 };

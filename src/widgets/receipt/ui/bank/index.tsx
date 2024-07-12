@@ -1,7 +1,9 @@
-import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
+
 import { TransactionV1 } from "@/shared/(orval)api/gek/model";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
+
+import styles from "./styles.module.scss";
 import { getMethodTitle, getStatusTitle } from "../../model/helpers";
 
 export type IBankReceipt = TransactionV1 & {
@@ -15,15 +17,12 @@ const BankReceipt = (data: IBankReceipt) => {
     <>
       <div className={styles.Header}>
         <div className={styles.HeaderLogo}>
-          <img src="/img/icon/GekkardLogoReceipt.svg" alt="AlertIcon"/>
+          <img src='/img/icon/GekkardLogoReceipt.svg' alt='AlertIcon' />
         </div>
 
         <div className={styles.HeaderTitle}>Payment Receipt</div>
         <div className={styles.HeaderId}>{data?.id}</div>
-        <div className={styles.HeaderDate}>{!data?.date
-          ? null
-          : formatDateTime(new Date(data.date))
-        }</div>
+        <div className={styles.HeaderDate}>{!data?.date ? null : formatDateTime(new Date(data.date))}</div>
       </div>
 
       {/* Sender information */}
@@ -94,7 +93,7 @@ const BankReceipt = (data: IBankReceipt) => {
 
       {/* Payment information */}
       <span className={styles.InformationBlockTitle}>{t("payment_information")}</span>
-      
+
       <div className={styles.InformationBlock}>
         {/* Payment type */}
         {!data?.paymentType ? null : (
@@ -124,7 +123,9 @@ const BankReceipt = (data: IBankReceipt) => {
         {!data?.amount?.amount ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("amount")}</span>
-            <span className={styles.InformationBlockItemValue}>{Math.abs(+data.amount.amount)} {data?.amount?.currency ?? null}</span>
+            <span className={styles.InformationBlockItemValue}>
+              {Math.abs(+data.amount.amount)} {data?.amount?.currency ?? null}
+            </span>
           </div>
         )}
 
@@ -132,7 +133,9 @@ const BankReceipt = (data: IBankReceipt) => {
         {!data?.fee ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("fee")}</span>
-            <span className={styles.InformationBlockItemValue}>{data.fee} {data?.amount?.currency ?? null}</span>
+            <span className={styles.InformationBlockItemValue}>
+              {data.fee} {data?.amount?.currency ?? null}
+            </span>
           </div>
         )}
 
@@ -147,8 +150,8 @@ const BankReceipt = (data: IBankReceipt) => {
         {!data?.getOpenApiData?.getExternalData?.type ? null : (
           <div className={styles.InformationBlockItem}>
             <span className={styles.InformationBlockItemTitle}>{t("payment_method")}</span>
-            <span className={styles.InformationBlockItemValue}>{
-              getMethodTitle(data.getOpenApiData.getExternalData.type)}
+            <span className={styles.InformationBlockItemValue}>
+              {getMethodTitle(data.getOpenApiData.getExternalData.type)}
             </span>
           </div>
         )}
@@ -160,6 +163,6 @@ const BankReceipt = (data: IBankReceipt) => {
       </div>
     </>
   );
-}
+};
 
 export default BankReceipt;

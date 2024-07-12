@@ -1,26 +1,26 @@
 @import "@styles/mixins.scss";
 
 .ItemsList {
-    scrollbar-color: var(--color-secondary) transparent;
-    scrollbar-width: thin;
-    overflow: hidden overlay;
-    
-    &::-webkit-scrollbar {
-      height: 5px;
-      width: 5px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-secondary);
-      border-radius: 5px;
-      border: none;
-    }
-    
-    @include max-devices('md') {
-      margin: 0;
-    }
+  scrollbar-color: var(--color-secondary) transparent;
+  scrollbar-width: thin;
+  overflow: hidden overlay;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-secondary);
+    border-radius: 5px;
+    border: none;
+  }
+
+  @include max-devices("md") {
+    margin: 0;
+  }
 }

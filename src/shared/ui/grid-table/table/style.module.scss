@@ -1,11 +1,11 @@
 @import "@styles/mixins";
 
 .MobileScaleText {
-
   @include max-devices(md) {
-    > span, p, a {
+    > span,
+    p,
+    a {
       font-size: 12px;
     }
   }
-
 }

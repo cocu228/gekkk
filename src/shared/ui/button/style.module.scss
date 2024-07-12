@@ -77,23 +77,21 @@
         }
       }
 
-
-
       @media screen and (min-width: 768px) {
         &:not(:disabled):hover {
           color: var(--gek-background);
-  
+
           svg {
             fill: var(--gek-background);
             stroke: var(--gek-background);
           }
         }
       }
-  
+
       @media screen and (max-width: 768px) {
         &:not(:disabled):active {
           color: var(--gek-background);
-  
+
           svg {
             fill: var(--gek-background);
             stroke: var(--gek-background);
@@ -115,7 +113,7 @@
           background: var(--gek-green);
         }
       }
-  
+
       @media screen and (max-width: 768px) {
         &:not(:disabled):active {
           background: var(--gek-green);
@@ -132,14 +130,13 @@
       color: var(--gek-mid-grey);
       border: 1px solid var(--gek-mid-grey);
 
-
       @media screen and (min-width: 768px) {
         &:not(:disabled):hover {
           background: var(--gek-additional);
           border: 1px solid var(--gek-additional);
         }
       }
-  
+
       @media screen and (max-width: 768px) {
         &:not(:disabled):active {
           background: var(--gek-additional);
@@ -152,12 +149,10 @@
   &.Blue {
     background: var(--gek-additional);
 
-
-
     @media screen and (min-width: 768px) {
       &:not(:disabled):hover {
         background: var(--gek-green);
-  
+
         svg {
           fill: var(--gek-background);
           stroke: var(--gek-background);
@@ -168,7 +163,7 @@
     @media screen and (max-width: 768px) {
       &:not(:disabled):active {
         background: var(--gek-green);
-  
+
         svg {
           fill: var(--gek-background);
           stroke: var(--gek-background);
@@ -180,13 +175,12 @@
       color: var(--gek-additional);
       border: 1px solid var(--gek-additional);
 
-
       @media screen and (min-width: 768px) {
         &:not(:disabled):hover {
           background: var(--gek-additional);
         }
       }
-  
+
       @media screen and (max-width: 768px) {
         &:not(:disabled):active {
           background: var(--gek-additional);
@@ -206,14 +200,12 @@
         &:not(:disabled):hover {
           background: var(--gek-red);
         }
-  
       }
-  
+
       @media screen and (max-width: 768px) {
         &:not(:disabled):active {
           background: var(--gek-red);
         }
-  
       }
     }
   }

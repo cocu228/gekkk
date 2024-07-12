@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1BankPersonalizeParams = {
-cardId?: string;
+  cardId?: string;
 };

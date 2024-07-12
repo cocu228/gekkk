@@ -1,37 +1,37 @@
-import React, {FC} from "react";
-import scss from "./style.module.scss"
-import GTCol from '@/shared/ui/grid-table/table-column/GTCol';
+import { CSSProperties, FC, ReactNode } from "react";
+
+import GTCol from "@/shared/ui/grid-table/table-column/GTCol";
 import GTRow from "@/shared/ui/grid-table/table-row/GTRow";
 import GTBody from "@/shared/ui/grid-table/table-body/GTBody";
 import GTHead from "@/shared/ui/grid-table/table-head/GTHead";
 
+import scss from "./style.module.scss";
+
 interface IParams {
-    children: React.ReactNode;
-    className?: string;
-    mobileScaleText?: boolean;
-    style?: React.CSSProperties;
+  children: ReactNode;
+  className?: string;
+  mobileScaleText?: boolean;
+  style?: CSSProperties;
 }
 
 const GTable: FC<IParams> & {
-    Body: typeof GTBody;
-    Row: typeof GTRow;
-    Col: typeof GTCol;
-    Head: typeof GTHead;
-} = ({children, style, className = "", mobileScaleText = false}) => {
+  Body: typeof GTBody;
+  Row: typeof GTRow;
+  Col: typeof GTCol;
+  Head: typeof GTHead;
+} = ({ children, style, className = "", mobileScaleText = false }) => {
+  const classes = `grid ${className} ${mobileScaleText ? scss.MobileScaleText : ""}`;
 
-    const classes = "grid " + className + " " + (mobileScaleText ? scss.MobileScaleText : "")
+  return (
+    <div style={style} className={classes}>
+      {children}
+    </div>
+  );
+};
 
-    return (
-        <div style={style} className={classes}>
-            {children}
-        </div>
-    )
-}
+GTable.Row = GTRow;
+GTable.Col = GTCol;
+GTable.Body = GTBody;
+GTable.Head = GTHead;
 
-
-GTable.Row = GTRow
-GTable.Col = GTCol
-GTable.Body = GTBody
-GTable.Head = GTHead
-
-export default GTable
+export default GTable;

@@ -2,32 +2,34 @@
 @import "variables.scss";
 
 html {
-    min-height: 100%;
+  min-height: 100%;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 body {
-    margin: 0;
-    display: flex;
-    flex-grow: 1;
-    min-width: 320px;
-    width: 100%;
-    color: var(--gek-text-primary);
-    background-color: var(--gek-background);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+  margin: 0;
+  display: flex;
+  flex-grow: 1;
+  min-width: 320px;
+  width: 100%;
+  color: var(--gek-text-primary);
+  background-color: var(--gek-background);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 #root {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: initial;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: initial;
 }

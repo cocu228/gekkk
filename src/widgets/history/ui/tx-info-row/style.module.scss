@@ -11,13 +11,11 @@
   border: 1px transparent solid;
   grid-template-columns: auto 1fr auto auto;
 
-
-
   @media screen and (min-width: 768px) {
-    border: 1px solid #F7F7F0;
+    border: 1px solid #f7f7f0;
 
     &:hover {
-      border: 1px solid #2BAB72;
+      border: 1px solid #2bab72;
     }
   }
 
@@ -74,10 +72,9 @@
   grid-row: 1;
   text-align: right;
   text-transform: lowercase;
-  
 }
 
-.HState{
+.HState {
   color: var(--gek-dark-blue);
 }
 

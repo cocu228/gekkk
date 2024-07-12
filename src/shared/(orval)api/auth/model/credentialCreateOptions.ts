@@ -11,13 +11,13 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AttestationConveyancePreference } from './attestationConveyancePreference';
-import type { AuthenticatorSelection } from './authenticatorSelection';
-import type { PublicKeyCredentialDescriptor } from './publicKeyCredentialDescriptor';
-import type { AuthenticationExtensionsClientInputs } from './authenticationExtensionsClientInputs';
-import type { PubKeyCredParam } from './pubKeyCredParam';
-import type { PublicKeyCredentialRpEntity } from './publicKeyCredentialRpEntity';
-import type { Fido2User } from './fido2User';
+import type { AttestationConveyancePreference } from "./attestationConveyancePreference";
+import type { AuthenticatorSelection } from "./authenticatorSelection";
+import type { PublicKeyCredentialDescriptor } from "./publicKeyCredentialDescriptor";
+import type { AuthenticationExtensionsClientInputs } from "./authenticationExtensionsClientInputs";
+import type { PubKeyCredParam } from "./pubKeyCredParam";
+import type { PublicKeyCredentialRpEntity } from "./publicKeyCredentialRpEntity";
+import type { Fido2User } from "./fido2User";
 
 export interface CredentialCreateOptions {
   attestation?: AttestationConveyancePreference;

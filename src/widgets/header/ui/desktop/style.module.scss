@@ -18,20 +18,19 @@
     flex-basis: var(--sidebar-width-xxl);
   }
 }
-:hover.ContainerLogo
-{
+:hover.ContainerLogo {
   cursor: pointer;
 }
-.CommandsMenu{
+.CommandsMenu {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   flex-grow: 1;
   margin-right: 2%;
 }
-.AccMenu{
-  background-color: #F4F4F4;
+.AccMenu {
+  background-color: #f4f4f4;
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   border-radius: 0.5rem;
   padding: 0.25rem 0.75rem;
   align-items: center;
@@ -54,8 +53,8 @@
     padding-right: var(--content-pad-right-md);
   }
 }
-.Name{
-  color: #F5F5F5;
+.Name {
+  color: #f5f5f5;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -64,16 +63,16 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-.HeaderItemsContainer{
+.HeaderItemsContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  min-width:80px ;
-  gap:5px;
+  min-width: 80px;
+  gap: 5px;
   align-items: center;
 }
-.HeaderMenuTitles{
-  color: #F5F5F5;
+.HeaderMenuTitles {
+  color: #f5f5f5;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -84,7 +83,7 @@
   align-items: center;
   margin-bottom: 3px;
 }
-.Number{
+.Number {
   color: #929798;
   font-family: Archivo;
   font-size: 12px;

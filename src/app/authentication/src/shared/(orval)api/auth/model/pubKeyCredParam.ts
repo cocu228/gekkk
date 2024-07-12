@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { Algorithm } from './algorithm';
-import type { PublicKeyCredentialType } from './publicKeyCredentialType';
+import type { Algorithm } from "./algorithm";
+import type { PublicKeyCredentialType } from "./publicKeyCredentialType";
 
 export interface PubKeyCredParam {
   alg?: Algorithm;

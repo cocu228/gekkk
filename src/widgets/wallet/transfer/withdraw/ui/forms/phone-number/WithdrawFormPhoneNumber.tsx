@@ -1,38 +1,35 @@
-import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
+import { useCallback, useContext, useEffect, useState } from "react";
+
 import useModal from "@/shared/model/hooks/useModal";
-import {useCallback, useContext, useEffect, useState} from "react";
-import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import { validateBalance, validateMinimumAmount, } from "@/shared/config/validators";
+import { validateBalance, validateMinimumAmount } from "@/shared/config/validators";
 import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
-import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import {Modal} from "@/shared/ui/modal/Modal";
+import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import {PaymentDetails} from "@/shared/(orval)api/gek/model";
-import {debounce, formatAsNumber} from "@/shared/lib";
-import {CtxRootData} from "@/processes/RootContext";
+import { PaymentDetails } from "@/shared/(orval)api/gek/model";
+import { debounce } from "@/shared/lib";
+import { CtxRootData } from "@/processes/RootContext";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 import Textarea from "@/shared/ui/textarea";
 
+import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
+
 const WithdrawFormPhoneNumber = () => {
   // Context
-  const {uasToken, getUasToken} = useContext(UasConfirmCtx);
+  const { uasToken, getUasToken } = useContext(UasConfirmCtx);
   const currency = useContext(CtxWalletData);
-  const {account} = useContext(CtxRootData);
-  const {
-    networkTypeSelect,
-    tokenNetworks,
-    localErrorInfoBox,
-    localErrorClear,
-    setBankRefresh
-  } = useContext(CtxWalletNetworks);
+  const { account } = useContext(CtxRootData);
+  const { networkTypeSelect, tokenNetworks, localErrorInfoBox, localErrorClear, setBankRefresh } =
+    useContext(CtxWalletNetworks);
 
   // Hooks
   const { t } = useTranslation();
@@ -52,33 +49,36 @@ const WithdrawFormPhoneNumber = () => {
         }
       }
     }
-  })
+  });
 
   // Handlers
-  const { min_withdraw = 0, withdraw_fee = 0, } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { min_withdraw = 0, withdraw_fee = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
-    setDetails((prev) => ({
+    setDetails(prev => ({
       ...prev,
       [target.name]: target.value
     }));
   };
 
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+  const delayDisplay = useCallback(
+    debounce(() => setLoading(false), 2700),
+    []
+  );
   const delayRes = useCallback(debounce(setBankRefresh, 2500), []);
 
   const handleConfirm = async () => {
-    if(!uasToken) {
-      await getUasToken()
-      showModal()
+    if (!uasToken) {
+      await getUasToken();
+      showModal();
     } else {
-      showModal()
+      showModal();
     }
-  }
+  };
   // Effects
   useEffect(() => {
     localErrorClear();
-    if (!Object.values(details).some((val) => !val) && inputCurr.value.number) {
+    if (!Object.values(details).some(val => !val) && inputCurr.value.number) {
       setLoading(true);
       delayRes(details);
       delayDisplay();
@@ -87,25 +87,28 @@ const WithdrawFormPhoneNumber = () => {
 
   useEffect(() => {
     if (inputCurr.value.number) {
-      setDetails(prev => ({...prev, amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }}))
+      setDetails(prev => ({
+        ...prev,
+        amount: { sum: { currency: prev.amount.sum.currency, value: inputCurr.value.number } }
+      }));
     }
   }, [inputCurr.value.number]);
 
   // Helpers
-  const isFieldsFill = Object.values(details).every((v) => v !== null && v !== "");
+  const isFieldsFill = Object.values(details).every(v => v !== null && v !== "");
   const isTransferDisabled = !!localErrorInfoBox || loading || inputCurrValid.value || !isFieldsFill;
   const youWillPay = inputCurr.value.number + withdraw_fee;
   const youWillGet = inputCurr.value.number;
   const fee = withdraw_fee;
 
   return (
-    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
       {/* Amount Start */}
-      <div className="w-full">
+      <div className='w-full'>
         <AmountInput
           transfers
           value={inputCurr.value.number}
-          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t("minimum_amount"))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
           currency={currency}
@@ -121,26 +124,22 @@ const WithdrawFormPhoneNumber = () => {
       {/* Amount End */}
 
       {/* To Card Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-          <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-            {t("phone_number")}:
-          </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("phone_number")}:</span>
         <Input
           allowDigits
           allowSymbols
           name={"phoneNumber"}
           placeholder={t("auth.enter_phone_number")}
           onChange={onInput}
-          value={details.phoneNumber || ''}
+          value={details.phoneNumber || ""}
         />
       </div>
       {/* To Card End */}
 
       {/* Description Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("description")}:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("description")}:</span>
         <Textarea
           allowDigits
           name={"purpose"}
@@ -153,12 +152,7 @@ const WithdrawFormPhoneNumber = () => {
 
       {/* Commissions Start */}
       <div className='w-full flex justify-center'>
-        <Commissions
-          isLoading={loading}
-          youWillPay={youWillPay}
-          youWillGet={youWillGet}
-          fee={fee}
-        />
+        <Commissions isLoading={loading} youWillPay={youWillPay} youWillGet={youWillGet} fee={fee} />
       </div>
       {/* Commissions End */}
 
@@ -167,11 +161,11 @@ const WithdrawFormPhoneNumber = () => {
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center">
+      <div className='w-full flex justify-center'>
         <Button
-          size="lg"
+          size='lg'
           onClick={handleConfirm}
-          className="w-full md:text-fs14 text-fs16"
+          className='w-full md:text-fs14 text-fs16'
           disabled={isTransferDisabled}
         >
           {t("transfer")}

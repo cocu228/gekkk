@@ -35,7 +35,9 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    ".eslintrc.cjs",
+    ".eslintrules.cjs"
   ],
   "exclude": [
     "node_modules",

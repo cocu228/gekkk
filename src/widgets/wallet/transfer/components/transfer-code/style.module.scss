@@ -1,41 +1,39 @@
 @import "@styles/mixins.scss";
 
-.Container{
+.Container {
+  margin-bottom: 2.25rem;
 
-    @include max-devices(md) { 
-        margin-bottom: 10px;
+  @include max-devices(md) {
+    margin-bottom: 10px;
+  }
+
+  &Secondary {
+    @include max-devices(md) {
+      padding: 0;
+      background: transparent;
+      font-size: 12px;
+      color: var(--gek-additional);
+      text-indent: 5px;
     }
-
-
-    &Secondary{
-
-        @include max-devices (md) {
-            padding: 0; 
-            background: transparent;
-            font-size: 12px;
-            color: var(--gek-additional);
-            text-indent: 5px;
-        }          
-    }
+  }
 }
 
-.FundsText{
-    margin-bottom: 1rem; 
+.FundsText {
+  margin-bottom: 1rem;
 
-
-    @include max-devices (md) { 
-        display: none; 
-    }
+  @include max-devices(md) {
+    display: none;
+  }
 }
 
 .WarnText {
-    // text-[#7B797C] font-normal md:text-[12px] text-[14px]
-    color: #7B797C;
-    font-weight: 400;
-    font-size: 14px;
-    font-family: "Inter";
+  // text-[#7B797C] font-normal md:text-[12px] text-[14px]
+  color: #7b797c;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Inter";
 
-    @media screen and (max-width: 768px) {
-        font-size: 12px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }

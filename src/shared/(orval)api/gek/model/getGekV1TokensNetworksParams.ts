@@ -13,13 +13,13 @@
  */
 
 export type GetGekV1TokensNetworksParams = {
-/**
- * Криптовалюта операции
- */
-currency?: string;
-/**
- * Пополнение (true) или вывод(false)
- */
-top_up?: boolean;
-wdr_amount?: number;
+  /**
+   * Криптовалюта операции
+   */
+  currency?: string;
+  /**
+   * Пополнение (true) или вывод(false)
+   */
+  top_up?: boolean;
+  wdr_amount?: number;
 };

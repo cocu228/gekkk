@@ -1,17 +1,18 @@
-import React, {PropsWithChildren} from 'react';
-import styles from './style.module.scss';
+import { PropsWithChildren } from "react";
+
+import styles from "./style.module.scss";
 
 interface Props {
-    onClick?: () => void
-    active?: boolean
+  onClick?: () => void;
+  active?: boolean;
 }
 
-function PercentBtn({children, onClick, active}: PropsWithChildren<Props>) {
-    return (
-        <button onClick={onClick} className={styles.Btn + (active ? " active" : "")}>
-            {children}
-        </button>
-    );
+function PercentBtn({ children, onClick, active }: PropsWithChildren<Props>) {
+  return (
+    <button onClick={onClick} className={styles.Btn + (active ? " active" : "")}>
+      {children}
+    </button>
+  );
 }
 
 export default PercentBtn;

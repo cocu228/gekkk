@@ -1,22 +1,21 @@
 @import "@styles/mixins";
 
 .InputTitle {
-    line-height: normal;
-    color: #1F3446;
-    font-weight: 500;
-    font-size: 16px;
+  line-height: normal;
+  color: #1f3446;
+  font-weight: 500;
+  font-size: 16px;
 
-    @include max-devices("md") {
-        font-weight: 700;
-        font-size: 12px;
-    }
+  @include max-devices("md") {
+    font-weight: 700;
+    font-size: 12px;
+  }
 }
 
 .PayInfoWrap {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 // .PayInfoWrap > div {
@@ -24,25 +23,24 @@
 // }
 
 .FromCardMobArrow {
-    // rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]
-    display: none;
-    border-radius: 0 5px 5px 0;
-    height: 100%;
-    min-width: 22px;
-    justify-content: center;
-    align-items: center;
-    background: #3A5E66;
+  // rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]
+  display: none;
+  border-radius: 0 5px 5px 0;
+  height: 100%;
+  min-width: 22px;
+  justify-content: center;
+  align-items: center;
+  background: #3a5e66;
 
-
-    @media screen and (max-width: 768px) {
-        display: flex;
-    }
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
 }
 
 .CardToCardInput {
-    height: 56px;
+  height: 56px;
 
-    @media screen and (max-width: 768px) {
-        height: 32px;
-    }
+  @media screen and (max-width: 768px) {
+    height: 32px;
+  }
 }

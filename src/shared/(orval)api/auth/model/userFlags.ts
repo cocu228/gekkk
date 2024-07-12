@@ -15,13 +15,12 @@
 /**
  * Флаги по клиенту
  */
-export type UserFlags = typeof UserFlags[keyof typeof UserFlags];
-
+export type UserFlags = (typeof UserFlags)[keyof typeof UserFlags];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserFlags = {
   NUMBER_0: 0,
   NUMBER_2: 2,
   NUMBER_4: 4,
-  NUMBER_1073741824: 1073741824,
+  NUMBER_1073741824: 1073741824
 } as const;

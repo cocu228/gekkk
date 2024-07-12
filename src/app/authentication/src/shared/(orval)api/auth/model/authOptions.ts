@@ -11,7 +11,7 @@
                     
  * OpenAPI spec version: v1
  */
-import type { CredentialCreateOptions } from './credentialCreateOptions';
+import type { CredentialCreateOptions } from "./credentialCreateOptions";
 
 export interface AuthOptions {
   /** An ArrayBuffer, TypedArray, or DataView originating from the relying party's server and used as a cryptographic challenge. 

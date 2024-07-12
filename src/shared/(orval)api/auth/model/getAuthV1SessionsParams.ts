@@ -13,5 +13,5 @@
  */
 
 export type GetAuthV1SessionsParams = {
-current?: boolean;
+  current?: boolean;
 };

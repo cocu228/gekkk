@@ -1,67 +1,62 @@
 @import "../../../app/styles/mixins.scss";
 @import "../../../widgets/custom-history/ui/style.module.scss";
 
+.Container {
+  margin-bottom: 2rem;
+  width: 100%;
+  font-weight: 500;
 
-.Container{
-
-    margin-bottom: 20px;
-    width: 100%; 
-    font-weight: 500;
-    
-    @include max-devices(md){
-        font-size: 12px;
-        position: relative;
-        margin-bottom: 0px; 
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-}
-
-.Type{
-
-    &Title{
-        padding-left: 5px;
-        padding-right: 25px;
-        display: flex;
-        justify-content: flex-start;
-        font-size: 12px;
-        color: #1F3446;
-        font-weight: 600;
-    }
-}
-
-.NoOptions{
+  @include max-devices(md) {
+    font-size: 12px;
+    position: relative;
+    margin-bottom: 0px;
     display: flex;
     flex-direction: row;
-    gap: 15px;
-
-    &Text{
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--gek-orange);
-    }
+    justify-content: space-evenly;
+    align-items: center;
+  }
 }
 
-.Icon{
+.Type {
+  &Title {
+    padding-left: 5px;
+    padding-right: 25px;
     display: flex;
-    align-items:flex-start;
-}
-
-.SelectBlock{
-    overflow: hidden;
-    width: 100%;
-    padding: 0px;
-    height: 32px;
-    cursor: pointer;
-}
-.SelectActive{
-    overflow: hidden;
-    text-wrap: nowrap;
-}
-.SelectActiveToken{
+    justify-content: flex-start;
     font-size: 12px;
+    color: #1f3446;
+    font-weight: 600;
+  }
 }
 
+.NoOptions {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 
+  &Text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gek-orange);
+  }
+}
+
+.Icon {
+  display: flex;
+  align-items: flex-start;
+}
+
+.SelectBlock {
+  overflow: hidden;
+  width: 100%;
+  padding: 0px;
+  height: 32px;
+  cursor: pointer;
+}
+.SelectActive {
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+.SelectActiveToken {
+  font-size: 12px;
+}

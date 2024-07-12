@@ -1,248 +1,253 @@
 .support-container {
-    width: 100%;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    @media only screen and (max-width: 768px) {
-        margin: 0;
-    }
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 }
 
 .support-header-container {
-    width: 100%;
-    padding: 25px 40px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 101.23%);
-    border-radius: 8px;
+  width: 100%;
+  padding: 25px 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #ffffff 101.23%);
+  border-radius: 8px;
 }
 
 .support-header-titles {
-    color: var(--gek-additional);
+  color: var(--gek-additional);
 }
 
 .support-header-titles > h3 {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .support-header-titles > p {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .support-main-container {
-    width: 100%;
-    max-width: 620px;
-    background-color: #FFF;
-    box-shadow: 0 4px 4px 0 #00000040;
-    border-radius: 8px;
-    padding-block: 35px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+  width: 100%;
+  max-width: 620px;
+  background-color: #fff;
+  box-shadow: 0 4px 4px 0 #00000040;
+  border-radius: 8px;
+  padding-block: 35px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 
-    @media only screen and (max-width: 768px) {
-        max-width: inherit;
-        background-color: transparent;
-        box-shadow: none;
-        padding-block: 0;
-    }
+  @media only screen and (max-width: 768px) {
+    max-width: inherit;
+    background-color: transparent;
+    box-shadow: none;
+    padding-block: 0;
+  }
 }
 
 .support-links-container {
-    width: 100%;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
-    @media only screen and (max-width: 768px) {
-        gap: 5px;
-    }
+  @media only screen and (max-width: 768px) {
+    max-width: none;
+    gap: 5px;
+  }
 }
 
 .support-links-container > p {
-    font-size: 12px;
-    color: var(--gek-mid-grey);
+  font-size: 12px;
+  color: var(--gek-mid-grey);
 
-    @media only screen and (max-width: 768px) {
-        text-align: right;
-    }
+  @media only screen and (max-width: 768px) {
+    text-align: right;
+  }
 }
 
 .support-links-inner {
-    width: 100%;
-    padding-inline: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
+  width: 100%;
+  padding-inline: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
 
-    @media only screen and (max-width: 768px) {
-        gap: 10px;
-    }
+  @media only screen and (max-width: 768px) {
+    gap: 10px;
+  }
 }
 
 .support-links-layout {
-    cursor: pointer;
-    width: 100%;
-    padding: 13px 10px 13px 25px;
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--gek-light-grey);
-    border-radius: 8px;
-    transition: .15s;
+  cursor: pointer;
+  width: 100%;
+  padding: 13px 10px 13px 25px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gek-light-grey);
+  border-radius: 8px;
+  transition: 0.15s;
 
-    @media only screen and (max-width: 768px) {
-        background-color: #FFF;
-        border: none;
-    }
+  @media only screen and (max-width: 768px) {
+    background-color: #fff;
+    border: none;
+  }
 }
 
 .support-links-layout:hover {
-    border-color: var(--gek-green);
+  border-color: var(--gek-green);
 }
 
 .support-links-layout > div {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .support-links-layout > svg:first-of-type {
-    margin-right: 25px;
+  margin-right: 25px;
 }
 
 .support-link-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gek-dark-blue);
-    margin-bottom: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gek-dark-blue);
+  margin-bottom: 3px;
 
-    @media only screen and (max-width: 768px) {
-        font-size: 12px;
-    }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .support-link-subtitle {
-    font-size: 12px;
-    color: var(--gek-mid-grey);
+  font-size: 12px;
+  color: var(--gek-mid-grey);
 }
 
 .control-container {
-    width: 100%;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    max-width: none;
+  }
 }
 
 .control-main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .control-main-title {
-    color: var(--gek-dark-blue);
-    text-align: center;
-    font-size: 12px;
-    font-weight: 600;
+  color: var(--gek-dark-blue);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .control-main-body {
-    width: 100%;
-    max-width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 24px;
-    border-radius: 8px;
-    background: #FFF;
-    border: 1px solid var(--gek-light-grey);
+  width: 100%;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--gek-light-grey);
 
-    @media only screen and (max-width: 768px) {
-        border: none;
-    }
+  @media only screen and (max-width: 768px) {
+    border: none;
+  }
 }
 
 .control-main-body > svg {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .control-main-body > svg:first-of-type:hover {
-    fill: var(--gek-green);
+  fill: var(--gek-green);
 }
 
 .control-main-body > svg:last-of-type {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .control-main-body > svg:last-of-type:hover {
-    fill: var(--gek-red);
+  fill: var(--gek-red);
 }
 
 .control-main-footer {
-    color: #3A5E66;
-    text-align: center;
-    font-size: 12px;
+  color: #3a5e66;
+  text-align: center;
+  font-size: 12px;
 }
 
 .control-form-fade {
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s linear;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s linear;
 }
 
 .control-form-fade.active {
-    max-height: 250px;
+  max-height: 250px;
 }
 
 .control-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: #FFF;
-    border-radius: 8px;
-    padding: 15px 10px 10px;
-    border: 1px solid var(--gek-light-grey);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px 10px 10px;
+  border: 1px solid var(--gek-light-grey);
 
-    @media only screen and (max-width: 768px) {
-        border: none;
-    }
+  @media only screen and (max-width: 768px) {
+    border: none;
+  }
 }
 
 .control-form-title {
-    color: var(--gek-dark-blue);
-    font-size: 12px;
-    font-weight: 600;
+  color: var(--gek-dark-blue);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .control-form-stars {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .control-form-stars svg {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .control-form > button {
-    width: 100%;
-    max-width: 120px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto;
 }

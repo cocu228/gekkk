@@ -1,20 +1,20 @@
-import UserType from "./UserType"
+import UserType from "./UserType";
 
 export interface MediaType {
-  type: "image" | "video" | "file" | "gif"
-  url: string
-  size?: number
-  name?: string
+  type: "image" | "video" | "file" | "gif";
+  url: string;
+  size?: number;
+  name?: string;
 }
 
 type MessageType = {
-  user: UserType
-  id?: string
-  text?: string
-  media?: MediaType
-  createdAt?: Date
-  seen?: boolean
-  loading?: boolean
-}
+  user: UserType;
+  id?: string;
+  text?: string;
+  media?: MediaType;
+  createdAt?: Date;
+  seen?: boolean;
+  loading?: boolean;
+};
 
-export default MessageType
+export default MessageType;

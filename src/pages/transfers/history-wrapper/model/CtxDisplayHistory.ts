@@ -1,5 +1,5 @@
-import React from "react";
+import { createContext } from "react";
 
-export const CtxDisplayHistory = React.createContext<{displayHistory: (value?: boolean) => void}>({
-    displayHistory: (value?: boolean) => {}
+export const CtxDisplayHistory = createContext<{ displayHistory: (value?: boolean) => void }>({
+  displayHistory: (_?: boolean) => {}
 });

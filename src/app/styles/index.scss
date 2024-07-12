@@ -6,87 +6,85 @@
 
 @import "(cs)react-international-phone.scss";
 
-
-
 :root {
-    line-height: 1.5;
-    font-weight: 400;
+  line-height: 1.5;
+  font-weight: 400;
 
-    color-scheme: light dark;
-    color: var(--color-primary);
-    background-color: var(--color-main-bg);
+  color-scheme: light dark;
+  color: var(--color-primary);
+  background-color: var(--color-main-bg);
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-text-size-adjust: 100%;
-    @include max-devices(md){
-        user-zoom: fixed;
-    }
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  @include max-devices(md) {
+    user-zoom: fixed;
+  }
 }
 
 a {
-    text-decoration: inherit;
+  text-decoration: inherit;
 }
 
 a:hover {
-    text-decoration: inherit;
+  text-decoration: inherit;
 }
 
 body {
-    margin: 0;
-    display: flex;
-    //place-items: center;
-    min-width: 320px;
-    min-height: 100vh;
-    user-select: none;
-    width: 100%;
-    background-color: var(--gek-background);
-    @include max-devices(md){
-        overscroll-behavior-y: none;
-    }
+  margin: 0;
+  display: flex;
+  //place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  user-select: none;
+  width: 100%;
+  background-color: var(--gek-background);
+  @include max-devices(md) {
+    overscroll-behavior-y: none;
+  }
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 #root {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: initial;
-    //display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: initial;
+  //display: flex;
 
+  // :root {
+  //     /* desktop vars */
+  //     --saturateIcons: 0%;
 
-    // :root {
-    //     /* desktop vars */
-    //     --saturateIcons: 0%;
-    
-    // }
-    // @media screen and (max-width: 479px) {
-    //     :root {
-    //         /* mobile vars */
-    //         --saturateIcons: 100%;
-    //     }
-    // }
-  
+  // }
+  // @media screen and (max-width: 479px) {
+  //     :root {
+  //         /* mobile vars */
+  //         --saturateIcons: 100%;
+  //     }
+  // }
 }
 
 @layer components {
-    .text-header {
-        font-size: 32px;
-        line-height: 48px;
-    }
+  .text-header {
+    font-size: 32px;
+    line-height: 48px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-    //:root {
-    //    color: #213547;
-    //    background-color: #242424;
-    //}
+  //:root {
+  //    color: #213547;
+  //    background-color: #242424;
+  //}
 }
 
 @tailwind base;

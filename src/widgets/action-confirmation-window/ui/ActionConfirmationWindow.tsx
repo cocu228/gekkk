@@ -1,13 +1,14 @@
+import { useTranslation } from "react-i18next";
+import { InternalAxiosRequestConfig } from "axios";
+import { useContext, useEffect, useState } from "react";
+
 import { $axios } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
-import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { scrollToTop } from "@/shared/lib/helpers";
-import { InternalAxiosRequestConfig } from "axios";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
-import { useContext, useEffect, useState } from "react";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import { Modal } from "@/shared/ui/modal/Modal";
 
@@ -23,16 +24,12 @@ const ActionConfirmationWindow = () => {
     code: null,
     sessid: null,
     config: null,
-    loading: false,
+    loading: false
   });
   const { t } = useTranslation();
   const { isModalOpen, handleCancel, showModal } = useModal();
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const {
-    pending,
-    setSuccess,
-    actionConfirmResponse: response,
-  } = useContext(UasConfirmCtx);
+  const { pending, setSuccess, actionConfirmResponse: response } = useContext(UasConfirmCtx);
 
   useEffect(() => {
     (async () => {
@@ -42,7 +39,7 @@ const ActionConfirmationWindow = () => {
           loading: false,
           config: response.config,
           // @ts-ignore
-          sessid: response.data.result.sessid,
+          sessid: response.data.result.sessid
         });
 
         scrollToTop();
@@ -51,10 +48,23 @@ const ActionConfirmationWindow = () => {
     })();
   }, [response]);
 
-  const onConfirm = async () => {
-    setState((prev) => ({
+  const handleError = () => {
+    setState(prev => ({
       ...prev,
-      loading: true,
+      code: null,
+      loading: false
+    }));
+
+    localErrorHunter({
+      code: 401,
+      message: t("invalid_confirmation_code")
+    });
+  };
+
+  const onConfirm = async () => {
+    setState(prev => ({
+      ...prev,
+      loading: true
     }));
 
     try {
@@ -62,30 +72,17 @@ const ActionConfirmationWindow = () => {
         ...config,
         params: {
           sessid,
-          code: code.replace(/ /g, ""),
-        },
+          code: code.replace(/ /g, "")
+        }
       });
 
       pending.resolve(response);
 
       handleCancel();
       setSuccess();
-    } catch (error) {
+    } catch (_) {
       handleError();
     }
-  };
-
-  const handleError = () => {
-    setState((prev) => ({
-      ...prev,
-      code: null,
-      loading: false,
-    }));
-
-    localErrorHunter({
-      code: 401,
-      message: t("invalid_confirmation_code"),
-    });
   };
 
   return (
@@ -93,49 +90,42 @@ const ActionConfirmationWindow = () => {
       zIndex
       closable={false}
       isModalOpen={isModalOpen}
-      title={t('identity_verification')}
+      title={t("identity_verification")}
       onCancel={() => {
         handleCancel();
         localErrorClear();
       }}
     >
-      {loading && <Loader className="" />}
+      {loading && <Loader className='' />}
 
       <div className={loading ? "collapse" : "mt-[30px]"}>
-        <div className="row -mt-5 mb-5">
-          <div className="col">
-            <span className="text-gray-600">
-              {t("action_confirmation_message")}
-            </span>
+        <div className='row -mt-5 mb-5'>
+          <div className='col'>
+            <span className='text-gray-600'>{t("action_confirmation_message")}</span>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className='mb-4'>
           <Input
             allowDigits
-            size={'md'}
-            type="text"
+            size={"md"}
+            type='text'
             value={code}
             placeholder={t("enter_sms_code")}
             onChange={({ target }) => {
               localErrorClear();
-              setState((prev) => ({
+              setState(prev => ({
                 ...prev,
-                code: target.value,
+                code: target.value
               }));
             }}
           />
         </div>
 
-        <div className="mb-4">{localErrorInfoBox}</div>
+        <div className='mb-4'>{localErrorInfoBox}</div>
 
-        <div className="flex justify-center w-full">
-          <Button
-            size="lg"
-            disabled={!code}
-            onClick={onConfirm}
-            className="w-full mt-4"
-          >
+        <div className='flex justify-center w-full'>
+          <Button size='lg' disabled={!code} onClick={onConfirm} className='w-full mt-4'>
             {t("confirm")}
           </Button>
         </div>

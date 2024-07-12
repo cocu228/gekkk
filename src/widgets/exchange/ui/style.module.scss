@@ -6,7 +6,7 @@
   justify-content: flex-end;
   min-height: 2.812rem;
 
-  @media screen and (max-width:768px) {
+  @media screen and (max-width: 768px) {
     min-height: 2.187rem;
   }
 }
@@ -98,7 +98,7 @@
   }
 }
 
-.CancelButton{
+.CancelButton {
   width: 100%;
 
   background: var(--gek-background) !important;
@@ -131,7 +131,6 @@
   position: relative;
   left: -1px;
 
-
   @media screen and (max-width: 1700px) {
     background: inherit;
     max-width: 415px;
@@ -155,14 +154,13 @@
   max-width: 100%;
 }
 
-
 .DeskHistoryTitle {
   font-size: 15px;
   padding-left: 10px;
   margin-bottom: 10px;
   display: block;
   z-index: 11;
-  color: #29354C;
+  color: #29354c;
   font-weight: 700;
   max-width: 600px;
   margin: 0 auto;
@@ -183,7 +181,6 @@
     background: inherit;
     border-radius: none;
     max-width: 415px;
-
   }
 
   @media screen and (min-width: 1700px) {
@@ -206,7 +203,7 @@
   margin-left: 8px;
   user-select: none;
   font-family: Inter;
-  color: #29354C;
+  color: #29354c;
 }
 
 .MobHistoryWrap {

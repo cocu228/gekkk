@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { ErrorObject } from './errorObject';
-import type { UserKey } from './userKey';
+import type { ErrorObject } from "./errorObject";
+import type { UserKey } from "./userKey";
 
 /**
  * Объект-ответ на запрос к API, содержит в себе данные или детали ошибки

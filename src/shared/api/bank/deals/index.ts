@@ -1,3 +1,3 @@
-export * from './get-deals';
-export * from './confirmation-deal';
-export * from './init-deal';
+export * from "./confirmation-deal";
+export * from "./get-deals";
+export * from "./init-deal";

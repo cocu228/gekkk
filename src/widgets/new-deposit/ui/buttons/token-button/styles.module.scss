@@ -1,14 +1,14 @@
 .TokenButton {
-    border: 1px solid var(--color-gray-400);
+  border: 1px solid var(--color-gray-400);
 
-    &:active,
-    &:focus {
-        border-color: var(--color-blue-400);
-    }
+  &:active,
+  &:focus {
+    border-color: var(--color-blue-400);
+  }
 
-    svg {
-        width: 7px;
-        height: 17px;
-        fill: var(--color-secondary);
-    }
+  svg {
+    width: 7px;
+    height: 17px;
+    fill: var(--color-secondary);
+  }
 }

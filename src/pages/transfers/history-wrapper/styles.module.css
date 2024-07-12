@@ -1,9 +1,9 @@
 .Header {
-    display: block;
-    font-size: 14px;
-    margin-top: 10px;
-    margin-left: 5px;
-    font-weight: bold;
-    margin-bottom: 4px;
-    color: var(--gek-dark-blue);
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 5px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: var(--gek-dark-blue);
 }

@@ -1,41 +1,37 @@
 @import "../../styles/mixins.scss";
 
-
-
-
-.MainContainer{
+.MainContainer {
   margin: 1rem;
-  @include max-devices(md){
+  @include max-devices(md) {
     margin-bottom: 2rem;
   }
 }
-.Container{
-  display: flex; 
-  gap: 1.5rem; 
-  justify-content: space-between; 
-  align-items: center; 
-  @include max-devices(lg){
+.Container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  @include max-devices(lg) {
     flex-direction: column;
     align-items: flex-start;
   }
 }
-.Title{
-  margin-bottom: 1rem; 
-  font-weight: 700; 
+.Title {
+  margin-bottom: 1rem;
+  font-weight: 700;
   font-size: 32px;
-  @include max-devices(md){
+  @include max-devices(md) {
     font-size: 1.5rem;
-    line-height: 2rem; 
+    line-height: 2rem;
   }
 }
-.SubTitle{
+.SubTitle {
   font-size: 14px;
-  line-height: 1.25rem; 
+  line-height: 1.25rem;
 }
-.RightContent{
+.RightContent {
   flex-shrink: 0;
-  @include max-devices(lg){
-    width: 100%; 
+  @include max-devices(lg) {
+    width: 100%;
   }
 }
-

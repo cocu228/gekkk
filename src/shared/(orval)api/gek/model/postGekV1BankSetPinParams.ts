@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1BankSetPinParams = {
-cardId?: string;
+  cardId?: string;
 };

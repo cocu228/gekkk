@@ -16,11 +16,10 @@
  * : 
 0 = Available, 1 = Active
  */
-export type CardFilter = typeof CardFilter[keyof typeof CardFilter];
-
+export type CardFilter = (typeof CardFilter)[keyof typeof CardFilter];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CardFilter = {
-  Available: 'Available',
-  Active: 'Active',
+  Available: "Available",
+  Active: "Active"
 } as const;

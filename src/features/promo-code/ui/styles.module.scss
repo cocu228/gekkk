@@ -1,26 +1,26 @@
 .InputWrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #B9B9B5 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #b9b9b5 !important;
 
-    input {
-        padding: 1.25rem 1.25rem 1.25rem 0.75rem !important;
-    }
+  input {
+    padding: 1.25rem 1.25rem 1.25rem 0.75rem !important;
+  }
 }
 
 .HelpMessage {
-    color: #45AD77;
-    margin-top: 5px;
-    margin-bottom: 10px;
+  color: #45ad77;
+  margin-top: 5px;
+  margin-bottom: 10px;
 
-    &Red {
-        color: #ff4d4f !important;
-    }
+  &Red {
+    color: #ff4d4f !important;
+  }
 }
 
 .IconsWrap {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

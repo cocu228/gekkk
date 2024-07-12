@@ -14,6 +14,7 @@ import styles from "./style.module.scss";
 const Content: FC<PropsWithChildren> = ({ children }) => {
   const { md } = useBreakpoints();
 
+  const isHistory = !!useMatch("/history");
   const isWallet = !!useMatch("/wallet");
   const isExchange = !!useMatch("/exchange");
   const isPrivateRoom = !!useMatch("/private-room");
@@ -28,7 +29,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     });
 
   const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP();
-  const isNoPaddingPages = isWallet || isExchange || isPrivateRoom;
+  const isNoPaddingPages = isWallet || isExchange || isPrivateRoom || isHistory;
 
   return isGEKAndGEKW ? (
     <div className='w-full flex-1 md:mb-3 mb-10'>

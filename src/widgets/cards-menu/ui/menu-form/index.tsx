@@ -53,7 +53,7 @@ const MenuForm = ({ cardsStorage, onSelectCard, setCardsStorage, setIsNewCardOpe
   }
 
   return (
-    <div className='px-2'>
+    <div className='md:px-0 px-2'>
       {/* Display header only in desktop mode */}
       {!md && (
         <div className={styles.Header}>

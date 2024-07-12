@@ -96,6 +96,7 @@ const QualityControl: FC = () => {
           <Textarea
             allowDigits
             name='message'
+            maxLength={4000}
             placeholder={t("support.quality_improvement_placeholder")}
             className={"py-[9px]"}
             textareaClassName={"text-fs12"}

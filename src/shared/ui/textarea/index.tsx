@@ -14,6 +14,7 @@ interface ITextareaProps {
   discardLetters?: boolean;
   className?: string;
   textareaClassName?: string;
+  maxLength?: number;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -29,7 +30,7 @@ const Textarea: FC<ITextareaProps> = ({
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
       onChange(event);
     }

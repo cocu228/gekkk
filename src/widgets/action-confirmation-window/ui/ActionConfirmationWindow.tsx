@@ -12,6 +12,8 @@ import useError from "@/shared/model/hooks/useError";
 import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import { Modal } from "@/shared/ui/modal/Modal";
 
+import style from "./styles.module.scss";
+
 interface IState {
   code: string;
   sessid: string;
@@ -88,7 +90,6 @@ const ActionConfirmationWindow = () => {
   return (
     <Modal
       zIndex
-      closable={false}
       isModalOpen={isModalOpen}
       title={t("identity_verification")}
       onCancel={() => {
@@ -98,17 +99,15 @@ const ActionConfirmationWindow = () => {
     >
       {loading && <Loader className='' />}
 
-      <div className={loading ? "collapse" : "mt-[30px]"}>
-        <div className='row -mt-5 mb-5'>
-          <div className='col'>
-            <span className='text-gray-600'>{t("action_confirmation_message")}</span>
-          </div>
-        </div>
+      <div className={loading ? "collapse" : ""}>
+        <span className={style.ModalText}>&emsp;&emsp;{t("action_confirmation_message")}</span>
 
-        <div className='mb-4'>
+        <div className=''>
           <Input
             allowDigits
             size={"md"}
+            className={style.Input}
+            wrapperClassname={style.InputWrap}
             type='text'
             value={code}
             placeholder={t("enter_sms_code")}
@@ -122,10 +121,10 @@ const ActionConfirmationWindow = () => {
           />
         </div>
 
-        <div className='mb-4'>{localErrorInfoBox}</div>
+        {localErrorInfoBox && <div className='mb-4'>{localErrorInfoBox}</div>}
 
-        <div className='flex justify-center w-full'>
-          <Button size='lg' disabled={!code} onClick={onConfirm} className='w-full mt-4'>
+        <div className={style.ButtonWrap}>
+          <Button size='md' disabled={!code} onClick={onConfirm} className='w-full mt-4'>
             {t("confirm")}
           </Button>
         </div>

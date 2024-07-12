@@ -20,6 +20,7 @@ type IParams = {
   allowSymbols?: boolean;
   discardLetters?: boolean;
   className?: string;
+  wrapperClassname?: string;
   suffix?: ReactNode;
   caption?: string;
   size?: "md" | "sm";
@@ -46,6 +47,7 @@ const Input = forwardRef(
       caption,
       value,
       name,
+      wrapperClassname,
       placeholder,
       size,
       disabled,
@@ -71,7 +73,7 @@ const Input = forwardRef(
       <div className={"w-full"}>
         <div
           data-size={inputSize}
-          className={`${styles.Input} ${className || ""}${
+          className={`${styles.Input} ${wrapperClassname} ${className || ""}${
             inputSize === "md" ? styles.InputDesktopWrapper : styles.InputMobileWrapper
           }`}
         >

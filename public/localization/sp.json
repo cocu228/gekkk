@@ -22,6 +22,7 @@
     "select_token_no_data": "fichas no encontradas",
     "download": "Descargar",
     "next": "Próximo",
+    "scan_qr": "Escanear código QR",
     "login": "Acceso",
     "code": "Código",
     "the_code_confirmed": "Confirma código",

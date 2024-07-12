@@ -23,6 +23,7 @@
     "download": "Download",
     "next": "Next",
     "login": "Login",
+    "scan_qr": "Scan QR code",
     "code": "Code",
     "the_code_confirmed": "Confirm code",
     "sms_code_sent": "SMS with one-time code was sent to",

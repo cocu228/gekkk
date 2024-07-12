@@ -23,6 +23,7 @@
     "download": "İndirmek",
     "next": "Sonraki",
     "login": "Giriş yapmak",
+    "scan_qr": "QR kodunu tarayın",
     "code": "Kod",
     "the_code_confirmed": "Kodu onayla",
     "sms_code_sent": "Tek kullanımlık kod içeren SMS şu adrese gönderildi:",

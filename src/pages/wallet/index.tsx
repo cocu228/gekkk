@@ -26,11 +26,10 @@ import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
-import { IS_GEKKARD_APP } from "@/shared/lib/";
+import { IS_GEKKARD_APP, IS_GEKKOIN_APP } from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
-import Wrapper from "@/shared/ui/wrapper";
 
 function Wallet() {
   const { t } = useTranslation();
@@ -44,7 +43,7 @@ function Wallet() {
   const descriptions = getTokenDescriptions(navigate, account, t);
 
   const gekkardMode = IS_GEKKARD_APP();
-
+  const gekkoinMod = IS_GEKKOIN_APP();
   let $currency = mockEUR;
 
   if (currencies) {
@@ -70,7 +69,10 @@ function Wallet() {
     if ((currencies && !currencies.get(currency)) || (!gekkardMode && currency === "EUR")) {
       navigate("404");
     }
-  }, [currencies]);
+    if (gekkoinMod && currency !== "GKE" && currency !== "EURG") {
+      navigate("404");
+    }
+  }, [currencies, currency, gekkoinMod, navigate]);
 
   const isShownTabs = !isOnAboutPage;
 
@@ -149,14 +151,12 @@ function Wallet() {
                 isOnTopUpPage
               )
             ) && (
-              <Wrapper className={"px-[10px]"}>
-                <History
-                  className='mb-[40px]'
-                  data-tag={"history"}
-                  data-name={t("history")}
-                  currenciesFilter={currencyForHistory}
-                />
-              </Wrapper>
+              <History
+                className='mb-[40px]'
+                data-tag={"history"}
+                data-name={t("history")}
+                currenciesFilter={currencyForHistory}
+              />
             )}
             {isOnAboutPage &&
               (!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
@@ -177,16 +177,16 @@ function Wallet() {
               <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")} />
             )}
             {tab === "top_up" && (
-              <Wrapper className='mt-5 min-h-[200px] relative px-[10px]'>
+              <div className='mt-5 min-h-[200px] relative'>
                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                   <TopUp />
                 </NetworkProvider>
-              </Wrapper>
+              </div>
             )}
             {tab === "programs" && (
-              <Wrapper className='mt-5 min-h-[200px] relative'>
+              <div className='min-h-[200px] relative'>
                 <Programs data-tag={"programs"} data-name={t("programs")} />
-              </Wrapper>
+              </div>
             )}
           </>
         )}

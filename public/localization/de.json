@@ -38,6 +38,7 @@
     "here": "hier",
     "payment_information": "Zahlungsinformationen",
     "action": "Aktion",
+    "scan_qr": "QR-Code scannen",
     "price": "Preis",
     "enter_code": "Code eingeben",
     "invalid_confirmation_code": "Ungültiger Bestätigungscode",

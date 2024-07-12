@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import { Modal } from "@/shared/ui/modal/Modal";
@@ -9,10 +10,14 @@ interface IQRCodeModalProps {
   onSuccess: (value: string) => void;
 }
 
-const QRCodeModal: FC<IQRCodeModalProps> = ({ isOpen, onCancel, onSuccess }) => (
-  <Modal title='&nbsp;' isModalOpen={isOpen} onCancel={onCancel}>
-    <QrcodeScanner onSuccess={onSuccess} />
-  </Modal>
-);
+const QRCodeModal: FC<IQRCodeModalProps> = ({ isOpen, onCancel, onSuccess }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Modal title={t("scan_qr")} isModalOpen={isOpen} onCancel={onCancel}>
+      <QrcodeScanner onSuccess={onSuccess} />
+    </Modal>
+  );
+};
 
 export default QRCodeModal;

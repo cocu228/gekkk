@@ -11,7 +11,7 @@
                     
  * OpenAPI spec version: v1
  */
-import type { CredentialCreateOptions } from './credentialCreateOptions';
+import type { CredentialCreateOptions } from "./credentialCreateOptions";
 
 export interface AuthOptions {
   /**

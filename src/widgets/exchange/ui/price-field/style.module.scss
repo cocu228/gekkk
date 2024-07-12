@@ -1,6 +1,5 @@
 @import "@styles/mixins";
 
-
 .Wrap {
   position: relative;
   display: flex;
@@ -26,11 +25,10 @@
   width: 100%;
   text-align: end;
   background: white;
-  &::placeholder{
+  &::placeholder {
     color: var(--gek-mid-grey);
     font-weight: normal;
     font-size: 10px;
-
   }
   &:active {
     outline: none !important;
@@ -81,4 +79,3 @@
     background: var(--gek-light-grey);
   }
 }
-

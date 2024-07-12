@@ -1,102 +1,109 @@
-import React, {MutableRefObject, useState} from "react";
-import styles from "./style.module.scss";
-import {validateInput} from "./model/helpers";
-import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import {
+  ChangeEvent,
+  FormEvent,
+  forwardRef,
+  HTMLInputAutoCompleteAttribute,
+  MutableRefObject,
+  ReactNode,
+  useState
+} from "react";
+
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
+import styles from "./style.module.scss";
+import { validateInput } from "./model/helpers";
+
 type IParams = {
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    allowDigits?: boolean,
-    allowSymbols?: boolean,
-    discardLetters?:boolean,
-    className?: string,
-    wrapperClassname?: string,
-    suffix?: React.ReactNode,
-    caption?: string,
-    size?: 'md' | 'sm',
-    value?: string,
-    name?: string,
-    placeholder?: string,
-    prefix?: React.ReactNode,
-    disabled?: boolean,
-    type?: string,
-    autoComplete?: React.HTMLInputAutoCompleteAttribute;
-    onInput?: (event: React.FormEvent) => void
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  allowDigits?: boolean;
+  allowSymbols?: boolean;
+  discardLetters?: boolean;
+  className?: string;
+  wrapperClassname?: string;
+  suffix?: ReactNode;
+  caption?: string;
+  size?: "md" | "sm";
+  value?: string;
+  name?: string;
+  placeholder?: string;
+  prefix?: ReactNode;
+  disabled?: boolean;
+  type?: string;
+  autoComplete?: HTMLInputAutoCompleteAttribute;
+  onInput?: (event: FormEvent) => void;
 };
 
-const Input = React.forwardRef(({
-        onChange,
-        allowDigits,
-        allowSymbols,
-        discardLetters,
-        className,
-        suffix,
-        prefix,
-        caption,
-        value,
-        name,
-        wrapperClassname,
-        placeholder,
-        size,
-        disabled,
-        type,
-        onInput,
-        autoComplete,
-        ...props
+const Input = forwardRef(
+  (
+    {
+      onChange,
+      allowDigits,
+      allowSymbols,
+      discardLetters,
+      className,
+      suffix,
+      prefix,
+      caption,
+      value,
+      name,
+      wrapperClassname,
+      placeholder,
+      size,
+      disabled,
+      type,
+      onInput,
+      autoComplete,
+      ...props
     }: IParams,
     ref: MutableRefObject<any>
-) => {
-    const {md} = useBreakpoints();
-    const inputSize = size || (md ? 'sm' : 'md');
+  ) => {
+    const { md } = useBreakpoints();
+    const inputSize = size || (md ? "sm" : "md");
     const [showCaption, setShowCaption] = useState(true);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
-            onChange(event);
-            setShowCaption(event.target.value.length === 0);
-        }
+      if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
+        onChange(event);
+        setShowCaption(event.target.value.length === 0);
+      }
     };
 
     return (
-        <div className={'w-full'}>
-            <div
-                data-size={inputSize}
-                className={`${styles.Input} ${wrapperClassname} ${
-                    className || ""
-                }${inputSize === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
-                <div className={styles.PrefixWrap}>
-                    {prefix && (<span className={styles.Prefix}>{prefix}</span>
-                    )}
-                    <input
-                        autoComplete={autoComplete ?? null}
-                        className={`${inputSize === 'md' ? styles.InputDesktop : styles.InputMobile} ${className && className   }`}
-                        {...props}
-                        type={type}
-                        onInput={onInput}
-                        ref={ref}
-                        disabled={disabled}
-                        name={name}
-                        value={value ?? ''}
-                        placeholder={`-${placeholder.toLowerCase()}-`}
-                        onChange={handleChange}
-                    />
-                </div>
-                {
-                    suffix && (
-                        <div className={styles.SuffixBlock}>
-                            {suffix}
-                        </div>
-                    )
-                }
-            </div>
-            {caption && showCaption ? (
-              <div className={styles.Caption}>
-                <IconApp color={"var(--gek-orange)"} code="t27" size={13} />
-                <span>{caption}</span>
-              </div>
-            ) : null}
+      <div className={"w-full"}>
+        <div
+          data-size={inputSize}
+          className={`${styles.Input} ${wrapperClassname} ${className || ""}${
+            inputSize === "md" ? styles.InputDesktopWrapper : styles.InputMobileWrapper
+          }`}
+        >
+          <div className={styles.PrefixWrap}>
+            {prefix && <span className={styles.Prefix}>{prefix}</span>}
+            <input
+              autoComplete={autoComplete ?? null}
+              className={`${inputSize === "md" ? styles.InputDesktop : styles.InputMobile} ${className && className}`}
+              {...props}
+              type={type}
+              onInput={onInput}
+              ref={ref}
+              disabled={disabled}
+              name={name}
+              value={value ?? ""}
+              placeholder={`-${placeholder.toLowerCase()}-`}
+              onChange={handleChange}
+            />
+          </div>
+          {suffix && <div className={styles.SuffixBlock}>{suffix}</div>}
         </div>
-    )}
+        {caption && showCaption ? (
+          <div className={styles.Caption}>
+            <IconApp color={"var(--gek-orange)"} code='t27' size={13} />
+            <span>{caption}</span>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
 );
 
 export default Input;

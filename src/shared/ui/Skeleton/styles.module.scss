@@ -1,42 +1,41 @@
 .inp {
-    width: auto;
-    display: inline-block;
-    font-family: inherit;
-    font-size: 14px;
-    box-sizing: border-box;
-    height: 16px;
-    width: 160px;
+  width: auto;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  height: 16px;
+  width: 160px;
 }
 
 .inpBg {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.15) 37%, rgba(0, 0, 0, 0.06) 63%);
-    background-size: 400% 100%;
-    animation-name: skeleton;
-    animation-duration: 1.4s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-    display: inline-block;
-    vertical-align: top;
-    border-radius: 4px;
-    width: 100%;
-    // min-width: 160px;
-    height: 100%;
-    line-height: 32px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.15) 37%, rgba(0, 0, 0, 0.06) 63%);
+  background-size: 400% 100%;
+  animation-name: skeleton;
+  animation-duration: 1.4s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 4px;
+  width: 100%;
+  // min-width: 160px;
+  height: 100%;
+  line-height: 32px;
 }
 
-
 @keyframes skeleton {
-    0% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0 50%;
-    }
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
 .SkeletonCard {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
 }

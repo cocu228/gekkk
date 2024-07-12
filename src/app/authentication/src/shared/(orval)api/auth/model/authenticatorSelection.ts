@@ -11,8 +11,8 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticatorAttachment } from './authenticatorAttachment';
-import type { UserVerificationRequirement } from './userVerificationRequirement';
+import type { AuthenticatorAttachment } from "./authenticatorAttachment";
+import type { UserVerificationRequirement } from "./userVerificationRequirement";
 
 export interface AuthenticatorSelection {
   authenticatorAttachment?: AuthenticatorAttachment;

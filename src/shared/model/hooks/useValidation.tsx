@@ -39,7 +39,6 @@
 //         [],
 //     );
 
-
 //     return {phoneValidator, passwordValidator};
 // }
 

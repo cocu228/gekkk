@@ -1,67 +1,65 @@
-
-
 .tableWrap {
-    gap: 16px;
-    display: flex;
-    flex-direction: column !important;
-    justify-content: space-between;
+  gap: 16px;
+  display: flex;
+  flex-direction: column !important;
+  justify-content: space-between;
 
-    @media screen and (max-width: 768px) {
-        background-color: white;
-        padding: 10px;
-        border-radius: 8px;
-    }
+  @media screen and (max-width: 768px) {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+  }
 }
 
 .tableRow {
-    display: flex;
-    gap: 36px;
-    flex-direction: column;
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
 }
 
 .TableItem {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .TableItemTitle {
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-family: Inter;
-    font-size: 14px;
-    color: var(--gek-additional);
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 14px;
+  color: var(--gek-additional);
 
-    @media screen and (max-width: 768px) {
-        font-size: 14px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 }
 
 .TableItemTextWrap {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-    list-style-type: disc;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  list-style-type: disc;
 
-    @media screen and (max-width: 768px) {
-        font-size: 12px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .TableItemValue {
-    text-align: right;
-    flex: 1;
-    text-indent: 5px;
+  text-align: right;
+  flex: 1;
+  text-indent: 5px;
 }
 
 .DescriptionText {
-    margin: 0;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #285E69ff;
+  margin: 0;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #285e69ff;
 }

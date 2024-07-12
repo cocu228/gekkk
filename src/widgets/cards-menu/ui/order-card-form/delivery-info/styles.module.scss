@@ -1,32 +1,32 @@
-@import '../styles.module.scss';
+@import "../styles.module.scss";
 
 .SwitchContainer {
-    display: flex;
-    padding: 0 10px;
-    margin-bottom: 8px;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  padding: 0 10px;
+  margin-bottom: 8px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .SwitchTitleContainer {
-    gap: 4px;
-    display: flex;
-    flex-direction: column;
-    color: var(--gek-dark-blue);
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+  color: var(--gek-dark-blue);
 }
 
 .SwitchTitle {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
 
-    @media screen and (max-width: 768px){
-        font-size: 12px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .SwitchSubtitle {
-    margin: 0;
-    font-size: 12px;
-    font-weight: 400;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
 }

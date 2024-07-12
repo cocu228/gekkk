@@ -17,7 +17,7 @@
 .TableHead {
   border-radius: 8px 8px 0 0;
   display: inherit;
-  background-color: #eeeff2;
+  background-color: #dcdcd9;
   color: #282828;
   font-size: 16px;
   line-height: 24px;
@@ -39,7 +39,7 @@
 }
 
 .redBtn {
-  color:#ffffff;
+  color: #ffffff;
   background: var(--gek-red) !important;
   box-shadow: none;
   max-height: 20px;
@@ -54,7 +54,7 @@
   }
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
     // font-weight: 600; task 701
   }
 
@@ -65,13 +65,13 @@
 
   &:disabled {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    color: #9D9D9D;
-    background: #E7E7E7;
+    color: #9d9d9d;
+    background: #e7e7e7;
   }
 
-  @include max-devices(md){
+  @include max-devices(md) {
     font-weight: 600;
-  }   
+  }
 }
 
 .TableBody {
@@ -81,8 +81,6 @@
   background-color: #f9f9fa;
   border: 1px solid #eff3f8;
   border-radius: 0 0 8px 8px;
-
-
 
   & > .Row {
     align-items: center;
@@ -96,7 +94,7 @@
     //padding: 10px 23px 8px 22px;
     position: relative;
     text-align: left;
-    transition: .2s;
+    transition: 0.2s;
     width: 100%;
 
     &:not(:last-child) {
@@ -104,7 +102,7 @@
     }
   }
 
-  @include max-devices(md){
+  @include max-devices(md) {
     border: 0px;
     background-color: #ffffff;
     min-height: auto;
@@ -118,16 +116,15 @@
   cursor: pointer;
   width: 100%;
   display: block;
-
+  color: #29354c;
+  font-size: 12px;
+  font-weight: 600;
 
   @media screen and (max-width: 768px) {
-    font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-weight: 600;
     width: 100%;
-    color: #29354C;
 
     &:nth-child(2) {
       display: none;
@@ -139,22 +136,18 @@
 
 .TableMobTitle {
   font-size: 12px;
-  color: #29354C;
+  color: #29354c;
   font-weight: 600;
 }
 
 .CodeTime {
-  color: #A6B6C6;
-  font-size: 0.75rem;
-
-  @include max-devices(md) {
-    font-size: 10px;
-  }
+  color: #7b797c;
+  font-size: 10px;
 }
 
 .MobileAmount {
   font-size: 10px;
-  color: #29354C;
+  color: #29354c;
   display: none;
 
   @include max-devices(md) {
@@ -167,6 +160,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #29354c;
+  font-weight: 400;
+  font-size: 12px;
 
   &:nth-child(2) {
     flex-wrap: wrap;
@@ -202,12 +198,12 @@
 
 .ModalDateListItemTitle {
   font-size: 12px;
-  color: #9D9D9D;
+  color: #9d9d9d;
 }
 
 .ModalDateListItemValue {
   font-size: 12px;
-  color: #285E69;
+  color: #285e69;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -245,9 +241,8 @@
 }
 
 .CancelInfoItemGreen {
-  color: rgb(43, 182, 115)
+  color: rgb(43, 182, 115);
 }
-
 
 .CopyIcon {
   flex-direction: column;

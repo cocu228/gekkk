@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1MarketCancelOrderParams = {
-id?: number;
+  id?: number;
 };

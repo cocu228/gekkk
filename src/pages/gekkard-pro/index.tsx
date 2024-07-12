@@ -1,1 +1,1 @@
-export { GekkardPro } from "./ui/GekkardPro"
+export { GekkardPro } from "./ui/GekkardPro";

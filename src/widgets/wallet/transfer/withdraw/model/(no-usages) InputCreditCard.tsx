@@ -2,16 +2,12 @@ import Input from "@/shared/ui/input/Input";
 import React, { useState, useEffect, createRef } from "react";
 import { formatAsNumber } from "@/shared/lib/formatting-helper";
 
-const CreditCardInput = ({
-  onChange,
-}: {
-  onChange: (value: string) => void;
-}) => {
+const CreditCardInput = ({ onChange }: { onChange: (value: string) => void }) => {
   const [cardNumber, setCardNumber] = useState(["", "", "", ""]);
   const [refs, setRefs] = useState([]);
 
   useEffect(() => {
-    setRefs(cardNumber.map((item) => createRef()));
+    setRefs(cardNumber.map(item => createRef()));
   }, []);
 
   const handleInputChange = (e, index) => {
@@ -38,9 +34,9 @@ const CreditCardInput = ({
         <Input
           key={index}
           className={"w-1/4"}
-          type="text"
+          type='text'
           value={value}
-          onChange={(e) => handleInputChange(e, index)}
+          onChange={e => handleInputChange(e, index)}
           maxLength={4}
           ref={refs[index]}
           // id={`input-${index}`}

@@ -10,7 +10,7 @@
 }
 
 .wrapper .passed:before {
-  content: "✔";  
+  content: "✔";
   display: inline-block;
   margin-right: 0.4em;
 }

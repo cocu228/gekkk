@@ -8,7 +8,7 @@
   }
 }
 
-.SuffixWrapper{
+.SuffixWrapper {
   padding-top: 10px;
   right: 20px;
   display: flex;
@@ -21,11 +21,11 @@
   }
 }
 
-.Token{
+.Token {
   padding-top: 10px;
   padding-right: 20px;
   font-size: 1rem;
-  color: #1F3446;
+  color: #1f3446;
   font-weight: bold;
 }
 
@@ -39,7 +39,7 @@
   border: none;
   font-weight: bold;
   font-size: 1rem;
-  color: #1F3446;
+  color: #1f3446;
   line-height: 1;
   outline: none;
   ::placeholder {
@@ -49,8 +49,8 @@
     padding-bottom: 0.1rem;
   }
   @include max-devices("md") {
-      padding-top: 0;
-      font-size: 1rem;
+    padding-top: 0;
+    font-size: 1rem;
   }
 }
 
@@ -61,7 +61,7 @@
   padding: 0 12px;
   border: 1px solid var(--color-secondary);
   border-radius: 8px;
-  ::placeholder{
+  ::placeholder {
     font-size: 16px;
     font-weight: normal;
     color: var(--gek-mid-grey);
@@ -70,7 +70,7 @@
     height: 56px;
     padding-right: 8px;
     margin-top: 2px;
-    ::placeholder{
+    ::placeholder {
       color: var(--gek-mid-grey);
       font-size: 12px;
     }
@@ -153,7 +153,6 @@
     width: 34px;
     min-width: 34px;
 
-
     @include max-devices("lg") {
       width: 28px;
       min-width: 28px;
@@ -192,4 +191,3 @@
     background: var(--color-bgSecondary);
   }
 }
-

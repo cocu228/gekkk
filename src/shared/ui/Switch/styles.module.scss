@@ -1,39 +1,39 @@
 .SwitchWrap {
-    width: 44px;
-    cursor: pointer;
-    height: 22px;
-    border-radius: 20px;
-    transition: all .3s linear;
-    background: #b4c0cd;
-    position: relative;
-    padding: 4px;
+  width: 44px;
+  cursor: pointer;
+  height: 22px;
+  border-radius: 20px;
+  transition: all 0.3s linear;
+  background: #b4c0cd;
+  position: relative;
+  padding: 4px;
 
-    &Active {
-        background: #2BAB72;
-    }
+  &Active {
+    background: #2bab72;
+  }
 }
 
 .SwitchItem {
-    width: 18px;
-    height: 18px;
-    transition: all .3s;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    background: #fff;
+  width: 18px;
+  height: 18px;
+  transition: all 0.3s;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background: #fff;
 
-    &Active {
-        left: calc(100% - 21px);
-        background: #285E69;
-    }
+  &Active {
+    left: calc(100% - 21px);
+    background: #285e69;
+  }
 }
 
 .SwitchDisabled {
-    pointer-events: none;
-    background: var(--gek-mid-grey) !important;
-    
-    div {
-        background: var(--gek-dark-grey) !important;
-    }
+  pointer-events: none;
+  background: var(--gek-mid-grey) !important;
+
+  div {
+    background: var(--gek-dark-grey) !important;
+  }
 }

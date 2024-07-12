@@ -13,12 +13,12 @@
  */
 
 export type PostGekV1ApplyCodeParams = {
-/**
- * код
- */
-code?: string;
-/**
- * Код подтверждения для транзакции
- */
-confirmationCode?: string;
+  /**
+   * код
+   */
+  code?: string;
+  /**
+   * Код подтверждения для транзакции
+   */
+  confirmationCode?: string;
 };

@@ -1,17 +1,16 @@
 .wrapper p {
-  color: #DCDCD9;
+  color: #dcdcd9;
   margin: 4px 15px;
   font-size: 10px;
 }
 
 .p {
   &::before {
-    content: "✔";  
-    color: #DCDCD9;
+    content: "✔";
+    color: #dcdcd9;
     display: inline-block;
     margin-right: 0.4em;
   }
-
 }
 
 .p.passed {

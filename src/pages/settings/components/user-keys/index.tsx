@@ -1,21 +1,21 @@
-import styles from './style.module.scss';
 import { useEffect, useState } from "react";
-import { useUserKeys } from "./model/use-user-keys";
 import { t } from "i18next";
-import Loader from "@/shared/ui/loader";
-import getUnixTime from "date-fns/getUnixTime";
-import { formatDate } from "./model/date-formater";
-import parseISO from "date-fns/parseISO";
+import { getUnixTime, parseISO } from "date-fns";
+import { useNavigate } from "react-router-dom";
+
 import useModal from "@/shared/model/hooks/useModal";
 import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
 import { Modal } from "@/shared/ui/modal/Modal";
-import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
-import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
-import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
+import { apiRemoveKey } from "@/shared/(orval)api/auth";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
-import { useNavigate } from "react-router-dom";
-import { BoxWrapper } from '@/shared/ui/mobile-wrapper/mobile-wrapper';
+import Loader from "@/shared/ui/loader";
+import { BoxWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
+
+import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
+import { formatDate } from "./model/date-formater";
+import { useUserKeys } from "./model/use-user-keys";
+import styles from "./style.module.scss";
 
 interface IChallange {
   id: string;
@@ -29,10 +29,10 @@ export function UserKeys() {
   const [keyToRemove, setKeyToRemove] = useState<UserKey>();
   const { isModalOpen, handleCancel, showModal } = useModal();
   const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
-  const [sessionToRemove, setSessionToRemove] = useState<UserSession>();
+  // const [sessionToRemove, setSessionToRemove] = useState<UserSession>();
   const [challenge, setChallenge] = useState<IChallange>({
     newCredential: "",
-    id: "",
+    id: ""
   });
 
   const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
@@ -40,30 +40,23 @@ export function UserKeys() {
 
   function onRemoveKey(id) {
     apiRemoveKey({ key_id: id }).then(() => {
-      setKeyDeleted(n => !n)
-    })
+      setKeyDeleted(n => !n);
+    });
   }
 
   const startTimer = () => setTimer(60);
-  const onCloseSession = (id) => apiCloseSessions({ id: id });
+  // const onCloseSession = id => apiCloseSessions({ id: id });
 
   const sendSmsCode = () => {
     startTimer();
     RegisterOption(setChallenge, setSmsCodeSent);
-  }
+  };
 
   function onContinue() {
     if (!smsCodeSent) {
       sendSmsCode();
-    }
-    else {
-      RegisterKey(
-        challenge.newCredential,
-        challenge.id,
-        smsCode,
-        setKeyDeleted,
-        setSmsCodeSent
-      );
+    } else {
+      RegisterKey(challenge.newCredential, challenge.id, smsCode, setKeyDeleted, setSmsCodeSent);
       setSmsCode("");
       setSmsCodeSent(false);
     }
@@ -86,7 +79,7 @@ export function UserKeys() {
   //         ac.abort();
   //       });
   //     }
-      
+
   //     // Request the OTP via get()
   //     navigator.credentials
   //       .get({
@@ -116,30 +109,32 @@ export function UserKeys() {
   // })
 
   useEffect(() => {
-    const timerInterval = setInterval(() => setTimer((prevTime) => {
-      if (prevTime > 0) {
-        return prevTime - 1;
-      }
+    const timerInterval = setInterval(
+      () =>
+        setTimer(prevTime => {
+          if (prevTime > 0) {
+            return prevTime - 1;
+          }
 
-      clearInterval(timerInterval);
-      return 0;
-    }), 1000);
+          clearInterval(timerInterval);
+          return 0;
+        }),
+      1000
+    );
 
     return () => clearInterval(timerInterval);
   }, [timer]);
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       <BoxWrapper>
         <div className={styles.addGekkeyBlock}>
           <div className={styles.TabTitleGroup}>
             <h4 className={styles.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
-            <hr className="border-[#DCDCD9]" />
+            <hr className='border-[#DCDCD9]' />
           </div>
           <div className={styles.CodeWrap}>
-            <span className={styles.CodeTitle}>
-              {t("confirmation_code")}:
-            </span>
+            <span className={styles.CodeTitle}>{t("confirmation_code")}:</span>
             <Input
               allowDigits
               value={smsCode}
@@ -151,8 +146,12 @@ export function UserKeys() {
             />
           </div>
           {!smsCodeSent ? null : timer > 0 ? (
-            <div className={styles.Resend}>{t("resend_the_code")}:
-              <span className={styles.ResendTimer}>{" "}{timer} {t("seconds")}</span>
+            <div className={styles.Resend}>
+              {t("resend_the_code")}:
+              <span className={styles.ResendTimer}>
+                {" "}
+                {timer} {t("seconds")}
+              </span>
             </div>
           ) : (
             <div onClick={sendSmsCode} className={`${styles.Resend} ${styles.ResendActive}`}>
@@ -160,52 +159,47 @@ export function UserKeys() {
             </div>
           )}
           <div className={styles.btnsBlock}>
-            <Button
-              className="w-full"
-              onClick={onContinue}
-              disabled={smsCodeSent ? !smsCode : false}
-            >
+            <Button className='w-full' onClick={onContinue} disabled={smsCodeSent ? !smsCode : false}>
               {t(smsCodeSent ? "create_key" : "send_sms")}
             </Button>
-            <Button
-              skeleton
-              className="w-full"
-              onClick={() => navigate('/settings', { replace: true })}
-            >
+            <Button skeleton className='w-full' onClick={() => navigate("/settings", { replace: true })}>
               {t("back")}
             </Button>
           </div>
         </div>
         <div className={styles.keysWrap}>
-          {keysList.map((key, index) => <div className={styles.keysItem}>
-            <div className="w-4/5 overflow-hidden">
-              {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-              <p className={styles.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
-              <p className={styles.keyItemDate}>{t("type")}: {key.key_type}</p>
-              <h4 className={styles.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
+          {keysList.map((key, index) => (
+            <div key={key.id} className={styles.keysItem}>
+              <div className='w-4/5 overflow-hidden'>
+                {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
+                <p className={styles.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
+                <p className={styles.keyItemDate}>
+                  {t("type")}: {key.key_type}
+                </p>
+                <h4 className={styles.keyItemDate}>
+                  {t("public_key")}: {key?.public_key}
+                </h4>
+              </div>
+              <div className={styles.keyBtnWrap}>
+                <Button
+                  skeleton
+                  size='sm'
+                  custom={index === 0}
+                  color={index === 0 ? null : "red"}
+                  className={`w-full ${index === 0 ? styles.CurentButton : ""}`}
+                  onClick={() => {
+                    showModal();
+                    setKeyToRemove(key);
+                  }}
+                >
+                  <span className='capitalize'>{index === 0 ? t("current") : t("remove")}</span>
+                </Button>
+              </div>
             </div>
-            <div className={styles.keyBtnWrap}>
-              <Button
-                skeleton
-                size="sm"
-                custom={index === 0}
-                color={index === 0 ? null : "red"}
-                className={`w-full ${index === 0 ? styles.CurentButton : ""}`}
-                onClick={() => {
-                  showModal()
-                  setKeyToRemove(key)
-                }}
-              >
-                <span className="capitalize">
-                  {index === 0 ? t("current") : t("remove")}
-                </span>
-              </Button>
-            </div>
-          </div>)
-          }
+          ))}
           {!keysList.length && (
             <div className='relative mt-32 w-full'>
-              <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]" />
+              <Loader className='top-1/2 m-0 left-[50%] translate-x-[-50%]' />
             </div>
           )}
         </div>
@@ -214,30 +208,28 @@ export function UserKeys() {
         onCancel={handleCancel}
         placeBottom={window.innerWidth < 768}
         isModalOpen={isModalOpen}
-        title={t('remove_key')}
+        title={t("remove_key")}
       >
-        <span className={styles.ModalText}>
-          {t("remove_key_warning")}
-        </span>
+        <span className={styles.ModalText}>{t("remove_key_warning")}</span>
         <div className='w-full flex mt-[25px] justify-center gap-[20px]'>
           <Button
-            color="red"
+            color='red'
             skeleton
-            className="w-full"
+            className='w-full'
             onClick={() => {
-              onRemoveKey(keyToRemove.id)
-              handleCancel()
+              onRemoveKey(keyToRemove.id);
+              handleCancel();
             }}
           >
             {t("remove")}
           </Button>
           <Button
-            color="green"
+            color='green'
             skeleton
-            className="w-full"
+            className='w-full'
             onClick={() => {
-              handleCancel()
-              setKeyToRemove(null)
+              handleCancel();
+              setKeyToRemove(null);
             }}
           >
             {t("cancel")}
@@ -245,5 +237,5 @@ export function UserKeys() {
         </div>
       </Modal>
     </div>
-  )
+  );
 }

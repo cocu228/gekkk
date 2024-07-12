@@ -1,130 +1,119 @@
-﻿import {useContext, useEffect} from 'react';
-import {Client} from '@stomp/stompjs';
-import {ChatMessage} from '../types/Shared';
-import {stompConfig} from '../utils/stomp-config';
-import {StompCreateMessage} from '../types/Shared';
-import {generateUid, getCookieData, setCookieData} from "../utils/shared";
-import {apiInitSessionId} from "../api/init-session-id";
-import {$axios} from "../utils/(cs)axios";
-import {CtxAuthInfo} from '../contexts/AuthContext';
+﻿import { useContext, useEffect } from "react";
+import { Client } from "@stomp/stompjs";
+import { ChatMessage } from "../types/Shared";
+import { stompConfig } from "../utils/stomp-config";
+import { StompCreateMessage } from "../types/Shared";
+import { generateUid, getCookieData, setCookieData } from "../utils/shared";
+import { apiInitSessionId } from "../api/init-session-id";
+import { $axios } from "../utils/(cs)axios";
+import { CtxAuthInfo } from "../contexts/AuthContext";
 
 type IParams = {
-    // deviceIdHash: string;
-    // sessionId: number | null;
-    setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
-    setIsWebSocketReady: (val: boolean) => void;
-    // chatConfig: ChatConfig;
-    children: any
-}
+  // deviceIdHash: string;
+  // sessionId: number | null;
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
+  setIsWebSocketReady: (val: boolean) => void;
+  // chatConfig: ChatConfig;
+  children: any;
+};
 
-const cookies = getCookieData()
+const cookies = getCookieData();
 
 //@ts-ignore
-let deviceIdHash = cookies["device-id-hash"]
+let deviceIdHash = cookies["device-id-hash"];
 
 if (!deviceIdHash) {
-    deviceIdHash = generateUid()
-    setCookieData([{key: "device-id-hash", value: deviceIdHash}])
+  deviceIdHash = generateUid();
+  setCookieData([{ key: "device-id-hash", value: deviceIdHash }]);
 }
 
+const StompSocketProvider = ({ setMessages, setIsWebSocketReady, children }: IParams) => {
+  const { config: authConfig } = useContext(CtxAuthInfo);
 
-const StompSocketProvider = ({
-    setMessages,
-    setIsWebSocketReady,
-    children
-}: IParams) => {
-    const {config: authConfig} = useContext(CtxAuthInfo);
+  useEffect(() => {
+    if (!authConfig?.token) return () => {};
 
-    useEffect(() => {
-        if (!authConfig?.token) return () => {};
+    // Config
+    const chatConfig = {
+      token: authConfig.token,
+      phone: authConfig?.phone
+    };
 
-        // Config
-        const chatConfig = {
-            token: authConfig.token,
-            phone: authConfig?.phone,
-        }
+    const config = stompConfig(deviceIdHash, chatConfig);
+    const client = new Client(config);
 
-        const config = stompConfig(deviceIdHash, chatConfig);
-        const client = new Client(config);
+    console.log(`chat token: ${chatConfig.token}`);
 
-        console.log(`chat token: ${chatConfig.token}`)
+    $axios.interceptors.request.use(config => {
+      config.headers["Authorization"] = chatConfig.token;
+      config.headers["X-Device"] = "id=" + deviceIdHash;
+      return config;
+    });
 
-        $axios.interceptors.request.use(config => {
-            config.headers['Authorization'] = chatConfig.token;
-            config.headers['X-Device'] = "id=" + deviceIdHash
-            return config
-        });
+    (async () => {
+      const response = await apiInitSessionId();
+      if (response.status === "success" && response.data) {
+        const sessionId = response.data.id;
 
-        (async () => {
-            const response = await apiInitSessionId();
-            if (response.status === 'success' && response.data) {
-                const sessionId = response.data.id
+        setCookieData([
+          {
+            key: "chat-session-id",
+            value: sessionId.toString()
+          }
+        ]);
 
-                setCookieData([{
-                    key: "chat-session-id",
-                    value: sessionId.toString()
-                }])
+        const onConnect = () => {
+          console.log("Connected to WebSocket");
+          setIsWebSocketReady(true);
 
-                const onConnect = () => {
+          client.subscribe(`/exchange/${sessionId}`, message => {
+            const stompMessage: StompCreateMessage = JSON.parse(message.body);
 
-                    console.log('Connected to WebSocket');
-                    setIsWebSocketReady(true);
+            if (stompMessage.eventType === "messageCreate") {
+              const { msgId, body, sender, createdAt, messageType, files } = stompMessage.messages[0];
 
-                    client.subscribe(`/exchange/${sessionId}`, (message) => {
-                        const stompMessage: StompCreateMessage = JSON.parse(message.body);
+              const newMessage = {
+                id: msgId,
+                content: body,
+                sender: sender.name,
+                role: sender.role,
+                createdAt: createdAt,
+                file: files,
+                messageType
+              };
 
-                        if (stompMessage.eventType === 'messageCreate') {
-                            const {msgId, body, sender, createdAt, messageType, files} = stompMessage.messages[0];
+              //@ts-ignore
+              setMessages(prevMessages => [...prevMessages, newMessage]);
 
-                            const newMessage = {
-                                id: msgId,
-                                content: body,
-                                sender: sender.name,
-                                role: sender.role,
-                                createdAt: createdAt,
-                                file: files,
-                                messageType
-                            };
+              // if (sender.role !== 'client') showNotificationWithSound('', {});
+            } else if (stompMessage.eventType === "messageRead") {
+              const { msgId } = stompMessage.messages[0];
 
-                            //@ts-ignore
-                            setMessages((prevMessages) => [...prevMessages, newMessage]);
-
-                            // if (sender.role !== 'client') showNotificationWithSound('', {});
-
-                        } else if (stompMessage.eventType === 'messageRead') {
-
-                            const {msgId} = stompMessage.messages[0];
-
-
-                            setMessages(
-                                (prevMessages) => prevMessages.map((message) =>
-                                    message.id === msgId ? {...message, isRead: true} : message
-                                )
-                            )
-                        }
-                    });
-                };
-
-                const onDisconnect = () => {
-                    console.log('Disconnected from WebSocket');
-                    setIsWebSocketReady(false);
-                };
-
-                client.onConnect = onConnect;
-                client.onDisconnect = onDisconnect;
-
-                client.activate();
-
+              setMessages(prevMessages =>
+                prevMessages.map(message => (message.id === msgId ? { ...message, isRead: true } : message))
+              );
             }
-
-        })()
-
-        return () => {
-            client.deactivate();
+          });
         };
-    }, [authConfig]);
 
-    return children;
+        const onDisconnect = () => {
+          console.log("Disconnected from WebSocket");
+          setIsWebSocketReady(false);
+        };
+
+        client.onConnect = onConnect;
+        client.onDisconnect = onDisconnect;
+
+        client.activate();
+      }
+    })();
+
+    return () => {
+      client.deactivate();
+    };
+  }, [authConfig]);
+
+  return children;
 };
 
 export default StompSocketProvider;

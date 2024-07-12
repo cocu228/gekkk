@@ -1,0 +1,147 @@
+.SelectWrap {
+  position: relative;
+  width: 100%;
+  z-index: 41;
+  height: 100%;
+  max-height: 50px;
+  transition: all 0.2s linear;
+
+  &.active {
+    transition: all 0.2s linear;
+    max-height: 10000px;
+  }
+}
+
+.SelectActive {
+  cursor: pointer;
+  height: 50px;
+  border-radius: 5px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 0 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    height: 32px;
+    padding: 0 15px;
+  }
+}
+
+.MobileHeight {
+  .SelectActive {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .SelectOption {
+    min-height: 30px;
+  }
+}
+
+.SelectListWrap {
+  padding: 10px;
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: all 0.2s;
+  overflow: auto;
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  z-index: 5;
+  max-height: 0;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    margin-left: 7px;
+    margin-top: 2px;
+    border-radius: 10px;
+    height: 30px !important;
+    max-height: 30px;
+    height: 50%;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #747d8c;
+    width: 7px;
+    border-radius: 10px;
+  }
+
+  *::-ms-scrollbar {
+    width: 7px;
+    border-radius: 10px;
+  }
+
+  *::-ms-scrollbar-thumb {
+    background: #747d8c;
+    border-radius: 10px;
+  }
+}
+
+.SelectList {
+  z-index: 6;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  font-variant: initial;
+  gap: 10px;
+}
+
+.SelectOption {
+  background: #fff;
+  display: flex;
+  justify-content: start;
+  text-align: start;
+  align-items: center;
+  min-height: 50px;
+  color: #1f3446;
+  padding: 5px 30px 5px 30px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.5714285714285714;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid #dcdcd9;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover {
+    border: 1px solid #2bab72;
+  }
+
+  @media screen and (max-width: 768px) {
+    min-height: 42px;
+  }
+}
+
+.SelectTitle {
+  transition: all 0.15s;
+}
+
+.active {
+  .SelectListWrap {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: scaleY(1);
+    max-height: 10000px;
+  }
+}
+
+.SelectTitle {
+  font-size: 12px;
+  color: #3a5e66;
+  font-weight: 400;
+}
+
+.Placeholder {
+  font-size: 14px;
+  color: var(--gek-mid-grey);
+  text-transform: lowercase;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}

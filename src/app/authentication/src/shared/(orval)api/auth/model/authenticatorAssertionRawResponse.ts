@@ -11,9 +11,9 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticationExtensionsClientOutputs } from './authenticationExtensionsClientOutputs';
-import type { AssertionResponse } from './assertionResponse';
-import type { PublicKeyCredentialType } from './publicKeyCredentialType';
+import type { AuthenticationExtensionsClientOutputs } from "./authenticationExtensionsClientOutputs";
+import type { AssertionResponse } from "./assertionResponse";
+import type { PublicKeyCredentialType } from "./publicKeyCredentialType";
 
 export interface AuthenticatorAssertionRawResponse {
   extensions?: AuthenticationExtensionsClientOutputs;

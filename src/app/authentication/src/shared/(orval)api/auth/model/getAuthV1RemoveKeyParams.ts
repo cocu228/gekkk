@@ -13,5 +13,5 @@
  */
 
 export type GetAuthV1RemoveKeyParams = {
-key_id?: number;
+  key_id?: number;
 };

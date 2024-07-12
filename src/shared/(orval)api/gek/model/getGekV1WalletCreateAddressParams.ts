@@ -13,8 +13,8 @@
  */
 
 export type GetGekV1WalletCreateAddressParams = {
-/**
- * Идентификатор транспортной сети для которой необходимо создать адрес.
- */
-token_network?: number;
+  /**
+   * Идентификатор транспортной сети для которой необходимо создать адрес.
+   */
+  token_network?: number;
 };

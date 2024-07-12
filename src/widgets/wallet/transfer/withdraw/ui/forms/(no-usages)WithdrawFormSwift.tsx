@@ -12,7 +12,7 @@
 // import {Switch} from "antd";
 // import {transferDescriptions, swiftUrgency, swiftCommission} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 // import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-// // import Decimal from "decimal.js";
+// // import { Decimal } from "decimal.js";
 // import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 // import {useNavigate} from "react-router-dom";
 // import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
@@ -33,7 +33,6 @@
 //     const {isModalOpen, showModal, handleCancel} = useModal();
 //     const currency = useContext(CtxWalletData);
 //     const navigate = useNavigate();
-
 
 //     const [inputs, setInputs] = useState({
 //         beneficiaryName: null,
@@ -306,9 +305,9 @@
 //                         </InputCurrency.Validator>
 //                     </div>
 //         </div>
-//         <Modal 
-//             padding 
-//             width={450} 
+//         <Modal
+//             padding
+//             width={450}
 //             closable={false}
 //             title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
 //             onCancel={handleCancel}

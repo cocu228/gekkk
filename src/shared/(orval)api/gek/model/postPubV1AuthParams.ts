@@ -13,8 +13,8 @@
  */
 
 export type PostPubV1AuthParams = {
-/**
- * Ключ для получения данных
- */
-key?: string;
+  /**
+   * Ключ для получения данных
+   */
+  key?: string;
 };

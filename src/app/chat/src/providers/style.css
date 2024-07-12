@@ -1,11 +1,11 @@
 .CustomIcon {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .CustomPopup {
-    justify-items: center;
+  justify-items: center;
 }
 
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
-    padding-right: 0px !important;
+  padding-right: 0px !important;
 }

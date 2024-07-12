@@ -33,8 +33,8 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-  
-    @media (max-width:700px) {
+
+    @media (max-width: 700px) {
       margin-left: 5%;
       margin-right: 5%;
     }
@@ -59,7 +59,7 @@ main {
   min-width: 320px;
   max-height: 270px;
 
-  @media (min-width:700px) {
+  @media (min-width: 700px) {
     min-width: 500px;
   }
 
@@ -69,11 +69,12 @@ main {
 
   background: white;
   border-radius: 8px 8px 0 0;
-  box-shadow: 3px 2px 8px 0 #A8A8A84A,
-  13px 8px 15px 0 #A8A8A842,
-  28px 17px 20px 0 #A8A8A826,
-  50px 30px 23px 0 #A8A8A80A,
-  79px 47px 26px 0 #A8A8A803;
+  box-shadow:
+    3px 2px 8px 0 #a8a8a84a,
+    13px 8px 15px 0 #a8a8a842,
+    28px 17px 20px 0 #a8a8a826,
+    50px 30px 23px 0 #a8a8a80a,
+    79px 47px 26px 0 #a8a8a803;
 
   input {
     height: 36px;
@@ -84,7 +85,7 @@ main {
     vertical-align: baseline;
     font-weight: 400;
     line-height: 1.29;
-    letter-spacing: .16px;
+    letter-spacing: 0.16px;
     border-radius: 0;
     outline: 2px solid transparent;
     outline-offset: -2px;
@@ -95,7 +96,6 @@ main {
 
     padding: 0 16px;
     color: var(--gek-dark-blue);
-
   }
 
   input:focus {
@@ -114,7 +114,7 @@ input:-webkit-autofill:active {
 }
 
 figure {
-  @media (max-width:1000px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 
@@ -162,7 +162,7 @@ summary {
 }
 
 summary::-webkit-details-marker {
-    display: none;
+  display: none;
 }
 
 footer {
@@ -186,7 +186,7 @@ details {
     cursor: pointer;
   }
 
-  summary>* {
+  summary > * {
     display: inline;
   }
 
@@ -199,7 +199,6 @@ details {
     font-weight: 550;
   }
 }
-
 
 nav {
   display: flex;
@@ -244,7 +243,7 @@ nav {
   /* align-items: center; */
 }
 
-.bottom {  
+.bottom {
   left: 0;
   bottom: -2px;
   height: 2px;
@@ -256,26 +255,21 @@ nav {
 }
 
 @keyframes animateBottom {
-
-  from   {        
+  from {
     width: 0;
-  } 
-  10%
-  {
+  }
+  10% {
     background: var(--gek-additional);
   }
-  20%
-  {
-      
+  20% {
     width: 100%;
   }
-  21%
-  {
-    background-color: var(--gek-background);  
+  21% {
+    background-color: var(--gek-background);
   }
-  
-  to{
-    background-color: var(--gek-background);    
+
+  to {
+    background-color: var(--gek-background);
   }
 }
 

@@ -1,3 +1,3 @@
-import {$axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
+import { $axios, $AxiosResponse } from "@/shared/lib/(orval)axios";
 
-export const apiAdminPanel = () => $axios.get<$AxiosResponse<any>>('/adm');
+export const apiAdminPanel = () => $axios.get<$AxiosResponse<any>>("/adm");

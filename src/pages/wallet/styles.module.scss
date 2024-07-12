@@ -1,0 +1,22 @@
+.TopUpHistoryBody {
+  @media screen and (min-width: 1700px) {
+    width: 100%;
+    max-width: 415px;
+  }
+}
+
+.TopUpHistoryWrap {
+  // z-0 shadow-[] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]
+  z-index: 0;
+  box-shadow: 0 3px 4px#00000040;
+  padding: 37px 20px;
+  border-radius: 10px;
+  margin-left: -2px;
+  background-color: #fff;
+  margin-bottom: 4px;
+
+  @media screen and (min-width: 1700px) {
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,6 +1,8 @@
-import { ChangeEvent, FC, useRef, useState } from "react";
-import styles from "./style.module.scss";
+import { ChangeEvent, FC, useRef } from "react";
+
 import { validateInput } from "@/shared/ui/input/model/helpers";
+
+import styles from "./style.module.scss";
 
 interface ITextareaProps {
   name: string;
@@ -45,7 +47,7 @@ const Textarea: FC<ITextareaProps> = ({
         className={`${styles.Textarea} ${textareaClassName}`}
         onInput={() => {
           textareaRef.current.style.height = "auto";
-          textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }}
       />
     </div>

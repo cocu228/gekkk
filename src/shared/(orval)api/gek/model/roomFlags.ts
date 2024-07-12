@@ -16,11 +16,10 @@
  * : 
 0 = None, 1 = IcoMode
  */
-export type RoomFlags = typeof RoomFlags[keyof typeof RoomFlags];
-
+export type RoomFlags = (typeof RoomFlags)[keyof typeof RoomFlags];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const RoomFlags = {
   NUMBER_0: 0,
-  NUMBER_1: 1,
+  NUMBER_1: 1
 } as const;

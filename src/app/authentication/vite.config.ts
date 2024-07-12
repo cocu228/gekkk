@@ -1,30 +1,29 @@
-import {defineConfig, loadEnv} from 'vite';
-import preact from '@preact/preset-vite';
-import {resolve} from 'path';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import { defineConfig, loadEnv } from "vite";
+import preact from "@preact/preset-vite";
+import { resolve } from "path";
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
+  process.env = {
+    ...process.env,
+    ...loadEnv(mode, process.cwd() + "/env")
+  };
 
-    process.env = {
-        ...process.env,
-        ...loadEnv(mode, process.cwd() + "/env"),
-    };
+  const isGekkoin = mode === "dev.gekkoin";
 
-    const isGekkoin = mode === "dev.gekkoin"
-
-    return {
-        base: "./",
-        build: {
-            outDir: isGekkoin ? "gko-dist" : "dist",
-            rollupOptions: {
-                input: {
-                    authentication: resolve(__dirname, './src/index.tsx'),
-                },
-                output: {
-                    entryFileNames: `[name].js`,
-                }
-            },
+  return {
+    base: "./",
+    build: {
+      outDir: isGekkoin ? "gko-dist" : "dist",
+      rollupOptions: {
+        input: {
+          authentication: resolve(__dirname, "./src/index.tsx")
         },
-        plugins: [preact(), cssInjectedByJsPlugin()],
-    }
-})
+        output: {
+          entryFileNames: `[name].js`
+        }
+      }
+    },
+    plugins: [preact(), cssInjectedByJsPlugin()]
+  };
+});

@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { Modal } from "../modal/Modal";
-import styles from "./style.module.scss";
+
 import useModal from "@/shared/model/hooks/useModal";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 
+import { Modal } from "../modal/Modal";
+import styles from "./style.module.scss";
+
 type TooltipParams = {
   children?: JSX.Element | never[];
-  text: String | JSX.Element;
+  text: string | JSX.Element;
 };
 
 const Tooltip = ({ children, text }: TooltipParams) => {
@@ -30,11 +32,11 @@ const Tooltip = ({ children, text }: TooltipParams) => {
 
       {!xl ? null : (
         <Modal
-          title="Increased rate program"
+          title='Increased rate program'
           isModalOpen={tooltipModal.isModalOpen}
           onCancel={tooltipModal.handleCancel}
         >
-          <div className="mb-10">{text}</div>
+          <div className='mb-10'>{text}</div>
         </Modal>
       )}
     </div>

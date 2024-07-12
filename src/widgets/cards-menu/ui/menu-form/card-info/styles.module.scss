@@ -1,113 +1,115 @@
 .Wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    color: var(--gek-dark-blue);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--gek-dark-blue);
 
-    @media screen and (max-width: 768px) {
-        margin-inline: auto;
-        margin-right: 10px;
-        border-radius: 8px;
-        padding: 15px 12px 10px;
-        background-color: white;
-        box-shadow: 3px 2px 8px 0 #A8A8A84A, 13px 8px 15px 0 #A8A8A842;
-    }
+  @media screen and (max-width: 768px) {
+    margin-inline: auto;
+    margin-right: 10px;
+    border-radius: 8px;
+    padding: 15px 12px 10px;
+    background-color: white;
+    box-shadow:
+      3px 2px 8px 0 #a8a8a84a,
+      13px 8px 15px 0 #a8a8a842;
+  }
 }
 
 .Warning {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
 
-    &Text {
-        font-size: 12px;
-        text-align: justify;
-        color: var(--new-brand-dark-blue);
+  &Text {
+    font-size: 12px;
+    text-align: justify;
+    color: var(--new-brand-dark-blue);
 
-        @media screen and (max-width: 768px) {
-            font-size: 10px;
-        }
+    @media screen and (max-width: 768px) {
+      font-size: 10px;
     }
+  }
 }
 
 .InfoContainer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    padding: 6px 10px;
-    border: 1px solid var(--gek-light-grey);
-    margin-bottom: 10px;
-    min-height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--gek-light-grey);
+  margin-bottom: 10px;
+  min-height: 30px;
 
-    @media screen and (max-width: 768px) {
-        font-size: 12px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
-  
+
 .InfoContainerFirst {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .InfoContainerSecond {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  flex: 1;
 }
 
 .InfoPlaceholder {
-    color: var(--gek-dark-grey);
+  color: var(--gek-dark-grey);
 
-    @media screen and (max-width: 768px) {
-        font-size: 10px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 10px;
+  }
 }
 
 .InfoData {
-    color: var(--gek-additional);
+  color: var(--gek-additional);
 
-    @media screen and (max-width: 768px) {
-        font-size: 12px;
-        font-weight: 700;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    font-weight: 700;
+  }
 }
 
 .ButtonContainer {
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 
 .Button {
-    width: 59px;
-    height: 27px;
-    display: flex;
-    max-width: 81px;
-    padding: 5px 0px;
-    font-weight: 600;
-    font-size: 0.75rem;
-    border-radius: 5px;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
+  width: 59px;
+  height: 27px;
+  display: flex;
+  max-width: 81px;
+  padding: 5px 0px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  color: var(--gek-background);
+  transition: all ease-out 0.2s;
+  background: var(--gek-additional);
+  border: 2px solid var(--gek-additional);
+
+  &:disabled {
+    color: var(--gek-mid-grey);
+    background: var(--gek-background);
+    border: 2px solid var(--gek-mid-grey);
+  }
+
+  &:not(:disabled):hover {
     color: var(--gek-background);
-    transition: all ease-out 0.2s;
-    background: var(--gek-additional);
-    border: 2px solid var(--gek-additional);
-
-    &:disabled {
-      color: var(--gek-mid-grey);
-      background: var(--gek-background);
-      border: 2px solid var(--gek-mid-grey);
-    }
-
-    &:not(:disabled):hover {
-      color: var(--gek-background);
-      background: var(--gek-orange);
-    }
+    background: var(--gek-orange);
+  }
 }

@@ -13,5 +13,5 @@
  */
 
 export type PostGekV1InvestReturnInvestmentParams = {
-depositId?: string;
+  depositId?: string;
 };

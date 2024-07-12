@@ -1,30 +1,32 @@
+import constants from "@/shared/config/coins/constants";
+
 export enum RateState {
-    UP = 0,
-    DOWN = 1
+  UP = 0,
+  DOWN = 1
 }
 
 export interface IExchangeField {
-    amount: string | null;
-    currency: string | null;
+  amount: string | null;
+  currency: constants | string | null;
 }
 
 export interface IExchangePrice {
-    isSwapped: boolean;
-    amount: string | null;
+  isSwapped: boolean;
+  amount: string | null;
 }
 
 export enum OrderState {
-    OPENED = 'Created',
-    FAILED = 'Failed',
-    CLOSED = 'Canceled',
+  OPENED = "Created",
+  FAILED = "Failed",
+  CLOSED = "Canceled"
 }
 
 export enum TabKey {
-    OPENED = 'Opened',
-    CLOSED = 'Closed',
+  OPENED = "Opened",
+  CLOSED = "Closed"
 }
 
 export type OrdersTab = {
-    Key: TabKey;
-    Title: string;
-}
+  Key: TabKey;
+  Title: string;
+};

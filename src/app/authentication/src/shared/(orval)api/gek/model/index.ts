@@ -12,8 +12,8 @@
  * OpenAPI spec version: v1
  */
 
-export * from './getGekV1WalletGetInfoParams';
-export * from './walletInfoListApiResponse';
-export * from './walletInfoFlags';
-export * from './walletInfo';
-export * from './errorObject';
+export * from "./getGekV1WalletGetInfoParams";
+export * from "./walletInfoListApiResponse";
+export * from "./walletInfoFlags";
+export * from "./walletInfo";
+export * from "./errorObject";

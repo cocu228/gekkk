@@ -12,8 +12,7 @@
  * OpenAPI spec version: v1
  */
 
-export type Algorithm = typeof Algorithm[keyof typeof Algorithm];
-
+export type Algorithm = (typeof Algorithm)[keyof typeof Algorithm];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Algorithm = {
@@ -28,5 +27,5 @@ export const Algorithm = {
   NUMBER_MINUS_36: -36,
   NUMBER_MINUS_35: -35,
   NUMBER_MINUS_8: -8,
-  NUMBER_MINUS_7: -7,
+  NUMBER_MINUS_7: -7
 } as const;

@@ -1,6 +1,6 @@
-const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
-    return (
-        <div className="
+const Card = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className='
             bg-white
             p-[16px]
             rounded-[4px]
@@ -15,10 +15,10 @@ const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
             flex
             flex-col
             transition-all
-        ">
-            {children}
-        </div>
-    );
-}
+        '
+  >
+    {children}
+  </div>
+);
 
 export default Card;

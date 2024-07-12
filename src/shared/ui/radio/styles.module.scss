@@ -17,7 +17,7 @@
   &:checked {
     ~ span {
       &::after {
-        content: '';
+        content: "";
         border-radius: 50%;
         position: static !important;
         margin: 0 !important;

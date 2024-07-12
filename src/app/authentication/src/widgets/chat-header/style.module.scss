@@ -1,9 +1,6 @@
 @import "../../styles/mixins.scss";
 
-
-
-
-.Header{
+.Header {
   position: sticky;
   display: flex;
   align-items: center;
@@ -13,7 +10,7 @@
   background: var(--new-brand-dark-blue);
   padding: 0 25px;
   z-index: 1;
-  max-width:100%
+  max-width: 100%;
 }
 .ContainerLogo {
   //width: var(--sidebar-width);
@@ -33,9 +30,6 @@
     flex-basis: var(--sidebar-width-xxl);
   }
 }
-:hover.ContainerLogo
-{
+:hover.ContainerLogo {
   cursor: pointer;
 }
-
-

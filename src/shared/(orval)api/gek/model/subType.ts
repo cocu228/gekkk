@@ -16,12 +16,11 @@
  * : 
 0 = DEPO, 1 = REPO, 2 = INCOME
  */
-export type SubType = typeof SubType[keyof typeof SubType];
-
+export type SubType = (typeof SubType)[keyof typeof SubType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SubType = {
-  DEPO: 'DEPO',
-  REPO: 'REPO',
-  INCOME: 'INCOME',
+  DEPO: "DEPO",
+  REPO: "REPO",
+  INCOME: "INCOME"
 } as const;

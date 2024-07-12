@@ -89,19 +89,6 @@ function Exchange() {
         return (
           <span>{t("exchange.title")}</span>
         )
-        // return (
-        //   <DropdownC 
-        //     isOpen={roomInfoModal.isModalOpen}
-        //     trigger={<span>{t("exchange.title")}</span>}
-        //   >
-        //     <DropdownCItem
-        //       onClick={roomInfoModal.showModal}
-        //       icon={<IconApp color="red" code="t33" size={20} />}
-        //     >
-        //       {t("exchange.create_private_exchange_room")}
-        //     </DropdownCItem>
-        //   </DropdownC>
-        // );
       case "creator":
         return `Private room`;
       case "visitor":
@@ -171,7 +158,6 @@ function Exchange() {
   ) : (
     <div className=" ">
       {md ? null : (
-        // TODO: Refactor header
         <ExchangeHeader privateRoomInfo={roomInfo} title={getHeadTitle()} text={<span className="select-text">{getHeadSubtitle()}</span>} />
       )}
 

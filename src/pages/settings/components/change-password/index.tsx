@@ -6,6 +6,7 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { BoxWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
+import { AuthOptions } from "@/shared/(orval)api/auth/model";
 
 import CheckList from "./helpers/checklist";
 import { RegisterOptionsToChangePass, ChangePass } from "./api/change-password";
@@ -16,10 +17,10 @@ export function ChangePassword() {
   const navigate = useNavigate();
   const [timer, setTimer] = useState(0);
   const [phoneNumber] = useState<string>();
-  const [options, setOptions] = useState();
+  const [options, setOptions] = useState<AuthOptions | undefined>(undefined);
   const [newPass, setNewPass] = useState<string>();
   const [valid, setValid] = useState<boolean>(false);
-  const [challengeReg, setChallengeReg] = useState();
+  const [challengeReg, setChallengeReg] = useState<string>("");
   const [confirmCode, setConfirmCode] = useState<string>();
   const [confirmNewPass, setConfirmNewPass] = useState<string>();
   const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
@@ -65,14 +66,14 @@ export function ChangePassword() {
 
   const sendSmsCode = () => {
     startTimer();
-    RegisterOptionsToChangePass(setOptions, setChallengeReg, setSmsCodeSent);
+    void RegisterOptionsToChangePass(setOptions, setChallengeReg, setSmsCodeSent);
   };
 
   const onContinue = () => {
     if (!smsCodeSent) {
       sendSmsCode();
     } else {
-      ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg);
+      void ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg);
       setSmsCodeSent(false);
       setNewPass(null);
       setConfirmNewPass(null);

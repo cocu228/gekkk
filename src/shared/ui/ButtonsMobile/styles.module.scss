@@ -1,44 +1,52 @@
 .MobileButton {
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--gek-dark-blue);
-  stroke: var(--gek-dark-blue);
-  font-size: 12px;
-  font-weight: 800;
-  text-wrap: nowrap;
-  word-break: keep-all;
-  cursor: pointer;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gek-dark-blue);
+    stroke: var(--gek-dark-blue);
+    font-size: 12px;
+    font-weight: 800;
+    text-wrap: nowrap;
+    word-break: keep-all;
+    cursor: pointer;
+
+    svg {
+        max-height: 22px;
+        min-height: 22px;
+    }
 }
 
 ////set_btn
 
+
 .itemBody {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    width: 100%;
 }
 
 .itemTitle {
-  font-size: 14px;
-  font-family: Inter;
-  font-weight: 400;
-  color: var(--gek-dark-blue);
-
-  @media screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 14px;
+    font-family: Inter;
     font-weight: 400;
-  }
-  &Selected {
+    color: var(--gek-dark-blue);
+
+
     @media screen and (max-width: 768px) {
-      color: #fff;
+        font-size: 12px;
+        font-weight: 400;
     }
-  }
+    &Selected {
+        
+        @media screen and (max-width: 768px) {
+            color: #fff;
+        }
+    }
 }
 
 .itemIcon {
-  padding: 10px;
+    padding: 10px;
 }

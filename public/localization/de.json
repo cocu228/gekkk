@@ -39,6 +39,7 @@
     "payment_information": "Zahlungsinformationen",
     "action": "Aktion",
     "scan_qr": "QR-Code scannen",
+    "portfolio_size": "portfoliogröße",
     "price": "Preis",
     "enter_code": "Code eingeben",
     "invalid_confirmation_code": "Ungültiger Bestätigungscode",

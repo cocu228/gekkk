@@ -30,6 +30,7 @@ import { IS_GEKKARD_APP, IS_GEKKOIN_APP } from "@/shared/lib/";
 import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
+import Wrapper from "@/shared/ui/wrapper";
 
 function Wallet() {
   const { t } = useTranslation();
@@ -151,12 +152,14 @@ function Wallet() {
                 isOnTopUpPage
               )
             ) && (
-              <History
-                className='mb-[40px]'
-                data-tag={"history"}
-                data-name={t("history")}
-                currenciesFilter={currencyForHistory}
-              />
+              <Wrapper className={"px-[10px]"}>
+                <History
+                  className='mb-[40px]'
+                  data-tag={"history"}
+                  data-name={t("history")}
+                  currenciesFilter={currencyForHistory}
+                />
+              </Wrapper>
             )}
             {isOnAboutPage &&
               (!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
@@ -177,14 +180,14 @@ function Wallet() {
               <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")} />
             )}
             {tab === "top_up" && (
-              <div className='mt-5 min-h-[200px] relative'>
+              <Wrapper className='px-[10px] mt-5 min-h-[200px] relative'>
                 <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                   <TopUp />
                 </NetworkProvider>
-              </div>
+              </Wrapper>
             )}
             {tab === "programs" && (
-              <div className='min-h-[200px] relative'>
+              <div className='mt-5 min-h-[200px] relative'>
                 <Programs data-tag={"programs"} data-name={t("programs")} />
               </div>
             )}

@@ -24,6 +24,7 @@
     "next": "Prossimo",
     "login": "Login",
     "code": "Codice",
+    "portfolio_size": "dimensioni del portafoglio",
     "scan_qr": "Scansiona il codice QR",
     "the_code_confirmed": "Conferma il codice",
     "sms_code_sent": "È stato inviato un SMS con un codice monouso",

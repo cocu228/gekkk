@@ -39,25 +39,28 @@ const SidebarDesktop = () => {
 
   if (!investments) return null;
 
+  console.log("asdas", gkeWallet);
+
   return (
     <div className={`${styles.Sidebar} flex flex-col justify-between`}>
       <div className='wrapper'>
-        <div className='flex flex-col gap-[5px]'>
+        <div className='flex flex-col gap-[2px]'>
           {/* EURG wallet */}
           <NavLink
             to='/wallet?currency=EURG'
             className={`${styles.ItemWrapper} ${loc.search === "?currency=EURG" && styles.ItemWrapperActive}`}
           >
             <div className={`${styles.ItemInactive}`}>
+              <IconApp code='t08' size={12} className={styles.ItemArrow} color='#285E69' />
               <div className={`${styles.ItemHover}`} />
               <div className='col flex items-center pl-4'>
-                <IconCoin width={50} height={50} code={`EURG`} />
+                <IconCoin width={50} height={50} className={styles.IconCoin} code={`EURG`} />
               </div>
-              <div className='col flex items-center justify-center flex-col pl-5'>
-                <div className='row text-gray-400 w-full mb-1'>
-                  <span className={styles.Name}>Gekkoin euro token</span>
+              <div className='col flex items-center mt-[5px] flex-col pl-5'>
+                <div className='row text-gray-400 w-full h-[17px] mb-[6px]'>
+                  <span className={styles.Name}>Gekkoin EUR</span>
                 </div>
-                <div className='row w-full font-mono'>
+                <div className='row w-full h-[17px]'>
                   <span className={styles.Sum}>
                     {(eurgWallet && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? "-"} EURG
                   </span>
@@ -90,15 +93,16 @@ const SidebarDesktop = () => {
             className={`${styles.ItemWrapper} ${loc.search === "?currency=GKE" && styles.ItemWrapperActive}`}
           >
             <div className={`${styles.ItemInactive}`}>
+              <IconApp code='t08' size={12} className={styles.ItemArrow} color='#285E69' />
               <div className={styles.ItemHover} />
               <div className='col flex items-center pl-4'>
-                <IconCoin width={50} height={50} code={`GKE`} />
+                <IconCoin width={50} className={styles.IconCoin} height={50} code={`GKE`} />
               </div>
-              <div className='col flex items-center justify-center flex-col pl-5'>
-                <div className='row text-gray-400 w-full mb-1'>
-                  <span className={`${styles.Name}`}>Gekkoin invest token</span>
+              <div className='col flex items-center mt-[5px] flex-col pl-5'>
+                <div className='row text-gray-400 w-full h-[17px] mb-[6px]'>
+                  <span className={`${styles.Name}`}>GKE Token</span>
                 </div>
-                <div className='row w-full font-mono'>
+                <div className='row w-full h-[17px]'>
                   <span className={styles.Sum}>
                     {(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance?.user_balance, gkeWallet.roundPrec)) ?? "-"}{" "}
                     GKE
@@ -114,7 +118,7 @@ const SidebarDesktop = () => {
                       )}
                     </div>
                     <div className=' text-gray-500 font-mono'>
-                      {gkeWallet.balance?.user_balance_EUR_equ ? null : (
+                      {gkeWallet.balance?.user_balance_EUR_equ === null ? null : (
                         <span className={styles.EuroEqv}>
                           ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
                         </span>
@@ -144,7 +148,7 @@ const SidebarDesktop = () => {
 
         {/* User assets collapse */}
         {!investments.length ? null : (
-          <NavCollapse header={"Current deposits"} id={"deposits"}>
+          <NavCollapse className='bg-[#fff] block' header={"Current deposits"} id={"deposits"}>
             {investments.map(item => (
               <NavLink onClick={NavLinkEvent} to={`deposit/${item.id}`} key={item.id}>
                 <div className={`${`${styles.Item} ${ParentClassForCoin}`}`}>

@@ -5,30 +5,13 @@
   flex-grow: 0;
   flex-shrink: 0;
   height: initial;
-  // background-color: white;
-  box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 10px #0000000f;
   overscroll-behavior-y: contain;
-
-  @include max-devices(md) {
-    max-width: 100% !important;
-    flex-basis: 100% !important;
-    padding-bottom: 100px;
-    background-color: #f7f7f0;
-  }
-
-  @include max-devices(xxxl) {
-    max-width: var(--sidebar-width-xxxl);
-    flex-basis: var(--sidebar-width-xxxl);
-  }
-
-  @include max-devices(xxl) {
-    max-width: var(--sidebar-width-xxl);
-    flex-basis: var(--sidebar-width-xxl);
-  }
 }
 
+
 .TotalVal {
-  background-color: #285e69;
+  background-color: #285E69;
   position: relative;
   border-radius: 0 5px 5px 0;
 }
@@ -44,16 +27,6 @@
   padding: 10px 10px 5px 0;
   font-size: 12px;
   font-weight: 400;
-  @include max-devices(md) {
-    color: #778f93;
-    font-family: Archivo;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: left;
-    padding-left: 5%;
-  }
 }
 
 .AssetInfo2 {
@@ -66,36 +39,12 @@
   border: var(--strokes-2, rgba(238, 238, 238, 0.65));
   border-width: 1px;
   border-style: solid;
-  @include max-devices(md) {
-    height: 71px;
-    width: 100%;
-    padding: 0;
-    background-color: transparent;
-    align-items: center;
-    color: #285e69;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    align-items: end;
-    border: none;
-    justify-content: center;
-  }
 }
 
 .AssetInfo3 {
   background-color: #f7f7f0;
   display: block;
   text-align: right;
-  @include max-devices(md) {
-    background-color: transparent;
-    position: fixed;
-    bottom: 75px;
-    z-index: 40;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 .AssetInfo4 {
@@ -107,19 +56,15 @@
   margin: 0px 8px 10px 0px;
   font-size: 12px;
 
-  @include max-devices(md) {
-    border-radius: 50%;
-  }
-
   &:hover {
-    background-color: #285e69;
+    background-color: #285E69;
     color: #f7f7f0;
     font-weight: 600;
   }
 
   :active {
     color: white;
-    background-color: #29354c;
+    background-color: #29354C;
   }
 }
 
@@ -131,7 +76,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items:flex-start;
   background-color: rgb(247, 247, 240, 0.9);
 }
 
@@ -142,34 +87,17 @@
 }
 
 .Name {
-  color: var(--color-gray-600);
+  color: #B9B9B5;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  transition: 0.2s;
-  @include max-devices(md) {
-    color: #285e69;
-    font-family: Archivo;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 20px;
-  }
+  transition: .2s;
 }
 
 .Sum {
-  color: #285e69;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
-  @include max-devices(md) {
-    color: var(--Pale-blue, #285e69);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px;
-  }
+  font-size: .85rem;
+  font-weight: 700;
+  // active - #29354C
 }
 
 .Balance {
@@ -186,13 +114,13 @@
   font-size: 12px;
   line-height: 20px;
   font-weight: 300;
-  color: #2bab72;
+  color: #2BAB72;
 }
 
 .EuroEqv {
-  font-size: 12px;
+  font-size: .75rem;
+  color: var(--gek-mid-grey);
   font-weight: 400;
-  color: var(--color-gray-500);
   margin-right: 8px;
 }
 
@@ -200,12 +128,13 @@
   margin-right: 6px;
 
   path {
-    transition: 0.2s;
+    transition: .2s;
     fill: var(--color-gray-400);
   }
 }
 
 :global(a.active) {
+
   .ItemWrapper > .Item {
     box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
 
@@ -231,7 +160,7 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285e69;
+      background-color: #285E69;
       left: 0;
       top: 0;
     }
@@ -270,22 +199,19 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285e69;
+      background-color: #285E69;
       left: 0;
       top: 0;
     }
   }
 }
 
+
 .Item,
 .ItemExchange,
 .ItemEuro {
-  @include max-devices(md) {
-    max-width: 90%;
-    background-color: white;
-    border-radius: 8px;
-    margin-bottom: 8px;
-  }
+
+
 
   height: 85px;
   position: relative;
@@ -295,47 +221,41 @@
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: 0.2s;
+  transition: .2s;
 
   .Icon {
     pointer-events: none;
     filter: saturate(10%) invert(0%);
     opacity: 0.3;
-    transition: 0.2s;
+    transition: .2s;
   }
 
   .NavName {
-    transition: 0.2s;
+    transition: .2s;
   }
-
+  
   &Inactive {
-    @include max-devices(md) {
-      max-width: 90%;
-      background-color: white;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
-
-    height: 85px;
+    
+    height: 66px;
     position: relative;
     width: 100%;
     display: grid;
     grid-template-columns: auto 1fr;
     pointer-events: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    transition: 0.2s;
+    transition: .2s;
 
     .Icon {
       pointer-events: none;
       filter: saturate(10%) invert(0%);
       opacity: 0.3;
-      transition: 0.2s;
+      transition: .2s;
     }
 
     .NavName {
-      transition: 0.2s;
+      transition: .2s;
     }
-
+    
     &:hover {
       box-shadow: none;
     }
@@ -346,8 +266,6 @@
 
     .Name,
     .NavName {
-      color: var(--color-gray-600);
-      font-weight: 600;
     }
 
     .SvgArrow {
@@ -363,6 +281,7 @@
     }
   }
 }
+
 
 :global(a.disabled) {
   .Item,
@@ -380,16 +299,7 @@
 
 .ItemEuro {
   height: 70px;
-}
 
-.ItemWrapper {
-  @include max-devices(md) {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(247, 247, 240);
-  }
 }
 
 .ArrowMobileSidebar {
@@ -414,8 +324,8 @@
 .BottomMenuMobile {
   height: 50px;
   width: 100%;
-  border-top: 1px solid rgba(58, 94, 102, 0.5);
-  background: #f7f7f0;
+  border-top: 1px solid rgba(58, 94, 102, 0.50);
+  background: #F7F7F0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 100%;
@@ -434,7 +344,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #285e69;
+  background-color: #285E69;
 }
 
 .NewAssetIcon {
@@ -450,33 +360,34 @@
   justify-content: center;
   align-items: center;
   flex: 1 0 0;
-  color: #9d9d9d;
+  color: #9D9D9D;
   text-align: center;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 20px; /* 166.667% */
-  transition: ease-in-out 0.2s;
+  transition: ease-in-out .2s;
 }
 
 .BottomMenuMobileButtonsIcons {
-  transition: ease-in-out 0.2s;
+  transition: ease-in-out .2s;
 }
 
 .BottomMenuButtonsActive {
-  color: #285e69;
+  color: #285E69;
 }
 
 .SecondaryItem {
-  background: #ededed;
+  background: #EDEDED;
 }
+
 
 .ItemInactive {
   background-color: white;
   position: relative;
   border-radius: 8px;
-
+  
   .ItemHover {
     width: 5px;
     position: absolute;
@@ -488,15 +399,22 @@
 }
 
 .ItemWrapper {
-  transition: all 0.3s;
-
   &:hover {
+
     .ItemInactive {
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
     }
 
     .ItemHover {
       background-color: var(--gek-mid-grey) !important;
+    }
+
+    .IconCoin {
+      filter: saturate(100%) invert(0%);
+    }
+
+    .ItemArrow {
+      fill: var(--gek-green);
     }
   }
 }
@@ -505,4 +423,31 @@
   .ItemHover {
     background-color: var(--gek-additional) !important;
   }
+
+  .IconCoin {
+    filter: saturate(100%) invert(0%);
+  }
+
+  .Name {
+    color: #285E69;
+  }
+
+  .Sum {
+    color: #29354C;
+  }
+
+  .ItemArrow {
+    fill: #29354C;
+  }
+}
+
+.IconCoin {
+  filter: saturate(0%) invert(0%);
+}
+
+.ItemArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 9px;
 }

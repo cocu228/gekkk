@@ -9,9 +9,10 @@ interface INavCollapseProps {
   children: ReactNode;
   id: string;
   header: string;
+  className?: string;
 }
 
-const NavCollapse: FC<INavCollapseProps> = ({ children, id, header }) => {
+const NavCollapse: FC<INavCollapseProps> = ({ children, id, header, className = "" }) => {
   const [value, setValue] = useSessionStorage("collapse-nav", {
     [id]: null
   });
@@ -26,7 +27,7 @@ const NavCollapse: FC<INavCollapseProps> = ({ children, id, header }) => {
   };
 
   return (
-    <div className='bg-[#fff]'>
+    <div className={`bg-[#fff] ${className}`}>
       <button onClick={handlerToggle} className={styles.Header + (isActive ? " active" : "")}>
         <div className={`flex flex-nowrap items-center justify-end pr-4 pt-2 pb-2`}>
           <span className='text-gray-400 text-sm mr-4 font-medium'>{header}</span>

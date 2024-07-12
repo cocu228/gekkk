@@ -97,7 +97,7 @@ const QualityControl: FC = () => {
             allowDigits
             name='message'
             placeholder={t("support.quality_improvement_placeholder")}
-            className={"py-[9px]"}
+            className={"!py-[5px] min-h-[29px] mb-[10px]"}
             maxLength={4000}
             textareaClassName={"text-fs12"}
             value={control?.message || ""}

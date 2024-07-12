@@ -100,11 +100,11 @@ const QualityControl: FC = () => {
             allowDigits
             name="message"
             placeholder={t("support.quality_improvement_placeholder")}
-            className={"py-[9px]"}
-            textareaClassName={"text-fs12"}
+            className={"!py-[5px] min-h-[29px] mb-[10px]"}
+            textareaClassName={"control-form-textarea"}
             value={control?.message || ""}
             onChange={handleOnMessage}
-          />
+          />  
           <Button onClick={handleOnSubmit}>
             {t("send")}
           </Button>

@@ -17,7 +17,7 @@ const TransfersButton = memo(({ to, className, isActive}: IParams) => {
         <>
             <NavLink to={to}>
                 <div className={`${styles.MobileButton} ${className}`}>
-                    <IconApp size={22} code="t03"
+                    <IconApp className="min-h-[22px]" size={22} code="t03"
                         color={`var(${isActive ? '--gek-dark-blue' : '--gek-mid-grey'})`}/>
                     <span>{t("transfers")}</span>
                 </div>

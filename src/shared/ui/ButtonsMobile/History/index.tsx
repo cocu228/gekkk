@@ -18,7 +18,7 @@ const HistoryButton = memo(({ to, className, isActive }: IParams) => {
         <>
             <NavLink to={to}>
                 <div className={`${styles.MobileButton} ${className}`}>
-                    <IconApp size={22} code="t09"
+                    <IconApp size={22} className="min-h-[22px]" code="t09"
                         color={`var(${isActive ? '--gek-dark-blue' : '--gek-mid-grey'})`}/>
                     <span>{t("history")}</span>
                 </div>

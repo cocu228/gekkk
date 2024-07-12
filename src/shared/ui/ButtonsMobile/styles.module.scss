@@ -11,8 +11,12 @@
     text-wrap: nowrap;
     word-break: keep-all;
     cursor: pointer;
-}
 
+    svg {
+        max-height: 22px;
+        min-height: 22px;
+    }
+}
 
 ////set_btn
 

@@ -30,7 +30,7 @@ const Textarea: FC<ITextareaProps> = ({
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (validateInput(event, allowDigits || false, allowSymbols || false, discardLetters || true)) {
       onChange(event);
     }

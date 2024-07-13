@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import flags from "react-phone-number-input/flags";
 import PhoneInput from "react-phone-number-input";
 import {ResetPassword} from '../../shared/apiInterfaces';
+import Checkbox from '../components/ckeckbox';
 
 interface IParams {
 	phone: string;
@@ -21,7 +22,12 @@ export const CallResetForm = ({
 	onPhoneChange
 }: IParams) => {
 	const [loading, setLoading] = useState<boolean>(false);
+	const [checked, setIsChecked] = useState<boolean>(false);
 	
+	function handleCheck() {
+		setIsChecked(!checked);
+	}
+
 	const onSubmit = async () => {
 		if (phone) {
 			setLoading(true);
@@ -52,11 +58,18 @@ export const CallResetForm = ({
 				
 				<p className={styles.Description}>The link will be sent to your personal email</p>
 			</div>
-			
-			<div className={styles.FormButtons} >
-				<Button disabled={!phone || loading} type="submit">Send link</Button>
-				
-				<Button text onClick={handleCancel}>Back to login</Button>
+
+			<div className={styles.BottomContainer}>
+				<div className={styles.TermsCheck}>
+					<Checkbox checked={checked} onChange={handleCheck}/>
+					<label onClick={handleCheck}>I agree with the terms and conditions of this service</label>
+				</div>
+
+				<div className={styles.FormButtons} >
+					<Button disabled={!phone || loading || !checked} type="submit">Send link</Button>
+
+					<Button text onClick={handleCancel}>Back to login</Button>
+				</div>
 			</div>
 		</Form>
 	</main>

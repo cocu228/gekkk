@@ -1,0 +1,19 @@
+.Checkbox {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gek-mid-grey);
+}
+
+.Icon {
+  visibility: hidden;
+}
+
+.IconActive {
+  width: 18px;
+  height: 18px;
+  visibility: visible;
+}

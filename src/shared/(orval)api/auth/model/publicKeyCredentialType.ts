@@ -12,10 +12,9 @@
  * OpenAPI spec version: v1
  */
 
-export type PublicKeyCredentialType = typeof PublicKeyCredentialType[keyof typeof PublicKeyCredentialType];
-
+export type PublicKeyCredentialType = (typeof PublicKeyCredentialType)[keyof typeof PublicKeyCredentialType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PublicKeyCredentialType = {
-  'public-key': 'public-key',
+  "public-key": "public-key"
 } as const;

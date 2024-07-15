@@ -1,5 +1,6 @@
 import { t } from "i18next";
 import { useContext, useState } from "react";
+
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -8,10 +9,12 @@ import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Select from "@/shared/ui/create-room/ui/select";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import constants from "@/shared/config/coins/constants";
+
+import { IconApp } from "../icons/icon-app";
 import styles from "./styles.module.scss";
 
 interface IParams {
@@ -21,7 +24,7 @@ interface IParams {
   onRoomCreation: (roomInfo: RoomInfo) => void;
   onToCurrencyChange: (value: string) => void;
   onFromCurrencyChange: (value: string) => void;
-  onCancel?: ()=>void
+  onCancel?: () => void;
 }
 
 function CreateRoom({
@@ -33,7 +36,7 @@ function CreateRoom({
   onFromCurrencyChange,
   onCancel
 }: IParams) {
-  const {md} = useBreakpoints();
+  const { md } = useBreakpoints();
   const [isIco, setIsIco] = useState(false);
   const { currencies } = useContext(CtxCurrencies);
   const [loading, setLoading] = useState<boolean>(false);
@@ -43,7 +46,7 @@ function CreateRoom({
 
   const assetsFilter = (asset: ICtxCurrency) => {
     if (allowedFlags) {
-      return Object.values(allowedFlags).some((f) => asset.flags[f]);
+      return Object.values(allowedFlags).some(f => asset.flags[f]);
     }
 
     return true;
@@ -55,52 +58,50 @@ function CreateRoom({
     onFromCurrencyChange("");
     onToCurrencyChange("");
     onCancel();
-  }
+  };
 
   const handleOnChange = (type: "from" | "to") => (currency: ICtxCurrency | null) => {
-    type === "from" ?
-        onFromCurrencyChange(currency ? currency.$const : "") :
-        onToCurrencyChange(currency ? currency.$const : "");
-  }
+    type === "from"
+      ? onFromCurrencyChange(currency ? currency.$const : "")
+      : onToCurrencyChange(currency ? currency.$const : "");
+  };
 
-  const getValue = (equalValue: string | null) => tokensList.find(t => t.$const === equalValue) || null;
-  const getFilterValue = (notEqualValue: string) => tokensList.filter(({ $const }) => $const !== notEqualValue);
+  const getValue = (equalValue: constants | null) => tokensList.find(t => t.$const === equalValue) || null;
+  const getFilterValue = (notEqualValue: constants) => tokensList.filter(({ $const }) => $const !== notEqualValue);
 
   return (
     <>
       <div className={loading ? "!collapse" : ""}>
         <div className={styles.ModalText}>
           <div>
-            <IconApp color="#8F123A" size={15} code="t27" />
+            <IconApp color='#8F123A' size={15} code='t27' />
           </div>
-          <div className={"text-justify"}>
-            {t("exchange.private_room_allows")}
-          </div>
+          <div className={"text-justify"}>{t("exchange.private_room_allows")}</div>
         </div>
-        <div className={"mt-4 " + styles.SelectToken}>
+        <div className={`mt-4 ${styles.SelectToken}`}>
           <Select
             label={`${t("exchange.from")}:`}
-            placeholder={`-${t('select')}-`}
-            value={getValue(from.currency)}
-            options={getFilterValue(to.currency)}
+            placeholder={`-${t("select")}-`}
+            value={getValue(from.currency as constants)}
+            options={getFilterValue(to.currency as constants)}
             onChange={handleOnChange("from")}
           />
         </div>
-        <div className="flex w-full justify-center mt-2">
-          <div onClick={onCurrenciesSwap} className="cursor-pointer">
-            <IconApp code='t36' size={md ? 17 : 25} color="#B9B9B5" />
+        <div className='flex w-full justify-center mt-2'>
+          <div onClick={onCurrenciesSwap} className='cursor-pointer'>
+            <IconApp code='t36' size={md ? 17 : 25} color='#B9B9B5' />
           </div>
         </div>
         <div className={styles.SelectToken}>
           <Select
-              label={`${t("exchange.to")}:`}
-              placeholder={`-${t('select')}-`}
-              value={getValue(to.currency)}
-              options={getFilterValue(from.currency)}
-              onChange={handleOnChange("to")}
+            label={`${t("exchange.to")}:`}
+            placeholder={`-${t("select")}-`}
+            value={getValue(to.currency as constants)}
+            options={getFilterValue(from.currency as constants)}
+            onChange={handleOnChange("to")}
           />
         </div>
-        <div className="flex items-center gap-3 pl-[8px] mt-6">
+        <div className='flex items-center gap-3 pl-[8px] mt-6'>
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${
@@ -118,32 +119,31 @@ function CreateRoom({
             onClick={() => {
               setIsIco(!isIco);
             }}
-            className="hover:cursor-pointer text-smm select-none text-[12px] text-[#1F3446]"
+            className='hover:cursor-pointer text-smm select-none text-[12px] text-[#1F3446]'
           >
             {t("exchange.only_i_can")}
           </span>
         </div>
 
-
-        <div className="mt-2">
-          <label className={styles.Title} htmlFor="">
+        <div className='mt-2'>
+          <label className={styles.Title} htmlFor=''>
             {t("exchange.purchase_limit")}:
           </label>
           <Input
             allowDigits
             value={purchaseLimit}
             placeholder={t("exchange.it_is_empty")}
-            onChange={(event) => {
-              setPurchaseLimit(event.target.value)
+            onChange={event => {
+              setPurchaseLimit(event.target.value);
             }}
           />
         </div>
 
-        <div className="mt-4">{localErrorInfoBox}</div>
+        <div className='mt-4'>{localErrorInfoBox}</div>
 
-        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-between">
+        <div className='mt-6 gap-[20px] sm:mt-6 flex justify-between'>
           <Button
-            className="w-full"
+            className='w-full'
             disabled={!(from.currency && to.currency)}
             onClick={() => {
               setLoading(true);
@@ -152,7 +152,7 @@ function CreateRoom({
                 currency1: from.currency,
                 currency2: to.currency,
                 flags: isIco ? 1 : 0,
-                to_balance_limit: +purchaseLimit,
+                to_balance_limit: +purchaseLimit
               })
                 .then(({ data }) => {
                   if (data.error) {
@@ -162,7 +162,7 @@ function CreateRoom({
 
                   onRoomCreation(data.result);
                 })
-                .catch((e) => {
+                .catch(e => {
                   localErrorHunter(e);
                 })
                 .finally(() => {
@@ -172,11 +172,7 @@ function CreateRoom({
           >
             {t("confirm")}
           </Button>
-          <Button
-            skeleton
-            className="w-full"
-            onClick={handleOnCancel}
-          >
+          <Button skeleton className='w-full' onClick={handleOnCancel}>
             {t("cancel")}
           </Button>
         </div>

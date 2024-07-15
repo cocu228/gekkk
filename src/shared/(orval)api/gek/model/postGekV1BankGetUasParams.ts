@@ -13,10 +13,10 @@
  */
 
 export type PostGekV1BankGetUasParams = {
-newtoken?: boolean;
-code?: string;
-/**
- * поле необходимо вместе с code
- */
-sessid?: string;
+  newtoken?: boolean;
+  code?: string;
+  /**
+   * поле необходимо вместе с code
+   */
+  sessid?: string;
 };

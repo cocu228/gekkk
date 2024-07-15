@@ -13,8 +13,8 @@
  */
 
 export type GetGekV1WalletGetInfoParams = {
-/**
- * если true - обновляет информацию из CRM об организациях и счетах, долгая операция
- */
-refresh?: boolean;
+  /**
+   * если true - обновляет информацию из CRM об организациях и счетах, долгая операция
+   */
+  refresh?: boolean;
 };

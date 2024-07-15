@@ -5,7 +5,7 @@
 }
 
 .BorderLine {
-  color: #3A5E66;
+  color: #3a5e66;
   height: 1px;
   border-width: 0;
   margin-bottom: 10px;
@@ -28,12 +28,14 @@
   }
 }
 
-.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+.InfoItemValue,
+.InfoItemAddress,
+.InfoItemHash {
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
   color: var(--gek-dark-blue);
-  
+
   @media screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -47,11 +49,13 @@
   }
 }
 
-.InfoItemValue, .InfoItemAddress {
+.InfoItemValue,
+.InfoItemAddress {
   user-select: text;
 }
 
-.InfoItemAddress, .InfoItemHash {
+.InfoItemAddress,
+.InfoItemHash {
   display: block;
   max-width: 250px;
   word-break: break-all;

@@ -16,15 +16,14 @@
  * : 
 0 = BENEFICIARY, 1 = SHARED, 2 = SENDER, 3 = BEN, 4 = SHA, 5 = OUR
  */
-export type FeeType = typeof FeeType[keyof typeof FeeType];
-
+export type FeeType = (typeof FeeType)[keyof typeof FeeType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const FeeType = {
-  BENEFICIARY: 'BENEFICIARY',
-  SHARED: 'SHARED',
-  SENDER: 'SENDER',
-  BEN: 'BEN',
-  SHA: 'SHA',
-  OUR: 'OUR',
+  BENEFICIARY: "BENEFICIARY",
+  SHARED: "SHARED",
+  SENDER: "SENDER",
+  BEN: "BEN",
+  SHA: "SHA",
+  OUR: "OUR"
 } as const;

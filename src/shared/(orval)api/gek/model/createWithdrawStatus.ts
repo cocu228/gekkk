@@ -16,8 +16,7 @@
  * : 
 0 = NeedSmsConfirm, 1 = NeedCodeConfirm, 2 = NeedSign, 3 = NoConfirmationNeeded, 4 = Confirmed
  */
-export type CreateWithdrawStatus = typeof CreateWithdrawStatus[keyof typeof CreateWithdrawStatus];
-
+export type CreateWithdrawStatus = (typeof CreateWithdrawStatus)[keyof typeof CreateWithdrawStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateWithdrawStatus = {
@@ -25,5 +24,5 @@ export const CreateWithdrawStatus = {
   NUMBER_1: 1,
   NUMBER_2: 2,
   NUMBER_3: 3,
-  NUMBER_4: 4,
+  NUMBER_4: 4
 } as const;

@@ -1,47 +1,47 @@
 ﻿.Button {
-    border-radius: 8px;
-    border-color: transparent;
-    padding: 9px 24px 9px 24px;
-    background: var(--gek-green);
-    color: white;
-    
-    &:hover {
-        background: var(--gek-green-gradient);
-        color: var(--gek-dark-blue);
-    }
-    &:active {        
-        color: var(--gek-background);
-    }
-    
-    &:disabled {
-        color: var(--gek-dark-grey);
-        background: var(--gek-light-grey);
-    }
+  border-radius: 8px;
+  border-color: transparent;
+  padding: 9px 24px 9px 24px;
+  background: var(--gek-green);
+  color: white;
+
+  &:hover {
+    background: var(--gek-green-gradient);
+    color: var(--gek-dark-blue);
+  }
+  &:active {
+    color: var(--gek-background);
+  }
+
+  &:disabled {
+    color: var(--gek-dark-grey);
+    background: var(--gek-light-grey);
+  }
 }
 
 .TextButton {
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: var(--gek-additional);
-    
-    &:hover {
-        text-decoration: underline;
-    }
-    &:active {        
-        color: var(--gek-dark-blue);
-    }
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: var(--gek-additional);
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: var(--gek-dark-blue);
+  }
 }
 
 .SecondaryButton {
-    padding: 9px 24px;
-    border-radius: 8px;
-    border: 2px solid var(--gek-green);
-    color: var(--gek-green);
-    background: var(--gek-background);
+  padding: 9px 24px;
+  border-radius: 8px;
+  border: 2px solid var(--gek-green);
+  color: var(--gek-green);
+  background: var(--gek-background);
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }

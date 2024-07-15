@@ -13,5 +13,5 @@
  */
 
 export type GetAuthV1ResetPasswordParams = {
-phone?: string;
+  phone?: string;
 };

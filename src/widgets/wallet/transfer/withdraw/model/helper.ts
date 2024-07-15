@@ -1,37 +1,34 @@
 type TGetFinalFee = {
+  type: {
+    number: boolean | null;
+    percent: boolean | null;
+  };
+  value: {
+    number: number;
+    percent: number;
+  };
+};
+export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
+  const result = {
     type: {
-        number: boolean | null,
-        percent: boolean | null
+      number: false,
+      percent: false
     },
     value: {
-        number: number,
-        percent: number
+      number: 0,
+      percent: 0
     }
-}
-export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
+  };
 
-    let result = {
-        type: {
-            number: false,
-            percent: false
-        },
-        value: {
-            number: 0,
-            percent: 0
-        }
-    }
+  if (curFee === 0 && perFee === 0) return result;
 
+  result.type.percent = perFee !== 0;
+  result.type.number = curFee !== 0;
+  result.value.percent = perFee;
+  result.value.number = curFee;
 
-    if (curFee === 0 && perFee === 0) return result
-
-    result.type.percent = perFee !== 0
-    result.type.number = curFee !== 0
-    result.value.percent = perFee
-    result.value.number = curFee
-
-    return result
-
-}
+  return result;
+};
 
 // export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
 //

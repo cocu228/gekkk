@@ -1,78 +1,77 @@
 @import "../../app/styles/mixins.scss";
 
 .Container {
-    gap: 12px;
-    display: flex;
-    font-size: 12px;
-    margin-top: 10px;
-    text-align: center;
-    padding-inline: 48px;
-    flex-direction: column;
+  gap: 12px;
+  display: flex;
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+  padding-inline: 48px;
+  flex-direction: column;
 }
 
 .CardContainer {
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .Card {
-    width: 100%;
-    max-width: 300px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .MerchantName {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gek-dark-blue);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gek-dark-blue);
 }
 
 .Amount {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--gek-additional);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gek-additional);
 }
 
 .Button {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
 
-.CardEnding{
-    color: var(--gek-dark-blue);
-    font-size: 10px;
+.CardEnding {
+  color: var(--gek-dark-blue);
+  font-size: 10px;
 }
 
-.TitleContainer{
-    display: flex; 
-    flex-direction: row; 
-    justify-content: space-between; 
-    align-items: center; 
-    width: 100%; 
+.TitleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.Title{
-    font-weight: 600; 
-    color: #1F3446;
+.Title {
+  font-weight: 600;
+  color: #1f3446;
 
-
-    @include max-devices(md) { 
-        font-size: 12px;
-    }
+  @include max-devices(md) {
+    font-size: 12px;
+  }
 }
 
-.ModalLine{
-    margin-top: 1rem; 
-    margin-bottom: 1.5rem; 
-    border-width: 0; 
-    height: 1px; 
-    border-color: var(--gek-light-grey);
+.ModalLine {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-width: 0;
+  height: 1px;
+  border-color: var(--gek-light-grey);
 }
 
 .LoadingInfoBox {
-    color: var(--gek-green);
-    border-color: var(--gek-green);
+  color: var(--gek-green);
+  border-color: var(--gek-green);
 
-    transition: ease-in-out .2s;
+  transition: ease-in-out 0.2s;
 }

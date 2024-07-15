@@ -1,76 +1,76 @@
 @import "@styles/mixins";
-@import '../style.module.scss';
+@import "../style.module.scss";
 
-.HeaderWalletDesktop{
-    display: flex;
-    align-items: flex-start;
-    align-self: stretch;
-    margin: 20px 0px;
-    padding: 10px 0px;
-    border-radius: 8px;
-    background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #FFF 101.23%);
+.HeaderWalletDesktop {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  margin: 20px 0px;
+  padding: 10px 0px;
+  border-radius: 8px;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #fff 101.23%);
 }
 
-.IconCoin{
-    display: flex;
-    flex-direction: column;
-    width: 80px;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    align-self: stretch;
-    margin: 0px 10px;
+.IconCoin {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  margin: 0px 10px;
 }
 
-.IconInfo{
-    margin-right: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: center;
+.IconInfo {
+  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
 }
 
-.IconBalance{
-    display: flex;
-    width: 306px;
-    height: 78px;
-    align-items: flex-start;
-    margin: 0px 15px;
+.IconBalance {
+  display: flex;
+  width: 306px;
+  height: 78px;
+  align-items: flex-start;
+  margin: 0px 15px;
 }
 
-.IconRate{
-    margin-left: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: center;
-    text-wrap: nowrap;
+.IconRate {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  text-wrap: nowrap;
 
-    @media screen and (max-width: 950px) {
-        display: none;
-    }
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
 }
 
-.RateText{
-    color: #B9B9B5;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.RateText {
+  color: #b9b9b5;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.RatePercentText{
-    color: #29354C;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.RatePercentText {
+  color: #29354c;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .LockOrders {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }

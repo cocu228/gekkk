@@ -1,7 +1,7 @@
- type UserType = {
-    id?: string,
-    name?: string,
-    avatar?: string
-}
+type UserType = {
+  id?: string;
+  name?: string;
+  avatar?: string;
+};
 
-export default UserType
+export default UserType;

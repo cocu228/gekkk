@@ -8,25 +8,25 @@
   padding: 24px 50px;
   display: flex;
   flex-direction: column;
-  border: 2px solid #EEEEEEA6;
+  border: 2px solid #eeeeeea6;
   gap: 24px;
   border-radius: 8px;
   z-index: 1;
   box-shadow:
-    3px 2px 8px 0 #A8A8A84A,
-    13px 8px 15px 0 #A8A8A842,
-    28px 17px 20px 0 #A8A8A826,
-    50px 30px 23px 0 #A8A8A80A,
-    79px 47px 26px 0 #A8A8A803;
+    3px 2px 8px 0 #a8a8a84a,
+    13px 8px 15px 0 #a8a8a842,
+    28px 17px 20px 0 #a8a8a826,
+    50px 30px 23px 0 #a8a8a80a,
+    79px 47px 26px 0 #a8a8a803;
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     width: calc(100% - 100px);
     padding: 10px 15px;
     gap: 10px;
     bottom: 32px;
     left: 50%;
     transform: translateX(-50%);
-    border: 1px solid #DCDCD9
+    border: 1px solid #dcdcd9;
   }
 }
 
@@ -38,13 +38,13 @@
   font-weight: 700;
   color: var(--gek-text-primary);
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     gap: 15px;
   }
 }
 
 .Header > svg {
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     width: 25px;
     height: 25px;
   }
@@ -75,7 +75,7 @@
   width: 120px;
   height: 43px;
 
-  @media (max-width:768px) {
+  @media (max-width: 768px) {
     font-size: 10px;
     width: auto;
     height: auto;

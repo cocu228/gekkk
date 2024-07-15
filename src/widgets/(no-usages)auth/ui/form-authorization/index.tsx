@@ -23,18 +23,14 @@ import {
   defaultCountries,
   DialCodePreview,
   FlagImage,
-  PhoneInput,
+  PhoneInput
 } from "react-international-phone";
 import "react-international-phone/style.css";
 import "./form-authorization.scss";
 
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
-import {
-  apiLogin,
-  apiLoginOptions,
-  apiRegisterKey,
-} from "@/shared/(orval)api/auth";
+import { apiLogin, apiLoginOptions, apiRegisterKey } from "@/shared/(orval)api/auth";
 import { useAuth } from "@/app/providers/AuthRouter";
 
 function coerceToBase64Url(thing) {
@@ -82,8 +78,7 @@ function setAdvCookie() {
   }
   if (flag) {
     guid = self.crypto.randomUUID();
-    document.cookie =
-      "device_guid=" + guid + "; path = /; max-age=" + 365 * 24 * 60 * 60;
+    document.cookie = "device_guid=" + guid + "; path = /; max-age=" + 365 * 24 * 60 * 60;
   }
   return guid;
 }
@@ -94,14 +89,14 @@ const FormLoginAccount = memo(() => {
   // const [params] = useSearchParams();
   // const {md} = useContext(BreakpointsContext);
   // const authMethod = params.get("authMethod");
-  const { toggleStage, stage } = storyDisplayAuth((state) => state);
+  const { toggleStage, stage } = storyDisplayAuth(state => state);
   const [loading, setLoading] = useState<boolean>(false);
   const { phoneValidator, passwordValidator } = useValidation();
   // const {login} = useAuth();
 
   const [
     // localErrorHunter,
-    localErrorSpan,
+    localErrorSpan
     // localErrorClear
   ] = useError();
 
@@ -116,7 +111,7 @@ const FormLoginAccount = memo(() => {
     password: string;
   }>({
     phone: "",
-    password: "",
+    password: ""
   });
 
   const onFinish = async () => {
@@ -127,17 +122,13 @@ const FormLoginAccount = memo(() => {
     const response = await apiLoginOptions({
       headers: {
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "origin-list",
-      },
+        "Access-Control-Allow-Origin": "origin-list"
+      }
     });
 
-    const challenge = response.data.result.challenge
-      .replace(/-/g, "+")
-      .replace(/_/g, "/");
+    const challenge = response.data.result.challenge.replace(/-/g, "+").replace(/_/g, "/");
 
-    const uintChallenge = Uint8Array.from(atob(challenge), (c) =>
-      c.charCodeAt(0)
-    );
+    const uintChallenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
     const passKey = sha256(phone + password + response.data.result.rpId);
 
@@ -153,7 +144,7 @@ const FormLoginAccount = memo(() => {
       challenge_id: response.data.result.challenge_id,
       credential: null,
       public_key: coerceToBase64Url(pub),
-      signature: coerceToBase64Url(signature),
+      signature: coerceToBase64Url(signature)
     };
 
     try {
@@ -162,8 +153,8 @@ const FormLoginAccount = memo(() => {
           Accept: "application/json",
           "Content-Type": "application/json",
           resolution: "" + screen.width + "x" + screen.height,
-          device_guid: setAdvCookie(),
-        },
+          device_guid: setAdvCookie()
+        }
       });
 
       // console.log(res);
@@ -264,26 +255,19 @@ const FormLoginAccount = memo(() => {
 
   return (
     <div>
-      <Modal
-        className="login-modal"
-        open={tooltipModal.isModalOpen}
-        onCancel={tooltipModal.handleCancel}
-      >
+      <Modal className='login-modal' open={tooltipModal.isModalOpen} onCancel={tooltipModal.handleCancel}>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginBottom: "30px",
+            marginBottom: "30px"
           }}
         >
-          <div
-            className="typography-h3"
-            style={{ color: "var(--new-pale-blue)" }}
-          >
+          <div className='typography-h3' style={{ color: "var(--new-pale-blue)" }}>
             Country code
           </div>
 
-          <button type="button" onClick={tooltipModal.handleCancel}>
+          <button type='button' onClick={tooltipModal.handleCancel}>
             <CloseWindow />
           </button>
         </div>
@@ -297,19 +281,17 @@ const FormLoginAccount = memo(() => {
               borderRadius: "10px",
               background: "var(--new-pale-grey)",
               padding: "3px 12px",
-              marginBottom: "30px",
+              marginBottom: "30px"
             }}
           >
             <input
               className={`${styles.searchInput} typography-b2-bold`}
-              placeholder="Search"
-              type="text"
+              placeholder='Search'
+              type='text'
               value={searchInputValue}
-              onChange={(e) => {
-                const t = defaultCountries.filter((item) => {
-                  return item[0]
-                    .toLocaleLowerCase()
-                    .startsWith(e.target.value.toLocaleLowerCase());
+              onChange={e => {
+                const t = defaultCountries.filter(item => {
+                  return item[0].toLocaleLowerCase().startsWith(e.target.value.toLocaleLowerCase());
                 });
 
                 setCountriesData(t);
@@ -319,14 +301,12 @@ const FormLoginAccount = memo(() => {
             />
             <input
               className={`${styles.searchInput} typography-b2-bold`}
-              placeholder="Search"
-              type="text"
+              placeholder='Search'
+              type='text'
               value={searchInputValue}
-              onChange={(e) => {
-                const t = defaultCountries.filter((item) => {
-                  return item[0]
-                    .toLocaleLowerCase()
-                    .startsWith(e.target.value.toLocaleLowerCase());
+              onChange={e => {
+                const t = defaultCountries.filter(item => {
+                  return item[0].toLocaleLowerCase().startsWith(e.target.value.toLocaleLowerCase());
                 });
 
                 setCountriesData(t);
@@ -343,9 +323,9 @@ const FormLoginAccount = memo(() => {
               countries={currentCountriesData}
               className={styles.countrySelectorDropdown}
               show
-              onSelect={(parsedCountry) => {
+              onSelect={parsedCountry => {
                 const nextCountry =
-                  currentCountriesData.find((item) => {
+                  currentCountriesData.find(item => {
                     return item[1] === parsedCountry.iso2;
                   }) || currentCountriesData[0];
 
@@ -359,10 +339,10 @@ const FormLoginAccount = memo(() => {
         </div>
       </Modal>
       <p
-        className="typography-b2"
+        className='typography-b2'
         style={{
           color: "var(--new-pale-blue)",
-          marginBottom: "36px",
+          marginBottom: "36px"
         }}
       >
         Log in using the form below
@@ -372,7 +352,7 @@ const FormLoginAccount = memo(() => {
           background: "var(--new-FFFFFF)",
           padding: "24px 36px 24px 36px",
           borderRadius: "8px 8px 0px 0px",
-          boxShadow: "var(--new-active-account-shadow)",
+          boxShadow: "var(--new-active-account-shadow)"
         }}
       >
         {/*<Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>*/}
@@ -384,7 +364,7 @@ const FormLoginAccount = memo(() => {
             preserve
             rules={[{ required: true, ...phoneMessage }, phoneValidator]}
           > */}
-            {/* <div style={{
+          {/* <div style={{
                             display: 'flex',
                             gap: '26px',
                             color: 'var(--new-dark-blue'
@@ -396,125 +376,114 @@ const FormLoginAccount = memo(() => {
                             </label>
                         </div> */}
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                borderBottom: "1px solid var(--new-dark-grey)",
-                gap: "12px",
-                paddingBottom: "10px",
-                overflow: "auto",
-              }}
-            >
-              <div style={{ flex: "0 0 auto" }}>
-                <div
-                  className="typography-b3"
-                  style={{ color: "var(--new-dark-blue)" }}
-                >
-                  Phone number
-                </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              borderBottom: "1px solid var(--new-dark-grey)",
+              gap: "12px",
+              paddingBottom: "10px",
+              overflow: "auto"
+            }}
+          >
+            <div style={{ flex: "0 0 auto" }}>
+              <div className='typography-b3' style={{ color: "var(--new-dark-blue)" }}>
+                Phone number
+              </div>
+              <div
+                style={{
+                  height: "36px",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
                 <div
                   style={{
-                    height: "36px",
                     display: "flex",
                     alignItems: "center",
+                    gap: "6px",
+                    padding: "3px 12px 3px 12px",
+                    borderRadius: "10px",
+                    background: "var(--new-pale-grey)",
+                    color: "var(--new-pale-blue)",
+                    cursor: "pointer"
                   }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      padding: "3px 12px 3px 12px",
-                      borderRadius: "10px",
-                      background: "var(--new-pale-grey)",
-                      color: "var(--new-pale-blue)",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      if (tooltipModal.isModalOpen) {
-                        return;
-                      }
-
-                      tooltipModal.showModal();
-                    }}
-                  >
-                    {iso2 ? (
-                      <FlagImage
-                        iso2={iso2 === "kz" ? "ru" : iso2}
-                        size="14px"
-                      />
-                    ) : null}
-                    {dialCode ? (
-                      <DialCodePreview
-                        className="cs-react-international-phone-dial-code-preview"
-                        dialCode={dialCode}
-                        prefix="+"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-              <div style={{ flex: "0 0 auto" }}>
-                <div
-                  className="typography-b3"
-                  style={{ color: "var(--new-dark-blue)" }}
-                >
-                  <br></br>
-                </div>
-
-                <PhoneInput
-                  ref={(e) => {
-                    if (!e) {
+                  onClick={() => {
+                    if (tooltipModal.isModalOpen) {
                       return;
                     }
 
-                    e.setAttribute("data-testid", "PhoneInput");
-                    inputRef.current = e;
+                    tooltipModal.showModal();
                   }}
-                  name="phone"
-                  value={phoneInputValue}
-                  disabled={loading}
-                  placeholder={t("auth.enter_phone_number")}
-                  onChange={(value: string, meta) => {
-                    setPhoneInputValue(value);
-                    setIso2(meta.country.iso2);
-                    setDialCode(meta.country.dialCode);
-                    setState((prevState) => {
-                      return { ...prevState, phone: value.slice(1) };
-                    });
-                  }}
-                />
+                >
+                  {iso2 ? <FlagImage iso2={iso2 === "kz" ? "ru" : iso2} size='14px' /> : null}
+                  {dialCode ? (
+                    <DialCodePreview
+                      className='cs-react-international-phone-dial-code-preview'
+                      dialCode={dialCode}
+                      prefix='+'
+                    />
+                  ) : null}
+                </div>
               </div>
             </div>
+            <div style={{ flex: "0 0 auto" }}>
+              <div className='typography-b3' style={{ color: "var(--new-dark-blue)" }}>
+                <br></br>
+              </div>
+
+              <PhoneInput
+                ref={e => {
+                  if (!e) {
+                    return;
+                  }
+
+                  e.setAttribute("data-testid", "PhoneInput");
+                  inputRef.current = e;
+                }}
+                name='phone'
+                value={phoneInputValue}
+                disabled={loading}
+                placeholder={t("auth.enter_phone_number")}
+                onChange={(value: string, meta) => {
+                  setPhoneInputValue(value);
+                  setIso2(meta.country.iso2);
+                  setDialCode(meta.country.dialCode);
+                  setState(prevState => {
+                    return { ...prevState, phone: value.slice(1) };
+                  });
+                }}
+              />
+            </div>
+          </div>
           {/* </FormItem> */}
-          <span className="text-fs12 text-red-800">{localErrorSpan}</span>
+          <span className='text-fs12 text-red-800'>{localErrorSpan}</span>
 
           {/* <FormItem
             name="password"
             label="Password"
             rules={[{ required: true, ...passwordMessage }, passwordValidator]}
           > */}
-            <div>
-              {/* <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
+          <div>
+            {/* <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
                             Password
                         </div> */}
-              <Input
-                className={styles.input}
-                disabled={loading}
-                onChange={({ target }) =>
-                  setState((prev) => ({
-                    ...prev,
-                    password: target.value,
-                  }))
-                }
-                data-testid="PIN"
-                placeholder="Password"
-              />
-            </div>
+            <Input
+              className={styles.input}
+              disabled={loading}
+              onChange={({ target }) =>
+                setState(prev => ({
+                  ...prev,
+                  password: target.value
+                }))
+              }
+              data-testid='PIN'
+              placeholder='Password'
+            />
+          </div>
           {/* </FormItem> */}
 
-          <div className="row text-right mb-4">
+          <div className='row text-right mb-4'>
             {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
             {/*    your PIN? Log in with a QR code*/}
             {/*</a>*/}
@@ -526,25 +495,21 @@ const FormLoginAccount = memo(() => {
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <button
-                className="account-button"
-                disabled={
-                  loading ||
-                  state.phone.length < 11 ||
-                  !/^\d{6}$/.test(state.password)
-                } /// <- надо переделать потом
+                className='account-button'
+                disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
                 tabIndex={0}
-                data-testid="Login"
+                data-testid='Login'
               >
                 {t("login")}
               </button>
 
               <button
-                type="button"
-                className="text-button"
+                type='button'
+                className='text-button'
                 onClick={() => {
                   toggleStage("forgot-password");
                 }}

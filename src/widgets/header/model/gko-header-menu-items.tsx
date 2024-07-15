@@ -1,8 +1,8 @@
-import React from "react";
-import {TFunction} from "i18next";
-import {THeaderMenuList} from "@/widgets/header/model/types";
-import {IconApp} from "@/shared/ui/icons/icon-app";
-import {EnableNotifications, CrossPlatformNav} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import { TFunction } from "i18next";
+
+import { THeaderMenuList } from "@/widgets/header/model/types";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { EnableNotifications, CrossPlatformNav } from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 // import {GekkardPersonalAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 // export class HeaderMenuItems {
@@ -25,58 +25,59 @@ import {EnableNotifications, CrossPlatformNav} from "@/widgets/header/ui/menu/He
 /**
  * @param t translation function
  */
-export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
-    return [
-        {
-            item: t("settings"),
-            id:"settings",
-            action:{
-                type: "link",
-                value:"settings"
-            },
-            icon: <IconApp size={18} color="var(--gek-additional)" code="t13" />,
-            style: {
-                borderTop: "1px solid var(--color-gray-400)",
-                padding: "12px 12px"
-            }
+export const getDefaultItems = (t?: TFunction): THeaderMenuList => [
+  {
+    item: t("settings"),
+    id: "settings",
+    action: {
+      type: "link",
+      value: "settings"
+    },
+    icon: <IconApp size={18} color='var(--gek-additional)' code='t13' />,
+    style: {
+      borderTop: "1px solid var(--color-gray-400)",
+      padding: "12px 12px"
+    }
+  },
+  {
+    item: <CrossPlatformNav />,
+    id: "investPlatform",
+    action: {
+      type: null,
+      value: null
+    },
+    icon: <IconApp color='var(--gek-additional)' size={18} code='t21' />,
+    style: {
+      padding: "12px 12px"
+    }
+  },
+  {
+    item: t("header_menu.support"),
+    id: "support",
+    action: {
+      type: "link",
+      value: "support"
+    },
+    icon: <IconApp color='var(--gek-additional)' size={18} code='t25' />,
+    style: {
+      padding: "12px 12px"
+    }
+  },
+  "Notification" in window && Notification?.permission === "granted"
+    ? null
+    : {
+        item: <EnableNotifications />,
+        id: "enableNotifications",
+        action: {
+          type: null,
+          value: null
         },
-        {
-            item: <CrossPlatformNav/>,
-            id: 'investPlatform',
-            action: {
-                type: null,
-                value: null,
-            },
-            icon: <IconApp color="var(--gek-additional)" size={18} code="t21" />,
-            style: {
-                padding: "12px 12px"
-            }
-        },
-        {
-            item: t('header_menu.support'),
-            id: 'support',
-            action: {
-                type: "link",
-                value: "support",
-            },
-            icon:<IconApp color="var(--gek-additional)" size={18} code="t25" />,
-            style: {
-                padding: "12px 12px"
-            }
-        },
-        ('Notification' in window && Notification?.permission === 'granted' ? null : {
-            item: <EnableNotifications/>,
-            id: 'enableNotifications',
-            action: {
-                type: null,
-                value: null,
-            },
-            icon: <IconApp color="var(--gek-additional)" size={20} code="t23" />,
-            style: {
-                padding: "12px 12px"
-            }
-        }),
-        /*{
+        icon: <IconApp color='var(--gek-additional)' size={20} code='t23' />,
+        style: {
+          padding: "12px 12px"
+        }
+      },
+  /*{
             item: t('header_menu.dashboard'),
             id: 'dashboard',
             action: {
@@ -98,37 +99,36 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
                 padding: "12px 12px"
             }
         },*/
-        // {
-        //     item: <GekkardPersonalAccount/>,
-        //     id: 'investPlatform',
-        //     action: {
-        //         type: null,
-        //         value: null,
-        //     },
-        // },
-        // {
-        //     item: t('header_menu.support'),
-        //     id: 'support',
-        //     action: {
-        //         type: "link",
-        //         value: "support",
-        //     },
-        //     style: {
-        //         padding: "12px 12px"
-        //     }
-        // },
-        {
-            item: t('header_menu.logout'),
-            id: 'logout',
-            action: {
-                type: "logout",
-                value: null,
-            },
-            icon: <IconApp size={20} code="t20" color="var(--gek-additional)" />,
-            style: {
-                borderTop: "1px solid var(--color-gray-400)",
-                padding: "12px 12px"
-            }
-        },
-    ]
-}
+  // {
+  //     item: <GekkardPersonalAccount/>,
+  //     id: 'investPlatform',
+  //     action: {
+  //         type: null,
+  //         value: null,
+  //     },
+  // },
+  // {
+  //     item: t('header_menu.support'),
+  //     id: 'support',
+  //     action: {
+  //         type: "link",
+  //         value: "support",
+  //     },
+  //     style: {
+  //         padding: "12px 12px"
+  //     }
+  // },
+  {
+    item: t("header_menu.logout"),
+    id: "logout",
+    action: {
+      type: "logout",
+      value: null
+    },
+    icon: <IconApp size={20} code='t20' color='var(--gek-additional)' />,
+    style: {
+      borderTop: "1px solid var(--color-gray-400)",
+      padding: "12px 12px"
+    }
+  }
+];

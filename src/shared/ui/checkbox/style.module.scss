@@ -5,7 +5,6 @@
   position: relative;
   user-select: none;
 
-
   &.disabled {
     color: var(--color-secondary);
     padding-left: 0;
@@ -29,6 +28,6 @@
   display: none;
 
   &:checked ~ .Checkbox {
-    border-color: #2BAB72;;
+    border-color: #2bab72;
   }
 }

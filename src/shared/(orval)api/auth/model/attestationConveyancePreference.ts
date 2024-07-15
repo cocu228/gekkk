@@ -12,12 +12,12 @@
  * OpenAPI spec version: v1
  */
 
-export type AttestationConveyancePreference = typeof AttestationConveyancePreference[keyof typeof AttestationConveyancePreference];
-
+export type AttestationConveyancePreference =
+  (typeof AttestationConveyancePreference)[keyof typeof AttestationConveyancePreference];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AttestationConveyancePreference = {
-  none: 'none',
-  indirect: 'indirect',
-  direct: 'direct',
+  none: "none",
+  indirect: "indirect",
+  direct: "direct"
 } as const;

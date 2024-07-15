@@ -1,25 +1,27 @@
 import { useCallback, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 import Input from "@/shared/ui/input/Input";
 import { Modal } from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import {useTranslation} from "react-i18next";
-import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
-import {getWithdrawDesc} from "../../../model/entitys";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
-import {useNavigate } from "react-router-dom";
-import {IconApp} from "@/shared/ui/icons/icon-app";
-import {debounce} from "@/shared/lib";
+import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
+import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { validateBalance, validateMaximumAmount, validateMinimumAmount } from "@/shared/config/validators";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { debounce } from "@/shared/lib";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import QRCodeModal from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/ui/qr-code-modal";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 import Textarea from "@/shared/ui/textarea";
+
+import { getWithdrawDesc } from "../../../model/entitys";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -30,13 +32,8 @@ export interface IWithdrawFormCryptoState {
 const WithdrawFormCrypto = () => {
   // Context
   const currency = useContext(CtxWalletData);
-  const {
-    tokenNetworks,
-    networkTypeSelect,
-    setRefresh,
-    localErrorClear,
-    localErrorInfoBox
-  } = useContext(CtxWalletNetworks);
+  const { tokenNetworks, networkTypeSelect, setRefresh, localErrorClear, localErrorInfoBox } =
+    useContext(CtxWalletNetworks);
 
   // Hooks
   const navigate = useNavigate();
@@ -50,22 +47,28 @@ const WithdrawFormCrypto = () => {
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
     recipient: null,
-    description: null,
+    description: null
   });
 
   // Handlers
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
-  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+  const delayDisplay = useCallback(
+    debounce(() => setLoading(false), 2700),
+    []
+  );
+  const delayRes = useCallback(
+    debounce(amount => setRefresh(true, amount), 2000),
+    []
+  );
 
   const {
     withdraw_fee = 0,
     min_withdraw = 0,
     max_withdraw = 0,
-    percent_fee = 0,
+    percent_fee = 0
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
   const onInput = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
+    setInputs(prev => ({ ...prev, [target.name]: target.value }));
   };
 
   // Effects
@@ -79,24 +82,24 @@ const WithdrawFormCrypto = () => {
   }, [inputCurr.value.number]);
 
   return (
-    <div className="bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]">
+    <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
       {/* Amount Start */}
-      <div className="w-full">
+      <div className='w-full'>
         <AmountInput
-          name="amount"
+          name='amount'
           fees={{
             percentFee: percent_fee,
             amountFee: withdraw_fee
           }}
           value={Number(inputCurr.value.number) + Number(withdraw_fee)}
-          description={getWithdrawDesc(min_withdraw, currency.$const, t('minimum_amount'))}
+          description={getWithdrawDesc(min_withdraw, currency.$const, t("minimum_amount"))}
           placeholder={t("exchange.enter_amount")}
           inputValue={inputCurr.value.string}
           currency={currency}
           validators={[
             validateBalance(currency, navigate, t),
             validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
-            validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t),
+            validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t)
           ]}
           onError={setInputCurrValid}
           onSelect={setInputCurr}
@@ -106,11 +109,9 @@ const WithdrawFormCrypto = () => {
       {/* Amount End */}
 
       {/* Address Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("address")}:
-        </span>
-        <div className="flex">
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("address")}:</span>
+        <div className='flex'>
           <Textarea
             allowDigits
             name={"address"}
@@ -119,8 +120,8 @@ const WithdrawFormCrypto = () => {
             placeholder={t("enter_withdrawal_address")}
             onChange={onInput}
           />
-          <div className="pl-2 -md:pt-2.5" onClick={qrCodeModal.showModal}>
-            <IconApp className="cursor-pointer" color="#285E69" size={md ? 30 : 40} code="t81" />
+          <div className='pl-2 -md:pt-2.5' onClick={qrCodeModal.showModal}>
+            <IconApp className='cursor-pointer' color='#285E69' size={md ? 30 : 40} code='t81' />
           </div>
         </div>
         <QRCodeModal
@@ -139,10 +140,8 @@ const WithdrawFormCrypto = () => {
       {/* Address End */}
 
       {/* Recipient Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("recipient")}:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("recipient")}:</span>
         <Input
           value={inputs.recipient}
           onChange={onInput}
@@ -155,16 +154,14 @@ const WithdrawFormCrypto = () => {
       {/* Recipient End */}
 
       {/* Desc Optional Start */}
-      <div className="w-full flex flex-col gap-[3px]">
-        <span className="font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]">
-          {t("desc_optional")}:
-        </span>
+      <div className='w-full flex flex-col gap-[3px]'>
+        <span className='font-semibold text-[#1F3446] md:text-fs12 text-fs14 ml-[7px]'>{t("desc_optional")}:</span>
         <Textarea
           allowDigits
           name={"description"}
           value={inputs.description || ""}
           disabled={!networkTypeSelect}
-          placeholder={t('enter_description')}
+          placeholder={t("enter_description")}
           onChange={onInput}
         />
       </div>
@@ -186,11 +183,11 @@ const WithdrawFormCrypto = () => {
       {/* Transfer Error Start */}
 
       {/* Transfer Button Start */}
-      <div className="w-full flex justify-center">
+      <div className='w-full flex justify-center'>
         <Button
-          size="lg"
+          size='lg'
           onClick={showModal}
-          className="w-full md:text-fs14 text-fs16"
+          className='w-full md:text-fs14 text-fs16'
           disabled={!inputs.address || !inputs.recipient || inputCurrValid.value || loading}
         >
           {t("transfer")}
@@ -203,16 +200,8 @@ const WithdrawFormCrypto = () => {
       {/* Transaction Information End */}
 
       {/* Confirm Start */}
-      <Modal
-        isModalOpen={isModalOpen}
-        onCancel={handleCancel}
-        title={t("confirm_transaction")}
-      >
-        <WithdrawConfirmCrypto
-          {...inputs}
-          handleCancel={handleCancel}
-          amount={inputCurr.value.number}
-        />
+      <Modal isModalOpen={isModalOpen} onCancel={handleCancel} title={t("confirm_transaction")}>
+        <WithdrawConfirmCrypto {...inputs} handleCancel={handleCancel} amount={inputCurr.value.number} />
       </Modal>
       {/* Confirm End */}
     </div>

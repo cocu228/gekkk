@@ -11,13 +11,13 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticationExtensionsClientOutputsExampleExtension } from './authenticationExtensionsClientOutputsExampleExtension';
+import type { AuthenticationExtensionsClientOutputsExampleExtension } from "./authenticationExtensionsClientOutputsExampleExtension";
 
 export interface AuthenticationExtensionsClientOutputs {
   appid?: boolean;
   authnSel?: boolean;
   /** @nullable */
-  'example.extension'?: AuthenticationExtensionsClientOutputsExampleExtension;
+  "example.extension"?: AuthenticationExtensionsClientOutputsExampleExtension;
   /** @nullable */
   exts?: string[] | null;
   /** @nullable */

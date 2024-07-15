@@ -1,47 +1,46 @@
-.Wrapper{
-    margin-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background: #FFFFFF;
-    border-radius: 8px;
-    color: var(--gek-dark-blue);
-    font-weight: 700;
-    display: flex;
-    flex-direction: column;
+.Wrapper {
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  color: var(--gek-dark-blue);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
 }
-.Title{
-    font-size: 12px;
-    margin-left: 15px;
+.Title {
+  font-size: 12px;
+  margin-left: 15px;
 }
 
-.List{
-    margin-left: 15px;
-    list-style-type: disc;
+.List {
+  margin-left: 15px;
+  list-style-type: disc;
 }
-.Key{
-    font-size: 10px;
-    margin: 15px 0px;
-    text-decoration: underline;
-    cursor: pointer;
+.Key {
+  font-size: 10px;
+  margin: 15px 0px;
+  text-decoration: underline;
+  cursor: pointer;
 }
-.OpenedList{
-    display: flex;
-    flex-direction: column;
-
+.OpenedList {
+  display: flex;
+  flex-direction: column;
 }
-.ValueTitle{
-    text-decoration: underline;
-    font-size: 12px;
-    margin: 10px 0px;
+.ValueTitle {
+  text-decoration: underline;
+  font-size: 12px;
+  margin: 10px 0px;
 }
-.Question{
-    font-size: 10px;
-    margin-left: 5px;
+.Question {
+  font-size: 10px;
+  margin-left: 5px;
 }
-.Answer{
-    font-size: 10px;
-    font-weight: 400;
-    text-indent: 5px;
+.Answer {
+  font-size: 10px;
+  font-weight: 400;
+  text-indent: 5px;
 }

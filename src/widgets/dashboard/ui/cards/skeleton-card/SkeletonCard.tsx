@@ -1,12 +1,11 @@
-import Loader from '@/shared/ui/loader';
-import styles from './style.module.css';
+import Loader from "@/shared/ui/loader";
 
-const SkeletonCard = () => {
-    return (
-        <div className={styles.CardSkeleton}>
-            <Loader />
-        </div>
-    );
-}
+import styles from "./style.module.css";
+
+const SkeletonCard = () => (
+  <div className={styles.CardSkeleton}>
+    <Loader />
+  </div>
+);
 
 export default SkeletonCard;

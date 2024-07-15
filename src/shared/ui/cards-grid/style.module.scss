@@ -8,11 +8,11 @@
 
   @include max-devices(xxl) {
     grid-template-columns: repeat(3, minmax(300px, 1fr));
-  
+
     :nth-child(3n-2) {
       justify-self: left;
     }
-  
+
     :nth-child(3n) {
       justify-self: right;
     }
@@ -20,11 +20,11 @@
 
   @include max-devices(xl) {
     grid-template-columns: repeat(2, minmax(300px, 1fr));
-  
+
     :nth-child(2n-1) {
       justify-self: left;
     }
-  
+
     :nth-child(2n) {
       justify-self: right;
     }
@@ -32,7 +32,7 @@
 
   @include max-devices(lg) {
     grid-template-columns: repeat(1, minmax(300px, 1fr));
-    
+
     :nth-child(1n) {
       justify-self: center;
     }

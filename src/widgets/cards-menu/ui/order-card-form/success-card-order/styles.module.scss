@@ -1,31 +1,31 @@
 .Wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-items: center;
 }
 
 .Text {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
 
-    @media screen and (max-width: 768px) {
-        font-size: 14px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 }
 
 .Title {
-    font-size: 30px;
-    color: #1F3446;
-    font-weight: 500;
-    line-height: 25px;
+  font-size: 30px;
+  color: #1f3446;
+  font-weight: 500;
+  line-height: 25px;
 
-    @media screen and (max-width: 768px) {
-        font-size: 17px;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 17px;
+  }
 }
 
 .Counter {
-    font-weight: 500;
+  font-weight: 500;
 }

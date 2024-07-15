@@ -11,7 +11,7 @@
                     
  * OpenAPI spec version: v1
  */
-import type { AuthenticationExtensionsClientInputsExampleExtension } from './authenticationExtensionsClientInputsExampleExtension';
+import type { AuthenticationExtensionsClientInputsExampleExtension } from "./authenticationExtensionsClientInputsExampleExtension";
 
 export interface AuthenticationExtensionsClientInputs {
   /** @nullable */
@@ -19,7 +19,7 @@ export interface AuthenticationExtensionsClientInputs {
   /** @nullable */
   authnSel?: string[] | null;
   /** @nullable */
-  'example.extension'?: AuthenticationExtensionsClientInputsExampleExtension;
+  "example.extension"?: AuthenticationExtensionsClientInputsExampleExtension;
   /** @nullable */
   exts?: boolean | null;
   /** @nullable */

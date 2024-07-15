@@ -35,14 +35,10 @@
 
 
 .BottomMobile {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: auto;
     width: 100%;
-    z-index: 41;
     overscroll-behavior-y: none;
 }
+
 
 .AssetInfo3 {
     background-color: var(--gek-background);

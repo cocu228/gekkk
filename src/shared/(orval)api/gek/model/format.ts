@@ -16,11 +16,10 @@
  * : 
 0 = VIRTUAL, 1 = PLASCTIC
  */
-export type Format = typeof Format[keyof typeof Format];
-
+export type Format = (typeof Format)[keyof typeof Format];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Format = {
-  VIRTUAL: 'VIRTUAL',
-  PLASCTIC: 'PLASCTIC',
+  VIRTUAL: "VIRTUAL",
+  PLASCTIC: "PLASCTIC"
 } as const;

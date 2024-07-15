@@ -336,7 +336,7 @@
         "partnership": {
           "title": "合作夥伴計劃",
           "answers": {
-              
+
           }
         },
         "card_purchases": {
@@ -718,6 +718,7 @@
     "no_have_enough_funds": "您的资金不足。请",
     "top_up": "充值",
     "your_currency_account": "您的 {{currency}} 账户",
+    "maximum_amount_count": "金额过高，请联系 Gekkard 支持人员",
     "maximum_amount": "最高金额为",
     "minimum_amount": "最低金额为",
     "null_value": "不允许空值",
@@ -1665,12 +1666,12 @@
     "create_special_code_currency": "创建一个特殊代码，您可以使用该代码在 Gekkoin 用户之间转移或接收 {{currency}} 资金，无论是否经过您的确认",
     "my_fiat_reports": "我的法定货币报告",
     "reports": "报告",
-    "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包", 
+    "top_up_curr": "您可以通过提款表格充值您的{{curr}}钱包",
     "form_in_wallet": "在您的{{project}}钱包中",
     "fast_and_easy": "加密货币交易 - 快速简便",
     "versions_history": "版本历史",
-    "resend_the_code": "重新发送验证码", 
-    "seconds": "秒" 
+    "resend_the_code": "重新发送验证码",
+    "seconds": "秒"
 
 
   }

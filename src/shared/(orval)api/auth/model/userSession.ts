@@ -11,7 +11,7 @@
                     
  * OpenAPI spec version: v1
  */
-import type { UserFlags } from './userFlags';
+import type { UserFlags } from "./userFlags";
 
 export interface UserSession {
   current?: boolean;

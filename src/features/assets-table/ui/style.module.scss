@@ -4,11 +4,11 @@
   height: max-content;
   margin: 0px -7px;
   padding: 12px 5px;
-  transition: .2s;
+  transition: 0.2s;
   min-height: 56px;
   font-weight: 400;
   gap: 0.75rem;
-  
+
   &:hover {
     font-weight: 700;
     cursor: pointer;
@@ -18,7 +18,6 @@
   gap: 10px;
   justify-content: space-between;
 
-
   &Blocked {
     opacity: 50%;
     pointer-events: none;
@@ -26,8 +25,6 @@
     visibility: hidden;
     opacity: 0;
   }
-
-
 
   @media screen and (max-width: 992px) {
     padding: 12px 5px;
@@ -37,20 +34,19 @@
     margin-bottom: 10px;
   }
 
-  @include max-devices('md') {
+  @include max-devices("md") {
     margin: 0;
     padding: 0;
     border-radius: 10px;
     // padding: 0 20px;
   }
-
 }
 
 .ItemTable {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
-  @include max-devices('lg') {
+  @include max-devices("lg") {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -58,25 +54,25 @@
 .ItemsList {
   margin: 0 -40px;
   padding: 0 40px;
-  
+
   &.Loaded {
     box-shadow:
-    inset 0px 11px 8px -10px rgba(0,0,0,0.1),
-    inset 0px -11px 8px -10px rgba(0,0,0,0.1);
+      inset 0px 11px 8px -10px rgba(0, 0, 0, 0.1),
+      inset 0px -11px 8px -10px rgba(0, 0, 0, 0.1);
   }
 
-  @include max-devices('md') {
+  @include max-devices("md") {
     margin: 0;
     padding: 0;
   }
 }
 
-.SearchInput{
+.SearchInput {
   display: flex;
   padding: 10px 18px;
   gap: 9px;
   border-radius: 8px;
-  background: #FFF;
+  background: #fff;
   align-items: center;
 
   .searchInputInner {
@@ -84,20 +80,17 @@
     height: 40px;
     width: 100%;
     border: none;
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
 
-  
   @media screen and (max-width: 768px) {
     padding: 2px 10px;
   }
-
 }
 
 .Border {
-
   @media screen and (max-width: 768px) {
     border: 1px solid #d9d9d9;
   }
@@ -110,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   .InnerName {
     display: block;
     font-size: 0.75rem;
@@ -150,7 +143,6 @@
       max-width: 72px;
     }
 
-    
     @media screen and (max-width: 340px) {
       margin-left: 10px;
     }
@@ -214,7 +206,7 @@
 .RowBalanceSubtitle {
   align-self: flex-end;
   font-size: 12px;
-  color: #1F3446;
+  color: #1f3446;
   font-weight: 400;
 }
 
@@ -236,13 +228,12 @@
 .DeskCol {
   color: var(--color-gray-400);
   font-weight: 500;
-
 }
 
 .TableColTitle {
   &:nth-child(2) {
     @media screen and (max-width: 992px) {
-      justify-content: end;      
+      justify-content: end;
     }
   }
 }
@@ -274,7 +265,7 @@
 }
 
 .ItemEven {
-  background: #F7F7F0;
+  background: #f7f7f0;
   margin: 0 -40.5px !important;
   padding: 12px 38px !important;
 

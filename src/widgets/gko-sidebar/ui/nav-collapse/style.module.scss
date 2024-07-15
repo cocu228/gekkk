@@ -7,7 +7,7 @@
 
   &:hover {
     span {
-      color: #285E69
+      color: #285e69;
     }
   }
 
@@ -24,10 +24,11 @@
   }
 }
 
-
 .List {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.7s ease-in-out, opacity 0.2s ease-in-out 0.2s;
+  transition:
+    max-height 0.7s ease-in-out,
+    opacity 0.2s ease-in-out 0.2s;
 }

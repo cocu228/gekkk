@@ -26,9 +26,9 @@
 //             const {data} = await apiGetRates({
 //                 to: 'EUR'
 //             });
-            
+
 //             const rates: Record<string, number> = data.result;
-            
+
 //             setRates(rates);
 //         })();
 //     }, [currencies]);

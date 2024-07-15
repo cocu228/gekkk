@@ -2,7 +2,9 @@
 
 .DropdownMenu {
   max-height: 0;
-  transition: all 0.6s ease, border 0.6s ease;
+  transition:
+    all 0.6s ease,
+    border 0.6s ease;
   overflow: hidden;
   position: absolute;
   z-index: 100;
@@ -18,8 +20,8 @@
     background-color: var(--gek-light-grey);
     max-height: 700px;
   }
-  @include max-devices(md){
-    &:global(.active){
+  @include max-devices(md) {
+    &:global(.active) {
       background-color: var(--gek-light-grey);
     }
   }
@@ -29,7 +31,7 @@
   display: flex;
   width: 100%;
   text-align: left;
-  gap:10px;
+  gap: 10px;
   color: var(--Dark-blue, var(--gek-dark-blue));
   font-size: 12px;
   font-weight: 600;
@@ -57,18 +59,17 @@
         fill: var(--color-blue-400);
       }
     }
-
   }
 }
 
-.AccountItem{
+.AccountItem {
   gap: 6px;
   width: 100%;
   display: flex;
   border-radius: 8px;
   align-items: center;
   flex-direction: row;
-  background-color: #FFF;
+  background-color: #fff;
   justify-content: space-between;
 
   &Text {
@@ -77,23 +78,23 @@
   }
 }
 
-.Icon{
+.Icon {
   display: flex;
   align-items: center;
 }
 
-.CurrentIcon{
+.CurrentIcon {
   display: flex;
   justify-content: flex-end;
 }
 
-.AccountInfo{
+.AccountInfo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color:var(--gek-dark-blue);
+  color: var(--gek-dark-blue);
 }
-.AccountName{
+.AccountName {
   color: var(--Dark-blue, var(--gek-dark-blue));
   font-size: 12px;
   text-wrap: nowrap;
@@ -104,7 +105,7 @@
   font-weight: 700;
   line-height: 20px; /* 166.667% */
 }
-.AccountNumber{
+.AccountNumber {
   color: var(--Dark-blue, var(--gek-dark-blue));
   font-size: 10px;
   font-style: normal;
@@ -112,6 +113,6 @@
   line-height: 18px; /* 180% */
 }
 
-.OrganizationIcon{
+.OrganizationIcon {
   background-color: #ededed;
 }

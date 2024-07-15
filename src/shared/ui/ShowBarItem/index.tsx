@@ -1,15 +1,12 @@
-import { FC, ReactNode } from 'react'
-import styles from './styles.module.scss'
+import { FC, ReactNode } from "react";
+
+import styles from "./styles.module.scss";
 
 interface ShowBarItemProps {
-  isSelected: boolean
-  children: ReactNode
+  isSelected: boolean;
+  children: ReactNode;
 }
 
-export const ShowBarItem:FC<ShowBarItemProps> = ({isSelected, children}) => {
-  return (
-    <button className={`${styles.btn} ${isSelected && styles.btnSelected}`}>
-      {children}
-    </button>
-  )
-}
+export const ShowBarItem: FC<ShowBarItemProps> = ({ isSelected, children }) => (
+  <button className={`${styles.btn} ${isSelected && styles.btnSelected}`}>{children}</button>
+);

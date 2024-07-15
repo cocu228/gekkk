@@ -1,29 +1,29 @@
 .input.input.input.input.input.input.input {
-    border: 0;
-    border-radius: 0;
-    border-bottom: 1px solid var(--new-dark-grey);
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--new-dark-grey);
+  padding: 0;
+  padding-top: 6px;
+  input {
+    height: 36px;
     padding: 0;
-    padding-top: 6px;
-    input {
-        height: 36px;
-        padding: 0;
-        padding-bottom: 12px;
+    padding-bottom: 12px;
 
-        &:active {
-            border: 0;
-        }
+    &:active {
+      border: 0;
     }
+  }
 }
 
 .modal {
-    background: red;
+  background: red;
 }
 
 .searchInput {
-    width: 100%;
-    background: transparent;
-    color: var(--new-dark-grey);
-    &:focus {
-        outline: none;
-    }
+  width: 100%;
+  background: transparent;
+  color: var(--new-dark-grey);
+  &:focus {
+    outline: none;
+  }
 }

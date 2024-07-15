@@ -8,15 +8,16 @@ import { IconApp } from "../../icons/icon-app";
 interface IParams {
   to?: string;
   className?: string;
+  state?: string;
 }
 
-const TopUpButton = memo(({ to, className = "" }: IParams) => {
+const TopUpButton = memo(({ to, state, className = "" }: IParams) => {
   const { t } = useTranslation();
   const [params] = useSearchParams();
   const isTopUp = params.get("tab") === "top_up";
 
   return (
-    <NavLink to={to}>
+    <NavLink to={to} state={state}>
       <div className={`${styles.MobileButton} ${className}`}>
         <IconApp code='t02' size={40} color={isTopUp ? "var(--gek-green)" : "var(--gek-dark-blue)"} />
         <span className={isTopUp ? "text-[var(--gek-green)]" : ""}>{t("top_up_wallet")}</span>

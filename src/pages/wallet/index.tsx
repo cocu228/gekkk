@@ -128,17 +128,24 @@ function Wallet() {
           <>
             {isShownTabs && (
               <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
-                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`} />
-                <TransfersButton isActive to={`/transfers?currency=${currency}`} />
+                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`} state={`/wallet?currency=${currency}`} />
+                <TransfersButton
+                  isActive
+                  to={`/transfers?currency=${currency}`}
+                  state={`/wallet?currency=${currency}`}
+                />
 
                 {!IS_GEKKARD_APP() ? null : !isEUR ? (
-                  <ExchangeButton isActive to={`/exchange?from=${currency}`} />
+                  <ExchangeButton isActive to={`/exchange?from=${currency}`} state={`/wallet?currency=${currency}`} />
                 ) : (
-                  <CardsMenuButton to={"/card-menu"} />
+                  <CardsMenuButton to={"/card-menu"} state={`/wallet?currency=${currency}`} />
                 )}
 
                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) && (
-                  <ProgramsButton to={`/wallet?currency=${currency}&tab=programs`} />
+                  <ProgramsButton
+                    to={`/wallet?currency=${currency}&tab=programs`}
+                    state={`/wallet?currency=${currency}`}
+                  />
                 )}
               </WalletButtons>
             )}

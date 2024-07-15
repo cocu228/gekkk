@@ -1,6 +1,5 @@
 import { memo, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import Radio from "@/shared/ui/radio";
 import Loader from "@/shared/ui/loader";
 import { Modal } from "@/shared/ui/modal/Modal";
@@ -44,6 +43,8 @@ const TypeChoose = memo(() => {
         charged double yield, and if there is a loss, it will be expressed as a twofold
         reduction of the loss, but GKE tokens will also be frozen at a ratio of 1:1 to
         EURG for the duration of the deposit.`;
+
+  if (!currencies) return null;
 
   const eurgWallet = currencies.get("EURG");
   const gkeWallet = currencies.get("GKE");

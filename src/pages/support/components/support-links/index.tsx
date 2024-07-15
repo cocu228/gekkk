@@ -11,7 +11,7 @@ const SupportLinks: FC = () => {
   const navigate = useNavigate();
 
   const handleOnFaq = () => {
-    navigate("/faq");
+    navigate("/faq", { state: "/support" });
   };
 
   const handleOnChat = () => {

@@ -149,7 +149,7 @@ const WalletHeaderMobile = () => {
             {!isEUR && rates && rates[currency] && `${currency} = ${getCurrencyRounding(rates[currency])}€`}
           </span>
           {!isEUR && !isOnAboutPage && (
-            <NavLink to={`/wallet?currency=${currency}&tab=about`}>
+            <NavLink to={`/wallet?currency=${currency}&tab=about`} state={`/wallet?currency=${currency}`}>
               <IconApp code='t32' size={15} color='#DCDCD9' />
             </NavLink>
           )}

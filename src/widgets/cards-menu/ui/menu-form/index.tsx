@@ -146,7 +146,7 @@ const MenuForm = ({ cardsStorage, onSelectCard, setCardsStorage, setIsNewCardOpe
 
       {/* Desktop: show modal with "How it works"*/}
       {/* Mobile: replace content with "How it works"*/}
-      <Link className={styles.LinkButton} to={"/faq?faqSection=card_limits"}>
+      <Link className={styles.LinkButton} to={"/faq?faqSection=card_limits"} state={"/card-menu"}>
         {t("how_it_works")}?
       </Link>
 

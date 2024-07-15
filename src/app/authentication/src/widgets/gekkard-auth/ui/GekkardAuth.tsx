@@ -8,7 +8,6 @@ import 'react-phone-number-input/style.css';
 import {SignIn} from "../../../shared";
 import '../../../styles/swal-material-ui.scss';
 import {useAddToHomescreenPrompt} from '../../useAddToHomescreenPrompt';
-import {CookiePolicy} from '../../cookie-policy/CookiePolicy';
 // import SupportChatUnauthorized from '../chat';
 import { IconApp } from "../../components/IconApp"
 import { Header } from '../../header/header/Header';
@@ -91,8 +90,6 @@ export const GekkardAuth = () => {
                                 />
                         }
                     </main>
-
-                    <CookiePolicy/>
 
                     <details>
                         <summary onClick={() => setDetailsActive(!detailsActive)} >

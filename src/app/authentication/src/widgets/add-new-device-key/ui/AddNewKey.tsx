@@ -14,8 +14,8 @@ export const AddNewKey = () => {
     return (
         <div className={styles.AddNewKey}>
             <div className={styles.Title}>
-                <div onClick={closeForm}>
-                    <IconApp code='w7' size={20} />
+                <div className={styles.BackButton} onClick={closeForm}>
+                    <IconApp code='w7' size={20} lib={3}/>
                 </div>
                 Add new device key
             </div>
@@ -58,7 +58,7 @@ export const AddNewKey = () => {
             </div>
             <div className={styles.Phone}>
                 <div className={styles.PhoneNumber}>
-                    <div className={styles.NumberTitle}>
+                    <div className={styles.PhoneTitle}>
                         2. Phone:
                     </div>
                     <div className={styles.PhoneNumberInput}>

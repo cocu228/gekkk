@@ -2,9 +2,9 @@
 import { GekkardAuth } from '../../widgets/gekkard-auth';
 import { GekkoinAuth } from '../../widgets/gekkoin-auth';
 import { GekwalletAuth } from '../../widgets/gekwallet-auth';
-import PwaInstallPopupIOS from 'react-pwa-install-ios'
 import NewKeyContextProvider from '../../widgets/gekwallet-auth/model/NewKeyContext';
 import { CookiePolicy } from '../../widgets/cookie-policy/CookiePolicy';
+import { PwaInstallPopupIOS } from '../../widgets/react-pwa-install-ios';
 
 
 
@@ -22,7 +22,7 @@ const Auth = () => {
                         </NewKeyContextProvider>
                     )
             }
-            <PwaInstallPopupIOS delay={3} lang="en" appIcon="/img/favicon/favicon-192x192.png"/>
+            <PwaInstallPopupIOS delay={3} appIcon="/img/favicon/favicon-192x192.png"/>
             <CookiePolicy />
         </>
     )

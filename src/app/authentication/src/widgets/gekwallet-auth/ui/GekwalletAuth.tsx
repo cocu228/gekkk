@@ -65,7 +65,7 @@ export const GekwalletAuth = () => {
                                     {width > 768 && <button title="Registration" className={styles.Registration}>Registration</button>}
                                     {promptable && !isInstalled && ( 
                                         <button onClick={promptToInstall} className={styles.Install}>
-                                            <IconApp code='w6' size={20} />
+                                            <IconApp code='w6' size={20} lib={3}/>
                                             <span title="Install Gekwallet">Install Gekwallet</span>
                                         </button>
                                     )}

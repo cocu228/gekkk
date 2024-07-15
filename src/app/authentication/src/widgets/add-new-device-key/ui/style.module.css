@@ -55,12 +55,14 @@
 }
 .EmailTitle{
     font-size: 14px;
+    font-weight: 600;
     @media (max-width: 768px) {
         font-size: 12px;
     }
 }
 .PhoneTitle{
     font-size: 14px;
+    font-weight: 600;
     @media (max-width: 768px) {
         font-size: 12px;
     }
@@ -69,11 +71,13 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    padding: 10px 0px 10px 0px;
 }
 .PhoneNumber {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    padding: 10px 0px 10px 0px;
 }
 .EmailAddressInput {
     width: 71%;
@@ -215,7 +219,7 @@
     font-size: 12px;
     text-decoration: none;
     @media (max-width: 768px) {
-        font-size: 10px;
+        font-size: 8px;
     }
 }
 
@@ -239,4 +243,8 @@
 .Disabled {
     background-color: var(--gek-mid-grey) !important;
     color: white !important;
+}
+
+.BackButton {
+    cursor: pointer;
 }

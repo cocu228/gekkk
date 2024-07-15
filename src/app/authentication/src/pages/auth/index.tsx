@@ -22,7 +22,16 @@ const Auth = () => {
                         </NewKeyContextProvider>
                     )
             }
-            <PwaInstallPopupIOS delay={3} appIcon="/img/favicon/favicon-192x192.png"/>
+            <PwaInstallPopupIOS 
+                delay={3} 
+                appIcon="/img/favicon/favicon-192x192.png"
+                appName={IS_GEKKARD_APP()
+                    ? 'Gekkard'
+                    : IS_GEKKOIN_APP()
+                        ? 'Gekkoin'
+                        : 'Gekwallet'
+                }
+            />
             <CookiePolicy />
         </>
     )

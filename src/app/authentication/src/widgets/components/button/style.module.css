@@ -1,22 +1,23 @@
 ﻿.Button {
-  border-radius: 8px;
-  border-color: transparent;
-  padding: 9px 24px 9px 24px;
-  background: var(--gek-green);
-  color: white;
-
-  &:hover {
-    background: var(--gek-green-gradient);
-    color: var(--gek-dark-blue);
-  }
-  &:active {
-    color: var(--gek-background);
-  }
-
-  &:disabled {
-    color: var(--gek-dark-grey);
-    background: var(--gek-light-grey);
-  }
+    border-radius: 8px;
+    border-color: transparent;
+    padding: 9px 24px 9px 24px;
+    background: var(--gek-green);
+    color: white;
+    cursor: pointer;
+    
+    &:hover {
+        background: var(--gek-green-gradient);
+        color: var(--gek-dark-blue);
+    }
+    &:active {        
+        color: var(--gek-background);
+    }
+    
+    &:disabled {
+        color: var(--gek-dark-grey);
+        background: var(--gek-light-grey);
+    }
 }
 
 .TextButton {

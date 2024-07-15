@@ -1,0 +1,242 @@
+.AddNewKey {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 414px;
+    width: 100%;
+    gap: 5px;
+
+    
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F3446;
+
+    @media (max-width: 768px) {
+        padding: 0px 15px;
+        font-size: 14px;
+    }
+}
+
+.Title {
+    border-bottom: 1px solid var(--gek-light-grey);
+    padding: 10px 10px 10px 0px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.Email {
+    align-self: flex-end;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 10px 10px 0px;
+    font-size: 14px;
+    @media (max-width: 768px) {
+        padding: 0px 12px;
+        font-size: 12px;
+    }
+}
+.Phone {
+    align-self: flex-end;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 10px 10px 0px;
+    font-size: 14px;
+    @media (max-width: 768px) {
+        padding: 0px 12px;
+        font-size: 12px;
+    }
+}
+.EmailTitle{
+    font-size: 14px;
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+.PhoneTitle{
+    font-size: 14px;
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+}
+.EmailAddress {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.PhoneNumber {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.EmailAddressInput {
+    width: 71%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gek-dark-blue);
+}
+.PhoneNumberInput {
+    width: 71%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gek-dark-blue);
+}
+
+
+.AddressInput {
+    height: 100%;
+    border-bottom: 1px solid var(--gek-light-grey);
+    padding: 5px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-dark-blue);
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+.NumberInput {
+    height: 100%;
+    border-bottom: 1px solid var(--gek-light-grey);
+    padding: 5px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-dark-blue);
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+
+.AddressInput::placeholder {
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-light-grey);
+    text-align: start;
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+.NumberInput::placeholder {
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-light-grey);
+    text-align: start;
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+
+.EmailCode {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px 0px 10px 0px;
+}
+.PhoneCode {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px 0px 10px 0px;
+}
+
+.EmailCodeInput{
+    height: 100%;
+    border-bottom: 1px solid var(--gek-light-grey);
+    padding: 5px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-dark-blue);
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+.PhoneCodeInput{
+    height: 100%;
+    border-bottom: 1px solid var(--gek-light-grey);
+    padding: 5px 0px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-dark-blue);
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+
+.EmailCodeInput::placeholder {
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-light-grey);
+    text-align: center;
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+.PhoneCodeInput::placeholder {
+    
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gek-light-grey);
+    text-align: center;
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+
+.Icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Problems {
+    align-self: flex-end;
+    width: 95%;
+    padding: 0px 0px 10px 0px;
+    font-size: 12px;
+    @media (max-width: 768px) {
+        font-size: 8px;
+    }
+}
+
+.Link {
+    color: var(--gek-green);
+    font-weight: 600;
+    font-size: 12px;
+    text-decoration: none;
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+}
+
+.Buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.Button {
+    width: 120px;
+    height: 43px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.Disabled {
+    background-color: var(--gek-mid-grey) !important;
+    color: white !important;
+}

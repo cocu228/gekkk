@@ -1,5 +1,5 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { useTranslation } from "react-i18next";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { useSSR, useTranslation } from "react-i18next";
 
 import styles from "@/widgets/exchange/ui/style.module.scss";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
@@ -52,6 +52,12 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
   to,
   setHasValidationError
 }) => {
+  const [minOrder, setMinOrder] = useState<number | null>()
+
+  useEffect(() => {
+    setMinOrder(currencies.get(from.currency)?.minOrder)
+  }, [from])
+
   const { t } = useTranslation();
 
   return (
@@ -133,7 +139,7 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
             <Button
               size='lg'
               className='w-full'
-              disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
+              disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError || minOrder > parseFloat(from.amount)}
               onClick={showModal}
             >
               {t("exchange.create_order")}

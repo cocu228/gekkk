@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Loader from "@/shared/ui/loader";
 import { RateState } from "@/widgets/exchange/model/types";
@@ -6,14 +6,16 @@ import { getCurrencyRounding } from "@/shared/lib/number-format-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import styles from "./style.module.scss";
+import { CtxExchangeData } from "@/widgets/exchange/model/context";
 
 interface IParams {
   amount: number;
   loading: boolean;
   currency: string;
+  setPrice: (price: string) => void;
 }
 
-const DepthPrice = ({ loading, amount }: IParams) => {
+const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
   const [{ rateState, displayAmount }, setState] = useState({
     rateState: null,
     displayAmount: null
@@ -41,7 +43,7 @@ const DepthPrice = ({ loading, amount }: IParams) => {
       {loading && !displayAmount ? (
         <Loader className='relative h-[25px] w-[25px]' />
       ) : (
-        <div className='flex items-center text-[10px] w-full justify-center'>
+        <div onClick={() => setPrice(displayAmount.toString())} className='flex items-center text-[10px] w-full justify-center'>
           {displayAmount ? (
             <>
               ~{getCurrencyRounding(displayAmount)}{" "}

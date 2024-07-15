@@ -15,6 +15,43 @@ main.CallReset {
   gap: 0.5rem;
 }
 
+.BottomContainer {
+  gap: 14px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    gap: 8px;
+  }
+}
+
+.TermsCheck {
+  display: flex;
+  align-items: center;
+  
+  label {
+    width: auto;
+    font-size: 14px;
+    margin-left: 8px;
+    color: var(--gek-additional);
+
+    &:hover {
+      text-decoration: underline;
+      color: var(--gek-dark-blue);
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+      margin-left: 4px;
+    }
+  }
+
+  input {
+    width: 25px;
+    height: 25px;
+  }
+}
+
 .Description {
   margin-top: 22px;
   font-size: 14px;

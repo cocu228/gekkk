@@ -55,9 +55,9 @@ export function BottomMenu() {
           className={`
                 ${styles.BottomMenuMobile}
                 ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
-                ${needBottomPadding ? styles.AddBottomMenuPadding : ""}
             `}
         >
+
           <FundsButton
             to='/'
             className={`${styles.BottomMenuMobileButtons} ${isHomePage && styles.BottomMenuMobileButtonsActive}`}

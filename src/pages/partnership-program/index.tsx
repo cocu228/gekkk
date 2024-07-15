@@ -158,7 +158,7 @@ const PartnershipProgram = () => {
           {t("partnership_program.agent_info")}
           <a
             className='text-[10px] text-[--gek-additional] underline'
-            onClick={() => navigate("/faq?faqSection=partnership_program")}
+            onClick={() => navigate("/faq?faqSection=partnership_program", { state: "/partnership-program" })}
           >
             {t("how_it_works")}
           </a>

@@ -105,6 +105,20 @@ const HeaderMobile = ({ items, actions }) => {
     }
   };
 
+  const handleOnNavigate = (tabs?: string) => () => {
+    switch (tabs) {
+      case "custom":
+        navigate("/history");
+        break;
+      case settingsTab:
+        settingsTab === "my-reports" ? navigate(-2) : navigate("/settings");
+        break;
+      default:
+        const { state } = location;
+        navigate(state ? state : "/");
+    }
+  };
+
   return (
     <>
       <header className={styles.Header}>
@@ -132,9 +146,7 @@ const HeaderMobile = ({ items, actions }) => {
         ) : tab === "custom" ? (
           <div
             className='flex items-center w-full'
-            onClick={() => {
-              navigate("/history");
-            }}
+            onClick={handleOnNavigate("custom")}
             data-testid='HeaderMenuContainer'
           >
             <IconApp className='rotate-[180deg] m-[0_5vw]' size={13} code='t08' color='#fff' />
@@ -143,9 +155,7 @@ const HeaderMobile = ({ items, actions }) => {
         ) : settingsTab ? (
           <div
             className='flex items-center w-full'
-            onClick={() => {
-              settingsTab === "my-reports" ? navigate(-2) : navigate("/settings");
-            }}
+            onClick={handleOnNavigate(settingsTab)}
             data-testid='HeaderMenuContainer'
           >
             <IconApp className='rotate-[180deg] m-[0_5vw] cursor-pointer' size={13} code='t08' color='#fff' />
@@ -153,13 +163,7 @@ const HeaderMobile = ({ items, actions }) => {
           </div>
         ) : (
           <div className='flex items-center justify-between w-full'>
-            <div
-              className='flex items-center w-full'
-              onClick={() => {
-                navigate("/");
-              }}
-              data-testid='HeaderMenuContainer'
-            >
+            <div className='flex items-center w-full' onClick={handleOnNavigate()} data-testid='HeaderMenuContainer'>
               <IconApp className='rotate-[180deg] m-[0_5vw] cursor-pointer' size={13} code='t08' color='#fff' />
               <span className={styles.HeaderTitle}>{headerTitle()}</span>
             </div>

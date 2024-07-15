@@ -2,7 +2,7 @@
 @import "../../../widgets/custom-history/ui/style.module.scss";
 
 .Container {
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   width: 100%;
   font-weight: 500;
 
@@ -19,7 +19,6 @@
 
 .Type {
   &Title {
-    padding-left: 5px;
     padding-right: 25px;
     display: flex;
     justify-content: flex-start;

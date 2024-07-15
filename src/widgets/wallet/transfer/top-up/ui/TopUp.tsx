@@ -15,6 +15,7 @@ import ApplyTransferCode from "./forms/ApplyTransferCode";
 import styles from "./style.module.scss";
 import TransferTableCode from "../../components/transfer-code/table/TransferTableCode";
 import CrossPlatformTopUp from "./forms/CrossPlatformTopUp";
+import Wrapper from "@/shared/ui/wrapper";
 
 const TopUp = memo(() => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ const TopUp = memo(() => {
     switch (networkType) {
       case 150:
         return (
-          <div>
+          <div className={styles.ToTransfersWrap}>
             <b className={styles.ToTransfersContainer}>
               <span className=''>{`${t("top_up_EURG")} `}</span>
               <span
@@ -55,7 +56,7 @@ const TopUp = memo(() => {
                   }
                 }}
               >
-                {t("link")}
+                {t("link")}.
               </span>
             </b>
           </div>
@@ -64,7 +65,7 @@ const TopUp = memo(() => {
         return <TopUpFormSepa />;
       case 154:
         return (
-          <div>
+          <div className={styles.ToTransfersWrap}>
             <b className={styles.ToTransfersContainer}>
               {t("top_up_EUR_via_crypto")}
               <a
@@ -113,7 +114,8 @@ const TopUp = memo(() => {
       {loading ? (
         <Loader />
       ) : (
-        <div className='w-full'>
+        <Wrapper isWeb >
+          <div className='w-full'>
           <div className={styles.TopUpContainer}>
             <ChoseNetwork network={network} setNetwork={setNetwork} />
 
@@ -173,6 +175,7 @@ const TopUp = memo(() => {
             </div>
           )}
         </div>
+        </Wrapper>
       )}
     </div>
   );

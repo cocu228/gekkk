@@ -114,12 +114,18 @@ function Wallet() {
                   <About data-tag={"about"} data-name={t("about")} description={descriptions[$currency.$const]} />
                 )}
 
-                {xl && <History data-tag={"history"} data-name={t("history")} currenciesFilter={currencyForHistory} />}
+                {xl && (
+                  <Wrapper>
+                    <History data-tag={"history"} data-name={t("history")} currenciesFilter={currencyForHistory} />
+                  </Wrapper>
+                )}
               </div>
 
               {!xl && (
                 <div className='z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]'>
-                  <History currenciesFilter={currencyForHistory} />
+                  <Wrapper isWeb>
+                    <History currenciesFilter={currencyForHistory} />
+                  </Wrapper>
                 </div>
               )}
             </div>

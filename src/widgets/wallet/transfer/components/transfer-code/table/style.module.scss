@@ -253,3 +253,18 @@
     margin: 0 !important;
   }
 }
+
+.Row {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 15px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #285E69;
+  font-weight: 700;
+  box-sizing: border-box;
+  margin: 0 10px;
+}

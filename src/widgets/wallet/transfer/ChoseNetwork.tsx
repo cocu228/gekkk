@@ -148,27 +148,6 @@ const ChoseNetwork = ({ withdraw = false, network, setNetwork }: IProps) => {
           )}
         </div>
       </div>
-
-      {!md && noteVisible && (
-        <div className='row mb-10'>
-          <div className='col'>
-            <div className='info-box-note mb-10'>
-              <div className='row mb-3'>
-                <div className='col'>
-                  <span className='text-red-800'>{t("please_note")}</span>
-                </div>
-              </div>
-              <div className='row mb-1'>
-                <div className='col'>
-                  <span className='text-gray-400 font-medium text-fs14 leading-6'>
-                    {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

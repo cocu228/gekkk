@@ -69,22 +69,6 @@ const TopUpFormQR = () => {
             </div>
           )}
         </div>
-        {/* <div className="row flex flex-col mb-8">
-            <div className="col mb-4">
-                <span className="text-gray-400">Expected arrival</span>
-            </div>
-            <div className="col">
-                <span><b>6</b> network confirmation</span>
-            </div>
-        </div>
-        <div className="row flex flex-col">
-            <div className="col mb-4">
-                <span className="text-gray-400">Expected unlock</span>
-            </div>
-            <div className="col">
-                <span><b className="text-red-800">2</b> network confirmation</span>
-            </div>
-        </div> */}
       </>
     ) : (
       <>

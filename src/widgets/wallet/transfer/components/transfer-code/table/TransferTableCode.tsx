@@ -152,7 +152,14 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
   const { t } = useTranslation();
 
   return listTxCode.length === 0 ? null : (
-    <GTable className={`${styles.Table}`}>
+    <>
+      {
+      filteredListTxCode.length <= 0 ? (
+        <div className={styles.Row}>
+          <span>{t("no_have_transfer_code")}</span>
+        </div>
+      ) : (
+  <GTable className={`${styles.Table}`}>
       <GTable.Head className={styles.TableHead}>
         <GTable.Row className={styles.TableHeadBody}>
           {/* {
@@ -187,7 +194,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
         </GTable.Row>
       </GTable.Head>
       <GTable.Body className={styles.TableBody}>
-        {filteredListTxCode.length > 0 ? (
+        {
           filteredListTxCode.map(it => {
             const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
             return (
@@ -242,13 +249,12 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
               </GTable.Row>
             );
           })
-        ) : (
-          <div className={styles.Row}>
-            <span>{t("no_have_transfer_code")}</span>
-          </div>
-        )}
+        }
       </GTable.Body>
     </GTable>
+      )
+    }
+    </>
   );
 };
 

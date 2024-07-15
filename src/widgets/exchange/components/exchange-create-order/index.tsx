@@ -139,7 +139,7 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
             <Button
               size='lg'
               className='w-full'
-              disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError || minOrder > parseFloat(from.amount)}
+              disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
               onClick={showModal}
             >
               {t("exchange.create_order")}

@@ -17,6 +17,7 @@ import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { actionResSuccess, getCookieData, uncoverResponse } from "@/shared/lib/helpers";
 
 import { CtxNewDeposit } from "../../../model/context";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const TypeChoose = memo(() => {
   const {
@@ -136,6 +137,7 @@ const TypeChoose = memo(() => {
           <Tooltip text={increasingProgramDescription}>
             <div className='inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help'>
               <img src='/img/icon/HelpIcon.svg' alt='tooltip' />
+              <IconApp code={""} size={50} color={"#000000"}></IconApp>
             </div>
           </Tooltip>
         </div>

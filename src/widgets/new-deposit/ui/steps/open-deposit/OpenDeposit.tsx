@@ -69,9 +69,9 @@ const OpenDeposit = () => {
       </div>
 
       {/*<Button text onClick={conditionsModal.showModal}>*/}
-      <Button onClick={conditionsModal.showModal}>
+      <button onClick={conditionsModal.showModal}>
         <span className='underline underline-offset-4 text-gray-400 md:text-sm'>Early closing conditions →</span>
-      </Button>
+      </button>
 
       <OpenDepositModal
         loading={loading}

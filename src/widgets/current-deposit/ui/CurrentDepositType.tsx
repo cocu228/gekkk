@@ -3,6 +3,7 @@ import { ICtxCurrency } from "@/processes/CurrenciesContext";
 import { getGkePercent } from "@/shared/config/deposits/helpers";
 
 import { IDepositStrategyData } from "../model/helpers";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface ICurrentDepositType {
   isGke?: boolean;
@@ -28,14 +29,13 @@ function CurrentDepositType({ isGke, token, strategyData, isFixed = false, isClo
       <div className='row flex justify-end gap-4'>
         {isGke && (
           <div className='flex gap-2 items-center'>
-            <img width={24} height={24} className='grayscale' src='/img/tokens/GkeIcon.svg' alt='strategy' />
+            <IconCoin code={"GKE"} height={24} width={24} />
             <p className='font-medium'>GKE-increased</p>
           </div>
         )}
 
         <div className='flex gap-2 items-center'>
-          <img width={24} height={24} src='/img/icon/DepositIcon.svg' alt='strategy' />
-
+          <IconApp size={24} code={"t77"} color={"#dee2e7"} />
           <p className='font-medium'>{isFixed ? "Fixed rate" : `${strategy.name} strategy`}</p>
         </div>
 

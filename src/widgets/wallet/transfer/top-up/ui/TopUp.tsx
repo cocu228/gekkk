@@ -114,67 +114,67 @@ const TopUp = memo(() => {
       {loading ? (
         <Loader />
       ) : (
-        <Wrapper isWeb >
+        <Wrapper isWeb>
           <div className='w-full'>
-          <div className={styles.TopUpContainer}>
-            <ChoseNetwork network={network} setNetwork={setNetwork} />
+            <div className={styles.TopUpContainer}>
+              <ChoseNetwork network={network} setNetwork={setNetwork} />
 
-            {md && network && displayedForm && (
-              <div className={styles.TopUpMobileForm}>
-                {is_operable === false && (
-                  <div className={styles.TopUpAttentionMobile}>
-                    <div className={styles.TopUpAttentionMobileContainer}>
-                      <div className={styles.TopUpAttentionMobileContainerIcon}>
-                        <IconApp code='t27' size={15} color='var(--gek-red)' />
+              {md && network && displayedForm && (
+                <div className={styles.TopUpMobileForm}>
+                  {is_operable === false && (
+                    <div className={styles.TopUpAttentionMobile}>
+                      <div className={styles.TopUpAttentionMobileContainer}>
+                        <div className={styles.TopUpAttentionMobileContainerIcon}>
+                          <IconApp code='t27' size={15} color='var(--gek-red)' />
+                        </div>
+                        <p>{t("attention")}</p>
                       </div>
-                      <p>{t("attention")}</p>
                     </div>
-                  </div>
+                  )}
+                  {displayedForm}
+                </div>
+              )}
+            </div>
+            {md && networkType === 231 && +type === 231 && (
+              <div className={styles.TransferTableContainer}>
+                <TransferTableCode />
+              </div>
+            )}
+
+            {!md && displayedForm}
+
+            {md && (
+              <div className={`mt-5 h-[440px]`}>
+                {!network && networksForSelector?.length > 0 && (
+                  <span className={styles.TextSelectTitle}>{t("select_top_up_type")}</span>
                 )}
-                {displayedForm}
+                {!network &&
+                  networksForSelector?.map(network => (
+                    <div
+                      key={network.label}
+                      className={styles.TopUpNetworkContainer}
+                      onClick={() => {
+                        setNetworkType(network.value);
+                        setNetwork(network.value);
+                        navigate(`/wallet?currency=${currency}&tab=top_up&type=${network.value}`);
+                      }}
+                    >
+                      <span className={styles.TopUpNetworkContainerTitle}>{network.label}</span>
+                    </div>
+                  ))}
+              </div>
+            )}
+
+            {!md && is_operable === false && (
+              <div className='row mb-4 mt-4'>
+                <div className='col'>
+                  <div className='info-box-danger'>
+                    <p>{t("attention")}</p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
-          {md && networkType === 231 && +type === 231 && (
-            <div className={styles.TransferTableContainer}>
-              <TransferTableCode />
-            </div>
-          )}
-
-          {!md && displayedForm}
-
-          {md && (
-            <div className={`mt-5 h-[440px]`}>
-              {!network && networksForSelector?.length > 0 && (
-                <span className={styles.TextSelectTitle}>{t("select_top_up_type")}</span>
-              )}
-              {!network &&
-                networksForSelector?.map(network => (
-                  <div
-                    key={network.label}
-                    className={styles.TopUpNetworkContainer}
-                    onClick={() => {
-                      setNetworkType(network.value);
-                      setNetwork(network.value);
-                      navigate(`/wallet?currency=${currency}&tab=top_up&type=${network.value}`);
-                    }}
-                  >
-                    <span className={styles.TopUpNetworkContainerTitle}>{network.label}</span>
-                  </div>
-                ))}
-            </div>
-          )}
-
-          {!md && is_operable === false && (
-            <div className='row mb-4 mt-4'>
-              <div className='col'>
-                <div className='info-box-danger'>
-                  <p>{t("attention")}</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
         </Wrapper>
       )}
     </div>

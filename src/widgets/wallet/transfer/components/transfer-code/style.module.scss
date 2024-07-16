@@ -1,7 +1,6 @@
 @import "@styles/mixins.scss";
 
 .Container {
-
   @media screen and (max-width: 768px) {
     margin-bottom: 10px;
   }
@@ -38,9 +37,8 @@
   font-family: "Inter";
 }
 
-
 .CodeText {
-  color: #285E69;
+  color: #285e69;
   font-size: 12px;
   font-weight: 400;
 }

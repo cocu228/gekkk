@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import useCopyStore from "@/shared/store/useCopy/useCopyStore";
 
 import styles from "./style.module.scss";
@@ -12,7 +11,6 @@ interface Props {
 
 function ClipboardField({ value }: Props) {
   const [, setIsCopiedF] = useState<boolean>(false);
-  const { md } = useBreakpoints();
   const { setIsCopied } = useCopyStore();
 
   const copyTextToClipboard = async text => {

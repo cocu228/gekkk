@@ -111,8 +111,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "npx prettier . --check --end-of-line auto",
-      "npx eslint . --quiet --config .eslintrc.cjs"
+      "prettier . --check --end-of-line auto",
+      "eslint . --quiet --config .eslintrc.cjs"
     ]
   }
 }

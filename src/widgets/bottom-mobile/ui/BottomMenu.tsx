@@ -57,7 +57,6 @@ export function BottomMenu() {
                 ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
             `}
         >
-
           <FundsButton
             to='/'
             className={`${styles.BottomMenuMobileButtons} ${isHomePage && styles.BottomMenuMobileButtonsActive}`}

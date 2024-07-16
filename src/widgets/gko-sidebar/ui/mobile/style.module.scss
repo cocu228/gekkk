@@ -35,7 +35,7 @@
 }
 
 .TotalVal {
-  background-color: #285E69;
+  background-color: #285e69;
   position: relative;
   border-radius: 0 5px 5px 0;
 }
@@ -52,7 +52,7 @@
   font-size: 12px;
   font-weight: 400;
   @include max-devices(md) {
-    color: #778F93;
+    color: #778f93;
     font-family: Archivo;
     font-size: 12px;
     font-style: normal;
@@ -85,9 +85,8 @@
     bottom: 75px;
     z-index: 40;
     left: 50%;
-    transform:translateX(-50%)
+    transform: translateX(-50%);
   }
-
 }
 
 .AssetInfo4 {
@@ -100,14 +99,14 @@
   font-size: 12px;
 
   &:hover {
-    background-color: #285E69;
+    background-color: #285e69;
     color: #f7f7f0;
     font-weight: 600;
   }
 
   :active {
     color: white;
-    background-color: #29354C;
+    background-color: #29354c;
   }
 }
 
@@ -119,7 +118,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:flex-start;
+  align-items: flex-start;
   background-color: rgb(247, 247, 240, 0.9);
 }
 
@@ -134,21 +133,20 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .Name {
-  color: #B9B9B5;
+  color: #b9b9b5;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .Sum {
-  font-size: .85rem;
+  font-size: 0.85rem;
   font-weight: 700;
-
 }
 
 .Balance {
@@ -165,11 +163,11 @@
   font-size: 12px;
   line-height: 20px;
   font-weight: 300;
-  color: #2BAB72;
+  color: #2bab72;
 }
 
 .EuroEqv {
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: var(--gek-mid-grey);
   font-weight: 400;
   margin-right: 8px;
@@ -179,13 +177,12 @@
   margin-right: 6px;
 
   path {
-    transition: .2s;
+    transition: 0.2s;
     fill: var(--color-gray-400);
   }
 }
 
 :global(a.active) {
-
   .SvgArrow {
     path {
       fill: var(--color-gray-600);
@@ -223,13 +220,12 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285E69;
+      background-color: #285e69;
       left: 0;
       top: 0;
     }
   }
 }
-
 
 .Item,
 .ItemExchange,
@@ -247,17 +243,17 @@
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: .2s;
+  transition: 0.2s;
 
   .Icon {
     pointer-events: none;
     filter: saturate(10%) invert(0%);
     opacity: 0.3;
-    transition: .2s;
+    transition: 0.2s;
   }
 
   .NavName {
-    transition: .2s;
+    transition: 0.2s;
   }
 
   &:hover {
@@ -269,7 +265,6 @@
 
     .Name,
     .NavName {
-
     }
 
     .SvgArrow {
@@ -286,7 +281,6 @@
   }
 }
 
-
 :global(a.disabled) {
   .Item,
   .ItemExchange,
@@ -302,7 +296,6 @@
 
 .ItemEuro {
   height: 70px;
-
 }
 
 .ItemWrapper {
@@ -316,7 +309,6 @@
 
 .ItemWrapper {
   &:hover {
-
     .ItemInactive {
       box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
     }
@@ -357,8 +349,8 @@
 .BottomMenuMobile {
   height: 50px;
   width: 100%;
-  border-top: 1px solid rgba(58, 94, 102, 0.50);
-  background: #F7F7F0;
+  border-top: 1px solid rgba(58, 94, 102, 0.5);
+  background: #f7f7f0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 100%;
@@ -377,7 +369,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #285E69;
+  background-color: #285e69;
 }
 
 .NewAssetIcon {
@@ -393,26 +385,26 @@
   justify-content: center;
   align-items: center;
   flex: 1 0 0;
-  color: #9D9D9D !important;
+  color: #9d9d9d !important;
   text-align: center;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 20px; /* 166.667% */
-  transition: ease-in-out .2s;
+  transition: ease-in-out 0.2s;
 }
 
 .BottomMenuMobileButtonsIcons {
-  transition: ease-in-out .2s;
+  transition: ease-in-out 0.2s;
 }
 
 .BottomMenuButtonsActive {
-  color: #285E69;
+  color: #285e69;
 }
 
 .SecondaryItem {
-  background: #EDEDED;
+  background: #ededed;
 }
 
 .InvestmentsWrap {
@@ -425,7 +417,7 @@
       border-radius: 0 0 8px 8px;
     }
   }
-  
+
   & > button {
     background: #fff;
   }

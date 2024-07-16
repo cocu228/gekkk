@@ -4,7 +4,6 @@ import { memo, useContext, useEffect, useState } from "react";
 
 import Loader from "@/shared/ui/loader";
 import useModal from "@/shared/model/hooks/useModal";
-import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxRootData } from "@/processes/RootContext";
 import { formatForApi } from "@/shared/lib/date-helper";
 import { actionResSuccess } from "@/shared/lib/helpers";
@@ -16,9 +15,7 @@ import { Modal } from "@/shared/ui/modal/Modal";
 
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import TxInfoModal from "./tx-info-modal/InfoContent";
-import TxInfoRow from "./tx-info-row/TxInfoRow";
 import { HistoryProps } from "../model/types";
-import { formatDate } from "../model/helpers";
 import styles from "./style.module.scss";
 
 const History = memo(function ({
@@ -34,14 +31,14 @@ const History = memo(function ({
   const { md } = useContext(BreakpointsContext);
   const { refreshKey } = useContext(CtxRootData);
   const [loading, setLoading] = useState(false);
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const [lazyLoading, setLazyLoading] = useState<boolean>(false);
+  const { isModalOpen, handleCancel } = useModal();
+  const [, setLazyLoading] = useState<boolean>(false);
   const [allTxVisibly, setAllTxVisibly] = useState<boolean>(false);
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
-  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});
+  const [selectedItem] = useState<GetHistoryTrasactionOut>({});
   const [nextKey, setNextKey] = useState<string>(listHistory[listHistory.length - 1]?.next_key);
 
-  const { isIntersecting, ref } = useIntersectionObserver({
+  const { isIntersecting } = useIntersectionObserver({
     threshold: 0.9
   });
 
@@ -71,7 +68,7 @@ const History = memo(function ({
     setLoading(false);
   };
 
-  const requestMoreHistory = async () => {
+  /*const requestMoreHistory = async () => {
     setLazyLoading(true);
 
     const { data } = await apiGetHistoryTransactions({
@@ -88,7 +85,7 @@ const History = memo(function ({
 
     setListHistory(prevState => [...prevState, ...data.result]);
     setLazyLoading(false);
-  };
+  };*/
 
   const onUpdateTxInfo = (txId: string, senderName: string) => {
     const tx = listHistory.find(t => t.id_transaction === txId);
@@ -140,8 +137,7 @@ const History = memo(function ({
   ) : (
     <>
       <div id={"History"} className={`${styles.Container} ${className}`}>
-      <div className={styles.NoTransactions}>{t("no_have_any_transaction")}</div>
-        
+        <div className={styles.NoTransactions}>{t("no_have_any_transaction")}</div>
       </div>
 
       {/* Tx info modal */}

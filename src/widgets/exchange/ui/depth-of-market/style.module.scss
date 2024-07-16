@@ -60,7 +60,8 @@
   background: rgba(var(--green) / 0.05);
 }
 
-.RedWrapper, .GreenWrapper {
+.RedWrapper,
+.GreenWrapper {
   display: flex;
   flex-direction: column;
   gap: 5px;

@@ -176,11 +176,11 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
               <span>{t("code")}</span>
             </div>
           </GTable.Col>
-          <GTable.Col className={styles.CodeModalTitle}>
+          {/* <GTable.Col className={styles.CodeModalTitle}>
             <div data-text={"Amount"}>
               <span>{t("amount")}</span>
             </div>
-          </GTable.Col>
+          </GTable.Col> */}
           <GTable.Col className={styles.CodeModalTitle}>
             <div data-text={"Status"}>
               <span>{t("status")}</span>
@@ -198,7 +198,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
           filteredListTxCode.map(it => {
             const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
             return (
-              <GTable.Row key={it.code} className='px-4 py-3 gap-3'>
+              <GTable.Row key={it.code} className={styles.TableItem}>
                 <GTable.Col className='w-full'>
                   <div className='row flex w-full items-center pr-[6px]'>
                     <div className='col pr-[15px] w-full'>
@@ -224,11 +224,11 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
                   </span>
                 </GTable.Col>
 
-                {!md && !lg && (
+                {/* {!md && !lg && (
                   <GTable.Col className='text-center'>
                     <span className='text-gra-600 text-xs'>{it.amount}</span>
                   </GTable.Col>
-                )}
+                )} */}
 
                 <GTable.Col className={styles.StatusCol}>
                   <span className='text-gray-600 text-xs'>{it.state}</span>

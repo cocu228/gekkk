@@ -60,6 +60,12 @@
   background: rgba(var(--green) / 0.05);
 }
 
+.RedWrapper, .GreenWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .CoinPreTitle {
   font-family: "Inter";
   color: #b9b9b5;

@@ -6,11 +6,9 @@ import InfoBox from "@/widgets/info-box";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import { isCryptoNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { TypeSelector } from "@/shared/ui/typeSelector/TypeSelector";
-import constants from "@/shared/config/coins/constants";
 
 import styles from "./style.module.scss";
 
@@ -28,11 +26,11 @@ const ChoseNetwork = ({ withdraw = false, network, setNetwork }: IProps) => {
   const { currencies } = useContext(CtxCurrencies);
 
   const { setNetworkType, networksForSelector, networkTypeSelect } = useContext(CtxWalletNetworks);
-  const noteVisible =
+  /*  const noteVisible =
     !withdraw &&
     !(Array.isArray(networksForSelector) && networksForSelector.length === 0) &&
     $const !== constants.EURG &&
-    isCryptoNetwork(networkTypeSelect);
+    isCryptoNetwork(networkTypeSelect);*/
   // TODO: Refactoring for networks.length == 1
   return (
     <div>

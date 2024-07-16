@@ -1,5 +1,5 @@
 import * as elliptic from "elliptic";
-import sha256 from "crypto-js/sha256";
+import { sha256 } from "js-sha256";
 
 import { apiRegisterOptions } from "@/shared/(orval)api";
 import { AuthOptions } from "@/shared/(orval)api/auth/model";

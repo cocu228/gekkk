@@ -43,7 +43,7 @@ const RoomItem = ({ room, isActive }: { room: RoomInfo; isActive: boolean }) => 
           <IconApp color='red' code='t33' size={20} />
         </div>
       }
-      onClick={() => navigate(`/private-room?roomId=${room.timetick}`)}
+      onClick={() => navigate(`/private-room?roomId=${room.timetick}`, { state: "/exchange" })}
     >
       <div className='flex flex-auto justify-between w-full'>
         <div className={styles.RoomsMenuItem}>

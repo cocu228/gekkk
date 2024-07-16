@@ -106,15 +106,15 @@ const HeaderMobile = ({ items, actions }) => {
   };
 
   const handleOnNavigate = (tabs?: string) => () => {
+    const { state } = location;
     switch (tabs) {
       case "custom":
         navigate("/history");
         break;
       case settingsTab:
-        settingsTab === "my-reports" ? navigate(-2) : navigate("/settings");
+        settingsTab === "my-reports" ? navigate(state ? state : -2) : navigate("/settings");
         break;
       default:
-        const { state } = location;
         navigate(state ? state : "/");
     }
   };
@@ -168,7 +168,7 @@ const HeaderMobile = ({ items, actions }) => {
               <span className={styles.HeaderTitle}>{headerTitle()}</span>
             </div>
             {walletPage?.pathname === "/wallet" && params.get("currency") === "EUR" && tab !== "programs" && (
-              <Link to='/settings?sessionsSection=my-reports'>
+              <Link to='/settings?sessionsSection=my-reports' state={"/wallet?currency=EUR"}>
                 <div className='flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold'>
                   {t("reports")}
                   <IconApp code='t09' className='min-w-[9px]' size={9} color='#fff' />

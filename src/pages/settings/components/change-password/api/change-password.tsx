@@ -11,12 +11,12 @@ const servPath = import.meta.env.VITE_API_URL;
 export async function ChangePass(phoneNumber, newPass, confirmCode, makeAssertionOptions, challenge) {
   makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
-  const passKey = sha256(`${phoneNumber + newPass}gekkard.com`); //makeAssertionOptions.fido2_options.rp.id);
+  const passKey = sha256(`${phoneNumber + newPass + makeAssertionOptions.fido2_options.rp.id}`);
 
   const EdDSA = elliptic.eddsa;
   const ec = new EdDSA("ed25519");
   //@ts-ignore
-  const key = ec.keyFromSecret(passKey.words);
+  const key = ec.keyFromSecret(passKey);
   const pub = key.getPublic();
   const signature = key.sign(makeAssertionOptions.challenge).toBytes();
   console.log(key.verify(makeAssertionOptions.challenge, signature));

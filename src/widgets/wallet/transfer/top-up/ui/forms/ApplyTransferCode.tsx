@@ -71,7 +71,7 @@ const ApplyTransferCode = () => {
             <Input
               value={input}
               disabled={loading}
-              className={"w-full"}
+              className={styles.Input}
               allowDigits
               onChange={({ target }) => setInput(target.value)}
               placeholder={t("enter_top_up_code")}

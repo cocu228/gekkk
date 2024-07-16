@@ -233,6 +233,18 @@
 
 .CodeInputsWrapper > div > div {
   border: 2px solid #2bab72;
+  box-sizing: border-box;
+}
+
+.Input {
+  height: 43px;
+  text-align: center;
+  font-size: 12px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    font-size: 12px;
+  }
 }
 
 .Code {
@@ -266,12 +278,9 @@
         display: flex;
         overflow: hidden;
         justify-content: center;
-        border-style: solid;
-        width: 100%;
-        border-width: 2px;
-        border-color: var(--gek-green);
         border-radius: 8px;
         height: 43px;
+        border: 2px solid var(--gek-green);;
       }
     }
   }

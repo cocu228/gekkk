@@ -1,14 +1,17 @@
 @import "@styles/mixins.scss";
 
 .Container {
-  margin-bottom: 2.25rem;
 
-  @include max-devices(md) {
+  @media screen and (max-width: 768px) {
     margin-bottom: 10px;
   }
 
+  @media screen and (min-width: 768px) {
+    margin: 0 10px 25px 10px;
+  }
+
   &Secondary {
-    @include max-devices(md) {
+    @media screen and (max-width: 768px) {
       padding: 0;
       background: transparent;
       font-size: 12px;
@@ -19,21 +22,25 @@
 }
 
 .FundsText {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
+  display: block;
+  font-size: 14px;
 
-  @include max-devices(md) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 }
 
 .WarnText {
-  // text-[#7B797C] font-normal md:text-[12px] text-[14px]
   color: #7b797c;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-family: "Inter";
+}
 
-  @media screen and (max-width: 768px) {
-    font-size: 12px;
-  }
+
+.CodeText {
+  color: #285E69;
+  font-size: 12px;
+  font-weight: 400;
 }

@@ -153,16 +153,15 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
 
   return listTxCode.length === 0 ? null : (
     <>
-      {
-      filteredListTxCode.length <= 0 ? (
+      {filteredListTxCode.length <= 0 ? (
         <div className={styles.Row}>
           <span>{t("no_have_transfer_code")}</span>
         </div>
       ) : (
-  <GTable className={`${styles.Table}`}>
-      <GTable.Head className={styles.TableHead}>
-        <GTable.Row className={styles.TableHeadBody}>
-          {/* {
+        <GTable className={`${styles.Table}`}>
+          <GTable.Head className={styles.TableHead}>
+            <GTable.Row className={styles.TableHeadBody}>
+              {/* {
                     tableHeads.map((item, ind) => (
                         <GTable.Col key={ind} className={styles.CodeModalTitle}>
                             <div data-text={item.capitalize()}>
@@ -171,89 +170,86 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
                         </GTable.Col>
                     ))
                 } */}
-          <GTable.Col className={styles.CodeModalTitle}>
-            <div data-text={"Code"}>
-              <span>{t("code")}</span>
-            </div>
-          </GTable.Col>
-          <GTable.Col className={styles.CodeModalTitle}>
-            <div data-text={"Amount"}>
-              <span>{t("amount")}</span>
-            </div>
-          </GTable.Col>
-          <GTable.Col className={styles.CodeModalTitle}>
-            <div data-text={"Status"}>
-              <span>{t("status")}</span>
-            </div>
-          </GTable.Col>
-          <GTable.Col className={styles.CodeModalTitle}>
-            <div data-text={"Action"}>
-              <span>{t("action")}</span>
-            </div>
-          </GTable.Col>
-        </GTable.Row>
-      </GTable.Head>
-      <GTable.Body className={styles.TableBody}>
-        {
-          filteredListTxCode.map(it => {
-            const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
-            return (
-              <GTable.Row key={it.code} className='px-4 py-3 gap-3'>
-                <GTable.Col className='w-full'>
-                  <div className='row flex w-full items-center pr-[6px]'>
-                    <div className='col pr-[15px] w-full'>
-                      <CodeModalInfo item={it} code={it.code} />
+              <GTable.Col className={styles.CodeModalTitle}>
+                <div data-text={"Code"}>
+                  <span>{t("code")}</span>
+                </div>
+              </GTable.Col>
+              <GTable.Col className={styles.CodeModalTitle}>
+                <div data-text={"Amount"}>
+                  <span>{t("amount")}</span>
+                </div>
+              </GTable.Col>
+              <GTable.Col className={styles.CodeModalTitle}>
+                <div data-text={"Status"}>
+                  <span>{t("status")}</span>
+                </div>
+              </GTable.Col>
+              <GTable.Col className={styles.CodeModalTitle}>
+                <div data-text={"Action"}>
+                  <span>{t("action")}</span>
+                </div>
+              </GTable.Col>
+            </GTable.Row>
+          </GTable.Head>
+          <GTable.Body className={styles.TableBody}>
+            {filteredListTxCode.map(it => {
+              const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
+              return (
+                <GTable.Row key={it.code} className='px-4 py-3 gap-3'>
+                  <GTable.Col className='w-full'>
+                    <div className='row flex w-full items-center pr-[6px]'>
+                      <div className='col pr-[15px] w-full'>
+                        <CodeModalInfo item={it} code={it.code} />
+                      </div>
+                      <div className={styles.CopyIcon}>
+                        <CopyIcon value={it.code} />
+                      </div>
                     </div>
-                    <div className={styles.CopyIcon}>
-                      <CopyIcon value={it.code} />
+                    <div className='row'>
+                      <div className='col'>
+                        {md ? (
+                          <span className={styles.CodeTime}>
+                            {formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}
+                          </span>
+                        ) : (
+                          <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className='row'>
-                    <div className='col'>
-                      {md ? (
-                        <span className={styles.CodeTime}>
-                          {formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}
-                        </span>
-                      ) : (
-                        <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
-                      )}
-                    </div>
-                  </div>
-                  <span className={styles.MobileAmount}>
-                    {it.amount} {currency.$const}
-                  </span>
-                </GTable.Col>
-
-                {!md && !lg && (
-                  <GTable.Col className='text-center'>
-                    <span className='text-gra-600 text-xs'>{it.amount}</span>
+                    <span className={styles.MobileAmount}>
+                      {it.amount} {currency.$const}
+                    </span>
                   </GTable.Col>
-                )}
 
-                <GTable.Col className={styles.StatusCol}>
-                  <span className='text-gray-600 text-xs'>{it.state}</span>
-                </GTable.Col>
-
-                <GTable.Col className={styles.ActionCol}>
-                  {visiblyConfirm ? (
-                    <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency} />
-                  ) : (
-                    <CancelContent
-                      code={it.code}
-                      amount={it.amount}
-                      currency={it.currency}
-                      confirm={it.typeTx === 12}
-                    />
+                  {!md && !lg && (
+                    <GTable.Col className='text-center'>
+                      <span className='text-gra-600 text-xs'>{it.amount}</span>
+                    </GTable.Col>
                   )}
-                </GTable.Col>
-              </GTable.Row>
-            );
-          })
-        }
-      </GTable.Body>
-    </GTable>
-      )
-    }
+
+                  <GTable.Col className={styles.StatusCol}>
+                    <span className='text-gray-600 text-xs'>{it.state}</span>
+                  </GTable.Col>
+
+                  <GTable.Col className={styles.ActionCol}>
+                    {visiblyConfirm ? (
+                      <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency} />
+                    ) : (
+                      <CancelContent
+                        code={it.code}
+                        amount={it.amount}
+                        currency={it.currency}
+                        confirm={it.typeTx === 12}
+                      />
+                    )}
+                  </GTable.Col>
+                </GTable.Row>
+              );
+            })}
+          </GTable.Body>
+        </GTable>
+      )}
     </>
   );
 };

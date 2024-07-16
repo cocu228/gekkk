@@ -22,10 +22,10 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { SignTX } from "@/widgets/wallet/transfer/withdraw/model/signTX";
+import ModalTrxStatusSuccess from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusSuccess";
 
 import styles from "./styles.module.scss";
-import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import { SignTX } from "./signTX";
 
 const initStageConfirm = {
   status: null,

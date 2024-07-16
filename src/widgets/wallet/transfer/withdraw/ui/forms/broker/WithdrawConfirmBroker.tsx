@@ -43,7 +43,7 @@ const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handle
   const onConfirm = async () => {
     setIsLoading(true);
     const details = {
-      purpose: t("purchase_of", { token: "EURG" }),
+      purpose: "Purchase of EURG tokens", // t("purchase_of", { token: "EURG" }),
       iban: token_hot_address,
       account: account.account_id,
       beneficiaryName: account.name,

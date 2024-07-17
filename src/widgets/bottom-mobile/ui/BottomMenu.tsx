@@ -41,7 +41,7 @@ export function BottomMenu() {
   return (
     <>
       {isHomePage && (
-        <div className={`${styles.AssetInfo3} ${needBottomPadding && styles.AddBottomAssetButtonMargin}`}>
+        <div className={`${styles.AssetInfo3} ${needBottomPadding && styles.AddBottomAssetButtonMargin} ${needBottomPadding && styles.AddBottomMenuPadding}`}>
           <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
             <div className={styles.NewAsset}>
               <IconApp color='#fff' code='t67' size={20} />

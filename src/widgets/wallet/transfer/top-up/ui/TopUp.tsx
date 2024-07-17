@@ -117,23 +117,20 @@ const TopUp = memo(() => {
         <Wrapper isWeb>
           <div className='w-full'>
             <div className={styles.TopUpContainer}>
-              <ChoseNetwork network={network} setNetwork={setNetwork} />
-
-              {md && network && displayedForm && (
-                <div className={styles.TopUpMobileForm}>
-                  {is_operable === false && (
-                    <div className={styles.TopUpAttentionMobile}>
-                      <div className={styles.TopUpAttentionMobileContainer}>
-                        <div className={styles.TopUpAttentionMobileContainerIcon}>
-                          <IconApp code='t27' size={15} color='var(--gek-red)' />
-                        </div>
-                        <p>{t("attention")}</p>
-                      </div>
-                    </div>
-                  )}
-                  {displayedForm}
+              <div className={styles.TopUpMarginLeft}>
+                <ChoseNetwork network={network} setNetwork={setNetwork} />
+              </div>
+              {is_operable === false && network && (
+                <div className={styles.TopUpMarginLeft}>
+                  <div className={styles.AttentionBlock}>
+                    <IconApp code="t27" size={15} color="#8F123A" />
+                    <p className={styles.AttentionText}>{t("attention")}</p>
+                  </div>
                 </div>
               )}
+              {
+                md && network && displayedForm
+              }
             </div>
             {md && networkType === 231 && +type === 231 && (
               <div className={styles.TransferTableContainer}>
@@ -162,16 +159,6 @@ const TopUp = memo(() => {
                       <span className={styles.TopUpNetworkContainerTitle}>{network.label}</span>
                     </div>
                   ))}
-              </div>
-            )}
-
-            {!md && is_operable === false && (
-              <div className='row mb-4 mt-4'>
-                <div className='col'>
-                  <div className='info-box-danger'>
-                    <p>{t("attention")}</p>
-                  </div>
-                </div>
               </div>
             )}
           </div>

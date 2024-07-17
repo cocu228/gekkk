@@ -35,43 +35,7 @@ const TopUpFormQR = () => {
   };
 
   return (
-    addressesForQR !== null &&
-    (addressesForQR !== undefined ? (
-      <>
-        <div className={styles.QRContainer}>
-          <h3 className={styles.QRSendText}>
-            {t("send_to_this")}{" "}
-            <b>
-              {$const} {name}
-            </b>{" "}
-            {t("address_small")}
-          </h3>
-
-          <div className={styles.QRWrapper}>
-            <div className={styles.QRWrapperSecond}>
-              <ReactQRCode className={styles.QRWrapperThird} value={addressesForQR} viewBox={`0 0 148 148`} />
-            </div>
-          </div>
-          {!md ? (
-            <div className={styles.QRFieldDesktop}>
-              <ClipboardField value={addressesForQR} />
-            </div>
-          ) : (
-            <div className={styles.QRFieldMobile}>
-              <div className='col'>
-                <div className={styles.QRFieldMobileWrapper}>
-                  <div className={styles.QRFieldMobileWrapperSecond}>
-                    <span className={styles.QRFieldMobileValue}>{addressesForQR}</span>
-                    <CopyIcon value={addressesForQR} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </>
-    ) : (
-      <>
+    <>
         <div className={styles.GenerateQR}>
           <div className={styles.GenerateQRAttention}>
             <div className={styles.GenerateQRAttentionIcon}>
@@ -82,14 +46,68 @@ const TopUpFormQR = () => {
             </span>
           </div>
           <div className='flex justify-center w-full'>
-            <Button size='lg' color='blue' htmlType='submit' className='w-full' onClick={onCreateAddress}>
+            <Button size='lg' color='green' htmlType='submit' className='w-full' onClick={onCreateAddress}>
               {t("generate_address")}
             </Button>
           </div>
         </div>
         <div className={styles.GenerateQRAttentionError}>{localErrorInfoBox}</div>
       </>
-    ))
+    // addressesForQR !== null &&
+    // (addressesForQR !== undefined ? (
+    //   <>
+    //     <div className={styles.QRContainer}>
+    //       <h3 className={styles.QRSendText}>
+    //         {t("send_to_this")}{" "}
+    //         <b>
+    //           {$const} {name}
+    //         </b>{" "}
+    //         {t("address_small")}
+    //       </h3>
+
+    //       <div className={styles.QRWrapper}>
+    //         <div className={styles.QRWrapperSecond}>
+    //           <ReactQRCode className={styles.QRWrapperThird} value={addressesForQR} viewBox={`0 0 148 148`} />
+    //         </div>
+    //       </div>
+    //       {!md ? (
+    //         <div className={styles.QRFieldDesktop}>
+    //           <ClipboardField value={addressesForQR} />
+    //         </div>
+    //       ) : (
+    //         <div className={styles.QRFieldMobile}>
+    //           <div className='col'>
+    //             <div className={styles.QRFieldMobileWrapper}>
+    //               <div className={styles.QRFieldMobileWrapperSecond}>
+    //                 <span className={styles.QRFieldMobileValue}>{addressesForQR}</span>
+    //                 <CopyIcon value={addressesForQR} />
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       )}
+    //     </div>
+    //   </>
+    // ) : (
+    //   <>
+    //     <div className={styles.GenerateQR}>
+    //       <div className={styles.GenerateQRAttention}>
+    //         <div className={styles.GenerateQRAttentionIcon}>
+    //           <IconApp code='t27' size={15} color='var(--gek-red)' />
+    //         </div>
+    //         <span className={styles.GenerateQRAttentionText}>
+    //           {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
+    //         </span>
+    //       </div>
+    //       <div className='flex justify-center w-full'>
+    //         <Button size='lg' color='blue' htmlType='submit' className='w-full' onClick={onCreateAddress}>
+    //           {t("generate_address")}
+    //         </Button>
+    //       </div>
+    //     </div>
+    //     <div className={styles.GenerateQRAttentionError}>{localErrorInfoBox}</div>
+    //   </>
+    // ))
   );
 };
 

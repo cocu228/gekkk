@@ -138,7 +138,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
   const currency = useContext(CtxWalletData);
   const listTxCode = storeListTxCode(state => state.listTxCode);
   const getListTxCode = storeListTxCode(state => state.getListTxCode);
-  const { md, lg } = useBreakpoints();
+  const { md } = useBreakpoints();
 
   useEffect(() => {
     (async () => {

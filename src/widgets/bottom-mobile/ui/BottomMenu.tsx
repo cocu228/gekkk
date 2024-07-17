@@ -1,4 +1,4 @@
-import { NavLink, useMatch, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { scrollToTop } from "@/shared/lib/helpers";
@@ -16,6 +16,7 @@ import styles from "./style.module.scss";
 export function BottomMenu() {
   const [params] = useSearchParams();
   const currency = params.get("currency");
+  const loc = useLocation()
 
   const isHomePage = !!useMatch("/");
   const isHistoryPage = !!useMatch("/history");
@@ -73,7 +74,7 @@ export function BottomMenu() {
 
           {IS_GEKKARD_APP() && (
             <ExchangeButton
-              to='/exchange'
+              to={'/exchange'}
               className={`${styles.BottomMenuMobileButtons} ${
                 (isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive
               }`}

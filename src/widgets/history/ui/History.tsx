@@ -4,6 +4,7 @@ import { memo, useContext, useEffect, useState } from "react";
 
 import Loader from "@/shared/ui/loader";
 import useModal from "@/shared/model/hooks/useModal";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxRootData } from "@/processes/RootContext";
 import { formatForApi } from "@/shared/lib/date-helper";
 import { actionResSuccess } from "@/shared/lib/helpers";
@@ -15,7 +16,9 @@ import { Modal } from "@/shared/ui/modal/Modal";
 
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import TxInfoModal from "./tx-info-modal/InfoContent";
+import TxInfoRow from "./tx-info-row/TxInfoRow";
 import { HistoryProps } from "../model/types";
+import { formatDate } from "../model/helpers";
 import styles from "./style.module.scss";
 
 const History = memo(function ({
@@ -31,14 +34,14 @@ const History = memo(function ({
   const { md } = useContext(BreakpointsContext);
   const { refreshKey } = useContext(CtxRootData);
   const [loading, setLoading] = useState(false);
-  const { isModalOpen, handleCancel } = useModal();
-  const [, setLazyLoading] = useState<boolean>(false);
+  const { isModalOpen, showModal, handleCancel } = useModal();
+  const [lazyLoading, setLazyLoading] = useState<boolean>(false);
   const [allTxVisibly, setAllTxVisibly] = useState<boolean>(false);
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
-  const [selectedItem] = useState<GetHistoryTrasactionOut>({});
+  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});
   const [nextKey, setNextKey] = useState<string>(listHistory[listHistory.length - 1]?.next_key);
 
-  const { isIntersecting } = useIntersectionObserver({
+  const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0.9
   });
 
@@ -68,7 +71,7 @@ const History = memo(function ({
     setLoading(false);
   };
 
-  /*const requestMoreHistory = async () => {
+  const requestMoreHistory = async () => {
     setLazyLoading(true);
 
     const { data } = await apiGetHistoryTransactions({
@@ -85,7 +88,7 @@ const History = memo(function ({
 
     setListHistory(prevState => [...prevState, ...data.result]);
     setLazyLoading(false);
-  };*/
+  };
 
   const onUpdateTxInfo = (txId: string, senderName: string) => {
     const tx = listHistory.find(t => t.id_transaction === txId);
@@ -137,7 +140,48 @@ const History = memo(function ({
   ) : (
     <>
       <div id={"History"} className={`${styles.Container} ${className}`}>
-        <div className={styles.NoTransactions}>{t("no_have_any_transaction")}</div>
+        {!listHistory.length ? (
+          <span className={styles.NoTransactions}>{t("no_have_any_transaction")}</span>
+        ) : (
+          listHistory.map((item, index) => {
+            const doesPrevDateTimeExist = listHistory[index - 1]?.datetime !== undefined;
+
+            return (
+              <div key={item.id_transaction} ref={ref}>
+                {/* Date wrapper */}
+                {!doesPrevDateTimeExist ? (
+                  <div className={styles.DateLine}>{formatDate(item.datetime)}</div>
+                ) : (
+                  formatDate(listHistory[index].datetime) !== formatDate(listHistory[index - 1].datetime) && (
+                    <div className={styles.DateLine}>{formatDate(item.datetime)}</div>
+                  )
+                )}
+
+                {/* Tx info row */}
+                <TxInfoRow setItem={setSelectedItem} showModal={showModal} item={item} key={item.id_transaction} />
+              </div>
+            );
+          })
+        )}
+
+        {/* See more button */}
+        {listHistory.length >= 10 && !allTxVisibly && (
+          <div className='row mt-3'>
+            <div className='col flex justify-center relative'>
+              {lazyLoading || md ? (
+                <Loader className={"w-[24px] h-[24px]"} />
+              ) : (
+                <span
+                  onClick={requestMoreHistory}
+                  className='text-[#7B797C] font-semibold md:text-[10px] text-[12px] cursor-pointer inline-flex items-center'
+                >
+                  {t("see_more")}
+                  <IconApp size={10} code='t08' className='rotate-90 ml-2' color='#7B797C' />
+                </span>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Tx info modal */}

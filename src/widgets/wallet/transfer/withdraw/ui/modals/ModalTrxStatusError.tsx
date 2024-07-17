@@ -6,8 +6,6 @@ import Button from "@/shared/ui/button/Button";
 import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
-import styles from "../forms/styles.module.scss";
-
 function ModalTrxStatusError() {
   const { t } = useTranslation();
   const { handleCancel } = useContext(CtxGlobalModalContext);
@@ -24,8 +22,8 @@ function ModalTrxStatusError() {
           </NavLink>
         </span>
       </div>
-      <div className={`${styles.ButtonContainerCenter} mt-[30px]`}>
-        <Button size='lg' color='blue' className='w-full' onClick={handleCancel}>
+      <div className={`w-full mt-[30px]`}>
+        <Button size='lg' color='blue' className='w-full mx-auto' onClick={handleCancel}>
           {t("close")}
         </Button>
       </div>

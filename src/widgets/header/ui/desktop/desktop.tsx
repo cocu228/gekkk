@@ -81,7 +81,6 @@ const HeaderDesktop = ({ items, actions }) => {
         </HeaderMenu>
         <div className={styles.HeaderItemsContainer}>
           <LocalizationMenu />
-          <span className={styles.HeaderMenuTitles}>{t("language_name")}</span>
         </div>
         <button onClick={logout}>
           <div className={styles.HeaderItemsContainer}>

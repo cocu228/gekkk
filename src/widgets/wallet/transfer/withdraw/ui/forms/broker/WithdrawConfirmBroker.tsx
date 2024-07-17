@@ -1,23 +1,35 @@
-import { FC, useContext, useState } from "react";
+import { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
-import { CtxWalletData, CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
+import { CtxWalletNetworks } from "@/widgets/wallet/transfer/model/context";
 import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { CtxRootData } from "@/processes/RootContext";
-import { apiPaymentSepa } from "@/shared/api";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons";
 import Notice from "@/shared/ui/notice";
-import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 import ConfirmLoading from "@/widgets/wallet/transfer/components/confirm-loading";
-import resValidation from "@/widgets/wallet/transfer/helpers/res-validation";
+import Input from "@/shared/ui/input/Input";
+import styles from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/styles.module.scss";
+import Form from "@/shared/ui/form/Form";
+import useError from "@/shared/model/hooks/useError";
+import Timer from "@/shared/model/hooks/useTimer";
+import { apiConfirmPaymentToBroker, apiInitiatePaymentToBroker } from "@/shared/(orval)api";
+import { actionResSuccess, formatAsNumber } from "@/shared/lib";
+import ModalTrxStatusSuccess from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusSuccess";
+import { SignTX } from "@/widgets/wallet/transfer/withdraw/model/signTX";
+import ModalTrxStatusError from "@/widgets/wallet/transfer/withdraw/ui/modals/ModalTrxStatusError";
 
-import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
+import type { PaymentData, PostGekV1BankConfirmPaymentToBrokerParams } from "@/shared/(orval)api/gek/model";
+
+interface IStageConfirm {
+  status: number;
+  txId: string;
+  create_result: string;
+  fee: number;
+  code: string | null;
+}
 
 interface IWithdrawConfirmBrokerProps {
   amount: number;
@@ -25,58 +37,129 @@ interface IWithdrawConfirmBrokerProps {
 }
 
 const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handleCancel }) => {
+  const initialStageReq: IStageConfirm = {
+    code: null,
+    fee: 0,
+    status: -1,
+    txId: "",
+    create_result: ""
+  };
+
+  const initialPyamentData: PaymentData = {
+    amount_decimal: amount,
+    description: "Purchase of EURG tokens"
+  };
+
   // Hooks
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [stageReq, setStageReq] = useState<IStageConfirm>(initialStageReq);
+  const [smsCode, setSmsCode] = useState<string>("");
+  const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
 
   // Context
   const { setContent } = useContext(CtxGlobalModalContext);
   const { displayHistory } = useContext(CtxDisplayHistory);
-  const { uasToken } = useContext(UasConfirmCtx);
-  const { account } = useContext(CtxRootData);
   const { setRefresh } = useContext(CtxRootData);
-  const { $const } = useContext(CtxWalletData);
-  const { getAccountDetails } = storeAccountDetails(state => state);
   const { networkTypeSelect, networksForSelector, tokenNetworks } = useContext(CtxWalletNetworks);
-  const { token_hot_address, withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+  const { withdraw_fee } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
-  const onConfirm = async () => {
+  // Handles
+  const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    localErrorClear();
+    setSmsCode(target.value);
+  };
+
+  const handleOnInitialConfirm = async () => {
     setIsLoading(true);
-    const details = {
-      purpose: "Purchase of EURG tokens", // t("purchase_of", { token: "EURG" }),
-      iban: token_hot_address,
-      account: account.account_id,
-      beneficiaryName: account.name,
-      amount: {
-        sum: {
-          currency: { code: $const },
-          value: amount
+
+    const response = await apiInitiatePaymentToBroker(initialPyamentData);
+
+    actionResSuccess(response)
+      .success(() => {
+        const result = response.data?.result;
+        const isStageReq = [0, 1, 2].includes(result.confirmationStatusCode);
+        if (isStageReq) {
+          setStageReq(prev => ({
+            ...prev,
+            status: result.confirmationStatusCode,
+            txId: result.txId,
+            fee: result.fee,
+            code: result.confirmCode,
+            create_result: result.create_result
+          }));
         }
-      }
-    };
-    const { phone } = await getAccountDetails();
-    const headers = { Authorization: phone, Token: uasToken };
-    try {
-      const response = await apiPaymentSepa(details, false, headers);
-      // @ts-ignore
-      const confToken = response.data.errors[0].properties.confirmationToken;
-      const inSideHeaders = await signHeadersGeneration(phone, uasToken, confToken);
-      const res = await apiPaymentSepa(details, false, { ...headers, ...inSideHeaders });
-      if (resValidation(res)) {
-        setRefresh();
-        displayHistory();
-        setContent({ content: <ModalTrxStatusSuccess /> });
-      } else {
-        setContent({ content: <ModalTrxStatusError /> });
-      }
-    } catch (_) {
-      setContent({ content: <ModalTrxStatusError /> });
-    }
-    handleCancel();
+        if (result.confirmationStatusCode === 4) {
+          handleCancel();
+          setRefresh();
+          displayHistory();
+          setContent({ content: <ModalTrxStatusSuccess /> });
+        } else {
+          localErrorHunter({ message: "Something went wrong.", code: 1 });
+        }
+      })
+      .reject(err => {
+        localErrorHunter(err);
+        setSmsCode("");
+      });
+
     setIsLoading(false);
   };
 
+  const handleOnConfirm = async () => {
+    setIsLoading(true);
+
+    const paymentData: PaymentData = {
+      ...initialPyamentData,
+      referenceNumber: stageReq.create_result
+    };
+
+    const confirmationCode = stageReq.status === 2 ? stageReq.code : smsCode !== "" ? formatAsNumber(smsCode) : null;
+
+    const params: PostGekV1BankConfirmPaymentToBrokerParams = {
+      confirmationTimetick: stageReq.txId,
+      confirmationCode
+    };
+
+    const options = {
+      headers: {
+        // В случае когда требуется подпись
+        ...(stageReq?.status !== 2
+          ? {}
+          : {
+              "x-signature": await SignTX(`${stageReq.txId}${stageReq.code}`)
+            })
+      }
+    };
+
+    const response = await apiConfirmPaymentToBroker(paymentData, params, options);
+
+    if (response.data.error) {
+      setContent({ content: <ModalTrxStatusError /> });
+    } else {
+      handleCancel();
+      setSmsCode("");
+      setStageReq(initialStageReq);
+      setRefresh();
+      displayHistory();
+      setContent({ content: <ModalTrxStatusSuccess /> });
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleOnResetSmsCode = async () => {
+    void handleOnInitialConfirm();
+  };
+
+  // Effects
+  useEffect(() => {
+    void handleOnInitialConfirm();
+  }, []);
+
+  // Helpers
   const { label } = networksForSelector.find(it => it.value === networkTypeSelect);
+  const isConfirmDisabled = !!localErrorInfoBox || (smsCode === "" && (stageReq.status === 0 || stageReq.status === 1));
 
   return (
     <ConfirmLoading isLoading={isLoading}>
@@ -99,7 +182,38 @@ const WithdrawConfirmBroker: FC<IWithdrawConfirmBrokerProps> = ({ amount, handle
         </div>
       </div>
 
-      <ConfirmButtons onConfirm={onConfirm} onCancel={handleCancel} />
+      {/* Transfer Error Start */}
+      {localErrorInfoBox}
+      {/* Transfer Error Start */}
+
+      <Form wrapperClassName='w-full' onSubmit={handleOnConfirm}>
+        {(stageReq.status === 0 || stageReq.status === 1) && (
+          <div className='mb-[15px]'>
+            <Input
+              allowDigits
+              size={"sm"}
+              type='text'
+              value={smsCode}
+              className={styles.Input}
+              onChange={handleOnChange}
+              placeholder={
+                stageReq.status === 0
+                  ? t("enter_sms_code")
+                  : stageReq.status === 1
+                  ? t("enter_code")
+                  : t("enter_pin_code")
+              }
+            />
+            <Timer onAction={handleOnResetSmsCode} />
+          </div>
+        )}
+        <ConfirmButtons
+          isConfirmDisabled={isConfirmDisabled}
+          confirmTitle={t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
+          confirmType={"submit"}
+          onCancel={handleCancel}
+        />
+      </Form>
     </ConfirmLoading>
   );
 };

@@ -11,9 +11,9 @@ const TransferCodeDescription = () => {
   return (
     <div className={styles.Container}>
       <div className={`${!md && "info-box-description"} ${styles.ContainerSecondary}`}>
-          <span className={styles.FundsText}>{t("funds_transfer_code")}</span>
+        <span className={styles.FundsText}>{t("funds_transfer_code")}</span>
         <div>
-        <span className={styles.CodeText}>&nbsp;&nbsp;&nbsp;&nbsp;{t("create_special_code")}</span>
+          <span className={styles.CodeText}>&nbsp;&nbsp;&nbsp;&nbsp;{t("create_special_code")}</span>
         </div>
       </div>
     </div>

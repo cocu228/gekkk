@@ -424,7 +424,11 @@
       "registration_date": "注册日期",
       "id": "ID",
       "agent_info": "代理信息",
-      "agent_link": "您的代理链接"
+      "agent_link": "您的代理链接",
+      "referal_title": "购买 GKE 代币的推荐计划",
+      "referal_info": "奖励将在账单月末转入您的 GKE 余额",
+      "referal_condition_first": "在第一年内，每个被吸引的推荐人每月 GKE 平均余额的年利率为 2%",
+      "referal_condition_second": "第二年内，每吸引一名转介客户，其 GKE 每月平均余额的年利率为 1%"
     },
     "crypto_assets": {
       "title": "加密资产",

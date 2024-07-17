@@ -28,7 +28,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
 
   const toCashbackProgram = cashbackId === ActiveBonusProgram.CASHBACK1;
   const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
-
+  const toPartnershipProgram = cashbackId === ActiveBonusProgram.PARTNERSHIP;
   return (
     <div className='flex flex-col relative pb-[40px] justify-center'>
       <div
@@ -58,26 +58,26 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
               isActive || toNoFeeProgram || toCashbackProgram ? "pl-0" : ""
             }`}
           >
-            {t("cashback_programs.bonus_description")}
+            {!toPartnershipProgram ? t("cashback_programs.bonus_description") : t("partnership_program.referal_info")}
           </div>
         </div>
       </div>
 
       <div className='flex flex-col relative justify-between -mx-4 -mb-4'>
         <div className={styles.CashbackCardButtonContainerMobile}>
-          {(toNoFeeProgram || toCashbackProgram) && (
+          {(toNoFeeProgram || toCashbackProgram || toPartnershipProgram) && (
             <Button
               color='blue'
               className={`${styles.CashbackCardButton}`}
-              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
-              onClick={
-                toNoFeeProgram
-                  ? () => navigate("/wallet?currency=GKE&tab=no_fee_program")
-                  : () => navigate("/wallet?currency=GKE&tab=cashback_program")
-              }
+              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram || toPartnershipProgram)}
+              onClick={() => {
+                if (toNoFeeProgram)  navigate("/wallet?currency=GKE&tab=no_fee_program")
+                if (toCashbackProgram) navigate("/wallet?currency=GKE&tab=cashback_program")
+                if (toPartnershipProgram) navigate("/partnership-program")
+              }}
             >
               <div className='flex flex-row'>
-                {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
+                {(toNoFeeProgram || toCashbackProgram || toPartnershipProgram) && t("cashback_programs.go_to_the_program")}
               </div>
             </Button>
           )}

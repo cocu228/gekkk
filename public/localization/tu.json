@@ -424,7 +424,11 @@
       "registration_date": "Kayıt Tarihi",
       "id": "İD",
       "agent_info": "Ajan bilgisi",
-      "agent_link": "Ajan bağlantınız"
+      "agent_link": "Ajan bağlantınız",
+      "referal_title": "GKE tokenları satın almak için yönlendirme programı",
+      "referal_info": "Ödüller, faturalandırma ayının sonunda GKE bakiyenize aktarılır.",
+      "referal_condition_first": "- İlk yıl boyunca çekilen her yönlendirmenin GKE'deki ortalama aylık bakiyesi üzerinden yıllık %2",
+      "referal_condition_second": "- İkinci yıl boyunca çekilen her yönlendirmenin GKE'deki ortalama aylık bakiyesi üzerinden yıllık %1"
     },
     "crypto_assets": {
       "title": "Kripto varlıkları",

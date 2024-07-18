@@ -90,7 +90,7 @@ export function BottomMenu() {
 
           {IS_GEKKARD_APP() && (
             <ExchangeButton
-              to={currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `${currencyFrom && '&'}to=${currencyTo}`}` : '/exchange'}
+              to={currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}` : '/exchange'}
               className={`${styles.BottomMenuMobileButtons} ${
                 (isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive
               }`}

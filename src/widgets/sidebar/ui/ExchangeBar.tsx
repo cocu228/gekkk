@@ -66,7 +66,7 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
       <NavLink 
         className={!currencies ? "disabled" : ""}
         onClick={NavLinkEvent} 
-        to={!currencies ? '' : currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `${currencyFrom && '&'}to=${currencyTo}`}` : '/exchange'}
+        to={!currencies ? '' : currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}` : '/exchange'}
         // to={!currencies ? "" : "exchange"}
       >
         <div className={styles.ItemExchange}>

@@ -22,7 +22,7 @@ body {
 }
 
 .ptr {
-  height: calc(100vh - 105px) !important; // 55px - размер header 50px - Bottom Buttons
+  height: calc(100dvh - 105px) !important; // 55px - размер header 50px - Bottom Buttons
   overscroll-behavior-y: none;
   &__children {
     overflow: auto !important;

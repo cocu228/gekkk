@@ -2,4 +2,8 @@
   display: flex;
   position: relative;
   flex: 1;
+
+  @media (max-width: 768px) {
+    padding-bottom: 55px;
+  }
 }

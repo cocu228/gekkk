@@ -32,7 +32,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   const isNoPaddingPages = isWallet || isExchange || isPrivateRoom || isHistory;
 
   return isGEKAndGEKW ? (
-    <div className='w-full flex-1 md:mb-3 mb-10'>
+    <div className='w-full flex-1 md:mb-0 mb-10'>
       <CtxGlobalModalProvider>
         {md ? null : (
           <>

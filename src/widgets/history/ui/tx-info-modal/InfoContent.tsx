@@ -32,7 +32,7 @@ const InfoContent = (props: TxInfoProps) => {
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
-  const isFinishedTx = getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished];
+  // const isFinishedTx = getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished];
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
@@ -245,12 +245,12 @@ const InfoContent = (props: TxInfoProps) => {
           {isNeedConfirm ? (
             <InfoConfirmPartner {...props} />
           ) : (
-            <div className={`flex gap-[20px] w-full mt-3 ${isFinishedTx ? "justify-evenly" : "justify-center"}`}>
-              {isFinishedTx && (
+            <div className={`flex gap-[20px] w-full mt-3 justify-center`}/*${isFinishedTx ? "justify-evenly" : "justify-center"}`}*/>
+              {/* {isFinishedTx && (
                 <Button skeleton className='w-full' onClick={handleOnReceipt}>
                   <IconApp size={20} code='t58' color='#2BAB72' /> {t("receipt").capitalize()}
                 </Button>
-              )}
+              )} */}
 
               <Button className='w-full' onClick={props.handleCancel}>
                 {t("close")}

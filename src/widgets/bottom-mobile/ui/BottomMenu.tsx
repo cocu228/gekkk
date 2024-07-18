@@ -70,6 +70,7 @@ export function BottomMenu() {
       <div className={styles.BottomMobile}>
         <div
           className={`
+                ${needBottomPadding && styles.AddBottomMenuPadding}
                 ${styles.BottomMenuMobile}
                 ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
             `}

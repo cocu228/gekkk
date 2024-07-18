@@ -1,12 +1,15 @@
 import { createHash } from "sha256-uint8array";
 import base64url from "base64url";
 
+import { IS_GEKKARD_APP, IS_GEKKWALLET_APP } from "@/shared/lib";
+
 export async function SignTX(signData: string) {
   const hash = createHash().update(signData);
   const chall = hash.digest();
+  const rpId = IS_GEKKARD_APP() ? "gekkard" : IS_GEKKWALLET_APP() ? "gekwallet" : "gekkoin";
   const publicKey: PublicKeyCredentialRequestOptions = {
     challenge: chall,
-    rpId: "gekkard.com",
+    rpId: `${rpId}.com`,
     allowCredentials: [],
     userVerification: "required"
   };

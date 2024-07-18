@@ -138,7 +138,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
   const currency = useContext(CtxWalletData);
   const listTxCode = storeListTxCode(state => state.listTxCode);
   const getListTxCode = storeListTxCode(state => state.getListTxCode);
-  const { md, lg } = useBreakpoints();
+  const { md } = useBreakpoints();
 
   useEffect(() => {
     (async () => {
@@ -196,7 +196,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
             {filteredListTxCode.map(it => {
               const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
               return (
-              <GTable.Row key={it.code} className={styles.TableItem}>
+                <GTable.Row key={it.code} className={styles.TableItem}>
                   <GTable.Col className='w-full'>
                     <div className='row flex w-full items-center pr-[6px]'>
                       <div className='col pr-[15px] w-full'>
@@ -222,7 +222,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
                     </span>
                   </GTable.Col>
 
-                {/* {!md && !lg && (
+                  {/* {!md && !lg && (
                     <GTable.Col className='text-center'>
                       <span className='text-gra-600 text-xs'>{it.amount}</span>
                     </GTable.Col>

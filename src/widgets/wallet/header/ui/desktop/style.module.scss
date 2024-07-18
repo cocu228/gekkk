@@ -20,6 +20,10 @@
   gap: 12px;
   align-self: stretch;
   margin: 0px 10px;
+
+  @media screen and (max-width: 810px) {
+    margin: 0 5px;
+  }
 }
 
 .IconInfo {
@@ -28,6 +32,14 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
+
+  @media screen and (max-width: 1120px) {
+    margin-right: 10px;
+  }
+
+  @media screen and (max-width: 810px) {
+    margin-right: 5px;
+  }
 }
 
 .IconBalance {
@@ -36,6 +48,15 @@
   height: 78px;
   align-items: flex-start;
   margin: 0px 15px;
+
+  @media screen and (max-width: 1120px) {
+    width: 200px;
+  }
+
+  @media screen and (max-width: 810px) {
+    width: 190px;
+    margin: 0 5px;
+  }
 }
 
 .IconRate {
@@ -45,6 +66,10 @@
   justify-content: center;
   align-self: center;
   text-wrap: nowrap;
+
+  @media screen and (max-width: 1120px) {
+    margin-left: 20px;
+  }
 
   @media screen and (max-width: 950px) {
     display: none;

@@ -418,7 +418,11 @@
       "registration_date": "Anmeldedatum",
       "id": "ID",
       "agent_info": "Agenteninfo",
-      "agent_link": "Ihr Agentenlink"
+      "agent_link": "Ihr Agentenlink",
+      "referal_title": "Empfehlungsprogramm für den Kauf von GKE-Tokens",
+      "referal_info": "Belohnungen werden am Ende des Abrechnungsmonats auf Ihr GKE-Guthaben überwiesen.",
+      "referal_condition_first": "- 2% pro Jahr auf das durchschnittliche monatliche GKE-Guthaben jedes geworbenen Empfehlers im ersten Jahr",
+      "referal_condition_second": "- 1% pro Jahr auf den durchschnittlichen monatlichen Saldo im GKE jeder geworbenen Überweisung während des zweiten Jahres"
     },
     "crypto_assets": {
       "title": "Krypto-Vermögenswerte",

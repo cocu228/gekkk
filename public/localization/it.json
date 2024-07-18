@@ -424,7 +424,11 @@
       "registration_date": "Data di registrazione",
       "id": "ID",
       "agent_info": "Info agente",
-      "agent_link": "Il tuo link agente"
+      "agent_link": "Il tuo link agente",
+      "referal_title": "Programma di referral per l'acquisto di token GKE",
+      "referal_info": "I premi vengono trasferiti sul tuo saldo GKE alla fine del mese di fatturazione",
+      "referal_condition_first": "- 2% annuo sul saldo medio mensile in GKE di ogni referral attratto durante il primo anno",
+      "referal_condition_second": "- 1% annuo sul saldo medio mensile nella CGA di ogni referente attratto durante il secondo anno"
     },
     "crypto_assets": {
       "title": "Risorse crittografiche",

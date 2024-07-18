@@ -27,8 +27,6 @@ const WalletHeaderMobile = () => {
 
   // const IBAN = account?.number;
 
-  console.log("ACC", account);
-
   useEffect(() => {
     (async () => {
       const { data } = await apiGetRates({

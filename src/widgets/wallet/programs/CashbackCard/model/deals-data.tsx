@@ -54,6 +54,18 @@ export const dealsData = {
       mobileModalColor: styles.CashbackCardLightBlue,
       icon: <IconApp lib={2} code='t74' size={107} color='#A2BEB8' />,
       isActive: false
+    },
+    {
+      id: ActiveBonusProgram.PARTNERSHIP,
+      name: "partnership_program.referal_title",
+      accrualPeriod: "",
+      conditions: [
+        "partnership_program.referal_info",
+      ],
+      className: styles.CashbackCardLightOrange,
+      mobileModalColor: styles.CashbackCardLightOrange,
+      icon: <IconApp lib={2} code='t89' size={107} color='#A2BEB8' />,
+      isActive: false
     }
   ],
   GKE: [
@@ -89,6 +101,19 @@ export const dealsData = {
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
       icon: <IconApp lib={2} code='t74' size={107} color='#A2BEB8' />,
+      isActive: false
+    },
+    {
+      id: ActiveBonusProgram.PARTNERSHIP,
+      name: "partnership_program.referal_title",
+      accrualPeriod: "",
+      conditions: [
+        "partnership_program.referal_condition_first",
+        "partnership_program.referal_condition_second"
+      ],
+      className: styles.CashbackCardLightOrange,
+      mobileModalColor: styles.CashbackCardLightOrange,
+      icon: <IconApp lib={2} code='t89' size={107} color='#A2BEB8' />,
       isActive: false
     }
   ]

@@ -36,12 +36,13 @@
 .BottomMobile {
   width: 100%;
   overscroll-behavior-y: none;
-  position: sticky;
+  position: fixed;
   bottom: 0px;
   z-index: 21;
 }
 .AddBottomMenuPadding{
-    padding-bottom: calc(env(safe-area-inset-bottom) + 25px);
+    box-sizing: content-box;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
  }
 .AssetInfo3 {
   background-color: var(--gek-background);

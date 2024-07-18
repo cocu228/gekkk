@@ -42,7 +42,7 @@
 }
 .AddBottomMenuPadding{
     box-sizing: content-box;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
+    padding-bottom: env(safe-area-inset-bottom);
  }
 .AssetInfo3 {
   background-color: var(--gek-background);

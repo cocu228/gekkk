@@ -36,7 +36,7 @@
 .BottomMobile {
   width: 100%;
   overscroll-behavior-y: none;
-  position: sticky;
+  position: fixed;
   bottom: 0px;
   z-index: 21;
 }

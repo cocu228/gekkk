@@ -27,8 +27,8 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
   const roomCloseModal = useModal();
   const [params] = useSearchParams();
   // const currency = params.get('currency')
-  const [currencyFrom, setCurrencyFrom] = useState(params.get('currency'))
-  const [currencyTo, setCurrencyTo] = useState(params.get('currency'))
+  const [currencyFrom, setCurrencyFrom] = useState(params.get("currency"));
+  const [currencyTo, setCurrencyTo] = useState(params.get("currency"));
   const roomId = params.get("roomId");
   const { account } = useContext(CtxRootData);
   const { xxxl } = useContext(BreakpointsContext);
@@ -47,26 +47,32 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
   }, [account]);
 
   useEffect(() => {
-    if(params.get('currency') === 'EUR') {
-      setCurrencyFrom('')
+    if (params.get("currency") === "EUR") {
+      setCurrencyFrom("");
     } else {
-      setCurrencyFrom(params.get('currency'))
+      setCurrencyFrom(params.get("currency"));
     }
 
-    if(params.get('currency') === 'EURG') {
-      setCurrencyTo('')
+    if (params.get("currency") === "EURG") {
+      setCurrencyTo("");
     } else {
-      setCurrencyTo('EURG')
+      setCurrencyTo("EURG");
     }
-  }, [params])
-  
+  }, [params]);
+
   return (
     <>
       {/* Exchange page link */}
-      <NavLink 
+      <NavLink
         className={!currencies ? "disabled" : ""}
-        onClick={NavLinkEvent} 
-        to={!currencies ? '' : currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}` : '/exchange'}
+        onClick={NavLinkEvent}
+        to={
+          !currencies
+            ? ""
+            : currencyFrom || currencyTo
+            ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}`
+            : "/exchange"
+        }
         // to={!currencies ? "" : "exchange"}
       >
         <div className={styles.ItemExchange}>

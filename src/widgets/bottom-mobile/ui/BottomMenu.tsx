@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useMatch, useSearchParams } from "react-router-dom";
+import { NavLink, useMatch, useSearchParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { scrollToTop } from "@/shared/lib/helpers";
@@ -16,8 +16,8 @@ import styles from "./style.module.scss";
 export function BottomMenu() {
   const [params] = useSearchParams();
   const currency = params.get("currency");
-  const [currencyFrom, setCurrencyFrom] = useState(params.get('currency'))
-  const [currencyTo, setCurrencyTo] = useState(params.get('currency'))
+  const [currencyFrom, setCurrencyFrom] = useState(params.get("currency"));
+  const [currencyTo, setCurrencyTo] = useState(params.get("currency"));
 
   const isHomePage = !!useMatch("/");
   const isHistoryPage = !!useMatch("/history");
@@ -41,19 +41,18 @@ export function BottomMenu() {
   }, []);
 
   useEffect(() => {
-    if(params.get('currency') === 'EUR') {
-      setCurrencyFrom('')
+    if (params.get("currency") === "EUR") {
+      setCurrencyFrom("");
     } else {
-      setCurrencyFrom(params.get('currency'))
+      setCurrencyFrom(params.get("currency"));
     }
 
-    if(params.get('currency') === 'EURG') {
-      setCurrencyTo('')
+    if (params.get("currency") === "EURG") {
+      setCurrencyTo("");
     } else {
-      setCurrencyTo('EURG')
+      setCurrencyTo("EURG");
     }
-  }, [params])
-
+  }, [params]);
 
   return (
     <>
@@ -91,7 +90,11 @@ export function BottomMenu() {
 
           {IS_GEKKARD_APP() && (
             <ExchangeButton
-              to={currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}` : '/exchange'}
+              to={
+                currencyFrom || currencyTo
+                  ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}`
+                  : "/exchange"
+              }
               className={`${styles.BottomMenuMobileButtons} ${
                 (isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive
               }`}

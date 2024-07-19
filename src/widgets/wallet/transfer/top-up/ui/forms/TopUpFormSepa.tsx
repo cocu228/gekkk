@@ -15,24 +15,24 @@ const TopUpFormSepa = () => {
   return (
     <div className='wrapper'>
       <div className={styles.Sepa}>
-          <span className={styles.SepaTitle}>{t("account_for_top_up")}:</span>
-          <div className={styles.SepaValueWrapper}>
-            <div className={styles.SepaValueWrapperSecond}>
-              <span className={styles.SepaValue}>{account.number}</span>
-              <div>
-                <CopyIcon value={account.number} />
-              </div>
+        <span className={styles.SepaTitle}>{t("account_for_top_up")}:</span>
+        <div className={styles.SepaValueWrapper}>
+          <div className={styles.SepaValueWrapperSecond}>
+            <span className={styles.SepaValue}>{account.number}</span>
+            <div>
+              <CopyIcon value={account.number} />
             </div>
+          </div>
         </div>
       </div>
       <div className={styles.Sepa}>
-          <span className={styles.SepaTitle}>{t("recipient")}:</span>
-          <div className={styles.SepaValueWrapper}>
-            <div className={styles.SepaValueWrapperSecond}>
-              <span className={styles.SepaValue}>{account.name}</span>
-              <CopyIcon value={account.name} />
-            </div>
+        <span className={styles.SepaTitle}>{t("recipient")}:</span>
+        <div className={styles.SepaValueWrapper}>
+          <div className={styles.SepaValueWrapperSecond}>
+            <span className={styles.SepaValue}>{account.name}</span>
+            <CopyIcon value={account.name} />
           </div>
+        </div>
       </div>
       <div className={styles.Sepa}>
         <span className={styles.SepaTitle}>{t("the_beneficiary_bank")}:</span>
@@ -44,13 +44,13 @@ const TopUpFormSepa = () => {
         </div>
       </div>
       <div className={styles.Sepa}>
-          <span className={styles.SepaTitle}>{t("bic_of_beneficiary_bank")}:</span>
-          <div className={styles.SepaValueWrapper}>
-            <div className={styles.SepaValueWrapperSecond}>
-              <span className={styles.SepaValue}>PAPYMTMTXXX</span>
-              <CopyIcon value={"PAPYMTMTXXX"} />
-            </div>
+        <span className={styles.SepaTitle}>{t("bic_of_beneficiary_bank")}:</span>
+        <div className={styles.SepaValueWrapper}>
+          <div className={styles.SepaValueWrapperSecond}>
+            <span className={styles.SepaValue}>PAPYMTMTXXX</span>
+            <CopyIcon value={"PAPYMTMTXXX"} />
           </div>
+        </div>
       </div>
     </div>
   );

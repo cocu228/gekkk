@@ -46,7 +46,7 @@ export default function Transfers() {
   }, [currencies, curr]);
 
   return !currencies ? (
-    <div className="min-h-[100px]">
+    <div className='min-h-[100px]'>
       <Loader />
     </div>
   ) : (

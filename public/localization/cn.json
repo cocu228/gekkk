@@ -1109,6 +1109,14 @@
     "one_uppercase": "一个大写",
     "one_number": "一个号码",
     "min_8_characters": "最少 8 个字符",
+    "account_status": "账户状态",
+    "bank_status": {
+      "ACTIVE": "活跃",
+      "BLOCKED": "被银行冻结",
+      "DEBIT BLOCKED": "借记已封锁",
+      "IN CLOSURE": "正在关闭",
+      "CLOSED": "已关闭"
+    },
     "one_special_char": "一个特殊字符",
     "new_password": "新密码",
     "confirm_password": "确认密码",

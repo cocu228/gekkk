@@ -1,5 +1,6 @@
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "@/widgets/exchange/ui/style.module.scss";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
@@ -14,7 +15,6 @@ import { IExchangeField, IExchangePrice } from "@/widgets/exchange/model/types";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { ICtxCurrency } from "@/processes/CurrenciesContext";
 import Wrapper from "@/shared/ui/wrapper";
-import { useLocation, useNavigate } from "react-router-dom";
 
 interface IExchangeCreateOrderProps {
   currencies: Map<string, ICtxCurrency>;
@@ -54,18 +54,18 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
   setHasValidationError
 }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate()
-  const loc = useLocation()
+  const navigate = useNavigate();
+  const loc = useLocation();
 
   useEffect(() => {
-    if(from.currency && !to.currency) {
-      navigate(`${loc.pathname}?from=${from.currency}`)      
+    if (from.currency && !to.currency) {
+      navigate(`${loc.pathname}?from=${from.currency}`);
     } else if (!from.currency && to.currency) {
-      navigate(`${loc.pathname}?to=${to.currency}`)
+      navigate(`${loc.pathname}?to=${to.currency}`);
     } else if (from.currency && to.currency) {
-      navigate(`${loc.pathname}?from=${from.currency}&to=${to.currency}`)
+      navigate(`${loc.pathname}?from=${from.currency}&to=${to.currency}`);
     }
-  }, [from, to])
+  }, [from, to]);
 
   return (
     <div className={"w-full md:bg-white md:pt-[15px]"}>

@@ -130,6 +130,7 @@ const HeaderMobile = ({ items, actions }) => {
               ) : (
                 <IconApp code='t10' size={24} color='white' />
               )}
+
               {account?.number && (
                 <div className='wrapper flex flex-col justify-center  self-stretch'>
                   <span className={styles.Name}>{account?.name}</span>
@@ -167,16 +168,21 @@ const HeaderMobile = ({ items, actions }) => {
               <IconApp className='rotate-[180deg] m-[0_5vw] cursor-pointer' size={13} code='t08' color='#fff' />
               <span className={styles.HeaderTitle}>{headerTitle()}</span>
             </div>
-            {walletPage?.pathname === "/wallet" && params.get("currency") === "EUR" && tab !== "programs" && (
-              <Link to='/settings?sessionsSection=my-reports' state={"/wallet?currency=EUR"}>
-                <div className='flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold'>
-                  {t("reports")}
-                  <IconApp code='t09' className='min-w-[9px]' size={9} color='#fff' />
-                </div>
-              </Link>
-            )}
+
+            {walletPage?.pathname === "/wallet" &&
+              params.get("currency") === "EUR" &&
+              tab !== "programs" &&
+              tab !== "top_up" && (
+                <Link to='/settings?sessionsSection=my-reports' state={"/wallet?currency=EUR"}>
+                  <div className='flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold'>
+                    {t("reports")}
+                    <IconApp code='t09' className='min-w-[9px]' size={9} color='#fff' />
+                  </div>
+                </Link>
+              )}
           </div>
         )}
+
         {!(exchangePage || privateRoomPage) ? null : (
           <div className='flex items-center justify-end w-[20%] gap-2 pr-2' data-testid='ExchangeRoomMenu'>
             <ExchangeRoomMenu roomCloseModal={roomCloseModal} roomId={roomId} />

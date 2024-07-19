@@ -479,6 +479,14 @@
     "simple_exchange": "Échange simple",
     "transfer_to_contact": "Transférer vers Contact",
     "templates": "Modèles",
+    "account_status": "statut du compte",
+    "bank_status": {
+      "ACTIVE": "actif",
+      "BLOCKED": "Bloqué par la banque",
+      "DEBIT BLOCKED": "débit bloqué",
+      "IN CLOSURE": "en cours de fermeture",
+      "CLOSED": "fermé"
+    },
     "history": "Histoire",
     "signHistory": "Historique de connexion et de signature",
     "withdraw": "Transfert",

@@ -1,26 +1,21 @@
 import { useContext } from "react";
-import ReactQRCode from "react-qr-code";
 import { useTranslation } from "react-i18next";
 
 import { apiCreateAddress } from "@/shared/(orval)api/gek";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
-import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import useError from "@/shared/model/hooks/useError";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import { getChosenNetwork } from "../../../model/helpers";
 import styles from "./style.module.scss";
 
 const TopUpFormQR = () => {
-  const { $const, name } = useContext(CtxWalletData);
+  const { $const } = useContext(CtxWalletData);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const { t } = useTranslation();
-  const { md } = useBreakpoints();
-  const { setRefresh, setLoading, tokenNetworks, addressesForQR, networkTypeSelect } = useContext(CtxWalletNetworks);
+  const { setRefresh, setLoading, tokenNetworks, networkTypeSelect } = useContext(CtxWalletNetworks);
 
   const onCreateAddress = async () => {
     setLoading(true);
@@ -36,23 +31,23 @@ const TopUpFormQR = () => {
 
   return (
     <>
-        <div className={styles.GenerateQR}>
-          <div className={styles.GenerateQRAttention}>
-            <div className={styles.GenerateQRAttentionIcon}>
-              <IconApp code='t27' size={15} color='var(--gek-red)' />
-            </div>
-            <span className={styles.GenerateQRAttentionText}>
-              {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
-            </span>
+      <div className={styles.GenerateQR}>
+        <div className={styles.GenerateQRAttention}>
+          <div className={styles.GenerateQRAttentionIcon}>
+            <IconApp code='t27' size={15} color='var(--gek-red)' />
           </div>
-          <div className='flex justify-center w-full'>
-            <Button size='lg' color='green' htmlType='submit' className='w-full' onClick={onCreateAddress}>
-              {t("generate_address")}
-            </Button>
-          </div>
+          <span className={styles.GenerateQRAttentionText}>
+            {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
+          </span>
         </div>
-        <div className={styles.GenerateQRAttentionError}>{localErrorInfoBox}</div>
-      </>
+        <div className='flex justify-center w-full'>
+          <Button size='lg' color='green' htmlType='submit' className='w-full' onClick={onCreateAddress}>
+            {t("generate_address")}
+          </Button>
+        </div>
+      </div>
+      <div className={styles.GenerateQRAttentionError}>{localErrorInfoBox}</div>
+    </>
     // addressesForQR !== null &&
     // (addressesForQR !== undefined ? (
     //   <>

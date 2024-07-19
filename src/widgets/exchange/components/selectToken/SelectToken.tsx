@@ -20,7 +20,6 @@ interface SelectTokenProps {
   allowedFlags: CurrencyFlags[];
   balanceFilter?: boolean;
   value: string;
-  variant?: string;
   className?: string;
   isBalance: boolean;
   currency: string;
@@ -38,7 +37,6 @@ export const SelectToken: FC<SelectTokenProps> = ({
   onChange,
   className,
   onSelect,
-  variant,
   onError = null,
   isBalance = false,
   balanceFilter = false

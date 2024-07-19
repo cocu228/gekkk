@@ -506,6 +506,14 @@
     "activate_card": "Karte aktivieren",
     "block_card": "Karte sperren",
     "unblock_card": "Karte entsperren",
+    "account_status": "Kontostatus",
+    "bank_status": {
+      "ACTIVE": "aktiv",
+      "BLOCKED": "Von der Bank blockiert",
+      "DEBIT BLOCKED": "Lastschrift blockiert",
+      "IN CLOSURE": "in Schließung",
+      "CLOSED": "geschlossen"
+    },
     "available": "Verfügbar",
     "set_limit": "Setze das {{period}} Limit",
     "confirm_action": "Aktion bestätigen",

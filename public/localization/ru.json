@@ -597,7 +597,14 @@
     "days": "дней",
     "confirm_locking": "Подтвердить блокировку",
     "minimum_lock_amount": "Минимальная сумма блокировки",
-
+    "account_status": "статус аккаунта",
+    "bank_status": {
+      "ACTIVE": "активен",
+      "BLOCKED": "Заблокирован банком",
+      "DEBIT BLOCKED": "дебет заблокирован",
+      "IN CLOSURE": "в процессе закрытия",
+      "CLOSED": "закрыт"
+    },
     "top_up_account": "Пополнить счет",
     "top_up_wallet": "Пополнение",
 

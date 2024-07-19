@@ -1108,6 +1108,14 @@
     "urgency": "Urgency",
     "withdraw_title": "Withdraw",
     "from_card": "From card",
+    "account_status": "account status",
+    "bank_status": {
+      "ACTIVE": "active",
+      "BLOCKED": "blocked by the bank",
+      "DEBIT BLOCKED": "debit blocked",
+      "IN CLOSURE": "in closure",
+      "CLOSED": "closed"
+    },
     "card_number_title": "Card number",
     "to_confirm_enter_sms_code": "To confirm the operation, you should enter SMS code",
     "pending_transactions": "You have pending transaction with your card. Please confirm or decline.",

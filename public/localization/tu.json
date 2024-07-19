@@ -551,6 +551,14 @@
     "address": "Adres",
     "enter_withdrawal_addr": "Para çekme adresini girin",
     "recipient": "Alıcı",
+    "account_status": "hesap durumu",
+    "bank_status": {
+      "ACTIVE": "aktif",
+      "BLOCKED": "Banka tarafından engellendi",
+      "DEBIT BLOCKED": "debit bloke",
+      "IN CLOSURE": "kapatılma aşamasında",
+      "CLOSED": "kapalı"
+    },
     "enter_recipient": "Alıcı adını girin",
     "EW_law": "AB yasalarının gerektirdiği gibi, fonu alan kişinin adını vermelisiniz",
     "transfer_confirmation": "Aktarım onayı",

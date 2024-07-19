@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FC, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -29,6 +29,7 @@ const Exchange: FC = () => {
   // Hooks
   const { t } = useTranslation();
   const confirmModal = useModal();
+  const loc = useLocation();
   const roomInfoModal = useModal();
   const { md, xxxl } = useBreakpoints();
   const navigate = useNavigate();
@@ -59,6 +60,10 @@ const Exchange: FC = () => {
     onFromCurrencyChange,
     onIsLimitOrderChange
   } = useContext(CtxExchangeData);
+
+  useEffect(() => {
+    console.log("LOC IS ", loc);
+  }, [loc]);
 
   // Handles
   const handleOnCreateOrder = async () => {

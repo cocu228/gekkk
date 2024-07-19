@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { useSSR, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import styles from "@/widgets/exchange/ui/style.module.scss";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
@@ -52,11 +52,11 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
   to,
   setHasValidationError
 }) => {
-  const [minOrder, setMinOrder] = useState<number | null>()
+  const [, setMinOrder] = useState<number | null>();
 
   useEffect(() => {
-    setMinOrder(currencies.get(from.currency)?.minOrder)
-  }, [from])
+    setMinOrder(currencies.get(from.currency)?.minOrder);
+  }, [from]);
 
   const { t } = useTranslation();
 

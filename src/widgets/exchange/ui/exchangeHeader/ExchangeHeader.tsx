@@ -27,9 +27,9 @@ export const ExchangeHeader: FC<ExchangeHeaderProps> = ({ title, text, privateRo
     <>
       <div className={style.ExchangeHeader}>
         {privateRoomInfo ? (
-          <IconApp code='t33' color='#285E69' size={42} />
+          <IconApp code='t33' color='#285E69' className='min-w-[42px]' size={42} />
         ) : (
-          <IconApp code='t68' color='#285E69' size={42} />
+          <IconApp code='t68' color='#285E69' className='min-w-[42px]' size={42} />
         )}
         <div className={`${style.ExchangeHeaderTitleGroup} ${privateRoomInfo && "h-full justify-between"}`}>
           <span className={style.ExchangeHeaderTitleGroupTitle}>{title}</span>

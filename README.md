@@ -1,4 +1,4 @@
-## Command Line Interface
+# Command Line Interface
 
 _package.json_
 
@@ -7,6 +7,9 @@ _package.json_
   "scripts": {
     "orval": "orval", // Generates api request functions
     "check": "tsc --noEmit && echo Done.", // Checks for typescript errors
+    "lint": "eslint . --fix",
+    "prettier": "prettier . --write",
+    "prepare": "husky install",
 
     // Local scripts
     "local": "cross-env APP_TYPE=GEKKARD vite --mode dev.gekkard",
@@ -36,13 +39,12 @@ _package.json_
 
 ```
 └── src/
-    ├── app/                    #    Initializing application logic        #    Entrypoint for connecting the application (formerly App. tsx)
-    |    └── index.css          #    Global application styles
-    ├── processes/                  #
-    ├── pages/                  #
-    ├── widgets/                #
-    ├── features/               #
-    └── shared                  #
+    ├── app/
+    ├── processes/
+    ├── pages/
+    ├── widgets/
+    ├── features/
+    └── shared
 ```
 
 ![Image alt](etc/img.png)
@@ -50,25 +52,21 @@ _package.json_
 
 ## Style Guide:
 
-В проекте с меньшим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
-Это предпочтительный способ описания стилей и присвоения классов. При этом, следует использовать уже заложенный набор классов и при необходимости добавлять инструкции новых.
+CSS - предпочтительный способ описания стилей и присвоения классов.
 
-#### (cs) | (notuse)
+С меньшим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
+
+#### (cs) | (no-usages)
 
 (cs) - [custom] - в начале имени файла или папки, говорит о кастомных изменениях сторонних зависимотей проекта. (_Прим.
-(cs)antd.scss_)
-
-#### .wrapper | .row | .col
-
-Класс `.wrapper` не имеет описания свойств и служит для понимания структуры html кода, там где блок требует вложенность. Аналогично этому в проекте допускаются классы без свойств - `.row` `.col`.
+(cs)axios.scss_)
 
 #### .Class (:components using)
 
-`style.module.scss`
+`styles.module.scss`
 
 Стили импортируемые для отдельного компонента, сопровождается названию класса с большой буквы, при этом несвязанность модуля позволяет
 брать более высокие абстракции,поэтому рекомендуется делать нейминг в одно слово. (_Прим. 'Title', 'First', 'Label' и др._)
-Допускается применение модификаторов с нижним подчеркиванием _'\_Hidden', '\_Open', '\_Disabled' и др._
 
 ## JavaScript Guid
 
@@ -90,15 +88,36 @@ Multi-storage который предусматривает опциональн
     - devtools;
     - immer;
 
-## Операции с числами ([Decimal.js](https://github.com/MikeMcl/decimal.js/))
-
-Экземпляр Decimal увеличивает точность вычислений JavaScript. Полнофункциональный API Повторяет многие методы объектов JavaScript Number.prototype и Math
-
 ## Работа с датами ([Date-fns](https://date-fns.org/docs/Getting-Started))
 
 date-fns предоставляет наиболее полный, но простой и последовательный набор инструментов для управления датами JavaScript в браузере и Node.js.
 
-## Развертывание на production
+# Макеты
+
+Все макеты указаны в [figma](https://www.figma.com/design/7XhDrrOtaeDNcMxxZPWhJ9/Gekkard-dev)
+
+### Основные версии сайта
+
+Основное разделение версий сайта - мобильная и десктопная версия:
+
+| Метрика                                |    Mobile     | Desktop |
+| -------------------------------------- | :-----------: | :-----: |
+| Экран                                  | 320px - 768px | 768px+  |
+| Основной шрифт (могут быть исключения) |     12px      |  14px   |
+
+### Размер блоков
+
+Размер блоков внутри подложек должен иметь размер **320px - 414px**:
+
+![Image alt](etc/img_3.png)
+
+### Цветовая гамма
+
+Цветовая палитра приложения указана в [figma](https://www.figma.com/design/7XhDrrOtaeDNcMxxZPWhJ9/Gekkard-dev?node-id=170-257&t=S1bW6rJ0WOFI5opc-0), опираемся на неё во всех аспектах
+
+![Image alt](etc/img_4.png)
+
+# Развертывание на production
 
 В связи с загрузки скриптов в /scr/app/init.ts по условию активной сессии и условиями кэширования, при обновлении production возможны запросы к старым версиям скриптов,
 которых уже нет на сервере — это выливается в ошибки загрузки и зависания. Чтобы предотвратить такие проблемы для пользователей, мы можем перед выкладыванием на прод забирать

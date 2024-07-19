@@ -1,5 +1,5 @@
 import * as elliptic from "elliptic";
-import sha256 from "crypto-js/sha256";
+import { sha256 } from "js-sha256";
 
 import { apiRegisterOptions } from "@/shared/(orval)api";
 import { AuthOptions } from "@/shared/(orval)api/auth/model";
@@ -8,15 +8,22 @@ import { coerceToBase64Url } from "../helpers";
 // import { useUserInfo } from "../../PersonalInformation/model/";
 
 const servPath = import.meta.env.VITE_API_URL;
-export async function ChangePass(phoneNumber, newPass, confirmCode, makeAssertionOptions, challenge) {
+export async function ChangePass(
+  phoneNumber: string,
+  newPass: string,
+  confirmCode: string,
+  makeAssertionOptions: AuthOptions,
+  challenge: string
+) {
+  // @ts-ignore
   makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
-  const passKey = sha256(`${phoneNumber + newPass}gekkard.com`); //makeAssertionOptions.fido2_options.rp.id);
+  const passKey = sha256(`${phoneNumber + newPass + makeAssertionOptions.fido2_options.rp.id}`);
 
   const EdDSA = elliptic.eddsa;
   const ec = new EdDSA("ed25519");
   //@ts-ignore
-  const key = ec.keyFromSecret(passKey.words);
+  const key = ec.keyFromSecret(passKey);
   const pub = key.getPublic();
   const signature = key.sign(makeAssertionOptions.challenge).toBytes();
   console.log(key.verify(makeAssertionOptions.challenge, signature));

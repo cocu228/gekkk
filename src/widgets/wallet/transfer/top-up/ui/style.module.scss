@@ -14,30 +14,34 @@
 }
 
 .NoActions {
-  @include max-devices(md) {
-    font-weight: 400;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--gek-additional);
+  margin-left: 10px;
+
+  @media screen and (max-width: 768px) {
     font-size: 12px;
-    color: var(--gek-additional);
+  }
+}
+
+.ToTransfersWrap {
+  @media screen and (min-width: 768px) {
+    margin: 0 10px;
   }
 }
 
 .ToTransfers {
   &Container {
-    @include max-devices(md) {
-      font-weight: 400;
-      font-size: 12px;
-      color: var(--gek-additional);
-    }
+    font-size: 12px;
+    font-weight: 400;
+    color: #285e69;
   }
 
   &Link {
-    color: var(--color-blue-400);
+    color: #2bab72;
+    font-weight: 700;
+    text-decoration: underline;
     cursor: pointer;
-    @include max-devices(md) {
-      font-weight: 700;
-      text-decoration: underline;
-      color: var(--gek-green);
-    }
   }
 }
 
@@ -79,6 +83,12 @@
         color: #1f3446;
       }
     }
+
+    &:hover {
+      .TopUpNetworkContainerTitle {
+        color: #2bab72;
+      }
+    }
   }
 
   &MobileForm {
@@ -111,5 +121,34 @@
 
   @include max-devices(md) {
     position: relative;
+  }
+}
+
+.AttentionBlock {
+  display: flex;
+  align-items: start;
+  margin-bottom: 20px;
+  gap: 10px;
+  margin-top: 10px;
+
+  @media screen and (min-width: 768px) {
+    margin: 0 10px 20px 10px;
+  }
+
+  svg {
+    min-width: 15px;
+  }
+}
+
+.AttentionText {
+  color: #8f123a;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Inter";
+}
+
+.TopUpMarginLeft {
+  @media screen and (max-width: 768px) {
+    margin: 0 0 0 10px;
   }
 }

@@ -1,5 +1,6 @@
 import { memo, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import Radio from "@/shared/ui/radio";
 import Loader from "@/shared/ui/loader";
 import { Modal } from "@/shared/ui/modal/Modal";
@@ -15,6 +16,7 @@ import { formatAsNumberAndDot } from "@/shared/lib/formatting-helper";
 import { getTypeDescriptions } from "@/widgets/new-deposit/model/helpers";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { actionResSuccess, getCookieData, uncoverResponse } from "@/shared/lib/helpers";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import { CtxNewDeposit } from "../../../model/context";
 
@@ -136,6 +138,7 @@ const TypeChoose = memo(() => {
           <Tooltip text={increasingProgramDescription}>
             <div className='inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help'>
               <img src='/img/icon/HelpIcon.svg' alt='tooltip' />
+              <IconApp code={""} size={50} color={"#000000"} />
             </div>
           </Tooltip>
         </div>

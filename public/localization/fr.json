@@ -425,7 +425,11 @@
       "registration_date": "Date d'inscription",
       "id": "IDENTIFIANT",
       "agent_info": "Info agent",
-      "agent_link": "Votre lien agent"
+      "agent_link": "Votre lien agent",
+      "referal_title": "Programme de parrainage pour l'achat de jetons GKE",
+      "referal_info": "Les récompenses sont transférées sur votre solde GKE à la fin du mois de facturation.",
+      "referal_condition_first": "- 2 % par an sur le solde mensuel moyen dans le GKE de chaque parrain attiré au cours de la première année",
+      "referal_condition_second": "- 1% par an sur le solde mensuel moyen dans le GKE de chaque filleul attiré au cours de la deuxième année"
     },
     "crypto_assets": {
       "title": "Actifs cryptographiques",
@@ -475,6 +479,14 @@
     "simple_exchange": "Échange simple",
     "transfer_to_contact": "Transférer vers Contact",
     "templates": "Modèles",
+    "account_status": "statut du compte",
+    "bank_status": {
+      "ACTIVE": "actif",
+      "BLOCKED": "Bloqué par la banque",
+      "DEBIT BLOCKED": "débit bloqué",
+      "IN CLOSURE": "en cours de fermeture",
+      "CLOSED": "fermé"
+    },
     "history": "Histoire",
     "signHistory": "Historique de connexion et de signature",
     "withdraw": "Transfert",

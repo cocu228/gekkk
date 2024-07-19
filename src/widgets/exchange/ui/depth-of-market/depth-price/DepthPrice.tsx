@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Loader from "@/shared/ui/loader";
 import { RateState } from "@/widgets/exchange/model/types";
@@ -6,7 +6,6 @@ import { getCurrencyRounding } from "@/shared/lib/number-format-helper";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import styles from "./style.module.scss";
-import { CtxExchangeData } from "@/widgets/exchange/model/context";
 
 interface IParams {
   amount: number;
@@ -20,6 +19,11 @@ const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
     rateState: null,
     displayAmount: null
   });
+
+  const handleOnClick = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    setPrice(displayAmount.toString());
+  };
 
   useEffect(() => {
     setState(prev => ({
@@ -43,7 +47,7 @@ const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
       {loading && !displayAmount ? (
         <Loader className='relative h-[25px] w-[25px]' />
       ) : (
-        <div onClick={() => setPrice(displayAmount.toString())} className='flex items-center text-[10px] w-full justify-center'>
+        <div onClick={handleOnClick} className='flex items-center text-[10px] w-full justify-center'>
           {displayAmount ? (
             <>
               ~{getCurrencyRounding(displayAmount)}{" "}

@@ -16,7 +16,6 @@ import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { Modal } from "@/shared/ui/modal/Modal";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
-import { UasConfirmCtx } from "@/processes/errors-provider-context";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import FeeInformation from "@/widgets/wallet/transfer/components/fee-information";
 
@@ -34,7 +33,6 @@ const WithdrawFormBroker = () => {
   // Context
   const { account } = useContext(CtxRootData);
   const currency = useContext(CtxWalletData);
-  const { uasToken, getUasToken } = useContext(UasConfirmCtx);
   const { tokenNetworks, networkTypeSelect, setRefresh, localErrorClear, localErrorInfoBox } =
     useContext(CtxWalletNetworks);
 
@@ -49,18 +47,6 @@ const WithdrawFormBroker = () => {
   );
 
   const { min_withdraw = 0, withdraw_fee = 0 } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
-  const handleConfirm = async () => {
-    if (!uasToken) {
-      setLoading(true);
-      await getUasToken();
-      setLoading(false);
-      showModal();
-    } else {
-      setLoading(false);
-      showModal();
-    }
-  };
 
   // Effects
   useEffect(() => {
@@ -145,7 +131,7 @@ const WithdrawFormBroker = () => {
         <Button
           size='lg'
           disabled={!inputCurr.value.number || inputCurrValid.value || loading}
-          onClick={handleConfirm}
+          onClick={showModal}
           className='w-full md:text-fs14 text-fs16'
         >
           {t("transfer")}

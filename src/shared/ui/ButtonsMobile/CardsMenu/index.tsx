@@ -8,13 +8,14 @@ import { IconApp } from "../../icons/icon-app";
 interface IParams {
   to?: string;
   className?: string;
+  state?: string;
 }
 
-const CardsMenuButton = memo(({ to, className = "" }: IParams) => {
+const CardsMenuButton = memo(({ to, className = "", state }: IParams) => {
   const { t } = useTranslation();
 
   return (
-    <NavLink to={to}>
+    <NavLink to={to} state={state}>
       <div className={`${styles.MobileButton} ${className}`}>
         <IconApp code='t22' size={40} color='var(--gek-dark-blue)' />
         <span>{t("cards")}</span>

@@ -6,11 +6,9 @@ import InfoBox from "@/widgets/info-box";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import { isCryptoNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { TypeSelector } from "@/shared/ui/typeSelector/TypeSelector";
-import constants from "@/shared/config/coins/constants";
 
 import styles from "./style.module.scss";
 
@@ -28,11 +26,11 @@ const ChoseNetwork = ({ withdraw = false, network, setNetwork }: IProps) => {
   const { currencies } = useContext(CtxCurrencies);
 
   const { setNetworkType, networksForSelector, networkTypeSelect } = useContext(CtxWalletNetworks);
-  const noteVisible =
+  /*  const noteVisible =
     !withdraw &&
     !(Array.isArray(networksForSelector) && networksForSelector.length === 0) &&
     $const !== constants.EURG &&
-    isCryptoNetwork(networkTypeSelect);
+    isCryptoNetwork(networkTypeSelect);*/
   // TODO: Refactoring for networks.length == 1
   return (
     <div>
@@ -148,27 +146,6 @@ const ChoseNetwork = ({ withdraw = false, network, setNetwork }: IProps) => {
           )}
         </div>
       </div>
-
-      {!md && noteVisible && (
-        <div className='row mb-10'>
-          <div className='col'>
-            <div className='info-box-note mb-10'>
-              <div className='row mb-3'>
-                <div className='col'>
-                  <span className='text-red-800'>{t("please_note")}</span>
-                </div>
-              </div>
-              <div className='row mb-1'>
-                <div className='col'>
-                  <span className='text-gray-400 font-medium text-fs14 leading-6'>
-                    {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

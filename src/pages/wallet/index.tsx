@@ -114,12 +114,18 @@ function Wallet() {
                   <About data-tag={"about"} data-name={t("about")} description={descriptions[$currency.$const]} />
                 )}
 
-                {xl && <History data-tag={"history"} data-name={t("history")} currenciesFilter={currencyForHistory} />}
+                {xl && (
+                  <Wrapper>
+                    <History data-tag={"history"} data-name={t("history")} currenciesFilter={currencyForHistory} />
+                  </Wrapper>
+                )}
               </div>
 
               {!xl && (
                 <div className='z-0 shadow-[0_3px_4px_#00000040] bg-[#fff] p-[37px_20px] rounded-[10px] -ml-[2px] mb-[4px]'>
-                  <History currenciesFilter={currencyForHistory} />
+                  <Wrapper isWeb>
+                    <History currenciesFilter={currencyForHistory} />
+                  </Wrapper>
                 </div>
               )}
             </div>
@@ -128,17 +134,24 @@ function Wallet() {
           <>
             {isShownTabs && (
               <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
-                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`} />
-                <TransfersButton isActive to={`/transfers?currency=${currency}`} />
+                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`} state={`/wallet?currency=${currency}`} />
+                <TransfersButton
+                  isActive
+                  to={`/transfers?currency=${currency}`}
+                  state={`/wallet?currency=${currency}`}
+                />
 
                 {!IS_GEKKARD_APP() ? null : !isEUR ? (
-                  <ExchangeButton isActive to={`/exchange?from=${currency}`} />
+                  <ExchangeButton isActive to={`/exchange?from=${currency}`} state={`/wallet?currency=${currency}`} />
                 ) : (
-                  <CardsMenuButton to={"/card-menu"} />
+                  <CardsMenuButton to={"/card-menu"} state={`/wallet?currency=${currency}`} />
                 )}
 
                 {IS_GEKKARD_APP() && (isEUR || isEURG || isGKE) && (
-                  <ProgramsButton to={`/wallet?currency=${currency}&tab=programs`} />
+                  <ProgramsButton
+                    to={`/wallet?currency=${currency}&tab=programs`}
+                    state={`/wallet?currency=${currency}`}
+                  />
                 )}
               </WalletButtons>
             )}

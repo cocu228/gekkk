@@ -28,7 +28,7 @@ interface DepthOfMarketState {
 }
 
 const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFrom }) => {
-  const {onPriceAmountChange} = useContext(CtxExchangeData)
+  const { onPriceAmountChange } = useContext(CtxExchangeData);
 
   const initialState: DepthOfMarketState = {
     rate: {},
@@ -129,6 +129,10 @@ const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFr
       );
   }
 
+  const setPriceField = (price: string) => {
+    onPriceAmountChange(price);
+  };
+
   // Generates depth of market rows
   const getDepthItems = (
     array: Array<number[]> = [],
@@ -163,10 +167,6 @@ const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFr
 
     return align === "bottom" ? rows.reverse() : rows;
   };
-
-  const setPriceField = (price:string) => {
-    onPriceAmountChange(price)
-  }
 
   return (
     <div className={styles.Wrapper}>

@@ -14,22 +14,19 @@
     "prettier": "prettier . --write",
     "orval": "orval",
     "check": "tsc --noEmit && echo Done.",
-    
     "local": "cross-env APP_TYPE=GEKKARD vite --mode dev.gekkard",
     "gko-local": "cross-env APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
     "gkw-local": "cross-env APP_TYPE=GEKWALLET vite --mode dev.gekwallet",
-    
     "DEV-GEKKARD": "tsc && cross-env APP_TYPE=GEKKARD vite build --mode dev.gekkard",
     "DEV-GEKKOIN": "tsc && cross-env APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
     "DEV-GEKWALLET": "tsc && cross-env APP_TYPE=GEKWALLET vite build --mode dev.gekwallet",
-
     "STG-GEKKARD": "tsc && cross-env APP_TYPE=GEKKARD vite build --mode stg.gekkard",
     "STG-GEKKOIN": "tsc && cross-env APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
     "STG-GEKWALLET": "tsc && cross-env APP_TYPE=GEKWALLET vite build --mode stg.gekwallet",
-    
     "PRD-GEKKARD": "tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
     "PRD-GEKKOIN": "tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
-    "PRD-GEKWALLET": "tsc && cross-env APP_TYPE=GEKWALLET vite build --mode prd.gekwallet"
+    "PRD-GEKWALLET": "tsc && cross-env APP_TYPE=GEKWALLET vite build --mode prd.gekwallet",
+    "prepare": "husky install"
   },
   "npm": " > 8",
   "node": " > 16",
@@ -46,7 +43,7 @@
     "crypto-js": "~3.1.9-1",
     "date-fns": "2.29.3",
     "date-fns-tz": "2.0.0",
-    "elliptic": "^6.5.5",
+    "elliptic": "^6.5.4",
     "html2canvas": "1.4.1",
     "html5-qrcode": "^2.3.8",
     "i18next": "^23.11.5",
@@ -98,6 +95,8 @@
     "eslint-plugin-react-refresh": "0.4.4",
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-unused-imports": "3.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
     "orval": "^6.29.1",
     "path": "0.12.7",
     "postcss": "^8.4.38",
@@ -109,5 +108,11 @@
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-node-polyfills": "^0.22.0",
     "vite-plugin-svgr": "^4.2.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier . --check --end-of-line auto",
+      "eslint . --quiet --config .eslintrc.cjs"
+    ]
   }
 }

@@ -424,7 +424,11 @@
       "registration_date": "Fecha de Registro",
       "id": "IDENTIFICACIÓN",
       "agent_info": "Información del agente",
-      "agent_link": "Enlace de su agente"
+      "agent_link": "Enlace de su agente",
+      "referal_title": "Programa de referidos para la compra de tokens GKE",
+      "referal_info": "Las recompensas se transfieren a tu saldo de GKE al final del mes de facturación",
+      "referal_condition_first": "- 2% anual sobre el saldo medio mensual en GKE de cada referido atraído durante el primer año",
+      "referal_condition_second": "- 1% anual sobre el saldo medio mensual en la GKE de cada referido atraído durante el segundo año"
     },
     "crypto_assets": {
       "title": "Activos criptográficos",
@@ -588,6 +592,14 @@
     "gekkoin_structured_deposits": "Depósitos estructurados de Gekkoin",
     "GKE_tokens_blocked": "(Si los tokens GKE se bloquean en una proporción de 1:1 con EURG, a los depósitos realizados en EURG se les cobrará el doble de rendimiento, y si hay una pérdida, se expresará como una reducción doble de la pérdida)",
     "cashback_of": "Reembolso del 1%",
+    "account_status": "estado de la cuenta",
+    "bank_status": {
+      "ACTIVE": "activo",
+      "BLOCKED": "Bloqueado por el banco",
+      "DEBIT BLOCKED": "débito bloqueado",
+      "IN CLOSURE": "en cierre",
+      "CLOSED": "cerrado"
+    },
     "gekkard_card_expenses": "sobre los gastos de la tarjeta Gekkard sobre el volumen de negocios mensual en euros (dentro de los límites que no exceden el volumen de un número similar de tokens GKE bloqueados)",
     "crypto-fiat_exchange": "Intercambio cripto-fiat sin comisión",
     "without_restrictions": "(sin restricciones sobre la cantidad máxima de intercambio, pero con la necesidad de bloquear el volumen de GKE correspondiente a la facturación en fiat)",

@@ -28,7 +28,7 @@ body {
   height: calc(100dvh - 105px) !important; // 55px - размер header 50px - Bottom Buttons
   overscroll-behavior-y: none;
   &__children {
-    overflow: auto !important;
+    overflow: hidden auto !important;
     overscroll-behavior-y: none;
     display: flex;
     flex-direction: column;

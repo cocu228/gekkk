@@ -27,6 +27,8 @@ const WalletHeaderMobile = () => {
 
   // const IBAN = account?.number;
 
+  console.log("ACC", account);
+
   useEffect(() => {
     (async () => {
       const { data } = await apiGetRates({
@@ -130,15 +132,13 @@ const WalletHeaderMobile = () => {
         <div className={styles.EurGekkoinPrice}>
           {isEUR && !!balance?.bank_account_status && (
             <div className='flex group gap-[4px] items-center'>
-              <span className='text-[#B9B9B5] text-[12px] font-medium flex items-center gap-[5px]'>
-                {t("account_status").capitalize()}:
-              </span>
+              <span className='text-[#B9B9B5] text-[12px] font-bold flex items-center gap-[5px]'>Account status:</span>
               <p
-                className={`${
-                  balance.bank_account_status === "ACTIVE" ? "text-[var(--gek-mid-grey)]" : "text-[var(--gek-red)]"
-                } text-[12px] font-medium`}
+                className={`text-[12px] font-normal ${
+                  balance.bank_account_status === "ACTIVE" ? "text-[#B9B9B5]" : "text-[#8F123A]"
+                }`}
               >
-                {t(`bank_status.${balance.bank_account_status}`).capitalize()}
+                {balance.bank_account_status}
               </p>
             </div>
           )}
@@ -155,7 +155,7 @@ const WalletHeaderMobile = () => {
             {!isEUR && rates && rates[currency] && `${currency} = ${getCurrencyRounding(rates[currency])}€`}
           </span>
           {!isEUR && !isOnAboutPage && (
-            <NavLink to={`/wallet?currency=${currency}&tab=about`} state={`/wallet?currency=${currency}`}>
+            <NavLink to={`/wallet?currency=${currency}&tab=about`}>
               <IconApp code='t32' size={15} color='#DCDCD9' />
             </NavLink>
           )}

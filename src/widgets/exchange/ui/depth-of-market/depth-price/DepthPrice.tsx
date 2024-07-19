@@ -11,13 +11,19 @@ interface IParams {
   amount: number;
   loading: boolean;
   currency: string;
+  setPrice: (price: string) => void;
 }
 
-const DepthPrice = ({ loading, amount }: IParams) => {
+const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
   const [{ rateState, displayAmount }, setState] = useState({
     rateState: null,
     displayAmount: null
   });
+
+  const handleOnClick = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    setPrice(displayAmount.toString());
+  };
 
   useEffect(() => {
     setState(prev => ({
@@ -41,7 +47,7 @@ const DepthPrice = ({ loading, amount }: IParams) => {
       {loading && !displayAmount ? (
         <Loader className='relative h-[25px] w-[25px]' />
       ) : (
-        <div className='flex items-center cursor-pointer text-[10px] w-full justify-center'>
+        <div onClick={handleOnClick} className='flex items-center text-[10px] w-full justify-center'>
           {displayAmount ? (
             <>
               ~{getCurrencyRounding(displayAmount)}{" "}

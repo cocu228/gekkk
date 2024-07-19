@@ -57,7 +57,7 @@ export function BottomMenu() {
   return (
     <>
       {isHomePage && (
-        <div className={`${styles.AssetInfo3} ${needBottomPadding && styles.AddBottomAssetButtonMargin}`}>
+        <div className={`${styles.AssetInfo3}`}>
           <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
             <div className={styles.NewAsset}>
               <IconApp color='#fff' code='t67' size={20} />
@@ -71,6 +71,7 @@ export function BottomMenu() {
           className={`
                 ${needBottomPadding && styles.AddBottomMenuPadding}
                 ${styles.BottomMenuMobile}
+                ${needBottomPadding && styles.AddBottomMenuPadding}
                 ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
             `}
         >

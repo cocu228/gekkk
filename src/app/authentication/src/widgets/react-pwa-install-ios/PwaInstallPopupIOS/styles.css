@@ -1,0 +1,72 @@
+.pwa-install-popup-ios {
+  position: fixed;
+  background-color: white;
+  border-radius: 0.4em;
+  bottom: 20px;
+  z-index: 999999;
+  transform: translatey(0px);
+  width: 90%;
+  margin: auto;
+  left: 5%;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content {
+  padding: 15px;
+  display: flex;
+  justify-content: row;
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content .left {
+  flex: 1;
+  position: relative;
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content .left img.appIcon {
+  height: 50px;
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content .right {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content .right img.small {
+  height: 20px;
+  margin: -5 5px;
+}
+.pwa-install-popup-ios .pwa-install-popup-ios-content .right div {
+  line-height: 20px;
+}
+.pwa-install-popup-ios.safari-nav:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: white;
+  border-bottom: 0;
+  margin-left: -20px;
+  margin-bottom: -20px;
+}
+.pwa-install-popup-ios.ipad-device {
+  top: 30px;
+  bottom: auto;
+  right: 5%;
+}
+.pwa-install-popup-ios.ipad-device:after {
+  content: "";
+  position: absolute;
+  bottom: auto;
+  top: -5px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-bottom-color: white;
+  border-top: 0;
+  border-right: 0;
+  margin-left: 40%;
+  margin-top: -15px;
+  margin-bottom: auto;
+}
+

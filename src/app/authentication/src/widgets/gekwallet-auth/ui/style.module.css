@@ -73,6 +73,7 @@
   width: 6.5vh;
   height: 6.5vh;
   border: 1.2vh solid #D9D9D9;
+  transition: .1s ease-in-out;
 
   border-radius: 50%;
   @media (max-width: 768px) {
@@ -98,6 +99,7 @@
   color: #B9B9B5;
   font-size: 3vh;
   font-weight: 600;
+  transition: .1s ease-in-out;
 
   @media (max-width: 768px) {
     font-size: 1.5vh;
@@ -133,7 +135,6 @@
 }
 
 .Registration {
-  font-family: Inter;
   font-size: 2vh;
   font-weight: 600;
   line-height: 18px;
@@ -149,7 +150,6 @@
 }
 
 .Install {
-  font-family: Inter;
   font-size: 1.8vh;
   font-weight: 600;
   line-height: 14.52px;
@@ -166,7 +166,6 @@
 }
 
 .DeviceKey {
-  font-family: Inter;
   font-size: 2vh;
   font-weight: 600;
   line-height: 20px;

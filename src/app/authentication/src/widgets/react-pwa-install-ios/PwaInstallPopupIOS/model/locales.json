@@ -1,0 +1,9 @@
+{
+  "en": {
+    "APP_NAME_DEFAULT": "the app",
+    "PWA_POPUP_PART1": "To find {{appName}} app from your home screen",
+    "PWA_POPUP_PART2": "1- Open {{appName}} on Safari",
+    "PWA_POPUP_PART3": "2- Click on Share menu",
+    "PWA_POPUP_PART4": "3- Select 'Add to Homescreen'"
+  }
+}

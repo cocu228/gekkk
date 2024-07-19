@@ -11,6 +11,7 @@ import { GetTradeInfoOut } from "@/shared/(orval)api/gek/model";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import styles from "./style.module.scss";
+import { CtxExchangeData } from "../../model/context";
 
 interface IParams {
   roomKey: string;
@@ -27,6 +28,8 @@ interface DepthOfMarketState {
 }
 
 const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFrom }) => {
+  const { onPriceAmountChange } = useContext(CtxExchangeData);
+
   const initialState: DepthOfMarketState = {
     rate: {},
     price: null,
@@ -126,6 +129,10 @@ const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFr
       );
   }
 
+  const setPriceField = (price: string) => {
+    onPriceAmountChange(price);
+  };
+
   // Generates depth of market rows
   const getDepthItems = (
     array: Array<number[]> = [],
@@ -141,9 +148,10 @@ const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFr
     for (let i = 0; i <= 5; i++) {
       rows.push(
         i > arrLen ? (
-          <DepthItem color={color} amount={0} percent={null} price={null} />
+          <DepthItem setPrice={setPriceField} color={color} amount={0} percent={null} price={null} />
         ) : (
           <DepthItem
+            setPrice={setPriceField}
             color={color}
             amount={getCurrencyRounding(array[i][0])}
             percent={(array[i][1] / maxAmount) * 100}
@@ -181,6 +189,7 @@ const DepthOfMarket: FC<IParams> = ({ roomKey, isSwapped, currencyTo, currencyFr
       </div>
       <div className={styles.RedWrapper}>{getDepthItems(tradeInfo?.asks, "bottom", "red")}</div>
       <DepthPrice
+        setPrice={setPriceField}
         loading={loading}
         currency={isSwapped ? currencyTo : currencyFrom}
         amount={roomKey ? price : rate[isSwapped ? currencyTo : currencyFrom]}

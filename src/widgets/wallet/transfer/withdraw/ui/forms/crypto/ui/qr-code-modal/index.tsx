@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import styles from '../../styles.module.scss'
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import { Modal } from "@/shared/ui/modal/Modal";
 
@@ -12,10 +13,18 @@ interface IQRCodeModalProps {
 
 const QRCodeModal: FC<IQRCodeModalProps> = ({ isOpen, onCancel, onSuccess }) => {
   const { t } = useTranslation();
+  const [isScanning, setIsScanning] = useState<boolean>(false)
 
   return (
     <Modal title={t("scan_qr")} isModalOpen={isOpen} onCancel={onCancel}>
-      <QrcodeScanner onSuccess={onSuccess} />
+      <>
+        {
+          isScanning && (
+            <span className={styles.QRcodeModalTitle}>Point the camera at the QR code</span>
+          )
+        }
+        <QrcodeScanner setIsScanning={setIsScanning} onSuccess={onSuccess} />
+      </>
     </Modal>
   );
 };

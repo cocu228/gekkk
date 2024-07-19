@@ -15,6 +15,128 @@
   }
 }
 
+.QrcodeHeader {
+
+  & > div:first-child {
+    img {
+      display: none;
+    }
+  }
+}
+
+.QrcodeHeaderNoneScan {
+  & > div:first-child {
+    img {
+      display: none;
+    }
+  }
+}
+
+.QrcodeHeader {
+  position: relative;
+}
+
+.QrcodeHeader::before,
+.QrcodeHeader::after {
+  content: "";
+  position: absolute;
+  border: 2px solid #285E69; /* толщина и цвет углового бордера */
+  width: 80px; /* длина углового бордера */
+  height: 80px; /* длина углового бордера */
+  z-index: 22;
+}
+
+.QrcodeHeader::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.QrcodeHeader::after {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.QrcodeVideoBlock::before {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.QrcodeVideoBlock::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.QrcodeVideoBlock {
+  // --s: 65px;
+  // -webkit-mask: conic-gradient(at var(--s) var(--s), #0000 75%, #000 0) 0 0 / calc(100% - var(--s)) calc(100% - var(--s)), linear-gradient(#000 0 0) content-box;
+  // border: 2px solid #285E69;
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    border: 2px solid #285E69;
+    width: 80px; 
+    height: 80px; 
+    z-index: 22;
+  }
+
+  &::before {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+  }
+
+  &::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+  }
+
+  & > video {
+
+  }
+
+  & > img {
+    display: block !important;
+  }
+}
+
+.QrcodeStopBtn {
+  background: #285E69 !important;
+  border: none !important;
+  min-width: 120px;
+}
+
+.QrcodeDashboardNoneScan {
+    & > span {
+      display: block !important;
+      & > select {
+        background: inherit !important;
+        font-size: 12px !important;
+      }
+    }
+}
+
+.QrcodeDashboard {
+  & > span {
+    display: none !important;
+  }
+
+  & > span:last-child {
+    display: block !important;
+  }
+}
+
 #root,
 html,
 body {

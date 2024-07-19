@@ -292,7 +292,7 @@ function OpenOrders({ refreshKey }: IParams) {
           <div className='row mt-3'>
             <div className='col flex justify-center relative'>
               {lazyLoading ? (
-                <div className='min-h-[20px]'>
+                <div className='min-h-[100px]'>
                   <Loader className={"w-[24px] h-[24px] top-[4px]"} />
                 </div>
               ) : (

@@ -60,7 +60,9 @@ const InfoConfirmPartner = (props: TxInfoProps) => {
   return (
     <div className='row relative font-medium'>
       {loading ? (
-        <Loader />
+        <div className="min-h-[100px]">
+          <Loader />
+        </div>
       ) : partnerInfo === null ? (
         <div className='col'>
           <div className='row mb-2'>

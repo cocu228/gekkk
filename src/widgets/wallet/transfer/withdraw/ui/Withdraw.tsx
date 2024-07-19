@@ -71,7 +71,9 @@ const Withdraw = memo(() => {
   return (
     <div className='h-full'>
       {loading ? (
-        <Loader />
+        <div className="min-h-[100px]">
+          <Loader />
+        </div>
       ) : (
         <>
           <ChoseNetwork withdraw />

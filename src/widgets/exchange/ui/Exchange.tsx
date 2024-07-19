@@ -163,7 +163,9 @@ const Exchange: FC = () => {
   if (!currencies) return null;
 
   return !roomsList ? (
-    <Loader className='relative' />
+    <div className="min-h-[100px]">
+      <Loader className='relative' />
+    </div>
   ) : (
     <div className=' '>
       {md ? null : (

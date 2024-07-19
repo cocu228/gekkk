@@ -53,7 +53,7 @@ const Options = <O,>({ title, options, isLoading, noOption, renderOption, onClic
         </div>
       ) : null}
       {isLoading ? (
-        <div className='min-h-[200px] flex justify-center w-full relative'>
+        <div className='min-h-[100px] flex justify-center w-full relative'>
           <Loader />
         </div>
       ) : opts().length === 0 && noOption ? (

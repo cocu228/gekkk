@@ -63,7 +63,9 @@ const InfoBox = () => {
           <div className='row relative'>
             <div className='flex col justify-center'>
               {loading ? (
-                <Loader className={"w-[24px] h-[24px]"} />
+                <div className="min-h-[100px]">
+                  <Loader className={"w-[24px] h-[24px]"} />
+                </div>
               ) : (
                 <Button size='lg' onClick={onClick} className='w-full' data-testid='ConfirmToGekkard'>
                   {t("confirm")}

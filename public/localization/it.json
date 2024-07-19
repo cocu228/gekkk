@@ -523,6 +523,7 @@
     "activate_your_card": "Per favore, attiva la tua carta solo se il numero in rilievo sulla tua carta fisica è identico alla tua carta virtuale!",
     "limit_amount": "Importo limite",
     "disable_limits": "Disabilita temporaneamente i limiti",
+    "enable_limits": "Abilita limiti",
     "show_card_data": "Mostra i dati della carta",
     "activate_card": "Attiva la carta",
     "block_card": "Blocca la carta",

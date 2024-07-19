@@ -524,6 +524,7 @@
     "activate_your_card": "Merci d'activer votre carte uniquement si le numéro gravé sur votre carte physique est identique à votre carte virtuelle !",
     "limit_amount": "Montant limite",
     "disable_limits": "Désactiver temporairement les limites",
+    "enable_limits": "Activer les limites", 
     "show_card_data": "Afficher les données de la carte",
     "activate_card": "Activer la carte",
     "block_card": "Bloquer la carte",

@@ -85,7 +85,9 @@ export function OrderConfirmation() {
   };
 
   return state.cardType === "PLASTIC" && !deliveryOption ? (
-    <Loader className={"relative mt-20"} />
+    <div className="min-h-[100px]">
+      <Loader className={"relative mt-20"} />
+    </div>
   ) : (
     <>
       <div className={styles.DesignContainer}>

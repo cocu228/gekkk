@@ -19,7 +19,9 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) =>
   !item ? (
     <div className={styles.CurBox}>
       <div className={styles.ActiveChoice} />
-      <Loader className={styles.IconLoader} />
+      <div className="min-h-[100px]">
+        <Loader className={styles.IconLoader} />
+      </div>
       <div className={styles.CurBox2}>
         <span className={styles.CurName}>...</span>
         <span className={styles.Sum}>-</span>

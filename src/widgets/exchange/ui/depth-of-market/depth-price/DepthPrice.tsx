@@ -39,7 +39,9 @@ const DepthPrice = ({ loading, amount }: IParams) => {
                 }`}
     >
       {loading && !displayAmount ? (
-        <Loader className='relative h-[25px] w-[25px]' />
+        <div className="min-h-[100px]">
+          <Loader className='relative h-[25px] w-[25px]' />
+        </div>
       ) : (
         <div className='flex items-center cursor-pointer text-[10px] w-full justify-center'>
           {displayAmount ? (

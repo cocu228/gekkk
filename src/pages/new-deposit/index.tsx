@@ -10,7 +10,9 @@ export default () => {
   const currencies = useContext(CtxCurrencies);
 
   return !currencies ? (
-    <Loader />
+    <div className="min-h-[100px]">
+      <Loader />
+    </div>
   ) : (
     <div className='wrapper flex-1 flex flex-col'>
       <PageHead

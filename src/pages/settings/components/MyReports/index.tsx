@@ -60,7 +60,7 @@ export function MyReports() {
   }, []);
 
   return statements === null ? (
-    <div className='w-full'>
+    <div className='w-full min-h-[100px]'>
       <Loader className='relative' />
     </div>
   ) : (

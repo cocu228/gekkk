@@ -198,7 +198,7 @@ export function UserKeys() {
             </div>
           ))}
           {!keysList.length && (
-            <div className='relative mt-32 w-full'>
+            <div className='relative w-full min-h-[100px]'>
               <Loader className='top-1/2 m-0 left-[50%] translate-x-[-50%]' />
             </div>
           )}

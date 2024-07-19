@@ -133,7 +133,9 @@ const UniversalTransferConfirm: FC<IUniversalTransferConfirmProps> = ({ amount, 
   ];
 
   return loading ? (
-    <Loader className='relative my-20' />
+    <div className="min-h-[100px]">
+      <Loader className='relative my-20' />
+    </div>
   ) : (
     <div>
       <Notice text={t("check_your_information_carefully")} />

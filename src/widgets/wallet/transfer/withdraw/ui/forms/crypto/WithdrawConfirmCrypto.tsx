@@ -173,7 +173,9 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
 
   return (
     <>
-      {loading && <Loader className='justify-center' />}
+      {loading && <div className="min-h-[100px]">
+        <Loader className='justify-center' />
+      </div>}
       <div className={loading ? "collapse" : ""}>
         <Notice text={t("use_withdraw_addr_supported")} />
 

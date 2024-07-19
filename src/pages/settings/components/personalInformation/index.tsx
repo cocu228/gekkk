@@ -44,7 +44,9 @@ export function PersonalInformation() {
     <BoxWrapper className='w-full'>
       <div className={styles.perInfoBody}>
         {!userInfo ? (
-          <Loader className='relative' />
+          <div className="min-h-[100px]">
+            <Loader className='relative' />
+          </div>
         ) : (
           <>
             {infoList.map((item, ind) => (

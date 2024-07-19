@@ -46,7 +46,9 @@ const GkeCashbackProgram = () => {
   }, [account]);
 
   return !currencies ? (
-    <Loader />
+    <div className="min-h-[100px]">
+      <Loader />
+    </div>
   ) : (
     <div className=' md:mx-[-10px]'>
       <div className='md:p-[5px_20px] md:rounded-[8px] bg-[#fff]'>

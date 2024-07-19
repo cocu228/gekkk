@@ -13,6 +13,7 @@ import Loader from "@/shared/ui/loader";
 import { Period } from "@/shared/(orval)api/gek/model";
 
 import styles from "./styles.module.scss";
+import { clearCookie, getCookieData, setCookieData } from "@/shared/lib";
 
 interface IParams {
   onCancel: () => void;
@@ -35,16 +36,24 @@ const ConfirmationModal = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { isModalOpen, showModal, handleCancel: cancelModal } = useModal();
   const { inputCurr: limitAmount, setInputCurr: setLimitAmount } = useInputState();
+  const [oldItem, setOldItem] = useState<string | null>()
+  const cookies = getCookieData();
+
+
+  useEffect(()=>{
+    if(cookies['limits-off']) setSwitchChecked(true)
+  }, [])
 
   useEffect(() => {
     if (selectedItem !== null) {
       showModal();
+      setOldItem(selectedItem)
     }
   }, [selectedItem]);
 
   const handleCancel = () => {
-    onCancel();
     cancelModal();
+    onCancel();
   };
 
   const onConfirm = async (action: string) => {
@@ -176,6 +185,12 @@ const ConfirmationModal = ({
           setLoading(false);
           handleCancel();
         });
+        setCookieData([{
+          key: 'limits-off',
+          value: 'true',
+          expiration: 180
+        }])
+        switchChecked && clearCookie('limits-off')
         break;
 
       default:
@@ -186,10 +201,12 @@ const ConfirmationModal = ({
   return (
     <Modal onCancel={handleCancel} isModalOpen={isModalOpen} title={t("confirm_action")}>
       {loading ? (
-        <Loader className='relative' />
+        <div className="min-h-[100px]">
+          <Loader className='relative' />
+        </div>
       ) : (
         <>
-          {selectedItem === "blockCard" && (
+          {(selectedItem ?? oldItem) === "blockCard" && (
             <div className='mb-5'>
               <div className={styles.Warning}>
                 <IconApp size={108} code='t56' color='#8F123A' />
@@ -203,11 +220,11 @@ const ConfirmationModal = ({
             </div>
           )}
 
-          {selectedItem === "unblockCard" && (
+          {(selectedItem ?? oldItem) === "unblockCard" && (
             <div className='mb-5 md:text-fs12 text-fs14'>{t("unblock_selected_bank_card")}</div>
           )}
 
-          {selectedItem === "activate" && (
+          {(selectedItem ?? oldItem) === "activate" && (
             <>
               <div className='mb-5 md:text-fs12 text-fs14'>{t("for_security_reasons")}</div>
               <div className='mb-5 md:text-fs12 text-fs14'>{t("virtual_card_data_for_online")}</div>
@@ -216,7 +233,7 @@ const ConfirmationModal = ({
             </>
           )}
 
-          {(selectedItem === "dailyLimit" || selectedItem === "monthlyLimit") && (
+          {((selectedItem ?? oldItem) === "dailyLimit" || (selectedItem ?? oldItem) === "monthlyLimit") && (
             <>
               <div className='md:text-fs12 text-fs14 mb-2 font-semibold'>{t("limit_amount")}</div>
               <div className='mb-5'>
@@ -230,8 +247,8 @@ const ConfirmationModal = ({
             </>
           )}
 
-          {selectedItem === "disableLimits" && (
-            <div className='md:text-fs12 text-fs14 text-[var(--gek-additional)]'>{t("disable_limits")}</div>
+          {(selectedItem ?? oldItem) === "disableLimits" && (
+            <div className='md:text-fs12 text-fs14 text-[var(--gek-additional)]'>{switchChecked ? t("enable_limits") : t("disable_limits")}</div>
           )}
 
           <form

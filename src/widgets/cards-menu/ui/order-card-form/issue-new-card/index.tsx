@@ -21,7 +21,7 @@ export function IssueNewCard({ closable }: { closable: boolean }) {
 
       <ExtendedSelect
         className='mt-4'
-        title='Card type:'
+        title={t("card_type") + ":"}
         label={t("select_card_type")}
         value={state.cardType}
         onSelect={(v: "VIRTUAL" | "PLASTIC") =>
@@ -63,7 +63,7 @@ export function IssueNewCard({ closable }: { closable: boolean }) {
                 <Input
                   allowDigits
                   value={state.linkedPhone}
-                  placeholder={t("enter_phone_number")}
+                  placeholder={t("auth.enter_phone_number")}
                   onChange={({ target }) =>
                     setState({
                       ...state,

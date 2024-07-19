@@ -147,7 +147,9 @@ export const EnableNotifications = () => {
         <div className='row relative'>
           <div className='flex justify-center col'>
             {loading ? (
-              <Loader className={"w-[50px] h-[50px]"} />
+              <div className="min-h-[100px]">
+                <Loader className={"w-[50px] h-[50px]"} />
+              </div>
             ) : (
               <Button size='lg' onClick={handleCancel} className='w-full'>
                 {t("close")}

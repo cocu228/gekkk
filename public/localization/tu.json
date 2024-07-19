@@ -515,6 +515,7 @@
     "activate_your_card": "Lütfen kartınızı yalnızca fiziksel kartınızın üzerindeki kabartmalı numaranın sanal kartınızla aynı olması durumunda etkinleştirin!",
     "limit_amount": "Limit tutarı",
     "disable_limits": "Sınırları geçici olarak devre dışı bırakın",
+    "enable_limits": "Sınırları etkinleştir",
     "show_card_data": "Kart verilerini göster",
     "activate_card": "Kartı etkinleştir",
     "block_card": "Kartı bloke et",

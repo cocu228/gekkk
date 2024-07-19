@@ -99,7 +99,9 @@ const Receipt: FC<ReceiptProps> = ({ txId, txInfo, onCancel }) => {
   }, [account]);
 
   return loading ? (
-    <Loader className='relative my-20' />
+    <div className="min-h-[100px]">
+      <Loader className='relative my-20' />
+    </div>
   ) : (
     <div className={styles.Wrapper}>
       <div className={styles.Block} ref={componentRef}>

@@ -515,6 +515,7 @@
     "activate_your_card": "请仅当实体卡上凸印的号码与虚拟卡上凸印的号码相同时才激活您的卡！",
     "limit_amount": "限制金额",
     "disable_limits": "暂时禁用限制",
+    "enable_limits": "启用限制", 
     "show_card_data": "显示卡数据",
     "activate_card": "激活卡",
     "block_card": "块卡",

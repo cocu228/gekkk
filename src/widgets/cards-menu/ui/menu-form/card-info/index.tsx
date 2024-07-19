@@ -46,7 +46,9 @@ const CardInfo = ({ cardId, onBack }: IParams) => {
   return (
     <div className={styles.Wrapper}>
       {!cardInfo ? (
-        <Loader className='relative my-10' />
+        <div className="min-h-[100px]">
+          <Loader className='relative my-10' />
+        </div>
       ) : (
         <>
           <div className={styles.Warning}>

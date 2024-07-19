@@ -166,7 +166,7 @@ export default function TransfersWrapper({
                         </div>
                       ))
                   ) : (
-                    <div className='min-h-[200px] flex justify-center w-full relative'>
+                    <div className='min-h-[100px] flex justify-center w-full relative'>
                       <Loader />
                     </div>
                   )}
@@ -198,7 +198,7 @@ export default function TransfersWrapper({
                   ))}
                 </div>
               ) : (loading || networkLoading) && !network && child?.props["data-tag"] === "choose_network" ? (
-                <div className='min-h-[200px] flex justify-center w-full relative'>
+                <div className='min-h-[100px] flex justify-center w-full relative'>
                   <Loader />
                 </div>
               ) : null}

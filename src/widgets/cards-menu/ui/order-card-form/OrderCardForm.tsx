@@ -89,7 +89,9 @@ const OrderCardForm = ({ card = null, closable = false, setIsNewCardOpened }: IP
   }, []);
 
   return loading ? (
-    <Loader className='relative mt-20' />
+    <div className="min-h-[100px]">
+      <Loader className='relative mt-20' />
+    </div>
   ) : (
     <OrderCardContext.Provider
       value={{

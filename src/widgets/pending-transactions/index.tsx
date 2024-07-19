@@ -138,7 +138,9 @@ const PendingTransactions = () => {
         />
 
         <Modal isModalOpen={isModalOpen} onCancel={handleCancel} title={t("please_verify_transaction")}>
-          {txLoading && <Loader className='mb-5' />}
+          {txLoading && <div className="min-h-[100px]">
+            <Loader className='mb-5' />
+          </div>}
 
           {selectedTx && (
             <div className={txLoading ? "collapse" : ""}>

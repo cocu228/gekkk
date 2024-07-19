@@ -206,7 +206,9 @@ const TypeChoose = memo(() => {
           <div className='row relative'>
             <div className='col'>
               {modalLoading ? (
-                <Loader className={"w-[24px] h-[24px]"} />
+                <div className="min-h-[100px]">
+                  <Loader className={"w-[24px] h-[24px]"} />
+                </div>
               ) : (
                 <Button onClick={onModalClick} className='w-full'>
                   Confirm

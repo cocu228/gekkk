@@ -106,7 +106,9 @@ const ApplyTransferCode = () => {
             isModalOpen={isModalOpen}
           >
             {loading ? (
-              <Loader />
+              <div className="min-h-[100px]">
+                <Loader />
+              </div>
             ) : !infoCode ? (
               <CodeTxInfo
                 applyTxCodeInfoBox={applyTxCodeInfoBox}

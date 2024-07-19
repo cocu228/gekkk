@@ -38,7 +38,9 @@ export default () => {
     }
   }, [account, inviteCode]);
 
-  if (inviteCode || !roomsList) return <Loader className='relative my-20' />;
+  if (inviteCode || !roomsList) return <div className="min-h-[100px]">
+    <Loader className='relative my-20'/>
+  </div>;
 
   if (roomId && !roomInfo) navigate("/exchange");
 

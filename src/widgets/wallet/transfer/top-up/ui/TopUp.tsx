@@ -112,7 +112,9 @@ const TopUp = memo(() => {
   return (
     <div className={styles.TopUpMainContainer}>
       {loading ? (
-        <Loader />
+        <div className="min-h-[100px]">
+          <Loader />
+        </div>
       ) : (
         <Wrapper isWeb>
           <div className='w-full'>

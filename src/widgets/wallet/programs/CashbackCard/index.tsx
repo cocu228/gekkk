@@ -30,7 +30,9 @@ function Programs() {
           );
         })
       ) : (
-        <Loader />
+        <div className="min-h-[100px]">
+          <Loader />
+        </div>
       )}
     </div>
   );

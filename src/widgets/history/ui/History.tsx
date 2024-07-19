@@ -136,7 +136,9 @@ const History = memo(function ({
   }, [refreshKey, tab, currenciesFilter]);
 
   return loading ? (
-    <Loader className='h-[100px] relative' />
+    <div className="min-h-[100px]">
+      <Loader className='h-[100px] relative' />
+    </div>
   ) : (
     <>
       <div id={"History"} className={`${styles.Container} ${className}`}>
@@ -169,7 +171,9 @@ const History = memo(function ({
           <div className='row mt-3'>
             <div className='col flex justify-center relative'>
               {lazyLoading || md ? (
-                <Loader className={"w-[24px] h-[24px]"} />
+                <div className="min-h-[100px]">
+                  <Loader className={"w-[24px] h-[24px]"} />
+                </div>
               ) : (
                 <span
                   onClick={requestMoreHistory}

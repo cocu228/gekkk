@@ -146,7 +146,9 @@ const WithdrawFormCardToCard = () => {
   const fee = withdraw_fee;
 
   return loadingPage ? (
-    <Loader className={"relative"} />
+    <div className="min-h-[100px]">
+      <Loader className={"relative"} />
+    </div>
   ) : (
     <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
       {/* Amount Start */}

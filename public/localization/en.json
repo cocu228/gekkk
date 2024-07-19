@@ -607,6 +607,7 @@
     "activate_your_card": "Please, activate your card only if the number embossed on your physical card is identical to your virtual card!",
     "limit_amount": "Limit amount",
     "disable_limits": "Disable limits temporarily",
+    "enable_limits": "Enable limits",
     "show_card_data": "Show card data",
     "activate_card": "Activate card",
     "block_card": "Block card",

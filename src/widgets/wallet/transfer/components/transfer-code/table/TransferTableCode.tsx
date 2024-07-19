@@ -97,7 +97,7 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   return (
     <>
       {loading ? (
-        <div className='w-full h-full relative'>
+        <div className='w-full h-full relative min-h-[100px]'>
           <Loader />
         </div>
       ) : (

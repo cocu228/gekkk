@@ -502,6 +502,7 @@
     "activate_your_card": "Bitte aktivieren Sie Ihre Karte nur, wenn die auf Ihrer physischen Karte geprägte Nummer mit Ihrer virtuellen Karte identisch ist!",
     "limit_amount": "Grenzbetrag",
     "disable_limits": "Grenzen vorübergehend deaktivieren",
+    "enable_limits": "Grenzen aktivieren",
     "show_card_data": "Kartendaten anzeigen",
     "activate_card": "Karte aktivieren",
     "block_card": "Karte sperren",

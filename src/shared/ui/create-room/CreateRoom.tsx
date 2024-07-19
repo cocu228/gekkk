@@ -178,7 +178,9 @@ function CreateRoom({
         </div>
       </div>
 
-      {loading && <Loader />}
+      {loading && <div className="min-h-[100px]">
+        <Loader />
+      </div>}
     </>
   );
 }

@@ -52,7 +52,9 @@ const CardsMenu = () => {
   // - page URL contains "new" query parameter
   // - user has no cards or they can't be loaded
   return isLoading ? (
-    <Loader className='relative md:mt-20' />
+    <div className="min-h-[100px]">
+      <Loader className='relative md:mt-20' />
+    </div>
   ) : isNewCardOpened || newCardUrl || (cardsStorage.cards?.length ?? 0) === 0 ? (
     <OrderCardForm
       card={selectedCard}

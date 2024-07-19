@@ -94,7 +94,9 @@ const ClosingDepositModal = ({ open, isFixed, onCancel, investment, strategyData
         </Button>
       </div>
 
-      {loading && <Loader />}
+      {loading && <div className="min-h-[100px]">
+        <Loader />
+      </div>}
     </Modal>
   );
 };

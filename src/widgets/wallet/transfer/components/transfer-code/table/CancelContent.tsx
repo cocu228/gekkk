@@ -58,7 +58,7 @@ const CancelContent: FC<ICancelContentProps> = ({ code, amount, currency, date =
       </Button>
       <Modal placeBottom={md} title={t("cancel_code")} isModalOpen={isModalOpen} onCancel={handleCancel}>
         {loading ? (
-          <div className='relative min-h-[200px]'>
+          <div className='relative min-h-[100px]'>
             <Loader />
           </div>
         ) : (

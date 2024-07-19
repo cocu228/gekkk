@@ -52,7 +52,7 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
   }, []);
 
   const loader = (
-    <div className={"min-h-[200px] relative"}>
+    <div className={"min-h-[100px] relative"}>
       <Loader className='justify-center' />
     </div>
   );

@@ -50,7 +50,7 @@ const ChooseNetworkMobile = ({ network, setNetwork, loading }) => {
               {t("networks_not_found")}
             </span>
           ) : loading ? (
-            <div className='flex items-center justify-center w-full relative'>
+            <div className='flex items-center justify-center min-h-[100px] w-full relative'>
               <Loader className='w-[24px] h-[24px]' />
             </div>
           ) : !network ? (

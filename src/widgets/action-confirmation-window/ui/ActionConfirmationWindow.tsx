@@ -97,7 +97,9 @@ const ActionConfirmationWindow = () => {
         localErrorClear();
       }}
     >
-      {loading && <Loader className='' />}
+      {loading && <div className="min-h-[100px]">
+        <Loader className='' />
+      </div>}
 
       <div className={loading ? "collapse" : ""}>
         <span className={style.ModalText}>&emsp;&emsp;{t("action_confirmation_message")}</span>

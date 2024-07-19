@@ -69,7 +69,9 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
 
   return !md ? (
     loading ? (
-      <Loader className='relative my-20' />
+      <div className="min-h-[100px]">
+        <Loader className='relative my-20' />
+      </div>
     ) : newCode ? (
       <CodeTxInfo currency={currency.$const} inputCurr={inputCurr.value.number} onClose={onClose} code={newCode} />
     ) : (
@@ -132,7 +134,7 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
       </>
     )
   ) : loading ? (
-    <div className='relative min-h-[200px]'>
+    <div className='relative min-h-[100px]'>
       <Loader />
     </div>
   ) : code ? (

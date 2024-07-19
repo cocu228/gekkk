@@ -8,7 +8,9 @@ interface IConfirmLoadingProps {
 }
 
 const ConfirmLoading: FC<IConfirmLoadingProps> = ({ isLoading, children }) => (
-  <div className='min-h-[200px]'>{isLoading ? <Loader className='justify-center' /> : children}</div>
+  <div className='min-h-[200px]'>{isLoading ? <div className="min-h-[100px]">
+    <Loader className='justify-center' />
+  </div> : children}</div>
 );
 
 export default ConfirmLoading;

@@ -515,6 +515,7 @@
     "activate_your_card": "¡Por favor, active su tarjeta solo si el número grabado en su tarjeta física es idéntico al de su tarjeta virtual!",
     "limit_amount": "Cantidad límite",
     "disable_limits": "Desactivar límites temporalmente",
+    "enable_limits": "Activar límites",
     "show_card_data": "Mostrar datos de la tarjeta",
     "activate_card": "Activar tarjeta",
     "block_card": "tarjeta de bloqueo",

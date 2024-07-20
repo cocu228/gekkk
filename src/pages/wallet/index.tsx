@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -37,6 +37,8 @@ function Wallet() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const tab = params.get("tab");
+  const [currencyFrom, setCurrencyFrom] = useState(params.get('currency'))
+  const [currencyTo, setCurrencyTo] = useState(params.get('currency'))
   const currency = params.get("currency");
   const { account } = useContext(CtxRootData);
   const { currencies } = useContext(CtxCurrencies);
@@ -74,6 +76,20 @@ function Wallet() {
       navigate("404");
     }
   }, [currencies, currency, gekkoinMod, navigate]);
+
+  useEffect(() => {
+    if(params.get('currency') === 'EUR') {
+      setCurrencyFrom('')
+    } else {
+      setCurrencyFrom(params.get('currency'))
+    }
+
+    if(params.get('currency') === 'EURG') {
+      setCurrencyTo('')
+    } else {
+      setCurrencyTo('EURG')
+    }
+  }, [params])
 
   const isShownTabs = !isOnAboutPage;
 
@@ -142,7 +158,7 @@ function Wallet() {
                 />
 
                 {!IS_GEKKARD_APP() ? null : !isEUR ? (
-                  <ExchangeButton isActive to={`/exchange?from=${currency}`} state={`/wallet?currency=${currency}`} />
+                  <ExchangeButton isActive to={currencyFrom || currencyTo ? `/exchange?${currencyFrom && `from=${currencyFrom}`}${currencyTo && `&to=${currencyTo}`}` : '/exchange'} state={`/wallet?currency=${currency}`} />
                 ) : (
                   <CardsMenuButton to={"/card-menu"} state={`/wallet?currency=${currency}`} />
                 )}

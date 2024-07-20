@@ -34,11 +34,12 @@ export const LocalizationMenu = () => {
   return (
     <>
       <Dropdown
+        className="items-center"
         trigger={
-          <>
+          <span className="flex items-center gap-2">
             <IconFlag code={state} size={24} />
             <span className={styles.HeaderMenuTitles}>{t("language_name")}</span>
-          </>
+          </span>
         }
       >
         {menu.map(item => (

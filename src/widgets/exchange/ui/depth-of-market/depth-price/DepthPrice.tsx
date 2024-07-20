@@ -45,9 +45,7 @@ const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
                 }`}
     >
       {loading && !displayAmount ? (
-        <div className="min-h-[100px]">
           <Loader className='relative h-[25px] w-[25px]' />
-        </div>
       ) : (
         <div onClick={handleOnClick} className='flex items-center text-[10px] w-full justify-center'>
           {displayAmount ? (

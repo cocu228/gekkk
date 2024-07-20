@@ -37,14 +37,12 @@
   width: 100%;
   overscroll-behavior-y: none;
   position: fixed;
-  left: 0;
-  bottom: 0;
-  top: auto;
-  z-index: 41;
+  bottom: 0px;
+  z-index: 21;
 }
-
 .AddBottomMenuPadding {
-  padding-bottom: calc(env(safe-area-inset-bottom) + 25px);
+  box-sizing: content-box;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .AssetInfo3 {

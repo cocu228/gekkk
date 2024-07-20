@@ -22,24 +22,26 @@ if (accountId) {
 }
 
 function reload() {
-  setCookieData([{
-    key: 'lastReload',
-    value: new Date().toISOString(),
-    expiration: new Date().setTime(new Date().getTime() + (30 * 24 * 60 * 60 * 1000))
-  }]);
+  setCookieData([
+    {
+      key: "lastReload",
+      value: new Date().toISOString(),
+      expiration: new Date().setTime(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
+    }
+  ]);
   window.location.reload();
 }
 
 // Функция для проверки и обновления куки
 function checkAndUpdateCookie() {
   const currentDate = new Date();
-  const {lastReload} = getCookieData<{lastReload? :string}>();
-  
+  const { lastReload } = getCookieData<{ lastReload?: string }>();
+
   if (lastReload) {
     const lastReloadDate = new Date(lastReload);
     const diffTime = Math.abs(currentDate.getTime() - lastReloadDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     // 7 days from previous reload
     if (diffDays >= 7) {
       reload();

@@ -21,14 +21,14 @@ export const LocalizationMenu = () => {
   }, [initialLanguage]);
 
   const menu = [
-    {key: "en"},
-    {key: "de"},
-    {key: "ru"},
-    {key: "CN"},
-    {key: "ES"},
-    {key: "TR"},
-    {key: "FR"},
-    {key: "IT"}
+    { key: "en" },
+    { key: "de" },
+    { key: "ru" },
+    { key: "CN" },
+    { key: "ES" },
+    { key: "TR" },
+    { key: "FR" },
+    { key: "IT" }
   ];
 
   return (

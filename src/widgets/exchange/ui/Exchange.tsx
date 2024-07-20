@@ -29,7 +29,7 @@ const Exchange: FC = () => {
   // Hooks
   const { t } = useTranslation();
   const confirmModal = useModal();
-  const loc = useLocation()
+  const loc = useLocation();
   const roomInfoModal = useModal();
   const { md, xxxl } = useBreakpoints();
   const navigate = useNavigate();
@@ -62,8 +62,8 @@ const Exchange: FC = () => {
   } = useContext(CtxExchangeData);
 
   useEffect(() => {
-    console.log('LOC IS ', loc)
-  }, [loc])
+    console.log("LOC IS ", loc);
+  }, [loc]);
 
   // Handles
   const handleOnCreateOrder = async () => {

@@ -169,17 +169,17 @@ const HeaderMobile = ({ items, actions }) => {
               <span className={styles.HeaderTitle}>{headerTitle()}</span>
             </div>
 
-            {walletPage?.pathname === "/wallet"
-              && params.get("currency") === "EUR"
-              && tab !== "programs" 
-              && tab !== "top_up" && (
-              <Link to='/settings?sessionsSection=my-reports' state={"/wallet?currency=EUR"}>
-                <div className='flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold'>
-                  {t("reports")}
-                  <IconApp code='t09' className='min-w-[9px]' size={9} color='#fff' />
-                </div>
-              </Link>
-            )}
+            {walletPage?.pathname === "/wallet" &&
+              params.get("currency") === "EUR" &&
+              tab !== "programs" &&
+              tab !== "top_up" && (
+                <Link to='/settings?sessionsSection=my-reports' state={"/wallet?currency=EUR"}>
+                  <div className='flex mr-[5vw] gap-[5px] items-center text-[14px] text-[#fff] font-bold'>
+                    {t("reports")}
+                    <IconApp code='t09' className='min-w-[9px]' size={9} color='#fff' />
+                  </div>
+                </Link>
+              )}
           </div>
         )}
 

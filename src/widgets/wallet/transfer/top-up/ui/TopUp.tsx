@@ -125,14 +125,12 @@ const TopUp = memo(() => {
               {is_operable === false && network && (
                 <div className={styles.TopUpMarginLeft}>
                   <div className={styles.AttentionBlock}>
-                    <IconApp code="t27" size={15} color="#8F123A" />
+                    <IconApp code='t27' size={15} color='#8F123A' />
                     <p className={styles.AttentionText}>{t("attention")}</p>
                   </div>
                 </div>
               )}
-              {
-                md && network && displayedForm
-              }
+              {md && network && displayedForm}
             </div>
             {md && networkType === 231 && +type === 231 && (
               <div className={styles.TransferTableContainer}>

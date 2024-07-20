@@ -17,7 +17,7 @@ export interface ICtxExchangeData {
   onToValueChange?: (value: string) => void;
   onFromValueChange?: (value: string) => void;
   onToCurrencyChange?: (value: string) => void;
-  onPriceAmountChange?: (valie: string) => void;
+  onPriceAmountChange?: (value: string) => void;
   onFromCurrencyChange?: (value: string) => void;
 }
 

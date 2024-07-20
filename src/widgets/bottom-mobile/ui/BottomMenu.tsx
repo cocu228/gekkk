@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useMatch, useSearchParams } from "react-router-dom";
+import { NavLink, useMatch, useSearchParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { scrollToTop } from "@/shared/lib/helpers";
@@ -38,11 +38,10 @@ export function BottomMenu() {
     setNeedBottomPadding(window.matchMedia("(display-mode: standalone)").matches);
   }, []);
 
-
   return (
     <>
       {isHomePage && (
-        <div className={`${styles.AssetInfo3} ${needBottomPadding && styles.AddBottomAssetButtonMargin}`}>
+        <div className={`${styles.AssetInfo3}`}>
           <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
             <div className={styles.NewAsset}>
               <IconApp color='#fff' code='t67' size={20} />
@@ -56,6 +55,7 @@ export function BottomMenu() {
           className={`
                 ${needBottomPadding && styles.AddBottomMenuPadding}
                 ${styles.BottomMenuMobile}
+                ${needBottomPadding && styles.AddBottomMenuPadding}
                 ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
             `}
         >

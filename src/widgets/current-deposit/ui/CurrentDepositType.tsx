@@ -1,9 +1,9 @@
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { ICtxCurrency } from "@/processes/CurrenciesContext";
 import { getGkePercent } from "@/shared/config/deposits/helpers";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 import { IDepositStrategyData } from "../model/helpers";
-import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface ICurrentDepositType {
   isGke?: boolean;

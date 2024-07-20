@@ -26,6 +26,7 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
   const roomInfoModal = useModal();
   const roomCloseModal = useModal();
   const [params] = useSearchParams();
+
   const roomId = params.get("roomId");
   const { account } = useContext(CtxRootData);
   const { xxxl } = useContext(BreakpointsContext);
@@ -42,13 +43,13 @@ const ExchangeBar = ({ NavLinkEvent }: IParams) => {
       getRoomsList();
     }
   }, [account]);
-  
+
   return (
     <>
       {/* Exchange page link */}
-      <NavLink 
+      <NavLink
         className={!currencies ? "disabled" : ""}
-        onClick={NavLinkEvent} 
+        onClick={NavLinkEvent}
         to={!currencies ? "" : "exchange"}
       >
         <div className={styles.ItemExchange}>

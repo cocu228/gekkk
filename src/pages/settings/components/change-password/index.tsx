@@ -7,16 +7,16 @@ import Button from "@/shared/ui/button/Button";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { BoxWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
 import { AuthOptions } from "@/shared/(orval)api/auth/model";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 
 import CheckList from "./helpers/checklist";
 import { RegisterOptionsToChangePass, ChangePass } from "./api/change-password";
 import styles from "./styles.module.scss";
 
 export function ChangePassword() {
+  // Hooks
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [timer, setTimer] = useState(0);
-  const [phoneNumber] = useState<string>();
   const [options, setOptions] = useState<AuthOptions | undefined>(undefined);
   const [newPass, setNewPass] = useState<string>();
   const [valid, setValid] = useState<boolean>(false);
@@ -24,12 +24,16 @@ export function ChangePassword() {
   const [confirmCode, setConfirmCode] = useState<string>();
   const [confirmNewPass, setConfirmNewPass] = useState<string>();
   const [smsCodeSent, setSmsCodeSent] = useState<boolean>(false);
-
+  const [timer, setTimer] = useState(0);
   const [code, setCode] = useState("t41");
   const [type, setType] = useState("password");
   const [codeConfirmed, setCodeConfirm] = useState("t41");
   const [typeConfirmed, setTypeConfirm] = useState("password");
 
+  // Store
+  const { getAccountDetails } = storeAccountDetails();
+
+  // Handlers
   const startTimer = () => setTimer(60);
 
   const passSave = (e: any) => {
@@ -69,11 +73,12 @@ export function ChangePassword() {
     void RegisterOptionsToChangePass(setOptions, setChallengeReg, setSmsCodeSent);
   };
 
-  const onContinue = () => {
+  const onContinue = async () => {
     if (!smsCodeSent) {
       sendSmsCode();
     } else {
-      void ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg);
+      const userInfo = await getAccountDetails();
+      void ChangePass(userInfo.phone, newPass, confirmCode, options, challengeReg);
       setSmsCodeSent(false);
       setNewPass(null);
       setConfirmNewPass(null);
@@ -82,6 +87,7 @@ export function ChangePassword() {
     }
   };
 
+  // Effects
   useEffect(() => {
     const timerInterval = setInterval(
       () =>

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "@/widgets/exchange/ui/style.module.scss";
@@ -14,7 +14,6 @@ import { IExchangeField, IExchangePrice } from "@/widgets/exchange/model/types";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { ICtxCurrency } from "@/processes/CurrenciesContext";
 import Wrapper from "@/shared/ui/wrapper";
-import { useLocation, useNavigate } from "react-router-dom";
 
 interface IExchangeCreateOrderProps {
   currencies: Map<string, ICtxCurrency>;
@@ -53,19 +52,13 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
   to,
   setHasValidationError
 }) => {
-  const { t } = useTranslation();
-  const navigate = useNavigate()
-  const loc = useLocation()
+  const [, setMinOrder] = useState<number | null>();
 
   useEffect(() => {
-    if(from.currency && !to.currency) {
-      navigate(`${loc.pathname}?from=${from.currency}`)      
-    } else if (!from.currency && to.currency) {
-      navigate(`${loc.pathname}?to=${to.currency}`)
-    } else if (from.currency && to.currency) {
-      navigate(`${loc.pathname}?from=${from.currency}&to=${to.currency}`)
-    }
-  }, [from, to])
+    setMinOrder(currencies.get(from.currency)?.minOrder);
+  }, [from]);
+
+  const { t } = useTranslation();
 
   return (
     <div className={"w-full md:bg-white md:pt-[15px]"}>

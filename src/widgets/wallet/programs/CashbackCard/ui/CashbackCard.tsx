@@ -19,15 +19,7 @@ interface Props {
   isActive: boolean;
 }
 
-const CashbackCard = memo<Props>(({
-  cashbackId,
-  name,
-  accrualPeriod,
-  className,
-  icon,
-  conditions,
-  isActive
-}) => {
+const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, icon, conditions, isActive }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -36,9 +28,7 @@ const CashbackCard = memo<Props>(({
   const toPartnershipProgram = cashbackId === ActiveBonusProgram.PARTNERSHIP;
   return (
     <div className='flex flex-col relative pb-[40px] justify-center'>
-      <div
-        className={`${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
-      >
+      <div className={`${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}>
         <div className='flex'>
           <div className={styles.CashbackCardName}>{t(name)}</div>
         </div>
@@ -75,13 +65,14 @@ const CashbackCard = memo<Props>(({
               className={`${styles.CashbackCardButton}`}
               disabled={!isActive && !(toNoFeeProgram || toCashbackProgram || toPartnershipProgram)}
               onClick={() => {
-                if (toNoFeeProgram)  navigate("/wallet?currency=GKE&tab=no_fee_program")
-                if (toCashbackProgram) navigate("/wallet?currency=GKE&tab=cashback_program")
-                if (toPartnershipProgram) navigate("/partnership-program")
+                if (toNoFeeProgram) navigate("/wallet?currency=GKE&tab=no_fee_program");
+                if (toCashbackProgram) navigate("/wallet?currency=GKE&tab=cashback_program");
+                if (toPartnershipProgram) navigate("/partnership-program");
               }}
             >
               <div className='flex flex-row'>
-                {(toNoFeeProgram || toCashbackProgram || toPartnershipProgram) && t("cashback_programs.go_to_the_program")}
+                {(toNoFeeProgram || toCashbackProgram || toPartnershipProgram) &&
+                  t("cashback_programs.go_to_the_program")}
               </div>
             </Button>
           )}

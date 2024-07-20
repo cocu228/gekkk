@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Loader from "@/shared/ui/loader";
@@ -8,25 +7,16 @@ import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
 import { formatForCustomer } from "@/shared/lib/date-helper";
-import { actionResSuccess, getFlagsFromMask, isNull, isNumbersOnly } from "@/shared/lib/helpers";
+import { actionResSuccess, isNull, isNumbersOnly } from "@/shared/lib/helpers";
 import { AddressTxOut, AdrTxTypeEnum } from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
-import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
-import Receipt from "@/widgets/receipt/ui";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { TxStatusFlags, txStatusFlags } from "@/shared/config/tx-status-flags";
 
 import { TxInfoProps } from "../../model/types";
 import InfoConfirmPartner from "./InfoConfirmPartner";
 import style from "./style.module.scss";
 
 const InfoContent = (props: TxInfoProps) => {
-  const { md } = useBreakpoints();
-  const navigate = useNavigate();
-  const location = useLocation();
   const { t } = useTranslation();
-  const modalContext = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 
@@ -34,45 +24,6 @@ const InfoContent = (props: TxInfoProps) => {
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
   // const isFinishedTx = getFlagsFromMask(props.status, txStatusFlags)[TxStatusFlags.Finished];
   const loading = isNull(state) && isAvailableType;
-
-  const handleOnReceipt = () => {
-    props.handleCancel();
-    const isBankTx = !isNumbersOnly(props.id_transaction);
-
-    if (md) {
-      const searchParams = new URLSearchParams(location.search);
-      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {};
-
-      const params = createSearchParams({
-        ...search,
-        ...(isBankTx ? { txId: props.id_transaction } : {})
-      });
-
-      if (!isBankTx) {
-        localStorage.setItem(
-          "receiptInfo",
-          JSON.stringify({
-            ...props,
-            addressTxInfo: state
-          })
-        );
-      }
-
-      navigate({
-        pathname: "/receipt",
-        search: params.toString()
-      });
-    } else {
-      modalContext.setContent({
-        title: t("transaction_receipt"),
-        content: !isBankTx ? (
-          <Receipt txInfo={{ ...props, addressTxInfo: state }} />
-        ) : (
-          <Receipt txId={props.id_transaction} />
-        )
-      });
-    }
-  };
 
   useEffect(() => {
     if (isAvailableType) {
@@ -247,7 +198,9 @@ const InfoContent = (props: TxInfoProps) => {
           {isNeedConfirm ? (
             <InfoConfirmPartner {...props} />
           ) : (
-            <div className={`flex gap-[20px] w-full mt-3 justify-center`}/*${isFinishedTx ? "justify-evenly" : "justify-center"}`}*/>
+            <div
+              className={`flex gap-[20px] w-full mt-3 justify-center`} /*${isFinishedTx ? "justify-evenly" : "justify-center"}`}*/
+            >
               {/* {isFinishedTx && (
                 <Button skeleton className='w-full' onClick={handleOnReceipt}>
                   <IconApp size={20} code='t58' color='#2BAB72' /> {t("receipt").capitalize()}

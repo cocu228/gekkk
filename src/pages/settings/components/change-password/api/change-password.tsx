@@ -8,7 +8,14 @@ import { coerceToBase64Url } from "../helpers";
 // import { useUserInfo } from "../../PersonalInformation/model/";
 
 const servPath = import.meta.env.VITE_API_URL;
-export async function ChangePass(phoneNumber, newPass, confirmCode, makeAssertionOptions, challenge) {
+export async function ChangePass(
+  phoneNumber: string,
+  newPass: string,
+  confirmCode: string,
+  makeAssertionOptions: AuthOptions,
+  challenge: string
+) {
+  // @ts-ignore
   makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
   const passKey = sha256(`${phoneNumber + newPass + makeAssertionOptions.fido2_options.rp.id}`);

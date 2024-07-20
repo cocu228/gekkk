@@ -8,7 +8,7 @@ interface Props {
   children: ReactElement;
   className: string;
   name: string;
-  defaultChecked: boolean;
+  checked: boolean;
   disabled?: boolean;
 }
 
@@ -17,7 +17,7 @@ const Checkbox = ({
   children,
   className = "",
   name = undefined,
-  defaultChecked = false,
+  checked = false,
   disabled = false
 }: Partial<Props>) => (
   <label className={`${styles.Label} ${disabled ? styles.disabled : ""}`}>
@@ -26,11 +26,11 @@ const Checkbox = ({
       className={styles.Input}
       name={name}
       onChange={onChange}
-      defaultChecked={defaultChecked}
+      defaultChecked={checked}
       disabled={disabled}
     />
     <span className={`${styles.Checkbox} ${className}`}>
-      {defaultChecked && <IconApp code='t47' size={12} color='#2BAB72' />}
+      {checked ? <IconApp code='t47' size={12} color='#2BAB72' /> : null}
     </span>
     {children}
   </label>

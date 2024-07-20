@@ -125,7 +125,7 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
 
             {roomType === "creator" && (
               <div className='mt-6 md:mt-3.5 '>
-                <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
+                <Checkbox checked={!isLimitOrder} onChange={onIsLimitOrderChange}>
                   <span className='text-[12px]'>
                     {t("exchange.sell")}
                     <strong className='font-semibold'> {from.currency}</strong> {t("exchange.at_the_market_rate")}

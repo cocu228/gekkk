@@ -106,7 +106,7 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
           </div>
         </div>
         <div className='row mb-16'>
-          <Checkbox onChange={({ target }) => setCheckbox(target.checked)}>
+          <Checkbox checked={checkbox} onChange={({ target }) => setCheckbox(target.checked)}>
             <div className='flex items-center'>
               {t("use_confirmation")}
 

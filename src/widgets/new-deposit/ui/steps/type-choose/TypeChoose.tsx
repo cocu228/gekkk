@@ -131,7 +131,7 @@ const TypeChoose = memo(() => {
         <div className='wrapper col-span-2 mb-5 hidden xl:block md:mb-5'>{descriptions[type]}</div>
 
         <div>
-          <Checkbox className='md:mr-10' onChange={onIsGkeDepositChange} defaultChecked={isGke}>
+          <Checkbox className='md:mr-10' onChange={onIsGkeDepositChange} checked={isGke}>
             <span>Increase the deposit rate</span>
           </Checkbox>
 

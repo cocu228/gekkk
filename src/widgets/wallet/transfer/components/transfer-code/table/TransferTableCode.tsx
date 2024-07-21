@@ -4,12 +4,11 @@ import { useTranslation } from "react-i18next";
 import { formatForCustomer, formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import Button from "@/shared/ui/button/Button";
 import GTable from "@/shared/ui/grid-table/";
-import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { Modal } from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
-import { apiApplyCode } from "@/shared/(orval)api/gek";
+import { apiApplyCode, apiListTxCodes } from "@/shared/(orval)api/gek";
 import Loader from "@/shared/ui/loader";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
@@ -21,6 +20,8 @@ import constants from "@/shared/config/coins/constants";
 import CancelContent from "./CancelContent";
 import CodeTxInfo from "../CodeTxInfo";
 import styles from "./style.module.scss";
+import { TxCodesOut } from "@/shared/(orval)api/gek/model";
+import { CtxRootData } from "@/processes/RootContext";
 
 export const modalDateArray = [
   {
@@ -60,7 +61,6 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
   const [localErrorHunter, localErrorInfoBox] = useError();
   const [success, setSuccess] = useState(null);
   const { md } = useBreakpoints();
@@ -83,7 +83,7 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   useEffect(() => {
     if (success && !isModalOpen) {
       (async () => {
-        await getListTxCode();
+        //await getListTxCode();
       })();
     }
   }, [isModalOpen]);
@@ -134,24 +134,33 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   );
 };
 
-const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?: IUseInputState }) => {
+const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; }) => {
+  const { lg, xl, xxl } = useBreakpoints();
   const currency = useContext(CtxWalletData);
-  const listTxCode = storeListTxCode(state => state.listTxCode);
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
-  const { md } = useBreakpoints();
+  const { refreshKey } = useContext(CtxRootData);
+  const [txCodes, setTxCodes] = useState<TxCodesOut[]>([]);
+  const [compactRequired, setCompactRequired] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      await getListTxCode();
-    })();
-  }, [currency.$const]);
+      const response = await apiListTxCodes({currency: currency.$const});
 
-  const filteredListTxCode = listTxCode.filter(
+      if (!response?.data?.error) {
+        setTxCodes(response.data.result);
+      }
+    })();
+  }, [refreshKey]);
+
+  useEffect(() => {
+    setCompactRequired(xxl && (lg == xl));
+  }, [lg, xl, xxl])
+
+  const filteredListTxCode = txCodes.filter(
     item => (item.currency as constants) === currency.$const && item.isOwner === isOwner
   );
   const { t } = useTranslation();
 
-  return listTxCode.length === 0 ? null : (
+  return txCodes.length === 0 ? null : (
     <>
       {filteredListTxCode.length <= 0 ? (
         <div className={styles.Row}>
@@ -161,25 +170,18 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
         <GTable className={`${styles.Table}`}>
           <GTable.Head className={styles.TableHead}>
             <GTable.Row className={styles.TableHeadBody}>
-              {/* {
-                    tableHeads.map((item, ind) => (
-                        <GTable.Col key={ind} className={styles.CodeModalTitle}>
-                            <div data-text={item.capitalize()}>
-                                <span>{t(item)}</span>
-                            </div>
-                        </GTable.Col>
-                    ))
-                } */}
               <GTable.Col className={styles.CodeModalTitle}>
                 <div data-text={"Code"}>
                   <span>{t("code")}</span>
                 </div>
               </GTable.Col>
-              {/* <GTable.Col className={styles.CodeModalTitle}>
-                <div data-text={"Amount"}>
-                  <span>{t("amount")}</span>
-                </div>
-              </GTable.Col> */}
+              {!compactRequired && (
+                <GTable.Col className={styles.CodeModalTitle}>
+                  <div data-text={"Amount"}>
+                    <span>{t("amount")}</span>
+                  </div>
+                </GTable.Col>
+              )}
               <GTable.Col className={styles.CodeModalTitle}>
                 <div data-text={"Status"}>
                   <span>{t("status")}</span>
@@ -193,10 +195,10 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
             </GTable.Row>
           </GTable.Head>
           <GTable.Body className={styles.TableBody}>
-            {filteredListTxCode.map(it => {
+            {filteredListTxCode.map((it, index) => {
               const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner;
               return (
-                <GTable.Row key={it.code} className={styles.TableItem}>
+                <GTable.Row key={`TX_CODE_ROW_${index}`} className={styles.TableItem}>
                   <GTable.Col className='w-full'>
                     <div className='row flex w-full items-center pr-[6px]'>
                       <div className='col pr-[15px] w-full'>
@@ -208,7 +210,7 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
                     </div>
                     <div className='row'>
                       <div className='col'>
-                        {md ? (
+                        {compactRequired ? (
                           <span className={styles.CodeTime}>
                             {formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}
                           </span>
@@ -217,16 +219,18 @@ const TransferTableCode = ({ isOwner = false }: { isOwner?: boolean; inputCurr?:
                         )}
                       </div>
                     </div>
-                    <span className={styles.MobileAmount}>
-                      {it.amount} {currency.$const}
-                    </span>
+                    {compactRequired && (
+                      <span className={styles.AmountRow}>
+                        {it.amount} {currency.$const}
+                      </span>
+                    )}
                   </GTable.Col>
 
-                  {/* {!md && !lg && (
+                  {!compactRequired && (
                     <GTable.Col className='text-center'>
-                      <span className='text-gra-600 text-xs'>{it.amount}</span>
+                      <span className='text-gra-600 text-xs'>{it.amount} {currency.$const}</span>
                     </GTable.Col>
-                )} */}
+                  )}
 
                   <GTable.Col className={styles.StatusCol}>
                     <span className='text-gray-600 text-xs'>{it.state}</span>

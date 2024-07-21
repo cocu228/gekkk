@@ -5,7 +5,6 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import { apiApplyCode } from "@/shared/(orval)api/gek";
-import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
 import { Modal } from "@/shared/ui/modal/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
@@ -25,7 +24,6 @@ const ApplyTransferCode = () => {
   const { showModal, isModalOpen, handleCancel } = useModal();
   const { setRefresh } = useContext(CtxRootData);
   const [input, setInput] = useState("");
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
   const [loading, setLoading] = useState(false);
   const [infoCode, setInfoCode] = useState<TxCodesOut>(null);
   const { md } = useBreakpoints();
@@ -51,7 +49,6 @@ const ApplyTransferCode = () => {
         handleCancel();
         localErrorClear();
         setInput("");
-        await getListTxCode();
       })
       .reject(error => {
         // handleCancel()

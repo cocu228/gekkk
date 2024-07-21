@@ -11,7 +11,6 @@ import { actionResSuccess, getRandomInt32 } from "@/shared/lib/helpers";
 import { apiCreateTxCode } from "@/shared/(orval)api/gek";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import { validateBalance } from "@/shared/config/validators";
-import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import { IUseInputState, useInputState } from "@/shared/ui/input-currency/model/useInputState";
@@ -39,8 +38,6 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
   const isInputEmptyOrNull = inputCurr.value.number === 0;
   const isInputMoreThanBalance = inputCurr.value.number > currency.balance?.free_balance;
 
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
-
   const [localErrorHunter, , localErrorInfoBox] = useError();
 
   const onCreateCode = async () => {
@@ -57,7 +54,6 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
     actionResSuccess(response)
       .success(async () => {
         setNewCode(response.data.result.code);
-        await getListTxCode();
         setLoading(false);
         setRefresh();
       })

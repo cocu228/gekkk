@@ -129,12 +129,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
-
-    &:nth-child(2) {
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-    }
   }
 }
 
@@ -149,14 +143,10 @@
   font-size: 10px;
 }
 
-.MobileAmount {
-  font-size: 10px;
+.AmountRow {
+  display: block;
   color: #29354c;
-  display: none;
-
-  @include max-devices(md) {
-    display: block;
-  }
+  font-size: 10px;
 }
 
 .StatusCol {

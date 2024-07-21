@@ -1,10 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Button from "@/shared/ui/button/Button";
 import { apiCancelCode } from "@/shared/(orval)api/gek";
 import { actionResSuccess } from "@/shared/lib/helpers";
-import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import Loader from "@/shared/ui/loader";
 import useModal from "@/shared/model/hooks/useModal";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
@@ -14,6 +13,7 @@ import ConfirmButtons from "@/widgets/wallet/transfer/components/confirm-buttons
 import Notice from "@/shared/ui/notice";
 
 import { modalDateArray } from "./TransferTableCode";
+import { CtxRootData } from "@/processes/RootContext";
 
 interface ICancelContentProps {
   code?: any;
@@ -25,10 +25,10 @@ interface ICancelContentProps {
 
 const CancelContent: FC<ICancelContentProps> = ({ code, amount, currency, date = null }) => {
   const { t } = useTranslation();
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
-  const [loading, setLoading] = useState(false);
-  const { showModal, isModalOpen, handleCancel } = useModal();
   const { md } = useBreakpoints();
+  const [loading, setLoading] = useState(false);
+  const { setRefresh } = useContext(CtxRootData);
+  const { showModal, isModalOpen, handleCancel } = useModal();
 
   const onBtnCancel = async () => {
     setLoading(true);
@@ -37,9 +37,7 @@ const CancelContent: FC<ICancelContentProps> = ({ code, amount, currency, date =
     });
 
     actionResSuccess(response)
-      .success(() => {
-        getListTxCode();
-      })
+      .success(() => setRefresh())
       .reject(() => {});
     setLoading(false);
     handleCancel();

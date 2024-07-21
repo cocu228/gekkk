@@ -13,7 +13,6 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { validateBalance } from "@/shared/config/validators";
 import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
-import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { Switch } from "@/shared/ui/Switch";
@@ -43,9 +42,6 @@ const CreateTransferCode = () => {
   const currency = useContext(CtxWalletData);
   const { setRefresh } = useContext(CtxRootData);
 
-  // Store
-  const getListTxCode = storeListTxCode(state => state.getListTxCode);
-
   // Handlers
   const onCreateCode = async () => {
     setLoading(true);
@@ -62,7 +58,6 @@ const CreateTransferCode = () => {
       .success(async () => {
         setNewCode(response.data.result.code);
         setRefresh();
-        await getListTxCode();
         setLoading(false);
       })
       .reject(error => {
@@ -92,33 +87,29 @@ const CreateTransferCode = () => {
   // Helpers
   const validated = validateBalance(currency, navigate, t)(inputCurr.value.number).validated;
   const isTransferDisabled = !inputCurr.value.number || !validated;
+  
+  return !md ? (
+    <>
+      <div>
+        <TransferCodeDescription />
 
-  if (!md) {
-    return (
-      <>
-        <div>
-          <TransferCodeDescription />
-
-          <div className='row mb-5'>
-            <Button onClick={showModal} size='lg' className='w-full'>
-              {t("create_transfer_code")}
-            </Button>
-            <Modal isModalOpen={isModalOpen} onCancel={handleCancel} title={t("your_transfer_code")}>
-              <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
-            </Modal>
-          </div>
-          <div className='row mb-2'>
-            <h3 className='text-lg font-bold'>{t("unredeemed_codes_info")}</h3>
-          </div>
-          <div className='row'>
-            <TransferTableCode isOwner />
-          </div>
+        <div className='row mb-5'>
+          <Button onClick={showModal} size='lg' className='w-full'>
+            {t("create_transfer_code")}
+          </Button>
+          <Modal isModalOpen={isModalOpen} onCancel={handleCancel} title={t("your_transfer_code")}>
+            <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
+          </Modal>
         </div>
-      </>
-    );
-  }
-
-  return (
+        <div className='row mb-2'>
+          <h3 className='text-lg font-bold'>{t("unredeemed_codes_info")}</h3>
+        </div>
+        <div className='row'>
+          <TransferTableCode isOwner />
+        </div>
+      </div>
+    </>
+  ) : (
     <>
       <div className='bg-[white] rounded-[8px] md:p-[20px_10px_5px] p-[0px_0px_5px] flex flex-col md:gap-[10px] gap-[15px]'>
         {/* Amount Start */}
@@ -190,7 +181,7 @@ const CreateTransferCode = () => {
         {/* Confirm End */}
       </div>
       <div className='row bg-[#F7F7F0] md:rounded-[0_0_10px_10px] p-[12px_0]'>
-        <TransferTableCode inputCurr={inputCurr} isOwner />
+        <TransferTableCode isOwner />
       </div>
     </>
   );

@@ -62,7 +62,7 @@ const WithdrawFormBroker = () => {
       <div className='w-full'>
         <AmountInput
           transfers
-          placeholder={t("enter_amount")}
+          placeholder={t("exchange.enter_amount")}
           value={inputCurr.value.number}
           inputValue={inputCurr.value.string}
           currency={currency}

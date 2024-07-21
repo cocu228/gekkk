@@ -22,6 +22,8 @@ import CodeTxInfo from "../CodeTxInfo";
 import styles from "./style.module.scss";
 import { TxCodesOut } from "@/shared/(orval)api/gek/model";
 import { CtxRootData } from "@/processes/RootContext";
+import { CtxGlobalModalContext } from "@/app/providers/CtxGlobalModalProvider";
+import ModalTrxStatusSuccess from "../../../withdraw/ui/modals/ModalTrxStatusSuccess";
 
 export const modalDateArray = [
   {
@@ -59,12 +61,13 @@ const CodeModalInfo = ({ code, item }) => {
 
 const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   const { t } = useTranslation();
-
-  const [loading, setLoading] = useState(false);
-  const [localErrorHunter, localErrorInfoBox] = useError();
-  const [success, setSuccess] = useState(null);
   const { md } = useBreakpoints();
+  
+  const [loading, setLoading] = useState(false);
   const { showModal, isModalOpen, handleCancel } = useModal();
+  const { setContent: setGlobalModal } = useContext(CtxGlobalModalContext);
+  const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
+  
   const onBtnConfirm = async (code: string) => {
     setLoading(true);
     const response = await apiApplyCode({
@@ -72,21 +75,21 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
     });
 
     actionResSuccess(response)
-      .success(async () => setSuccess(true))
+      .success(() => {
+        handleCancel();
+        setGlobalModal({
+          content: <ModalTrxStatusSuccess/>
+        });
+      })
       .reject(localErrorHunter);
-
-    showModal();
 
     setLoading(false);
   };
 
-  useEffect(() => {
-    if (success && !isModalOpen) {
-      (async () => {
-        //await getListTxCode();
-      })();
-    }
-  }, [isModalOpen]);
+  const onCancel = () => {
+    handleCancel();
+    localErrorClear();
+  }
 
   const modalKeys = {
     code: code,
@@ -101,34 +104,29 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
           <Loader />
         </div>
       ) : (
-        <Button className='w-full' size='sm' skeleton onClick={() => onBtnConfirm(code)}>
+        <Button className='w-full' size='sm' skeleton onClick={showModal}>
           {t("confirm")}
         </Button>
       )}
-      <Modal placeBottom={md} onCancel={handleCancel} isModalOpen={isModalOpen} title={t("the_code_confirmed")}>
-        {localErrorInfoBox ? (
-          localErrorInfoBox
-        ) : (
-          <div>
-            <div className='flex flex-col px-[10px] gap-[25px] mb-[30px]'>
-              <div className='flex flex-col gap-[10px]'>
-                {modalDateArray.map(item => (
-                  <div key={item.key}>
-                    <p className='text-[#9D9D9D] md:text-fs12 text-fs14'>{t(item.titleKey)}</p>
-                    <p className='font-semibold text-[#3A5E66] md:text-fs12 text-fs14'>{modalKeys[item.key]}</p>
-                  </div>
-                ))}
+      <Modal placeBottom={md} onCancel={onCancel} isModalOpen={isModalOpen} title={t("confirm_code")}>
+        <div className='flex flex-col px-[10px] gap-[25px] mb-5'>
+          <div className='flex flex-col gap-[10px]'>
+            {modalDateArray.map(item => (
+              <div key={item.key}>
+                <p className='text-[#9D9D9D] md:text-fs12 text-fs14'>{t(item.titleKey)}</p>
+                <p className='font-semibold text-[#3A5E66] md:text-fs12 text-fs14'>{modalKeys[item.key]}</p>
               </div>
-            </div>
-            <ConfirmButtons
-              onConfirm={() => {
-                onBtnConfirm(code);
-                handleCancel();
-              }}
-              onCancel={handleCancel}
-            />
+            ))}
           </div>
-        )}
+        </div>
+
+        <div className="mb-4">{localErrorInfoBox}</div>
+
+        <ConfirmButtons
+          isConfirmDisabled={loading || !!localErrorInfoBox}
+          onConfirm={() => onBtnConfirm(code)}
+          onCancel={onCancel}
+        />
       </Modal>
     </>
   );

@@ -60,41 +60,41 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
         </div>
       ) : (
         <div>
-          <Notice text={t("this_code_can_be_used")} />
-          {onBtnApply === null && (
-            <div className='flex flex-col items-center gap-[20px]'>
-              <div className='w-[max-content] border-1 border-[#A5B7C5] border-solid p-[10px] rounded-md'>
-                <div className='w-full max-w-[120px] h-auto'>
-                  <ReactQRCode
-                    style={{ height: "auto", maxWidth: "120px", minWidth: "100%", width: "100%" }}
-                    value={infoCode.code}
-                    viewBox={`0 0 148 148`}
-                  />
+          {onBtnApply === null ? (
+            <>
+              <Notice text={t("this_code_can_be_used")} />
+              <div className='flex flex-col items-center gap-[20px]'>
+                <div className='w-[max-content] border-1 border-[#A5B7C5] border-solid p-[10px] rounded-md'>
+                  <div className='w-full max-w-[120px] h-auto'>
+                    <ReactQRCode
+                      style={{ height: "auto", maxWidth: "120px", minWidth: "100%", width: "100%" }}
+                      value={infoCode.code}
+                      viewBox={`0 0 148 148`}
+                    />
+                  </div>
+                </div>
+                <Commissions youWillPay={inputCurr} youWillGet={inputCurr} fee={"-"} />
+                <div className='w-full px-[10px]'>
+                  <div className='flex items-start gap-[10px] md:text-fs12 text-fs14 px-[5px] mb-[10px]'>
+                    <span className='text-[var(--gek-mid-grey)]'>{t("confirmation")}:</span>
+                    {infoCode.typeTx === 12 ? (
+                      <span className='text-[var(--gek-green)]'>on</span>
+                    ) : (
+                      <span className='text-[var(--gek-dark-blue)]'>off</span>
+                    )}
+                  </div>
+                  <div className='w-full mb-[20px]'>
+                    <ClipboardField value={infoCode.code} />
+                  </div>
+                  <div className='w-full flex justify-center'>
+                    <Button size='md' color='blue' className='h-[43px] w-full' onClick={onClose}>
+                      {t("close")}
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <Commissions youWillPay={inputCurr} youWillGet={inputCurr} fee={"-"} />
-              <div className='w-full px-[10px]'>
-                <div className='flex items-start gap-[10px] md:text-fs12 text-fs14 px-[5px] mb-[10px]'>
-                  <span className='text-[var(--gek-mid-grey)]'>{t("confirmation")}:</span>
-                  {infoCode.typeTx === 12 ? (
-                    <span className='text-[var(--gek-green)]'>on</span>
-                  ) : (
-                    <span className='text-[var(--gek-dark-blue)]'>off</span>
-                  )}
-                </div>
-                <div className='w-full mb-[20px]'>
-                  <ClipboardField value={infoCode.code} />
-                </div>
-                <div className='w-full flex justify-center'>
-                  <Button size='md' color='blue' className='h-[43px] w-full' onClick={onClose}>
-                    {t("close")}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {onBtnApply && (
+            </>
+          ) : (
             <div className="flex flex-col">
               <div className="mb-5">
                 <div className='mb-2'>

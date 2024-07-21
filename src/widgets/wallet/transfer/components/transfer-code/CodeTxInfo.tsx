@@ -12,14 +12,16 @@ import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import Notice from "@/shared/ui/notice";
 
 import type { TxCodesOut } from "@/shared/(orval)api/gek/model";
+import InlineProperty from "@/shared/ui/inline-property";
+import { formatForCustomer } from "@/shared/lib/date-helper";
 
 interface ICodeTxInfoProps {
-  code: any;
+  code: string;
   currency?: any;
-  onBtnApply?: any;
-  applyTxCodeInfoBox?: any;
   inputCurr?: any;
-  onClose?: any;
+  onClose?: () => void;
+  applyTxCodeInfoBox?: any;
+  onBtnApply?: (codeInfo: TxCodesOut) => void;
 }
 
 const CodeTxInfo: FC<ICodeTxInfoProps> = ({
@@ -30,10 +32,9 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
   onClose = null
 }) => {
   const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
-  const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
   const { t } = useTranslation();
-
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -42,27 +43,21 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
       });
 
       actionResSuccess(response)
-        .success(() => {
-          setInfoCode(response.data.result);
-        })
+        .success(() => setInfoCode(response.data.result))
         .reject(localErrorHunter);
 
       setLoading(false);
     })();
   }, []);
 
-  const loader = (
-    <div className={"min-h-[100px] relative"}>
-      <Loader className='justify-center' />
-    </div>
-  );
-
   return (
     <>
       {codeTxInfoErrorInfoBox ? (
         codeTxInfoErrorInfoBox
       ) : loading ? (
-        loader
+        <div className={"min-h-[100px] relative"}>
+          <Loader className='justify-center' />
+        </div>
       ) : (
         <div>
           <Notice text={t("this_code_can_be_used")} />
@@ -84,7 +79,7 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
                   {infoCode.typeTx === 12 ? (
                     <span className='text-[var(--gek-green)]'>on</span>
                   ) : (
-                    <span className='text-[#1F3446]'>off</span>
+                    <span className='text-[var(--gek-dark-blue)]'>off</span>
                   )}
                 </div>
                 <div className='w-full mb-[20px]'>
@@ -98,16 +93,49 @@ const CodeTxInfo: FC<ICodeTxInfoProps> = ({
               </div>
             </div>
           )}
-        </div>
-      )}
-      {onBtnApply && (
-        <div className='row'>
-          <div className='flex justify-center col'>
-            {/* eslint-disable-next-line @typescript-eslint/no-unsafe-call */}
-            <Button disabled={loading} onClick={() => onBtnApply(infoCode)} size='md' className={"w-full"}>
-              {t("confirm")}
-            </Button>
-          </div>
+
+          {onBtnApply && (
+            <div className="flex flex-col">
+              <div className="mb-5">
+                <div className='mb-2'>
+                  <InlineProperty
+                    left={t("creation_date")}
+                    right={formatForCustomer(new Date(infoCode.dateTxUTC))}
+                  />
+                </div>
+
+                <div className='mb-2'>
+                  <InlineProperty
+                    left={t("amount")}
+                    right={`${infoCode.amount} ${infoCode.currency}`}
+                  />
+                </div>
+
+                <div className='mb-3'>
+                  <InlineProperty
+                    left={t("status")}
+                    right={infoCode.state.capitalize()}
+                  />
+                </div>
+
+                <div className='flex items-start gap-[10px] md:text-fs12 text-fs14'>
+                  <span className='text-[var(--gek-mid-grey)]'>{t("confirmation")}:</span>
+                  {infoCode.typeTx === 12 ? (
+                    <span className='text-[var(--gek-green)]'>on</span>
+                  ) : (
+                    <span className='text-[var(--gek-dark-blue)]'>off</span>
+                  )}
+                </div>
+              </div>
+
+              <div className='flex justify-center col'>
+                {/* eslint-disable-next-line @typescript-eslint/no-unsafe-call */}
+                <Button disabled={loading} onClick={() => onBtnApply(infoCode)} className={"w-full"}>
+                  {t("confirm")}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
       {applyTxCodeInfoBox && <div className={"row mt-4"}>{applyTxCodeInfoBox}</div>}

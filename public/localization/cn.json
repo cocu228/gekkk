@@ -832,6 +832,7 @@
     "send_to_card": "发送至卡：",
     "card_number": "卡号",
     "expiration_date": "截止日期",
+    "creation_date": "创建日期",
     "payment_cards": "支付卡",
     "card_cvc": "CVC码",
     "card_owner": "所有者",

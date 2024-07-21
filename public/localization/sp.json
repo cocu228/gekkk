@@ -840,6 +840,7 @@
     "send_to_card": "Enviar a tarjeta:",
     "card_number": "NÚMERO DE TARJETA",
     "expiration_date": "Fecha de caducidad",
+    "creation_date": "Fecha de creación",
     "payment_cards": "Tarjetas de pago",
     "card_cvc": "Código CVC",
     "card_owner": "Dueño",

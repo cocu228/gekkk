@@ -841,6 +841,7 @@
     "send_to_card": "Envoyer à la carte :",
     "card_number": "NUMÉRO DE CARTE",
     "expiration_date": "Date d'expiration",
+    "creation_date": "Date de création",
     "payment_cards": "Cartes de paiement",
     "card_cvc": "Le code CVC",
     "card_owner": "Propriétaire",

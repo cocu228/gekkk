@@ -840,6 +840,7 @@
     "send_to_card": "Invia alla carta:",
     "card_number": "NUMERO DI CARTA",
     "expiration_date": "Data di scadenza",
+    "creation_date": "Data di creazione",
     "payment_cards": "Carte di pagamento",
     "card_cvc": "Codice CVC",
     "card_owner": "Proprietario",

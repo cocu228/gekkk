@@ -1539,6 +1539,7 @@
     "send_to_card": "Отправить на карту:",
     "card_number": "НОМЕР КАРТЫ",
     "expiration_date": "Дата истечения срока действия",
+    "creation_date": "Дата создания",
     "card_cvc": "CVC-код",
     "card_owner": "Владелец",
     "card_pin": "Пин-код",

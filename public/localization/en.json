@@ -934,6 +934,7 @@
     "send_to_card": "Send to card:",
     "card_number": "CARD NUMBER",
     "expiration_date": "Expiration date",
+    "creation_date": "Creation date",
     "payment_cards": "Payment cards",
     "card_cvc": "CVC code",
     "card_owner": "Owner",

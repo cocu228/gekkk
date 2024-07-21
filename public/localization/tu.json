@@ -840,6 +840,7 @@
     "send_to_card": "Karta gönder:",
     "card_number": "KART NUMARASI",
     "expiration_date": "Son kullanma tarihi",
+    "creation_date": "Oluşturulma tarihi",
     "payment_cards": "Ödeme kartları",
     "card_cvc": "CVC kodu",
     "card_owner": "Mal sahibi",

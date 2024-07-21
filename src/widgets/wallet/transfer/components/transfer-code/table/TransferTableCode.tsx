@@ -64,6 +64,7 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
   const { md } = useBreakpoints();
   
   const [loading, setLoading] = useState(false);
+  const { setRefresh } = useContext(CtxRootData);
   const { showModal, isModalOpen, handleCancel } = useModal();
   const { setContent: setGlobalModal } = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
@@ -77,6 +78,7 @@ const CodeModalConfirm = ({ code, amount, currency, date = null }) => {
     actionResSuccess(response)
       .success(() => {
         handleCancel();
+        setRefresh();
         setGlobalModal({
           content: <ModalTrxStatusSuccess/>
         });

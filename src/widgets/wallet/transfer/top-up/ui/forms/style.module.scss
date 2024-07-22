@@ -118,12 +118,8 @@
   }
 
   &Attention {
-    display: none;
+    display: flex;
     margin-bottom: 25px;
-
-    @media screen and (max-width: 768px) {
-      display: flex;
-    }
 
     &Icon {
       display: flex;

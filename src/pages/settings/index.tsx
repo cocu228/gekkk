@@ -264,7 +264,7 @@ export function Settings() {
                   </a>
                   {/* Admin panel button */}
                   {showAdminPanel && (
-                    <a href='https://gate-dev.gekkard.com:6789/adm' target='_blank' rel='noreferrer'>
+                    <a href={`${import.meta.env.VITE_API_URL}adm`} target='_blank' rel='noreferrer'>
                       <SettingsButton icon={null} text={"Admin panel"} />
                     </a>
                   )}

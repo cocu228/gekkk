@@ -35,8 +35,7 @@ const TopUpFormQR = () => {
   };
 
   return (
-    addressesForQR !== null &&
-    (addressesForQR !== undefined ? (
+    !addressesForQR ? (
       <>
         <div className={styles.QRContainer}>
           <h3 className={styles.QRSendText}>
@@ -89,7 +88,7 @@ const TopUpFormQR = () => {
       </div>
       <div className={styles.GenerateQRAttentionError}>{localErrorInfoBox}</div>
     </>
-    ))
+    )
   );
 };
 

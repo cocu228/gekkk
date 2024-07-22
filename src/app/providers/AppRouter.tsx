@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         element: <Dashboard />
       },
       {
+        path: "agent",
+        element: <PartnershipProgram />
+      },
+      {
         path: "partnership-program",
         element: <PartnershipProgram />
       },

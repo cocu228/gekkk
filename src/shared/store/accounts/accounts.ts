@@ -27,6 +27,7 @@ const getAccountWithRights = (account: WalletInfo): IWalletInfo => {
     number: account.account,
     current: account.current,
     account_id: account.account_id,
+    date_create: account.date_create,
     date_update: account.date_update
   };
 };

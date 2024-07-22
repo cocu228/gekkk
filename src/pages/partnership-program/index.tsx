@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import { actionResSuccess, uncoverResponse } from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
-import { apiGetAgentCode } from "@/shared/(orval)api/gek";
+import { apiApplyCode, apiGetAgentCode } from "@/shared/(orval)api/gek";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxRootData } from "@/processes/RootContext";
@@ -147,8 +147,32 @@ const ContentMain = () => {
 const PartnershipProgram = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const agentCode = params.get("code");
+  const {account} = useContext(CtxRootData);
   const { xl, md } = useContext(BreakpointsContext);
   const [isOnPage] = useState("agent/partnership_program");
+
+  useEffect(() => {
+    (async () => {
+
+      if (agentCode && account?.date_create) {
+        const currentDate = new Date();
+
+        // Разница во времени в миллисекундах
+        const timeDifference = currentDate.getTime() - new Date(account?.date_create).getTime();
+        
+        // 7 дней в миллисекундах
+        const sevenDaysInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+        
+        if (timeDifference > sevenDaysInMilliseconds) {
+          await apiApplyCode({code: agentCode});
+        }
+        
+        navigate('/');
+      }
+    })();
+  }, [account]);
 
   // TODO: fix agent locales and text paddings
   return (

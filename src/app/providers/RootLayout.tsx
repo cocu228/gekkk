@@ -95,8 +95,6 @@ export default memo(function () {
     }
   }, [accounts]);
 
-  //   const { setRefresh } = useContext(CtxRootData);
-
   const handleRefresh = async () => {
     setRefresh();
     await new Promise(resolve => setTimeout(resolve, 1000));

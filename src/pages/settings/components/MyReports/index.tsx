@@ -13,6 +13,8 @@ import Button from "@/shared/ui/button/Button";
 import styles from "../../styles.module.scss";
 import { AreaWrapper } from "../AreaWrapper";
 import { Table } from "./components/Table";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 export function MyReports() {
   const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
@@ -59,6 +61,7 @@ export function MyReports() {
     return () => cancelTokenSource.cancel();
   }, []);
 
+
   return statements === null ? (
     <div className='w-full min-h-[100px]'>
       <Loader className='relative' />
@@ -81,4 +84,5 @@ export function MyReports() {
       )}
     </div>
   );
+
 }

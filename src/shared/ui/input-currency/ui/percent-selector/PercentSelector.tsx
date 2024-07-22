@@ -69,7 +69,7 @@ const PercentSelector: FC<IParams> = ({
           {header}
 
           <div
-            className={`row flex gap-1 text-xs pb-[2px]
+            className={`row flex gap-1 text-xs pb-[2px] mr-[7px]
                         ${disabled || !currency || !currency.balance?.free_balance ? "pointer-events-none" : ""} ${
                           mobileSecHidden && style.PercentSelector
                         }

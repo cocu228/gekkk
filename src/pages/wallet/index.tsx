@@ -9,6 +9,7 @@ import WalletHeader from "@/widgets/wallet/header/ui/desktop";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { AccountRights } from "@/shared/config/mask-account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
+import axios from "axios";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
 import CardsMenu from "@/widgets/cards-menu/ui";
@@ -31,6 +32,14 @@ import Programs from "@/widgets/wallet/programs/CashbackCard";
 import GkeCashbackProgram from "@/widgets/wallet/programs/GKE/ui";
 import FeeProvider from "@/widgets/wallet/transfer/model/FeeProvider";
 import Wrapper from "@/shared/ui/wrapper";
+import { Table } from "../settings/components/MyReports/components/Table";
+import { apiGetStatements, StatementsByIBAN } from "@/shared/api/statements";
+import { UasConfirmCtx } from "@/processes/errors-provider-context";
+import useError from "@/shared/model/hooks/useError";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { AreaWrapper } from "../settings/components/AreaWrapper";
+import { apiGetUas } from "@/shared/(orval)api";
+import Loader from "@/shared/ui/loader";
 
 function Wallet() {
   const { t } = useTranslation();
@@ -40,10 +49,15 @@ function Wallet() {
   const [currencyFrom, setCurrencyFrom] = useState(params.get('currency'))
   const [currencyTo, setCurrencyTo] = useState(params.get('currency'))
   const currency = params.get("currency");
+  const {uasToken, getUasToken} = useContext(UasConfirmCtx)
   const { account } = useContext(CtxRootData);
+  const { getAccountDetails } = storeAccountDetails(state => state);
+  const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
   const { currencies } = useContext(CtxCurrencies);
   const { xl, md } = useContext(BreakpointsContext);
+  // const [uasToken, setUasToken] = useState<string>(null);
   const descriptions = getTokenDescriptions(navigate, account, t);
+  const [statements, setStatements] = useState<{ [key: string]: StatementsByIBAN[] }>(null);
 
   const gekkardMode = IS_GEKKARD_APP();
   const gekkoinMod = IS_GEKKOIN_APP();
@@ -60,6 +74,7 @@ function Wallet() {
   const isOnCashbackProgramPage = tab === "cashback_program";
   const isOnTopUpPage = tab === "top_up";
   const isCardsMenu = tab === "bank_cards";
+  
   // const isQuickExchange = tab === "simple_exchange";
   const isEURG: boolean = currency === "EURG";
   const isEUR: boolean = currency === "EUR";
@@ -76,6 +91,40 @@ function Wallet() {
       navigate("404");
     }
   }, [currencies, currency, gekkoinMod, navigate]);
+
+  useEffect(() => {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const cancelTokenSource = axios.CancelToken.source();
+
+    if(uasToken) {
+      (async () => {
+        localErrorClear();
+  
+        const { phone } = await getAccountDetails();
+        const { data } = await apiGetStatements({
+          headers: {
+            Authorization: phone,
+            Token: uasToken
+          },
+          cancelToken: cancelTokenSource.token
+        });
+  
+        if (data.errors) {
+          localErrorHunter({
+            code: data.errors.code,
+            message: `Loading Report issue #${data.errors.code}`
+          });
+          return;
+        }
+  
+        setStatements(data.statements);
+      })();
+    } else {
+      getUasToken()
+    }
+
+    return () => cancelTokenSource.cancel();
+  }, []);
 
   useEffect(() => {
     if(params.get('currency') === 'EUR') {
@@ -129,6 +178,32 @@ function Wallet() {
                 {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
                   <About data-tag={"about"} data-name={t("about")} description={descriptions[$currency.$const]} />
                 )}
+
+                {
+                  isEUR && (
+                    <div data-tag={"reports"} data-name={"reports"}>
+                      {
+                        statements === null ? (
+                          <div className='w-full min-h-[100px]'>
+                            <Loader className='relative' />
+                          </div>
+                        ) : (
+                          <Wrapper isWeb>
+                            {localIndicatorError ? (
+                              <AreaWrapper title={t("my_reports")}>
+                                <p className={'text-fs12 font-normal'}>{localErrorInfoBox}</p>
+                              </AreaWrapper>
+                            ) : (
+                              <div className='flex flex-col'>
+                                <Table statements={statements} uasToken={uasToken} />
+                              </div>
+                            )}
+                          </Wrapper>
+                        )
+                      }
+                    </div>
+                  )
+                }
 
                 {xl && (
                   <Wrapper>

@@ -72,7 +72,7 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
       <CodeTxInfo currency={currency.$const} inputCurr={inputCurr.value.number} onClose={onClose} code={newCode} />
     ) : (
       <>
-        <div className='row bg-gray-300 max-w-[450px] spx-14 py-4 mb-6'>
+        <div className='row max-w-[450px] spx-14 pb-[1rem] mb-4'>
           <p>{t("create_special_code")}</p>
         </div>
         <div className='row'>
@@ -101,7 +101,7 @@ const CreateCode = ({ code, onClose, inputCurrMobile }: IParams) => {
             </div>
           </div>
         </div>
-        <div className='row mb-16'>
+        <div className='row mb-8'>
           <Checkbox checked={checkbox} onChange={({ target }) => setCheckbox(target.checked)}>
             <div className='flex items-center'>
               {t("use_confirmation")}

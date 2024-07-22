@@ -286,3 +286,11 @@
   border-radius: 0 0 8px 8px;
   background: #fff;
 }
+
+.ConfirmInfoModalClass {
+  
+
+  & > div > div > div {
+    overflow: visible;
+  }
+}

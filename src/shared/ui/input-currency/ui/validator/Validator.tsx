@@ -65,7 +65,7 @@ const Validator: FC<IParams> = ({
 
   const isMaxAmountCount = `${parseInt(`${value}`)}`.length < 16;
   const Helpers = ({ text }: { text: string | JSX.Element }) => (
-    <span className='text-[var(--gek-orange)] text-fs12'>*{text}</span>
+    <span className='text-[var(--gek-orange)] mt-[2.5px] text-fs12'>*{text}</span>
   );
 
   return (

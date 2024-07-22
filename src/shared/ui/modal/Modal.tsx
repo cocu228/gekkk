@@ -15,6 +15,7 @@ interface ModalProps {
   destroyOnClose?: boolean;
   noHeaderBorder?: boolean;
   noneHeader?: boolean;
+  wrapClassname?: string
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -27,6 +28,7 @@ export const Modal: FC<ModalProps> = ({
   noHeaderBorder,
   noneHeader = false,
   closable = true,
+  wrapClassname,
   destroyOnClose = true
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -71,7 +73,7 @@ export const Modal: FC<ModalProps> = ({
         unmount={destroyOnClose}
         className={`relative ${zIndex ? "z-[200]" : "z-[150]"} focus:outline-none`}
       >
-        <div className={`${styles.Modal} ${noHeaderBorder && styles.ModalNoBorder}`}>
+        <div className={`${styles.Modal} ${wrapClassname} ${noHeaderBorder && styles.ModalNoBorder}`}>
           <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
             <TransitionChild
               unmount={destroyOnClose}

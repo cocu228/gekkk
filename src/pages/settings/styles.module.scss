@@ -228,20 +228,26 @@
 
 .reportTbRow {
   gap: 30px;
-  padding: 15px 10px;
-  display: grid;
-  grid-template-columns: auto 0.25fr;
-
-  &Cols {
-    grid-template-columns: auto auto 0.25fr;
-  }
+  padding: 10px 10px;
+  display: flex;
+  border-radius: 8px;
+  border: 0.5px solid #DCDCD9;
+  height: 45px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .reportRowTitle {
-  color: var(--gek-dark-blue);
-  line-height: 1.5;
-  font-family: Inter;
+  display: flex;
+  align-items: center;
+  color: #29354C;
+  line-height: normal;
+  font-family: "Inter";
   font-size: 12px;
+
+  span {
+    margin-left: 10px;
+  }
 }
 
 .reportRowSubTitle {

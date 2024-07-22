@@ -21,7 +21,7 @@ import { CtxRootData } from "@/processes/RootContext";
 import Commissions from "@/widgets/wallet/transfer/components/commissions";
 import AmountInput from "@/widgets/wallet/transfer/components/amount-input";
 import ConfirmInfo from "@/widgets/wallet/transfer/withdraw/ui/forms/create-transfer-code/ui/confirm-info";
-
+import style from '../styles.module.scss'
 import CreateCode from "./CreateCode";
 
 const CreateTransferCode = () => {
@@ -97,7 +97,7 @@ const CreateTransferCode = () => {
           <Button onClick={showModal} size='lg' className='w-full'>
             {t("create_transfer_code")}
           </Button>
-          <Modal isModalOpen={isModalOpen} onCancel={handleCancel} title={t("your_transfer_code")}>
+          <Modal wrapClassname={style.ConfirmInfoModalClass} isModalOpen={isModalOpen} onCancel={handleCancel} title={t("your_transfer_code")}>
             <CreateCode onClose={handleCancel} inputCurrMobile={inputCurr} />
           </Modal>
         </div>

@@ -5,17 +5,14 @@
   font-weight: 700;
   font-size: 14px;
   text-align: center;
-  color: var(--gek-background);
+  color: #fff;
   cursor: pointer;
-  //border-bottom: 3px solid transparent;
   padding: 5px 16px;
   z-index: 1;
   transition: 0.2s;
   border-radius: 8px;
   margin: 4px;
   border: transparent solid 1px;
-  // border-width: 1px;
-  // border-color: var(--gek-additional);
 
   &:hover {
     border: var(--gek-background) solid 1px;
@@ -27,8 +24,7 @@
   }
 
   &:global(.active) {
-    // border-color: var(--color-blue-400);
-    background-color: var(--gek-background);
+    background-color: #fff;
     font-weight: 700;
     color: #285e69;
   }
@@ -56,11 +52,6 @@
 .TabsWrapper {
   width: 100%;
   position: relative;
-  // margin-left: calc(-1 * var(--content-pad-left));
-  // margin-right: calc(-1 * var(--content-pad-right));
-  // padding-left: var(--content-pad-left);
-  // padding-right: var(--content-pad-right);
-  //padding: 0px 5px;
   overflow-x: auto;
   display: flex;
   justify-content: center;
@@ -74,29 +65,15 @@
     display: none;
   }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
-
-  // Previous underline method
-  //&:after {
-  //  content: "";
-  //  left: 0;
-  //  right: 0;
-  //  bottom: 0;
-  //  height: 2px;
-  //  position: absolute;
-  //  background-color: var(--color-gray-200);
-  //}
 
   @include max-devices(xl) {
     padding-left: var(--content-pad-left-xl);
     padding-right: var(--content-pad-right-xl);
   }
 
-  @include max-devices(md) {
+  @media screen and (max-width: 768px) {
     padding-left: var(--content-pad-horizontal-md);
     padding-right: var(--content-pad-horizontal-md);
     padding-top: var(--content-pad-top-md);
@@ -112,7 +89,7 @@
     margin-right: calc(-1 * var(--content-pad-horizontal-md));
   }
 
-  @include max-devices(md) {
+  @media screen and (max-width: 768px) {
     margin-left: calc(-1 * var(--content-pad-horizontal-md));
     margin-right: calc(-1 * var(--content-pad-horizontal-md));
   }

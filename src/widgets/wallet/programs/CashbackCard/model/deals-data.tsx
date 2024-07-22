@@ -56,13 +56,13 @@ export const dealsData = {
       isActive: false
     },
     {
-      id: ActiveBonusProgram.PARTNERSHIP,
-      name: "partnership_program.referal_title",
+      id: ActiveBonusProgram.PARTNERSHIP_EURG,
+      name: "partnership_program.eurg_referal_title",
       accrualPeriod: "",
-      conditions: ["partnership_program.referal_info"],
-      className: styles.CashbackCardLightOrange,
-      mobileModalColor: styles.CashbackCardLightOrange,
-      icon: <IconApp lib={2} code='t89' size={107} color='#A2BEB8' />,
+      conditions: ["partnership_program.eurg_referal_condition"],
+      className: styles.CashbackCardLightGreen,
+      mobileModalColor: styles.CashbackCardLightGreen,
+      icon: <IconApp lib={2} code='t90' size={107} color='#A2BEB8' />,
       isActive: false
     }
   ],

@@ -428,7 +428,10 @@
       "referal_title": "GKE tokenları satın almak için yönlendirme programı",
       "referal_info": "Ödüller, faturalandırma ayının sonunda GKE bakiyenize aktarılır.",
       "referal_condition_first": "- İlk yıl boyunca çekilen her yönlendirmenin GKE'deki ortalama aylık bakiyesi üzerinden yıllık %2",
-      "referal_condition_second": "- İkinci yıl boyunca çekilen her yönlendirmenin GKE'deki ortalama aylık bakiyesi üzerinden yıllık %1"
+      "referal_condition_second": "- İkinci yıl boyunca çekilen her yönlendirmenin GKE'deki ortalama aylık bakiyesi üzerinden yıllık %1",
+      "eurg_referal_title": "Arkadaşlarınızı veya takipçilerinizi getirin",
+      "eurg_referal_condition": "Arkadaşlarınızı veya takipçilerinizi Gekkoin aracılığıyla yapılandırılmış bir depozito açmaya getirin - ve kayıtlarından itibaren bir yıl içinde yönlendirmeleriniz tarafından açılan her depozito tutarından% 2 ile ödüllendirilin.",
+      "eurg_referal_info": "Ödülü, yönlendirdiğiniz kişinin mevduatının kapatılmasından hemen sonra alırsınız (erken kapatılmadıysa)"
     },
     "crypto_assets": {
       "title": "Kripto varlıkları",

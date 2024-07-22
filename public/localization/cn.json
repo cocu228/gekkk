@@ -428,7 +428,10 @@
       "referal_title": "购买 GKE 代币的推荐计划",
       "referal_info": "奖励将在账单月末转入您的 GKE 余额",
       "referal_condition_first": "在第一年内，每个被吸引的推荐人每月 GKE 平均余额的年利率为 2%",
-      "referal_condition_second": "第二年内，每吸引一名转介客户，其 GKE 每月平均余额的年利率为 1%"
+      "referal_condition_second": "第二年内，每吸引一名转介客户，其 GKE 每月平均余额的年利率为 1%",
+      "eurg_referal_title": "带上您的朋友或追随者",
+      "eurg_referal_condition": "让您的朋友或追随者通过 Gekkoin 开立结构性存款 - 并从您的推荐人在注册后一年内开立的每笔存款金额中获得 2% 的奖励",
+      "eurg_referal_info": "您可以在您推荐人的存款关闭后立即获得奖励（如果存款没有提前关闭）"
     },
     "crypto_assets": {
       "title": "加密资产",

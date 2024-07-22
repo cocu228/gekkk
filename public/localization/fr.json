@@ -429,7 +429,10 @@
       "referal_title": "Programme de parrainage pour l'achat de jetons GKE",
       "referal_info": "Les récompenses sont transférées sur votre solde GKE à la fin du mois de facturation.",
       "referal_condition_first": "- 2 % par an sur le solde mensuel moyen dans le GKE de chaque parrain attiré au cours de la première année",
-      "referal_condition_second": "- 1% par an sur le solde mensuel moyen dans le GKE de chaque filleul attiré au cours de la deuxième année"
+      "referal_condition_second": "- 1% par an sur le solde mensuel moyen dans le GKE de chaque filleul attiré au cours de la deuxième année",
+      "eurg_referal_title": "Amenez vos amis ou vos suiveurs",
+      "eurg_referal_condition": "Amenez vos amis ou ceux qui vous suivent à ouvrir un dépôt structuré via Gekkoin - et soyez récompensés avec 2% du montant de chaque dépôt ouvert par vos filleuls dans l'année qui suit leur inscription",
+      "eurg_referal_info": "Vous recevez la récompense juste après la fermeture du dépôt de votre filleul (s'il n'a pas été fermé prématurément)"
     },
     "crypto_assets": {
       "title": "Actifs cryptographiques",

@@ -422,7 +422,10 @@
       "referal_title": "Empfehlungsprogramm für den Kauf von GKE-Tokens",
       "referal_info": "Belohnungen werden am Ende des Abrechnungsmonats auf Ihr GKE-Guthaben überwiesen.",
       "referal_condition_first": "- 2% pro Jahr auf das durchschnittliche monatliche GKE-Guthaben jedes geworbenen Empfehlers im ersten Jahr",
-      "referal_condition_second": "- 1% pro Jahr auf den durchschnittlichen monatlichen Saldo im GKE jeder geworbenen Überweisung während des zweiten Jahres"
+      "referal_condition_second": "- 1% pro Jahr auf den durchschnittlichen monatlichen Saldo im GKE jeder geworbenen Überweisung während des zweiten Jahres",
+      "eurg_referal_title": "Bringen Sie Ihre Freunde oder Anhänger mit",
+      "eurg_referal_condition": "Bringen Sie Ihre Freunde oder Follower dazu, ein strukturiertes Depot über Gekkoin zu eröffnen - und werden Sie mit 2% von jedem Depotbetrag belohnt, der von Ihren Empfehlungen innerhalb eines Jahres seit ihrer Registrierung eröffnet wird.",
+      "eurg_referal_info": "Sie erhalten die Prämie direkt nach der Schließung des Depots Ihrer Empfehlung (wenn es nicht vorzeitig geschlossen wurde)"
     },
     "crypto_assets": {
       "title": "Krypto-Vermögenswerte",

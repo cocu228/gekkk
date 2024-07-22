@@ -26,6 +26,8 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
   const toCashbackProgram = cashbackId === ActiveBonusProgram.CASHBACK1;
   const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
   const toPartnershipProgram = cashbackId === ActiveBonusProgram.PARTNERSHIP;
+  const toPartnershipEurg = cashbackId === ActiveBonusProgram.PARTNERSHIP_EURG
+
   return (
     <div className='flex flex-col relative pb-[40px] justify-center'>
       <div className={`${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}>
@@ -52,7 +54,11 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
               isActive || toNoFeeProgram || toCashbackProgram ? "pl-0" : ""
             }`}
           >
-            {!toPartnershipProgram ? t("cashback_programs.bonus_description") : t("partnership_program.referal_info")}
+            {
+              toPartnershipProgram ? t("partnership_program.referal_info") :
+              toPartnershipEurg ? t("partnership_program.eurg_referal_info") :
+              t("cashback_programs.bonus_description")
+            }
           </div>
         </div>
       </div>

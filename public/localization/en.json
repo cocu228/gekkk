@@ -519,6 +519,9 @@
       "agent_link": "Your agent link",
       "referal_title": "Referral program for buying GKE tokens",
       "referal_info": "Rewards are transferred to your GKE balance at the end of the billing month.",
+      "eurg_referal_title": "Bring your friends or followers",
+      "eurg_referal_condition": "Bring your friends or followers to open a structured deposit via Gekkoin - and get rewarded with 2% from each deposit‘s amount opened by your referrals within a year since their registration.",
+      "eurg_referal_info": "You get the reward right after the closure of your referral’s deposit (if it was not closed prematurely)",
       "referal_condition_first": "- 2% per annum on the average monthly balance in the GKE of each attracted referral during the first year",
       "referal_condition_second": "- 1% per annum on the average monthly balance in the GKE of each attracted referral during the second year"
     },

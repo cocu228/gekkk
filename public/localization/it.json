@@ -428,7 +428,10 @@
       "referal_title": "Programma di referral per l'acquisto di token GKE",
       "referal_info": "I premi vengono trasferiti sul tuo saldo GKE alla fine del mese di fatturazione",
       "referal_condition_first": "- 2% annuo sul saldo medio mensile in GKE di ogni referral attratto durante il primo anno",
-      "referal_condition_second": "- 1% annuo sul saldo medio mensile nella CGA di ogni referente attratto durante il secondo anno"
+      "referal_condition_second": "- 1% annuo sul saldo medio mensile nella CGA di ogni referente attratto durante il secondo anno",
+      "eurg_referal_title": "Porta i tuoi amici o follower",
+      "eurg_referal_condition": "Porta i tuoi amici o follower ad aprire un deposito strutturato tramite Gekkoin - e vieni ricompensato con il 2% dell'importo di ogni deposito aperto dai tuoi referral entro un anno dalla loro registrazione",
+      "eurg_referal_info": "Ricevi la ricompensa subito dopo la chiusura del deposito del tuo referral (se non è stato chiuso prematuramente)"
     },
     "crypto_assets": {
       "title": "Risorse crittografiche",

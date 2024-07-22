@@ -102,7 +102,7 @@ const ContentMain = () => {
           </div>
           <div className={`row mb-8 pt-[5px] ${md && "flex justify-center"}`}>
             <div className={`col ${md && "w-[95%]"}`}>
-              <ClipboardField value={`https://web.gekkard.com/agent?code=${state}`} />
+              <ClipboardField value={`${import.meta.env.VITE_GEKKARD_URL}/agent?code=${state}`} />
             </div>
           </div>
         </div>

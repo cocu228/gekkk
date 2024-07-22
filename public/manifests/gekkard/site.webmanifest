@@ -1,4 +1,5 @@
 {
+  "id": "gekkard-web",
   "name": "Gekkard Web",
   "short_name": "Gekkard",
   "categories": ["business", "finance"],
@@ -6,14 +7,23 @@
     { "src": "/img/favicon/favicon-192x192.png", "type": "image/png", "sizes": "192x192" },
     { "src": "/img/favicon/favicon-512x512.png", "type": "image/png", "sizes": "512x512" },
     { "src": "/img/favicon/favicon-1024x1024.png", "type": "image/png", "sizes": "1024x1024" },
-    { "src": "/img/favicon/icon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/img/favicon/icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
     { "src": "/img/favicon/iconL.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "maskable" }
   ],
+  "dir": "ltr",
+  "lang": "en",
+  "scope": "/",
   "start_url": "/",
+  "launch_handler": {},
+  "orientation": "any",
+  "scope_extensions": [],
+  "display": "standalone",
   "theme_color": "#29354C",
   "background_color": "#F7F7F0",
-  "display": "standalone",
+  "prefer_related_applications": true,
+  "display_override": ["standalone", "window-controls-overlay", "browser"],
   "description": "Free payment card, Euro IBAN, crypto exchange and a way to invest online",
+  "related_applications": [],
   "screenshots": [
     {
       "src": "/screenshot1.png",

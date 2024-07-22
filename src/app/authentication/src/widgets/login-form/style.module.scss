@@ -10,11 +10,15 @@
 
 .FormBody {
   flex: 1 1 auto;
-  padding: 24px 18px;
+  padding: 24px 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 0.5rem;
+
+  @media screen and (max-width: 576px) {
+    padding: 24px 18px;
+  }
 }
 
 .FormButtons {

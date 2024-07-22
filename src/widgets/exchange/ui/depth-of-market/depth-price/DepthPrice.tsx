@@ -47,7 +47,7 @@ const DepthPrice = ({ loading, amount, setPrice }: IParams) => {
       {loading && !displayAmount ? (
           <Loader className='relative h-[25px] w-[25px]' />
       ) : (
-        <div onClick={handleOnClick} className='flex items-center text-[10px] w-full justify-center'>
+        <div onClick={handleOnClick} className='flex items-center hover:cursor-pointer text-[10px] w-full justify-center'>
           {displayAmount ? (
             <>
               ~{getCurrencyRounding(displayAmount)}{" "}

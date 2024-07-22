@@ -35,7 +35,7 @@ const TopUpFormQR = () => {
   };
 
   return (
-    !addressesForQR ? (
+    !!addressesForQR ? (
       <>
         <div className={styles.QRContainer}>
           <h3 className={styles.QRSendText}>

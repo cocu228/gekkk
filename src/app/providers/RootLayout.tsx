@@ -24,6 +24,7 @@ import { CopyModal } from "@/shared/ui/copyModal/CopyModal";
 import { BreakpointsContext } from "./BreakpointsProvider";
 // import {useAuth} from "@/app/providers/AuthRouter";
 import SystemNotifications from "./SystemNotifications";
+import AgentCodeHandler from "./AgentCodeHandler";
 
 export default memo(function () {
   // const {logout} = useAuth();
@@ -102,33 +103,54 @@ export default memo(function () {
 
   return (
     <CtxRootData.Provider value={{ account, refreshKey, setAccount, setRefresh }}>
-      <SystemNotifications>
-        <CurrenciesProvider>
-          {isNewLayout ? (
-            <Outlet />
-          ) : (
-            <>
-              <Header />
-              <CopyModal />
-              {md ? (
-                <ReactPullToRefresh
-                  canFetchMore
-                  pullDownThreshold={50}
-                  maxPullDownDistance={75}
-                  onRefresh={handleRefresh}
-                  refreshingContent={<IconApp code='t01' color='#29354C' size={20} />}
-                >
-                  <Main>
-                    {md ? (
-                      <>
-                        {isHomePage ? (
+      <AgentCodeHandler>
+        <SystemNotifications>
+          <CurrenciesProvider>
+            {isNewLayout ? (
+              <Outlet />
+            ) : (
+              <>
+                <Header />
+                <CopyModal />
+                {md ? (
+                  <ReactPullToRefresh
+                    canFetchMore
+                    pullDownThreshold={50}
+                    maxPullDownDistance={75}
+                    onRefresh={handleRefresh}
+                    refreshingContent={<IconApp code='t01' color='#29354C' size={20} />}
+                  >
+                    <Main>
+                      {md ? (
+                        <>
+                          {isHomePage ? (
+                            <Sidebar />
+                          ) : (
+                            <Content>
+                              <Outlet />
+                            </Content>
+                          )}
+                        </>
+                      ) : (
+                        <>
                           <Sidebar />
-                        ) : (
                           <Content>
                             <Outlet />
                           </Content>
-                        )}
-                      </>
+                        </>
+                      )}
+                    </Main>
+                  </ReactPullToRefresh>
+                ) : (
+                  <Main>
+                    {md ? (
+                      isHomePage ? (
+                        <Sidebar />
+                      ) : (
+                        <Content>
+                          <Outlet />
+                        </Content>
+                      )
                     ) : (
                       <>
                         <Sidebar />
@@ -138,32 +160,13 @@ export default memo(function () {
                       </>
                     )}
                   </Main>
-                </ReactPullToRefresh>
-              ) : (
-                <Main>
-                  {md ? (
-                    isHomePage ? (
-                      <Sidebar />
-                    ) : (
-                      <Content>
-                        <Outlet />
-                      </Content>
-                    )
-                  ) : (
-                    <>
-                      <Sidebar />
-                      <Content>
-                        <Outlet />
-                      </Content>
-                    </>
-                  )}
-                </Main>
-              )}
-              {md && <BottomMenu />}
-            </>
-          )}
-        </CurrenciesProvider>
-      </SystemNotifications>
+                )}
+                {md && <BottomMenu />}
+              </>
+            )}
+          </CurrenciesProvider>
+        </SystemNotifications>
+      </AgentCodeHandler>
     </CtxRootData.Provider>
   );
 });

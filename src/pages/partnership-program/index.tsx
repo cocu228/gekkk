@@ -147,32 +147,8 @@ const ContentMain = () => {
 const PartnershipProgram = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
-  const agentCode = params.get("code");
-  const {account} = useContext(CtxRootData);
   const { xl, md } = useContext(BreakpointsContext);
   const [isOnPage] = useState("agent/partnership_program");
-
-  useEffect(() => {
-    (async () => {
-
-      if (agentCode && account?.date_create) {
-        const currentDate = new Date();
-
-        // Разница во времени в миллисекундах
-        const timeDifference = currentDate.getTime() - new Date(account?.date_create).getTime();
-        
-        // 7 дней в миллисекундах
-        const sevenDaysInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-        
-        if (timeDifference > sevenDaysInMilliseconds) {
-          await apiApplyCode({code: agentCode});
-        }
-        
-        navigate('/');
-      }
-    })();
-  }, [account]);
 
   // TODO: fix agent locales and text paddings
   return (

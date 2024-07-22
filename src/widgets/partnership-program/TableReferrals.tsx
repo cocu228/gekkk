@@ -42,7 +42,7 @@ const TableReferrals = () => {
               </GTable.Col>
             </GTable.Row>
           </GTable.Head>
-          <GTable.Body loading={true} className={"bg-[#F9F9FA] p-4"}>
+          <GTable.Body loading={state === null} className={"bg-[#F9F9FA] p-4"}>
             {state?.referrals.map(item => (
               <GTable.Row key={item.client_id}>
                 <GTable.Col className={`flex my-2`}>

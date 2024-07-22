@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import { actionResSuccess, uncoverResponse } from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
-import { apiApplyCode, apiGetAgentCode } from "@/shared/(orval)api/gek";
+import { apiGetAgentCode } from "@/shared/(orval)api/gek";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { CtxRootData } from "@/processes/RootContext";
@@ -32,28 +32,28 @@ const ContentDescription = () => {
   return (
     <>
       {md && (
-        <div className={md ? styles.AgentCodeMobile : ""}>
-          <div className={`row ${md ? "mb-2 mt-[10px] ml-2" : "mb-6"}`}>
+        <div className={styles.AgentCodeMobile}>
+          <div className={`row mb-2 mt-[10px] ml-2`}>
             <div className='col'>
               <h4 className='font-semibold text-[12px] ml-[10px] text-[--gek-additional] '>
                 {t("partnership_program.agent_code")}:
               </h4>
             </div>
           </div>
-          <div className={`row ${md && "flex justify-center"}`}>
-            <div className={`col ${md && "w-[95%]"}`}>
+          <div className={`row flex justify-center`}>
+            <div className={`col w-[95%]`}>
               <ClipboardField value={state} />
             </div>
           </div>
-          <div className={`row ${md ? "mb-2 mt-6 ml-2" : "mb-6"}`}>
+          <div className={`row mb-2 mt-6 ml-2`}>
             <div className='col'>
               <h4 className='font-semibold text-[12px] ml-[10px] text-[--gek-additional] '>
                 {t("partnership_program.agent_link")}:
               </h4>
             </div>
           </div>
-          <div className={`row mb-3 ${md && "flex justify-center"}`}>
-            <div className={`col ${md && "w-[95%]"}`}>
+          <div className={`row mb-3 flex justify-center`}>
+            <div className={`col w-[95%]`}>
               <ClipboardField value={`https://web.gekkard.com/agent?code=${state}`} />
             </div>
           </div>
@@ -80,7 +80,7 @@ const ContentMain = () => {
   return (
     <>
       {!md && (
-        <div className={md ? styles.AgentCodeMobile : ""}>
+        <div>
           <div className='pt-[10px]'>
             <div className='col'>
               <h4 className='font-bold text-[12px] pl-[10px] text-[--gek-additional] '>
@@ -88,8 +88,8 @@ const ContentMain = () => {
               </h4>
             </div>
           </div>
-          <div className={`row pt-[5px] mb-8 ${md && "flex justify-center"}`}>
-            <div className={`col ${md && "w-[95%]"}`}>
+          <div className={`row pt-[5px] mb-8`}>
+            <div className={`col`}>
               <ClipboardField value={state} />
             </div>
           </div>
@@ -100,8 +100,8 @@ const ContentMain = () => {
               </h4>
             </div>
           </div>
-          <div className={`row mb-8 pt-[5px] ${md && "flex justify-center"}`}>
-            <div className={`col ${md && "w-[95%]"}`}>
+          <div className={`row mb-8 pt-[5px]`}>
+            <div className={`col`}>
               <ClipboardField value={`${import.meta.env.VITE_GEKKARD_URL}/agent?code=${state}`} />
             </div>
           </div>
@@ -128,7 +128,7 @@ const ContentMain = () => {
             </div>
           </div>
 
-          <div className={`row ${md && "mb-[200px]"}`}>
+          <div className={`row mb-[200px]`}>
             <div className='col'>
               <History types={[17]} />
             </div>

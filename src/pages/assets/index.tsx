@@ -63,7 +63,7 @@ const InfoBox = () => {
           <div className='row relative'>
             <div className='flex col justify-center'>
               {loading ? (
-                <div className="min-h-[100px]">
+                <div className='min-h-[100px]'>
                   <Loader className={"w-[24px] h-[24px]"} />
                 </div>
               ) : (
@@ -107,11 +107,7 @@ function Assets() {
                 scrollToTop();
                 navigate(`/wallet?currency=${currency}`);
               }}
-              allowedFlags={[
-                CurrencyFlags.AccountAvailable,
-                CurrencyFlags.ExchangeAvailable,
-                CurrencyFlags.StructInvestAvailable
-              ]}
+              allowedFlags={[CurrencyFlags.ShowInList]}
             />
           </div>
           {!xl && (

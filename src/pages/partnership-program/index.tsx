@@ -54,7 +54,7 @@ const ContentDescription = () => {
           </div>
           <div className={`row mb-3 flex justify-center`}>
             <div className={`col w-[95%]`}>
-              <ClipboardField value={`https://web.gekkard.com/agent?code=${state}`} />
+              <ClipboardField value={`${import.meta.env.VITE_GEKKARD_URL}/agent?code=${state}`} />
             </div>
           </div>
         </div>

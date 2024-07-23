@@ -43,38 +43,38 @@ const WalletHeader = () => {
     <>
       <div className={styles.HeaderWalletDesktop}>
         <div className={styles.IconCoin}>
-              <div className='grid auto-cols-max'>
-                <IconCoin width={50} height={50} code={$const} />
-              </div>
-              {!isEUR && rates && rates[currency] && (
-                <span className={styles.IsEqualEuro}>
-                  {`${$const} = ${getCurrencyRounding(rates[currency])} €`}
-                </span>
-              )}
-            </div>
-            <div className={styles.IconInfo}>
-              <div data-testid='wallet_short_name' className={styles.WalletShortName}>
-                {$const}
-              </div>
-              <div className={styles.WalletNameContainer}>
-                <span data-testid='wallet_name' className={styles.WalletName}>
-                  {name} {t("wallet")}
-                </span>
-              </div>
-            </div>
-
-          {isEUR && !!balance?.bank_account_status && (
-            <div className='flex group gap-[4px] ml-[15px] items-center absolute left-[0px] bottom-[5px]'>
-              <span className='text-[#B9B9B5] text-[12px] font-normal flex items-center gap-[5px]'>{t("account_status").capitalize()}:</span>
-              <p
-                className={`text-[12px] font-normal ${
-                  balance.bank_account_status === "ACTIVE" ? "text-[#B9B9B5]" : "text-[#8F123A]"
-                }`}
-              >
-                {balance.bank_account_status}
-              </p>
-            </div>
+          <div className='grid auto-cols-max'>
+            <IconCoin width={50} height={50} code={$const} />
+          </div>
+          {!isEUR && rates && rates[currency] && (
+            <span className={styles.IsEqualEuro}>
+              {`${$const} = ${getCurrencyRounding(rates[currency])} €`}
+            </span>
           )}
+        </div>
+        <div className={styles.IconInfo}>
+          <div data-testid='wallet_short_name' className={styles.WalletShortName}>
+            {$const}
+          </div>
+          <div className={styles.WalletNameContainer}>
+            <span data-testid='wallet_name' className={styles.WalletName}>
+              {name} {t("wallet")}
+            </span>
+          </div>
+        </div>
+
+        {isEUR && !!balance?.bank_account_status && (
+          <div className='flex group gap-[4px] items-center'>
+            <span className='text-[#B9B9B5] text-[12px] font-medium flex items-center gap-[5px]'>
+              {t('account_status').capitalize()}:
+            </span>
+            <p className={`${balance.bank_account_status === 'ACTIVE'
+              ? 'text-[var(--gek-mid-grey)]'
+              : 'text-[var(--gek-red)]'} text-[12px] font-medium`}>
+              {t(`bank_status.${balance.bank_account_status}`).capitalize()}
+            </p>
+          </div>
+        )}
 
         <div className={styles.IconBalance}>
           <div className={styles.WalletInfoMain}>
@@ -89,9 +89,10 @@ const WalletHeader = () => {
             <div className={styles.DashedLine} />
 
             <div
-              className={`${styles.WalletInfoMainText} ${
-                isEUR ? styles.WalletInfoMainTextIncomeEUR : styles.WalletInfoMainTextIncome
-              }`}
+              className={`
+                ${styles.WalletInfoMainText}
+                ${isEUR ? styles.WalletInfoMainTextIncomeEUR : styles.WalletInfoMainTextIncome}
+              `}
             >
               <span className={`${styles.WalletInfoMainText}`}>{(isEUR ? t("block") : t("income")).capitalize()}:</span>
               <span>

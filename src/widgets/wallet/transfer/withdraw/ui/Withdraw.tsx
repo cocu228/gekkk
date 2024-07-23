@@ -16,6 +16,7 @@ import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
 import CreateTransferCode from "./forms/create-transfer-code";
 import CrossProjectForm from "./forms/cross-project/CrossProjectForm";
+import Wrapper from "@/shared/ui/wrapper";
 
 const Withdraw = memo(() => {
   const { t } = useTranslation();
@@ -69,59 +70,59 @@ const Withdraw = memo(() => {
   }, [initialLanguage, networkTypeSelect]);
 
   return (
-    <div className='h-full'>
-      {loading ? (
-        <div className="min-h-[100px]">
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <ChoseNetwork withdraw />
-          {displayedForm}
-
-          {![150, 151, 153, 154, 155, 230, 232, 233, 234].includes(networkTypeSelect) ? null : !(
-              finalFeeEntity.type.percent || finalFeeEntity.type.number
-            ) ? (
-            <div className='md:text-[12px] text-[14px]'>
-              <div className='text-center text-[#9D9D9D]'>
-                {t("fee_is_perc")}{" "}
-                <span>
-                  <b>0%</b>
-                </span>{" "}
-                {t("per_transaction")}
-              </div>
-            </div>
-          ) : (
-            <div className='md:text-[12px] text-[14px]'>
-              <div className='text-center text-[#9D9D9D]'>
-                {t("fee_is_perc")}{" "}
-                {finalFeeEntity.type.number ? (
-                  <>
-                    <span>
-                      <b>{finalFeeEntity.value.number.toString()} </b>
-                      {currency.$const}{" "}
-                    </span>
-                  </>
-                ) : (
-                  <b>{finalFeeEntity.value.percent.toString()} % </b>
-                )}{" "}
-                {t("per_transaction")}
-              </div>
-            </div>
-          )}
-
-          {is_operable === false && (
-            <div className='row mt-4'>
-              <div className='col'>
-                <div className='info-box-danger'>
-                  <p>{t("attention")}</p>
+    <Wrapper isWeb>
+      <div className='h-full'>
+        {loading ? (
+          <div className='min-h-[100px]'>
+            <Loader />
+          </div>
+        ) : (
+          <>
+            <ChoseNetwork withdraw />
+            {displayedForm}
+            {![150, 151, 153, 154, 155, 230, 232, 233, 234].includes(networkTypeSelect) ? null : !(
+                finalFeeEntity.type.percent || finalFeeEntity.type.number
+              ) ? (
+              <div className='md:text-[12px] text-[14px]'>
+                <div className='text-center text-[#9D9D9D]'>
+                  {t("fee_is_perc")}{" "}
+                  <span>
+                    <b>0%</b>
+                  </span>{" "}
+                  {t("per_transaction")}
                 </div>
               </div>
-            </div>
-          )}
-        </>
-      )}
-    </div>
+            ) : (
+              <div className='md:text-[12px] text-[14px]'>
+                <div className='text-center text-[#9D9D9D]'>
+                  {t("fee_is_perc")}{" "}
+                  {finalFeeEntity.type.number ? (
+                    <>
+                      <span>
+                        <b>{finalFeeEntity.value.number.toString()} </b>
+                        {currency.$const}{" "}
+                      </span>
+                    </>
+                  ) : (
+                    <b>{finalFeeEntity.value.percent.toString()} % </b>
+                  )}{" "}
+                  {t("per_transaction")}
+                </div>
+              </div>
+            )}
+            {is_operable === false && (
+              <div className='row mt-4'>
+                <div className='col'>
+                  <div className='info-box-danger'>
+                    <p>{t("attention")}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </Wrapper>
   );
 });
 

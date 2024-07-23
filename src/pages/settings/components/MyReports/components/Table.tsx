@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import styles from './styles.module.scss'
 import { Modal } from "@/shared/ui/modal/Modal";
+import { apiGetUas } from "@/shared/(orval)api";
+import { UASTokenApiResponse } from "@/shared/(orval)api/gek/model";
 
 export function Table({
 }: {
@@ -27,50 +29,79 @@ export function Table({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [askModal, setAskModal] = useState<boolean>(false)
+  const [silentCode, setSilentCode] = useState<UASTokenApiResponse>()
 
   const onClick = () => {
     navigate(-2);
   };
 
+  const silentUas = async () => {
+    const { data } = await apiGetUas({newtoken: false},{headers: { silent: true }});
+    setSilentCode(data)
+
+    return data
+  }
+
+  const getStatements = (token:string) => {
+    const cancelTokenSource = axios.CancelToken.source();
+
+    (async () => {
+      setAskModal(false)
+      localErrorClear();
+
+      const { phone } = await getAccountDetails();
+      const { data } = await apiGetStatements({
+        headers: {
+          Authorization: phone,
+          Token: token
+        },
+        cancelToken: cancelTokenSource.token
+      });
+
+      if (data.errors) {
+        localErrorHunter({
+          code: data.errors.code,
+          message: `Loading Report issue #${data.errors.code}`
+        });
+        return;
+      }
+
+      setStatements(data?.statements);
+    })();
+  }
+
   useEffect(() => {
     // eslint-disable-next-line import/no-named-as-default-member
     const cancelTokenSource = axios.CancelToken.source();
 
-    if(uasToken && !reports) {
-      (async () => {
-        setAskModal(false)
-        localErrorClear();
-  
-        const { phone } = await getAccountDetails();
-        const { data } = await apiGetStatements({
-          headers: {
-            Authorization: phone,
-            Token: uasToken
-          },
-          cancelToken: cancelTokenSource.token
-        });
-  
-        if (data.errors) {
-          localErrorHunter({
-            code: data.errors.code,
-            message: `Loading Report issue #${data.errors.code}`
-          });
-          return;
-        }
-  
-        setStatements(data.statements);
-      })();
-    } else if (!uasToken) {
-      setAskModal(true)
-    }
+    const data = silentUas()
+
+    data.then(data2 => {
+      setSilentCode(data2)
+      if(data2.result.token) {
+        getStatements(data2.result.token)
+      } else {
+        setAskModal(true)
+      }
+    })
 
     return () => cancelTokenSource.cancel();
-  }, [uasToken]);
+  }, []);
+
+  const modalGetUas = async () => {
+    getUasToken() 
+  }
+  useEffect(() => {
+    if(uasToken) {
+      getStatements(uasToken)
+    }
+  }, [uasToken, silentCode])
 
   useEffect(() => {
     if(statements) {
       const reportsF = statements[account?.number] ?? []
       setReports(reportsF)
+      console.log('STATEMENTS', statements)
     }
   }, [statements])
 
@@ -82,17 +113,20 @@ export function Table({
         onCancel={() => setAskModal(false)}
       >
         <p className={styles.ModalText}>
-          To get reports you need to enter code from your mobile
+          To continue the operation, you need to receive an confirmation SMS code
         </p>
         <div className={styles.ModalBtnsWrap}>
-        <Button color="blue" size="md" onClick={() => setAskModal(false)} >
-          {t('back')}
-        </Button>
-        <Button color="green" size="md" onClick={() => {
+        <Button color="green" className="w-full !max-w-[100%]" size="md" onClick={() => {
           setAskModal(false)
-          getUasToken()
+          modalGetUas()
         }} >
           {t('proceed')}
+        </Button>
+        <Button color="green" skeleton className="w-full !max-w-[100%]" size="md" onClick={() => {
+          setAskModal(false)
+          if(window.innerWidth < 768) navigate(-2)
+        }} >
+          {t('back')}
         </Button>
         </div>
       </Modal>

@@ -147,7 +147,9 @@ function Wallet() {
                 {
                   isEUR && (
                     <div data-tag={"reports"} data-name={"reports"}>
-                      <Table  />
+                      <Wrapper isWeb>
+                        <Table  />
+                      </Wrapper>
                     </div>
                   )
                 }

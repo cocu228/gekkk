@@ -28,16 +28,16 @@ const ChooseNetworkMobile = ({ network, setNetwork, loading }) => {
   }, []);
 
   return (
-    <div className='w-full relative h-[32px] flex flex-row'>
-      <div
-        className='row w-full relative cursor-pointer border-r-[0px] px-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]'
-        onClick={() => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          setNetwork(null);
-          displayHistory(false);
-          navigate(`/transfers?currency=${currency}`);
-        }}
-      >
+    <div
+      className='w-full relative h-[32px] flex flex-row'
+      onClick={() => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        setNetwork(null);
+        displayHistory(false);
+        navigate(`/transfers?currency=${currency}`);
+      }}
+    >
+      <div className='row w-full relative cursor-pointer border-r-[0px] px-3 items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]'>
         <div
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -65,7 +65,7 @@ const ChooseNetworkMobile = ({ network, setNetwork, loading }) => {
         </div>
       </div>
       <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-        <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
+        <IconApp code='t08' color='#fff' size={12} className={!network ? "-rotate-90" : "rotate-90"} />
       </div>
     </div>
   );

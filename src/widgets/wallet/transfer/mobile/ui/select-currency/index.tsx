@@ -19,16 +19,16 @@ function SelectCurrency({ currency, setCurr, setNetwork, setCurrency }: IProps) 
   const navigate = useNavigate();
 
   return (
-    <div className='w-full relative h-[32px] flex flex-row'>
-      <div
-        className='row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]'
-        onClick={() => {
-          setCurr(null);
-          setNetwork(null);
-          setCurrency(null);
-          navigate("/transfers");
-        }}
-      >
+    <div
+      className='w-full relative h-[32px] flex flex-row'
+      onClick={() => {
+        setCurr(null);
+        setNetwork(null);
+        setCurrency(null);
+        navigate("/transfers");
+      }}
+    >
+      <div className='row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]'>
         {currency ? (
           <div className='flex pl-[10px] w-full h-full justify-start items-center'>
             <div className='flex justify-start items-center w-full'>
@@ -45,7 +45,7 @@ function SelectCurrency({ currency, setCurr, setNetwork, setCurrency }: IProps) 
         )}
       </div>
       <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-        <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
+        <IconApp code='t08' color='#fff' size={12} className={!currency ? "-rotate-90" : "rotate-90"} />
       </div>
     </div>
   );

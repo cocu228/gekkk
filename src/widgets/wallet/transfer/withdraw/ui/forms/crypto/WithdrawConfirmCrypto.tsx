@@ -72,7 +72,7 @@ const WithdrawConfirmCrypto: FC<IWithdrawConfirmCryptoProps> = ({
       token_network: id,
       amount: amount,
       fee: withdraw_fee,
-      address: isNull(address) ? "" : address,
+      address: isNull(address) ? "" : address.trim(),
       partner_info: recipient,
       tag: isNull(description) ? "" : description
     };

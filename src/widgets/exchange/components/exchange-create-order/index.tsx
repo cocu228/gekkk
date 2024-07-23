@@ -116,7 +116,7 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
               <PriceField disabled={!isLimitOrder} />
             </div>
 
-            {roomType === "creator" && (
+            {/* {roomType === "creator" && (
               <div className='mt-6 md:mt-3.5 '>
                 <Checkbox checked={!isLimitOrder} onChange={onIsLimitOrderChange}>
                   <span className='text-[12px]'>
@@ -125,7 +125,7 @@ const ExchangeCreateOrder: FC<IExchangeCreateOrderProps> = ({
                   </span>
                 </Checkbox>
               </div>
-            )}
+            )} */}
           </div>
 
           <DepthOfMarket

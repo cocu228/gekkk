@@ -217,6 +217,7 @@
   padding: 10px;
   border: 2px solid #eeeeeea6;
   border-radius: 8px;
+  
 }
 
 .reportsWarnText {
@@ -235,6 +236,10 @@
   height: 45px;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    border: none;
+  }
 }
 
 .reportRowTitle {
@@ -245,7 +250,7 @@
   font-family: "Inter";
   font-size: 12px;
 
-  span {
+  span:last-child {
     margin-left: 10px;
   }
 }

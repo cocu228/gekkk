@@ -9,7 +9,6 @@ import WalletHeader from "@/widgets/wallet/header/ui/desktop";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { AccountRights } from "@/shared/config/mask-account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
-import axios from "axios";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
 import CardsMenu from "@/widgets/cards-menu/ui";
@@ -93,40 +92,6 @@ function Wallet() {
   }, [currencies, currency, gekkoinMod, navigate]);
 
   useEffect(() => {
-    // eslint-disable-next-line import/no-named-as-default-member
-    const cancelTokenSource = axios.CancelToken.source();
-
-    if(uasToken) {
-      (async () => {
-        localErrorClear();
-  
-        const { phone } = await getAccountDetails();
-        const { data } = await apiGetStatements({
-          headers: {
-            Authorization: phone,
-            Token: uasToken
-          },
-          cancelToken: cancelTokenSource.token
-        });
-  
-        if (data.errors) {
-          localErrorHunter({
-            code: data.errors.code,
-            message: `Loading Report issue #${data.errors.code}`
-          });
-          return;
-        }
-  
-        setStatements(data.statements);
-      })();
-    } else {
-      getUasToken()
-    }
-
-    return () => cancelTokenSource.cancel();
-  }, []);
-
-  useEffect(() => {
     if(params.get('currency') === 'EUR') {
       setCurrencyFrom('')
     } else {
@@ -182,25 +147,7 @@ function Wallet() {
                 {
                   isEUR && (
                     <div data-tag={"reports"} data-name={"reports"}>
-                      {
-                        statements === null ? (
-                          <div className='w-full min-h-[100px]'>
-                            <Loader className='relative' />
-                          </div>
-                        ) : (
-                          <Wrapper isWeb>
-                            {localIndicatorError ? (
-                              <AreaWrapper title={t("my_reports")}>
-                                <p className={'text-fs12 font-normal'}>{localErrorInfoBox}</p>
-                              </AreaWrapper>
-                            ) : (
-                              <div className='flex flex-col'>
-                                <Table statements={statements} uasToken={uasToken} />
-                              </div>
-                            )}
-                          </Wrapper>
-                        )
-                      }
+                      <Table  />
                     </div>
                   )
                 }

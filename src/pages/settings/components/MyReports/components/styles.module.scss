@@ -1,0 +1,23 @@
+.ButtonWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+.ModalBtnsWrap {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.ModalText {
+    text-align: center;
+    color: var(--gek-additional);
+    font-size: 15px;
+}

@@ -36,6 +36,8 @@
 .BottomMobile {
   width: 100%;
   overscroll-behavior-y: none;
+  height: calc(50px + env(safe-area-inset-bottom));
+  background: #fff;
   position: fixed;
   bottom: 0px;
   z-index: 21;

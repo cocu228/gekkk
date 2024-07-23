@@ -17,26 +17,23 @@ const AgentCodeHandler = ({ children }: IParams) => {
   useEffect(() => {
     (async () => {
       const { agentCode: agentCodeCookie } = getCookieData<{agentCode: string}>();
-      const agentCode = !!agentCodeCookie
-        ? agentCodeCookie
-        : !!agentCodeParam
-          ? agentCodeParam
-          : null;
+      const agentCode = agentCodeCookie || agentCodeParam || null;
 
       if (account?.date_create && agentCode) {
-        const currentDate = new Date();
-        const timeDifference = currentDate.getTime() - new Date(account?.date_create).getTime();
+        const timeDifference = Date.now() - new Date(account.date_create).getTime();
         
         const sevenDays = 7 * 24 * 60 * 60 * 1000; // 7 Days
         
         if (timeDifference <= sevenDays) {
-          await apiApplyCode({code: agentCode});
-        }
+          const response = await apiApplyCode({code: agentCode});
 
-        clearCookie('agentCode');
-        
-        if (agentCodeParam) {
-          navigate('/');
+          if (response?.data?.result || response?.data?.error?.code === 10063) {
+            clearCookie('agentCode');
+          }
+
+          if (agentCodeParam) {
+            navigate('/');
+          }
         }
       }
     })();

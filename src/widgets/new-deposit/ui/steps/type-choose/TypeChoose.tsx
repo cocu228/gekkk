@@ -172,7 +172,7 @@ const TypeChoose = memo(() => {
         </div>
 
         {!isGke ? null : (
-          <div className='w-full mt-[27px]'>
+          <div className='w-full mt-[20px]'>
             <InputCurrency.Validator
               value={+amount}
               validators={[
@@ -206,7 +206,7 @@ const TypeChoose = memo(() => {
           <div className='row relative'>
             <div className='col'>
               {modalLoading ? (
-                <div className="min-h-[100px]">
+                <div className='min-h-[100px]'>
                   <Loader className={"w-[24px] h-[24px]"} />
                 </div>
               ) : (
